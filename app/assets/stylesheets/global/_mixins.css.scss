@@ -1,0 +1,13 @@
+
+/*  MIXINS  */
+@mixin border-radius($radius: 10px) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@mixin box-shadow($horizontal: 0px, $vertical: 0px, $blur: 5px, $color: #333) {
+  box-shadow: $horizontal $vertical $blur $color;
+  -moz-box-shadow: $horizontal $vertical $blur $color;
+  -webkit-box-shadow: $horizontal $vertical $blur $color;
+}

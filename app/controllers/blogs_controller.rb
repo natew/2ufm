@@ -16,7 +16,7 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @blog = Blog.find(params[:id])
+    @blog = Blog.find_by_slug(params[:id])
     
     if params[:spider] == 'true'
       @blog.feed = nil
@@ -41,7 +41,7 @@ class BlogsController < ApplicationController
         entries   = feed.entries
         feed_save_posts(entries)
       else
-        feed    = Feedzirra::Feed.update(@blog.feed)
+        feed      = Feedzirra::Feed.update(@blog.feed)
         if feed.updated?
           entries = feed.new_entries
           feed_save_posts(entries) 
@@ -53,7 +53,7 @@ class BlogsController < ApplicationController
       # Update feed in db
       @blog.update_attributes(
         :feed_updated_at => feed.last_modified,
-        :feed       => feed
+        :feed            => feed
       )      
     end
     
@@ -67,7 +67,7 @@ class BlogsController < ApplicationController
       Post.first.save_songs
     end
   
-    @songs = @blog.songs
+    @songs = @blog.songs.where("songs.slug != ''")
 
     respond_to do |format|
       format.html # show.html.erb

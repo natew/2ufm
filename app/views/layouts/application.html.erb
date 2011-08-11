@@ -38,21 +38,22 @@
     <div class="page_contain">
       <h1><%= link_to 'fuse.fm', '/' %> </h1>
       <nav>
-        <%= link_to '<span>New</span>'.html_safe, '/new', :id => 'nav_new' %>
-        <%= link_to '<span>Popular</span>'.html_safe, '/popular', :id => 'nav_popular' %>
-        <%= link_to '<span>Stations</span>'.html_safe, '/stations', :id => 'nav_stations' %>
-        <%= link_to '<span>Blogs</span>'.html_safe, '/blogs', :id => 'nav_blogs' %>
-        <%= link_to '<span>Search</span>'.html_safe, '/search', :id => 'nav_search' %>
+        <%= link '<span>New</span>'.html_safe, '/new', :id => 'nav_new' %>
+        <%= link '<span>Popular</span>'.html_safe, '/popular', :id => 'nav_popular' %>
+        <%= link '<span>Stations</span>'.html_safe, '/stations', :id => 'nav_stations' %>
+        <%= link '<span>Blogs</span>'.html_safe, '/blogs', :id => 'nav_blogs' %>
+        <%= link '<span>Search</span>'.html_safe, '/search', :id => 'nav_search' %>
       </nav>
       
       <div id="audio_player">
         <div id="audio_meta">
-          <span id="audio_station">Tuned into <%= link_to 'Radio Electronic FM', '#' %></span>
+          <span id="audio_station">Tuned into <%= link_to 'Radio Electronic FM', '#' %> &middot; Song on <%= link_to '3 blogs', '#' %></span>
           <strong>
+            <span id="audio_fade"></span>
             <%= link_to 'Add Favorite', '#', :class => 'audio_favorite' %>
             <%= link_to 'Jay-Z &amp; Kanye West - Why I Love You (Feat. Mr. Hudson)'.html_safe, '#', :class => 'audio_title' %>
           </strong>
-          <span id="audio_source">Posted on <%= link_to '3 blogs', '#' %></span>
+          <span id="audio_source"></span>
         </div>
         <div id="audio_controls">
           <%= link_to 'Previous', '#', :class => 'fr_button prev' %>
@@ -69,7 +70,7 @@
         <% if user_signed_in? %>
           <%= link_to 'Account', edit_user_registration_path, :class => 'bot' %>
         <% else %>
-          <%= link_to 'Sign In', new_user_registration_path, :class => 'bot'  %>
+          <%= link_to 'Sign Up', new_user_registration_path, :class => 'bot'  %>
         <% end %>
       </div>
     </div>
@@ -84,6 +85,8 @@
   
   <div id="main_mid">
     <div class="page_contain">
+      <div id="speakker"></div>
+    
       <%= yield %>
     </div>
   </div>

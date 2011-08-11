@@ -1,1 +1,5 @@
-<li><%= link_to "#{song.artist} - #{song.name}", song.url %> (<%= song.album %>)</li>
+    <section>
+      <h3><%= link_to song.artist, song.artist %> - <%= link_to song.name, song %></h3>
+      <time>Posted <%= relative_time(song.post.created_at) %></time>
+      <p><%= truncate(song.post.content) %> <%= link_to "Read full post on #{song.blog.name}", song.post.url %></p>
+    </section>

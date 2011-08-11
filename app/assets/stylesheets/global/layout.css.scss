@@ -1,45 +1,55 @@
-/*  MIXINS  */
-@mixin rounded($radius: 10px) {
-  border-radius: $radius;
-  -moz-border-radius: $radius;
-  -webkit-border-radius: $radius;
-}
-
-@mixin shadow($horizontal: 0px, $vertical: 0px, $blur: 5px, $color: #333) {
-  box-shadow: $horizontal $vertical $blur $color;
-  -moz-box-shadow: $horizontal $vertical $blur $color;
-  -webkit-box-shadow: $horizontal $vertical $blur $color;
-}
+@import "mixins.css.scss";
 
 /* Layout */
 
 .page_contain {
-  width: 1130px;
+  width: 1110px;
   margin: 0 auto;
   position: relative;
+  
+  .side {
+    width: 336px;
+    float: left;
+    position: relative;
+  }
+  
+  .content {
+    width: 754px;
+    margin: 0 20px 0 0;
+    float: left;
+    position: relative;
+  }
 }
 
+
+
+/* Header */
+
 header {
-  background: url(/assets/head_bg.jpg);
+  background: url(/images/head_bg.jpg);
   padding: 10px 0;
   position: fixed;
   width: 100%;
   top: 0;
   height: 59px;
   z-index: 100;
-  @include shadow;
+  @include box-shadow;
   
   h1 {
     margin: 0;
   
     a {
-      background: url(/assets/logo.jpg);
+      background: url(/images/logo.jpg) no-repeat 0 0;
       width: 117px;
       height: 58px;
       text-indent: -3000em;
       overflow: hidden;
       float: left;
       margin: 0;
+      
+      &:hover {
+        background-position: 0 -58px;
+      }
     }
   }
     
@@ -48,11 +58,15 @@ header {
     margin-left: 10px;
     
     a {
-      padding: 18px 14px;
+      padding: 18px 12px;
       float: left;
       
-      &:hover span {
+      &:hover span, &.active span {
         background-position: 0 -23px; 
+      }
+      
+      &.active {
+        background: url(/images/dim.png);
       }
       
       span {
@@ -64,11 +78,11 @@ header {
       }
     }
     
-    #nav_new span { background-image: url(/assets/nav_new.png); width: 32px; }
-    #nav_popular span { background-image: url(/assets/nav_popular.png); width: 59px; }
-    #nav_stations span { background-image: url(/assets/nav_stations.png); width: 65px; }
-    #nav_blogs span { background-image: url(/assets/nav_blogs.png); width: 42px; }
-    #nav_search span { background-image: url(/assets/nav_search.png); width: 50px; }
+    #nav_new span { background-image: url(/images/nav_new.png); width: 32px; }
+    #nav_popular span { background-image: url(/images/nav_popular.png); width: 59px; }
+    #nav_stations span { background-image: url(/images/nav_stations.png); width: 65px; }
+    #nav_blogs span { background-image: url(/images/nav_blogs.png); width: 42px; }
+    #nav_search span { background-image: url(/images/nav_search.png); width: 50px; }
   }
   
   #audio_player {
@@ -82,7 +96,7 @@ header {
     }
   
     #audio_meta {
-      width: 390px;
+      width: 380px;
       float: left;
       color: #b5b5b5;
       position: relative;
@@ -102,11 +116,15 @@ header {
       }
       
       strong {
+        position: relative;
+        clear: both;
+        display: block;
+        
         a.audio_title {
           float: right;
-          background: url(/assets/dim.png);
-          padding: 5px 20px 5px 5px;
-          margin: 1px 0 1px 0;
+          background: url(/images/dim.png);
+          border: 1px solid #000;
+          padding: 4px 20px 4px 5px;
           display: block;
           font-size: 16px;
           white-space: nowrap;
@@ -124,16 +142,28 @@ header {
           text-indent: -3000em;
           overflow: hidden;
           display: block;
-          background: url(/assets/heart.png) 0 0;
+          background: url(/images/heart.png) 0 0;
           position: absolute;
           right: -10px;
-          top: 20px;
-          
+          top: 6px;
+          z-index: 4;
           
           &:hover {
             background-postion: 0 -18px;
             background-position: 0 -18px;
           }
+        }
+        
+        #audio_fade {
+          background: url(/images/fade_right.png) no-repeat top left;
+          position: absolute;
+          display: block;
+          width: 40px;
+          height: 100%;
+          top: 1px;
+          right: 0;
+          z-index: 3;
+          height: 28px;
         }
       }
       
@@ -164,7 +194,7 @@ header {
       .fr_button {
         width: 46px;
         height: 46px;
-        background: url(/assets/prev_next.png) no-repeat 0 0;
+        background: url(/images/prev_next.png) no-repeat 0 0;
         margin-top: 10px;
         z-index: 1;
       }
@@ -187,7 +217,7 @@ header {
       .fr_button_main {
         width: 66px;
         height: 66px;
-        background: url(/assets/play_pause.png) no-repeat 0 0;
+        background: url(/images/play_pause.png) no-repeat 0 0;
         margin: 0 -20px;
         z-index: 2;
       }
@@ -204,6 +234,7 @@ header {
   #user_controls {
     width: 85px;
     float: right;
+    margin: -2px 0 0;
   
     a {
       width: 85px;
@@ -215,7 +246,7 @@ header {
       text-shadow: 0 1px 1px #000;
       text-decoration: none;
       color: #fff;
-      background: url(/assets/signup_login.png) no-repeat 0 0;
+      background: url(/images/signup_login.png) no-repeat 0 0;
     }
     
     .top {
@@ -244,11 +275,11 @@ header {
 
 
 #main_mid {
-  background: url(/assets/mid_bg.jpg) repeat-x 0 0;
+  background: url(/images/mid_bg.jpg) repeat-x 0 0;
   padding: 80px 0 25px 0;
 }
 
 #main_bot {
-  background: url(/assets/bot_bg.jpg) repeat-x 0 0;
+  background: url(/images/bot_bg.jpg) repeat-x 0 0;
   padding: 25px 0;
 }

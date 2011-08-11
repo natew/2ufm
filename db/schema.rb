@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110810020158) do
+ActiveRecord::Schema.define(:version => 20110811181814) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20110810020158) do
     t.text     "about"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   create_table "blogs", :force => true do |t|
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20110810020158) do
     t.string   "cms"
     t.string   "css_post"
     t.string   "css_title"
+    t.string   "slug"
   end
 
   create_table "blogs_songs", :id => false, :force => true do |t|
@@ -105,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20110810020158) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   create_table "posts", :force => true do |t|
@@ -115,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20110810020158) do
     t.integer  "blog_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
 
   create_table "posts_songs", :id => false, :force => true do |t|
@@ -145,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20110810020158) do
     t.string   "apic_content_type"
     t.integer  "apic_file_size"
     t.datetime "apic_updated_at"
+    t.string   "slug"
   end
 
   create_table "stations", :force => true do |t|
@@ -186,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20110810020158) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

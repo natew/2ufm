@@ -17,6 +17,7 @@ gem 'chronic'
 gem 'pauldix-feedzirra'
 gem 'ruby-mp3info', :git => 'git://github.com/NateW/ruby-mp3info.git'
 gem 'delayed_job'
+gem 'stringex'
 
 # Gems used only for assets and not required
 # in production environments by default.

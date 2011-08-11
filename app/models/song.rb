@@ -7,7 +7,17 @@ class Song < ActiveRecord::Base
   
   has_attached_file :apic
   
-  def save_id3
+  before_create :set_id3
+  
+  validates_presence_of :post_id, :blog_id
+  
+  acts_as_url :name, :url_attribute => :slug
+  
+  def to_param
+    slug
+  end
+  
+  def set_id3
     unless url.nil?
       song = open(url)
       Mp3Info.open(song.path) do |mp3|
@@ -17,6 +27,9 @@ class Song < ActiveRecord::Base
         self.track_number = mp3.tag.tracknum
         self.genre = mp3.tag.genre
         self.bitrate = mp3.tag.bitrate
+        
+        # Set slug
+        self.slug = self.name.to_url
         
         picture = mp3.tag2.APIC || mp3.tag2.PIC
         picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
@@ -34,10 +47,8 @@ class Song < ActiveRecord::Base
             #Apic.create :song_id => id, :temp_path => temp_path, :filename => "#{artist}#{album}#{Process.pid}.#{pic_type[0]}"
           end
         end
-        
-        self.save
       end
     end
   end
-  #handle_asynchronously :save_id3
+  #handle_asynchronously :set_id3
 end

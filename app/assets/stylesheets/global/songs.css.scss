@@ -1,0 +1,29 @@
+@import "mixins.css.scss";
+
+#song_playlist {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  @include border-radius;
+  
+  section {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    
+    &:nth-child(2n) {
+      background: #eee;
+    }
+    
+    h3 {
+      margin: 0 0 6px 0;
+    }
+    
+    time {
+      margin: 0 0 6px 0;
+    }
+    
+    p {
+      margin: 0 0 6px 0;
+    }
+  }
+}
