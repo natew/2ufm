@@ -4,6 +4,12 @@
     <%= @blog.description || "Browse the latest songs from #{@blog.name}" %>
   </p>
   
+  <ul class="actions">
+    <li><%= link_to 'Delete posts and songs', '?posts=delete' %></li>
+    <li><%= link_to 'Download posts', '?posts=download' %></li>
+    <li><%= link_to 'Download songs for latest post', '?songs=download' %></li>
+  </ul>
+  
   <div id="song_playlist">
     <%= render @songs unless @songs.nil? %>
   </div>

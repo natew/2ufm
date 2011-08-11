@@ -18,72 +18,29 @@ class BlogsController < ApplicationController
   def show
     @blog = Blog.find_by_slug(params[:id])
     
-    if params[:spider] == 'true'
+    if params[:posts] == 'delete'
       @blog.feed = nil
       @blog.posts.delete_all
-      @blog.songs.delete_all
       @blog.save
-      
-      params[:feed] = 'true'
-      params[:songs] = 'true'
     end
     
-    if params[:feed] == 'true'  
-      logger.info 'FEED = TRUE'
-      # Find feed url
-      if @blog.feed_url.nil?
-        @blog.update_attribute(:feed_url, find_blog_feed(@blog.url))
-      end
-      
-      # Fetch or Update feed
-      if @blog.feed.nil?
-        feed      = Feedzirra::Feed.fetch_and_parse(@blog.feed_url)
-        entries   = feed.entries
-        feed_save_posts(entries)
-      else
-        feed      = Feedzirra::Feed.update(@blog.feed)
-        if feed.updated?
-          entries = feed.new_entries
-          feed_save_posts(entries) 
-        else
-          flash[:notice] = 'No new entries'
-        end
-      end
-      
-      # Update feed in db
-      @blog.update_attributes(
-        :feed_updated_at => feed.last_modified,
-        :feed            => feed
-      )      
+    if params[:posts] == 'download'
+      @blog.update_feed
+      @blog.update_posts    
     end
+    
+    if params[:songs] == 'download'
+      @blog.posts.first.save_songs
+    end
+    
+    redirect_to @blog unless params[:songs].nil? or params[:posts].nil?
     
     @posts = @blog.posts
-    
-    if params[:songs] == 'true'
-      logger.info 'SONGS = TRUE'
-#      @posts.each do |post|
-#        post.save_songs
-#      end
-      Post.first.save_songs
-    end
-  
     @songs = @blog.songs.where("songs.slug != ''")
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @blog }
-    end
-  end
-  
-  def feed_save_posts(posts)
-    posts.each do |post|
-      # Save posts to db
-      @blog.posts.create(
-          :title => post.title,
-          :author => post.author,
-          :url => post.url,
-          :content => post.content
-        )
     end
   end
   
@@ -154,12 +111,5 @@ class BlogsController < ApplicationController
       format.html { redirect_to blogs_url }
       format.json { head :ok }
     end
-  end
-  
-  private
-  
-  def find_blog_feed(url)
-    html = Nokogiri::HTML(open(url))
-    feed = html.at('head > link[type = "application/rss+xml"]')['href']
   end
 end

@@ -1,7 +1,7 @@
 module ApplicationHelper
   # Truncates the given text to the given length and appends truncate_string to the end if the text was truncated
   def truncate(text, options = {})
-    length = options[:length] || 30
+    length = options[:length] || 120
     truncate_string = options[:truncate_with] || "&hellip;".html_safe
     
     return if text.nil?

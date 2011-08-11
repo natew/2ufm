@@ -5,6 +5,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :content
       t.references :blog
       t.boolean :songs_saved
+      t.timestamp :songs_updated_at
 
       t.timestamps
     end

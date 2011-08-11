@@ -7,7 +7,7 @@ class Song < ActiveRecord::Base
   
   has_attached_file :apic
   
-  before_create :set_id3
+  after_create :set_id3
   
   validates_presence_of :post_id, :blog_id
   
@@ -31,24 +31,26 @@ class Song < ActiveRecord::Base
         # Set slug
         self.slug = self.name.to_url
         
-        picture = mp3.tag2.APIC || mp3.tag2.PIC
-        picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
-        logger.info("picture = #{picture}")
-        
-        unless picture.nil?
-          pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
-          logger.info("pic_type = #{pic_type}")
-          unless pic_type.nil?
-            temp_path = "#{Rails.root}/tmp/apic_#{Process.pid}.#{pic_type[0]}"
-            logger.info("temp_path = #{temp_path}")
-            temp_pic = File.open(temp_path, 'wb') do |f|
-              f.write(picture)
-            end
+        # Save picture
+#        picture = mp3.tag2.APIC || mp3.tag2.PIC
+#        picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
+#        
+#        unless picture.nil?
+#          pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
+#          logger.info("pic_type = #{pic_type}")
+#          unless pic_type.nil?
+#            temp_path = "#{Rails.root}/tmp/apic_#{Process.pid}.#{pic_type[0]}"
+#            logger.info("temp_path = #{temp_path}")
+#            temp_pic = File.open(temp_path, 'wb') do |f|
+#              f.write(picture)
+#            end
             #Apic.create :song_id => id, :temp_path => temp_path, :filename => "#{artist}#{album}#{Process.pid}.#{pic_type[0]}"
-          end
-        end
+#          end
+#        end
+        
+        self.save
       end
     end
   end
-  #handle_asynchronously :set_id3
+  handle_asynchronously :set_id3
 end

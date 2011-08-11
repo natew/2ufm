@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110811181814) do
+ActiveRecord::Schema.define(:version => 20110811190249) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -116,9 +116,12 @@ ActiveRecord::Schema.define(:version => 20110811181814) do
     t.string   "url"
     t.text     "content"
     t.integer  "blog_id"
+    t.boolean  "songs_saved"
+    t.datetime "songs_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.text     "excerpt"
   end
 
   create_table "posts_songs", :id => false, :force => true do |t|
@@ -133,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20110811181814) do
     t.string   "genre"
     t.string   "album_artist"
     t.string   "url"
+    t.string   "source"
     t.integer  "plays"
     t.integer  "size"
     t.integer  "track_number"
