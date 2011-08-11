@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_blog_path(@blog) %> |
+<%= link_to 'Back', blogs_path %>
+
+<p>
+  <b>Name:</b>
+  <%= @blog.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @blog.description %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @blog.url %>
+</p>
+
+<p>
+  <b>Feed:</b>
+  <%= @blog.feed %>
+</p>
+
+<p>
+  <b>Feed URL:</b>
+  <%= @blog.feed_url %>
+</p>
+
+
+<p>
+  <b>Updated at:</b>
+  <%= @blog.updated_at %>
+</p>
+
+<br />
+
+<h2>Songs</h2>
+<%= render @songs unless @songs.nil? %>
+
+<br /><br />
+
+<h2>Posts</h2>
+<%= render @posts unless @posts.nil? %>
+
+<br /><br />

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  username: MyString
+  email: MyString
+  full_name: MyString
+  location: MyString
+  url: MyString
+  follower_notifications: false
+  newsletter: false
+
+two:
+  username: MyString
+  email: MyString
+  full_name: MyString
+  location: MyString
+  url: MyString
+  follower_notifications: false
+  newsletter: false

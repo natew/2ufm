@@ -1,0 +1,238 @@
+.page_contain {
+  width: 1150px;
+  margin: 0 auto;
+  position: relative;
+}
+
+header {
+  background: url(/assets/head_bg.jpg);
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 59px;
+  z-index: 100;
+  
+  h1 {
+    margin: 0;
+  
+    a {
+      background: url(/assets/logo.jpg);
+      width: 117px;
+      height: 58px;
+      text-indent: -3000em;
+      overflow: hidden;
+      float: left;
+      margin: 0 5px 0 0;
+    }
+  }
+    
+  nav {
+    float: left;
+    margin-left: 10px;
+    
+    a {
+      padding: 18px 14px;
+      float: left;
+      
+      &:hover span {
+        background-position: 0 -23px; 
+      }
+      
+      span {
+        height: 23px;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        text-indent: -3000em;
+        display: block;
+      }
+    }
+    
+    #nav_new span { background-image: url(/assets/nav_new.png); width: 32px; }
+    #nav_popular span { background-image: url(/assets/nav_popular.png); width: 59px; }
+    #nav_stations span { background-image: url(/assets/nav_stations.png); width: 65px; }
+    #nav_blogs span { background-image: url(/assets/nav_blogs.png); width: 42px; }
+    #nav_search span { background-image: url(/assets/nav_search.png); width: 50px; }
+  }
+  
+  #audio_player {
+    width: 530px;
+    float: left;
+    
+    a {
+      color: #e4e19b;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  
+    #audio_meta {
+      width: 400px;
+      float: left;
+      color: #b5b5b5;
+      position: relative;
+    
+      #audio_station {
+        font-size: 12px;
+        color: #ccc;
+        float: right;
+        
+        a {
+          color: #fff;
+          
+          &:hover {
+            color: #aaa;
+          }
+        }
+      }
+      
+      strong {
+        a.audio_title {
+          float: right;
+          background: url(/assets/dim.png);
+          padding: 5px 20px 5px 5px;
+          margin: 1px 0 1px 0;
+          display: block;
+          font-size: 16px;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 88%;
+          
+          &:hover {
+            color: #fff;
+          }
+        }
+        
+        a.audio_favorite {
+          width: 22px;
+          height: 18px;
+          text-indent: -3000em;
+          overflow: hidden;
+          display: block;
+          background: url(/assets/heart.png) 0 0;
+          position: absolute;
+          right: -10px;
+          top: 20px;
+          
+          
+          &:hover {
+            background-postion: 0 -18px;
+            background-position: 0 -18px;
+          }
+        }
+      }
+      
+      #audio_source {
+        font-size: 12px;
+        clear: both;
+        float: right;
+        
+        a {
+          color: #b5b5b5;
+        } 
+      }
+    }
+    
+    #audio_controls {
+      float: left;
+      width: 118px;
+      margin: -5px 0 -5px 12px;
+      
+      a {
+        display: block;
+        float: left;
+        text-indent: -3000em;
+        overflow: hidden;
+        position: relative;
+      }
+      
+      .fr_button {
+        width: 46px;
+        height: 46px;
+        background: url(/assets/prev_next.png) no-repeat 0 0;
+        margin-top: 10px;
+        z-index: 1;
+      }
+      
+      .prev {
+        
+        &:hover {
+          background-position: 0 -46px;
+        }
+      }
+      
+      .next {
+        background-position: -46px 0;
+        
+        &:hover {
+          background-position: -46px -46px;
+        }
+      }
+      
+      .fr_button_main {
+        width: 66px;
+        height: 66px;
+        background: url(/assets/play_pause.png) no-repeat 0 0;
+        margin: 0 -20px;
+        z-index: 2;
+      }
+      
+      .play {
+        
+        &:hover {
+          background-position: 0 -66px;
+        }
+      }
+    }
+  }
+  
+  #user_controls {
+    width: 85px;
+    float: right;
+  
+    a {
+      width: 85px;
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: 0 1px 1px #000;
+      text-decoration: none;
+      color: #fff;
+      background: url(/assets/signup_login.png) no-repeat 0 0;
+    }
+    
+    .top {
+      padding: 10px 0 0;
+      height: 20px;
+      
+      &:hover {
+        background-position: 0 -60px;
+      }
+    }
+    
+    .bot {
+      padding: 8px 0 0;
+      height: 22px;
+      background-position: 0 -30px;
+      
+      &:hover {
+        background-position: 0 -90px;
+      }
+    }
+  }
+}
+
+/* END HEADER */
+
+
+
+#main_mid {
+  background: url(/assets/mid_bg.jpg) repeat-x 0 0;
+  padding: 80px 0 25px 0;
+}
+
+#main_bot {
+  background: url(/assets/bot_bg.jpg) repeat-x 0 0;
+  padding: 25px 0;
+}

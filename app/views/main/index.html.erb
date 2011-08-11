@@ -1,0 +1,5 @@
+<% for blog in @blogs %>
+  <%= link_to blog.name, blog %>
+<% end %>
+
+<%= paginate @blogs %>
