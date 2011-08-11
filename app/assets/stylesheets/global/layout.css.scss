@@ -1,5 +1,20 @@
+/*  MIXINS  */
+@mixin rounded($radius: 10px) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@mixin shadow($horizontal: 0px, $vertical: 0px, $blur: 5px, $color: #333) {
+  box-shadow: $horizontal $vertical $blur $color;
+  -moz-box-shadow: $horizontal $vertical $blur $color;
+  -webkit-box-shadow: $horizontal $vertical $blur $color;
+}
+
+/* Layout */
+
 .page_contain {
-  width: 1150px;
+  width: 1130px;
   margin: 0 auto;
   position: relative;
 }
@@ -12,6 +27,7 @@ header {
   top: 0;
   height: 59px;
   z-index: 100;
+  @include shadow;
   
   h1 {
     margin: 0;
@@ -23,7 +39,7 @@ header {
       text-indent: -3000em;
       overflow: hidden;
       float: left;
-      margin: 0 5px 0 0;
+      margin: 0;
     }
   }
     
@@ -66,7 +82,7 @@ header {
     }
   
     #audio_meta {
-      width: 400px;
+      width: 390px;
       float: left;
       color: #b5b5b5;
       position: relative;
@@ -135,7 +151,7 @@ header {
     #audio_controls {
       float: left;
       width: 118px;
-      margin: -5px 0 -5px 12px;
+      margin: -5px 0 -5px 22px;
       
       a {
         display: block;
