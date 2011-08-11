@@ -18,6 +18,13 @@ GIT
       rails (>= 3.0.0)
       sass (>= 3.1.0)
 
+GIT
+  remote: https://github.com/pauldix/sax-machine.git
+  revision: d05e6f5c1d9b286940eec6ae2529a4ec7eedf0f0
+  specs:
+    sax-machine (0.0.20)
+      nokogiri (> 0.0.0)
+
 GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
@@ -79,6 +86,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
+    curb (0.7.15)
     daemons (1.1.4)
     delayed_job (2.1.4)
       activesupport (~> 3.0)
@@ -107,6 +115,10 @@ GEM
       thor (~> 0.14)
     kaminari (0.12.4)
       rails (>= 3.0.0)
+    loofah (1.2.0)
+      nokogiri (>= 1.4.4)
+    loofah-activerecord (1.0.0)
+      loofah (>= 1.0.0)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -196,10 +208,12 @@ DEPENDENCIES
   aws-ses
   chronic
   coffee-rails (~> 3.1.0.rc)
+  curb
   delayed_job
   devise
   jquery-rails
   kaminari
+  loofah-activerecord
   meta_search (>= 1.1.0.pre)
   modernizr-rails
   nokogiri
@@ -208,6 +222,7 @@ DEPENDENCIES
   rails (= 3.1.0.rc5)
   ruby-mp3info!
   sass-rails (~> 3.1.0.rc)
+  sax-machine!
   stringex
   thin
   turn
