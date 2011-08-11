@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
     parse.css('a').each do |link|
       if link['href'] =~ /.mp3$/
         logger.info 'SAVING SONG  ' + link['href']
-        Song.create!(:blog_id => blog_id, :post_id => id, :url => link['href'])
+        Song.create!(:blog_id => blog_id, :post_id => id, :url => link['href'], :created_at => created_at)
       end
     end
   end

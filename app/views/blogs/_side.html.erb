@@ -1,5 +1,8 @@
 <div class="side">
   <h3><%= @blog.name %> Stats</h3>
   
-
+  <h3>Recent Posts</h3>
+  <ul>
+    <%= render 'posts/post_li', :collection => @posts unless @posts.empty? %>
+  </ul>
 </div>

@@ -25,22 +25,27 @@ class BlogsController < ApplicationController
     end
     
     if params[:posts] == 'download'
+      @blog.update_posts
+    end
+    
+    if params[:feed] == 'update'
       @blog.update_feed
-      @blog.update_posts    
     end
     
     if params[:songs] == 'download'
       @blog.posts.first.save_songs
     end
     
-    redirect_to @blog unless params[:songs].nil? or params[:posts].nil?
-    
-    @posts = @blog.posts
-    @songs = @blog.songs.where("songs.slug != ''")
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @blog }
+    if params[:songs] or params[:posts] or params[:feed]
+      redirect_to @blog
+    else
+      @songs = @blog.songs.where("songs.slug != '' and songs.artist != ''").joins(:post, :blog).page(params[:page]).per(8)
+      @posts = @blog.posts.limit(8)
+  
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @blog }
+      end
     end
   end
   

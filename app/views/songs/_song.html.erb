@@ -1,5 +1,9 @@
-    <section>
+    <section id="song-<%= song.id %>">
       <h3><%= link_to song.artist, song.artist %> - <%= link_to song.name, song %></h3>
-      <time>Posted <%= relative_time(song.post.created_at) %></time>
+      <ul class="controls">
+        <li><%= link_to 'Play', song, :class => 'play_song', :rel => song.id %></li>
+        <li><%= link_to 'Favorite', '#', :class => 'fav_song', :rel => song.id %></li>
+      </ul>
+      <time>Posted <%= relative_time(song.created_at) %></time>
       <p><%= truncate(song.post.excerpt, :length => 250) %> <%= link_to "Read full post on #{song.blog.name}", song.post.url %></p>
     </section>

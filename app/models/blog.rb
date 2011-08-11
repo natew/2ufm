@@ -19,12 +19,11 @@ class Blog < ActiveRecord::Base
   
   def get_feed_url
     html = Nokogiri::HTML(open(url))
-    self.feed = html.at('head > link[type = "application/rss+xml"]')['href']
-    self.save
+    self.feed_url = html.at('head > link[type = "application/rss+xml"]')['href']
   end
   
   def update_feed
-    get_feed_url if feed_url.nil?
+    get_feed_url if feed_url.nil? or feed_url.empty?
     if feed.nil?
       self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
       self.feed_updated_at = feed.last_modified
@@ -33,21 +32,22 @@ class Blog < ActiveRecord::Base
       self.feed = Feedzirra::Feed.update(feed)
       self.feed_updated_at = feed.last_modified
       self.save
-      true if feed.updated
+      true if feed.updated?
       false
     end
   end
   
   def update_posts
-    feed.each do |post|
+    feed.entries.each do |post|
       # Save posts to db
-      posts.create(
+      self.posts.create!(
           :title => post.title,
           :author => post.author,
           :url => post.url,
           :content => post.content,
           :created_at => post.published
         )
+      
     end
   end
 end

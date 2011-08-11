@@ -9,9 +9,41 @@
   section {
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    position: relative;
     
     &:nth-child(2n) {
       background: #eee;
+    }
+    
+    .controls {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      
+      li {
+        float: left;
+        
+        a {
+          width: 33px;
+          height: 33px;
+          display: block;
+          text-indent: -3000em;
+          overflow: hidden;
+        }
+        
+        .play_song {
+          background: url(/images/play_pause_icon.png) no-repeat 0 0;
+          
+          &:hover {
+            background-position: 0 -33px;
+          }
+        }
+        
+        .fav_song {
+          background: url(/images/heart_icon.png) no-repeat 0 0;
+        }
+      }
     }
     
     h3 {

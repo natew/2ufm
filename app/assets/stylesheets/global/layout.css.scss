@@ -98,7 +98,7 @@ header {
     #audio_meta {
       width: 380px;
       float: left;
-      color: #b5b5b5;
+      color: #aaa;
       position: relative;
     
       #audio_station {
@@ -107,10 +107,10 @@ header {
         float: right;
         
         a {
-          color: #fff;
+          color: #aaa;
           
           &:hover {
-            color: #aaa;
+            color: #fff;
           }
         }
       }
@@ -173,7 +173,7 @@ header {
         float: right;
         
         a {
-          color: #b5b5b5;
+          color: #aaa;
         } 
       }
     }
@@ -282,4 +282,26 @@ header {
 #main_bot {
   background: url(/images/bot_bg.jpg) repeat-x 0 0;
   padding: 25px 0;
+}
+
+
+
+
+.actions {
+  margin: 0 0 10px 0;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: url(/images/dim.png);
+  
+  li {
+    list-style: none;
+    float: left;
+    
+    a {
+      padding: 10px;
+      color: #fff;
+    }
+  }
 }
