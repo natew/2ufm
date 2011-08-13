@@ -89,6 +89,19 @@ header {
     width: 530px;
     float: left;
     
+    &.playing {
+      #audio_controls {
+        .fr_button_main {
+          background-position: -66px 0;
+          
+          &:hover {
+            background-position: -66px -66px;
+          }
+        }
+      }
+    
+    }
+    
     a {
       color: #e4e19b;
       font-weight: bold;
