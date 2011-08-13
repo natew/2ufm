@@ -53,9 +53,10 @@ $(function() {
   
   $('#audio_controls a.play').click(function() {
     var $this = $(this);
-    if ($this.is('.playing')) {
+    var $player = $('#audio_player');
+    if ($player.is('.playing')) {
       // pause
-      $this.removeClass('playing');
+      $player.removeClass('playing');
       pause();
     } else {
       // play
