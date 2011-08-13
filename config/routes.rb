@@ -5,7 +5,7 @@ Fusefm::Application.routes.draw do
 
   devise_for :users
 
-  resources :blogs, :posts, :songs
+  resources :blogs, :posts, :songs, :stations
 
   root :to => 'main#index'
 

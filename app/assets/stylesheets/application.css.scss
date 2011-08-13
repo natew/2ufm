@@ -6,7 +6,7 @@
  *= require_tree ./global
 */
 
-div:after, ul:after, form:after {
+div:after, ul:after, form:after, form p:after {
     content: ".";
     display: block;
     overflow: hidden;

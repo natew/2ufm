@@ -1,0 +1,17 @@
+<div class="content">
+  <h2>Listen to <%= @station.name %> Radio</h2>
+  <p class="description">
+    <%= @station.description || "Browse the latest songs from #{@station.name}" %>
+  </p>
+  
+  <%= form_for @station, :html => { :method => :put } do |f| %>
+  <%= submit_tag 'Update Station Songs' %>
+  <div id="song_playlist">
+    <%= render :partial => 'shared/song', :collection => @songs unless @songs.nil? %>
+  </div>
+  <% end %>
+
+  <%= paginate @songs %>
+</div>
+
+<%= render 'side' %>

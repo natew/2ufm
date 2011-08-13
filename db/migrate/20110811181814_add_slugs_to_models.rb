@@ -5,6 +5,6 @@ class AddSlugsToModels < ActiveRecord::Migration
     add_column :blogs, :slug, :string
     add_column :artists, :slug, :string
     add_column :users, :slug, :string
-    add_column :genres, :slug, :string
+    add_column :stations, :slug, :string
   end
 end

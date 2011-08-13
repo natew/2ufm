@@ -3,30 +3,87 @@
 #song_playlist {
   background: #fff;
   border: 1px solid #ccc;
-  padding: 10px;
   @include border-radius;
   
   section {
-    padding: 10px;
+    padding: 15px 20px;
     border-bottom: 1px solid #ccc;
     position: relative;
     
     &:nth-child(2n) {
       background: #eee;
+      
+      .controls {
+        background: #eee;
+      }
+    }
+    
+    &.active {
+      background: #fdffe5;
+      
+      .controls {
+        .play_song {
+          background-position: -32px 0;
+          
+          &:hover {
+            background-position: -32px -32px;
+          }
+        }
+      }
+    }
+    
+    h3 {
+      font-size: 18px;
+      margin: 0;
+    
+      a {
+        color: #000;
+        text-decoration: none;
+      
+        &:hover {
+          color: #333;
+        }
+        
+        &.song_name {
+          color: #555;
+          
+          &:hover {
+            color: #888;
+          }
+        }
+      }
+    }
+    
+    .song_meta {
+      margin: 3px 0;
+      font-size: 11px;
+      color: #999;
+    }
+    
+    p {
+      margin: 0;
+      line-height: 1.6em;
+      color: #666;
     }
     
     .controls {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 10px;
+      right: 20px;
       margin: 0;
+      background: #fff;
       
       li {
         float: left;
+        list-style: none;
+        
+        input {
+          margin: 10px 0 0 10px;
+        }
         
         a {
-          width: 33px;
-          height: 33px;
+          width: 32px;
+          height: 32px;
           display: block;
           text-indent: -3000em;
           overflow: hidden;
@@ -36,26 +93,18 @@
           background: url(/images/play_pause_icon.png) no-repeat 0 0;
           
           &:hover {
-            background-position: 0 -33px;
+            background-position: 0 -32px;
           }
         }
         
         .fav_song {
           background: url(/images/heart_icon.png) no-repeat 0 0;
+          
+          &:hover {
+            background-position: 0 -32px;
+          }
         }
       }
-    }
-    
-    h3 {
-      margin: 0 0 6px 0;
-    }
-    
-    time {
-      margin: 0 0 6px 0;
-    }
-    
-    p {
-      margin: 0 0 6px 0;
     }
   }
 }

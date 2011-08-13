@@ -3,8 +3,11 @@ require 'open-uri'
 require 'nokogiri'
 
 class Blog < ActiveRecord::Base
-  has_many  :songs, :dependent => :destroy
+  has_many  :songs
   has_many  :posts, :dependent => :destroy
+  has_one   :station
+  
+  before_create :create_station
   
   serialize :feed
   
@@ -12,6 +15,8 @@ class Blog < ActiveRecord::Base
   validates_presence_of :name
   
   acts_as_url :name, :url_attribute => :slug
+  acts_as_voteable
+  acts_as_taggable
   
   def to_param
     slug
@@ -24,13 +29,13 @@ class Blog < ActiveRecord::Base
   
   def update_feed
     get_feed_url if feed_url.nil? or feed_url.empty?
-    if feed.nil?
+    if feed.nil? or feed.empty?
       self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-      self.feed_updated_at = feed.last_modified
+      #self.feed_updated_at = feed.last_modified
       self.save!
     else
       self.feed = Feedzirra::Feed.update(feed)
-      self.feed_updated_at = feed.last_modified
+      #self.feed_updated_at = feed.last_modified
       self.save
       true if feed.updated?
       false
@@ -49,5 +54,11 @@ class Blog < ActiveRecord::Base
         )
       
     end
+  end
+  
+  private
+  
+  def create_station
+    self.build_station(:name => name, :description => description)
   end
 end

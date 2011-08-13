@@ -1,8 +1,24 @@
 <div class="side">
+  <h3><%= @blog.name %> Station</h3>
+  <% if @blog.station.has_songs? %>
+    <%= render :partial => 'station_song', :collection => @station.songs, :as => :station_song %>
+  <% end %>
+
   <h3><%= @blog.name %> Stats</h3>
   
   <h3>Recent Posts</h3>
-  <ul>
-    <%= render 'posts/post_li', :collection => @posts unless @posts.empty? %>
-  </ul>
+  <% if @posts.empty? %>
+    <p>No posts!</p>
+  <% else %>
+    <ul>
+      <%= render :partial => 'post', :collection => @posts, :as => :post %>
+    </ul>
+  <% end %>
+
+  <% unless @queued_songs.empty? %>
+    <h3>Uploading tracks</h3>
+    <ul>
+      <%= render :partial => 'song', :collection => @queued_songs, :as => :song %>
+    </ul>
+  <% end %>
 </div>

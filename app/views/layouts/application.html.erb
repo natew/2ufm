@@ -76,12 +76,14 @@
     </div>
   </header>
   
+  <% if notice or alert %>
   <div id="notice">
     <div class="page_contain">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <span class="notice"><%= notice %></span>
+      <span class="alert"><%= alert %></span>
     </div>
-  </div>
+  </div><br />
+  <% end %>
   
   <div id="main_mid">
     <div class="page_contain">

@@ -1,0 +1,11 @@
+<div class="side">
+  <% if @station.blog %>
+  <h3>Brought to you by <%= link_to @station.blog.name, @station.blog %></h3>
+  <p><%= @station.blog.description %>
+  <% end %>
+  
+  <div id="playlist"><%= @station.playlist %></div>
+  
+
+  <h3><%= @station.name %> Stats</h3>
+</div>

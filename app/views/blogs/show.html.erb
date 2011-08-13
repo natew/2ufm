@@ -11,13 +11,14 @@
     <li><%= link_to 'Download songs for latest post', '?songs=download' %></li>
   </ul>
   
+  <%= form_for @station, :html => { :method => :put } do |f| %>
+  <%= submit_tag 'Update Station Songs' %>
   <div id="song_playlist">
-    <%= render @songs unless @songs.nil? %>
+    <%= render :partial => 'shared/song', :collection => @songs unless @songs.nil? %>
   </div>
-  
-  <%= paginate @songs %>
+  <% end %>
 
-  <%= link_to 'Edit', edit_blog_path(@blog) %>
+  <%= paginate @songs %>
 </div>
 
 <%= render 'side' %>
