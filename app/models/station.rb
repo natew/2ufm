@@ -10,6 +10,18 @@ class Station < ActiveRecord::Base
   
   validates_uniqueness_of :name
   validates_presence_of :name
+  
+  has_attached_file	:image,
+  					:styles => {
+  						:big      => ['256x256#', :jpg],
+  						:medium   => ['128x128#', :jpg],
+  						:small    => ['64x64#', :jpg],
+  					},
+            :path           => ':id_:style.:extension',
+            :default_url    => '/images/station_default.jpg',
+            :storage        => 's3',
+            :s3_credentials => 'config/amazon_s3.yml',
+            :bucket         => 'fm-station-images'
 
   def to_param
     slug

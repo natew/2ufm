@@ -22,7 +22,6 @@
 }
 
 
-
 /* Header */
 
 header {
@@ -39,23 +38,23 @@ header {
     margin: 0;
   
     a {
-      background: url(/images/logo.jpg) no-repeat 0 0;
-      width: 117px;
-      height: 58px;
+      background: url(/images/logo.png) no-repeat 0 0;
+      width: 110px;
+      height: 60px;
       text-indent: -3000em;
       overflow: hidden;
       float: left;
-      margin: 0;
+      margin: -2px 0 0;
       
       &:hover {
-        background-position: 0 -58px;
+        background-position: 0 -60px;
       }
     }
   }
     
   nav {
     float: left;
-    margin: 0 10px;
+    margin: 0 5px;
     
     a {
       padding: 18px 14px;
@@ -66,7 +65,7 @@ header {
       }
       
       &.active {
-        background: #000;
+        background: url(/images/dim.png);
       }
       
       span {
@@ -78,7 +77,7 @@ header {
       }
     }
     
-    #nav-new span { background-image: url(/images/nav_new.png); width: 32px; }
+    #nav-blogs span { background-image: url(/images/nav_blogs.png); width: 42px; }
     #nav-popular span { background-image: url(/images/nav_popular.png); width: 59px; }
     #nav-stations span { background-image: url(/images/nav_stations.png); width: 65px; }
   }
@@ -89,12 +88,17 @@ header {
     #query {
       float: left;
       border: none;
-      padding: 6px 8px;
-      font-size: 14px;
-      width: 195px;
-      margin: 15px 0 0;
-      border: 1px solid #000;
-      @include border-radius(20px);
+      padding: 10px;
+      width: 200px;
+      color: #ccc;
+      margin: 14px 0 0;
+      outline: none;
+      background: url(/images/search_bg.png) no-repeat top left;
+      
+      &:focus {
+        background-position: 0 -33px;
+        color: #fff;
+      }
     }
   }
   
@@ -121,7 +125,7 @@ header {
     }
   
     #player-meta {
-      width: 250px;
+      width: 242px;
       float: left;
       color: #aaa;
       position: relative;
@@ -185,7 +189,7 @@ header {
           position: absolute;
           top: 29px;
           right: 0;
-          height: 8px;
+          height: 6px;
           width: 100%;
           @include border-radius;
           
@@ -199,7 +203,7 @@ header {
             z-index: 1;
             background: #aaa;
             width: 50%;
-            height: 8px;
+            height: 6px;
             @include border-radius;
           }
           
@@ -209,7 +213,7 @@ header {
             z-index: 0;
             background: #777;
             width: 80%;
-            height: 8px;
+            height: 6px;
             @include border-radius;
           }
         }
@@ -228,7 +232,7 @@ header {
     
     #player-controls {
       float: left;
-      width: 118px;
+      width: 128px;
       margin: -5px 0 -5px 18px;
       
       a {
@@ -241,24 +245,24 @@ header {
       
       .fr-button {
         width: 46px;
-        height: 46px;
+        height: 39px;
         background: url(/images/prev_next.png) no-repeat 0 0;
-        margin-top: 10px;
+        margin-top: 12px;
         z-index: 1;
       }
       
       .prev {
         
         &:hover {
-          background-position: 0 -46px;
+          background-position: 0 -39px;
         }
       }
       
       .next {
-        background-position: -46px 0;
+        background-position: -45px 0;
         
         &:hover {
-          background-position: -46px -46px;
+          background-position: -45px -39px;
         }
       }
       
@@ -266,7 +270,7 @@ header {
         width: 66px;
         height: 66px;
         background: url(/images/play_pause.png) no-repeat 0 0;
-        margin: 0 -23px;
+        margin: 0 -16px;
         z-index: 2;
       }
       
@@ -290,7 +294,6 @@ header {
       text-align: center;
       font-size: 12px;
       font-weight: bold;
-      text-transform: uppercase;
       text-shadow: 0 1px 1px #000;
       text-decoration: none;
       color: #fff;
@@ -331,8 +334,6 @@ header {
 }
 
 
-
-
 /* PAGE LAYOUT */
 
 #main-mid {
@@ -347,7 +348,7 @@ header {
 
 #notice {
   position: fixed;
-  top: 80px;
+  top: 74px;
   background: url(/images/dim.png);
   margin: 0 0 20px 0;
   width: 100%;
@@ -355,11 +356,10 @@ header {
   font-weight: bold;
   color: white;
   text-shadow: 0 1px 1px black;
-  padding: 10px;
+  padding: 6px;
   font-size: 14px;
   z-index: 1000;
 }
-
 
 
 /*  BODY  */
@@ -383,10 +383,40 @@ p.description {
 }
 
 
-
 /* FORMS */
 
 form {
+  .field_with_errors {
+    color: red;
+  }
+
+  p {
+    clear: both;
+    margin: 10px 0;
+    
+    br {
+      display: none;
+    }
+  }
+  
+  label {
+    width: 120px;
+    float: left;
+    padding: 10px;
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  .input-text,
+  .input-email,
+  .input-password {
+    padding: 8px 4px;
+    font-size: 12px;
+    color: #999;
+    border: 1px solid #ccc;
+    width: 240px;
+    float: left;
+  }
   
   .input-submit {
     border: 1px solid #ccc;
@@ -405,57 +435,6 @@ form {
 .edit-station {
   margin: -12px 0 0;
 }
-
-#user-new {
-  background: #fff;
-  border: 1px solid #ccc;
-  @include border-radius;
-  width: 450px;
-  
-  div:first {
-    display: none;
-  }
-  
-  p {
-    clear: both;
-    margin: 10px 0;
-    
-    label {
-      width: 120px;
-      float: left;
-      padding: 10px;
-      text-align: right;
-      font-weight: bold;
-    }
-    
-    br {
-      display: none;
-    }
-    
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      padding: 8px 4px;
-      font-size: 12px;
-      color: #999;
-      border: 1px solid #ccc;
-      width: 240px;
-      float: left;
-    }
-    
-    input[type="submit"] {
-      display: block;
-      padding: 10px 40px;
-      font-weight: bold;
-      margin-left: 140px;
-      border: 1px solid #aaa;
-      background: #eee;
-      font-size: 16px;
-      @include border-radius;
-    }
-  }
-}
-
 
 
 /* NAVIGATION AND PAGINATION */

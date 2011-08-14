@@ -15,7 +15,19 @@ class Blog < ActiveRecord::Base
   validates_presence_of :name
   
   acts_as_url :name, :url_attribute => :slug
-  acts_as_taggable
+  #acts_as_taggable
+  
+  has_attached_file	:image,
+  					:styles => {
+  						:big      => ['256x256#', :jpg],
+  						:medium   => ['128x128#', :jpg],
+  						:small    => ['64x64#', :jpg],
+  					},
+            :path           => ':id_:style.:extension',
+            :default_url    => '/images/blog_default.jpg',
+            :storage        => 's3',
+            :s3_credentials => 'config/amazon_s3.yml',
+            :bucket         => 'fm-blog-images'
   
   def to_param
     slug

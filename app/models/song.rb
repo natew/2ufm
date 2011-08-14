@@ -5,15 +5,24 @@ class Song < ActiveRecord::Base
   belongs_to  :blog
   belongs_to  :post
   has_and_belongs_to_many :stations, :join_table => :stations_songs
+  has_many :favorites, :as => :favorable
+  has_attached_file	:image,
+  					:styles => {
+  						:big      => ['256x256#', :jpg],
+  						:medium   => ['128x128#', :jpg],
+  						:small    => ['64x64#', :jpg],
+  					},
+            :path           => ':id_:style.:extension',
+            :default_url    => '/images/song_default.jpg',
+            :storage        => 's3',
+            :s3_credentials => 'config/amazon_s3.yml',
+            :bucket         => 'fm-song-images'
   
-  has_attached_file :apic
-  
-  after_create :set_id3
+  acts_as_url :name, :url_attribute => :slug
   
   validates_presence_of :post_id, :blog_id
   
-  acts_as_url :name, :url_attribute => :slug
-  acts_as_voteable
+  after_create :set_id3
   
   def to_param
     slug

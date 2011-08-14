@@ -38,9 +38,9 @@
     <div class="page-contain">
       <h1><%= link_to 'fuse.fm', '/' %> </h1>
       <nav>
-        <%= link '<span>New</span>'.html_safe, '/new', :id => 'nav-new' %>
         <%= link '<span>Popular</span>'.html_safe, '/popular', :id => 'nav-popular' %>
         <%= link '<span>Stations</span>'.html_safe, '/stations', :id => 'nav-stations' %>
+        <%= link '<span>Blogs</span>'.html_safe, '/blogs', :id => 'nav-blogs' %>
       </nav>
       
       <%= form_tag '/main/search', :method => 'get' do %>

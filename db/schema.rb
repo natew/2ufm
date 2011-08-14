@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 201108122203719) do
+ActiveRecord::Schema.define(:version => 201108122203718) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(:version => 201108122203719) do
   add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+
+  create_table "activities", :force => true do |t|
+    t.string   "type"
+    t.string   "description"
+    t.integer  "reference"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -73,14 +82,12 @@ ActiveRecord::Schema.define(:version => 201108122203719) do
     t.datetime "last_spidered"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
     t.string   "cms"
     t.string   "css_post"
     t.string   "css_title"
     t.string   "slug"
+    t.string   "image_file_name"
+    t.datetime "image_updated_at"
   end
 
   create_table "blogs_songs", :id => false, :force => true do |t|
@@ -102,6 +109,17 @@ ActiveRecord::Schema.define(:version => 201108122203719) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "favorites", :force => true do |t|
+    t.integer  "favorable_id"
+    t.string   "favorable_type"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorites", ["favorable_id"], :name => "index_favorites_on_favorable_id"
+  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -130,6 +148,7 @@ ActiveRecord::Schema.define(:version => 201108122203719) do
     t.string   "album_artist"
     t.string   "url"
     t.string   "source"
+    t.string   "link_text"
     t.integer  "plays"
     t.integer  "size"
     t.integer  "track_number"
@@ -142,12 +161,9 @@ ActiveRecord::Schema.define(:version => 201108122203719) do
     t.boolean  "vrb"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "apic_file_name"
-    t.string   "apic_content_type"
-    t.integer  "apic_file_size"
-    t.datetime "apic_updated_at"
     t.string   "slug"
-    t.string   "link_text"
+    t.string   "image_file_name"
+    t.datetime "image_updated_at"
   end
 
   create_table "stations", :force => true do |t|
@@ -155,13 +171,11 @@ ActiveRecord::Schema.define(:version => 201108122203719) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
     t.string   "slug"
     t.integer  "blog_id"
     t.integer  "user_id"
+    t.string   "image_file_name"
+    t.datetime "image_updated_at"
   end
 
   create_table "stations_songs", :id => false, :force => true do |t|
@@ -210,11 +224,10 @@ ActiveRecord::Schema.define(:version => 201108122203719) do
     t.boolean  "newsletter"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string   "slug"
+    t.string   "avatar_file_name"
+    t.datetime "avatar_updated_at"
+    t.string   "username"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

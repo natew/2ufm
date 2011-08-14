@@ -5,9 +5,11 @@ Fusefm::Application.routes.draw do
 
   devise_for :users
 
-  resources :blogs, :posts, :songs, :stations
+  resources :blogs, :posts, :songs, :stations, :favorites
 
   root :to => 'main#index'
   match "/search/:query", :to => 'main#search'
+ 
+  match "/users", :to => "users#index"
 
 end
