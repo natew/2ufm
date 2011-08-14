@@ -1,7 +1,11 @@
-playlist = null;
-curSongInfo = null;
-curSong = null;
-isPlaying =  false;
+var playlist;
+var curSongIndex = 0;
+var curSongInfo;
+var curSong;
+var isPlaying =  false;
+
+var dragging_position = false;
+var dragging_x;
 
 soundManager.url = '/swfs/soundmanager2_debug.swf';
 soundManager.flashVersion = 9; // optional: shiny features (default = 8)
@@ -9,19 +13,14 @@ soundManager.useFlashBlock = false; // optionally, enable when you're ready to d
 
 soundManager.onready(function() {
   if(soundManager.supported()) {
-//        $('#player-progress-loading').bind('mousedown', sm_start_drag);
-//        $('#player-progress-playing').bind('mousedown', sm_start_drag);
-//        $('#player-volume-outer').bind('mousedown', sm_start_drag);
-//        $('#player-progress-loading').bind('mouseup', sm_end_drag);
-//        $('#player-progress-playing').bind('mouseup', sm_end_drag);
-//        $('#player-volume-outer').bind('mouseup', sm_end_drag);
-//        $('#player-volume-mute').bind('mouseup', sm_toggle_mute);
-
+    $('#player-progress-loaded').bind('mousedown', player_start_drag);
+    $('#player-progress-position').bind('mousedown', player_start_drag);
+    $('#player-progress-loaded').bind('mouseup', player_end_drag);
+    $('#player-progress-position').bind('mouseup', player_end_drag);
   } else {
     // not supported
   }
 });
-
 
 function load_playlist() {
   playlist = jQuery.parseJSON($('#playlist').html());
@@ -31,10 +30,14 @@ function load_playlist() {
 function play(index) {
   // Song info
   curSongInfo = playlist.tracks[index];
+  curSongIndex = index;
   
   // Update universal player
-  $('#audio_player').addClass('playing');
-  $('#audio_player .audio_title').html(curSongInfo.artist + ' - ' + curSongInfo.name);
+  $('#player').addClass('playing');
+  $('#player .player-title').html(curSongInfo.artist + ' - ' + curSongInfo.name);
+  
+  // Update page player
+  
 
   // Load song
   curSong = soundManager.createSound(curSongInfo);
@@ -42,8 +45,9 @@ function play(index) {
   isPlaying = true;
 }
 
-function pause() {
-  curSong.pause();
+function stop() {
+  curSong.stop();
+  curSongIndex = 0;
   isPlaying = false;
 }
 
@@ -51,20 +55,28 @@ $(function() {
   // Get playlist for this page
   load_playlist();
   
-  $('#audio_controls a.play').click(function() {
+  // Player controls
+  // PLAY
+  $('#player-controls a.play').click(function() {
     var $this = $(this);
-    var $player = $('#audio_player');
+    var $player = $('#player');
     if ($player.is('.playing')) {
       // pause
       $player.removeClass('playing');
-      pause();
+      stop();
     } else {
       // play
     }
     return false;
   });
+  
+  // NEXT
+  $('#player-controls a.next').click(function() {
+    play_next_song();
+    return false;
+  });
 
-  $('a.play_song').click(function() {
+  $('a.play-song').click(function() {
     var $this = $(this);
     if ($this.is('.playing')) {
       // pause
@@ -80,3 +92,50 @@ $(function() {
     return false;
   });
 });
+
+function play_next_song() {
+  curSongIndex++;
+  play(curSongIndex);
+}
+
+
+window.player_start_drag = function(event) {
+  if (!event) var event = window.event;
+  element = event.target || event.srcElement;
+  
+  if (element.id.match(/progress/)) {
+    dragging_position = true;
+    $(window).unbind('mousemove').bind('mousemove', player_follow_drag);
+    $(window).unbind('mouseup').bind('mouseup', player_end_drag);
+  }
+  
+  return false;
+}
+
+window.player_end_drag = function(event) {
+  if (!event) var event = window.event; // IE Fix
+  element = event.target || event.srcElement;
+
+  dragging_position = false;
+  $(window).unbind('mousemove');
+  $(window).unbind('mouseup');
+
+  if (element.id.match(/progress/)) {
+    player_update_progress(event, element);
+  }
+
+  return false;
+}
+
+window.player_follow_drag = function(event) {
+  if (!event) var event = window.event;
+  element = event.target || event.srcElement;
+
+  var x = parseInt(event.clientX);
+  var pos = curSong.position;
+
+  $('#player-progress-position').width((Math.round( player_position / player_duration * 100 * 100) / 100 ) + '%')
+
+  sm_update_progress(evt, t_elt);
+  if(player_position >= player_duration) sm_end_drag();
+}

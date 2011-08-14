@@ -35,33 +35,38 @@
 <body class="controller-<%= params[:controller].parameterize %> view-<%= params[:view] %>">
 
   <header>
-    <div class="page_contain">
+    <div class="page-contain">
       <h1><%= link_to 'fuse.fm', '/' %> </h1>
       <nav>
-        <%= link '<span>New</span>'.html_safe, '/new', :id => 'nav_new' %>
-        <%= link '<span>Popular</span>'.html_safe, '/popular', :id => 'nav_popular' %>
-        <%= link '<span>Stations</span>'.html_safe, '/stations', :id => 'nav_stations' %>
-        <%= link '<span>Blogs</span>'.html_safe, '/blogs', :id => 'nav_blogs' %>
-        <%= link '<span>Search</span>'.html_safe, '/search', :id => 'nav_search' %>
+        <%= link '<span>New</span>'.html_safe, '/new', :id => 'nav-new' %>
+        <%= link '<span>Popular</span>'.html_safe, '/popular', :id => 'nav-popular' %>
+        <%= link '<span>Stations</span>'.html_safe, '/stations', :id => 'nav-stations' %>
       </nav>
       
-      <div id="audio_player">
-        <div id="audio_meta">
-          <span id="audio_station">Tuned into <%= link_to 'Radio Electronic FM', '#' %> &middot; Song on <%= link_to '3 blogs', '#' %></span>
+      <%= form_tag '/main/search', :method => 'get' do %>
+        <%= text_field_tag :query,'', :placeholder =>'Search or create a new station' %>
+      <% end -%>
+      
+      <div id="player">
+        <div id="player-meta">
+          <span id="player-station">Station: <%= link_to 'Radio Electronic FM', '#' %></span>
           <strong>
-            <span id="audio_fade"></span>
-            <%= link_to 'Add Favorite', '#', :class => 'audio_favorite' %>
-            <%= link_to 'Jay-Z &amp; Kanye West - Why I Love You (Feat. Mr. Hudson)'.html_safe, '#', :class => 'audio_title' %>
+            <%= link_to 'Add Favorite', '#', :class => 'player-favorite' %>
+            <%= link_to 'Jay-Z &amp; Kanye West - Why I Love You (Feat. Mr. Hudson)'.html_safe, '#', :class => 'player-title' %>
+            <div id="player-progress-bar">
+              <div id="player-progress-position"></div>
+              <div id="player-progress-loaded"></div>
+            </div>
           </strong>
-          <span id="audio_source"></span>
         </div>
-        <div id="audio_controls">
-          <%= link_to 'Previous', '#', :class => 'fr_button prev' %>
-          <%= link_to 'Play', '#', :class => 'fr_button_main play' %>
-          <%= link_to 'Next', '#', :class => 'fr_button next' %>
+        <div id="player-controls">
+          <%= link_to 'Previous', '#', :class => 'fr-button prev' %>
+          <%= link_to 'Play', '#', :class => 'fr-button-main play' %>
+          <%= link_to 'Next', '#', :class => 'fr-button next' %>
         </div>
       </div>
-      <div id="user_controls">
+      
+      <div id="user-controls">
         <% if user_signed_in? %>
           <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>        
         <% else %>
@@ -78,23 +83,23 @@
   
   <% if notice or alert %>
   <div id="notice">
-    <div class="page_contain">
+    <div class="page-contain">
       <span class="notice"><%= notice %></span>
       <span class="alert"><%= alert %></span>
     </div>
   </div><br />
   <% end %>
   
-  <div id="main_mid">
-    <div class="page_contain">
-      <div id="speakker"></div>
-    
+  <div id="main-mid">
+    <div class="page-contain">
+      <div id="body">
       <%= yield %>
+      </div>
     </div>
   </div>
   
-  <div id="main_bot">
-    <div class="page_contain">
+  <div id="main-bot">
+    <div class="page-contain">
     
     </div>
   </div>

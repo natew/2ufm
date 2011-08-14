@@ -8,5 +8,6 @@ Fusefm::Application.routes.draw do
   resources :blogs, :posts, :songs, :stations
 
   root :to => 'main#index'
+  match "/search/:query", :to => 'main#search'
 
 end

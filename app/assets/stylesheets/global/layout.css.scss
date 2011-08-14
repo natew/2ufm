@@ -2,8 +2,8 @@
 
 /* Layout */
 
-.page_contain {
-  width: 1110px;
+.page-contain {
+  width: 1070px;
   margin: 0 auto;
   position: relative;
   
@@ -14,7 +14,7 @@
   }
   
   .content {
-    width: 754px;
+    width: 684px;
     margin: 0 20px 0 0;
     float: left;
     position: relative;
@@ -27,7 +27,7 @@
 
 header {
   background: url(/images/head_bg.jpg);
-  padding: 10px 0;
+  padding: 7px 0 8px;
   position: fixed;
   width: 100%;
   top: 0;
@@ -55,10 +55,10 @@ header {
     
   nav {
     float: left;
-    margin-left: 10px;
+    margin: 0 10px;
     
     a {
-      padding: 18px 12px;
+      padding: 18px 14px;
       float: left;
       
       &:hover span, &.active span {
@@ -78,20 +78,32 @@ header {
       }
     }
     
-    #nav_new span { background-image: url(/images/nav_new.png); width: 32px; }
-    #nav_popular span { background-image: url(/images/nav_popular.png); width: 59px; }
-    #nav_stations span { background-image: url(/images/nav_stations.png); width: 65px; }
-    #nav_blogs span { background-image: url(/images/nav_blogs.png); width: 42px; }
-    #nav_search span { background-image: url(/images/nav_search.png); width: 50px; }
+    #nav-new span { background-image: url(/images/nav_new.png); width: 32px; }
+    #nav-popular span { background-image: url(/images/nav_popular.png); width: 59px; }
+    #nav-stations span { background-image: url(/images/nav_stations.png); width: 65px; }
   }
   
-  #audio_player {
-    width: 530px;
+  form {
+    float: left;
+    
+    #query {
+      float: left;
+      border: none;
+      padding: 6px 8px;
+      font-size: 14px;
+      width: 195px;
+      margin: 15px 0 0;
+      border: 1px solid #000;
+      @include border-radius(20px);
+    }
+  }
+  
+  #player {
     float: left;
     
     &.playing {
-      #audio_controls {
-        .fr_button_main {
+      #player-controls {
+        .fr-button-main {
           background-position: -66px 0;
           
           &:hover {
@@ -108,16 +120,17 @@ header {
       text-decoration: none;
     }
   
-    #audio_meta {
-      width: 380px;
+    #player-meta {
+      width: 250px;
       float: left;
       color: #aaa;
       position: relative;
     
-      #audio_station {
+      #player-station {
         font-size: 12px;
         color: #ccc;
         float: right;
+        text-align: right;
         
         a {
           color: #aaa;
@@ -132,24 +145,24 @@ header {
         position: relative;
         clear: both;
         display: block;
+        width: 91%;
+        float: right;
         
-        a.audio_title {
+        a.player-title {
           float: right;
-          background: url(/images/dim.png);
-          border: 1px solid #000;
           padding: 4px 20px 4px 5px;
           display: block;
-          font-size: 16px;
+          font-size: 14px;
           white-space: nowrap;
           overflow: hidden;
-          width: 88%;
+          width: 92%;
           
           &:hover {
             color: #fff;
           }
         }
         
-        a.audio_favorite {
+        a.player-favorite {
           width: 22px;
           height: 18px;
           text-indent: -3000em;
@@ -157,8 +170,8 @@ header {
           display: block;
           background: url(/images/heart.png) 0 0;
           position: absolute;
-          right: -10px;
-          top: 6px;
+          right: -12px;
+          top: 5px;
           z-index: 4;
           
           &:hover {
@@ -167,20 +180,42 @@ header {
           }
         }
         
-        #audio_fade {
-          background: url(/images/fade_right.png) no-repeat top left;
+        #player-progress-bar {
+          background: #555;
           position: absolute;
-          display: block;
-          width: 40px;
-          height: 100%;
-          top: 1px;
+          top: 29px;
           right: 0;
-          z-index: 3;
-          height: 28px;
+          height: 8px;
+          width: 100%;
+          @include border-radius;
+          
+          &:hover {
+            cursor: pointer;
+          }
+          
+          #player-progress-position {
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            background: #aaa;
+            width: 50%;
+            height: 8px;
+            @include border-radius;
+          }
+          
+          #player-progress-loaded {
+            position: absolute;
+            top: 0;
+            z-index: 0;
+            background: #777;
+            width: 80%;
+            height: 8px;
+            @include border-radius;
+          }
         }
       }
       
-      #audio_source {
+      #player-source {
         font-size: 12px;
         clear: both;
         float: right;
@@ -191,10 +226,10 @@ header {
       }
     }
     
-    #audio_controls {
+    #player-controls {
       float: left;
       width: 118px;
-      margin: -5px 0 -5px 22px;
+      margin: -5px 0 -5px 18px;
       
       a {
         display: block;
@@ -204,7 +239,7 @@ header {
         position: relative;
       }
       
-      .fr_button {
+      .fr-button {
         width: 46px;
         height: 46px;
         background: url(/images/prev_next.png) no-repeat 0 0;
@@ -227,11 +262,11 @@ header {
         }
       }
       
-      .fr_button_main {
+      .fr-button-main {
         width: 66px;
         height: 66px;
         background: url(/images/play_pause.png) no-repeat 0 0;
-        margin: 0 -20px;
+        margin: 0 -23px;
         z-index: 2;
       }
       
@@ -244,7 +279,7 @@ header {
     }
   }
   
-  #user_controls {
+  #user-controls {
     width: 85px;
     float: right;
     margin: -2px 0 0;
@@ -283,18 +318,30 @@ header {
   }
 }
 
+#jquery-live-search {
+	background: #fff;
+	padding: 5px 10px;
+	max-height: 400px;
+	overflow: auto;
+	position: absolute;
+	z-index: 99;
+	border: 1px solid #A9A9A9;
+	border-width: 0 1px 1px 1px;
+	z-index: 100;
+}
+
 
 
 
 /* PAGE LAYOUT */
 
-#main_mid {
-  background: url(/images/mid_bg.jpg) repeat-x 0 0;
+#main-mid {
+  background: url(/images/mid_bg.jpg);
   padding: 90px 0 25px 0;
 }
 
-#main_bot {
-  background: url(/images/bot_bg.jpg) repeat-x 0 0;
+#main-bot {
+  background: #333;
   padding: 25px 0;
 }
 
@@ -315,12 +362,23 @@ header {
 
 
 
+/*  BODY  */
+
+#body {
+  padding: 5px 15px;
+  background: white;
+  @include border-radius(4px);
+  @include box-shadow(0px,0px,5px,#999);
+}
+
+
 /* HEADING AND TEXT STYLES */
 
-
+h2 {
+  margin-bottom: 0.3em;
+}
 
 p.description {
-  margin-top: 10px;
   font-size: 16px;
 }
 
@@ -328,7 +386,27 @@ p.description {
 
 /* FORMS */
 
-#user_new {
+form {
+  
+  .input-submit {
+    border: 1px solid #ccc;
+    background: white;
+    padding: 5px 8px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    @include border-radius(6px);
+  }
+  
+  input.right {
+    float: right;
+  }
+}
+
+.edit-station {
+  margin: -12px 0 0;
+}
+
+#user-new {
   background: #fff;
   border: 1px solid #ccc;
   @include border-radius;

@@ -12,7 +12,7 @@
   </ul>
   
   <%= form_for @station, :html => { :method => :put } do |f| %>
-  <%= submit_tag 'Update Station Songs' %>
+  <%= submit_tag 'Update Station Songs', :class => 'right' %>
   <div id="song_playlist">
     <%= render :partial => 'shared/song', :collection => @songs unless @songs.nil? %>
   </div>

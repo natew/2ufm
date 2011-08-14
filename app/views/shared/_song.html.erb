@@ -1,18 +1,18 @@
 <section id="song-<%= song.id %>">
 <% if song.artist.nil? %>
   <h3>Downloading song <%= song.link_text %>...</h3>
-  <div class="song_meta"><%= song.url %></div>
+  <div class="song-meta"><%= song.url %></div>
 <% else %>
-  <h3><%= link_to song.artist, song.artist %> - <%= link_to song.name, song, :class => 'song_name' %></h3>
+  <h3><%= link_to song.artist, song.artist %> - <%= link_to song.name, song, :class => 'song-name' %></h3>
   <ul class="controls">
-    <li><%= link_to 'Play', song, :class => 'play_song', :rel => song_counter %></li>
-    <li><%= link_to 'Favorite', '#', :class => 'fav_song', :rel => song.id %></li>
+    <li><%= link_to 'Play', song, :class => 'play-song', :rel => song_counter %></li>
+    <li><%= link_to 'Favorite', '#', :class => 'fav-song', :rel => song.id %></li>
     <li>
       <%= hidden_field_tag('seen_ids[]', song.id) -%>
       <%= check_box_tag 'song_ids[]', song.id, @station.songs.include?(song), { :id => song.id } -%>
     </li>
   </ul>
-  <div class="song_meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 50)}".html_safe, song.post.url %></div>
-  <p><%= truncate(song.post.excerpt, :length => 110) %></p>
+  <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 50)}".html_safe, song.post.url %></div>
+  <p><%= truncate(song.post.excerpt, :length => 90) %></p>
 <% end %>
 </section>

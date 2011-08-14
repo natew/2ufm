@@ -1,5 +1,17 @@
+<h2>Blogs</h2>
 <% for blog in @blogs %>
   <%= link_to blog.name, blog %>
 <% end %>
 
-<%= paginate @blogs %>
+
+<h2>Stations</h2>
+<% for station in @stations %>
+  <%= link_to station.name, station %>
+<% end %>
+
+
+<h2>Artists</h2>
+<p>Find the newest music from your favorite artists</p>
+<% for artist in @artists %>
+  <%= link_to artist.name, artist %>
+<% end %>

@@ -4,7 +4,7 @@ require 'mp3info'
 class Song < ActiveRecord::Base
   belongs_to  :blog
   belongs_to  :post
-  has_and_belongs_to_many :stations
+  has_and_belongs_to_many :stations, :join_table => :stations_songs
   
   has_attached_file :apic
   
@@ -32,6 +32,7 @@ class Song < ActiveRecord::Base
             self.track_number = mp3.tag.tracknum
             self.genre = mp3.tag.genre
             self.bitrate = mp3.tag.bitrate
+            self.length = mp3.tag.length
             
             # Set slug
             self.slug = self.name.to_url

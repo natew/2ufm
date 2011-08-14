@@ -20,6 +20,7 @@ gem 'stringex'
 gem 'curb'
 gem 'sax-machine', :git => 'https://github.com/pauldix/sax-machine.git'
 gem 'loofah-activerecord'
+gem 'rails-backbone'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -33,20 +34,7 @@ end
 gem 'jquery-rails'
 gem 'modernizr-rails'
 
-# Stylesheet libs
-# gem 'blueprint-rails'
-
-# Ajax request CoffeeScript support
-# gem 'coffeebeans'
-
-# Heroku deployment requirements
-# group :production do
-#   gem 'therubyracer-heroku'
-#   gem 'pg'
-# end
-
-
-# Use unicorn as the web server
+# Use thin as the web server
 gem 'thin'
 
 # Deploy with Capistrano

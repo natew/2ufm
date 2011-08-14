@@ -6,6 +6,7 @@
  *= require_tree ./global
 */
 
+form div:after { content: ""; display: none; }
 div:after, ul:after, form:after, form p:after {
     content: ".";
     display: block;

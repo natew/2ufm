@@ -15,7 +15,6 @@ class Blog < ActiveRecord::Base
   validates_presence_of :name
   
   acts_as_url :name, :url_attribute => :slug
-  acts_as_voteable
   acts_as_taggable
   
   def to_param
