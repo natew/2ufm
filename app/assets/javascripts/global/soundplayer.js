@@ -60,7 +60,7 @@ $(function() {
   
 
   // Play from song
-  $('a.play-song').click(function() {
+  $('a.play-song').live('click',function() {
     var $section = $(this).parent().parent().parent('section');
     if ($section.is('.playing')) {
       curSection = null;
@@ -218,7 +218,6 @@ var events = {
         lastWLExec = d;
       }
     }
-    
   },
   
   whileplaying: function() {

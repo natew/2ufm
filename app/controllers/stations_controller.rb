@@ -5,6 +5,7 @@ class StationsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js { render :layout => false }
       format.json { render json: @stations }
     end
   end
@@ -15,6 +16,7 @@ class StationsController < ApplicationController
       
     respond_to do |format|
       format.html # show.html.erb
+      format.js { render :layout => false }
       format.json { render json: @station }
     end
   end

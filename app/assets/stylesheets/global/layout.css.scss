@@ -367,17 +367,43 @@ header {
 /*  BODY  */
 
 #body {
-  padding: 5px 15px;
-  background: white;
-  @include border-radius(4px);
+  padding: 15px;
+  background: #fff;
+  @include border-radius(5px);
   @include box-shadow(0px,0px,5px,#999);
+}
+
+
+/*  LOADING SPINNER  */
+
+#loading {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  height: 200px;
+  margin: 30px 0;
+  
+  img {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 50%;
+    margin-left: -100px;
+  }
+  
+  h2 {
+    top: 45%;
+    position: relative;
+    z-index: 10;
+    color: #999;
+  }
 }
 
 
 /* HEADING AND TEXT STYLES */
 
 h2 {
-  margin-bottom: 0.3em;
+  margin: 0.3em 0;
 }
 
 p.description {

@@ -5,8 +5,8 @@
 <% else %>
   <h3><%= link_to song.artist, song.artist %> - <%= link_to song.name, song, :class => 'song-name' %></h3>
   <ul class="controls">
-    <li><%= link_to 'Play', song, :class => 'play-song' %></li>
-    <li><%= link_to 'Favorite', '#', :class => 'fav-song', :rel => song.id %></li>
+    <li><%= link_to 'Play', song, :class => 'play-song control' %></li>
+    <li><%= link_to 'Favorite', '#', :class => 'fav-song control', :rel => song.id %></li>
     <li>
       <%= hidden_field_tag('seen_ids[]', song.id) -%>
       <%= check_box_tag 'song_ids[]', song.id, @station.songs.include?(song), { :id => song.id } -%>

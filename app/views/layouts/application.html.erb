@@ -51,7 +51,7 @@
         <div id="player-meta">
           <span id="player-station">Station: <%= link_to 'Radio Electronic FM', '#' %></span>
           <strong>
-            <%= link_to 'Add Favorite', '#', :class => 'player-favorite' %>
+            <%= link_to 'Add Favorite', '#', :class => 'player-favorite control' %>
             <%= link_to 'Jay-Z &amp; Kanye West - Why I Love You (Feat. Mr. Hudson)'.html_safe, '#', :class => 'player-title' %>
             <div id="player-progress-bar">
               <div id="player-progress-position"></div>
@@ -60,9 +60,9 @@
           </strong>
         </div>
         <div id="player-controls">
-          <%= link_to 'Previous', '#', :class => 'fr-button prev' %>
-          <%= link_to 'Play', '#', :class => 'fr-button-main play' %>
-          <%= link_to 'Next', '#', :class => 'fr-button next' %>
+          <%= link_to 'Previous', '#', :class => 'fr-button prev control' %>
+          <%= link_to 'Play', '#', :class => 'fr-button-main play control' %>
+          <%= link_to 'Next', '#', :class => 'fr-button next control' %>
         </div>
       </div>
       
