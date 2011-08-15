@@ -194,7 +194,8 @@ header {
           right: 0;
           height: 6px;
           width: 100%;
-          @include border-radius;
+          overflow: hidden;
+          border: 1px solid #999;
           
           &:hover {
             cursor: pointer;
@@ -204,10 +205,9 @@ header {
             position: absolute;
             top: 0;
             z-index: 1;
-            background: #aaa;
-            width: 50%;
+            background: #ccc;
+            width: 0%;
             height: 6px;
-            @include border-radius;
           }
           
           #player-progress-loaded {
@@ -215,9 +215,8 @@ header {
             top: 0;
             z-index: 0;
             background: #777;
-            width: 80%;
+            width: 0%;
             height: 6px;
-            @include border-radius;
           }
         }
       }
