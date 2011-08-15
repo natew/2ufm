@@ -2,6 +2,10 @@
 
 /* Layout */
 
+body {
+  background: #333;
+}
+
 .page-contain {
   width: 1070px;
   margin: 0 auto;
@@ -511,5 +515,5 @@ form {
 }
 
 #soundmanager-debug {
-  display: none;
+  display: none !important;
 }
