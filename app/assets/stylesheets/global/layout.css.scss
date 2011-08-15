@@ -59,6 +59,7 @@ header {
     a {
       padding: 18px 14px;
       float: left;
+      -webkit-transition: all .2s ease-out;
       
       &:hover span, &.active span {
         background-position: 0 -23px; 
@@ -96,7 +97,8 @@ header {
       outline: none;
       background: url(/images/search_bg.png) no-repeat top left;
       
-      &:focus {
+      &:focus,
+      &:hover {
         background-position: 0 -33px;
         color: #fff;
       }
@@ -381,6 +383,7 @@ h2 {
 
 p.description {
   font-size: 16px;
+  margin-top: 0;
 }
 
 
@@ -468,7 +471,6 @@ form {
   padding: 10px;
   font-size: 14px;
   font-weight: bold;
-  text-transform: uppercase;
   background: url(/images/dim.png);
   @include border-radius(4px);
   
