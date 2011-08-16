@@ -224,12 +224,12 @@ var events = {
     var d = null;
     if (!useThrottling) {
       updateTime.apply(this);
-      $('#player-progress-position').css('width',(((this.position/this.duration)*100)+'%'));
+      $('#player-progress-position').css('width',(((this.position/this.duration)*100)+6+'%'));
     } else {
       d = new Date();
       if (d-lastWPExec>30) {
         updateTime.apply(this);
-        $('#player-progress-position').css('width',(((this.position/this.duration)*100)+'%'));
+        $('#player-progress-position').css('width',(((this.position/this.duration)*100)+6+'%'));
         lastWPExec = d;
       }
     }

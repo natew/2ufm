@@ -104,6 +104,14 @@
         .fav-song {
           background: url(/images/heart_icon.png) no-repeat 0 0;
           
+          &.remove {
+            background-position: -32px 0;
+          }
+          
+          &.remove:hover {
+            background-position: -32px -32px;
+          }
+          
           &:hover {
             background-position: 0 -32px;
           }

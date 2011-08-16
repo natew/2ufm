@@ -1,4 +1,13 @@
 module ApplicationHelper
+  def favorite_add_or_remove_song(id)
+    logger.info ('>>>>>>> signed_in ' + user_signed_in?.to_s + ' song_id ' + id.to_s + ' current_user ' + current_user.id.to_s + ' has_fav?' + current_user.has_favorite_song?(id.to_i).to_s)
+    if user_signed_in? and current_user.has_favorite_song?(id)
+      render :partial => 'favorites/remove', :locals => { :id => id }
+    else
+      render :partial => 'favorites/add', :locals => { :id => id }
+    end
+  end
+
   # Truncates the given text to the given length and appends truncate_string to the end if the text was truncated
   def truncate(text, options = {})
     length = options[:length] || 120
@@ -34,6 +43,8 @@ module ApplicationHelper
 
     link_to(args[0], options, html_options)
   end
+  
+  private
   
   def is_active_link?(url, options = {})
     case options[:when]

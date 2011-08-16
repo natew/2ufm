@@ -32,9 +32,13 @@ class User < ActiveRecord::Base
     slug
   end
   
+  def has_favorite_song?(id)
+    favorable(:type => :song, :id => id).length > 0
+  end
+  
   def favorable(opts={})
     # favorable_type
-    type = opts[:type] ? opts[:type] : :topic
+    type = opts[:type] ? opts[:type] : :song
     type = type.to_s.capitalize
   
     # add favorable_id to condition if id is provided

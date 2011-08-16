@@ -6,7 +6,6 @@ class Station < ActiveRecord::Base
   
   acts_as_url :name, :url_attribute => :slug
   acts_as_voteable
-  acts_as_taggable
   
   validates_uniqueness_of :name
   validates_presence_of :name
