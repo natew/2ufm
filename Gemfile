@@ -20,7 +20,7 @@ gem 'stringex'
 gem 'curb'
 gem 'sax-machine', :git => 'https://github.com/pauldix/sax-machine.git'
 gem 'loofah-activerecord'
-gem 'rails-backbone'
+gem 'heroku-autoscale'
 
 # Gems used only for assets and not required
 # in production environments by default.
