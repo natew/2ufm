@@ -1,5 +1,5 @@
 class FavoritesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:add_favorite, :remove_favorite]
+  before_filter :authenticate_user!, :only => [:create, :destroy]
   
   def create
     @favorite = Song.find(params[:id]).favorites.build(:user_id => current_user.id)
