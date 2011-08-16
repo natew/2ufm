@@ -3,7 +3,7 @@
 require ::File.expand_path('../config/environment',  __FILE__)
 run Fusefm::Application
 
-use Heroku::Autoscale,
+use Fusefm::Autoscale,
   :username  => ENV["HEROKU_USERNAME"],
   :password  => ENV["HEROKU_PASSWORD"],
   :app_name  => ENV["HEROKU_APP_NAME"],
