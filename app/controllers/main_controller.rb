@@ -3,6 +3,11 @@ class MainController < ApplicationController
     @blogs = Blog.limit(10)
     @stations = Station.limit(10)
     @artists = Artist.limit(10)
+    
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
   end
   
   def search

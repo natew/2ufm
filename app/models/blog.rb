@@ -35,7 +35,7 @@ class Blog < ActiveRecord::Base
   
   def get_feed_url
     html = Nokogiri::HTML(open(url))
-    self.feed_url = html.at('head > link[type = "application/rss+xml"]')['href']
+    self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
   end
   
   def update_feed

@@ -11,54 +11,76 @@ $("a:not(.control)").live("click", function(event){
 });
 
 var degrees = 0;
-var rotate = function(){
+var rotate = function() {
   degrees = degrees+2;
   $('#loading img').rotate(degrees);
 }
 
-function pageLoadTransition() {
-  // Update google analytics
-  //_gaq.push(['_trackPageview', document.location.href]);
-  
-  // Loading...
-  $('#body').html('<div id="loading"><img src="/images/loading.png" /><h2>Loading...</h2></div>');
-  window.clearInterval(rotate);
-  window.setInterval(rotate, 50);
+function navSetActive(action) {
+  $('nav:first a').removeClass('active').filter('#nav-'+action).addClass('active');
 }
 
-function pageError(xhr,err){
+// Functions relating to moving about pages
+// In order of occurence
+// enter -> load -> error -> exit
+var page = {
+  enter: function() {
+    // Update google analytics
+    //_gaq.push(['_trackPageview', document.location.href]);
+    
+    // Loading...
+    $('#body').html('<div id="loading"><img src="/images/loading.png" /><h2>Loading...</h2></div>');
+    window.clearInterval(rotate);
+    window.setInterval(rotate, 50);
+  },
+  
+  load: function(data) {
+    $('#body').html(data);
+    $('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+  },
+  
+  error: function() {
     alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
     alert("responseText: "+xhr.responseText);
+  },
+  
+  exit: function(xhr,err) {
+    window.clearInterval(rotate);
+    degrees = 0;
+  }
 }
 
-function loadPage(data) {
-  $('#body').html(data);
-  $('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
-  window.clearInterval(rotate);
-  degrees = 0;
-}
-
-Path.map("#!/:page/:id").to(function(){
-  var page = this.params['page'];
+Path.map("#!/:action/:id").to(function(){
+  var action = this.params['action'];
   var id = this.params['id'];
+  navSetActive(action);
   $.ajax({
     type:"GET",
     dataType:"html",
-    url: '/' + page + "/" + id,
-    success: loadPage,
-    error:pageError
+    url: '/' + action + "/" + id,
+    success: page.load,
+    error: page.error
   });
-}).enter(pageLoadTransition);
+}).enter(page.enter).exit(page.exit);
 
-Path.map("#!/:page").to(function(){
-  var page = this.params['page'];
+Path.map("#!/:action").to(function(){
+  var action = this.params['action'];
+  navSetActive(action);
   $.ajax({
     type:"GET",
     dataType:"html",
-    url: '/' + page,
-    success: loadPage,
-    error:pageError
+    url: '/' + action,
+    success: page.load,
+    error: page.exit
   });
-}).enter(pageLoadTransition);
+}).enter(page.enter).exit(page.exit);
 
-Path.root('#!/');
+Path.map("#!/").to(function(){
+  $.ajax({
+    type:"GET",
+    dataType:"html",
+    url: '/',
+    success: page.load,
+    error: page.exit
+  });
+}).enter(page.enter).exit(page.exit);
