@@ -30,7 +30,7 @@ body {
 
 header {
   background: url(/images/head_bg.jpg);
-  padding: 7px 0 8px;
+  padding: 7px 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -39,7 +39,8 @@ header {
   @include box-shadow;
   
   h1 {
-    margin: 0;
+    margin: 2px 0 -2px;
+    float: left;
   
     a {
       background: url(/images/logo.png) no-repeat 0 0;
@@ -132,7 +133,7 @@ header {
     }
   
     #player-meta {
-      width: 230px;
+      width: 240px;
       float: left;
       color: #aaa;
       position: relative;
@@ -192,14 +193,14 @@ header {
         }
         
         #player-progress-bar {
-          background: #555;
+          background: #000;
           position: absolute;
           top: 29px;
           right: 0;
           height: 6px;
           width: 100%;
-          overflow: hidden;
-          border: 1px solid #999;
+          border: 1px solid #666;
+          @include border-radius(4px);
           
           &:hover {
             cursor: pointer;
@@ -207,11 +208,13 @@ header {
           
           #player-progress-position {
             position: absolute;
-            top: 0;
+            top: -4px;
             z-index: 1;
             background: #ccc;
-            width: 0%;
-            height: 6px;
+            width: 6%;
+            height: 16px;
+            background: url(/images/progress_knob.png) no-repeat top right;
+            @include border-radius(4px);
           }
           
           #player-progress-loaded {
@@ -253,7 +256,7 @@ header {
         width: 46px;
         height: 39px;
         background: url(/images/prev_next.png) no-repeat 0 0;
-        margin-top: 12px;
+        margin-top: 14px;
         z-index: 1;
       }
       
@@ -276,7 +279,7 @@ header {
         width: 66px;
         height: 66px;
         background: url(/images/play_pause.png) no-repeat 0 0;
-        margin: 0 -16px;
+        margin: 0 -20px;
         z-index: 2;
       }
       

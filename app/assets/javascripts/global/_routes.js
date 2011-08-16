@@ -60,3 +60,5 @@ Path.map("#!/:page").to(function(){
     error:pageError
   });
 }).enter(pageLoadTransition);
+
+Path.root('#!/');
