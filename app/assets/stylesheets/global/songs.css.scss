@@ -77,6 +77,16 @@
       padding: 0;
       background: #fff;
       
+      li.fav-count {
+        font-size: 20px;
+        font-weight: bold;
+        color: #666;
+        width: 23px;
+        height: 32px;
+        text-align: right;
+        padding: 4px 4px 0 0;
+      }
+      
       li {
         float: left;
         list-style: none;

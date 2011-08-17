@@ -6,7 +6,7 @@ class FavoritesController < ApplicationController
   
     respond_to do |format|
       if @favorite.save
-        format.js { render :partial => 'favorites/remove', :locals => { :id => params[:id] } }
+        format.js { render :partial => 'favorites/remove', :locals => favorite_locals(params[:id]) }
       else
         format.js { render :partial => 'favorites/error' }
       end
@@ -16,10 +16,16 @@ class FavoritesController < ApplicationController
   def destroy  
     respond_to do |format|
       if Favorite.find_by_favorable_id(params[:id]).destroy
-        format.js { render :partial => 'favorites/add', :locals => { :id => params[:id] } }
+        format.js { render :partial => 'favorites/add', :locals => favorite_locals(params[:id]) }
       else
         format.js { render :partial => 'favorites/error' }
       end
     end
+  end
+  
+  protected
+  
+  def favorite_locals(id)
+    { :id => params[:id], :count => Song.find(id).favorites.count }
   end
 end

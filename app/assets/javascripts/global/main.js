@@ -9,8 +9,8 @@ $(document).ready(function() {
   
   $('.fav-song').live('click', function() {
     var $this = $(this);
-    var $parent = $(this).parent();
-    var id = $(this).attr('rel');
+    var $parent = $(this).parent().parent();
+    var id = $this.attr('rel');
     
     if ($this.is('.remove')) {
       var action = '/' + id;
@@ -28,7 +28,8 @@ $(document).ready(function() {
       data: data,
       url: '/favorites' + action,
       success: function(data) {
-        $parent.html(data);
+        $parent.remove('.fav-count,.fav-control');
+        $parent.append(data);
       },
       error: function() {
         alert('error');

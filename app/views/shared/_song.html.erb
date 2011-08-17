@@ -6,7 +6,7 @@
   <h3><%= link_to song.artist, song.artist %> - <%= link_to song.name, song, :class => 'song-name' %></h3>
   <ul class="controls">
     <li><%= link_to 'Play', song, :class => 'play-song control' %></li>
-    <li><%= favorite_add_or_remove_song(song.id) %></li>
+    <%= favorite_add_or_remove_song(song.id, song.favorites.count) %>
     <li>
       <%= hidden_field_tag('seen_ids[]', song.id) -%>
       <%= check_box_tag 'song_ids[]', song.id, @station.songs.include?(song), { :id => song.id } -%>

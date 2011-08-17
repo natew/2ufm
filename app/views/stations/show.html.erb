@@ -5,10 +5,10 @@
   </p>
   
   <%= form_for @station, :html => { :method => :put } do |f| %>
-  <%= submit_tag 'Update Station Songs', :class => 'right' %>
   <div id="song-playlist">
     <%= render :partial => 'shared/song', :collection => @songs unless @songs.nil? %>
   </div>
+  <%= submit_tag 'Update Station Songs', :class => 'right' %>
   <% end %>
 
   <%= paginate @songs %>
