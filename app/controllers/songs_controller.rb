@@ -1,6 +1,11 @@
 class SongsController < ApplicationController
   def index
-    @posts = Song.page(params[:page]).per(10)
+    @popular = Song.most_favorited(:limit => 25)
+    
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
   end
   
   def show

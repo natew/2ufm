@@ -37,7 +37,6 @@
     
     h3 {
       font-size: 18px;
-      margin: 0;
     
       a {
         color: #000;
@@ -128,6 +127,25 @@
           }
         }
       }
+    }
+  }
+}
+
+#song-playlist.mini {
+  section {
+    padding: 7px 10px;
+    
+    h3 {
+      width: 80%;
+      font-size: 16px;
+    }
+    
+    p {
+      display: none;
+    }
+    
+    .controls {
+      height: 50px;
     }
   }
 }

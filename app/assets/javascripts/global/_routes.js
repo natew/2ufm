@@ -29,7 +29,7 @@ var page = {
     //_gaq.push(['_trackPageview', document.location.href]);
     
     // Loading...
-    $('#body').html('<div id="loading"><img src="/images/loading.png" /><h2>Loading...</h2></div>');
+    $('#body').html('<div id="loading"><img src="/images/loading.png" /><h2>Loading</h2></div>');
     window.clearInterval(rotate);
     window.setInterval(rotate, 50);
   },

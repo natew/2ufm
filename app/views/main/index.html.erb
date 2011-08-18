@@ -1,17 +1,20 @@
-<h2>Blogs</h2>
-<% for blog in @blogs %>
-  <%= link_to blog.name, blog %>
-<% end %>
+<section class="half">
+  <h2>Featured Stations</h2>
+  <div id="featured-stations">
+    <%= render :partial => 'stations/station', :collection => @stations unless @stations.nil? %>
+  </div>
+  <%= link_to 'Browse more stations', '/stations', :class => 'more-button' %>
+</section>
 
+<section class="half">
+  <h2>Popular Songs</h2>
+  <div id="song-playlist" class="mini">
+    <%= render :partial => 'shared/song', :collection => @popular unless @popular.nil? %>
+  </div>
+  <%= link_to 'Browse more songs', '/songs', :class => 'more-button' %>
+</section>
 
-<h2>Stations</h2>
-<% for station in @stations %>
-  <%= link_to station.name, station %>
-<% end %>
-
-
-<h2>Artists</h2>
-<p>Find the newest music from your favorite artists</p>
-<% for artist in @artists %>
-  <%= link_to artist.name, artist %>
-<% end %>
+<section class="feature">
+  <h2>Create your station</h2>
+  <h3>Enter your favorite blogs (by URL) here to begin building your station</h3>
+</section>

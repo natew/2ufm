@@ -18,42 +18,19 @@ class BlogsController < ApplicationController
 
   def show
     @blog = Blog.find_by_slug(params[:id])
+    @songs = @blog.songs.joins(:post, :blog).page(params[:page]).per(8)
+    @queued_songs = @blog.songs.where("songs.artist = ''")
+    @posts = @blog.posts.order('created_at desc').limit(8)
+    @station = @blog.station
     
-    if params[:posts] == 'delete'
-      @blog.feed = nil
-      @blog.posts.delete_all
-      @blog.save
+    for post in @posts
+      logger.info post.title
     end
-    
-    if params[:posts] == 'download'
-      @blog.update_posts
-    end
-    
-    if params[:feed] == 'update'
-      @blog.update_feed
-    end
-    
-    if params[:songs] == 'download'
-      @blog.posts.first.save_songs
-    end
-    
-    if params[:songs] or params[:posts] or params[:feed]
-      redirect_to @blog
-    else
-      @songs = @blog.songs.joins(:post, :blog).page(params[:page]).per(8)
-      @queued_songs = @blog.songs.where("songs.artist = ''")
-      @posts = @blog.posts.order('created_at desc').limit(8)
-      @station = @blog.station
-      
-      for post in @posts
-        logger.info post.title
-      end
   
-      respond_to do |format|
-        format.html # show.html.erb
-        format.js { render :layout => false }
-        format.json { render json: @blog }
-      end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.js { render :layout => false }
+      format.json { render json: @blog }
     end
   end
   

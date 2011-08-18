@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'mp3info'
-require 'base64'
 
 class Song < ActiveRecord::Base
   belongs_to  :blog
@@ -24,11 +23,22 @@ class Song < ActiveRecord::Base
   
   validates_presence_of :post_id, :blog_id
   
-  after_create :set_id3_and_similar
+  after_create :set_info_and_save_to_station
   
   def to_param
     slug
   end
+  
+  def self.most_favorited(options = {})
+    cols   = column_names.collect {|c| "songs.#{c}"}.join(",")
+    within = options[:days] || 31
+    limit  = options[:limit] || 12
+    where  = " WHERE songs.created_at > '#{within.to_i.days.ago.to_s(:db)}'"
+    
+    Song.find_by_sql "SELECT songs.*, count(favorites.id) as favorites_count FROM songs INNER JOIN favorites on favorites.favorable_id = songs.id and favorites.favorable_type = 'Song'#{where} GROUP BY favorites.favorable_id, #{cols} ORDER BY favorites_count DESC LIMIT #{limit}"
+  end
+  
+  private
   
   def set_similar
     clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')
@@ -42,7 +52,7 @@ class Song < ActiveRecord::Base
 #    end
   end
   
-  def set_id3_and_similar
+  def set_info_and_save_to_station
     unless url.nil?
       begin
         open(url, :content_length_proc => lambda { |content_length|
@@ -85,8 +95,11 @@ class Song < ActiveRecord::Base
       # Match with similar songs
       set_similar
       
+      # Were done post-processing, so lets add it to the station
+      self.blog.station.songs<<self
+      
       self.save
     end
   end
-  handle_asynchronously :set_id3_and_similar
+  handle_asynchronously :set_info_and_save_to_station
 end
