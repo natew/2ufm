@@ -30,7 +30,7 @@ body {
 
 header {
   background: url(/images/head_bg.jpg);
-  padding: 7px 0;
+  padding: 6px 0 7px 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -143,6 +143,7 @@ header {
         color: #ccc;
         float: right;
         text-align: right;
+        margin: 3px 0 0;
         
         a {
           color: #aaa;
@@ -242,7 +243,7 @@ header {
     #player-controls {
       float: left;
       width: 128px;
-      margin: -5px 0 -5px 18px;
+      margin: -4px 0 -5px 18px;
       
       a {
         display: block;
@@ -256,7 +257,7 @@ header {
         width: 46px;
         height: 39px;
         background: url(/images/prev_next.png) no-repeat 0 0;
-        margin-top: 14px;
+        margin-top: 16px;
         z-index: 1;
       }
       
@@ -295,7 +296,7 @@ header {
   #user-controls {
     width: 85px;
     float: right;
-    margin: -2px 0 0;
+    margin: 0;
   
     a {
       width: 85px;
@@ -377,7 +378,7 @@ header {
   padding: 15px;
   background: #fff;
   @include border-radius(5px);
-  @include box-shadow(0px,0px,5px,#999);
+  @include box-shadow(0px,0px,9px,#888);
 }
 
 

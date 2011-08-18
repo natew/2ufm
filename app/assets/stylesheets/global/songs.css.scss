@@ -2,20 +2,20 @@
 
 #song-playlist {
   background: #fff;
-  border: 1px solid #ccc;
   clear: both;
   margin-bottom: 10px;
+  border-top: 1px solid #ddd;
   
   section {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+    padding: 20px 10px;
+    border-bottom: 1px solid #ddd;
     position: relative;
     
-    &:nth-child(2n) {
-      background: #eee;
+    &:nth-child(2n+1) {
+      background: #f6f6f6;
       
       .controls {
-        background: #eee;
+        background: #f6f6f6;
       }
     }
     
@@ -58,12 +58,13 @@
     }
     
     .song-meta {
-      margin: 3px 0;
-      font-size: 11px;
+      margin: 4px 0 8px 0;
+      font-size: 12px;
       color: #999;
     }
     
     p {
+      font-size: 14px;
       margin: 0;
       line-height: 1.6em;
       color: #666;

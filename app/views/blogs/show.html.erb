@@ -4,13 +4,6 @@
     <%= @blog.description || "Browse the latest songs from #{@blog.name}" %>
   </p>
   
-  <ul class="actions">
-    <li><%= link_to 'Update feed', '?feed=update', :class => 'control' %></li>
-    <li><%= link_to 'Delete posts', '?posts=delete', :class => 'control' %></li>
-    <li><%= link_to 'Download posts', '?posts=download', :class => 'control' %></li>
-    <li><%= link_to 'Download songs for latest post', '?songs=download', :class => 'control' %></li>
-  </ul>
-  
   <%= form_for @station, :html => { :method => :put } do |f| %>
   <div id="song-playlist">
     <%= render :partial => 'shared/song', :collection => @songs unless @songs.nil? %>
