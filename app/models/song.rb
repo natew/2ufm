@@ -35,11 +35,11 @@ class Song < ActiveRecord::Base
     clean_artist = artist.gsub(/[^A-Za-z0-9 ]/,'')
     similar = Song.search(:name => clean_name).search(:artist => clean_artist).order('id ASC')
     
-    unless similar.empty?
-      self.shared_id = similar.first.id
-    else
-      self.shared_id = id
-    end
+#    unless similar.empty?
+#      self.shared_id = similar.first.id
+#    else
+#      self.shared_id = id
+#    end
   end
   
   def set_id3_and_similar

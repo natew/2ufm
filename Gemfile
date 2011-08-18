@@ -20,7 +20,7 @@ gem 'stringex'
 gem 'curb'
 gem 'sax-machine', :git => 'https://github.com/pauldix/sax-machine.git'
 gem 'loofah-activerecord'
-gem 'texticle', '~> 2.0', :require => 'texticle/rails'
+gem 'texticle', :git => 'git://github.com/tenderlove/texticle.git'#, :require => 'texticle/rails'
 gem 'sanitize'
 
 # Gems used only for assets and not required
