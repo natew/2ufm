@@ -1,10 +1,13 @@
 require 'nokogiri'
+require 'sanitize'
 
 class Post < ActiveRecord::Base
   belongs_to :blog
-  has_many  :songs
+  has_many  :songs, :dependent => :destroy
   
   acts_as_url :title, :url_attribute => :slug
+  
+  after_create :save_songs
   
   def to_param
     slug
@@ -19,10 +22,10 @@ class Post < ActiveRecord::Base
     parse.css('a').each do |link|
       if link['href'] =~ /.mp3$/
         Song.create!(
-          :blog_id => blog_id,
-          :post_id => id,
-          :url => link['href'],
-          :link_text => link.content,
+          :blog_id    => blog_id,
+          :post_id    => id,
+          :url        => link['href'],
+          :link_text  => link.content,
           :created_at => created_at
         )
       end

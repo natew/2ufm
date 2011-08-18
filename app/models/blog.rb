@@ -5,17 +5,18 @@ require 'nokogiri'
 class Blog < ActiveRecord::Base
   has_many  :songs
   has_many  :posts, :dependent => :destroy
-  has_one   :station
+  has_one   :station, :dependent => :destroy
   
+  before_save   :get_feed
   before_create :create_station
+  after_create  :get_posts
   
   serialize :feed
   
-  validates_uniqueness_of :name
-  validates_presence_of :name
+  validates_uniqueness_of :name, :url
+  validates_presence_of :name, :url
   
   acts_as_url :name, :url_attribute => :slug
-  #acts_as_taggable
   
   has_attached_file	:image,
   					:styles => {
@@ -33,6 +34,11 @@ class Blog < ActiveRecord::Base
     slug
   end
   
+  def get_feed
+    get_feed_url
+    update_feed
+  end
+  
   def get_feed_url
     html = Nokogiri::HTML(open(url))
     self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
@@ -40,20 +46,16 @@ class Blog < ActiveRecord::Base
   
   def update_feed
     get_feed_url if feed_url.nil? or feed_url.empty?
-    if feed.nil? or feed.empty?
+    if feed.nil?
       self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
       #self.feed_updated_at = feed.last_modified
-      self.save!
     else
       self.feed = Feedzirra::Feed.update(feed)
       #self.feed_updated_at = feed.last_modified
-      self.save
-      true if feed.updated?
-      false
     end
   end
   
-  def update_posts
+  def get_posts
     feed.entries.each do |post|
       # Save posts to db
       self.posts.create!(
@@ -63,7 +65,6 @@ class Blog < ActiveRecord::Base
           :content => post.content,
           :created_at => post.published
         )
-      
     end
   end
   

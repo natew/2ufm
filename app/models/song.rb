@@ -1,11 +1,13 @@
 require 'open-uri'
 require 'mp3info'
+require 'base64'
 
 class Song < ActiveRecord::Base
   belongs_to  :blog
   belongs_to  :post
   has_and_belongs_to_many :stations, :join_table => :stations_songs
   has_many :favorites, :as => :favorable
+  has_many :files
   has_attached_file	:image,
   					:styles => {
   						:big      => ['256x256#', :jpg],
@@ -22,29 +24,41 @@ class Song < ActiveRecord::Base
   
   validates_presence_of :post_id, :blog_id
   
-  after_create :set_id3
+  after_create :set_id3_and_similar
   
   def to_param
     slug
   end
   
-  def set_id3
+  def set_similar
+    clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')
+    clean_artist = artist.gsub(/[^A-Za-z0-9 ]/,'')
+    similar = Song.search(:name => clean_name).search(:artist => clean_artist).order('id ASC')
+    
+    unless similar.empty?
+      self.shared_id = similar.first.id
+    else
+      self.shared_id = id
+    end
+  end
+  
+  def set_id3_and_similar
     unless url.nil?
       begin
         open(url, :content_length_proc => lambda { |content_length|
-          raise TooBig if content_length > (1048576 * 10) # 10 MB maximum song size
+          raise TooBig if content_length > (1048576 * 20) # 20 MB maximum song size
         }) { |song|
           Mp3Info.open(song.path) do |mp3|
-            self.name = mp3.tag.title
-            self.artist = mp3.tag.artist
-            self.album = mp3.tag.album
-            self.track_number = mp3.tag.tracknum
-            self.genre = mp3.tag.genre
-            self.bitrate = mp3.tag.bitrate
-            self.length = mp3.tag.length
+            self.name = Sanitize.clean(mp3.tag.title)
+            self.artist = Sanitize.clean(mp3.tag.artist)
+            self.album = Sanitize.clean(mp3.tag.album)
+            self.track_number = mp3.tag.tracknum.to_i
+            self.genre = Sanitize.clean(mp3.tag.genre)
+            self.bitrate = mp3.tag.bitrate.to_i
+            self.length = mp3.tag.length.to_i
             
             # Set slug
-            self.slug = self.name.to_url
+            self.slug = name.to_url
             
             # Save picture
           #  picture = mp3.tag2.APIC || mp3.tag2.PIC
@@ -68,8 +82,11 @@ class Song < ActiveRecord::Base
         self.artist = 'File Size Too Big!'
       end
       
+      # Match with similar songs
+      set_similar
+      
       self.save
     end
   end
-  handle_asynchronously :set_id3
+  handle_asynchronously :set_id3_and_similar
 end

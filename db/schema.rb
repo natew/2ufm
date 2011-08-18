@@ -147,18 +147,18 @@ ActiveRecord::Schema.define(:version => 201108122203718) do
     t.string   "genre"
     t.string   "album_artist"
     t.string   "url"
-    t.string   "source"
     t.string   "link_text"
     t.integer  "plays"
     t.integer  "size"
     t.integer  "track_number"
     t.integer  "bitrate"
     t.integer  "length"
+    t.integer  "shared_id"
     t.integer  "blog_id"
     t.integer  "post_id"
     t.integer  "artist_id"
     t.integer  "album_id"
-    t.boolean  "vrb"
+    t.boolean  "vbr"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
@@ -232,19 +232,5 @@ ActiveRecord::Schema.define(:version => 201108122203718) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "votes", :force => true do |t|
-    t.boolean  "vote",          :default => false
-    t.integer  "voteable_id",                      :null => false
-    t.string   "voteable_type",                    :null => false
-    t.integer  "voter_id"
-    t.string   "voter_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "votes", ["voteable_id", "voteable_type"], :name => "fk_voteables"
-  add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], :name => "uniq_one_vote_only", :unique => true
-  add_index "votes", ["voter_id", "voter_type"], :name => "fk_voters"
 
 end

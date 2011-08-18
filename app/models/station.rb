@@ -5,7 +5,6 @@ class Station < ActiveRecord::Base
   belongs_to :blog
   
   acts_as_url :name, :url_attribute => :slug
-  acts_as_voteable
   
   validates_uniqueness_of :name
   validates_presence_of :name

@@ -11,5 +11,6 @@ Fusefm::Application.routes.draw do
   match "/search/:query", :to => 'main#search'
  
   match "/users", :to => "users#index"
+  match "/popular", :to => "main#popular"
 
 end

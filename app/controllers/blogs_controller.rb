@@ -40,7 +40,7 @@ class BlogsController < ApplicationController
     if params[:songs] or params[:posts] or params[:feed]
       redirect_to @blog
     else
-      @songs = @blog.songs.where("songs.artist != ''").joins(:post, :blog).page(params[:page]).per(8)
+      @songs = @blog.songs.joins(:post, :blog).page(params[:page]).per(8)
       @queued_songs = @blog.songs.where("songs.artist = ''")
       @posts = @blog.posts.order('created_at desc').limit(8)
       @station = @blog.station
@@ -118,7 +118,7 @@ class BlogsController < ApplicationController
   # DELETE /blogs/1
   # DELETE /blogs/1.json
   def destroy
-    @blog = Blog.find(params[:id])
+    @blog = Blog.find_by_slug(params[:id])
     @blog.destroy
 
     respond_to do |format|
