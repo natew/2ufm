@@ -8,8 +8,10 @@
     <li><%= link_to 'Play', song, :class => 'play-song control' %></li>
     <%= favorite_add_or_remove_song(song.id, song.favorites.count) %>
     <li>
+    <%- unless @station.nil? -%>
       <%= hidden_field_tag('seen_ids[]', song.id) -%>
       <%= check_box_tag 'song_ids[]', song.id, @station.songs.include?(song), { :id => song.id } -%>
+    <%- end -%>
     </li>
   </ul>
   <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 50)}".html_safe, song.post.url %></div>
