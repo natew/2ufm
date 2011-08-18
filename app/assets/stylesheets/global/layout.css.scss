@@ -3,7 +3,7 @@
 /* Layout */
 
 body {
-  background: #333;
+  background: url(/images/mid_bg.jpg);
 }
 
 .page-contain {
@@ -36,7 +36,7 @@ header {
   top: 0;
   height: 59px;
   z-index: 100;
-  @include box-shadow(0px,0px,5px,#000);
+  @include box-shadow(0px,0px,16px,#000);
   
   h1 {
     margin: 2px 0 -2px;
@@ -44,12 +44,12 @@ header {
   
     a {
       background: url(/images/logo.png) no-repeat 0 0;
-      width: 110px;
-      height: 60px;
+      width: 107px;
+      height: 58px;
       text-indent: -3000em;
       overflow: hidden;
       float: left;
-      margin: -2px 0 0;
+      margin: 0;
       
       &:hover {
         background-position: 0 -60px;
@@ -196,12 +196,12 @@ header {
         #player-progress-bar {
           background: #000;
           position: absolute;
-          top: 29px;
+          top: 28px;
           right: 0;
           height: 6px;
           width: 100%;
-          border: 1px solid #666;
-          @include border-radius(4px);
+          border-bottom: 1px solid #3b3f4b;
+          @include border-radius(8px);
           
           &:hover {
             cursor: pointer;
@@ -209,22 +209,20 @@ header {
           
           #player-progress-position {
             position: absolute;
-            top: -4px;
             z-index: 1;
-            background: #ccc;
-            width: 6%;
-            height: 16px;
-            background: url(/images/progress_knob.png) no-repeat top right;
+            background: #697ba5;
+            border-top: 1px solid #92a2c9;
+            width: 50%;
+            height: 6px;
             @include border-radius(4px);
           }
           
           #player-progress-loaded {
-            position: absolute;
-            top: 0;
             z-index: 0;
-            background: #777;
-            width: 0%;
+            background: #444;
+            width: 80%;
             height: 6px;
+            @include border-radius(4px);
           }
         }
       }
@@ -347,13 +345,7 @@ header {
 /* PAGE LAYOUT */
 
 #main-mid {
-  background: url(/images/mid_bg.jpg);
   padding: 90px 0 25px 0;
-}
-
-#main-bot {
-  background: #333;
-  padding: 25px 0;
 }
 
 .half {
@@ -395,7 +387,7 @@ header {
   padding: 15px;
   background: #fff;
   @include border-radius(5px);
-  @include box-shadow(0px,0px,9px,#888);
+  @include box-shadow(0px,0px,5px,#000);
 }
 
 

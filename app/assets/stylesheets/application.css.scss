@@ -7,7 +7,7 @@
 */
 
 form div:after { content: ""; display: none; }
-div:after, ul:after, form:after, form p:after {
+div:after, ul:after, form:after, form p:after, section:after {
     content: ".";
     display: block;
     overflow: hidden;
@@ -15,6 +15,10 @@ div:after, ul:after, form:after, form p:after {
     clear: both;
     visibility: hidden;
     line-height: 0em;
+}
+
+br {
+  clear: both;
 }
 
 body {

@@ -1,3 +1,20 @@
+<section class="begin">
+  <div class="half">
+    <h2>Fuse.fm creates a radio station from your favorite blogs</h2>
+    <h3>Enter your a couple blogs here to begin building your station</h3>
+  </div>
+  <div class="half">
+    <%= form_tag do %>
+      <%= text_field_tag :blog1, :placeholder => 'http://' %><br />
+      <%= text_field_tag :blog1, :placeholder => 'http://' %><br />
+      <%= link_to 'Sign in with Facebook', '#', :class => 'signin-with facebook' %><br />
+      <%= link_to 'Sign in with Twitter', '#', :class => 'signin-with twitter' %>
+    <% end %>
+  </div>
+</section>
+
+<br />
+
 <section class="half">
   <h2>Featured Stations</h2>
   <div id="featured-stations">
@@ -12,9 +29,4 @@
     <%= render :partial => 'shared/song', :collection => @popular unless @popular.nil? %>
   </div>
   <%= link_to 'Browse more songs', '/songs', :class => 'more-button' %>
-</section>
-
-<section class="feature">
-  <h2>Create your station</h2>
-  <h3>Enter your favorite blogs (by URL) here to begin building your station</h3>
 </section>
