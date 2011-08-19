@@ -48,20 +48,20 @@
       
       <div id="player">
         <div id="player-meta">
-          <span id="player-station">Station: <%= link_to 'Radio Electronic FM', '#' %></span>
-          <strong>
-            <%= link_to 'Add Favorite', '#', :class => 'player-favorite control' %>
-            <%= link_to 'Jay-Z &amp; Kanye West - Why I Love You (Feat. Mr. Hudson)'.html_safe, '#', :class => 'player-title' %>
-            <div id="player-progress-bar">
-              <div id="player-progress-position"></div>
-              <div id="player-progress-loaded"></div>
-            </div>
-          </strong>
+          <%= link_to 'Kanye West &amp; Jay-Z'.html_safe, '#', :id => 'player-artist' %>
+          <%= link_to 'Why I Loved You (feat. Hudson)', '#', :id => 'player-song' %>
         </div>
         <div id="player-controls">
-          <%= link_to 'Previous', '#', :class => 'fr-button prev control' %>
-          <%= link_to 'Play', '#', :class => 'fr-button-main play control' %>
-          <%= link_to 'Next', '#', :class => 'fr-button next control' %>
+          <%= link_to 'Play', '#', :class => 'play control' %>
+          <%= link_to 'Next', '#', :class => 'next control' %>
+          <div id="player-progress-bar">
+            <div id="player-progress-position">
+              <%= link_to 'Progress', '#', :class => 'progress control' %>
+            </div>
+            <div id="player-progress-loaded"></div>
+          </div>
+          <%= link_to 'Favorite', '#', :class => 'fav control' %>
+          <%= link_to 'Station', '#', :class => 'radio control' %>
         </div>
       </div>
       

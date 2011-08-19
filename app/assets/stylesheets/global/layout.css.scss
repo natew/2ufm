@@ -59,7 +59,7 @@ header {
     
   nav {
     float: left;
-    margin: 0 5px;
+    margin: 0 8px;
     
     a {
       padding: 18px 14px;
@@ -90,7 +90,7 @@ header {
   
   form {
     float: left;
-    margin: 0 0 0 8px;
+    margin: 0;
     
     #query {
       float: left;
@@ -112,6 +112,13 @@ header {
   
   #player {
     float: left;
+    width: 270px;
+    margin: -3px 17px 0;
+    padding: 4px 7px 4px 9px;
+    overflow: hidden;
+    white-space: nowrap;
+    background: url(/images/dim.png);
+    @include border-radius(5px);
     
     &.playing {
       #player-controls {
@@ -125,171 +132,141 @@ header {
       }
     
     }
-    
-    a {
-      color: #e4e19b;
-      font-weight: bold;
-      text-decoration: none;
-    }
   
-    #player-meta {
-      width: 240px;
-      float: left;
-      color: #aaa;
-      position: relative;
-    
-      #player-station {
-        font-size: 12px;
-        color: #ccc;
-        float: right;
-        text-align: right;
-        margin: 3px 0 0;
-        
-        a {
-          color: #aaa;
-          
-          &:hover {
-            color: #fff;
-          }
-        }
-      }
-      
-      strong {
-        position: relative;
-        clear: both;
+    #player-meta { 
+      a {
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        text-shadow: 0 1px #000;
+        text-align: center;
         display: block;
-        width: 94%;
-        float: right;
+        width: 100%;
+        padding: 1px 0;
         
-        a.player-title {
-          float: right;
-          padding: 4px 20px 4px 5px;
-          display: block;
-          font-size: 14px;
-          white-space: nowrap;
-          overflow: hidden;
-          width: 92%;
-          
-          &:hover {
-            color: #fff;
-          }
-        }
-        
-        a.player-favorite {
-          width: 22px;
-          height: 18px;
-          text-indent: -3000em;
-          overflow: hidden;
-          display: block;
-          background: url(/images/heart.png) 0 0;
-          position: absolute;
-          right: -12px;
-          top: 5px;
-          z-index: 4;
-          
-          &:hover {
-            background-postion: 0 -18px;
-            background-position: 0 -18px;
-          }
-        }
-        
-        #player-progress-bar {
-          background: #000;
-          position: absolute;
-          top: 28px;
-          right: 0;
-          height: 6px;
-          width: 100%;
-          border-bottom: 1px solid #3b3f4b;
-          @include border-radius(8px);
-          
-          &:hover {
-            cursor: pointer;
-          }
-          
-          #player-progress-position {
-            position: absolute;
-            z-index: 1;
-            background: #697ba5 url(/images/button_bg.png) 0 -28px;
-            border-top: 1px solid #92a2c9;
-            width: 50%;
-            height: 6px;
-            @include border-radius(4px);
-          }
-          
-          #player-progress-loaded {
-            z-index: 0;
-            background: #444;
-            width: 80%;
-            height: 6px;
-            @include border-radius(4px);
-          }
+        &:hover {
+          color: #fff;
         }
       }
       
-      #player-source {
-        font-size: 12px;
-        clear: both;
-        float: right;
-        
-        a {
-          color: #aaa;
-        } 
+      #player-artist {
+        color: #b0b0b0;
       }
     }
     
     #player-controls {
-      float: left;
-      width: 128px;
-      margin: -4px 0 -5px 18px;
-      
       a {
-        display: block;
         float: left;
+        width: 23px;
+        height: 23px;
+        margin: 0 2px;
         text-indent: -3000em;
         overflow: hidden;
-        position: relative;
+        background: url(/images/player_controls.png) no-repeat;
       }
       
-      .fr-button {
-        width: 46px;
-        height: 39px;
-        background: url(/images/prev_next.png) no-repeat 0 0;
-        margin-top: 16px;
-        z-index: 1;
-      }
-      
-      .prev {
-        
+      .play {
         &:hover {
-          background-position: 0 -39px;
+          background-position: 0 -23px;
+        }
+        
+        &:active {
+          background-position: 0 -46px;
         }
       }
       
       .next {
-        background-position: -45px 0;
-        
+        background-position: -23px 0;
+      
         &:hover {
-          background-position: -45px -39px;
+          background-position: -23px -23px;
+        }
+        
+        &:active {
+          background-position: -23px -46px;
         }
       }
       
-      .fr-button-main {
-        width: 66px;
-        height: 66px;
-        background: url(/images/play_pause.png) no-repeat 0 0;
-        margin: 0 -20px;
-        z-index: 2;
+      .fav {
+        margin: 0 6px 0 0;
+        background-position: -69px 0;
+      
+        &:hover {
+          background-position: -69px -23px;
+        }
+        
+        &:active {
+          background-position: -69px -46px;
+        }
       }
       
-      .play {
+      .radio {
+        background-position: -92px 0;
+      
+        &:hover {
+          background-position: -92px -23px;
+        }
+        
+        &:active {
+          background-position: -92px -46px;
+        }
+      }
+    
+      #player-progress-bar {
+        background: #000;
+        float: left;
+        height: 6px;
+        width: 136px;
+        margin: 9px 12px 0;
+        border-bottom: 1px solid #3b3f4b;
+        position: relative;
+        @include border-radius(8px);
         
         &:hover {
-          background-position: 0 -66px;
+          cursor: pointer;
+        }
+        
+        #player-progress-position {
+          position: absolute;
+          z-index: 1;
+          background: #697ba5 url(/images/button_bg.png) 0 -28px;
+          border-top: 1px solid #92a2c9;
+          width: 50%;
+          height: 6px;
+          @include border-radius(4px);
+          
+          .progress {
+            display: block;
+            width: 23px;
+            height: 23px;
+            position: absolute;
+            top: -10px;
+            right: -18px;
+            text-indent: -3000em;
+            overflow: hidden;
+            background: url(/images/player_controls.png) no-repeat -46px 0;
+            
+            &:hover {
+              background-position: -46px -23px;
+            }
+            
+            &:active {
+              background-position: -46px -46px;
+            }
+          }
+        }
+        
+        #player-progress-loaded {
+          z-index: 0;
+          background: #444;
+          width: 80%;
+          height: 6px;
+          @include border-radius(4px);
         }
       }
     }
   }
+
   
   #user-controls {
     width: 85px;
