@@ -5,10 +5,19 @@
   </div>
   <div class="half">
     <%= form_tag do %>
-      <%= text_field_tag :blog1, :placeholder => 'http://' %><br />
-      <%= text_field_tag :blog1, :placeholder => 'http://' %><br />
-      <%= link_to 'Sign in with Facebook', '#', :class => 'signin-with facebook' %><br />
-      <%= link_to 'Sign in with Twitter', '#', :class => 'signin-with twitter' %>
+      <p>
+        <%= label_tag :blog1, "First Blog" %>
+        <%= text_field_tag :blog1, '', :placeholder => 'http://' %>
+      </p>
+      <p>
+        <%= label_tag :blog2, "Second" %>
+        <%= text_field_tag :blog2, '', :placeholder => 'http://' %>
+      </p>
+      <p>
+        <label for="facebook">Create account</label>
+        <%= link_to 'Sign in with Facebook', '#', :class => 'signin facebook' %><br />
+        <%= link_to 'Sign in with Twitter', '#', :class => 'signin twitter' %>
+      </p>
     <% end %>
   </div>
 </section>

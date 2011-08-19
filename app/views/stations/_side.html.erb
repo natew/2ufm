@@ -1,7 +1,8 @@
 <div class="side">
   <% if @station.blog %>
   <h3>Brought to you by <%= link_to @station.blog.name, @station.blog %></h3>
-  <p><%= @station.blog.description %>
+  <%= link_to 'Follow this station', '#', :class => 'more-button' %>
+  <p><%= @station.blog.description %></p><br /><br />
   <% end %>
   
   <div id="playlist"><%= @station.playlist %></div>
