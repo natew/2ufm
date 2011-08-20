@@ -2,7 +2,7 @@ class FavoritesController < ApplicationController
   before_filter :authenticate_user!, :only => [:create, :destroy]
   
   def create
-    type = params[:type] || 'Song'
+    type = params[:type] || 'song'
     object = type.classify.constantize
     @favorite = object.find(params[:id]).favorites.build(:user_id => current_user.id)
   
