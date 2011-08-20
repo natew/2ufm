@@ -37,14 +37,11 @@
     <div class="page-contain">
       <h1><%= link_to 'fuse.fm', '/' %> </h1>
       <nav>
-        <%= link '<span>Popular</span>'.html_safe, '/songs', :id => 'nav-popular' %>
-        <%= link '<span>Stations</span>'.html_safe, '/stations', :id => 'nav-stations' %>
-        <%= link '<span>Blogs</span>'.html_safe, '/blogs', :id => 'nav-blogs' %>
+        <%= link 'New', '/songs', :id => 'nav-new' %>
+        <%= link 'Popular', '/songs', :id => 'nav-popular' %>
+        <%= link 'Stations', '/stations', :id => 'nav-stations' %>
+        <%= link 'Blogs', '/blogs', :id => 'nav-blogs' %>
       </nav>
-      
-      <%= form_tag '/main/search', :method => 'get' do %>
-        <%= text_field_tag :query, '', :placeholder =>'Enter URL, Genre, Artist' %>
-      <% end -%>
       
       <div id="player">
         <div id="player-meta">
@@ -65,14 +62,18 @@
         </div>
       </div>
       
-      <div id="user-controls">
+      <%= form_tag '/main/search', :method => 'get' do %>
+        <%= text_field_tag :query, '', :placeholder =>'Enter URL, Genre, Artist' %>
+      <% end -%>
+      
+      <div class="nav">
         <% if user_signed_in? %>
-          <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>        
+          <% link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>        
         <% else %>
           <%= link_to 'Log In', new_user_session_path, :class => 'top' %>  
         <% end %>
         <% if user_signed_in? %>
-          <%= link_to 'Account', edit_user_registration_path, :class => 'bot' %>
+          <%= link_to current_user.username, edit_user_registration_path, :class => 'bot' %>
         <% else %>
           <%= link_to 'Sign Up', new_user_registration_path, :class => 'bot'  %>
         <% end %>

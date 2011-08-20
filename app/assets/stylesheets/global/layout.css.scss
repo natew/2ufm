@@ -34,7 +34,7 @@ header {
   position: fixed;
   width: 100%;
   top: 0;
-  height: 59px;
+  height: 48px;
   z-index: 100;
   @include box-shadow(0px,0px,12px,#444);
   
@@ -44,8 +44,8 @@ header {
   
     a {
       background: url(/images/logo.png) no-repeat 0 0;
-      width: 117px;
-      height: 58px;
+      width: 99px;
+      height: 52px;
       text-indent: -3000em;
       overflow: hidden;
       float: left;
@@ -57,14 +57,15 @@ header {
     }
   }
     
-  nav {
+  nav, .nav {
     float: left;
-    margin: 0 10px;
+    margin: 5px 0 0;
     
     a {
-      padding: 18px 14px;
+      padding: 10px 10px 11px;
+      color: #fff;
+      text-shadow: 0 1px #000;
       float: left;
-      -webkit-transition: all .2s ease-out;
       
       &:hover span, &.active span {
         background-position: 0 -23px; 
@@ -74,23 +75,19 @@ header {
         background: url(/images/dim.png);
       }
       
-      span {
-        height: 23px;
-        background-position: 0 0;
-        background-repeat: no-repeat;
-        text-indent: -3000em;
-        display: block;
+      &:visited {
+        color: #fff;
       }
     }
-    
-    #nav-blogs span { background-image: url(/images/nav_blogs.png); width: 42px; }
-    #nav-popular span { background-image: url(/images/nav_popular.png); width: 59px; }
-    #nav-stations span { background-image: url(/images/nav_stations.png); width: 65px; }
+  }
+  
+  .nav {
+    float: right;
   }
   
   form {
     float: left;
-    margin: 0;
+    margin: 4px 0 0;
     
     #query {
       float: left;
@@ -98,21 +95,25 @@ header {
       padding: 10px;
       width: 200px;
       color: #ccc;
-      margin: 14px 0 0;
-      outline: none;
-      background: url(/images/search_bg.png) no-repeat top left;
+      background: #444;
+      border: 1px solid #000;
+      @include border-radius(4px);
+      @include box-shadow(0px,0px,1px,#666);
       
-      &:focus,
       &:hover {
-        background-position: 0 -33px;
-        color: #fff;
+        background: #555;
+      }
+      
+      &:focus {
+        background: #fff;
+        color: #333;
       }
     }
   }
   
   #player {
     float: left;
-    width: 270px;
+    width: 380px;
     margin: -3px 12px 0;
     padding: 4px 7px 4px 10px;
     overflow: hidden;
@@ -122,15 +123,8 @@ header {
     
     &.playing {
       #player-controls {
-        .fr-button-main {
-          background-position: -66px 0;
-          
-          &:hover {
-            background-position: -66px -66px;
-          }
-        }
+        
       }
-    
     }
   
     #player-meta {
@@ -151,13 +145,11 @@ header {
       #player-artist {
         color: #b0b0b0;
       }
-      
-      #player-song {
-        font-size: 14px;
-      }
     }
     
     #player-controls {
+      margin: -10px 0 0;
+    
       a {
         float: left;
         width: 23px;
@@ -219,8 +211,8 @@ header {
         background: #000;
         float: left;
         height: 6px;
-        width: 136px;
-        margin: 9px 12px 0 8px;
+        width: 248px;
+        margin: 15px 12px 0 8px;
         border-bottom: 1px solid #3b3f4b;
         position: relative;
         @include border-radius(8px);
@@ -265,44 +257,6 @@ header {
           height: 6px;
           @include border-radius(4px);
         }
-      }
-    }
-  }
-
-  
-  #user-controls {
-    width: 85px;
-    float: right;
-    margin: 0;
-  
-    a {
-      width: 85px;
-      display: block;
-      text-align: center;
-      font-size: 12px;
-      font-weight: bold;
-      text-shadow: 0 1px 1px #000;
-      text-decoration: none;
-      color: #fff;
-      background: url(/images/signup_login.png) no-repeat 0 0;
-    }
-    
-    .top {
-      padding: 10px 0 0;
-      height: 20px;
-      
-      &:hover {
-        background-position: 0 -60px;
-      }
-    }
-    
-    .bot {
-      padding: 8px 0 0;
-      height: 22px;
-      background-position: 0 -30px;
-      
-      &:hover {
-        background-position: 0 -90px;
       }
     }
   }
