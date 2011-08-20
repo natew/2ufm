@@ -1,9 +1,9 @@
 module ApplicationHelper
   def favorite_add_or_remove_song(id, count)
     if user_signed_in? and current_user.has_favorite_song?(id)
-      render :partial => 'favorites/remove', :locals => { :id => id, :count => count }
+      render :partial => 'songs/favorite_remove', :locals => { :id => id, :count => count }
     else
-      render :partial => 'favorites/add', :locals => { :id => id, :count => count }
+      render :partial => 'songs/favorite_add', :locals => { :id => id, :count => count }
     end
   end
 

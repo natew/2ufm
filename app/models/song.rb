@@ -23,7 +23,7 @@ class Song < ActiveRecord::Base
   
   validates_presence_of :post_id, :blog_id
   
-  after_create :set_info_and_save_to_station
+  after_create :set_info_and_save_to_station, :add_to_user_stations
   
   def to_param
     slug
@@ -39,6 +39,13 @@ class Song < ActiveRecord::Base
   end
   
   private
+  
+  def add_to_user_stations
+    users = Favorite.joins(:user).select('favorites.user_id, users.station_id').where(:favorable_type => 'Song', :favorable_id => 4)
+    users.each do |user|
+      StationsSongs.create(:user_id => user.user_id, :station_id => user.station_id)
+    end
+  end
   
   def set_similar
     clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')

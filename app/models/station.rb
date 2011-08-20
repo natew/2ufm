@@ -3,6 +3,7 @@ class Station < ActiveRecord::Base
   has_and_belongs_to_many :songs, :join_table => :stations_songs
   belongs_to :user
   belongs_to :blog
+  has_many   :favorites, :as => :favorable
   
   acts_as_url :name, :url_attribute => :slug
   

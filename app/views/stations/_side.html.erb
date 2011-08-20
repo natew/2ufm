@@ -1,7 +1,7 @@
 <div class="side">
   <% if @station.blog %>
   <h3>Brought to you by <%= link_to @station.blog.name, @station.blog %></h3>
-  <%= link_to 'Follow this station', '#', :class => 'more-button' %>
+  <%= station_follow_unfollow(@station.id) %>
   <p><%= @station.blog.description %></p><br /><br />
   <% end %>
   

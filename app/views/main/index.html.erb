@@ -35,7 +35,7 @@
 <section class="half">
   <h2>Popular Songs</h2>
   <div id="song-playlist" class="mini">
-    <%= render :partial => 'shared/song', :collection => @popular unless @popular.nil? %>
+    <%= render :partial => 'songs/song', :collection => @popular unless @popular.nil? %>
   </div>
   <%= link_to 'Browse more songs', '/songs', :class => 'more-button' %>
 </section>

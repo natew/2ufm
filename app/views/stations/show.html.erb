@@ -6,7 +6,7 @@
   
   <%= form_for @station, :html => { :method => :put } do |f| %>
   <div id="song-playlist">
-    <%= render :partial => 'shared/song', :collection => @songs unless @songs.nil? %>
+    <%= render :partial => 'songs/song', :collection => @songs unless @songs.nil? %>
   </div>
   <%= submit_tag 'Update Station Songs', :class => 'right' %>
   <% end %>

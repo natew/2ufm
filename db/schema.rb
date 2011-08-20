@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(:version => 201108122203718) do
     t.string   "avatar_file_name"
     t.datetime "avatar_updated_at"
     t.string   "username"
+    t.integer  "station_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

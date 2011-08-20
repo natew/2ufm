@@ -1,11 +1,11 @@
 require 'feedzirra'
-require 'open-uri'
-require 'nokogiri'
+require 'mechanize'
 
 class Blog < ActiveRecord::Base
   has_many  :songs
   has_many  :posts, :dependent => :destroy
   has_one   :station, :dependent => :destroy
+  has_many  :favorites, :as => :favorable
   
   before_save   :get_feed
   before_create :create_station
@@ -17,6 +17,8 @@ class Blog < ActiveRecord::Base
   validates_presence_of :name, :url
   
   acts_as_url :name, :url_attribute => :slug
+  
+  before_save :correct_url
   
   has_attached_file	:image,
   					:styles => {
@@ -34,13 +36,24 @@ class Blog < ActiveRecord::Base
     slug
   end
   
+  def correct_url
+    if url =~ /nahright.com/
+      self.url = 'http://nahright.com/news/'
+    end
+  end
+  
   def get_feed
     get_feed_url
     update_feed
   end
   
   def get_feed_url
-    html = Nokogiri::HTML(open(url))
+    a = Mechanize.new
+    a.get(url) do |page|
+      page.links_with(:rel => 'application/rss+xml').each do |link|
+        
+      end
+    end
     self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
   end
   

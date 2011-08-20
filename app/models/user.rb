@@ -28,12 +28,22 @@ class User < ActiveRecord::Base
   
   acts_as_url :username, :url_attribute => :slug
   
+  before_save :create_station
+  
   def to_param
     slug
   end
   
   def has_favorite_song?(id)
     favorable(:type => :song, :id => id).length > 0
+  end
+  
+  def has_favorite_station?(id)
+    favorable(:type => :station, :id => id).length > 0
+  end
+  
+  def has_favorite_blog?(id)
+    favorable(:type => :blog, :id => id).length > 0
   end
   
   def favorable(opts={})
@@ -80,6 +90,11 @@ class User < ActiveRecord::Base
   end
   
   protected
+  
+  def create_station
+    station = Station.new(:name => username, :user_id => id)
+    self.station_id = station.id
+  end
   
   # Devise override for logins
   def self.find_for_database_authentication(warden_conditions)
