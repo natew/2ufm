@@ -1,7 +1,7 @@
-<section class="begin">
+<section class="begin columns">
   <div class="half">
     <h2>Fuse.fm creates a radio station from your favorite blogs</h2>
-    <h3>Enter your a couple blogs here to begin building your station</h3>
+    <h3>Begin by choosing a genre:</h3>
   </div>
   <div class="half">
     <%= form_tag do %>
@@ -24,18 +24,20 @@
 
 <br />
 
-<section class="half">
-  <h2>Featured Stations</h2>
-  <div id="featured-stations">
-    <%= render :partial => 'stations/station', :collection => @stations unless @stations.nil? %>
-  </div>
-  <%= link_to 'Browse more stations', '/stations', :class => 'more-button' %>
-</section>
-
-<section class="half">
-  <h2>Popular Songs</h2>
-  <div id="song-playlist" class="mini">
-    <%= render :partial => 'songs/song', :collection => @popular unless @popular.nil? %>
-  </div>
-  <%= link_to 'Browse more songs', '/songs', :class => 'more-button' %>
-</section>
+<div class="columns">
+  <section class="half">
+    <h2>Featured Stations</h2>
+    <div id="featured-stations">
+      <%= render :partial => 'stations/station', :collection => @stations unless @stations.nil? %>
+    </div>
+    <%= link_to 'Browse more stations', '/stations', :class => 'button' %>
+  </section>
+  
+  <section class="half">
+    <h2>Popular Songs</h2>
+    <div id="song-playlist" class="mini">
+      <%= render :partial => 'songs/song', :collection => @popular unless @popular.nil? %>
+    </div>
+    <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
+  </section>
+</div>

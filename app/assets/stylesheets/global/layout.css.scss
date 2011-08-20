@@ -30,13 +30,13 @@ body {
 
 header {
   background: url(/images/head_bg.jpg);
-  padding: 6px 0 7px 0;
+  padding: 6px 0;
   position: fixed;
   width: 100%;
   top: 0;
   height: 59px;
   z-index: 100;
-  @include box-shadow(0px,0px,16px,#000);
+  @include box-shadow(0px,0px,12px,#444);
   
   h1 {
     margin: 2px 0 -2px;
@@ -44,7 +44,7 @@ header {
   
     a {
       background: url(/images/logo.png) no-repeat 0 0;
-      width: 107px;
+      width: 117px;
       height: 58px;
       text-indent: -3000em;
       overflow: hidden;
@@ -52,14 +52,14 @@ header {
       margin: 0;
       
       &:hover {
-        background-position: 0 -60px;
+        background-position: 0 -58px;
       }
     }
   }
     
   nav {
     float: left;
-    margin: 0 8px;
+    margin: 0 10px;
     
     a {
       padding: 18px 14px;
@@ -113,12 +113,12 @@ header {
   #player {
     float: left;
     width: 270px;
-    margin: -3px 17px 0;
-    padding: 4px 7px 4px 9px;
+    margin: -3px 12px 0;
+    padding: 4px 7px 4px 10px;
     overflow: hidden;
     white-space: nowrap;
     background: url(/images/dim.png);
-    @include border-radius(5px);
+    @include border-radius(8px);
     
     &.playing {
       #player-controls {
@@ -133,7 +133,7 @@ header {
     
     }
   
-    #player-meta { 
+    #player-meta {
       a {
         color: #fff;
         font-weight: bold;
@@ -142,7 +142,6 @@ header {
         text-align: center;
         display: block;
         width: 100%;
-        padding: 1px 0;
         
         &:hover {
           color: #fff;
@@ -151,6 +150,10 @@ header {
       
       #player-artist {
         color: #b0b0b0;
+      }
+      
+      #player-song {
+        font-size: 14px;
       }
     }
     
@@ -217,7 +220,7 @@ header {
         float: left;
         height: 6px;
         width: 136px;
-        margin: 9px 12px 0;
+        margin: 9px 12px 0 8px;
         border-bottom: 1px solid #3b3f4b;
         position: relative;
         @include border-radius(8px);
@@ -229,8 +232,7 @@ header {
         #player-progress-position {
           position: absolute;
           z-index: 1;
-          background: #697ba5 url(/images/button_bg.png) 0 -28px;
-          border-top: 1px solid #92a2c9;
+          background: url(/images/button_bg.png) top;
           width: 50%;
           height: 6px;
           @include border-radius(4px);
@@ -240,7 +242,7 @@ header {
             width: 23px;
             height: 23px;
             position: absolute;
-            top: -10px;
+            top: -9px;
             right: -18px;
             text-indent: -3000em;
             overflow: hidden;
@@ -325,10 +327,43 @@ header {
   padding: 90px 0 25px 0;
 }
 
-.half {
-  width: 50%;
-  float: left;
+#body {
+  padding: 15px;
+  background: #fff;
+  @include border-radius(5px);
+  @include box-shadow(0px,0px,8px,#aaa);
+  
+  .begin {
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #eee;
+    color: #777;
+    @include border-radius;
+    
+    h2 {
+      color: #444;
+      line-height: 1.3em;
+      font-size: 32px;
+    }
+    
+    h3 {
+      font-size: 20px;
+    }
+  }
+  
+  .columns {
+    .half {
+      width: 49%;
+      margin: 0 0 0 2%;
+      float: left;
+    }
+    
+    .half:first-child {
+      margin-left: 0;
+    }
+  }
 }
+
 
 .feature {
   clear: both;
@@ -355,16 +390,6 @@ header {
   padding: 6px;
   font-size: 14px;
   z-index: 1000;
-}
-
-
-/*  BODY  */
-
-#body {
-  padding: 15px;
-  background: #fff;
-  @include border-radius(5px);
-  @include box-shadow(0px,0px,5px,#000);
 }
 
 
@@ -397,11 +422,15 @@ header {
 /* HEADING AND TEXT STYLES */
 
 h2, h3 {
-  margin: 0.3em 0;
+  margin: 0 0 0.2em 0;
 }
 
 h2 {
   font-size: 2em;
+}
+
+.side h3 {
+  font-size: 18px;
 }
 
 p.description {
@@ -410,74 +439,52 @@ p.description {
 }
 
 
-/* FORMS */
-
-#body form {
-  .field_with_errors {
-    color: red;
-  }
-
-  p {
-    clear: both;
-    margin: 10px 0;
-    
-    br {
-      display: none;
-    }
-  }
-  
-  label {
-    width: 120px;
-    float: left;
-    padding: 10px;
-    text-align: right;
-    font-weight: bold;
-  }
-  
-  .input-text,
-  .input-email,
-  .input-password {
-    padding: 8px 4px;
-    font-size: 12px;
-    color: #666;
-    border: 1px solid #888;
-    width: 240px;
-    float: left;
-    outline: none;
-    @include border-radius(7px);
-    @include box-shadow(0px,1px,2px,#999);
-  }
-  
-  input.right {
-    float: right;
-  }
-}
-
-.edit-station {
-  margin: -12px 0 0;
-}
-
 
 /* NAVIGATION AND PAGINATION */
 
 .pagination {
-  padding: 10px;
-  font-size: 16px;
+  font-size: 13px;
+  border-right: 1px solid #ccc;
+  display: inline-block;
+  margin: 20px 0 0;
+  @include box-shadow(0px,1px,2px,#ddd);
+  @include border-radius-right(3px);
   
-  .page {
+  span {
     float: left;
-    margin: 0 4px 0 0;
+    
+    &:first-child {
+      @include border-radius-left(3px);
+      
+      a {
+        @include border-radius-left(3px);
+      }
+    }
+  }
   
-    a {
-      padding: 5px;
-      background: #ccc;
-      border: 1px solid #999;
+  span {
+    float: left;
+  
+    a,
+    &.current,
+    &.gap {
+      padding: 9px 16px;
+      border: 1px solid #ccc;
+      border-right: none;
+      float: left;
+      text-decoration: none;
     }
     
-    &.current, &.gap {
-      padding: 5px;
-      background: none;
-      border: 1px solid #ccc;
+    &.gap {
+      color: #999;
+    }
+    
+    a:hover {
+      background: $light-blue;
+    }
+    
+    &.current {
+      background: $light-blue;
       font-weight: bold;
     }
   }

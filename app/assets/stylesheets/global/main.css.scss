@@ -1,13 +1,8 @@
 @import "mixins.css.scss";
 
-.begin {
-  padding: 15px;
-  background: #eee;
-  color: #777;
-  @include border-radius;
-}
-
-#body .signin, #body .more-button, #body .input-submit {
+#body .signin,
+#body .button,
+#body .input-submit {
   background: url(/images/button_bg.png) repeat-x top left;
   color: #fff;
   font-weight: bold;
@@ -16,17 +11,21 @@
   text-decoration: none;
   padding: 6px;
   border: none;
-  border-top: 1px solid #8fc6f9;
+  border: 1px solid #005AB8;
   float: left;
   margin: 2px 8px 2px 0;
-  @include box-shadow(0,2px,2px,#888);
   @include border-radius(4px);
 }
 
-#body .more-button {
-  padding: 4px 0;
+#body .button {
+  padding: 6px 0;
   font-size: 14px;
   display: block;
   width: 100%;
   text-align: center;
+}
+
+
+#body .side .button {
+  margin-bottom: 40px;
 }

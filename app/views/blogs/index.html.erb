@@ -1,29 +1,18 @@
-<h1>Listing blogs</h1>
+<div class="content">
+  <section class="begin">
+    <h2>Welcome to the blog directory</h2>
+    <h3>Browse blogs and subscribe to their stations</h3>
+  </section>
+  
+  <%= render @blogs %>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Url</th>
-    <th>Feed</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @blogs.each do |blog| %>
-  <tr>
-    <td><%= blog.name %></td>
-    <td><%= blog.description %></td>
-    <td><%= blog.url %></td>
-    <td><%= blog.feed %></td>
-    <td><%= link_to 'Show', blog %></td>
-    <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-    <td><%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Blog', new_blog_path %>
+<div class="side">
+  <h3>Want to see your blog here?</h3>
+  <%= link_to 'Submit to our directory', new_blog_path, :class => 'button' %>
+  
+  <h3>Browse by genre</h3>
+  <ul id="genres">
+    <%= render @genres %>
+  </ul>
+</div>
