@@ -1,0 +1,53 @@
+@import "mixins.css.scss";
+
+#body form {
+  .field_with_errors {
+    color: red;
+  }
+
+  p {
+    clear: both;
+    margin: 10px 0;
+    
+    br {
+      display: none;
+    }
+  }
+  
+  label {
+    width: 120px;
+    float: left;
+    padding: 10px;
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  .input-text,
+  .input-email,
+  .input-password {
+    padding: 8px 4px;
+    font-size: 12px;
+    color: #666;
+    border: 1px solid #ccc;
+    width: 240px;
+    float: left;
+    outline: none;
+    @include border-radius(4px);
+    @include box-shadow-inset(0px,1px,3px,#ccc);
+    @include transition(border,linear,0.2s);
+    @include transition(box-shadow,linear,0.2s);
+    
+    &:focus {
+      border-color: #049adb;
+      @include box-shadow(0px,0px,6px,#80cced);
+    }
+  }
+  
+  input.right {
+    float: right;
+  }
+}
+
+.edit-station {
+  margin: -12px 0 0;
+}

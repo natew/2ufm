@@ -1,0 +1,7 @@
+<section class="blog">
+  <h3><%= link_to blog.name, blog %></h3>
+  <p><%= blog.description %></p>
+  <span><%= link_to 'Edit', edit_blog_path(blog) %>
+  <%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %>
+  </span>
+</section>
