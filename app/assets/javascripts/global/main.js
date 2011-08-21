@@ -9,15 +9,14 @@ $(document).ready(function() {
   
   // Dropdown menu
   $("body").bind("click", function(e) {
-    $("ul.nav-dropdown").hide();
-    $('a.nav').parent("li").removeClass("open").children("ul.nav-dropdown").hide();
+    $(".nav-dropdown").hide();
+    $('.nav a').parent("div").removeClass("open").children("div.nav-dropdown").hide();
   });
   
-  $("a.nav").click(function(e) {
+  $(".nav a").click(function(e) {
     var $target = $(this);
-    var $parent = $target.parent("li");
-    var $siblings = $target.siblings("ul.nav-dropdown");
-    var $parentSiblings = $parent.siblings("li");
+    var $parent = $target.parent("div");
+    var $siblings = $parent.siblings("div.nav-dropdown");
     if ($parent.hasClass("open")) {
       $parent.removeClass("open");
       $siblings.hide();
@@ -25,8 +24,6 @@ $(document).ready(function() {
       $parent.addClass("open");
       $siblings.show();
     }
-    $parentSiblings.children("ul.nav-dropdown").hide();
-    $parentSiblings.removeClass("open");
     return false;
   });
   

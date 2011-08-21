@@ -60,12 +60,12 @@ header {
 
   nav, .nav {
     float: left;
-    margin: 5px 0 0;
+    margin: 6px 0 0;
     
     a {
       padding: 10px 10px 11px;
       color: #ddd;
-      text-shadow: 0 1px #000;
+      text-shadow: 0 -1px 1px #000;
       float: left;
       text-decoration: none;
       font-weight: bold;
@@ -84,6 +84,23 @@ header {
   
   .nav {
     float: right;
+    
+    a {
+      font-size: 12px;
+      padding-top: 12px;
+    }
+    
+    .nav-dropdown {
+      position: absolute;
+      top: 50px;
+      width: 200px;
+      background: #666;
+      display: none;
+    }
+    
+    .nav-dropdown.open {
+      display: block;
+    }
   }
   
   form {
@@ -289,8 +306,9 @@ header {
 }
 
 #body {
-  padding: 15px;
+  padding: 14px;
   background: #fff;
+  border: 1px solid #888;
   @include border-radius(5px);
   @include box-shadow(0px,0px,8px,#aaa);
   

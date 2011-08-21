@@ -38,7 +38,7 @@
       <h1><%= link_to 'fuse.fm', '/' %> </h1>
       <nav>
         <%= link 'New', '/songs', :id => 'nav-new' %>
-        <%= link 'Popular', '/songs', :id => 'nav-popular' %>
+        <%= link 'Popular', '/songs/popular', :id => 'nav-popular' %>
         <%= link 'Stations', '/stations', :id => 'nav-stations' %>
         <%= link 'Blogs', '/blogs', :id => 'nav-blogs' %>
       </nav>
@@ -68,13 +68,12 @@
       
       <div class="nav">
         <% if user_signed_in? %>
-          <% link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>        
+          <%= link_to "#{current_user.username} &darr;".html_safe, edit_user_registration_path, :class => 'bot' %>
+          <div class="nav-dropdown">
+            <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>
+          </div>
         <% else %>
           <%= link_to 'Login', new_user_session_path, :class => 'top' %>  
-        <% end %>
-        <% if user_signed_in? %>
-          <%= link_to "#{current_user.username} &darr;".html_safe, edit_user_registration_path, :class => 'bot' %>
-        <% else %>
           <%= link_to 'Signup', new_user_registration_path, :class => 'bot'  %>
         <% end %>
       </div>
