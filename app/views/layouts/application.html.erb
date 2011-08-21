@@ -70,12 +70,12 @@
         <% if user_signed_in? %>
           <% link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>        
         <% else %>
-          <%= link_to 'Log In', new_user_session_path, :class => 'top' %>  
+          <%= link_to 'Login', new_user_session_path, :class => 'top' %>  
         <% end %>
         <% if user_signed_in? %>
-          <%= link_to current_user.username, edit_user_registration_path, :class => 'bot' %>
+          <%= link_to "#{current_user.username} &darr;".html_safe, edit_user_registration_path, :class => 'bot' %>
         <% else %>
-          <%= link_to 'Sign Up', new_user_registration_path, :class => 'bot'  %>
+          <%= link_to 'Signup', new_user_registration_path, :class => 'bot'  %>
         <% end %>
       </div>
     </div>

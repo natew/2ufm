@@ -7,6 +7,33 @@ $(document).ready(function() {
 
   $('#query').liveSearch({url: '/search/'});
   
+  // Dropdown menu
+  $("body").bind("click", function(e) {
+    $("ul.nav-dropdown").hide();
+    $('a.nav').parent("li").removeClass("open").children("ul.nav-dropdown").hide();
+  });
+  
+  $("a.nav").click(function(e) {
+    var $target = $(this);
+    var $parent = $target.parent("li");
+    var $siblings = $target.siblings("ul.nav-dropdown");
+    var $parentSiblings = $parent.siblings("li");
+    if ($parent.hasClass("open")) {
+      $parent.removeClass("open");
+      $siblings.hide();
+    } else {
+      $parent.addClass("open");
+      $siblings.show();
+    }
+    $parentSiblings.children("ul.nav-dropdown").hide();
+    $parentSiblings.removeClass("open");
+    return false;
+  });
+  
+  
+  
+  // AJAX
+  
   $('.fav-song').live('click', function() {
     var $this = $(this);
     var $parent = $(this).parent().parent();

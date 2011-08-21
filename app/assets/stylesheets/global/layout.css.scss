@@ -44,12 +44,13 @@ header {
   
     a {
       background: url(/images/logo.png) no-repeat 0 0;
-      width: 99px;
+      width: 96px;
       height: 52px;
       text-indent: -3000em;
       overflow: hidden;
       float: left;
       margin: 0;
+      @include border-radius(8px);
       
       &:hover {
         background-position: 0 -58px;
@@ -63,20 +64,20 @@ header {
     
     a {
       padding: 10px 10px 11px;
-      color: #fff;
+      color: #ddd;
       text-shadow: 0 1px #000;
       float: left;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      @include border-radius(8px);
       
-      &:hover span, &.active span {
-        background-position: 0 -23px; 
+      &:hover {
+        color: #fff;
       }
       
       &.active {
         background: url(/images/dim.png);
-      }
-      
-      &:visited {
-        color: #fff;
       }
     }
   }
@@ -87,12 +88,12 @@ header {
   
   form {
     float: left;
-    margin: 4px 0 0;
+    margin: 9px 0 0;
     
     #query {
       float: left;
       border: none;
-      padding: 10px;
+      padding: 7px;
       width: 200px;
       color: #ccc;
       background: #444;
@@ -113,9 +114,9 @@ header {
   
   #player {
     float: left;
-    width: 380px;
+    width: 335px;
     margin: -3px 12px 0;
-    padding: 4px 7px 4px 10px;
+    padding: 4px 7px 4px 7px;
     overflow: hidden;
     white-space: nowrap;
     background: url(/images/dim.png);
@@ -211,7 +212,7 @@ header {
         background: #000;
         float: left;
         height: 6px;
-        width: 248px;
+        width: 204px;
         margin: 15px 12px 0 8px;
         border-bottom: 1px solid #3b3f4b;
         position: relative;
@@ -278,7 +279,7 @@ header {
 /* PAGE LAYOUT */
 
 #main-mid {
-  padding: 90px 0 25px 0;
+  padding: 70px 0 25px 0;
 }
 
 #body {
