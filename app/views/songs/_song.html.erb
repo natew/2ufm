@@ -14,7 +14,7 @@
     <%- end -%>
     </li>
   </ul>
-  <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 50)}".html_safe, song.post.url %></div>
+  <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 25)}".html_safe, song.post.url %></div>
   <p><%= truncate(song.post.excerpt, :length => 90) %></p>
 <% end %>
 </section>

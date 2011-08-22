@@ -10,7 +10,7 @@
   @include box-shadow(0px,1px,2px,#ddd);
   
   section {
-    padding: 20px 10px;
+    padding: 10px 10px 15px;
     border-bottom: 1px solid #ddd;
     position: relative;
     
@@ -40,36 +40,32 @@
     
     h3 {
       font-size: 18px;
+      border: none;
+      margin-bottom: 0;
+      width: 84%;
     
       a {
-        color: #000;
         text-decoration: none;
-      
-        &:hover {
-          color: #333;
-        }
-        
-        &.song-name {
-          color: #555;
-          
-          &:hover {
-            color: #888;
-          }
-        }
       }
     }
     
     .song-meta {
-      margin: 4px 0 8px 0;
+      margin: -3px 0 3px 0;
       font-size: 12px;
-      color: #999;
+      color: #aaa;
+      width: 82%;
+      line-height: 1.4em;
+      
+      a {
+        color: #888;
+      }
     }
     
     p {
       font-size: 14px;
       margin: 0;
       line-height: 1.6em;
-      color: #666;
+      color: #777;
     }
     
     .controls {

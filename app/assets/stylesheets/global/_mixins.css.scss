@@ -13,6 +13,15 @@ $lighter-blue: #e1f5fc;
   -webkit-border-radius: $radius;
 }
 
+@mixin border-radius-bottom($radius: 5px) {
+  border-bottom-left-radius: $radius;
+  -moz-border-radius-bottomleft: $radius;
+  -webkit-border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+  -moz-border-radius-bottomright: $radius;
+  -webkit-border-bottom-right-radius: $radius;
+}
+
 @mixin border-radius-left($radius: 5px) {
   border-top-left-radius: $radius;
   border-bottom-left-radius: $radius;

@@ -36,7 +36,8 @@ header {
   top: 0;
   height: 48px;
   z-index: 100;
-  @include box-shadow(0px,0px,12px,#444);
+  line-height: 1em;
+  @include box-shadow(0px,0px,6px,#444);
   
   h1 {
     margin: 2px 0 -2px;
@@ -64,7 +65,7 @@ header {
     
     a {
       padding: 10px 10px 11px;
-      color: #ddd;
+      color: #ccc;
       text-shadow: 0 -1px 1px #000;
       float: left;
       text-decoration: none;
@@ -132,12 +133,13 @@ header {
   #player {
     float: left;
     width: 335px;
-    margin: -3px 12px 0;
-    padding: 4px 7px 4px 7px;
+    margin: -3px 10px 0;
+    padding: 3px 7px 4px 7px;
     overflow: hidden;
     white-space: nowrap;
     background: url(/images/dim.png);
     @include border-radius(8px);
+    @include box-shadow-inset(0px,0,1px,#000);
     
     &.playing {
       #player-controls {
@@ -148,7 +150,6 @@ header {
     #player-meta {
       a {
         color: #fff;
-        font-weight: bold;
         text-decoration: none;
         text-shadow: 0 1px #000;
         text-align: center;
@@ -160,19 +161,20 @@ header {
         }
       }
       
-      #player-artist {
-        color: #b0b0b0;
+      #player-song {
+        font-weight: bold;
       }
       
-      #player-song {
+      #player-artist {
         width: 65%;
-        margin: 0 auto;
+        margin: 1px auto 0;
         overflow: hidden;
+        font-size: 11px;
       }
     }
     
     #player-controls {
-      margin: -10px 0 0;
+      margin: -7px 0 0;
     
       a {
         float: left;
@@ -236,7 +238,7 @@ header {
         float: left;
         height: 6px;
         width: 204px;
-        margin: 15px 12px 0 8px;
+        margin: 13px 12px 0 8px;
         border-bottom: 1px solid #3b3f4b;
         position: relative;
         @include border-radius(8px);
@@ -308,25 +310,30 @@ header {
 #body {
   padding: 14px;
   background: #fff;
-  border: 1px solid #888;
-  @include border-radius(5px);
-  @include box-shadow(0px,0px,8px,#aaa);
+  @include border-radius(10px);
+  @include box-shadow(0px,0px,4px,#aaa);
   
   .begin {
     padding: 12px;
-    margin-bottom: 10px;
     background: #eee;
     color: #777;
     @include border-radius;
     
     h2 {
       color: #444;
-      line-height: 1.3em;
       font-size: 32px;
+      border: none;
+      margin-bottom: 0;
     }
     
     h3 {
       font-size: 20px;
+      border: none;
+    }
+    
+    p {
+      font-size: 16px;
+      line-height: 1.8em;
     }
   }
   
@@ -380,6 +387,7 @@ header {
   position: relative;
   height: 200px;
   margin: 30px 0;
+  border: none;
   
   img {
     position: absolute;
@@ -401,7 +409,18 @@ header {
 /* HEADING AND TEXT STYLES */
 
 h2, h3 {
-  margin: 0 0 0.2em 0;
+  margin: 0em 0 0.8em 0;
+  border-bottom: 1px solid #ddd;
+  padding: 0 0 0.2em;
+  color: #444;
+  font-size: 30px;
+  line-height: 1.3em;
+  
+  small {
+    font-size: 18px;
+    color: #ccc;
+    font-weight: normal;
+  }
 }
 
 h2 {
@@ -410,6 +429,7 @@ h2 {
 
 .side h3 {
   font-size: 18px;
+  margin-top: 0.3em;
 }
 
 p.description {
@@ -465,25 +485,6 @@ p.description {
     &.current {
       background: $light-blue;
       font-weight: bold;
-    }
-  }
-}
-
-.actions {
-  margin: 0 0 10px 0;
-  padding: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  background: url(/images/dim.png);
-  @include border-radius(4px);
-  
-  li {
-    list-style: none;
-    float: left;
-    
-    a {
-      padding: 10px;
-      color: #fff;
     }
   }
 }

@@ -1,23 +1,24 @@
 <section class="begin columns">
   <div class="half">
-    <h2>Fuse.fm creates a radio station from your favorite blogs</h2>
-    <h3>Begin by choosing a genre:</h3>
+    <h2>Fuse.fm creates a radio station from your favorite music blogs</h2>
+    <p>Finding new music takes a lot of time and we want to make it easier for you.  Tell us where you find your favorite music (whether its a blog, twitter, soundcloud, or website) and we will create a feed of all the latest music across your favorite sources.</p>
   </div>
   <div class="half">
     <%= form_tag do %>
-      <p>
-        <%= label_tag :blog1, "First Blog" %>
-        <%= text_field_tag :blog1, '', :placeholder => 'http://' %>
-      </p>
-      <p>
-        <%= label_tag :blog2, "Second" %>
-        <%= text_field_tag :blog2, '', :placeholder => 'http://' %>
-      </p>
-      <p>
-        <label for="facebook">Create account</label>
-        <%= link_to 'Sign in with Facebook', '#', :class => 'signin facebook' %><br />
-        <%= link_to 'Sign in with Twitter', '#', :class => 'signin twitter' %>
-      </p>
+    <h3 class="center">Sign up now!</h3>
+      <div class="clearfix">
+        <%= label_tag :blog1, "Username" %>
+        <%= text_field_tag :blog1, '' %>
+      </div>
+      <div class="clearfix">
+        <%= label_tag :blog2, "Password" %>
+        <%= text_field_tag :blog2, '' %>
+      </div>
+      <label for="facebook">Sign in with</label>
+      <%= link_to 'Facebook', '#', :class => 'signin facebook' %>
+      <%= link_to 'Twitter', '#', :class => 'signin twitter' %>
+      <%= link_to 'Google', '#', :class => 'signin google' %>
+      <span class="help">Use any one of these to complete signup!</span>
     <% end %>
   </div>
 </section>
