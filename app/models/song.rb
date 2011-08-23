@@ -43,7 +43,7 @@ class Song < ActiveRecord::Base
   def add_to_user_stations
     users = Favorite.joins(:user).select('favorites.user_id, users.station_id').where(:favorable_type => 'Song', :favorable_id => 4)
     users.each do |user|
-      StationsSongs.create(:user_id => user.user_id, :station_id => user.station_id)
+      StationsSongs.create(:song_id => id, :station_id => user.station_id)
     end
   end
   

@@ -1,5 +1,6 @@
 require 'feedzirra'
-require 'mechanize'
+require 'open-uri'
+require 'nokogiri'
 
 class Blog < ActiveRecord::Base
   has_many  :songs
@@ -48,12 +49,7 @@ class Blog < ActiveRecord::Base
   end
   
   def get_feed_url
-    a = Mechanize.new
-    a.get(url) do |page|
-      page.links_with(:rel => 'application/rss+xml').each do |link|
-        
-      end
-    end
+    html = Nokogiri::HTML(open(url))
     self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
   end
   
