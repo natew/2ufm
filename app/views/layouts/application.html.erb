@@ -70,6 +70,8 @@
         <% if user_signed_in? %>
           <%= link_to "#{current_user.username} &darr;".html_safe, edit_user_registration_path, :class => 'bot' %>
           <div class="nav-dropdown">
+            <%= link_to "#{image_tag(current_user.avatar.url(:small))} Profile".html_safe, current_user %>
+            <%= link_to "Account".html_safe, '/users/edit' %>
             <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>
           </div>
         <% else %>
