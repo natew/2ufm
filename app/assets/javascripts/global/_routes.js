@@ -36,7 +36,7 @@ var page = {
   
   load: function(data) {
     $('#body').html(data);
-    $('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+    $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
   },
   
   error: function() {
