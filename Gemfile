@@ -23,7 +23,6 @@ gem 'loofah-activerecord'
 gem 'texticle', :git => 'git://github.com/tenderlove/texticle.git'#, :require => 'texticle/rails'
 gem 'sanitize'
 gem 'mechanize'
-gem 'taps'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,6 +30,10 @@ group :assets do
   gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => '3-1-stable'
   gem 'coffee-rails', "~> 3.1.0.rc"
   gem 'uglifier'
+end
+
+group :development do
+  gem 'taps'
 end
 
 # JavasScript libs
