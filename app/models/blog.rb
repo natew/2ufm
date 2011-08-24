@@ -20,10 +20,10 @@ class Blog < ActiveRecord::Base
             :default_url    => '/images/blog_default.jpg',
             :storage        => 's3',
             :s3_credentials => 'config/amazon_s3.yml',
-            :bucket         => 'fm-blog-images'
+            :bucket         => 'fm-station-images'
   
   before_save   :get_feed, :correct_url
-  after_create  :get_posts, :set_station
+  after_create  :get_posts, :generate_station
   
   serialize :feed
   
@@ -73,9 +73,14 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  def set_station
-    s = Station.new(:name => name, :description => description, :blog_id => id)
-    #s.image = image if image.present?
-    s.save
+  private
+  
+  def generate_station
+    self.create_station(
+      :name => name, 
+      :description => description,
+      :image_file_name => image_file_name,
+      :image_updated_at => image_updated_at
+    )
   end
 end

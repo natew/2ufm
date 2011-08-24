@@ -10,5 +10,6 @@ Fusefm::Application.routes.draw do
 
   root :to => 'main#index'
   match "/search/:query", :to => 'main#search'
+  match "/loading", :to => 'main#loading'
 
 end

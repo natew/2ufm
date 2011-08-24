@@ -28,7 +28,7 @@ $(document).ready(function() {
   
   // Username cutoff
   var username = $('#nav-username');
-  username.html(fitStringToWidth(username.html(), 110)+ " &darr;");
+  if (username.length > 0) username.html(fitStringToWidth(username.html(), 110)+ " &darr;");
   
   
   // AJAX

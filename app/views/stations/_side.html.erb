@@ -1,8 +1,10 @@
 <div class="side">
   <% if @station.blog %>
-  <h3>Brought to you by <%= link_to @station.blog.name, @station.blog %></h3>
+  <div class="image">
+    <%= image_tag(@station.image.url(:original)) %>
+  </div>
   <%= station_follow_unfollow(@station.id) %>
-  <p><%= @station.blog.description %></p><br /><br />
+  <%= link_to "View the #{@station.blog.name} profile", @station.blog, :class => 'button' unless @station.blog.nil? %>
   <% end %>
   
   <div id="playlist"><%= @station.playlist %></div>

@@ -11,4 +11,8 @@ class MainController < ApplicationController
   def search
     render :text => '<li>Result1</li><li>Result2</li>'
   end
+  
+  def loading
+    render :text => '<div id="loading"><h2>Loading</h2></div>'
+  end
 end

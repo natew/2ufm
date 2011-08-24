@@ -9,7 +9,7 @@ class Song < ActiveRecord::Base
   has_many :files
   has_attached_file	:image,
   					:styles => {
-  						:big      => ['300x300#', :jpg],
+  						:original => ['300x300#', :jpg],
   						:medium   => ['128x128#', :jpg],
   						:small    => ['64x64#', :jpg],
   					},

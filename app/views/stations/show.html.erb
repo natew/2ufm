@@ -1,7 +1,8 @@
 <div class="content">
-  <h2>Listen to <%= @station.name %> Radio</h2>
+  <%= image_tag @station.image.url(:original), :class => 'icon' %>
+  <h2>Listening to <%= @station.name %> Radio</h2>
   <p class="description">
-    <%= @station.description || "Browse the latest songs from #{@station.name}" %>
+    <%= @station.description || "Listening to the latest songs from the #{@station.name} station." %>
   </p>
   
   <%= form_for @station, :html => { :method => :put } do |f| %>

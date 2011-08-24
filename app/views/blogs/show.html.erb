@@ -1,8 +1,9 @@
 <div class="content">
-  <h2>Listen to <%= link_to @blog.name, @blog.url %> Radio</h2>
+  <h2><%= @blog.name %> <small><%= link_to "Visit the #{@blog.name} blog &raquo;".html_safe, @blog.url %></small></h2>
   <p class="description">
     <%= @blog.description || "Browse the latest from #{@blog.name}" %>
   </p>
+  <%= link_to "Listen to #{@blog.name} Radio", @blog.station, :class => 'button' %>
   
   <h3>Recent posts</h3>
   <%- if @posts.empty? -%>

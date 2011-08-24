@@ -16,9 +16,9 @@ body {
     float: left;
     position: relative;
     
-    .blog-image {
+    .image {
       background: #eee;
-      padding: 16px;
+      padding: 18px;
       margin: 0 0 20px 0;
     }
   }
@@ -28,6 +28,10 @@ body {
     margin: 0 20px 0 0;
     float: left;
     position: relative;
+    
+    .icon {
+      
+    }
   }
 }
 
@@ -57,7 +61,7 @@ header {
       text-indent: -3000em;
       overflow: hidden;
       float: left;
-      margin: 0 10px 0 0;
+      margin: 0 5px 0 0;
       @include border-radius(8px);
       
       &:hover {
@@ -71,7 +75,7 @@ header {
     margin: 6px 0 0;
     
     a {
-      padding: 10px 9px 11px;
+      padding: 10px 8px 11px;
       color: #ccc;
       text-shadow: 0 -1px 1px #000;
       float: left;
@@ -169,7 +173,7 @@ header {
     float: left;
     width: 335px;
     margin: -3px 10px 0;
-    padding: 4px 10px;
+    padding: 4px 8px;
     overflow: hidden;
     white-space: nowrap;
     background: url(/images/dim.png);
@@ -458,15 +462,23 @@ h3 {
 }
 
 h2, h3, h4 {
-  margin: 0 0 0.8em 0;
+  margin: 0.4em 0;
   line-height: 1.3em;
   clear: both;
   
   small {
-    font-size: 85%;
+    font-size: 75%;
     color: #ddd;
     font-weight: normal;
+    
+    a {
+      color: #ddd;
+    }
   }
+}
+
+h2 small {
+  font-size: 62%;
 }
 
 h4 {

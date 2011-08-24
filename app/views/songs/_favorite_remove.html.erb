@@ -1,2 +1,4 @@
-<li class="fav-count"><%= count %></li>
-<li class="fav-control"><%= link_to 'Remove Favorite', '#', :class => 'fav-song remove control', :rel => id %></li>
+<li class="fav">
+  <span class="count"><%= count %></span>
+  <%= link_to 'Remove Favorite', '#', :class => 'fav-song remove control', :rel => id %>
+</li>

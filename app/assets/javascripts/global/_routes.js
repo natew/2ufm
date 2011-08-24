@@ -84,3 +84,5 @@ Path.map("#!/").to(function(){
     error: page.exit
   });
 }).enter(page.enter).exit(page.exit);
+
+Path.root("/loading");
