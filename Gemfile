@@ -23,6 +23,7 @@ gem 'loofah-activerecord'
 gem 'texticle', :git => 'git://github.com/tenderlove/texticle.git'#, :require => 'texticle/rails'
 gem 'sanitize'
 gem 'mechanize'
+gem 'taps'
 
 # Gems used only for assets and not required
 # in production environments by default.
