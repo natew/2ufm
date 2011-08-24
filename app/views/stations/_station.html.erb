@@ -1,0 +1,8 @@
+<section class="station">
+  <h3><%= link_to station.name, station %></h3>
+  <%= link_to image_tag(station.image_or_parent), station, :class => 'image' %>
+  <p><%= station.description %></p>
+  <span><%= link_to 'Edit', edit_station_path(station) %>
+  <%= link_to 'Destroy', station, confirm: 'Are you sure?', method: :delete %>
+  </span>
+</section>

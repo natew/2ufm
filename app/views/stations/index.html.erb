@@ -1,5 +1,20 @@
-<h2>Stations</h2>
+<div class="content">
+  <section class="begin">
+    <h2>Browse stations</h2>
+    <p>Browse stations and listen to free radio!</p>
+  </section>
+  
+  <div id="directory-list">
+    <%= render @stations %>
+  </div>
+</div>
 
-<% @stations.each do |station| %>
-  <%= link_to station.name, station %>
-<% end %>
+<div class="side">
+  <h3>Want to see your blog here?</h3>
+  <%= link_to 'Submit to our directory', new_blog_path, :class => 'button' %>
+  
+  <h3>Browse by genre</h3>
+  <ul id="genres">
+    <%= render @genres %>
+  </ul>
+</div>

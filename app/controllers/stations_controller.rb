@@ -2,6 +2,7 @@ class StationsController < ApplicationController
 
   def index
     @stations = Station.order('updated_at desc').page(params[:page]).per(8)
+    @genres = Genre.all
 
     respond_to do |format|
       format.html # index.html.erb

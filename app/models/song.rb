@@ -48,8 +48,8 @@ class Song < ActiveRecord::Base
   end
   
   def set_similar
-    clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')
-    clean_artist = artist.gsub(/[^A-Za-z0-9 ]/,'')
+    #clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')
+    #clean_artist = artist.gsub(/[^A-Za-z0-9 ]/,'')
 #    similar = Song.search(:name => clean_name).search(:artist => clean_artist).order('id ASC')
     
 #    unless similar.empty?

@@ -26,6 +26,16 @@ class Station < ActiveRecord::Base
     slug
   end
   
+  def image_or_parent(*types)
+    type = types[0] || 'original'
+    image if image.present?
+    if blog_id
+      "http://#{image.s3_host_name}/#{image.bucket_name}/#{blog_id}_#{type}.jpg"
+    else
+      image
+    end
+  end
+  
   def playlist  
     {
       :id     => id,

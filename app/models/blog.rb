@@ -14,7 +14,7 @@ class Blog < ActiveRecord::Base
   					:styles => {
   						:original => ['300x300#', :jpg],
   						:medium   => ['128x128#', :jpg],
-  						:small    => ['64x64#', :jpg],
+  						:small    => ['64x64#',   :jpg],
   					},
             :path           => ':id_:style.:extension',
             :default_url    => '/images/blog_default.jpg',
@@ -22,7 +22,7 @@ class Blog < ActiveRecord::Base
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-station-images'
   
-  before_save   :get_feed, :correct_url
+  before_save   :correct_url, :get_html, :get_description, :get_feed_url, :update_feed
   after_create  :get_posts, :generate_station
   
   serialize :feed
@@ -40,13 +40,17 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  def get_feed
-    get_feed_url
-    update_feed
+  def get_html
+    self.html = Nokogiri::HTML(open(url))
+  end
+  
+  def get_description
+    meta = html.at('meta[name="description"]')
+    meta = meta['content'] unless meta.nil?
+    self.description = description || meta || html.at('title').text || ''
   end
   
   def get_feed_url
-    html = Nokogiri::HTML(open(url))
     self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
   end
   
@@ -78,9 +82,7 @@ class Blog < ActiveRecord::Base
   def generate_station
     self.create_station(
       :name => name, 
-      :description => description,
-      :image_file_name => image_file_name,
-      :image_updated_at => image_updated_at
+      :description => description
     )
   end
 end
