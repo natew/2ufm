@@ -1,6 +1,90 @@
-.blog {
-  width: 256px;
-  height: 256px;
-  float: left;
-  margin: 0 20px 20px 0;
+@import "mixins.css.scss";
+
+#blog-list {
+  margin: 0 0 0 -20px;
+
+   .blog {
+     float: left;
+     margin: 0 0 20px 20px;
+     position: relative;
+   
+     img {
+       @include border-radius(10px);
+     }
+     
+     h3 {
+       margin: 0 0 -45px;
+       line-height: 1em;
+       z-index: 10;
+       position: relative;
+       display: block;
+       border: none;
+       font-size: 18px;
+       height: 45px;
+        
+      a {
+        color: #fff;
+        text-shadow: 0 2px 2px #000;
+        background: url(/images/dim.png);
+        padding: 16px;
+        display: block;
+        text-decoration: none;
+        @include border-radius-top(10px);
+      }
+     }
+     
+     span {
+       position: absolute;
+       bottom: 20px;
+       right: 20px;
+       
+       a {
+         margin: 10px;
+         padding: 8px;
+         background: url(/images/dim.png);
+         text-decoration: none;
+         text-underline: none;
+         text-shadow: 0 2px 2px #000;
+         color: #fff;
+         font-weight: bold;
+       }
+     }
+   } 
+}
+
+
+#posts {
+  section {
+  
+    span.meta {
+      color: #aaa;
+      font-size: 12px;
+      display: block;
+      margin: 0 0 6px 0;
+    }
+    
+    p {
+      padding: 0 0 20px 0;
+      margin: 0 0 12px 0;
+    }
+    
+    h5 {
+      margin: 0;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: #999;
+    }
+    
+    ul {
+      margin: 0 0 30px 0;
+      padding: 0;
+      
+      li {
+        list-style: none;
+        margin: 0 0 0 10px;
+        padding: 2px 0;
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
 }

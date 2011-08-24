@@ -8,22 +8,11 @@ class Blog < ActiveRecord::Base
   has_one   :station, :dependent => :destroy
   has_many  :favorites, :as => :favorable
   
-  before_save   :get_feed
-  before_create :create_station
-  after_create  :get_posts
-  
-  serialize :feed
-  
-  validates_uniqueness_of :name, :url
-  validates_presence_of :name, :url
-  
   acts_as_url :name, :url_attribute => :slug
-  
-  before_save :correct_url
   
   has_attached_file	:image,
   					:styles => {
-  						:big      => ['256x256#', :jpg],
+  						:original => ['300x300#', :jpg],
   						:medium   => ['128x128#', :jpg],
   						:small    => ['64x64#', :jpg],
   					},
@@ -32,6 +21,14 @@ class Blog < ActiveRecord::Base
             :storage        => 's3',
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-blog-images'
+  
+  before_save   :get_feed, :correct_url
+  after_create  :get_posts, :set_station
+  
+  serialize :feed
+  
+  validates_uniqueness_of :name, :url
+  validates_presence_of :name, :url
   
   def to_param
     slug
@@ -54,20 +51,19 @@ class Blog < ActiveRecord::Base
   end
   
   def update_feed
-    get_feed_url if feed_url.nil? or feed_url.empty?
     if feed.nil?
       self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-      #self.feed_updated_at = feed.last_modified
+      self.feed_updated_at = feed.last_modified
     else
       self.feed = Feedzirra::Feed.update(feed)
-      #self.feed_updated_at = feed.last_modified
+      self.feed_updated_at = feed.last_modified
     end
   end
   
   def get_posts
     feed.entries.each do |post|
       # Save posts to db
-      self.posts.create!(
+      self.posts.create(
           :title => post.title,
           :author => post.author,
           :url => post.url,
@@ -77,9 +73,9 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  private
-  
-  def create_station
-    self.build_station(:name => name, :description => description)
+  def set_station
+    s = Station.new(:name => name, :description => description, :blog_id => id)
+    #s.image = image if image.present?
+    s.save
   end
 end

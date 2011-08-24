@@ -9,7 +9,7 @@ class Song < ActiveRecord::Base
   has_many :files
   has_attached_file	:image,
   					:styles => {
-  						:big      => ['256x256#', :jpg],
+  						:big      => ['300x300#', :jpg],
   						:medium   => ['128x128#', :jpg],
   						:small    => ['64x64#', :jpg],
   					},
@@ -78,25 +78,23 @@ class Song < ActiveRecord::Base
             self.slug = name.to_url
             
             # Save picture
-          #  picture = mp3.tag2.APIC || mp3.tag2.PIC
-          #  picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
-          #  
-          #  unless picture.nil?
-          #    pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
-          #    logger.info("pic_type = #{pic_type}")
-          #    unless pic_type.nil?
-          #      temp_path = "#{Rails.root}/tmp/apic_#{Process.pid}.#{pic_type[0]}"
-          #      logger.info("temp_path = #{temp_path}")
-          #      temp_pic = File.open(temp_path, 'wb') do |f|
-          #        f.write(picture)
-          #      end
-                #Apic.create :song_id => id, :temp_path => temp_path, :filename => "#{artist}#{album}#{Process.pid}.#{pic_type[0]}"
-          #    end
-          #  end
+            picture = mp3.tag2.APIC || mp3.tag2.PIC
+            picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
+            
+            unless picture.nil?
+              pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
+              unless pic_type.nil?
+                tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}.#{pic_type[0]}"
+                tmp_file = File.open(tmp_path, 'wb') do |f|
+                  f.write(picture[6,1000000000000])  # yikes
+                end
+                self.image = tmp_file
+              end
+            end
           end
         }
-      rescue TooBig
-        self.artist = 'File Size Too Big!'
+      rescue Exception => e
+        logger.info(e.message + "\n" + e.backtrace.inspect)
       end
       
       # Match with similar songs
@@ -108,5 +106,5 @@ class Song < ActiveRecord::Base
       self.save
     end
   end
-  handle_asynchronously :set_info_and_save_to_station
+  #handle_asynchronously :set_info_and_save_to_station
 end

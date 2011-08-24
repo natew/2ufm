@@ -1,17 +1,17 @@
 <div class="content">
   <h2>Listen to <%= link_to @blog.name, @blog.url %> Radio</h2>
   <p class="description">
-    <%= @blog.description || "Browse the latest songs from #{@blog.name}" %>
+    <%= @blog.description || "Browse the latest from #{@blog.name}" %>
   </p>
   
-  <%= form_for @station, :html => { :method => :put } do |f| %>
-  <div id="song-playlist">
-    <%= render :partial => 'songs/song', :collection => @songs unless @songs.nil? %>
+  <h3>Recent posts</h3>
+  <%- if @posts.empty? -%>
+  <p>No posts!</p>
+  <%- else -%>
+  <div id="posts">
+    <%= render :partial => 'post', :collection => @posts, :as => :post %>
   </div>
-  <%= submit_tag 'Update Station Songs', :class => 'right' %>
-  <% end %>
-
-  <%= paginate @songs %>
+  <%- end -%>
 </div>
 
 <%= render 'side' %>

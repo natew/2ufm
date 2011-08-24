@@ -68,33 +68,30 @@
       
       <div class="nav">
         <% if user_signed_in? %>
-          <%= link_to "#{current_user.username} &darr;".html_safe, edit_user_registration_path, :class => 'bot' %>
+          <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username' %>
           <div class="nav-dropdown">
             <%= link_to "#{image_tag(current_user.avatar.url(:small))} Profile".html_safe, current_user %>
             <%= link_to "Account".html_safe, '/users/edit' %>
-            <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class => 'top' %>
+            <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete' %>
           </div>
         <% else %>
-          <%= link_to 'Login', new_user_session_path, :class => 'top' %>  
-          <%= link_to 'Signup', new_user_registration_path, :class => 'bot'  %>
+          <%= link_to 'Login', new_user_session_path, :class => 'inline' %>  
+          <%= link_to 'Signup', new_user_registration_path, :class => 'inline'  %>
         <% end %>
       </div>
     </div>
   </header>
   
-  <% if notice or alert %>
-  <div id="notice">
-    <div class="page-contain">
-      <span class="notice"><%= notice %></span>
-      <span class="alert"><%= alert %></span>
-    </div>
-  </div><br />
-  <% end %>
-  
   <div id="main-mid">
     <div class="page-contain">
       <div id="body">
-      <%= yield %>
+        <%- if notice -%>
+        <div id="dialog" class="notice"><%= notice %></div>
+        <%- elsif alert -%>
+        <div id="dialog" class="alert"><%= alert %></div>
+        <%- end -%>
+        
+        <%= yield %>
       </div>
     </div>
   </div>

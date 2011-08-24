@@ -7,7 +7,8 @@
 */
 
 form div:after { content: ""; display: none; }
-div:after, ul:after, form:after, form p:after, section:after {
+div:after, ul:after, form:after, form p:after, section:after,
+h2:after, h3:after {
     content: ".";
     display: block;
     overflow: hidden;

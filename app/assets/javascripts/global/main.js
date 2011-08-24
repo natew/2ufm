@@ -12,7 +12,6 @@ $(document).ready(function() {
     $(".nav-dropdown").hide();
     $('.nav a').parent("div").removeClass("open").children("div.nav-dropdown").hide();
   });
-  
   $(".nav a").click(function(e) {
     var $target = $(this);
     var $parent = $target.parent("div");
@@ -27,6 +26,9 @@ $(document).ready(function() {
     return false;
   });
   
+  // Username cutoff
+  var username = $('#nav-username');
+  username.html(fitStringToWidth(username.html(), 110)+ " &darr;");
   
   
   // AJAX

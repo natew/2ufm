@@ -7,7 +7,7 @@
 
   .clearfix {
     clear: both;
-    margin: 5px 0;
+    margin: 6px 0;
     
     br {
       display: none;
@@ -44,6 +44,10 @@
     }
   }
   
+  .input-checkbox {
+    margin: 10px;
+  }
+  
   textarea {
     width: 65%;
     height: 200px;
@@ -72,6 +76,16 @@
     
     &.nopad {
       padding-left: 0;
+    }
+    
+    p {
+      float: left;
+      margin: 5px 0 0 20px;
+      
+      a {
+        margin: 0 20px 0 0;
+        font-size: 12px;
+      }
     }
   }
 }
