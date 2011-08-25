@@ -1,5 +1,5 @@
 <div class="content">
-  <h2>Step <%= @blog.current_step %> <small>Submit with three simple steps</small></h2>
+  <h2>Step <%= @blog.step_index %>: <%= @blog.current_step.capitalize %> <small>Submit with three simple steps</small></h2>
   <div id="wizard">
   <%= form_for @blog, :html => { :multipart => true } do |f| %>
     <% if @blog.errors.any? %>
@@ -12,7 +12,7 @@
         </ul>
       </div>
     <% end %>
-    <%= render "#{@blog.current_step}_step", :f => f %>
+    <%= render "new_#{@blog.current_step}_step", :f => f %>
     <div class="actions clearfix">
       <%= f.submit "Continue", :class => 'control continue' %>
       <%= f.submit "Back", :name => 'back_button' unless @blog.first_step? %>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="side">
-  <h3>Step 1 of 3</h3>
+  <h3>Step <%= @blog.step_index %> of 3</h3>
   <p>Fill in some basic information on the blog.  If you leave the description blank, we will attempt to find a description on the site itself.</p>
   
   <h3>Terms &amp; Conditions</h3>

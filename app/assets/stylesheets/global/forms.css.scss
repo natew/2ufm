@@ -4,6 +4,27 @@
   .field_with_errors {
     color: red;
   }
+  
+  #error_explanation {
+    h2 {
+      background: #811810;
+      color: #fff;
+      padding: 4px 8px;
+      margin: 0;
+      font-size: 18px;
+      @include border-radius(4px);
+    }
+    
+    ul {
+      margin: .7em 0 1.4em;
+      color: #999;
+    }
+  }
+  
+  h3 {
+    border: none;
+    font-size: 18px;
+  }
 
   .clearfix {
     clear: both;

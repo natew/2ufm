@@ -30,8 +30,8 @@ class Blog < ActiveRecord::Base
   
   attr_writer :current_step
   
-  validates_uniqueness_of :name, :url, :if => lambda { |b| b.current_step == "info" }
-  validates_presence_of :name, :url, :if => lambda { |b| b.current_step == "info" }
+  validates_uniqueness_of :name, :url
+  validates_presence_of :name, :url
   
   def to_param
     slug
@@ -42,16 +42,12 @@ class Blog < ActiveRecord::Base
   end
   
   def get_blog_info
-    begin
-      set_correct_url
-      get_html
-      find_description
-      find_feed_url if has_html?
-      update_feed if has_feed_url?
-      @blog_info = true
-    rescue
-      false
-    end
+    set_correct_url
+    get_html
+    find_description
+    find_feed_url
+    update_feed
+    @blog_info = true
   end
   
   def current_step
@@ -59,7 +55,7 @@ class Blog < ActiveRecord::Base
   end
   
   def steps
-    %w[info feed posts]
+    %w[about info verify]
   end
   
   def next_step
@@ -78,6 +74,10 @@ class Blog < ActiveRecord::Base
     current_step == steps.last
   end
   
+  def step_index
+    steps.index(current_step)+1
+  end
+  
   def all_valid?
     steps.all? do |step|
       self.current_step = step
@@ -92,7 +92,7 @@ class Blog < ActiveRecord::Base
   end
   
   def has_html?
-    !(html.nil? or html.empty?)
+    !html.nil?
   end
   
   def find_description
@@ -100,11 +100,11 @@ class Blog < ActiveRecord::Base
       meta = html.at('meta[name="description"]')
       meta = meta['content'] unless meta.nil?
     end
-    self.description = description || meta || html.at('title').text || ''
+    self.description = meta || html.at('title').text || ''
   end
   
   def find_feed_url
-    self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
+    self.feed_url = html.at('head > link[type="application/rss+xml"]')['href'] if has_html?
   end
   
   def has_feed_url?
@@ -112,12 +112,14 @@ class Blog < ActiveRecord::Base
   end
   
   def update_feed
-    if feed.nil?
-      self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-      self.feed_updated_at = feed.last_modified
-    else
-      self.feed = Feedzirra::Feed.update(feed)
-      self.feed_updated_at = feed.last_modified
+    if has_feed_url?
+      if feed.nil?
+        self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
+        self.feed_updated_at = feed.last_modified
+      else
+        self.feed = Feedzirra::Feed.update(feed)
+        self.feed_updated_at = feed.last_modified
+      end
     end
   end
   
@@ -138,6 +140,10 @@ class Blog < ActiveRecord::Base
   
   def get_html
     self.html = Nokogiri::HTML(open(url))
+    if html.nil?
+      errors.add :url, 'No HTML found at url'
+      false
+    end
   end
   
 #  def find_post_date(doc)

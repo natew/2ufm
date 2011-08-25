@@ -52,8 +52,7 @@ class BlogsController < ApplicationController
       elsif @blog.last_step?
         redrect_to @blog if @blog.all_valid?
       else
-        @blog.save
-        @blog.next_step
+        @blog.next_step if @blog.save
       end
       
       respond_to do |format|
