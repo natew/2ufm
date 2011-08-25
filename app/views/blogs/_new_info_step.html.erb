@@ -1,0 +1,12 @@
+  <h3><%= @blog.name %> <small><%= @blog.url %></small></h3>
+  <%= image_tag(@blog.image.url(:small)) %>
+  
+  <div class="clearfix">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  
+  <div class="clearfix">
+    <%= f.label :feed_url, 'RSS Feed URL' %><br />
+    <%= f.text_field :feed_url %>
+  </div>

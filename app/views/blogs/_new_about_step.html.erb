@@ -1,0 +1,15 @@
+  <div class="clearfix">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="clearfix">
+    <%= f.label :url, 'URL' %><br />
+    <%= f.text_field :url %>
+  </div>
+  
+  <div class="clearfix">
+    <%= f.label  :image %>
+    <%= f.file_field :image %>
+    <span class="help">Images must be at least 300px by 300px</span>
+  </div>
