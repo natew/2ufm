@@ -1,10 +1,33 @@
 <div class="content">
-  <h2>Submit your blog <small>Blogs are reviewed within 24 hours of submission</small></h2>
-  <%= render 'form' %>
+  <h2>Step <%= @blog.current_step %> <small>Submit with three simple steps</small></h2>
+  <div id="wizard">
+  <%= form_for @blog, :html => { :multipart => true } do |f| %>
+    <% if @blog.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+        <ul>
+        <% @blog.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= render "#{@blog.current_step}_step", :f => f %>
+    <div class="actions clearfix">
+      <%= f.submit "Continue", :class => 'control continue' %>
+      <%= f.submit "Back", :name => 'back_button' unless @blog.first_step? %>
+    </div>
+  <% end %>
+  </div>
 </div>
 
 <div class="side">
-  <h3>About our directory</h3>
+  <h3>Step 1 of 3</h3>
+  <p>Fill in some basic information on the blog.  If you leave the description blank, we will attempt to find a description on the site itself.</p>
+  
+  <h3>Terms &amp; Conditions</h3>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  
+    <div id="loading"><span>Loading</span><img src="images/ajax-loading.gif" /></div>
   
 </div>

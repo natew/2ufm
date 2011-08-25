@@ -20,23 +20,35 @@ function navSetActive(action) {
   $('nav:first a').removeClass('active').filter('#nav-'+action).addClass('active');
 }
 
+function pageLoaded() {
+  $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+  
+  // AJAX forms
+  $(document).find("#wizard form").ajaxForm({
+    type: 'POST',
+    success: page.load
+  });
+}
+
 // Functions relating to moving about pages
 // In order of occurence
 // enter -> load -> error -> exit
 var page = {
+
   enter: function() {
     // Update google analytics
     //_gaq.push(['_trackPageview', document.location.href]);
     
     // Loading...
-    $('#body').html('<div id="loading"><img src="/images/loading.png" /><h2>Loading</h2></div>');
-    window.clearInterval(rotate);
-    window.setInterval(rotate, 50);
+    $('#body').html('<div id="loading"><span>Loading</span><img src="/images/ajax-loading.gif" /></div>');
+    //window.clearInterval(rotate);
+    //window.setInterval(rotate, 50);
   },
   
   load: function(data) {
-    $('#body').html(data);
-    $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+    $('#body').html(data);    
+    
+    pageLoaded();
   },
   
   error: function() {
@@ -45,9 +57,7 @@ var page = {
   },
   
   exit: function(xhr,err) {
-    window.clearInterval(rotate);
-    degrees = 0;
-  }
+  },
 }
 
 Path.map("#!/:action/:id").to(function(){
@@ -85,4 +95,4 @@ Path.map("#!/").to(function(){
   });
 }).enter(page.enter).exit(page.exit);
 
-Path.root("/loading");
+Path.root("#!/home");

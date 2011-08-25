@@ -1,5 +1,8 @@
 class MainController < ApplicationController
   def index
+  end
+  
+  def home
     @popular = Song.most_favorited(:limit => 12)
     
     respond_to do |format|

@@ -10,24 +10,19 @@
   @include box-shadow(0px,1px,2px,#ddd);
   
   section {
-    padding: 10px;
+    padding: 5px 10px;
     border-bottom: 1px solid #ddd;
     position: relative;
+    overflow: hidden;
     
     &:nth-child(2n+1) {
       background: $light-grey;
-      
-      .song-controls {
-        background: $light-grey;
-      }
     }
     
     &.playing {
       background: $light-yellow;
       
       .song-controls {
-        background: $light-yellow;
-        
         .play-song {
           background-position: -32px 0;
           
@@ -84,7 +79,7 @@
     }
     
     .song-controls {
-      margin: -11px -10px -90px -10px;
+      margin: -6px -10px -90px -10px;
       padding: 10px 10px 0 10px;
       background: #fff;
       float: right;
@@ -154,8 +149,6 @@
 
 #song-playlist.mini {
   section {
-    padding: 10px;
-    
     h3 {
       font-size: 16px;
       margin-bottom: 4px;

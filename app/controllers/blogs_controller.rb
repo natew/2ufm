@@ -1,11 +1,5 @@
-require 'nokogiri'
-require 'open-uri'
-require 'chronic'
-require 'feedzirra'
-
 class BlogsController < ApplicationController
-  # GET /blogs
-  # GET /blogs.json
+
   def index
     @blogs = Blog.page(params[:page]).per(24)
     @genres = Genre.all
@@ -34,20 +28,12 @@ class BlogsController < ApplicationController
       format.json { render json: @blog }
     end
   end
-  
-  def find_date(doc)
-    Chronic.parse(doc.css('.entry-date,.date').to_s)
-  end
-  
-  def find_google_date(url)
-    doc = Nokogiri::HTML(open("http://google.com/search?q=inurl:#{url}"))
-    Chronic.parse(doc.at('#ires span.f.std').text)
-  end
 
-  # GET /blogs/new
-  # GET /blogs/new.json
+
   def new
-    @blog = Blog.new
+    session[:blog_params] ||= {}
+    @blog = Blog.new(session[:blog_params])
+    @blog.current_step = session[:blog_step]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -56,29 +42,36 @@ class BlogsController < ApplicationController
     end
   end
 
-  # GET /blogs/1/edit
+
+  def create
+    @blog = Blog.new(params[:blog])
+    
+    if @blog.valid?
+      if params[:back_button]
+        @blog.previous_step
+      elsif @blog.last_step?
+        redrect_to @blog if @blog.all_valid?
+      else
+        @blog.save
+        @blog.next_step
+      end
+      
+      respond_to do |format|
+        format.html { render 'new', :layout => false }
+      end
+    else
+      respond_to do |format|
+        format.html { render 'new', :layout => false }
+      end
+    end
+  end
+  
+  
   def edit
     @blog = Blog.find(params[:id])
   end
 
-  # POST /blogs
-  # POST /blogs.json
-  def create
-    @blog = Blog.new(params[:blog])
 
-    respond_to do |format|
-      if @blog.save
-        format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
-        format.json { render json: @blog, status: :created, location: @blog }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @blog.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /blogs/1
-  # PUT /blogs/1.json
   def update
     @blog = Blog.find(params[:id])
 

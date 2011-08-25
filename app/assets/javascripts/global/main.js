@@ -1,9 +1,6 @@
 $(document).ready(function() {
   // Path.js
   Path.listen();
-  
-  // Spinner
-  setInterval(rotate, 100);
 
   $('#query').liveSearch({url: '/search/'});
   
@@ -26,12 +23,10 @@ $(document).ready(function() {
     return false;
   });
   
+  
   // Username cutoff
   var username = $('#nav-username');
   if (username.length > 0) username.html(fitStringToWidth(username.html(), 110)+ " &darr;");
-  
-  
-  // AJAX
   
   $('.fav-song').live('click', function() {
     var $this = $(this);

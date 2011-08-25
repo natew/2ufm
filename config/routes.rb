@@ -9,6 +9,10 @@ Fusefm::Application.routes.draw do
   resources :blogs, :posts, :songs, :stations, :favorites, :users
 
   root :to => 'main#index'
+  
+  # For Path.js home
+  match "/home", :to => 'main#home'
+  
   match "/search/:query", :to => 'main#search'
   match "/loading", :to => 'main#loading'
 

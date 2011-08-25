@@ -350,6 +350,8 @@ header {
   @include box-shadow(0px,0px,8px,#aaa);
   
   .content-head {
+    margin-top: -0.8em;
+  
     h2 {
       clear: none;
       
@@ -441,18 +443,14 @@ header {
   width: 100%;
   text-align: center;
   position: relative;
-  height: 200px;
   margin: 30px 0;
   
   img {
-    position: absolute;
-    z-index: 5;
-    top: 0;
-    left: 50%;
-    margin-left: -100px;
+    display: block;
+    margin: 0 auto;
   }
   
-  h2 {
+  span {
     top: 40%;
     position: relative;
     z-index: 10;
