@@ -13,7 +13,7 @@ $(document).ready(function() {
     $(".nav-dropdown").hide();
     $('.nav a').parent("div").removeClass("open").children("div.nav-dropdown").hide();
   });
-  $(".nav a").click(function(e) {
+  $("#nav-username").click(function(e) {
     var $target = $(this);
     var $parent = $target.parent("div");
     var $siblings = $parent.siblings("div.nav-dropdown");

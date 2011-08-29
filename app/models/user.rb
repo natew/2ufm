@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     slug
   end
   
+  def admin?
+    true
+  end
+  
   def has_song_on_station?(song)
     !station.songs.find(song.id).empty?
   end
@@ -92,7 +96,7 @@ class User < ActiveRecord::Base
   protected
   
   def create_station
-    station = Station.new(:name => username, :user_id => id)
+    station = Station.create(:name => username, :user_id => id)
     self.station_id = station.id
   end
   

@@ -56,7 +56,7 @@ class Song < ActiveRecord::Base
   end
   
   def set_similar
-    most_similar = Song.search_by_name_and_artist(name, artist).limit(1).first
+    similar = Song.search_by_name_and_artist(clean(name), clean(artist)).limit(1).first
    
     if most_similar and most_similar.rank.to_f > 0.25
       self.shared_id = most_similar.id
@@ -65,10 +65,8 @@ class Song < ActiveRecord::Base
     end
   end
   
-  def search_by_name_and_artist(name, artist)
-    clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')
-    clean_artist = artist.gsub(/[^A-Za-z0-9 ]/,'')
-    Song.where('name ilike ? and artist ilike ?',clean_name,clean_artist)
+  def clean(attr)
+    attr.gsub(/[^A-Za-z0-9\- ]/,'')
   end
   
   def scan
@@ -84,7 +82,8 @@ class Song < ActiveRecord::Base
             self.track_number = mp3.tag.tracknum.to_i
             self.genre = Sanitize.clean(mp3.tag.genre)
             self.bitrate = mp3.tag.bitrate.to_i
-            self.length = (mp3.tag.length*1000).to_i
+            self.length = mp3.tag.length.to_f
+            self.processed = true
             
             # Set slug
             self.slug = name.to_url
@@ -115,7 +114,6 @@ class Song < ActiveRecord::Base
       # Were done post-processing, so lets add it to the station
       self.blog.station.songs<<self
       
-      self.processed = true
       self.save
     end
   end

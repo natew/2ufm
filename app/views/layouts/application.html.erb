@@ -72,15 +72,15 @@
         <% if user_signed_in? %>
           <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username' %>
           <div class="nav-dropdown">
-            <%= link_to "#{image_tag(current_user.avatar.url(:small))} Profile".html_safe, current_user %>
-            <%= link_to "Account".html_safe, '/users/edit' %>
-            <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete' %>
+            <div id="nav-user">
+              <%= link_to "#{image_tag(current_user.avatar.url(:small))} Profile".html_safe, current_user %>
+              <%= link_to "Account".html_safe, '/users/edit' %>
+              <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete' %>
+            </div>
           </div>
         <% else %>
           <%= link_to 'Login', new_user_session_path, :class => 'inline' %>  
           <%= link_to 'Signup', new_user_registration_path, :class => 'inline'  %>
-          <div class="nav-dropdown">
-          </div>
         <% end %>
       </div>
       <%= form_tag '/main/search', :method => 'get' do %>
