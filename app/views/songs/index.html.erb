@@ -1,15 +1,14 @@
 <div class="content">
   <h2>Popular Songs</h2>
   
-  <div id="song-playlist">
+  <div class="song-playlist">
     <%= render :partial => 'song', :collection => @popular unless @popular.nil? %>
   </div>
 </div>
 
 <div class="side">
   <h2>New Songs</h2>
-  
-  <div id="song-playlist">
+  <div class="song-playlist">
     <%= render :partial => 'song', :collection => @new unless @new.nil? %>
   </div>
 

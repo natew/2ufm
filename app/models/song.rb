@@ -56,9 +56,9 @@ class Song < ActiveRecord::Base
   end
   
   def set_similar
-    most_similar = Song.search_by_name_and_artist(name, artist).limit(1)
+    most_similar = Song.search_by_name_and_artist(name, artist).limit(1).first
    
-    if most_similar.rank.to_f > 0.3
+    if most_similar and most_similar.rank.to_f > 0.25
       self.shared_id = most_similar.id
     else
       self.shared_id = id

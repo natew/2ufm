@@ -1,6 +1,6 @@
 @import "mixins.css.scss";
 
-#song-playlist {
+.song-playlist {
   background: #fff;
   clear: both;
   margin-bottom: 10px;
@@ -156,7 +156,7 @@
   }
 }
 
-.side #song-playlist {
+.side .song-playlist {
   border: none;
   
   section {

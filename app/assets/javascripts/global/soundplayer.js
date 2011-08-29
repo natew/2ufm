@@ -85,7 +85,7 @@ function player_play() {
 
   // Get playlist and song info
   if (!playlist) load_playlist();
-  if (!curSection) curSection = $('#song-playlist section:first');
+  if (!curSection) curSection = $('.song-playlist section:first');
   playlistIndex = parseInt(curSection.attr('rel'));
   curSongInfo = playlist.tracks[playlistIndex];
 
@@ -179,17 +179,17 @@ var events = {
     isPlaying = true;
     
     // Update section
-    $('#song-playlist section').removeClass('playing');
+    $('.song-playlist section').removeClass('playing');
     curSection.addClass('playing');
     
     // Update universal player
     $('#player').addClass('playing');
-    $('#player .player-song').html(curSongInfo.name);
-    $('#player .player-artist').html(curSongInfo.artist);
+    $('#player-song').html(curSongInfo.name);
+    $('#player-artist').html(curSongInfo.artist);
   },
   
   stop: function() {
-    $('#song-playlist section').removeClass('playing');
+    $('.song-playlist section').removeClass('playing');
     if (curSection) curSection.removeClass('playing');
     curSection = null;
   },
