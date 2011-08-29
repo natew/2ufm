@@ -184,7 +184,8 @@ var events = {
     
     // Update universal player
     $('#player').addClass('playing');
-    $('#player .player-title').html(curSongInfo.artist + ' - ' + curSongInfo.name);
+    $('#player .player-song').html(curSongInfo.name);
+    $('#player .player-artist').html(curSongInfo.artist);
   },
   
   stop: function() {

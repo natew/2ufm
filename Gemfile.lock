@@ -69,13 +69,6 @@ GIT
       thor (~> 0.14.6)
 
 GIT
-  remote: git://github.com/tenderlove/texticle.git
-  revision: 13fe864b9c5d68762dc24df419f0ba8471308087
-  specs:
-    texticle (2.0)
-      activerecord (>= 3.0.0)
-
-GIT
   remote: https://github.com/pauldix/sax-machine.git
   revision: d05e6f5c1d9b286940eec6ae2529a4ec7eedf0f0
   specs:
@@ -269,7 +262,6 @@ DEPENDENCIES
   sax-machine!
   stringex
   taps
-  texticle!
   thin
   turn
   uglifier

@@ -44,16 +44,12 @@
       width: 87%;
       
       h3 {
-        font-size: 18px;
+        font-size: 20px;
         border: none;
         margin-bottom: 0;
       
         a {
           text-decoration: none;
-          
-          &:first-child {
-            color: #444;
-          }
         }
       }
       
@@ -87,12 +83,11 @@
     .song-controls {
       margin: -6px -10px -90px -10px;
       padding: 10px 10px 0 10px;
-      background: #fff;
       float: right;
       width: 10%;
       border: 1px solid #ddd;
       border-right: none;
-      height: 200px;
+      height: 185px;
       
       li {
         float: right;
@@ -157,6 +152,38 @@
           }
         }
       }
+    }
+  }
+}
+
+.side #song-playlist {
+  border: none;
+  
+  section {
+    background: none !important;
+    
+    &:hover {
+      .song-controls {
+        display: block;
+      }
+    }
+    
+    .song-info {
+      width: 80%;
+      
+      h3 {
+        font-size: 16px;
+      }
+      
+      p {
+        display: none;
+      }
+    }
+    
+    .song-controls {
+      display: none;
+      border: none;
+      width: 18%;
     }
   }
 }

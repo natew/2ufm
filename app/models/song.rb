@@ -1,7 +1,9 @@
 require 'open-uri'
 require 'mp3info'
+require 'texticle'
+ActiveRecord::Base.extend(Texticle)
 
-class Song < ActiveRecord::Base
+class Song < ActiveRecord::Base  
   belongs_to  :blog
   belongs_to  :post
   has_and_belongs_to_many :stations
@@ -23,47 +25,53 @@ class Song < ActiveRecord::Base
   
   validates_presence_of :post_id, :blog_id
   
-  after_create :set_info_and_save_to_station, :add_to_user_stations
+  after_create :scan
   
   def to_param
     slug
   end
   
+  def processed?
+    processed
+  end
+  
   def full_name
-    "#{artist} - #{name}"
+    "#{artist} &mdash; #{name}".html_safe
   end
   
   def self.most_favorited(options = {})
     cols   = column_names.collect {|c| "songs.#{c}"}.join(",")
     within = options[:days] || 31
     limit  = options[:limit] || 12
-    where  = " WHERE songs.created_at > '#{within.to_i.days.ago.to_s(:db)}' AND songs.artist != ''"
+    where  = " WHERE songs.created_at > '#{within.to_i.days.ago.to_s(:db)}' AND songs.processed = true"
     
     Song.find_by_sql "SELECT songs.*, count(favorites.id) as favorites_count FROM songs INNER JOIN favorites on favorites.favorable_id = songs.id and favorites.favorable_type = 'Song'#{where} GROUP BY favorites.favorable_id, #{cols} ORDER BY favorites_count DESC LIMIT #{limit}"
   end
   
-  private
-  
   def add_to_user_stations
-    users = Favorite.joins(:user).select('favorites.user_id, users.station_id').where(:favorable_type => 'Song', :favorable_id => 4)
-    users.each do |user|
-      StationsSongs.create(:song_id => id, :station_id => user.station_id)
-    end
+    # users = Favorite.joins(:user).select('favorites.user_id, users.station_id').where(:favorable_type => 'Song', :favorable_id => 4)
+    #     users.each do |user|
+    #       StationsSongs.create(:song_id => id, :station_id => user.station_id)
+    #     end
   end
   
   def set_similar
-    #clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')
-    #clean_artist = artist.gsub(/[^A-Za-z0-9 ]/,'')
-#    similar = Song.search(:name => clean_name).search(:artist => clean_artist).order('id ASC')
-    
-#    unless similar.empty?
-#      self.shared_id = similar.first.id
-#    else
-#      self.shared_id = id
-#    end
+    most_similar = Song.search_by_name_and_artist(name, artist).limit(1)
+   
+    if most_similar.rank.to_f > 0.3
+      self.shared_id = most_similar.id
+    else
+      self.shared_id = id
+    end
   end
   
-  def set_info_and_save_to_station
+  def search_by_name_and_artist(name, artist)
+    clean_name = name.gsub(/[^A-Za-z0-9 ]/,'')
+    clean_artist = artist.gsub(/[^A-Za-z0-9 ]/,'')
+    Song.where('name ilike ? and artist ilike ?',clean_name,clean_artist)
+  end
+  
+  def scan
     unless url.nil?
       begin
         open(url, :content_length_proc => lambda { |content_length|
@@ -76,7 +84,7 @@ class Song < ActiveRecord::Base
             self.track_number = mp3.tag.tracknum.to_i
             self.genre = Sanitize.clean(mp3.tag.genre)
             self.bitrate = mp3.tag.bitrate.to_i
-            self.length = mp3.tag.length.to_i
+            self.length = (mp3.tag.length*1000).to_i
             
             # Set slug
             self.slug = name.to_url
@@ -107,8 +115,9 @@ class Song < ActiveRecord::Base
       # Were done post-processing, so lets add it to the station
       self.blog.station.songs<<self
       
+      self.processed = true
       self.save
     end
   end
-  #handle_asynchronously :set_info_and_save_to_station
+  handle_asynchronously :scan
 end
