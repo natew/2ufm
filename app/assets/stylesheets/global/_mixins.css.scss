@@ -52,6 +52,21 @@ $light-yellow: #fdffe5;
 }
 
 
+/* Gradients */
+
+@mixin background-gradient($start: #fff, $stop: #000) {
+  background-color: $stop;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from($start), to($stop));
+  background-image: -moz-linear-gradient(top, $start, $stop);
+  background-image: -ms-linear-gradient(top, $start, $stop);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start), color-stop(100%, $stop));
+  background-image: -webkit-linear-gradient(top, $start, $stop);
+  background-image: -o-linear-gradient(top, $start, $stop);
+  background-image: linear-gradient(top, $start, $stop);
+}
+
+
 /* Shadows */
 
 @mixin box-shadow($horizontal: 0px, $vertical: 0px, $blur: 5px, $color: #333) {

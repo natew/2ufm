@@ -1,12 +1,12 @@
-<% if song.artist.nil? %>
 <%- length ||= 140 -%>
+<% if song.artist.nil? %>
 <section class="downloading" id="song-<%= song.id %>">
   <h3>Downloading song <%= song.link_text %>...</h3>
   <div class="song-meta"><%= song.url %></div>
 <% else %>
 <section id="song-<%= song.id %>" rel="<%= song_counter + params[:page].to_i %>">
   <div class="song-info">
-    <h3><%= link_to song.artist, song.artist %> &mdash; <%= link_to song.name, song, :class => 'song-name' %></h3>
+    <h3><%= link_to song.artist, '#', :class => 'song-artist' %> &mdash; <%= link_to song.name, song, :class => 'song-name' %></h3>
     <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 25)}".html_safe, song.post.url %></div>
     <p><%= truncate(song.post.excerpt, :length => length) %></p>
     <%- if user_signed_in? and current_user.admin? -%>
@@ -18,8 +18,8 @@
   </div>
   <ul class="song-controls">
     <li class="play"><%= link_to 'Play', song, :class => 'play-song control' %></li>
-    <li class="fav"><%= song_favorite(song.id) %></li>
-    <li class="add"><%= song_broadcast(song.id) %></li>
+    <li class="fav"><%= song_favorite(song) %></li>
+    <li class="add"><%= song_broadcast(song) %></li>
   </ul>
 <% end %>
 </section>

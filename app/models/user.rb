@@ -34,12 +34,12 @@ class User < ActiveRecord::Base
     slug
   end
   
-  def has_song_on_station?(id)
-    !station.songs.find(id).empty?
+  def has_song_on_station?(song)
+    !station.songs.find(song.id).empty?
   end
   
-  def has_favorite_song?(id)
-    favorable(:type => :song, :id => id).length > 0
+  def has_favorite_song?(song)
+    favorable(:type => :song, :id => song.id).length > 0
   end
   
   def has_favorite_station?(id)

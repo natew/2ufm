@@ -3,8 +3,9 @@ class MainController < ApplicationController
   end
   
   def home
-    @popular = Song.most_favorited(:limit => 12)
-    @stations = Station.most_favorited(:limit => 12)
+    @popular = Song.most_favorited(:limit => 16)
+    @stations = Station.most_favorited(:limit => 8)
+    @genres = Genre.all
     
     respond_to do |format|
       format.html

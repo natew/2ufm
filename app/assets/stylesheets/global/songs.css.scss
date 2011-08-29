@@ -50,6 +50,9 @@
       
         a {
           text-decoration: none;
+          
+          &.song-artist { color: #000; }
+          &.song-name   { color: #666; }
         }
       }
       

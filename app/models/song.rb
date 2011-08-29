@@ -31,12 +31,12 @@ class Song < ActiveRecord::Base
     slug
   end
   
-  def processed?
-    processed
-  end
-  
   def full_name
     "#{artist} &mdash; #{name}".html_safe
+  end
+  
+  def favorites_count
+    favorites.count
   end
   
   def self.most_favorited(options = {})

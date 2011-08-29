@@ -1,28 +1,14 @@
 module ApplicationHelper
-  def song_favorite(id)
-    if user_signed_in?
-      render_favorite(current_user.has_favorite_song?(id),id)
-    else
-      render_favorite(false,id)
-    end
+  def song_favorite(song)
+    has     = current_user.has_favorite_song?(song) if user_signed_in? and song
+    type    = has ? "remove" : "add"
+    render :partial => "songs/favorite_#{type}", :locals => { :id => song.id, :count => song.favorites_count }
   end
   
-  def song_broadcast(id)
-    if user_signed_in?
-      render_station(current_user.has_song_on_station?(id),id)
-    else
-      render_station(false,id)
-    end
-  end
-  
-  def render_favorite(has_favorite, id)
-    type = has_favorite ? "remove" : "add"
-    render :partial => "songs/favorite_#{type}", :locals => { :id => id, :count => 10 }
-  end
-  
-  def render_station(has_song, id)
-    type = has_song ? "remove" : "add"
-    render :partial => "songs/station_#{type}", :locals => { :id => id, :count => 10 }
+  def song_broadcast(song)
+    has  = current_user.has_song_on_station?(song) if user_signed_in? and song
+    type = has ? "remove" : "add"
+    render :partial => "songs/station_#{type}", :locals => { :id => song.id }
   end
 
   # Truncates the given text to the given length and appends truncate_string to the end if the text was truncated

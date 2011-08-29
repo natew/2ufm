@@ -1,6 +1,6 @@
 <section class="begin columns center">
-  <h2>The easiest way to hear new music from around the web</h2>
-  <p><strong>We track the best music from your twitter, music blogs, popular artists and more.</strong></p>
+  <h2>Find the best new music from all over the web</h2>
+  <p><strong>We track your favorite artists on twitter, blogs, and more.</strong></p>
     
     <div id="quick-signup" class="clearfix">
       <%= form_tag do %>        
@@ -30,22 +30,27 @@
     </div>
 </section>
 
-<div class="columns">
-  <div class="half">
-    <section>
-      <h2>Featured Stations</h2>
-      <div id="featured-stations">
-        <%= render :partial => 'stations/station', :collection => @stations unless @stations.nil? %>
-      </div>
-      <%= link_to 'Browse more stations', '/stations', :class => 'button' %>
-    </section>
+<div class="content">
+  <h2>Popular Songs</h2>
+  <div class="song-playlist" class="mini">
+    <%= render :partial => 'songs/song', :collection => @popular, :locals => { :length => 110 } unless @popular.nil? %>
   </div>
+  <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
+</div>
+
+<div class="side">
+  <section>
+    <h3>Browse by Genre</h3>
+    <ul id="genres">
+    <%= render @genres %>
+    </ul>
+  </section>
   
-  <section class="half">
-    <h2>Popular Songs</h2>
-    <div class="song-playlist" class="mini">
-      <%= render :partial => 'songs/song', :collection => @popular, :locals => { :length => 110 } unless @popular.nil? %>
+  <section>
+    <h3>Featured Stations</h3>
+    <div id="featured-stations">
+      <%= render :partial => 'stations/station', :collection => @stations unless @stations.nil? %>
     </div>
-    <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
+    <%= link_to 'Browse more stations', '/stations', :class => 'button' %>
   </section>
 </div>
