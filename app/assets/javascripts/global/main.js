@@ -2,6 +2,10 @@ $(document).ready(function() {
   // Path.js
   Path.listen();
 
+
+  // Header
+  $('.tip-n').tipsy({gravity: 'n', offset: 5});
+  
   $('#query').liveSearch({url: '/search/'});
   
   // Dropdown menu

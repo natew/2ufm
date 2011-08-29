@@ -46,7 +46,7 @@ header {
   @include box-shadow(0px,0px,16px,#000);
   
   h1 {
-    margin: 2px 0 -2px;
+    margin: 2px 12px 0 0;
     float: left;
   
     a {
@@ -85,21 +85,21 @@ header {
         text-transform: uppercase;
         width: 60px;
         text-align: center;
-        background: url(/images/head_icons.png) no-repeat 9px -10px;
+        background: url(/images/head_icons.png) no-repeat 8px -10px;
 
         &:hover {
           color: #fff;
-          &:hover { background-position: 9px -70px; }
+          &:hover { background-position: 8px -70px; }
         }
 
         &#nav-stations {
-          background-position: -53px -10px;
-          &:hover { background-position: -53px -70px; }
+          background-position: -54px -10px;
+          &:hover { background-position: -54px -70px; }
         }
         
         &#nav-activity {
-          background-position: -113px -10px; 
-          &:hover { background-position: -113px -70px; }
+          background-position: -114px -10px; 
+          &:hover { background-position: -114px -70px; }
         }
       }
     }
@@ -108,7 +108,7 @@ header {
   .nav {
     float: right;
     position: relative;
-    margin: 16px 0 0;
+    margin: 16px 0 0 12px;
     
     a {
       font-size: 12px;
@@ -163,8 +163,8 @@ header {
     #query {
       float: right;
       border: none;
-      padding: 7px;
-      width: 145px;
+      padding: 7px 12px;
+      width: 150px;
       color: #ccc;
       background: #444;
       background: rgba(0,0,0,0.2);
@@ -396,7 +396,8 @@ header {
   .begin {
     padding: 12px;
     margin: 0 0 1em 0;
-    background: #eee;
+    background: #d8edff url(/images/bg.jpg) -130px -220px;
+    border: 1px solid #c1d3e3;
     color: #777;
     @include border-radius;
     
@@ -404,7 +405,7 @@ header {
       color: #444;
       font-size: 32px;
       border: none;
-      margin: 0 0 6px 0;
+      margin: 0;
     }
     
     h3 {
@@ -416,20 +417,30 @@ header {
     p {
       font-size: 18px;
       line-height: 1.8em;
-      margin-bottom: 0.3em;
+      margin-bottom: 0.6em;
+      border-bottom: 1px solid #DDD;
+      padding-bottom: 0.6em;
     }
   }
   
-  .columns {
-    .half {
-      width: 49%;
-      margin: 0 0 0 2%;
-      float: left;
-    }
-    
-    .half:first-child {
-      margin-left: 0;
-    }
+  .third {
+    width: 33%;
+    float: left;
+  }
+  
+  .twothirds {
+    width: 66%;
+    float: left;
+  }
+
+  .half {
+    width: 49%;
+    margin: 0 0 0 2%;
+    float: left;
+  }
+  
+  .half:first-child {
+    margin-left: 0;
   }
 }
 

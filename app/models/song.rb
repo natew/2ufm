@@ -37,7 +37,7 @@ class Song < ActiveRecord::Base
     cols   = column_names.collect {|c| "songs.#{c}"}.join(",")
     within = options[:days] || 31
     limit  = options[:limit] || 12
-    where  = " WHERE songs.created_at > '#{within.to_i.days.ago.to_s(:db)}'"
+    where  = " WHERE songs.created_at > '#{within.to_i.days.ago.to_s(:db)}' AND songs.artist != ''"
     
     Song.find_by_sql "SELECT songs.*, count(favorites.id) as favorites_count FROM songs INNER JOIN favorites on favorites.favorable_id = songs.id and favorites.favorable_type = 'Song'#{where} GROUP BY favorites.favorable_id, #{cols} ORDER BY favorites_count DESC LIMIT #{limit}"
   end

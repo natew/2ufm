@@ -1,33 +1,31 @@
 <section class="begin columns center">
-  <h2>Fuse.fm creates a radio station out of your music blogs</h2>
-  <p><strong>Take the worry about of getting new music.</strong>
-    Enter the music blogs you like &amp; we stream all their latest music.</p>
+  <h2>The easiest way to hear new music from around the web</h2>
+  <p><strong>We track the best music from your twitter, music blogs, popular artists and more.</strong></p>
     
-    <div id="quick-signup">
-      <%= form_tag do %>
-        <div class="third">
-          <%= label_tag :blog1, "Username" %>
-        </div>
-        <div class="third">
-          <%= label_tag :blog2, "Password" %>
-        </div>
-        <div class="third">
-          <%= label_tag :facebook, "Login with one of these" %>
-        </div>
-
-        <br />
-
-        <div class="third">
-          <%= text_field_tag :blog1, '' %>
-        </div>
-        <div class="third">
-          <%= text_field_tag :blog2, '' %>
-        </div>
-        <div class="third">
-          <%= link_to 'Facebook', '#', :class => 'signin facebook' %>
-          <%= link_to 'Twitter', '#', :class => 'signin twitter' %>
-          <%= link_to 'Google', '#', :class => 'signin google' %>
-        </div>
+    <div id="quick-signup" class="clearfix">
+      <%= form_tag do %>        
+        <ol class="clearfix">
+          <li>
+            <div class="clearfix">
+              <%= label_tag :blog1, "Username" %>
+              <%= text_field_tag :blog1, '' %>
+            </div>
+          </li>
+          <li>
+            <div class="clearfix">
+              <%= label_tag :blog2, "Password" %>
+              <%= text_field_tag :blog2, '' %>
+            </div>
+          </li>
+          <li id="qs-buttons">
+            <div class="clearfix">
+              <%= label_tag :facebook, "Login with one of these" %>
+              <%= link_to 'Facebook', '#', :class => 'signin facebook' %>
+              <%= link_to 'Twitter', '#', :class => 'signin twitter' %>
+              <%= link_to 'Google', '#', :class => 'signin google' %>
+            </div>
+          </li>
+        </ol>
       <% end %>
     </div>
 </section>

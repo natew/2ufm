@@ -26,6 +26,15 @@ class Station < ActiveRecord::Base
     slug
   end
   
+  def self.most_favorited(options = {})
+    cols   = column_names.collect {|c| "stations.#{c}"}.join(",")
+    within = options[:days] || 31
+    limit  = options[:limit] || 12
+    where  = " WHERE stations.created_at > '#{within.to_i.days.ago.to_s(:db)}'"
+    
+    Station.find_by_sql "SELECT stations.*, count(favorites.id) as favorites_count FROM stations INNER JOIN favorites on favorites.favorable_id = stations.id and favorites.favorable_type = 'Station'#{where} GROUP BY favorites.favorable_id, #{cols} ORDER BY favorites_count DESC LIMIT #{limit}"
+  end
+  
   def image_or_parent(*types)
     type = types[0] || 'original'
     image if image.present?

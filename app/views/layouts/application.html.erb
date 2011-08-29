@@ -25,6 +25,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+  
+  <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
   <%= stylesheet_link_tag "application" %>
 
@@ -35,7 +40,7 @@
 <body>
   <header>
     <div class="page-contain">
-      <h1><%= link_to 'fuse.fm', '/home' %> </h1>
+      <h1><%= link_to 'fuse.fm', '/home', :class => 'tip-n', :title => 'Like twitter for music' %> </h1>
       <nav>
         <ul>
           <li><%= link 'Songs', '/songs', :id => 'nav-songs' %></li>
