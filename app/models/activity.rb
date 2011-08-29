@@ -3,7 +3,7 @@ class Activity < ActiveRecord::Base
   
   before_save :crop_description, :associate_user
   
-  validates_presence_of :user, :reference
+  validates_presence_of :user
   
   def self.latest_unique(options = {})
     self.find_by_sql("

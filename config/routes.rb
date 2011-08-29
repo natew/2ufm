@@ -5,6 +5,9 @@ Fusefm::Application.routes.draw do
   
   match "/users", :to => "users#index"
   match "/songs/popular", :to => "songs#popular"
+  match "/activity", :to => "main#activity"
+  
+  resource :genre, :only => [:show]
 
   resources :blogs, :posts, :songs, :stations, :favorites, :users
 

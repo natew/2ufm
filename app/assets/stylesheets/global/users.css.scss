@@ -1,0 +1,22 @@
+@import "mixins.css.scss";
+
+#activity-list {
+  background: #fff;
+  clear: both;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  @include border-radius(4px);
+  @include box-shadow(0px,1px,2px,#ddd);
+  
+  section {
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    overflow: hidden;
+    
+    &:nth-child(2n+1) {
+      background: $light-grey;
+    }
+  }
+}

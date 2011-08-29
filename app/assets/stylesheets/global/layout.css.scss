@@ -3,7 +3,7 @@
 /* Layout */
 
 body {
-  background: url(/images/wavecut.png);
+  background: #d8edff url(/images/bg.jpg) no-repeat top center;
 }
 
 .page-contain {
@@ -35,16 +35,15 @@ body {
 /* Header */
 
 header {
-  border-top: 1px solid #000;
-  background: url(/images/head_bg.jpg);
-  padding: 6px 0;
+  background: url(/images/head_bg.jpg) top center;
+  padding: 10px 0;
   position: fixed;
   width: 100%;
   top: 0;
   height: 50px;
   z-index: 100;
   line-height: 1em;
-  @include box-shadow(0px,0px,10px,#444);
+  @include box-shadow(0px,0px,16px,#000);
   
   h1 {
     margin: 2px 0 -2px;
@@ -52,12 +51,11 @@ header {
   
     a {
       background: url(/images/logo.png) no-repeat 0 0;
-      width: 86px;
+      width: 82px;
       height: 52px;
       text-indent: -3000em;
       overflow: hidden;
       float: left;
-      margin: 0 5px 0 0;
       @include border-radius(8px);
       
       &:hover {
@@ -66,26 +64,43 @@ header {
     }
   }
 
-  nav, .nav {
+  nav {
     float: left;
-    margin: 6px 0 0;
+    margin: -5px 0 0;
     
-    a {
-      padding: 10px 8px 11px;
-      color: #ccc;
-      text-shadow: 0 -1px 1px #000;
+    li {
       float: left;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
       @include border-radius(8px);
       
-      &:hover {
-        color: #fff;
-      }
+      &.active { background: url(/images/dim.png); }
       
-      &.active {
-        background: url(/images/dim.png);
+      a {
+        padding: 42px 6px 4px 6px;
+        color: #bbb;
+        text-shadow: 0 -1px 1px black;
+        float: left;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 11px;
+        text-transform: uppercase;
+        width: 60px;
+        text-align: center;
+        background: url(/images/head_icons.png) no-repeat 9px -10px;
+
+        &:hover {
+          color: #fff;
+          &:hover { background-position: 9px -70px; }
+        }
+
+        &#nav-stations {
+          background-position: -53px -10px;
+          &:hover { background-position: -53px -70px; }
+        }
+        
+        &#nav-activity {
+          background-position: -113px -10px; 
+          &:hover { background-position: -113px -70px; }
+        }
       }
     }
   }
@@ -93,15 +108,19 @@ header {
   .nav {
     float: right;
     position: relative;
+    margin: 16px 0 0;
     
     a {
-      padding-top: 12px;
       font-size: 12px;
+      color: #fff;
       display: block;
-      width: 111px;
+      float: left;
+      padding: 4px 8px;
+      max-width: 111px;
       text-align: right;
       white-space: nowrap;
       overflow: hidden;
+      text-decoration: none;
       
       &.inline {
         width: auto;
@@ -138,24 +157,26 @@ header {
   }
   
   form {
-    float: left;
-    margin: 9px 0 0;
+    float: right;
+    margin: 11px 12px 0;
     
     #query {
-      float: left;
+      float: right;
       border: none;
       padding: 7px;
-      width: 155px;
+      width: 145px;
       color: #ccc;
       background: #444;
-      border: 1px solid #000;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid #222;
       outline: none;
       font-size: 13px;
-      @include border-radius(8px);
+      @include border-radius(18px);
       @include box-shadow(0px,0px,1px,#666);
       
       &:hover {
         background: #555;
+        background: rgba(0,0,0,0.1);
       }
       
       &:focus {
@@ -166,15 +187,17 @@ header {
   }
   
   #player {
-    float: left;
+    position: absolute;
+    left: 50%;
+    top: -6px;
+    margin-left: -175px;
     width: 335px;
-    margin: -3px 10px 0;
-    padding: 4px 8px;
+    padding: 7px 8px 5px;
     overflow: hidden;
     white-space: nowrap;
     background: url(/images/dim.png);
-    @include border-radius(10px);
-    @include box-shadow-inset(0px,1px,3px,#000);
+    @include border-radius(8px);
+    @include box-shadow-inset(0px,0px,2px,#000);
     
     &.playing {
       #player-controls {
@@ -183,6 +206,8 @@ header {
     }
   
     #player-meta {
+      margin: -3px 0 0;
+      
       a {
         color: #fff;
         text-decoration: none;
@@ -202,15 +227,15 @@ header {
       
       #player-artist {
         width: 65%;
-        margin: 2px auto -1px;
+        margin: 4px auto -1px;
         overflow: hidden;
-        font-size: 11px;
+        font-size: 12px;
         color: #ccc;
       }
     }
     
     #player-controls {
-      margin: -5px 0 0;
+      margin: 0;
     
       a {
         float: left;
@@ -233,39 +258,39 @@ header {
       }
       
       .next {
-        background-position: -23px 0;
+        background-position: -22px 0;
       
         &:hover {
-          background-position: -23px -23px;
+          background-position: -22px -23px;
         }
         
         &:active {
-          background-position: -23px -46px;
+          background-position: -22px -46px;
         }
       }
       
       .fav {
         margin: 0 6px 0 0;
-        background-position: -69px 0;
+        background-position: -68px 0;
       
         &:hover {
-          background-position: -69px -23px;
+          background-position: -68px -23px;
         }
         
         &:active {
-          background-position: -69px -46px;
+          background-position: -68px -46px;
         }
       }
       
       .radio {
-        background-position: -92px 0;
+        background-position: -91px 0;
       
         &:hover {
-          background-position: -92px -23px;
+          background-position: -91px -23px;
         }
         
         &:active {
-          background-position: -92px -46px;
+          background-position: -91px -46px;
         }
       }
     
@@ -273,8 +298,8 @@ header {
         background: #000;
         float: left;
         height: 6px;
-        width: 204px;
-        margin: 12px 12px 0 8px;
+        width: 200px;
+        margin: 9px 12px 0;
         border-bottom: 1px solid #3b3f4b;
         position: relative;
         @include border-radius(8px);
@@ -287,7 +312,7 @@ header {
           position: absolute;
           z-index: 1;
           background: url(/images/button_bg.png) top;
-          width: 50%;
+          width: 0%;
           height: 6px;
           @include border-radius(4px);
           
@@ -314,8 +339,8 @@ header {
         
         #player-progress-loaded {
           z-index: 0;
-          background: #444;
-          width: 80%;
+          background: #222;
+          width: 0%;
           height: 6px;
           @include border-radius(4px);
         }
@@ -340,14 +365,14 @@ header {
 /* PAGE LAYOUT */
 
 #main-mid {
-  padding: 75px 0 25px 0;
+  padding: 82px 0 25px 0;
 }
 
 #body {
   padding: 14px;
   background: #fff;
   @include border-radius(10px);
-  @include box-shadow(0px,0px,8px,#aaa);
+  @include box-shadow(0px,0px,4px,#aaa);
   
   .content-head {
     margin-top: -0.8em;
@@ -366,12 +391,11 @@ header {
       float: left;
       margin: 0.6em 10px 10px 0;
     }
-    
   }
   
   .begin {
     padding: 12px;
-    margin: 0;
+    margin: 0 0 1em 0;
     background: #eee;
     color: #777;
     @include border-radius;
@@ -392,6 +416,7 @@ header {
     p {
       font-size: 18px;
       line-height: 1.8em;
+      margin-bottom: 0.3em;
     }
   }
   
@@ -463,7 +488,6 @@ header {
 /* HEADING AND TEXT STYLES */
 
 h2, h3 {
-  border-bottom: 1px solid #ddd;
   padding: 0;
   color: #444;
   font-size: 30px;
@@ -480,7 +504,7 @@ h2, h3, h4 {
   
   small {
     font-size: 75%;
-    color: #ccc;
+    color: #aaa;
     font-weight: normal;
     
     a {

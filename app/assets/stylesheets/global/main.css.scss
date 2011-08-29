@@ -8,7 +8,7 @@
   font-size: 14px;
   text-shadow: 0 1px #333;
   text-decoration: none;
-  padding: 6px 16px;
+  padding: 4px 16px;
   border: none;
   border: 1px solid #005AB8;
   float: left;
@@ -31,4 +31,24 @@
 
 #body .side .button {
   margin-bottom: 20px;
+}
+
+#quick-signup {
+  background: #e3dfc5;
+  padding: 2px 10px;
+  @include border-radius(8px);
+  
+  .third {
+    width: 33%;
+    float: left;
+    
+    label {
+      padding: 2px;
+      width: auto;
+    }
+    
+    input {
+      width: 50%;
+    }
+  }
 }

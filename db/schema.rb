@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824225328) do
+ActiveRecord::Schema.define(:version => 20110829035938) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -31,8 +31,9 @@ ActiveRecord::Schema.define(:version => 20110824225328) do
   create_table "activities", :force => true do |t|
     t.string   "type"
     t.string   "description"
-    t.integer  "reference"
     t.integer  "user_id"
+    t.integer  "station_id"
+    t.integer  "song_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -124,9 +125,12 @@ ActiveRecord::Schema.define(:version => 20110824225328) do
   add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
 
   create_table "genres", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
+  end
+
+  create_table "genres_stations", :id => false, :force => true do |t|
+    t.integer "genre_id"
+    t.integer "station_id"
   end
 
   create_table "posts", :force => true do |t|
@@ -168,6 +172,11 @@ ActiveRecord::Schema.define(:version => 20110824225328) do
     t.datetime "image_updated_at"
   end
 
+  create_table "songs_stations", :id => false, :force => true do |t|
+    t.integer "station_id"
+    t.integer "song_id"
+  end
+
   create_table "stations", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -180,9 +189,9 @@ ActiveRecord::Schema.define(:version => 20110824225328) do
     t.datetime "image_updated_at"
   end
 
-  create_table "stations_songs", :id => false, :force => true do |t|
+  create_table "stations_users", :id => false, :force => true do |t|
     t.integer "station_id"
-    t.integer "song_id"
+    t.integer "user_id"
   end
 
   create_table "taggings", :force => true do |t|
@@ -231,6 +240,7 @@ ActiveRecord::Schema.define(:version => 20110824225328) do
     t.datetime "avatar_updated_at"
     t.string   "username"
     t.integer  "station_id"
+    t.text     "bio"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

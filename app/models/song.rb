@@ -4,7 +4,7 @@ require 'mp3info'
 class Song < ActiveRecord::Base
   belongs_to  :blog
   belongs_to  :post
-  has_and_belongs_to_many :stations, :join_table => :stations_songs
+  has_and_belongs_to_many :stations
   has_many :favorites, :as => :favorable
   has_many :files
   has_attached_file	:image,
@@ -27,6 +27,10 @@ class Song < ActiveRecord::Base
   
   def to_param
     slug
+  end
+  
+  def full_name
+    "#{artist} - #{name}"
   end
   
   def self.most_favorited(options = {})

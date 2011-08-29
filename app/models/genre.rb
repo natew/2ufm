@@ -1,5 +1,7 @@
 class Genre < ActiveRecord::Base
-  acts_as_url :title, :url_attribute => :slug
+  has_and_belongs_to_many :stations
+  
+  acts_as_url :name, :url_attribute => :slug
   
   def to_param
     slug

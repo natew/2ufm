@@ -37,16 +37,17 @@
     <div class="page-contain">
       <h1><%= link_to 'fuse.fm', '/home' %> </h1>
       <nav>
-        <%= link 'New', '/songs', :id => 'nav-new' %>
-        <%= link 'Popular', '/songs/popular', :id => 'nav-popular' %>
-        <%= link 'Stations', '/stations', :id => 'nav-stations' %>
-        <%= link 'Blogs', '/blogs', :id => 'nav-blogs' %>
+        <ul>
+          <li><%= link 'Songs', '/songs', :id => 'nav-songs' %></li>
+          <li><%= link 'Stations', '/stations', :id => 'nav-stations' %></li>
+          <li><%= link 'Activity', '/activity', :id => 'nav-activity' %></li>
+        </ul>
       </nav>
       
       <div id="player">
         <div id="player-meta">
-          <%= link_to 'Why I Loved You (feat. Hudson)', '#', :id => 'player-song' %>
-          <%= link_to 'Kanye West &amp; Jay-Z'.html_safe, '#', :id => 'player-artist' %>
+          <%= link_to 'No song', '#', :id => 'player-song' %>
+          <%= link_to 'Choose a song to begin'.html_safe, '#', :id => 'player-artist' %>
         </div>
         <div id="player-controls">
           <%= link_to 'Play', '#', :class => 'play control' %>
@@ -62,10 +63,6 @@
         </div>
       </div>
       
-      <%= form_tag '/main/search', :method => 'get' do %>
-        <%= text_field_tag :query, '', :placeholder =>'Search blogs, songs...' %>
-      <% end -%>
-      
       <div class="nav">
         <% if user_signed_in? %>
           <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username' %>
@@ -77,8 +74,13 @@
         <% else %>
           <%= link_to 'Login', new_user_session_path, :class => 'inline' %>  
           <%= link_to 'Signup', new_user_registration_path, :class => 'inline'  %>
+          <div class="nav-dropdown">
+          </div>
         <% end %>
       </div>
+      <%= form_tag '/main/search', :method => 'get' do %>
+        <%= text_field_tag :query, '', :placeholder =>'Search blogs, songs...' %>
+      <% end -%>
     </div>
   </header>
   

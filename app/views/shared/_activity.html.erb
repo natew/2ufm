@@ -1,0 +1,18 @@
+<section class="<%= cycle('odd', 'even') %>">
+  <h4>
+    <%= link_to activity.user.username, activity.user %>
+    <span class="action">
+      <%- if activity.type == 'listen_song' -%> listened to
+      <%- elsif activity.type == 'like_song' -%> liked the song 
+      <%- elsif activity.type == 'follow_station' -%> is following the station 
+      <%- elsif activity.type == 'listen_station' -%> tuned into <% end %>
+    </span>
+
+    <%= link_to "#{image_tag(activity.station.image_or_parent(:small), :class=> 'icon')} #{activity.station.name}".html_safe , activity.station if activity.type =~ /follow_station|listen_station/ %>
+    <%= link_to "#{image_tag(activity.song.image.url(:small), :class=> 'icon')} #{activity.song.full_name}".html_safe , activity.song if activity.type =~ /like_song|listen_song/ %>
+    <span><%= relative_time activity.created_at %></span>
+  </h4>
+  <%- unless activity.description.nil? -%>
+  <p><%= truncate(activity.description, :length => ( !defined?(trunc) ? 80 : trunc ) ) %></p>
+  <%- end -%>
+</section>

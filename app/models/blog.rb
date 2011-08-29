@@ -6,7 +6,6 @@ class Blog < ActiveRecord::Base
   has_many  :songs
   has_many  :posts, :dependent => :destroy
   has_one   :station, :dependent => :destroy
-  has_many  :favorites, :as => :favorable
   
   acts_as_url :name, :url_attribute => :slug
   
@@ -23,7 +22,7 @@ class Blog < ActiveRecord::Base
             :bucket         => 'fm-station-images'
   
   before_save   :get_blog_info
-  after_create  :generate_station
+  after_create  :generate_station, :get_feed_posts
   
   serialize :feed
   serialize :html
@@ -123,7 +122,7 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  def get_posts
+  def get_feed_posts
     feed.entries.each do |post|
       # Save posts to db
       self.posts.create(

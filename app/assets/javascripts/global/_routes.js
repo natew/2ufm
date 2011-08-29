@@ -17,14 +17,18 @@ var rotate = function() {
 }
 
 function navSetActive(action) {
-  $('nav:first a').removeClass('active').filter('#nav-'+action).addClass('active');
+  $('nav li.active').removeClass('active');
+  $('#nav-'+action).parent().addClass('active');
 }
 
 function pageLoaded() {
-  $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+  var $doc = $(document);
+  $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+  
+  $doc.find('.tip').tipsy({gravity: 's', offset: 5});
   
   // AJAX forms
-  $(document).find("#wizard form").ajaxForm({
+  $doc.find("#wizard form").ajaxForm({
     type: 'POST',
     success: page.load
   });

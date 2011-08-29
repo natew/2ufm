@@ -3,6 +3,11 @@ class UsersController < ApplicationController
   
   def index
     @users = User.page(params[:page]).per(25)
+    
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
   end
 
   def new
