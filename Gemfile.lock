@@ -181,7 +181,6 @@ GEM
     warden (1.0.5)
       rack (>= 1.0)
     xml-simple (1.1.0)
-    yettings (0.1.1)
 
 PLATFORMS
   ruby
@@ -210,4 +209,3 @@ DEPENDENCIES
   thin
   turn
   uglifier
-  yettings
