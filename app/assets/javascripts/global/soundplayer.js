@@ -1,4 +1,6 @@
 var playlist = null;
+var playlistID = null;
+var playlistIndex = null;
 
 var curSection = null;
 var curSongInfo;
@@ -62,6 +64,7 @@ $(function() {
   // Play from song
   $('a.play-song').live('click',function() {
     var $section = $(this).parent().parent().parent('section');
+    
     if ($section.is('.playing')) {
       curSection = null;
       player_stop();
@@ -74,20 +77,19 @@ $(function() {
 });
 
 function load_playlist() {
-  var $playlist = $('#playlist');
-  if ($playlist) {
-    playlist = jQuery.parseJSON($playlist.html());
+  if (playlistID !== curSection.data('station')) {
+    playlistID = curSection.data('station');
+    playlist   = $('#playlist-'+playlistID).data('playlist');
   }
 }
 
 function player_play() {
-  var playlistIndex = 0;
-
   // Get playlist and song info
+  if (!curSection) curSection = $('.playlist section:first');
   if (!playlist) load_playlist();
-  if (!curSection) curSection = $('.song-playlist section:first');
-  playlistIndex = parseInt(curSection.attr('rel'));
-  curSongInfo = playlist.tracks[playlistIndex];
+  playlistIndex = curSection.data('index');
+  
+  curSongInfo = playlist.songs[playlistIndex];
 
   // Load song
   curSong = soundManager.createSound({

@@ -3,7 +3,7 @@ class MainController < ApplicationController
   end
   
   def home
-    @popular = Song.most_favorited(:limit => 16)
+    @popular = Station.find_by_slug('popular-songs')
     @stations = Station.most_favorited(:limit => 8)
     @genres = Genre.all
     

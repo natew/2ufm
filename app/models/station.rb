@@ -1,9 +1,16 @@
 class Station < ActiveRecord::Base
-  has_and_belongs_to_many :songs
   has_and_belongs_to_many :genres
   belongs_to :user
   belongs_to :blog
   has_many   :favorites, :as => :favorable
+  
+  has_and_belongs_to_many :songs do
+    def to_playlist
+      self.map do |s|
+        {:id => s.id, :artist => s.artist, :name => s.name, :url => s.url } if s.processed?
+      end.compact.to_json
+    end
+  end
   
   acts_as_url :name, :url_attribute => :slug
   
@@ -42,21 +49,6 @@ class Station < ActiveRecord::Base
       "http://#{image.s3_host_name}/#{image.bucket_name}/#{blog_id}_#{type}.jpg"
     else
       image
-    end
-  end
-  
-  def playlist  
-    {
-      :id     => id,
-      :slug   => slug,
-      :name   => name,
-      :tracks => get_tracks
-    }.to_json
-  end
-  
-  def get_tracks
-    songs.map do |s|
-      { :id => "song-#{s.id}", :artist => s.artist, :name => s.name, :url => s.url }
     end
   end
   

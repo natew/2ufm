@@ -31,10 +31,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
-  <%= stylesheet_link_tag "application" %>
-
-  <!-- Modernizr  -->
-  <%= javascript_include_tag "modernizr" %>
+  <%= stylesheet_link_tag "application", :debug => Rails.env.development? %>
 </head>
 
 <body>
@@ -109,7 +106,7 @@
     </div>
   </div>
 
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", :debug => Rails.env.development? %>
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID
   <script>

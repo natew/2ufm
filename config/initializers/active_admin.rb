@@ -1,13 +1,13 @@
-ActiveAdmin.setup do |config|
-
+#ActiveAdmin.setup do |config|
+#
   # == Site Title
   #
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "fuse.fm"
-
-
+#  config.site_title = "fuse.fm"
+#
+#
   # == Default Namespace
   #
   # Set the default namespace each administration resource
@@ -21,9 +21,9 @@ ActiveAdmin.setup do |config|
   #
   # To set no namespace by default, use:
   #   config.default_namespace = false
-  config.default_namespace = :admin
-
-
+#  config.default_namespace = :admin
+#
+#
   # == User Authentication
   #
   # Active Admin will automatically call an authentication 
@@ -32,9 +32,9 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the controller.
-  config.authentication_method = :authenticate_admin_user!
-
-
+#  config.authentication_method = :authenticate_admin_user!
+#
+#
   # == Current User
   #
   # Active Admin will associate actions with the current
@@ -42,9 +42,9 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # to return the currently logged in user.
-  config.current_user_method = :current_admin_user
-
-
+#  config.current_user_method = :current_admin_user
+#
+#
   # == Admin Comments
   #
   # Admin comments allow you to add comments to any model for admin use
@@ -54,16 +54,16 @@ ActiveAdmin.setup do |config|
   # by adding them to the comments array.
   #
   # config.allow_comments_in = [:admin]
-
-
+#
+#
   # == Controller Filters
   #
   # You can add before, after and around filters to all of your
   # Active Admin resources from here. 
   #
   # config.before_filter :do_something_awesome
-
-
+#
+#
   # == Register Stylesheets & Javascripts
   #
   # We recommend using the built in Active Admin layout and loading
@@ -75,4 +75,4 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
-end
+#end

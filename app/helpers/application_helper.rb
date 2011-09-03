@@ -1,10 +1,19 @@
 module ApplicationHelper
+
+  def Array.to_playlist
+    self.map do |i|
+      i.to_json
+    end
+  end
+
+  # Song favorite
   def song_favorite(song)
     has     = current_user.has_favorite_song?(song) if user_signed_in? and song
     type    = has ? "remove" : "add"
     render :partial => "songs/favorite_#{type}", :locals => { :id => song.id, :count => song.favorites_count }
   end
   
+  # Song broadcase
   def song_broadcast(song)
     has  = current_user.has_song_on_station?(song) if user_signed_in? and song
     type = has ? "remove" : "add"
