@@ -57,7 +57,7 @@ class Song < ActiveRecord::Base
   end
   
   def matching_songs
-    Song.where("id != #{id} and artist ILIKE ('#{artist}') and name ILIKE('#{search_name}')")
+    Song.where("id != #{id} and artist ILIKE ('#{search_artist}') and name ILIKE('#{search_name}')")
   end
   
   def set_similar
@@ -74,10 +74,14 @@ class Song < ActiveRecord::Base
     clean(name)
   end
   
+  def search_artist
+    clean(artist)
+  end
+  
   private
   
   def clean(attr)
-    attr.gsub(/[()]/,'%').gsub(/[^A-Za-z0-9\- ]/,'').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip
+    attr.gsub(/[()']/,'%').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip
   end
   
   def scan
