@@ -21,6 +21,12 @@
   &:hover {
     background-position: 0 -15px;
   }
+  
+  &.right {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
 }
 
 #body .button {

@@ -48,8 +48,8 @@
   
   <section>
     <h3>Featured Stations</h3>
-    <div id="featured-stations">
-      <%= render :partial => 'stations/station', :collection => @stations unless @stations.nil? %>
+    <div id="station-list">
+      <%= render :partial => 'stations/station', :collection => @stations, :locals => { :size => :small } unless @stations.nil? %>
     </div>
     <%= link_to 'Browse more stations', '/stations', :class => 'button' %>
   </section>

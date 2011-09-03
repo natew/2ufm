@@ -67,6 +67,7 @@ GEM
       xml-simple
     bcrypt-ruby (3.0.0)
     builder (3.0.0)
+    cancan (1.6.5)
     chronic (0.6.2)
     cocaine (0.2.0)
     coffee-rails (3.1.0)
@@ -188,6 +189,7 @@ PLATFORMS
 DEPENDENCIES
   aws-s3
   aws-ses
+  cancan
   chronic
   coffee-rails
   curb

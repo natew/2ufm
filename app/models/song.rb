@@ -26,6 +26,7 @@ class Song < ActiveRecord::Base
   validates_presence_of :post_id, :blog_id
   
   after_create :scan
+  before_save  :set_similar
   
   def to_param
     slug
@@ -55,18 +56,28 @@ class Song < ActiveRecord::Base
     #     end
   end
   
+  def matching_songs
+    Song.where("id != #{id} and artist ILIKE ('#{artist}') and name ILIKE('#{search_name}')")
+  end
+  
   def set_similar
-    similar = Song.search_by_name_and_artist(clean(name), clean(artist)).limit(1).first
-   
-    if most_similar and most_similar.rank.to_f > 0.25
-      self.shared_id = most_similar.id
+    most_similar = matching_songs.first
+    
+    if most_similar
+      self.shared_id = similar.id
     else
       self.shared_id = id
     end
   end
   
+  def search_name
+    clean(name)
+  end
+  
+  private
+  
   def clean(attr)
-    attr.gsub(/[^A-Za-z0-9\- ]/,'')
+    attr.gsub(/[()]/,'%').gsub(/[^A-Za-z0-9\- ]/,'').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip
   end
   
   def scan
@@ -76,11 +87,11 @@ class Song < ActiveRecord::Base
           raise TooBig if content_length > (1048576 * 20) # 20 MB maximum song size
         }) { |song|
           Mp3Info.open(song.path) do |mp3|
-            self.name = Sanitize.clean(mp3.tag.title)
-            self.artist = Sanitize.clean(mp3.tag.artist)
-            self.album = Sanitize.clean(mp3.tag.album)
+            self.name = mp3.tag.title
+            self.artist = mp3.tag.artist
+            self.album = mp3.tag.album
             self.track_number = mp3.tag.tracknum.to_i
-            self.genre = Sanitize.clean(mp3.tag.genre)
+            self.genre = mp3.tag.genre
             self.bitrate = mp3.tag.bitrate.to_i
             self.length = mp3.tag.length.to_f
             self.processed = true

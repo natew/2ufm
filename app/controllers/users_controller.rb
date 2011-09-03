@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   def create
     cookies.delete :auth_token
     @user = User.new(params[:user])
+    @user.role = 'user'
     
     if @user.save
       self.current_user = @user

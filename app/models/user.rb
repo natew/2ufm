@@ -1,11 +1,13 @@
 class User < ActiveRecord::Base
+  ROLES = %w[admin blogowner user]
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :login, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :username, :login, :email, :password, :password_confirmation, :remember_me, :role
   
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -13,7 +15,9 @@ class User < ActiveRecord::Base
   
   has_one :station
   has_many :activities, :dependent => :destroy
+  
   has_many :favorites
+  
   has_attached_file	:avatar,
   					:styles => {
   						:original => ['300x300#', :jpg],
@@ -28,14 +32,18 @@ class User < ActiveRecord::Base
   
   acts_as_url :username, :url_attribute => :slug
   
-  before_save :create_station
+  before_create :create_station
   
   def to_param
     slug
   end
   
   def admin?
-    true
+    role == 'admin'
+  end
+  
+  def role?(type)
+    role == type.to_s
   end
   
   def has_song_on_station?(song)
@@ -96,8 +104,7 @@ class User < ActiveRecord::Base
   protected
   
   def create_station
-    station = Station.create(:name => username, :user_id => id)
-    self.station_id = station.id
+    build_station(:name => username)
   end
   
   # Devise override for logins

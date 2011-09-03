@@ -8,7 +8,6 @@ gem 'paperclip'
 gem 'aws-s3'
 gem 'aws-ses'
 gem 'devise'
-#gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
 gem 'nokogiri'
 gem 'chronic'
 gem 'ruby-mp3info', :git => 'git://github.com/NateW/ruby-mp3info.git'
@@ -18,6 +17,7 @@ gem 'curb'
 gem 'sax-machine', :git => 'https://github.com/pauldix/sax-machine.git'
 gem 'loofah-activerecord'
 gem 'sanitize'
+gem 'cancan'
 
 # Gems used only for assets and not required
 # in production environments by default.
