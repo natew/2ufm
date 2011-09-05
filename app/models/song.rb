@@ -6,6 +6,7 @@ ActiveRecord::Base.extend(Texticle)
 class Song < ActiveRecord::Base  
   belongs_to  :blog
   belongs_to  :post
+  belongs_to  :artist
   has_and_belongs_to_many :stations
   has_many :favorites, :as => :favorable
   has_many :files
@@ -16,7 +17,7 @@ class Song < ActiveRecord::Base
   						:small    => ['64x64#', :jpg],
   					},
             :path           => ':id_:style.:extension',
-            :default_url    => '/images/song_default.jpg',
+            :default_url    => '/images/default_:style.jpg',
             :storage        => 's3',
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-song-images'
@@ -25,8 +26,7 @@ class Song < ActiveRecord::Base
   
   validates_presence_of :post_id, :blog_id
   
-  after_create :scan
-  before_save  :set_similar
+  after_create :scan_and_set_info
   
   def to_param
     slug
@@ -56,6 +56,18 @@ class Song < ActiveRecord::Base
     #     end
   end
   
+  private
+  
+  def find_or_create_artist
+    artist = Artist.where("name ILIKE ('#{search_artist}')").limit(1).first
+    
+    if artist
+      self.artist_id = artist.id
+    else
+      build_artist(:name => artist)
+    end
+  end
+  
   def matching_songs
     Song.where("id != #{id} and artist ILIKE ('#{search_artist}') and name ILIKE('#{search_name}')")
   end
@@ -78,13 +90,11 @@ class Song < ActiveRecord::Base
     clean(artist)
   end
   
-  private
-  
   def clean(attr)
     attr.gsub(/[()']/,'%').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip
   end
   
-  def scan
+  def scan_and_set_info
     unless url.nil?
       begin
         open(url, :content_length_proc => lambda { |content_length|
@@ -92,8 +102,8 @@ class Song < ActiveRecord::Base
         }) { |song|
           Mp3Info.open(song.path) do |mp3|
             self.name = mp3.tag.title
-            self.artist = mp3.tag.artist
-            self.album = mp3.tag.album
+            self.artist_name = mp3.tag.artist
+            self.album_name = mp3.tag.album
             self.track_number = mp3.tag.tracknum.to_i
             self.genre = mp3.tag.genre
             self.bitrate = mp3.tag.bitrate.to_i
@@ -123,8 +133,11 @@ class Song < ActiveRecord::Base
         logger.info(e.message + "\n" + e.backtrace.inspect)
       end
       
-      # Match with similar songs
+      # Match with existing
       set_similar
+      
+      # Artist
+      find_or_create_artist
       
       # Were done post-processing, so lets add it to the station
       self.blog.station.songs<<self
@@ -132,5 +145,5 @@ class Song < ActiveRecord::Base
       self.save
     end
   end
-  handle_asynchronously :scan
+  handle_asynchronously :scan_and_set_info
 end

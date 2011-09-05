@@ -24,7 +24,7 @@ class Station < ActiveRecord::Base
   						:small    => ['64x64#', :jpg],
   					},
             :path           => ':id_:style.:extension',
-            :default_url    => '/images/station_default.jpg',
+            :default_url    => '/images/default_:style.jpg',
             :storage        => 's3',
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-station-images'
@@ -44,11 +44,15 @@ class Station < ActiveRecord::Base
   
   def image_or_parent(*types)
     type = types[0] || 'original'
-    image if image.present?
-    if blog_id
-      "http://#{image.s3_host_name}/#{image.bucket_name}/#{blog_id}_#{type}.jpg"
+
+    if image.file?
+      image(type)
+    elsif blog and blog.image.file?
+      blog.image(type)
+    elsif user and user.image.file?
+      user.image(type)
     else
-      image
+      image(type)
     end
   end
   

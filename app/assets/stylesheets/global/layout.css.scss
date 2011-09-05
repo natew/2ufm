@@ -43,10 +43,10 @@ header {
   height: 50px;
   z-index: 100;
   line-height: 1em;
-  @include box-shadow(0px,0px,16px,#000);
+  @include box-shadow(0px,0px,12px,#000);
   
   h1 {
-    margin: 2px 16px 0 0;
+    margin: 1px 22px 0 0;
     float: left;
   
     a {
@@ -66,17 +66,22 @@ header {
 
   nav {
     float: left;
-    margin: -5px 0 0;
+    margin: -6px 0 0;
     
     li {
       float: left;
       @include border-radius(8px);
       
-      &.active { background: url(/images/dim.png); }
+      &.active {
+        background: url(/images/dim.png);
+        @include box-shadow-inset(0px,0px,2px,#000);
+        
+        a { color: #fff; }
+      }
       
       a {
-        padding: 42px 6px 4px 6px;
-        color: #fff;
+        padding: 43px 6px 5px 6px;
+        color: #ddd;
         text-shadow: 0 -1px 1px black;
         float: left;
         text-decoration: none;
@@ -85,21 +90,21 @@ header {
         text-transform: uppercase;
         width: 60px;
         text-align: center;
-        background: url(/images/head_icons.png) no-repeat 8px -10px;
+        background: url(/images/head_icons.png) no-repeat 8px -8px;
 
         &:hover {
           color: #fff;
-          &:hover { background-position: 8px -70px; }
+          background-position: 8px -68px;
         }
 
         &#nav-stations {
-          background-position: -54px -10px;
-          &:hover { background-position: -54px -70px; }
+          background-position: -54px -8px;
+          &:hover { background-position: -54px -68px; }
         }
         
         &#nav-activity {
-          background-position: -114px -10px; 
-          &:hover { background-position: -114px -70px; }
+          background-position: -114px -8px; 
+          &:hover { background-position: -114px -68px; }
         }
       }
     }
@@ -191,13 +196,13 @@ header {
     position: absolute;
     left: 50%;
     top: -6px;
-    margin-left: -175px;
-    width: 335px;
+    margin-left: -160px;
+    width: 310px;
     padding: 7px 8px 5px;
     overflow: hidden;
     white-space: nowrap;
     background: url(/images/dim.png);
-    @include border-radius(8px);
+    @include border-radius(12px);
     @include box-shadow-inset(0px,0px,2px,#000);
     
     &.playing {
@@ -299,7 +304,7 @@ header {
         background: #000;
         float: left;
         height: 6px;
-        width: 200px;
+        width: 56%;
         margin: 9px 12px 0;
         border-bottom: 1px solid #3b3f4b;
         position: relative;
@@ -420,8 +425,6 @@ header {
       font-size: 18px;
       line-height: 1.8em;
       margin-bottom: 0.6em;
-      border-bottom: 1px solid #DDD;
-      padding-bottom: 0.6em;
     }
   }
   

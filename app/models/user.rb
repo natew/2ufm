@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   						:small    => ['64x64#', :jpg],
   					},
             :path           => ':id_:style.:extension',
-            :default_url    => '/images/user_default.jpg',
+            :default_url    => '/images/default_:style.jpg',
             :storage        => 's3',
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-user-images'

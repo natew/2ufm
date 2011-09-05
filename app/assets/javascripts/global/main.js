@@ -2,7 +2,6 @@ $(document).ready(function() {
   // Path.js
   Path.listen();
 
-
   // Header
   $('.tip-n').tipsy({gravity: 'n', offset: 5});
   
@@ -27,11 +26,38 @@ $(document).ready(function() {
     return false;
   });
   
-  
   // Username cutoff
   var username = $('#nav-username');
   if (username.length > 0) username.html(fitStringToWidth(username.html(), 110)+ " &darr;");
   
+  // Player controls
+  // PLAY
+  $('#player-controls a.play').click(function() {
+    mp.toggle();
+    return false;
+  });
+  
+  // NEXT
+  $('#player-controls a.next').click(function() {
+    mp.next();
+    return false;
+  });
+  
+  // PREV
+  $('#player-controls a.prev').click(function() {
+    mp.prev();
+    return false;
+  });
+  
+
+  // Play from song
+  $('a.play-song').live('click',function() {
+    var $section = $(this).parent().parent().parent('section');
+    mp.playSection($section);
+    return false;
+  });
+  
+  // Favorite song
   $('.fav-song').live('click', function() {
     var $this = $(this);
     var $parent = $(this).parent().parent();
@@ -63,6 +89,7 @@ $(document).ready(function() {
     return false;
   });
   
+  // Favorite station
   $('.station-favorite').live('click', function() {
     var $this = $(this);
     var $parent = $(this).parent();
@@ -93,6 +120,7 @@ $(document).ready(function() {
     return false;
   });
   
+  // Favorite blog
   $('.blog-favorite').live('click', function() {
     var $this = $(this);
     var $parent = $(this).parent();

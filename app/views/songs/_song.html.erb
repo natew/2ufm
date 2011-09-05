@@ -1,5 +1,5 @@
 <%- length ||= 140 -%>
-<% if song.artist.nil? %>
+<% unless song.processed? %>
 <section class="downloading" id="song-<%= song.id %>">
   <h3>Downloading song <%= song.link_text %>...</h3>
   <div class="song-meta"><%= song.url %></div>
