@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110829205649) do
+ActiveRecord::Schema.define(:version => 20110905060434) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -148,8 +148,8 @@ ActiveRecord::Schema.define(:version => 20110829205649) do
 
   create_table "songs", :force => true do |t|
     t.string   "name"
-    t.string   "artist"
-    t.string   "album"
+    t.string   "artist_name"
+    t.string   "album_name"
     t.string   "genre"
     t.string   "album_artist"
     t.string   "url"
@@ -177,6 +177,8 @@ ActiveRecord::Schema.define(:version => 20110829205649) do
     t.integer "station_id"
     t.integer "song_id"
   end
+
+  add_index "songs_stations", ["song_id", "station_id"], :name => "index_songs_stations_on_song_id_and_station_id", :unique => true
 
   create_table "stations", :force => true do |t|
     t.string   "name"
@@ -213,8 +215,8 @@ ActiveRecord::Schema.define(:version => 20110829205649) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",     :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",     :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -242,6 +244,7 @@ ActiveRecord::Schema.define(:version => 20110829205649) do
     t.string   "username"
     t.integer  "station_id"
     t.text     "bio"
+    t.string   "role",                                  :default => "user"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

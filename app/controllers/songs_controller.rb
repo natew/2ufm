@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   def index
     @new = Station.find_by_slug('new-songs')
-    @popular = Station.find_by_slug('popular-songs') #Song.most_favorited(:limit => 25)
+    @popular = Station.find_by_slug('popular-songs')
     
     respond_to do |format|
       format.html

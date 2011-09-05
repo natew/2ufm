@@ -1,12 +1,12 @@
 <div class="content">
-  <div class="content-head">
+  <div class="content-head begin">
     <%= image_tag @station.image_or_parent(:small), :class => 'icon' %>
     <h2>Listening to <%= @station.name %> Radio <small><%= @station.description || "Listening to the latest songs from the #{@station.name} station." %></small></h2>
   </div>
   
   <%= form_for @station, :html => { :method => :put } do |f| %>
   <%= render :partial => 'playlist', :locals => { :songs => @songs, :station => @station } %>
-  <%= submit_tag 'Update Station Songs', :class => 'right' %>
+  <%= submit_tag 'Update Station Songs' %>
   <% end %>
 
   <%= paginate @songs %>

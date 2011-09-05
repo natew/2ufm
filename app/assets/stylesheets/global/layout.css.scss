@@ -17,9 +17,11 @@ body {
     position: relative;
     
     div.image {
-      background: #eee;
+      background: #d8edff url(/images/bg.jpg) -130px -220px;
+      border: 1px solid #c1d3e3;
       padding: 18px;
       margin: 0 0 20px 0;
+      @include border-radius;
     }
   }
   
@@ -401,7 +403,7 @@ header {
   
   .begin {
     padding: 12px;
-    margin: 0 0 1em 0;
+    margin: 0 0 1.5em 0;
     background: #d8edff url(/images/bg.jpg) -130px -220px;
     border: 1px solid #c1d3e3;
     color: #777;
@@ -530,7 +532,7 @@ h2, h3, h4 {
 }
 
 h2 small {
-  font-size: 62%;
+  font-size: 55%;
 }
 
 h4 {
