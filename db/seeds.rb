@@ -25,7 +25,10 @@ blog = [
 i = 0
 while i < 5
   b = Blog.new(blog[i])
-  b.image = File.open("#{Rails.root}/tmp/images/album#{(i%4)+1}.png")
+  begin
+    b.image = File.open("#{Rails.root}/tmp/images/album#{(i%4)+1}.png")
+  rescue
+  end
   b.save
   i += 1
 end
