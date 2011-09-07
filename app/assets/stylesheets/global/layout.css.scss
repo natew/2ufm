@@ -16,53 +16,47 @@ body {
 /* Header */
 
 header {
-  background: url(/images/head_bg.jpg) top center;
-  padding: 10px 0;
+  background: #333;
   position: fixed;
   width: 100%;
   top: 0;
-  height: 50px;
   z-index: 100;
   line-height: 1em;
-  @include box-shadow(0px,0px,3px,#000);
   
   h1 {
-    margin: 1px 14px 0 0;
+    margin: 3px 10px 0 0;
     float: left;
   
     a {
-      background: url(/images/logo.png) no-repeat 0 0;
+      background: url(/images/logo.png) no-repeat 0 8px;
       width: 82px;
-      height: 52px;
+      height: 60px;
       text-indent: -3000em;
       overflow: hidden;
       float: left;
-      @include border-radius(8px);
       
       &:hover {
-        background-position: 0 -58px;
+        background-position: 0 -50px;
       }
     }
   }
 
   nav {
     float: left;
-    margin: -6px 0 0;
+    margin: 0;
     
     li {
       float: left;
       margin-right: 2px;
-      @include border-radius(10px);
       
       &.active {
         background: url(/images/dim.png);
-        @include box-shadow-inset(0px,0px,2px,#000);
         
         a { color: #fff; }
       }
       
       a {
-        padding: 43px 6px 5px 6px;
+        padding: 46px 6px 8px 6px;
         color: #ddd;
         text-shadow: 0 -1px 1px black;
         float: left;
@@ -72,21 +66,21 @@ header {
         text-transform: uppercase;
         width: 60px;
         text-align: center;
-        background: url(/images/head_icons.png) no-repeat 8px -8px;
+        background: url(/images/head_icons.png) no-repeat 8px -6px;
 
         &:hover {
           color: #fff;
-          background-position: 8px -68px;
+          background-position: 8px -66px;
         }
 
         &#nav-stations {
-          background-position: -54px -8px;
-          &:hover { background-position: -54px -68px; }
+          background-position: -54px -6px;
+          &:hover { background-position: -54px -66px; }
         }
         
         &#nav-activity {
-          background-position: -114px -8px; 
-          &:hover { background-position: -114px -68px; }
+          background-position: -114px -6px; 
+          &:hover { background-position: -114px -66px; }
         }
       }
     }
@@ -95,7 +89,7 @@ header {
   .nav {
     float: right;
     position: relative;
-    margin: 16px 0 0 0;
+    margin: 24px 0 0 0;
     min-width: 118px;
     
     a {
@@ -151,7 +145,7 @@ header {
   
   form {
     float: right;
-    margin: 11px 12px 0;
+    margin: 21px 12px 0;
     
     #query {
       float: right;
@@ -159,13 +153,11 @@ header {
       padding: 7px 12px;
       width: 150px;
       color: #ccc;
-      background: #444;
-      background: rgba(0,0,0,0.2);
-      border: 1px solid #222;
+      background: url(/images/dim.png);
+      border: none;
       outline: none;
       font-size: 13px;
       @include border-radius(18px);
-      @include box-shadow(0px,0px,1px,#666);
       
       &:hover {
         background: #555;
@@ -182,15 +174,15 @@ header {
   #player {
     position: absolute;
     left: 50%;
-    top: -6px;
     margin-left: -150px;
     width: 300px;
-    padding: 7px 8px 5px;
+    padding: 10px 8px 6px;
     overflow: hidden;
     white-space: nowrap;
-    background: url(/images/dim.png);
-    @include border-radius(12px);
-    @include box-shadow-inset(0px,0px,2px,#000);
+    background: #222;
+    border: 1px solid #444;
+    border-top: none;
+    border-bottom: none;
     
     &.playing {
       #player-controls {
@@ -220,10 +212,11 @@ header {
       
       #player-artist {
         width: 65%;
-        margin: 4px auto -1px;
+        margin: 6px auto -2px;
         overflow: hidden;
         font-size: 12px;
         color: #ccc;
+        height: 14px;
       }
     }
     
@@ -384,7 +377,7 @@ header {
   @include border-radius(10px);
   
   .title {
-    padding: 10px 20px;
+    padding: 15px 20px;
     margin: 0 0 20px 0;
     background: #d8edff url(/images/bg.jpg) -130px -220px;
     border-bottom: 1px solid #c1d3e3;
@@ -400,7 +393,7 @@ header {
       &.icon {
         clear: none;
         float: left;
-        width: 834px;
+        width: 80%;
         margin: 0;
       }
     }
@@ -419,7 +412,7 @@ header {
     small {
       display: block;
       line-height: 1.4em;
-      margin: 0 0 10px 0;
+      margin: 5px 0 0;
     }
 
     .icon {
@@ -494,8 +487,8 @@ h3 {
 }
 
 h2, h3, h4 {
-  margin: 0 0 0.4em 0;
-  line-height: 1.3em;
+  margin: 0 0 10px 0;
+  line-height: 1em;
   clear: both;
   
   small {

@@ -23,7 +23,7 @@ class Song < ActiveRecord::Base
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-song-images'
   
-  acts_as_url :full_name, :url_attribute => :slug
+  acts_as_url :full_name_and_id, :url_attribute => :slug
   
   validates_presence_of :post_id, :blog_id
   
@@ -35,7 +35,11 @@ class Song < ActiveRecord::Base
   end
   
   def full_name
-    "#{artist_name} - #{name}".html_safe
+    "#{artist_name} - #{name}"
+  end
+  
+  def full_name_and_id
+    "#{full_name} #{id}"
   end
   
   def is_popular?
@@ -72,6 +76,7 @@ class Song < ActiveRecord::Base
           }
         ) do |song|
           Mp3Info.open(song.path) do |mp3|
+            # Read from ID3
             self.name = mp3.tag.title
             self.artist_name = mp3.tag.artist
             self.album_name = mp3.tag.album
@@ -79,7 +84,13 @@ class Song < ActiveRecord::Base
             self.genre = mp3.tag.genre
             self.bitrate = mp3.tag.bitrate.to_i
             self.length = mp3.tag.length.to_f
-            self.processed = true
+            
+            # If the ID3 doenst help us
+            if !name or !artist_name
+              self.processed = parse_from_link
+            else
+              self.processed = true
+            end
             
             # Save picture
             picture = mp3.tag2.APIC || mp3.tag2.PIC
@@ -96,14 +107,12 @@ class Song < ActiveRecord::Base
               end
             end
             
-            # Match with existing
-            find_similar_songs
-
-            # Artist
-            find_or_create_artist
-            
-            # Now that we have info, set the proper slug
-            self.slug = full_name.to_url
+            # Update info if we have processed this song
+            if processed?
+              find_similar_songs
+              find_or_create_artist
+              self.slug = full_name_and_id.to_url
+            end
             
             # Done
             self.save
@@ -120,6 +129,17 @@ class Song < ActiveRecord::Base
   end
   
   private
+  
+  def parse_from_link
+    split = link_text.split(/\s*-\s*/)
+    if split.size == 2
+      self.artist_name = split[0]
+      self.name = split[1]
+      true
+    else
+      false
+    end
+  end
   
   def clean_url
     self.url = URI.escape(url)

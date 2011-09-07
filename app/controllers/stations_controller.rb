@@ -12,7 +12,7 @@ class StationsController < ApplicationController
 
   def show
     @station = Station.find_by_slug(params[:id])
-    @songs = @station.songs.where('processed = true').page(params[:page]).per(@per[:station])
+    @songs = @station.songs.processed.page(params[:page]).per(@per[:station])
 
     respond_to do |format|
       format.html # show.html.erb

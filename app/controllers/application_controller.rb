@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   
   def set_pagination_vars
     @per = {
-      :station => 16
+      :station => 10
     }
   end
   

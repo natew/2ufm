@@ -6,7 +6,7 @@
   overflow: hidden;
   
   section {
-    padding: 10px;
+    padding: 15px 0;
     border-bottom: 1px dotted #ddd;
     position: relative;
     overflow: hidden;
@@ -85,7 +85,7 @@
       float: left;
       width: 10%;
       border-right: none;
-      height: 185px;
+      height: 172px;
       
       li {
         float: right;
@@ -115,7 +115,7 @@
         }
 
         &.fav {
-          margin: 6px 0;
+          margin: 4px 0;
           
           a {
             width: 16px;
@@ -160,14 +160,9 @@
   section {
     background: none !important;
     
-    &:hover {
-      .song-controls {
-        display: block;
-      }
-    }
-    
     .song-info {
-      width: 80%;
+      width: 100%;
+      float: left;
       
       h3 {
         font-size: 16px;
