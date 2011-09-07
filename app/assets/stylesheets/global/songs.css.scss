@@ -2,14 +2,18 @@
 
 .playlist {
   clear: both;
-  margin: -15px 0 10px;
+  margin: 0 0 10px;
   overflow: hidden;
   
   section {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px dotted #ddd;
     position: relative;
     overflow: hidden;
+    
+    &:hover {
+      background: #f7f7f7;
+    }
     
     &.downloading {
       display: none;
@@ -32,7 +36,7 @@
     }
     
     .song-info {
-      float: left;
+      float: right;
       width: 87%;
       
       h3 {
@@ -78,7 +82,7 @@
     .song-controls {
       margin: -6px -10px -90px -10px;
       padding: 10px 10px 0 10px;
-      float: right;
+      float: left;
       width: 10%;
       border-right: none;
       height: 185px;
@@ -150,7 +154,7 @@
   }
 }
 
-.side .song-playlist {
+.third .playlist {
   border: none;
   
   section {

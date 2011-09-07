@@ -1,7 +1,16 @@
+# Delete old data
 Blog.destroy_all
 Station.destroy_all
 Favorite.destroy_all
+User.destroy_all
+Genre.destroy_all
 
+# Delete old jobs
+`rake jobs:clear`
+
+# Default stations
+Station.create!(:name => 'Popular Songs', :description => 'Most popular songs right now')
+Station.create!(:name => 'New Songs', :description => 'Newest songs')
 
 # Create blogs
 blog = [
@@ -11,6 +20,7 @@ blog = [
   {:url => 'http://thissongissick.com/blog/', :name => 'ThisSongIsSick' },
   {:url => 'http://themusicninja.com', :name => 'Music Ninja' }
 ]
+
 
 i = 0
 while i < 5

@@ -7,15 +7,15 @@ class Station < ActiveRecord::Base
   has_and_belongs_to_many :songs do
     def to_playlist
       self.map do |s|
-        {:id => s.id, :artist => s.artist, :name => s.name, :url => s.url } if s.processed?
+        {:id => s.id, :artist => s.artist_name, :name => s.name, :url => s.url } if s.processed?
       end.compact.to_json
     end
   end
   
   acts_as_url :name, :url_attribute => :slug
   
-  validates_uniqueness_of :name
-  validates_presence_of :name
+  validates :name,  :uniqueness => true,
+                    :presence   => true
   
   has_attached_file	:image,
   					:styles => {
@@ -33,6 +33,18 @@ class Station < ActiveRecord::Base
     slug
   end
   
+  def self.popular_songs
+    find_by_slug('popular-songs')
+  end
+  
+  def self.new_songs
+    find_by_slug('new-songs')
+  end
+  
+  def song_exists?(song_id)
+    SongsStations.where('song_id = ? and station_id = ?', song_id, id).exists?
+  end
+  
   def self.most_favorited(options = {})
     cols   = column_names.collect {|c| "stations.#{c}"}.join(",")
     within = options[:days] || 31
@@ -43,14 +55,14 @@ class Station < ActiveRecord::Base
   end
   
   def image_or_parent(*types)
-    type = types[0] || 'original'
+    type = types[0] || :original
 
     if image.file?
       image(type)
     elsif blog and blog.image.file?
       blog.image(type)
-    elsif user and user.image.file?
-      user.image(type)
+    elsif user and user.avatar.file?
+      user.avatar(type)
     else
       image(type)
     end

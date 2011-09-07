@@ -1,4 +1,4 @@
-<section class="begin columns center">
+<section class="title center">
   <h2>An online radio station of <em>your</em> favorite music blogs</h2>
   <p><strong>Follow all your favorite blogs, artists and friends.  It's all your favorite music on your own station.</strong></p>
     
@@ -30,25 +30,27 @@
     </div>
 </section>
 
-<div class="content">
-  <h2>Popular Songs</h2>
-  <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
-  <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
-</div>
-
-<div class="side">
-  <section>
-    <h3>Browse by Genre</h3>
-    <ul id="genres">
-    <%= render @genres %>
-    </ul>
-  </section>
+<div class="grid">
+  <div class="twothirds">
+    <h2>Popular Songs</h2>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
+    <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
+  </div>
   
-  <section>
-    <h3>Featured Stations</h3>
-    <div id="station-list">
-      <%= render :partial => 'stations/station', :collection => @stations, :locals => { :size => :small } unless @stations.nil? %>
-    </div>
-    <%= link_to 'Browse more stations', '/stations', :class => 'button' %>
-  </section>
+  <div class="third">
+    <section>
+      <h3>Browse by Genre</h3>
+      <ul id="genres">
+      <%= render @genres %>
+      </ul>
+    </section>
+  
+    <section>
+      <h3>Featured Stations</h3>
+      <div id="station-list">
+        <%= render :partial => 'stations/station', :collection => @stations, :locals => { :size => :small } unless @stations.nil? %>
+      </div>
+      <%= link_to 'Browse more stations', '/stations', :class => 'button' %>
+    </section>
+  </div>
 </div>

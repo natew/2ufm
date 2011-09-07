@@ -10,7 +10,7 @@ module ApplicationHelper
   def song_favorite(song)
     has     = current_user.has_favorite_song?(song) if user_signed_in? and song
     type    = has ? "remove" : "add"
-    render :partial => "songs/favorite_#{type}", :locals => { :id => song.id, :count => song.favorites_count }
+    render :partial => "songs/favorite_#{type}", :locals => { :id => song.id, :count => song.favorites.count }
   end
   
   # Song broadcase

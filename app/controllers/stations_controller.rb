@@ -1,6 +1,6 @@
 class StationsController < ApplicationController
   def index
-    @stations = Station.order('updated_at desc').page(params[:page]).per(8)
+    @stations = Station.where('user_id is null').order('updated_at desc').page(params[:page]).per(8)
     @genres = Genre.all
 
     respond_to do |format|

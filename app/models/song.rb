@@ -10,6 +10,7 @@ class Song < ActiveRecord::Base
   has_and_belongs_to_many :stations
   has_many :favorites, :as => :favorable
   has_many :files
+  
   has_attached_file	:image,
   					:styles => {
   						:original => ['300x300#', :jpg],
@@ -22,22 +23,23 @@ class Song < ActiveRecord::Base
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-song-images'
   
-  acts_as_url :name, :url_attribute => :slug
+  acts_as_url :full_name, :url_attribute => :slug
   
   validates_presence_of :post_id, :blog_id
   
-  after_create :scan_and_set_info
+  before_save  :clean_url
+  after_create :delayed_scan_and_save, :add_to_stations
   
   def to_param
     slug
   end
   
   def full_name
-    "#{artist} &mdash; #{name}".html_safe
+    "#{artist_name} - #{name}".html_safe
   end
   
-  def favorites_count
-    favorites.count
+  def is_popular?
+    favorites.where('created at > ?', 10.days.ago).count > 10
   end
   
   def self.most_favorited(options = {})
@@ -56,50 +58,19 @@ class Song < ActiveRecord::Base
     #     end
   end
   
-  private
-  
-  def find_or_create_artist
-    artist = Artist.where("name ILIKE ('#{search_artist}')").limit(1).first
-    
-    if artist
-      self.artist_id = artist.id
-    else
-      build_artist(:name => artist)
-    end
-  end
-  
-  def matching_songs
-    Song.where("id != #{id} and artist ILIKE ('#{search_artist}') and name ILIKE('#{search_name}')")
-  end
-  
-  def set_similar
-    most_similar = matching_songs.first
-    
-    if most_similar
-      self.shared_id = similar.id
-    else
-      self.shared_id = id
-    end
-  end
-  
-  def search_name
-    clean(name)
-  end
-  
-  def search_artist
-    clean(artist)
-  end
-  
-  def clean(attr)
-    attr.gsub(/[()']/,'%').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip
-  end
-  
-  def scan_and_set_info
+  def scan_and_save
     unless url.nil?
       begin
-        open(url, :content_length_proc => lambda { |content_length|
-          raise TooBig if content_length > (1048576 * 20) # 20 MB maximum song size
-        }) { |song|
+        total = nil
+        open(URI.escape(url),
+          :content_length_proc => lambda { |content_length|
+            raise TooBig if content_length > (1048576 * 20) # 20 MB maximum song size
+            total = content_length
+          },
+          :progress_proc => lambda { |at|
+            #puts "DOWNLOADING #{(at.fdiv(total)*100).round}%"
+          }
+        ) do |song|
           Mp3Info.open(song.path) do |mp3|
             self.name = mp3.tag.title
             self.artist_name = mp3.tag.artist
@@ -110,40 +81,98 @@ class Song < ActiveRecord::Base
             self.length = mp3.tag.length.to_f
             self.processed = true
             
-            # Set slug
-            self.slug = name.to_url
-            
             # Save picture
             picture = mp3.tag2.APIC || mp3.tag2.PIC
-            picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
-            
-            unless picture.nil?
+            picture = picture[0] if picture.is_a? Array
+            if picture
+              picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
               pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
-              unless pic_type.nil?
+              if pic_type
                 tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}.#{pic_type[0]}"
                 tmp_file = File.open(tmp_path, 'wb') do |f|
-                  f.write(picture[6,1000000000000])  # yikes
+                  f.write(picture[6,picture.length])  # yikes
                 end
                 self.image = tmp_file
               end
             end
+            
+            # Match with existing
+            find_similar_songs
+
+            # Artist
+            find_or_create_artist
+            
+            # Now that we have info, set the proper slug
+            self.slug = full_name.to_url
+            
+            # Done
+            self.save
           end
-        }
+        end
       rescue Exception => e
         logger.info(e.message + "\n" + e.backtrace.inspect)
       end
-      
-      # Match with existing
-      set_similar
-      
-      # Artist
-      find_or_create_artist
-      
-      # Were done post-processing, so lets add it to the station
-      self.blog.station.songs<<self
-      
-      self.save
     end
   end
-  handle_asynchronously :scan_and_set_info
+  
+  def delayed_scan_and_save
+    delay.scan_and_save
+  end
+  
+  private
+  
+  def clean_url
+    self.url = URI.escape(url)
+  end
+  
+  def add_to_new_station
+    Station.new_songs.songs<<self unless Station.new_songs.song_exists?(id)
+  end
+  
+  def find_or_create_artist
+    artist = Artist.where("name ILIKE (?)", search_artist).limit(1).first
+    
+    if artist
+      self.artist_id = artist.id
+    else
+      build_artist(:name => artist)
+    end
+  end
+  
+  def add_to_stations
+    add_to_new_station
+    if self.blog and !self.blog.station.song_exists?(id)
+      self.blog.station.songs<<self
+    end
+  end
+  
+  def matching_songs
+    if name and artist_name
+      Song.where("artist_name ILIKE (?) and name ILIKE(?)", search_artist, search_name)
+    else
+      []
+    end
+  end
+  
+  def find_similar_songs
+    most_similar = matching_songs.first
+    
+    if most_similar
+      self.shared_id = most_similar.id
+    else
+      self.shared_id = id
+    end
+  end
+  
+  def search_name
+    clean(name)
+  end
+  
+  def search_artist
+    clean(artist_name)
+  end
+  
+  def clean(attr)
+    attr.gsub(/[()']/,'%').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip unless attr.nil?
+  end
 end

@@ -3,34 +3,13 @@
 /* Layout */
 
 body {
-  background: #d8edff url(/images/bg.jpg) no-repeat top center;
+  background: #eee;
 }
 
 .page-contain {
-  width: 1020px;
+  width: 980px;
   margin: 0 auto;
   position: relative;
-  
-  .side {
-    width: 336px;
-    float: left;
-    position: relative;
-    
-    div.image {
-      background: #d8edff url(/images/bg.jpg) -130px -220px;
-      border: 1px solid #c1d3e3;
-      padding: 18px;
-      margin: 0 0 20px 0;
-      @include border-radius;
-    }
-  }
-  
-  .content {
-    width: 636px;
-    margin: 0 20px 0 0;
-    float: left;
-    position: relative;
-  }
 }
 
 
@@ -45,10 +24,10 @@ header {
   height: 50px;
   z-index: 100;
   line-height: 1em;
-  @include box-shadow(0px,0px,12px,#000);
+  @include box-shadow(0px,0px,3px,#000);
   
   h1 {
-    margin: 1px 22px 0 0;
+    margin: 1px 14px 0 0;
     float: left;
   
     a {
@@ -72,7 +51,8 @@ header {
     
     li {
       float: left;
-      @include border-radius(8px);
+      margin-right: 2px;
+      @include border-radius(10px);
       
       &.active {
         background: url(/images/dim.png);
@@ -115,20 +95,25 @@ header {
   .nav {
     float: right;
     position: relative;
-    margin: 16px 0 0 12px;
-    min-width: 102px;
+    margin: 16px 0 0 0;
+    min-width: 118px;
     
     a {
       font-size: 12px;
-      color: #fff;
+      color: #ccc;
+      text-shadow: 0 -1px 1px black;
+      text-transform: uppercase;
+      font-weight: bold;
       display: block;
       float: left;
       padding: 4px 8px;
-      max-width: 111px;
+      max-width: 131px;
       text-align: right;
       white-space: nowrap;
       overflow: hidden;
       text-decoration: none;
+      
+      &:hover {color: #fff;}
       
       &.inline {
         width: auto;
@@ -198,8 +183,8 @@ header {
     position: absolute;
     left: 50%;
     top: -6px;
-    margin-left: -160px;
-    width: 310px;
+    margin-left: -150px;
+    width: 300px;
     padding: 7px 8px 5px;
     overflow: hidden;
     white-space: nowrap;
@@ -306,7 +291,7 @@ header {
         background: #000;
         float: left;
         height: 6px;
-        width: 56%;
+        width: 55%;
         margin: 9px 12px 0;
         border-bottom: 1px solid #3b3f4b;
         position: relative;
@@ -371,83 +356,76 @@ header {
 
 
 /* PAGE LAYOUT */
+.grid {
+  .third, .twothirds,
+  .fourth, .half,
+  .whole {
+    float: left;
+    margin-left: 20px;
+    position: relative;
+  }
+  
+  .third     { width: 300px; }
+  .twothirds { width: 620px; }
+  .fourth    { width: 220px; }
+  .half      { width: 460px; }
+  .whole     { width: 940px; }
+}
 
 #main-mid {
   padding: 82px 0 25px 0;
 }
 
 #body {
-  padding: 14px;
   background: #fff;
   overflow: hidden;
   position: relative;
+  border: 1px solid #c1d3e3;
   @include border-radius(10px);
-  @include box-shadow(0px,0px,4px,#aaa);
   
-  .content-head {
-    h2 {
-      clear: none;
-      
-      small {
-        display: block;
-        line-height: 1.4em;
-        margin: 0 0 10px 0;
-      }
-    }
-    
-    .icon {
-      float: left;
-      margin: 0.6em 10px 10px 0;
-    }
-  }
-  
-  .begin {
-    padding: 12px;
-    margin: 0 0 1.5em 0;
+  .title {
+    padding: 10px 20px;
+    margin: 0 0 20px 0;
     background: #d8edff url(/images/bg.jpg) -130px -220px;
-    border: 1px solid #c1d3e3;
+    border-bottom: 1px solid #c1d3e3;
     color: #777;
     position: relative;
-    @include border-radius;
-    
+    @include border-radius-top(10px);
+
     h2 {
       color: #444;
       font-size: 32px;
-      border: none;
       margin: 0;
+      
+      &.icon {
+        clear: none;
+        float: left;
+        width: 834px;
+        margin: 0;
+      }
     }
-    
+
     h3 {
       font-size: 24px;
-      border: none;
       margin: 0;
     }
-    
+
     p {
       font-size: 18px;
       line-height: 1.8em;
-      margin-bottom: 0.6em;
+      margin-bottom: 0;
     }
-  }
-  
-  .third {
-    width: 33%;
-    float: left;
-  }
-  
-  .twothirds {
-    width: 66%;
-    float: left;
-  }
 
-  .half {
-    width: 49%;
-    margin: 0 0 0 2%;
-    float: left;
-  }
-  
-  .half:first-child {
-    margin-left: 0;
+    small {
+      display: block;
+      line-height: 1.4em;
+      margin: 0 0 10px 0;
+    }
+
+    .icon {
+      float: left;
+      margin: 10px 20px 10px 0;
+    }
   }
 }
 

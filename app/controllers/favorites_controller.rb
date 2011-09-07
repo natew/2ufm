@@ -2,13 +2,11 @@ class FavoritesController < ApplicationController
   before_filter :authenticate_user!, :only => [:create, :destroy]
   
   def create
-    type = params[:type] || 'song'
-    object = type.classify.constantize
-    @favorite = object.find(params[:id]).favorites.build(:user_id => current_user.id)
+    @favorite = Favorite.build_by_type(:type => params[:type], :id => params[:id], :user_id => current_user.id)
   
     respond_to do |format|
       if @favorite.save
-        format.js { render :partial => "#{type.pluralize}/favorite_remove", :locals => locals(params[:id]) }
+        format.js { render :partial => "#{params[:type].pluralize}/favorite_remove", :locals => locals(params[:id]) }
       else
         format.js { render :text => 'error' }
       end
@@ -19,7 +17,7 @@ class FavoritesController < ApplicationController
     type = params[:type] || 'Song'
     respond_to do |format|
       if Favorite.find_by_favorable_id(params[:id]).destroy
-        format.js { render :partial => "#{type.pluralize}/favorite_add", :locals => locals(params[:id]) }
+        format.js { render :partial => "#{params[:type].pluralize}/favorite_add", :locals => locals(params[:id]) }
       else
         format.js { render :text => 'error' }
       end

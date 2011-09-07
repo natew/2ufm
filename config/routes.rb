@@ -9,7 +9,7 @@ Fusefm::Application.routes.draw do
   
   resource :genre, :only => [:show]
 
-  resources :blogs, :posts, :songs, :stations, :favorites, :users
+  resources :blogs, :posts, :songs, :stations, :favorites, :users, :artists
 
   root :to => 'main#index'
   

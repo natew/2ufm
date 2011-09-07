@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   
   has_one :station
   has_many :activities, :dependent => :destroy
-  
   has_many :favorites
   
   has_attached_file	:avatar,

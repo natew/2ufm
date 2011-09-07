@@ -3,11 +3,17 @@ namespace :db do
     # Randomly like songs
     songs = Song.all
     songs.each do |s|
-      likes = rand(100)
+      likes = 20 + rand(100)
       while likes > 0
         index = rand(10)
         u = User.find_by_id(index)
-        s.favorites.create(:user_id => u.id) unless u.nil?
+        
+        if u
+          f = s.favorites.create(:user_id => u.id)
+          f.created_at = (rand(25)+1).days.ago
+          f.save
+        end
+        
         likes -= 1
       end
     end
@@ -15,11 +21,17 @@ namespace :db do
     # Randomly follow stations
     stations = Station.all
     stations.each do |s|
-      likes = rand(30)
+      likes = 10 + rand(30)
       while likes > 0
         index = rand(10)
         u = User.find_by_id(index)
-        s.favorites.create(:user_id => u.id) unless u.nil?
+        
+        if u
+          s = s.favorites.create(:user_id => u.id)
+          s.created_at = (rand(25)+1).days.ago
+          s.save
+        end
+        
         likes -= 1
       end
     end
