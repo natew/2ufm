@@ -80,8 +80,6 @@ var mp = (function() {
     
     stop: function() {
       if (isPlaying) {
-        curSection.removeClass('active');
-        curSection = null;
         curSong.stop();
       }
     },
@@ -92,14 +90,16 @@ var mp = (function() {
     },
     
     next: function() {
+      var next = curSection.next();
       this.stop();
-      curSection = curSection.next();
+      curSection = next;
       this.play();
     },
     
     prev: function() {
+      var prev = curSection.prev();
       this.stop();
-      curSection = curSection.prev();
+      curSection = prev;
       this.play();
     },
     
@@ -179,9 +179,6 @@ var mp = (function() {
   var events = {
     play: function() {    
       isPlaying = true;
-
-      // Update section
-      $('.song-playlist section').removeClass('playing');
       curSection.addClass('playing');
 
       // Update player
@@ -190,9 +187,7 @@ var mp = (function() {
 
     stop: function() {
       isPlaying = false;
-
-      $('.song-playlist section').removeClass('playing');
-      if (curSection) curSection.removeClass('playing');
+      curSection.removeClass('playing');
       curSection = null;
 
       // Update player

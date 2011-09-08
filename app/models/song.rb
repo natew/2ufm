@@ -1,7 +1,5 @@
 require 'open-uri'
 require 'mp3info'
-require 'texticle'
-ActiveRecord::Base.extend(Texticle)
 
 class Song < ActiveRecord::Base  
   belongs_to  :blog

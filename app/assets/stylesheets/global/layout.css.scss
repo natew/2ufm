@@ -47,7 +47,6 @@ header {
     
     li {
       float: left;
-      margin-right: 2px;
       
       &.active {
         background: url(/images/dim.png);
@@ -186,7 +185,11 @@ header {
     
     &.playing {
       #player-controls {
-        
+        .play {
+          background-position: -120px 0;
+          &:hover { background-position: -120px -23px; }
+          &:active { background-position: -120px -46px; }
+        }
       }
     }
   
@@ -234,50 +237,27 @@ header {
       }
       
       .play {
-        &:hover {
-          background-position: 0 -23px;
-        }
-        
-        &:active {
-          background-position: 0 -46px;
-        }
+        &:hover { background-position: 0 -23px; }
+        &:active { background-position: 0 -46px; }
       }
       
       .next {
         background-position: -22px 0;
-      
-        &:hover {
-          background-position: -22px -23px;
-        }
-        
-        &:active {
-          background-position: -22px -46px;
-        }
+        &:hover { background-position: -22px -23px; }
+        &:active { background-position: -22px -46px; }
       }
       
       .fav {
         margin: 0 6px 0 0;
         background-position: -68px 0;
-      
-        &:hover {
-          background-position: -68px -23px;
-        }
-        
-        &:active {
-          background-position: -68px -46px;
-        }
+        &:hover { background-position: -68px -23px; }
+        &:active { background-position: -68px -46px; }
       }
       
       .radio {
         background-position: -91px 0;
-      
-        &:hover {
-          background-position: -91px -23px;
-        }
-        
-        &:active {
-          background-position: -91px -46px;
-        }
+        &:hover { background-position: -91px -23px; }
+        &:active { background-position: -91px -46px; }
       }
     
       #player-progress-bar {
