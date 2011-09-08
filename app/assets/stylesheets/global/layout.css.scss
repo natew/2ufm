@@ -329,21 +329,19 @@ header {
 
 
 /* PAGE LAYOUT */
-.grid {
-  .third, .twothirds,
-  .fourth, .half,
-  .whole {
-    float: left;
-    margin-left: 20px;
-    position: relative;
-  }
-  
-  .third     { width: 300px; }
-  .twothirds { width: 620px; }
-  .fourth    { width: 220px; }
-  .half      { width: 460px; }
-  .whole     { width: 940px; }
+.third, .twothirds,
+.fourth, .half,
+.whole {
+  float: left;
+  margin-left: 20px;
+  position: relative;
 }
+
+.third     { width: 300px; }
+.twothirds { width: 620px; }
+.fourth    { width: 220px; }
+.half      { width: 460px; }
+.whole     { width: 940px; }
 
 #main-mid {
   padding: 82px 0 25px 0;

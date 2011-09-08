@@ -1,5 +1,48 @@
 @import "mixins.css.scss";
 
+.shelf {
+  margin: -20px 0 10px 0;
+  
+  h2 {
+    font-size: 20px;
+    padding: 10px 20px;
+    background: #eee;
+  }
+  
+  ul {
+    padding: 0;
+    margin-left: -14px;
+  }
+  
+  li {
+    list-style: none;
+    float: left;
+    margin: 0 0 0 34px;
+    position: relative;
+    
+    a {
+      text-decoration: none;
+    }
+    
+    strong {
+      background: #444;
+      position: relative;
+      font-size: 13px;
+      text-align: center;
+      z-index: 3;
+      color: #fff;
+      padding: 4px;
+      display: block;
+      margin-bottom: -20px;
+      @include border-radius-top(4px)
+    }
+    
+    img {
+      @include border-radius(4px);
+    }
+  }
+}
+
 #station-list {
   margin: 0 0 20px 0;
 
@@ -125,15 +168,12 @@
       padding: 1px 0 1px 10px;
       margin: 0 0 4px 4px;
       float: left;
-      width: 85px;
+      width: 87px;
       color: #666;
       font-size: 11px;
       font-weight: bold;
       text-decoration: none;
-      text-shadow: 0 1px 0 #fff;
-      border: 1px solid #ddd;
-      @include border-radius-left(16px);
-      @include background-gradient(#fff, #ddd);
+      border-bottom: 1px solid #ddd;
       
       &:hover {
         background: #eee;

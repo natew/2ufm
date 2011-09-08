@@ -30,6 +30,13 @@
     </div>
 </section>
 
+<div class="shelf">
+  <h2>Featured Stations</h2>
+  <ul>
+    <%= render :partial => 'stations/shelf', :collection => @stations %>
+  </ul>
+</div>
+
 <div class="grid">
   <div class="twothirds">
     <h2>Popular Songs</h2>
