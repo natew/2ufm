@@ -1,14 +1,14 @@
-<h2>Sign up</h2>
+<h2 class="title">Sign up</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="clearfix">
-    <%= f.label :username, "<strong>Username</strong>".html_safe %>
+    <%= f.label :username, "Username".html_safe %>
     <%= f.text_field :username %>
   </div>
 
-  <div class="clearfix">
+  <div class="clearfix sep">
     <%= f.label :email %>
     <%= f.email_field :email %>
     <span class="help">We will only use email address to verify your account</span>

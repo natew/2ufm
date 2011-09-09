@@ -53,7 +53,11 @@ $(document).ready(function() {
   // Play from song
   $('a.play-song').live('click',function() {
     var $section = $(this).parent().parent().parent('section');
-    mp.playSection($section);
+    if ($section.is('.playing')) {
+      mp.stop();
+    } else {
+      mp.playSection($section);
+    }
     return false;
   });
   

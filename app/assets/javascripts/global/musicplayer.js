@@ -11,7 +11,7 @@ var mp = (function() {
   var isPlaying =  false;
   var dragging_position = false;
   var dragging_x;
-  
+
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
   soundManager.flashVersion = 9; // optional: shiny features (default = 8)
@@ -208,15 +208,14 @@ var mp = (function() {
 
     whileloading: function() {
       function doWork() {
-        $('#player-progress-loaded').css('width',(((this.bytesLoaded/this.bytesTotal)*100)+'%'));
+        $('#player-progress-loaded').css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
       }
       doWork.apply(this);
     },
 
     whileplaying: function() {
-      var d = null;
-      updateTime.apply(this);
-      $('#player-progress-position').css('width',(((this.position/this.duration)*100)+'%'));
+      //updateTime.apply(this);
+      $('#player-progress-position').css('width',(Math.round(this.position/this.durationEstimate*1000)/10)+'%');
     },
 
     metadata: function() {
@@ -238,6 +237,10 @@ var mp = (function() {
     toggle: function() {
       player.toggle();
       return isPlaying;
+    },
+    
+    stop: function() {
+      player.stop();
     },
     
     next: function() {

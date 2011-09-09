@@ -45,6 +45,10 @@ class Station < ActiveRecord::Base
     find_by_slug('new-songs')
   end
   
+  def has_songs?
+    songs.size > 0
+  end
+  
   def song_exists?(song_id)
     SongsStations.where('song_id = ? and station_id = ?', song_id, id).exists?
   end

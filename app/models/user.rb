@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
   
   def has_song_on_station?(song)
-    !station.songs.find(song.id).empty?
+    station.has_songs? ? station.songs.find(song.id).exists? : false
   end
   
   def has_favorite_song?(song)

@@ -1,22 +1,27 @@
-<div class="content">
-  <div class="content-head">
+<div class="title grid">
+  <div class="twothirds">
     <%= image_tag @user.avatar.url(:small), :class => 'icon' %>
-    <h2><%= @user.name %> Radio <small><%= @user.bio || "Listen to the latest songs #{@user.username} has liked." %></small></h2>
+    <h2 class="icon"><%= @user.username %> Radio <small>Listen to the latest songs <%= @user.username %> has liked.</small></h2>
   </div>
-  
-  <div id="activity-list">
-    <%= render :partial => 'shared/activity', :collection => @activities %>
+  <div class="third">
+    
   </div>
-  
-  <%= paginate @activities %>
 </div>
 
-<div class="side">
-  <div class="image">
-    <%= image_tag(@user.avatar.url(:small)) %>
-  </div>
-  <%= link_to "View #{@user.username.pluralize} station", @user.station, :class => 'button' unless @user.station.nil? %>
-  <% end %>
+  <div class="twothirds">
+    <h3>What <%= @user.username.pluralize %> been up to</h3>
+    <div id="activity-list">
+      <%= render :partial => 'shared/activity', :collection => @activities %>
+    </div>
 
-  <h3><%= @user.username %> Stats</h3>
-</div>
+    <%= paginate @activities %>
+  </div>
+
+  <div class="third">
+    <div class="image">
+      <%= image_tag(@user.avatar.url) %>
+    </div>
+    <%= link_to "View #{@user.username.pluralize} station", @user.station, :class => 'button' unless @user.station.nil? %>
+
+    <h3><%= @user.username %> Stats</h3>
+  </div>

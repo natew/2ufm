@@ -23,10 +23,11 @@ class UsersController < ApplicationController
   end
   
   def show
-    @activities = Activity.find_all_by_user_id(@user.id).limit(16)
+    @activities = Activity.where(:user_id => @user.id).page(params[:page]).per(12)
 
     respond_to do |format|
       format.html
+      format.js { render :layout => false }
       format.rss { render :layout => false }
     end
   end
@@ -73,5 +74,11 @@ class UsersController < ApplicationController
     else
       render :action => 'profile'
     end
+  end
+  
+  private
+  
+  def load_user
+    @user = User.find_by_slug(params[:id])
   end
 end
