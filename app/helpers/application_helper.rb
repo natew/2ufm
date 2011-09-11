@@ -6,18 +6,11 @@ module ApplicationHelper
     end
   end
 
-  # Song favorite
-  def song_favorite(song)
-    has     = current_user.has_favorite_song?(song) if user_signed_in? and song
-    type    = has ? "remove" : "add"
-    render :partial => "songs/favorite_#{type}", :locals => { :id => song.id, :count => song.favorites.count }
-  end
-  
-  # Song broadcase
+  # Song broadcast
   def song_broadcast(song)
-    has  = current_user.has_song_on_station?(song) if user_signed_in? and song
-    type = has ? "remove" : "add"
-    render :partial => "songs/station_#{type}", :locals => { :id => song.id }
+    has     = current_user.has_song_on_station?(song) if user_signed_in? and song
+    type    = has ? "remove" : "add"
+    render :partial => "songs/broadcast_#{type}", :locals => { :id => song.id, :count => song.broadcasts.size }
   end
 
   # Truncates the given text to the given length and appends truncate_string to the end if the text was truncated

@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   def index
-    @new = Station.find_by_slug('new-songs')
-    @popular = Station.find_by_slug('popular-songs')
+    @new = Station.new_station
+    @popular = Station.popular_station
     
     respond_to do |format|
       format.html

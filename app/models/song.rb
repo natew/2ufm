@@ -5,9 +5,8 @@ class Song < ActiveRecord::Base
   belongs_to  :blog
   belongs_to  :post
   belongs_to  :artist
-  has_and_belongs_to_many :stations
-  has_many :favorites, :as => :favorable
-  has_many :files
+  has_many    :broadcasts, :dependent => :destroy
+  has_many    :stations, :through => :broadcasts
   
   has_attached_file	:image,
   					:styles => {
@@ -20,6 +19,8 @@ class Song < ActiveRecord::Base
             :storage        => 's3',
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-song-images'
+            
+  default_scope includes(:post)
   
   acts_as_url :full_name_and_id, :url_attribute => :slug
   

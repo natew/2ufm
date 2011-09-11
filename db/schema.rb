@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110905185636) do
+ActiveRecord::Schema.define(:version => 20110911050451) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -98,6 +98,14 @@ ActiveRecord::Schema.define(:version => 20110905185636) do
     t.integer "song_id"
   end
 
+  create_table "broadcasts", :id => false, :force => true do |t|
+    t.integer "station_id"
+    t.integer "song_id"
+  end
+
+  add_index "broadcasts", ["song_id", "station_id"], :name => "index_broadcasts_on_song_id_and_station_id", :unique => true
+  add_index "broadcasts", ["song_id", "station_id"], :name => "index_songs_stations_on_song_id_and_station_id", :unique => true
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -112,17 +120,6 @@ ActiveRecord::Schema.define(:version => 20110905185636) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
-  create_table "favorites", :force => true do |t|
-    t.integer  "favorable_id"
-    t.string   "favorable_type"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "favorites", ["favorable_id"], :name => "index_favorites_on_favorable_id"
-  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
 
   create_table "genres", :force => true do |t|
     t.string "name"
@@ -172,14 +169,8 @@ ActiveRecord::Schema.define(:version => 20110905185636) do
     t.string   "image_file_name"
     t.datetime "image_updated_at"
     t.boolean  "processed",        :default => false
+    t.integer  "broadcasts_count", :default => 0
   end
-
-  create_table "songs_stations", :id => false, :force => true do |t|
-    t.integer "station_id"
-    t.integer "song_id"
-  end
-
-  add_index "songs_stations", ["song_id", "station_id"], :name => "index_songs_stations_on_song_id_and_station_id", :unique => true
 
   create_table "stations", :force => true do |t|
     t.string   "name"

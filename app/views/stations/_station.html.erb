@@ -1,6 +1,6 @@
 <% size ||= :medium %>
 <section>
-  <%= link_to image_tag(station.image_or_parent(size)), station, :class => 'image' %>
+  <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
   <div>
     <h3><%= link_to station.name, station %></h3>
     <p><%= station.description %></p>

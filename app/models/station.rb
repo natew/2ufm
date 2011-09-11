@@ -2,9 +2,9 @@ class Station < ActiveRecord::Base
   has_and_belongs_to_many :genres
   belongs_to :user
   belongs_to :blog
-  has_many   :favorites, :as => :favorable
-  
-  has_and_belongs_to_many :songs do
+  #has_many   :favorites, :as => :favorable
+  has_many   :broadcasts, :dependent => :destroy
+  has_many   :songs, :through => :broadcasts do
     def to_playlist
       self.map do |s|
         {:id => s.id, :artist => s.artist_name, :name => s.name, :url => s.url } if s.processed?
@@ -37,11 +37,11 @@ class Station < ActiveRecord::Base
     slug
   end
   
-  def self.popular_songs
+  def self.popular_station
     find_by_slug('popular-songs')
   end
   
-  def self.new_songs
+  def self.new_station
     find_by_slug('new-songs')
   end
   

@@ -114,16 +114,16 @@
           }
         }
 
-        &.fav {
+        &.broadcast {
           margin: 4px 0;
           
           a {
             width: 16px;
             height: 16px;
             float: left;
-            background: url(/images/song_icons.png) no-repeat -32px 0;
+            background: url(/images/song_icons.png) no-repeat 0 0;
             
-            &:hover { background-position: -32px -16px; }
+            &:hover { background-position: 0 -16px; }
           }
           
           span.count {
@@ -135,18 +135,6 @@
             text-align: right;
             padding: 0 4px 0 0;
             margin: -3px 3px 0;
-          }
-        }
-        
-        &.add {
-          margin: 6px 0;
-          
-          a {
-            width: 16px;
-            height: 16px;
-            background: url(/images/song_icons.png) no-repeat 0 0;
-            
-            &:hover { background-position: 0 -16px; }
           }
         }
       }
