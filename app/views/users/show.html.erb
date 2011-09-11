@@ -15,6 +15,9 @@
     </div>
 
     <%= paginate @activities %>
+    
+    <h3><%= @user.username %> Radio</h3>
+    <%= render :partial => 'stations/playlist', :locals => { :songs => @user.station.songs, :station => @user.station } %>
   </div>
 
   <div class="third">

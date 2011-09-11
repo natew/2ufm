@@ -124,6 +124,9 @@
             background: url(/images/song_icons.png) no-repeat 0 0;
             
             &:hover { background-position: 0 -16px; }
+            &.remove { background-position: -16px 0;
+              &:hover { background-position: -16px -16px; }
+            }
           }
           
           span.count {

@@ -9,7 +9,9 @@ Fusefm::Application.routes.draw do
   
   resources :genres, :only => [:show]
 
-  resources :blogs, :posts, :songs, :stations, :favorites, :users, :artists
+  resources :blogs, :posts, :songs, :stations, :favorites, :users, :artists, :broadcasts
+  
+  match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
 
   root :to => 'main#index'
   

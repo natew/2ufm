@@ -61,65 +61,8 @@ $(document).ready(function() {
     return false;
   });
   
-  // Favorite station
-  $('.broadcast').live('click', function() {
-    var $this = $(this);
-    var $parent = $(this).parent();
-    var id = $this.attr('rel');
-    
-    if ($this.is('.remove')) {
-      var action = '/' + id;
-      var data = 'type=station';
-      var type = 'DELETE';
-    } else {
-      var action = '';
-      var data = 'id=' + id + 'type=station';
-      var type = 'POST';
-    }
-    
-    $.ajax({
-      type: type,
-      dataType: "html",
-      data: data,
-      url: '/favorites' + action,
-      success: function(data) {
-        $parent.prepend(data);
-      },
-      error: function() {
-        alert('error');
-      }
-    });
-    return false;
-  });
-  
-  // Favorite blog
-  $('.blog-favorite').live('click', function() {
-    var $this = $(this);
-    var $parent = $(this).parent();
-    var id = $this.attr('rel');
-    
-    if ($this.is('.remove')) {
-      var action = '/' + id;
-      var data = 'type=blog';
-      var type = 'DELETE';
-    } else {
-      var action = '';
-      var data = 'id=' + id + '&type=blog';
-      var type = 'POST';
-    }
-    
-    $.ajax({
-      type: type,
-      dataType: "html",
-      data: data,
-      url: '/favorites' + action,
-      success: function(data) {
-        $parent.prepend(data);
-      },
-      error: function() {
-        alert('error');
-      }
-    });
-    return false;
+  // Broadcast song
+  $('.broadcast-song').live('ajax:complete', function(data, status, xhr) {
+    $(this).parent().html(data);
   });
 });

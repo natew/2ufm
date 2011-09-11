@@ -20,7 +20,7 @@ class Song < ActiveRecord::Base
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-song-images'
             
-  default_scope includes(:post)
+  default_scope includes(:post).order('created_at desc')
   
   acts_as_url :full_name_and_id, :url_attribute => :slug
   

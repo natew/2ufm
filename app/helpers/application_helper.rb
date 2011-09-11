@@ -8,9 +8,10 @@ module ApplicationHelper
 
   # Song broadcast
   def song_broadcast(song)
-    has     = current_user.has_song_on_station?(song) if user_signed_in? and song
-    type    = has ? "remove" : "add"
-    render :partial => "songs/broadcast_#{type}", :locals => { :id => song.id, :count => song.broadcasts.size }
+    has    = current_user.broadcasted_song?(song) if user_signed_in?
+    action = has ? "remove" : "add"
+    id     = has ? current_user.station.broadcasts.where(:song_id => song.id).first.id : song.id
+    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.size }
   end
 
   # Truncates the given text to the given length and appends truncate_string to the end if the text was truncated
