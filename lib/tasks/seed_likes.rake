@@ -20,7 +20,7 @@ namespace :db do
       likes = 10 + rand(30)
       while likes > 0
         u = User.order('random()').first
-        f = s.favorites.create(:user_id => u.id)
+        f = s.broadcasts.create(:user_id => u.id)
         f.created_at = (rand(25)+1).days.ago
         f.save
         

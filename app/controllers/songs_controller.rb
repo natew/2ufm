@@ -10,6 +10,11 @@ class SongsController < ApplicationController
   end
   
   def show
-    @post = Song.find(params[:id])
+    @song = Song.find_by_slug(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
   end
 end

@@ -1,0 +1,13 @@
+<div class="title">
+  <h2>
+    <%= @song.name %>
+    <small>by <%= link_to @song.artist_name, @song.artist %></small>
+  </h2>
+</div>
+
+<div class="twothirds">
+  <h3>Posted on <%= pluralize @song.stations.size, 'station' %></h3>
+  <div id="station-list">
+    <%= render @song.stations %>
+  </div>
+</div>
