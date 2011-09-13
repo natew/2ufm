@@ -1,5 +1,5 @@
 <div class="title">
-  <%= image_tag @station.image_or_parent(:small), :class => 'icon' %>
+  <%= image_tag @station.image.url(:small), :class => 'icon' %>
   <h2 class="icon"><%= @station.name %> Radio <small><%= @station.description || "Listening to the latest songs from the #{@station.name} station." %></small></h2>
 </div>
 

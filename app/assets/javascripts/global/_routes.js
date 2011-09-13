@@ -25,8 +25,6 @@ function pageLoaded() {
   var $doc = $(document);
   $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
   
-  $doc.find('.tip').tipsy({gravity: 's', offset: 5});
-  
   // AJAX forms
   $doc.find("#wizard form").ajaxForm({
     type: 'POST',
@@ -42,6 +40,9 @@ var page = {
   enter: function() {
     // Update google analytics
     //_gaq.push(['_trackPageview', document.location.href]);
+    
+    // Remove tooltips
+    $('.tipsy').remove();
     
     // Loading...
     $('#body').html('<div id="loading"><span>Loading</span><img src="/images/ajax-loading.gif" /></div>');

@@ -1,7 +1,6 @@
 class SongsController < ApplicationController
   def index
-    @new = Station.new_station
-    @popular = Station.popular_station
+    @station = Station.popular_station.processed.with_posts
     
     respond_to do |format|
       format.html
@@ -11,6 +10,15 @@ class SongsController < ApplicationController
   
   def show
     @song = Song.find_by_slug(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
+  end
+  
+  def fresh
+    @station = Station.new_station.processed.with_posts
     
     respond_to do |format|
       format.html

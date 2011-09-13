@@ -1,5 +1,8 @@
-<div class="content">
+<div class="title">
   <h2><%= @blog.name %> <small><%= link_to "Visit the #{@blog.name} blog &raquo;".html_safe, @blog.url %></small></h2>
+</div>
+
+<div class="twothirds">
   <p class="description">
     <%= @blog.description || "Browse the latest from #{@blog.name}" %>
   </p>

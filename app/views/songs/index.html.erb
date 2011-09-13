@@ -1,14 +1,9 @@
-<div class="title">
-  <h2>Popular Songs</h2>
+<%= render :partial => 'nav' %>
+
+<div class="twothirds">
+  <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
 </div>
 
-<div class="grid">
-  <div class="twothirds">
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
-  </div>
-
-  <div class="third">
-    <h3>New Songs</h3>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @new } %>
-  </div>
+<div class="third">
+  <h3>Something</h3>
 </div>

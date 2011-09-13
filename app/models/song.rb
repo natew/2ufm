@@ -4,9 +4,9 @@ require 'mp3info'
 class Song < ActiveRecord::Base  
   belongs_to  :blog
   belongs_to  :post
-  belongs_to  :artist
   has_many    :broadcasts, :dependent => :destroy
   has_many    :stations, :through => :broadcasts
+  has_and_belongs_to_many  :artists
   
   has_attached_file	:image,
   					:styles => {
@@ -20,9 +20,10 @@ class Song < ActiveRecord::Base
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-song-images'
             
-  default_scope includes(:post).order('created_at desc')
+  scope :with_posts, includes(:post)
+  scope :processed, where(processed: true)
   
-  acts_as_url :full_name_and_id, :url_attribute => :slug
+  acts_as_url :full_name, :url_attribute => :slug
   
   validates_presence_of :post_id, :blog_id
   
@@ -37,21 +38,12 @@ class Song < ActiveRecord::Base
     "#{artist_name} - #{name}"
   end
   
-  def full_name_and_id
-    "#{full_name} #{id}"
-  end
-  
   def is_popular?
     favorites.where('created at > ?', 10.days.ago).count > 10
   end
   
-  def self.most_favorited(options = {})
-    cols   = column_names.collect {|c| "songs.#{c}"}.join(",")
-    within = options[:days] || 31
-    limit  = options[:limit] || 12
-    where  = " WHERE songs.created_at > '#{within.to_i.days.ago.to_s(:db)}' AND songs.processed = true"
-    
-    Song.find_by_sql "SELECT songs.*, count(favorites.id) as favorites_count FROM songs INNER JOIN favorites on favorites.favorable_id = songs.id and favorites.favorable_type = 'Song'#{where} GROUP BY favorites.favorable_id, #{cols} ORDER BY favorites_count DESC LIMIT #{limit}"
+  def primary_artist
+    artists.first
   end
   
   def add_to_user_stations
@@ -62,19 +54,30 @@ class Song < ActiveRecord::Base
   end
   
   def scan_and_save
+    puts "Scanning #{url} ..."
     unless url.nil?
       begin
         total = nil
+        prev  = 0
+        
         open(URI.escape(url),
           :content_length_proc => lambda { |content_length|
-            raise TooBig if content_length > (1048576 * 20) # 20 MB maximum song size
+            if content_length > (1048576 * 20) # 20 MB maximum song size
+              puts "Too big!"
+              raise TooBig
+            end
             total = content_length
           },
           :progress_proc => lambda { |at|
-            #puts "DOWNLOADING #{(at.fdiv(total)*100).round}%"
+            now = (at.fdiv(total)*100).round
+            if now > (prev+9)
+              puts "Downloading... #{now}%" 
+              prev = now
+            end
           }
         ) do |song|
           Mp3Info.open(song.path) do |mp3|
+            puts "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
             # Read from ID3
             self.name = mp3.tag.title
             self.artist_name = mp3.tag.artist
@@ -90,6 +93,8 @@ class Song < ActiveRecord::Base
             else
               self.processed = true
             end
+            
+            puts "Completed processing... #{processed}"
             
             # Save picture
             picture = mp3.tag2.APIC || mp3.tag2.PIC
@@ -108,13 +113,15 @@ class Song < ActiveRecord::Base
             
             # Update info if we have processed this song
             if processed?
+              puts "Processed successfully"
               find_similar_songs
               find_or_create_artist
-              self.slug = full_name_and_id.to_url
+              self.slug = full_name.to_url
             end
             
             # Done
             self.save
+            puts "Saved!"
           end
         end
       rescue Exception => e
@@ -125,6 +132,71 @@ class Song < ActiveRecord::Base
   
   def delayed_scan_and_save
     delay.scan_and_save
+  end
+  
+  def find_or_create_artist
+    if search_artist
+      search_artist.each do |artist|
+        match = Artist.where("name ILIKE (?)", artist).first
+
+        if match
+          self.artists << match
+        else
+          self.artists.create(:name => artist)
+        end
+      end
+    end
+  end
+  
+  def add_to_stations
+    add_to_new_station
+    if self.blog and !self.blog.station.song_exists?(id)
+      self.blog.station.songs<<self
+    end
+  end
+  
+  def matching_songs
+    if name and artist_name
+      Song.where("artist_name ILIKE (?) and name ILIKE(?) and songs.id != ?", artist_name, search_name, id).first
+    else
+      false
+    end
+  end
+  
+  def find_similar_songs
+    most_similar   = matching_songs
+    self.shared_id = most_similar ? most_similar.id : id
+  end
+  
+  def search_name
+    if name
+      name.gsub(/[()']/,'%').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip
+    else
+      false
+    end
+  end
+  
+  def search_artist
+    if name and artist_name
+      title   = []
+      artists = []
+      
+      # Artists in song title
+      before = /[\S\s]+(\(|featuring |ft(. | )|feat(. | )|f(. | )|produced by ){1}/i
+      after  = /((dubstep|extended|vip|original|radio)?[\s]?( remix| rmx| edit| bootleg| mix| version| rip))?\).*/i
+      split  = /, /
+      title  = name.gsub(before,'').gsub(after,'').split(split) if name =~ before
+      
+      # Artists in artist
+      feat    = /\(?[\s]?(featuring |ft. |ft |feat. |feat |f. )\)?/i
+      artists = artist_name.split(feat).reject { |n| n =~ feat } if artist_name =~ feat
+    
+      # Return union of both + artist_name
+      result = artists | title
+      [artist_name] if result.empty?
+    else
+      false
+    end
   end
   
   private
@@ -146,52 +218,5 @@ class Song < ActiveRecord::Base
   
   def add_to_new_station
     Station.new_songs.songs<<self unless Station.new_songs.song_exists?(id)
-  end
-  
-  def find_or_create_artist
-    artist = Artist.where("name ILIKE (?)", search_artist).limit(1).first
-    
-    if artist
-      self.artist_id = artist.id
-    else
-      build_artist(:name => artist)
-    end
-  end
-  
-  def add_to_stations
-    add_to_new_station
-    if self.blog and !self.blog.station.song_exists?(id)
-      self.blog.station.songs<<self
-    end
-  end
-  
-  def matching_songs
-    if name and artist_name
-      Song.where("artist_name ILIKE (?) and name ILIKE(?)", search_artist, search_name)
-    else
-      []
-    end
-  end
-  
-  def find_similar_songs
-    most_similar = matching_songs.first
-    
-    if most_similar
-      self.shared_id = most_similar.id
-    else
-      self.shared_id = id
-    end
-  end
-  
-  def search_name
-    clean(name)
-  end
-  
-  def search_artist
-    clean(artist_name)
-  end
-  
-  def clean(attr)
-    attr.gsub(/[()']/,'%').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip unless attr.nil?
   end
 end

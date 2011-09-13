@@ -4,7 +4,7 @@
   <p><%= truncate(post.content, :length => 400) %></p>
   <h5>Songs</h5>
   <ul>
-    <% for song in post.songs %>
+    <% for song in post.songs.processed %>
     <li><%= song.artist_name %> - <%= song.name %></li>
     <% end %>
   </ul> 

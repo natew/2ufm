@@ -53,11 +53,11 @@
     </section>
   
     <section>
-      <h3>Featured Stations</h3>
-      <div id="station-list">
-        <%= render :partial => 'stations/station', :collection => @stations, :locals => { :size => :small } unless @stations.nil? %>
+      <h3>Artists</h3>
+      <div class="artist-list">
+        <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
       </div>
-      <%= link_to 'Browse more stations', '/stations', :class => 'button' %>
+      <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
     </section>
   </div>
 </div>

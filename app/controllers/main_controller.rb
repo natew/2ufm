@@ -3,9 +3,10 @@ class MainController < ApplicationController
   end
   
   def home
-    @popular = Station.popular_station
+    @popular  = Station.popular_station
     @stations = Station.limit(6)
-    @genres = Genre.all
+    @genres   = Genre.all
+    @artists  = Artist.order('random()').limit(6)
     
     respond_to do |format|
       format.html

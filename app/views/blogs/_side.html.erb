@@ -15,7 +15,7 @@
   <% unless @queued_songs.empty? %>
     <h3>Uploading tracks</h3>
     <ul>
-      <%= render :partial => 'song', :collection => @queued_songs, :as => :song %>
+      <%= render :partial => 'songs/song', :collection => @queued_songs, :as => :song %>
     </ul>
   <% end %>
 </div>

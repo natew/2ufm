@@ -14,7 +14,7 @@ class BlogsController < ApplicationController
   def show
     @blog = Blog.find_by_slug(params[:id])
     @songs = @blog.songs.joins(:post, :blog).page(params[:page]).per(8)
-    @queued_songs = @blog.songs.where("songs.artist = ''")
+    @queued_songs = @blog.songs.where("songs.processed = false")
     @posts = @blog.posts.order('created_at desc').limit(8)
     @station = @blog.station
     

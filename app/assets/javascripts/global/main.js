@@ -2,8 +2,9 @@ $(document).ready(function() {
   // Path.js
   Path.listen();
 
-  // Header
+  // Tooltips
   $('.tip-n').tipsy({gravity: 'n', offset: 5});
+  $('.tip').tipsy({gravity: 's', offset: 5, live: true});
   
   $('#query').liveSearch({url: '/search/'});
   
@@ -59,10 +60,5 @@ $(document).ready(function() {
       mp.playSection($section);
     }
     return false;
-  });
-  
-  // Broadcast song
-  $('.broadcast-song').live('ajax:complete', function(data, status, xhr) {
-    $(this).parent().html(data);
   });
 });

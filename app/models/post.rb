@@ -3,7 +3,12 @@ require 'sanitize'
 
 class Post < ActiveRecord::Base
   belongs_to :blog
-  has_many  :songs, :dependent => :destroy
+  
+  has_many  :songs, :dependent => :destroy do
+    def processed
+      self.where('songs.processed = true')
+    end
+  end
   
   acts_as_url :title, :url_attribute => :slug
   

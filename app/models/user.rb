@@ -46,7 +46,12 @@ class User < ActiveRecord::Base
   end
   
   def broadcasted_song?(song)
-    station.broadcasts.where(:song_id => song.id).exists?
+    id = song.shared_id.nil? ? song.shared_id : song.id  # should be temporary
+    station.broadcasts.where(:song_id => id).exists?
+  end
+  
+  def following_station?(id)
+    false
   end
   
   protected
