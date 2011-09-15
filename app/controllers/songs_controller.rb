@@ -18,7 +18,7 @@ class SongsController < ApplicationController
   end
   
   def fresh
-    @station = Station.new_station.processed.with_posts
+    @station = Station.new_station
     
     respond_to do |format|
       format.html

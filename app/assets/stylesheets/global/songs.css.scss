@@ -6,7 +6,7 @@
   overflow: hidden;
   
   section {
-    padding: 15px 0;
+    padding: 10px 0;
     border-bottom: 1px dotted #555;
     position: relative;
     overflow: hidden;
@@ -22,7 +22,7 @@
     }
     
     &.playing {
-      background: $light-yellow;
+      background: $playing;
       
       .song-controls {
         .play-song {
