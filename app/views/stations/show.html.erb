@@ -3,15 +3,13 @@
   <h2 class="icon"><%= @station.name %> Radio <small><%= @station.description || "Listening to the latest songs from the #{@station.name} station." %></small></h2>
 </div>
 
-<div class="grid">
-  <div class="twothirds">
-    <%= form_for @station, :html => { :method => :put } do |f| %>
-    <%= render :partial => 'playlist', :locals => { :songs => @songs, :station => @station } %>
-    <%= submit_tag 'Update Station Songs' %>
-    <% end %>
+<div class="twothirds">
+  <%= form_for @station, :html => { :method => :put } do |f| %>
+  <%= render :partial => 'playlist', :locals => { :songs => @songs, :station => @station } %>
+  <%= submit_tag 'Update Station Songs' %>
+  <% end %>
 
-    <%= paginate @songs %>
-  </div>
-  
-  <%= render 'side' %>
+  <%= paginate @songs %>
 </div>
+
+<%= render 'side' %>

@@ -1,15 +1,15 @@
-<div class="content">
-  <section class="begin">
-    <h2>Welcome to the blog directory</h2>
-    <p>Browse blogs and subscribe to their stations</p>
-  </section>
-  
+<div class="title">
+  <h2>Welcome to the blog directory</h2>
+  <p>Browse blogs and subscribe to their stations</p>
+</div>
+
+<div class="twothirds">
   <div id="directory-list">
     <%= render @blogs %>
   </div>
 </div>
 
-<div class="side">
+<div class="third">
   <h3>Want to see your blog here?</h3>
   <%= link_to 'Submit to our directory', new_blog_path, :class => 'button' %>
   

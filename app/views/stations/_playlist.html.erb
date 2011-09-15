@@ -1,4 +1,4 @@
-<% songs ||= station.songs.processed %>
+<% songs ||= station.songs.processed.with_posts %>
 <div id="playlist-<%= station.id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= station.to_json(:only => [:id, :slug, :name]) %>, &quot;songs&quot;: <%= songs.to_playlist %>}">
   <%= render :partial => 'songs/song', :collection => songs, :locals => { :station_id => station.id } unless songs.nil? %>
 </div>

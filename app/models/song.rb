@@ -46,13 +46,6 @@ class Song < ActiveRecord::Base
     artists.first
   end
   
-  def add_to_user_stations
-    # users = Favorite.joins(:user).select('favorites.user_id, users.station_id').where(:favorable_type => 'Song', :favorable_id => 4)
-    #     users.each do |user|
-    #       StationsSongs.create(:song_id => id, :station_id => user.station_id)
-    #     end
-  end
-  
   def scan_and_save
     puts "Scanning #{url} ..."
     unless url.nil?
@@ -115,7 +108,7 @@ class Song < ActiveRecord::Base
             if processed?
               puts "Processed successfully"
               find_similar_songs
-              find_or_create_artist
+              find_or_create_artists
               self.slug = full_name.to_url
             end
             
@@ -134,7 +127,7 @@ class Song < ActiveRecord::Base
     delay.scan_and_save
   end
   
-  def find_or_create_artist
+  def find_or_create_artists
     if search_artist
       search_artist.each do |artist|
         match = Artist.where("name ILIKE (?)", artist).first
@@ -149,7 +142,7 @@ class Song < ActiveRecord::Base
   end
   
   def add_to_stations
-    add_to_new_station
+    add_to_new_station # The new songs station
     if self.blog and !self.blog.station.song_exists?(id)
       self.blog.station.songs<<self
     end
@@ -217,6 +210,11 @@ class Song < ActiveRecord::Base
   end
   
   def add_to_new_station
-    Station.new_songs.songs<<self unless Station.new_songs.song_exists?(id)
+    ns = Station.new_songs
+    if !ns.song_exists?(id)
+      ns.songs<<self
+      ns.songs.last.destroy if ns.count > 30 # So it stays only 30 songs!
+    end
+    
   end
 end

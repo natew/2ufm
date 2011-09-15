@@ -13,9 +13,9 @@ class User < ActiveRecord::Base
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
   
-  has_one  :station
-  has_many :activities, :dependent => :destroy
-  has_many :favorites
+  belongs_to :station
+  has_many   :activities, :dependent => :destroy
+  has_many   :favorites
   
   has_attached_file	:avatar,
   					:styles => {
@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   protected
   
   def create_station
-    self.station_id = create_station(:name => username).id
+    self.create_station(:name => username)
   end
   
   # Devise override for logins

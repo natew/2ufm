@@ -1,6 +1,6 @@
 class Artist < ActiveRecord::Base
   has_and_belongs_to_many  :songs
-  #has_many  :albums
+  belongs_to :station
   
   acts_as_url :name, :url_attribute => :slug
   
@@ -15,8 +15,16 @@ class Artist < ActiveRecord::Base
             :storage        => 's3',
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-artist-images'
+            
+  before_create :create_station
   
   def to_param
     slug
+  end
+  
+  protected
+  
+  def create_station
+    self.create_station(:name => name)
   end
 end

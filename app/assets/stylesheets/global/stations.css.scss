@@ -1,12 +1,16 @@
 @import "mixins.css.scss";
 
 .shelf {
-  margin: -20px 0 10px 0;
+  margin: -30px 20px 10px 20px;
   
   h2 {
     font-size: 20px;
     padding: 10px 20px;
-    background: #eee;
+    margin: 0 0 -50px 0;
+    background: #333;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
   }
   
   ul {
@@ -17,7 +21,7 @@
   li {
     list-style: none;
     float: left;
-    margin: 0 0 0 34px;
+    margin: 0 0 0 31px;
     position: relative;
     
     a {
@@ -25,20 +29,20 @@
     }
     
     strong {
-      background: #444;
-      position: relative;
-      font-size: 13px;
+      background: #222;
       text-align: center;
       z-index: 3;
       color: #fff;
-      padding: 4px;
+      padding: 4px 0;
       display: block;
-      margin-bottom: -20px;
-      @include border-radius-top(4px)
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      @include border-radius-bottom(8px)
     }
     
     img {
-      @include border-radius(4px);
+      @include border-radius(8px);
     }
   }
 }
@@ -169,11 +173,12 @@
       margin: 0 0 4px 4px;
       float: left;
       width: 87px;
-      color: #666;
+      color: #fff;
       font-size: 11px;
       font-weight: bold;
       text-decoration: none;
-      border-bottom: 1px solid #ddd;
+      background: #333;
+      @include border-radius(4px);
       
       &:hover {
         background: #eee;

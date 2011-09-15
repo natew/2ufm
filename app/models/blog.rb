@@ -3,9 +3,9 @@ require 'open-uri'
 require 'nokogiri'
 
 class Blog < ActiveRecord::Base  
-  has_many  :songs
-  has_many  :posts, :dependent => :destroy
-  has_one   :station, :dependent => :destroy
+  has_many   :songs
+  has_many   :posts, :dependent => :destroy
+  belongs_to :station
   
   acts_as_url :name, :url_attribute => :slug
   
@@ -22,7 +22,7 @@ class Blog < ActiveRecord::Base
             :bucket         => 'fm-station-images'
   
   before_save   :get_blog_info
-  after_create  :generate_station, :get_feed_posts
+  after_create  :create_station, :get_feed_posts
   
   serialize :feed
   serialize :html
@@ -154,7 +154,7 @@ class Blog < ActiveRecord::Base
 #    Chronic.parse(doc.at('#ires span.f.std').text)
 #  end
   
-  def generate_station
+  def create_station
     self.create_station(
       :name => name, 
       :description => description

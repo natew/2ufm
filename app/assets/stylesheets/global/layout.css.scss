@@ -3,11 +3,11 @@
 /* Layout */
 
 body {
-  background: #eee;
+  background: #444;
 }
 
 #main-mid {
-  padding: 82px 0 25px 0;
+  padding: 95px 0 25px 0;
 }
 
   .page-contain {
@@ -16,28 +16,25 @@ body {
   position: relative;
 
   #body {
-    background: #fff;
     overflow: hidden;
     position: relative;
-    border: 1px solid #c1d3e3;
-    @include border-radius(10px);
   }
-
-  /* PAGE LAYOUT */
-  .third, .twothirds,
-  .fourth, .half,
-  .whole {
-    float: left;
-    margin-left: 20px;
-    position: relative;
-  }
-
-  .third     { width: 300px; }
-  .twothirds { width: 620px; }
-  .fourth    { width: 220px; }
-  .half      { width: 460px; }
-  .whole     { width: 940px; }
 }
+
+/* PAGE LAYOUT */
+.third, .twothirds,
+.fourth, .half,
+.whole, .section {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+
+.third     { width: 300px; }
+.twothirds { width: 620px; }
+.fourth    { width: 220px; }
+.half      { width: 460px; }
+.whole     { width: 940px; }
 
 
 
@@ -96,8 +93,11 @@ body {
 
 h2, h3 {
   padding: 0;
-  color: #444;
+  color: #fff;
   font-size: 30px;
+  display: inline-block;
+  background: #333;
+  padding: 8px 16px;
 }
 
 h3 {

@@ -7,12 +7,12 @@
   
   section {
     padding: 15px 0;
-    border-bottom: 1px dotted #ddd;
+    border-bottom: 1px dotted #555;
     position: relative;
     overflow: hidden;
     
     &:hover {
-      background: #f7f7f7;
+      background: #555;
     }
     
     &.downloading {
@@ -47,8 +47,8 @@
         a {
           text-decoration: none;
           
-          &.song-artist { color: #000; }
-          &.song-name   { color: #666; }
+          &.song-artist { color: #fff; }
+          &.song-name   { color: #ddd; }
         }
       }
       
