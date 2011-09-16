@@ -46,7 +46,7 @@ class Station < ActiveRecord::Base
   end
   
   def song_exists?(song_id)
-    SongsStations.where('song_id = ? and station_id = ?', song_id, id).exists?
+    Broadcast.where('song_id = ? and station_id = ?', song_id, id).exists?
   end
   
   def self.most_favorited(options = {})

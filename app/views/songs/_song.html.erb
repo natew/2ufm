@@ -7,14 +7,19 @@
 <section id="song-<%= song.id %>" data-index="<%= song_counter + params[:page].to_i %>" data-station="<%= station_id %>">
   <div class="song-info">
     <h3><%= link_to song.artist_name, song.primary_artist, :class => 'song-artist tip', :title => "More songs by #{song.artist_name}" %> - <%= link_to song.name, song, :class => 'song-name' %></h3>
-    <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 25)}".html_safe, song.post.url %></div>
-    <p><%= truncate(song.post.excerpt, :length => length) %></p>
-    <%- if user_signed_in? and false -%>
-    <span class="active">Active:
-      <%= hidden_field_tag('seen_ids[]', song.id) -%>
-      <%= check_box_tag 'song_ids[]', song.id, @station.songs.include?(song), { :id => song.id } -%>
-    </span>
-    <%- end -%>
+    <div class="song-art">
+      <%= image_tag(song.image.url(:small)) %>
+    </div>
+    <div class="song-post">
+      <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 25)}".html_safe, song.post.url %></div>
+      <p><%= truncate(song.post.excerpt, :length => length) %></p>
+      <%- if user_signed_in? and false -%>
+      <span class="active">Active:
+        <%= hidden_field_tag('seen_ids[]', song.id) -%>
+        <%= check_box_tag 'song_ids[]', song.id, @station.songs.include?(song), { :id => song.id } -%>
+      </span>
+      <%- end -%>
+    </div>
   </div>
   <ul class="song-controls">
     <li class="play"><%= link_to 'Play', song, :class => 'play-song control' %></li>

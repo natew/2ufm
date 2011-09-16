@@ -1,9 +1,9 @@
 namespace :songs do
-  namespace :scan do
-    task :reset => :environment do
-      songs = Song.update_all(processed: false)
-    end
-    
+  task :reset => :environment do
+    songs = Song.update_all(processed: false)
+  end
+  
+  namespace :scan do  
     task :unprocessed => :environment do
       songs = Song.where(processed: false)
       songs.each do |song|
@@ -12,7 +12,7 @@ namespace :songs do
     end
     
     task :some => :environment do
-      songs = Song.order('random()').limit(10)
+      songs = Song.order('random()').limit(20)
       songs.each do |song|
         song.scan_and_save
       end

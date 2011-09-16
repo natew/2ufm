@@ -11,5 +11,9 @@ class ArtistsController < ApplicationController
     @artist  = Artist.find_by_slug(params[:id])
     @station = @artist.station
     @songs   = @station.songs
+    
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
   end
 end

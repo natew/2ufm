@@ -16,7 +16,7 @@ class Artist < ActiveRecord::Base
             :s3_credentials => 'config/amazon_s3.yml',
             :bucket         => 'fm-artist-images'
             
-  before_create :create_station
+  before_create :generate_station
   
   def to_param
     slug
@@ -24,7 +24,7 @@ class Artist < ActiveRecord::Base
   
   protected
   
-  def create_station
-    self.create_station(:name => name)
+  def generate_station
+    self.create_station(name: name)
   end
 end

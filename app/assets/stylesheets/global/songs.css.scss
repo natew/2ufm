@@ -42,7 +42,9 @@
       h3 {
         font-size: 18px;
         border: none;
-        margin-bottom: 0;
+        margin-bottom: 8px;
+        display: block;
+        background: none;
       
         a {
           text-decoration: none;
@@ -52,24 +54,41 @@
         }
       }
       
-      p {
-        font-size: 13px;
-        margin: 0;
-        line-height: 1.6em;
-        color: #777;
+      .song-art {
+        float: right;
+        margin: 0 10px;
+        
+        img {
+          height: 55px;
+          @include border-radius(8px);
+        }
       }
       
-      span.active {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        color: #999;
-        font-size: 12px;
+      .song-post {
+        float: left;
+        width: 80%;
+        
+        p {
+          font-size: 13px;
+          margin: 0;
+          line-height: 1.6em;
+          color: #777;
+          height: 3em;
+          overflow: hidden;
+        }
+
+        span.active {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          color: #999;
+          font-size: 12px;
+        }
       }
     }
     
     .song-meta {
-      margin: 5px 0 5px 0;
+      margin: 0 0 5px 0;
       font-size: 11px;
       color: #aaa;
       line-height: 1.4em;

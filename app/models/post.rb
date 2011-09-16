@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
   def save_songs
     parse = Nokogiri::HTML(content)
     parse.css('a').each do |link|
-      if link['href'] =~ /.mp3$/
+      if link['href'] =~ /.mp3/
         Song.create!(
           :blog_id    => blog_id,
           :post_id    => id,

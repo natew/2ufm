@@ -21,10 +21,10 @@ var mp = (function() {
   soundManager.useHighPerformance = true;
   soundManager.onready(function() {
     if(soundManager.supported()) {
-      $('#player-progress-loaded').bind('mousedown', actions.start_drag);
-      $('#player-progress-position').bind('mousedown', actions.start_drag);
-      $('#player-progress-loaded').bind('mouseup', actions.end_drag);
-      $('#player-progress-position').bind('mouseup', actions.end_drag);
+      $('#player-progress-loaded').bind('mousedown', actions.startDrag);
+      $('#player-progress-position').bind('mousedown', actions.startDrag);
+      $('#player-progress-loaded').bind('mouseup', actions.endDrag);
+      $('#player-progress-position').bind('mouseup', actions.endDrag);
     } else {
       // not supported
     }
@@ -35,6 +35,7 @@ var mp = (function() {
   // Player functions
   //
   var player = {
+    // Play a section
     playSection: function(section) {
       this.stop();
       curSection = section;
@@ -130,20 +131,20 @@ var mp = (function() {
   // Actions
   //
   var actions = {
-    drag: function(event) {
+    startDrag: function(event) {
       if (!event) var event = window.event;
       element = event.target || event.srcElement;
 
       if (element.id.match(/progress/)) {
         dragging_position = true;
-        $(window).unbind('mousemove').bind('mousemove', player_follow_drag);
-        $(window).unbind('mouseup').bind('mouseup', player_end_drag);
+        $(window).unbind('mousemove').bind('mousemove', this.followDrag);
+        $(window).unbind('mouseup').bind('mouseup', this.endDrag);
       }
 
       return false;
     },
 
-    end_drag: function(event) {
+    endDrag: function(event) {
       if (!event) var event = window.event; // IE Fix
       element = event.target || event.srcElement;
 
@@ -152,13 +153,13 @@ var mp = (function() {
       $(window).unbind('mouseup');
 
       if (element.id.match(/progress/)) {
-        player_update_progress(event, element);
+        player.updateProgress(event, element);
       }
 
       return false;
     },
 
-    follow_drag: function(event) {
+    followDrag: function(event) {
       if (!event) var event = window.event;
       element = event.target || event.srcElement;
 
@@ -167,9 +168,11 @@ var mp = (function() {
 
       $('#player-progress-loaded').width((Math.round( player_position / player_duration * 100 * 100) / 100 ) + '%')
 
-      sm_update_progress(evt, t_elt);
-      if(player_position >= player_duration) sm_end_drag();
-    }
+      player.updateProgress(event, element);
+      if (player_position >= player_duration) this.endDrag();
+    },
+    
+    
   };
 
 

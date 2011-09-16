@@ -1,7 +1,8 @@
 <div class="title">
-  <h2>
+  <%= image_tag @song.image.url(:small), :class => 'icon' %>
+  <h2 class="icon">
     <%= @song.name %>
-    <small>by <%= link_to @song.artist_name, @song.artist %></small>
+    <small>by artist</small>
   </h2>
 </div>
 

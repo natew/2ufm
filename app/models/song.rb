@@ -97,10 +97,8 @@ class Song < ActiveRecord::Base
               pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
               if pic_type
                 tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}.#{pic_type[0]}"
-                tmp_file = File.open(tmp_path, 'wb') do |f|
-                  f.write(picture[6,picture.length])  # yikes
-                end
-                self.image = tmp_file
+                File.open(tmp_path, 'wb') { |f| f.write(picture[13,picture.length]) }
+                self.image = File.new(tmp_path)
               end
             end
             
@@ -115,6 +113,11 @@ class Song < ActiveRecord::Base
             # Done
             self.save
             puts "Saved!"
+            
+            # Destroy tmp image!
+            #
+            #
+            #
           end
         end
       rescue Exception => e
@@ -175,18 +178,29 @@ class Song < ActiveRecord::Base
       artists = []
       
       # Artists in song title
-      before = /[\S\s]+(\(|featuring |ft(. | )|feat(. | )|f(. | )|produced by ){1}/i
+      before = /[\S\s]+(\(|featuring |ft(\. | )|feat(\. | )|f\. |produced by ){1}/i
       after  = /((dubstep|extended|vip|original|radio)?[\s]?( remix| rmx| edit| bootleg| mix| version| rip))?\).*/i
       split  = /, /
-      title  = name.gsub(before,'').gsub(after,'').split(split) if name =~ before
+      
+      if name.match(before)
+        title  = name.gsub(before,'').gsub(after,'')
+        title  = title =~ split ? title.split(split) : [title]
+      end
       
       # Artists in artist
       feat    = /\(?[\s]?(featuring |ft. |ft |feat. |feat |f. )\)?/i
-      artists = artist_name.split(feat).reject { |n| n =~ feat } if artist_name =~ feat
+      
+      if artist_name.match(feat)
+        artists = artist_name.split(feat).reject { |n| n =~ feat }
+        artists = artists =~ split ? artists.split(split) : artists
+      end
     
       # Return union of both + artist_name
-      result = artists | title
-      [artist_name] if result.empty?
+      if !artists.empty? or !title.empty?
+        artists | title
+      else
+        [artist_name]
+      end
     else
       false
     end
@@ -210,10 +224,10 @@ class Song < ActiveRecord::Base
   end
   
   def add_to_new_station
-    ns = Station.new_songs
+    ns = Station.new_station
     if !ns.song_exists?(id)
       ns.songs<<self
-      ns.songs.last.destroy if ns.count > 30 # So it stays only 30 songs!
+      ns.songs.last.destroy if ns.songs.count > 30 # So it stays only 30 songs!
     end
     
   end

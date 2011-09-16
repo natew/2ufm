@@ -1,11 +1,10 @@
 <div class="title">
   <%= image_tag @artist.image.url(:small), :class => 'icon' %>
-  <h2 class="icon"><%= @artist.name %> Radio <small><%= @station.bio || "Listening to the latest songs from the #{@artist.name} station." %></small></h2>
+  <h2 class="icon"><%= @artist.name %> Radio <small><%= @artist.about || "Listening to the latest songs from the #{@artist.name} station." %></small></h2>
 </div>
 
 <div class="twothirds">
-  <%= render :partial => 'playlist', :locals => { :songs => @songs, :station => @station } %>
-  <%= paginate @songs %>
+  <%= render :partial => 'stations/playlist', :locals => { :songs => @songs, :station => @station } %>
+  <%= paginate @songs unless @songs.empty? %>
 </div>
 
-<%= render 'side' %>
