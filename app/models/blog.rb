@@ -1,6 +1,7 @@
 require 'feedzirra'
 require 'open-uri'
 require 'nokogiri'
+include AttachmentHelper
 
 class Blog < ActiveRecord::Base  
   has_many   :songs
@@ -9,17 +10,7 @@ class Blog < ActiveRecord::Base
   
   acts_as_url :name, :url_attribute => :slug
   
-  has_attached_file	:image,
-  					:styles => {
-  						:original => ['300x300#', :jpg],
-  						:medium   => ['128x128#', :jpg],
-  						:small    => ['64x64#',   :jpg],
-  					},
-            :path           => ':id_:style.:extension',
-            :default_url    => '/images/default_:style.jpg',
-            :storage        => 's3',
-            :s3_credentials => 'config/amazon_s3.yml',
-            :bucket         => 'fm-station-images'
+  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_save   :get_blog_info
   after_create  :create_station, :get_feed_posts

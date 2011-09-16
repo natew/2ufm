@@ -1,25 +1,18 @@
 require 'open-uri'
 require 'mp3info'
 
-class Song < ActiveRecord::Base  
+class Song < ActiveRecord::Base
+  include AttachmentHelper
+  
   belongs_to  :blog
   belongs_to  :post
   has_many    :broadcasts, :dependent => :destroy
   has_many    :stations, :through => :broadcasts
-  has_and_belongs_to_many  :artists
+  has_many    :authors
+  has_many    :artists, :through => :authors
   
-  has_attached_file	:image,
-  					:styles => {
-  						:original => ['300x300#', :jpg],
-  						:medium   => ['128x128#', :jpg],
-  						:small    => ['64x64#', :jpg],
-  					},
-            :path           => ':id_:style.:extension',
-            :default_url    => '/images/default_:style.jpg',
-            :storage        => 's3',
-            :s3_credentials => 'config/amazon_s3.yml',
-            :bucket         => 'fm-song-images'
-            
+  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
+
   scope :with_posts, includes(:post)
   scope :processed, where(processed: true)
   
@@ -40,10 +33,6 @@ class Song < ActiveRecord::Base
   
   def is_popular?
     favorites.where('created at > ?', 10.days.ago).count > 10
-  end
-  
-  def primary_artist
-    artists.first
   end
   
   def scan_and_save
@@ -130,20 +119,6 @@ class Song < ActiveRecord::Base
     delay.scan_and_save
   end
   
-  def find_or_create_artists
-    if search_artist
-      search_artist.each do |artist|
-        match = Artist.where("name ILIKE (?)", artist).first
-
-        if match
-          self.artists << match
-        else
-          self.artists.create(:name => artist)
-        end
-      end
-    end
-  end
-  
   def add_to_stations
     add_to_new_station # The new songs station
     if self.blog and !self.blog.station.song_exists?(id)
@@ -172,38 +147,62 @@ class Song < ActiveRecord::Base
     end
   end
   
-  def search_artist
-    if name and artist_name
-      title   = []
-      artists = []
-      
-      # Artists in song title
-      before = /[\S\s]+(\(|featuring |ft(\. | )|feat(\. | )|f\. |produced by ){1}/i
-      after  = /((dubstep|extended|vip|original|radio)?[\s]?( remix| rmx| edit| bootleg| mix| version| rip))?\).*/i
-      split  = /, /
-      
-      if name.match(before)
-        title  = name.gsub(before,'').gsub(after,'')
-        title  = title =~ split ? title.split(split) : [title]
-      end
-      
-      # Artists in artist
-      feat    = /\(?[\s]?(featuring |ft. |ft |feat. |feat |f. )\)?/i
-      
-      if artist_name.match(feat)
-        artists = artist_name.split(feat).reject { |n| n =~ feat }
-        artists = artists =~ split ? artists.split(split) : artists
-      end
+  def find_or_create_artists
+    artists = parse_artists
+    artists.each do |name,role|
+      match = Artist.where("name ILIKE (?)", name).first
     
-      # Return union of both + artist_name
-      if !artists.empty? or !title.empty?
-        artists | title
+      if match
+        self.artists << match
       else
-        [artist_name]
+        self.artists.create(name: name, role: role)
       end
-    else
-      false
     end
+  end
+      
+  def parse_artists
+    parse_from_link unless name and artist_name
+
+    # Strip unnecessary stuff and parse the song name
+    strip = /extended mix|vip mix|vip edit|original mix|radio edit|radio bootleg/i
+    name_artists = matching_artists(name.gsub(strip,''))
+
+    # Now parse the artist field
+    artist_artists = matching_artists(artist_name)
+    artist_artists =  artist_artists ? artists_artists : [[artist_name, :original]]
+
+    name_artists | artist_artists
+  end
+  
+  def matching_artists(string)
+    matched = false
+    
+    # Match their respective roles
+    featured = /(featuring|ft.?|feat.?|f.){1}/i
+    remixer  = / remix| rmx| edit| bootleg/i
+    producer = /produced by /i
+
+    if string =~ /#{featured}|#{remixer}|#{producer}/i
+      matched  = []
+      string.split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|        
+        # Splits up "one, two, three & four"
+        split = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i
+
+        part.scan(/#{featured}#{split}/).flatten.compact.each do |artist|
+          matched.push [artist,:featured] unless artist =~ featured
+        end
+
+        part.scan(/#{split}#{remixer}/).flatten.compact.each do |artist|
+          matched.push [artist,:remixer] unless artist =~ remixer
+        end
+
+        part.scan(/#{producer}#{split}/).flatten.compact.each do |artist|
+          matched.push [artist,:producer] unless artist =~ producer
+        end
+      end
+    end
+
+    matched
   end
   
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110915041509) do
+ActiveRecord::Schema.define(:version => 20110916191049) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -77,9 +77,10 @@ ActiveRecord::Schema.define(:version => 20110915041509) do
     t.integer  "station_id"
   end
 
-  create_table "artists_songs", :id => false, :force => true do |t|
+  create_table "authors", :force => true do |t|
     t.integer "artist_id"
     t.integer "song_id"
+    t.string  "role",      :default => "original"
   end
 
   create_table "blogs", :force => true do |t|

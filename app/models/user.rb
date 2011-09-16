@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include AttachmentHelper
+  
   ROLES = %w[admin blogowner user]
 
   # Include default devise modules. Others available are:
@@ -17,17 +19,7 @@ class User < ActiveRecord::Base
   has_many   :activities, :dependent => :destroy
   has_many   :favorites
   
-  has_attached_file	:avatar,
-  					:styles => {
-  						:original => ['300x300#', :jpg],
-  						:medium   => ['128x128#', :jpg],
-  						:small    => ['64x64#', :jpg],
-  					},
-            :path           => ':id_:style.:extension',
-            :default_url    => '/images/default_:style.jpg',
-            :storage        => 's3',
-            :s3_credentials => 'config/amazon_s3.yml',
-            :bucket         => 'fm-user-images'
+  has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   acts_as_url :username, :url_attribute => :slug
   

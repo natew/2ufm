@@ -1,22 +1,17 @@
+include AttachmentHelper
+
 class Artist < ActiveRecord::Base
-  has_and_belongs_to_many  :songs
   belongs_to :station
+  has_many   :authors
+  has_many   :songs, :through => :authors
   
   acts_as_url :name, :url_attribute => :slug
   
-  has_attached_file	:image,
-  					:styles => {
-  						:original => ['300x300#', :jpg],
-  						:medium   => ['128x128#', :jpg],
-  						:small    => ['64x64#', :jpg],
-  					},
-            :path           => ':id_:style.:extension',
-            :default_url    => '/images/default_:style.jpg',
-            :storage        => 's3',
-            :s3_credentials => 'config/amazon_s3.yml',
-            :bucket         => 'fm-artist-images'
+  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
             
   before_create :generate_station
+  
+  validates :name, presence: true, allow_blank: false
   
   def to_param
     slug

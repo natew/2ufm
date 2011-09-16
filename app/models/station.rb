@@ -1,4 +1,6 @@
-class Station < ActiveRecord::Base
+class Station < ActiveRecord::Base  
+  include AttachmentHelper
+
   has_and_belongs_to_many :genres
   belongs_to :user
   belongs_to :blog
@@ -12,22 +14,13 @@ class Station < ActiveRecord::Base
     end
   end
   
-  acts_as_url :name, :url_attribute => :slug
+  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
+  acts_as_url :name, :url_attribute => :slug
+
   validates :name,  :uniqueness => true,
                     :presence   => true
-  
-  has_attached_file	:image,
-  					:styles => {
-  						:original => ['300x300#', :jpg],
-  						:medium   => ['128x128#', :jpg],
-  						:small    => ['64x64#', :jpg],
-  					},
-            :path           => ':id_:style.:extension',
-            :default_url    => '/images/default_:style.jpg',
-            :storage        => 's3',
-            :s3_credentials => 'config/amazon_s3.yml',
-            :bucket         => 'fm-station-images'
+
 
   def to_param
     slug

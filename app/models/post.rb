@@ -1,14 +1,16 @@
 require 'nokogiri'
 require 'sanitize'
+include AttachmentHelper
 
-class Post < ActiveRecord::Base
+class Post < ActiveRecord::Base  
   belongs_to :blog
-  
   has_many  :songs, :dependent => :destroy do
     def processed
       self.where('songs.processed = true')
     end
   end
+  
+  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   acts_as_url :title, :url_attribute => :slug
   
