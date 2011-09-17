@@ -9,15 +9,24 @@
 </div>
 
   <div class="twothirds">
-    <h3>What <%= @user.username.pluralize %> been up to</h3>
+    <ul class="subnav">
+      <li><%= link_to "#{@user.username.pluralize} Station" %></li>
+      <li><%= link_to "#{@user.username.pluralize} Activity Feed" %></li>
+    </ul>
+    
+    <!-- <h3>What <%= @user.username.pluralize %> been up to</h3>
     <div id="activity-list">
       <%= render :partial => 'shared/activity', :collection => @activities %>
     </div>
 
-    <%= paginate @activities %>
+    <%= paginate @activities %> -->
     
-    <h3><%= @user.username %> Radio</h3>
-    <%= render :partial => 'stations/playlist', :locals => { :songs => @user.station.songs, :station => @user.station } %>
+    <%= render :partial => 'songs/new' %>
+    
+    <%= render :partial => 'stations/playlist', :locals => { :station => @user.station } %>
+    <%- if @user.station.songs.empty? -%>
+      <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
+    <%- end -%>
   </div>
 
   <div class="third">

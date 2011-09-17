@@ -8,6 +8,21 @@ class SongsController < ApplicationController
     end
   end
   
+  def create
+    params[:song][:file] = URLTempfile.new(params[:url])
+    @song = Song.new(params[:song])
+    
+    respond_to do |format|
+      if @song.save!
+        format.html { render 'index' }
+        format.js { render 'index', layout: false, notice: 'Posted song!' }
+      else
+        format.html { render 'index', notice: 'Could not post song!' }
+        format.js { render 'index', layout: false }
+      end
+    end
+  end
+  
   def show
     @song = Song.find_by_slug(params[:id])
     

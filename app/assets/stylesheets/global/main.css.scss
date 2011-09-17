@@ -4,12 +4,18 @@
 
 header {
   background: #333;
+  @include background-gradient(#555,#353535);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 100;
   line-height: 1em;
-  border-bottom: 1px solid #555;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #333;
+  
+  .page-contain {
+    width: 940px;
+  }
   
   h1 {
     margin: 9px 0 0 0;
@@ -38,7 +44,6 @@ header {
     li {
       float: left;
       padding: 0 3px;
-      border-left: 1px dotted #555;
       
       &.active {
         background: url(/images/dim.png);
@@ -120,14 +125,14 @@ header {
 
       .nav-dropdown {
         position: absolute;
-        top: 44px;
-        left: -83px;
+        top: 40px;
+        left: 34px;
         width: 200px;
-        background: #333;
+        background: #222;
         display: none;
         padding: 0;
         @include border-radius-bottom(5px);
-        @include box-shadow(0,2px,2px,#444);
+        @include box-shadow(0,4px,9px,#111);
 
         a {
           display: block;
@@ -155,11 +160,20 @@ header {
         padding: 7px 12px;
         width: 210px;
         color: #ccc;
-        background: #222;
+        background: url(/images/dim.png);
         border: none;
         outline: none;
         font-size: 13px;
         @include border-radius(18px);
+        
+        &::after {
+          content: "s";
+          position: absolute;
+          font-family: 'Pictos';
+          font-size: 19px;
+          right: 11px;
+          top: 18px;
+        }
 
         &:hover {
           background: #000;
@@ -179,8 +193,8 @@ header {
     padding: 10px;
     overflow: hidden;
     white-space: nowrap;
-    background: #222;
-    border: 1px dotted #555;
+    background: url(/images/dim.png);
+    border: 1px solid #444;
     border-top: none;
     border-bottom: none;
     position: relative;
@@ -349,7 +363,7 @@ header {
 h2.title { color: #ddd; }
 .title {
   padding: 15px 20px;
-  margin: 0 0 20px 0;
+  margin: 0 20px 10px 20px;
   color: #999;
   position: relative;
   background: #333;
@@ -358,6 +372,10 @@ h2.title { color: #ddd; }
   &.grid {
     padding-left: 0;
     padding-right: 0;
+    
+    .third {
+      margin-left: 0;
+    }
   }
 
   h2 {
@@ -401,7 +419,7 @@ h2.title { color: #ddd; }
 
 /* Subnav */
 .subnav {
-  margin: -15px 0 20px 0;
+  margin: -3px 20px 15px 20px;
   background: #333;
   padding: 4px;
   @include border-radius(8px);
@@ -418,4 +436,33 @@ h2.title { color: #ddd; }
       text-decoration: none;
     }
   }
+}
+
+.twothirds .subnav {
+  margin: 0 0 15px 0;
+}
+
+
+/* Pictos Font
+* Copyright © 2010 Drew Wilson
+* http://www.drewwilson.com  -  http://pictos.drewwilson.com
+*
+* The fonts included in this stylesheet are subject to the End User License you purchased
+* from Drew Wilson. The fonts are protected under domestic and international trademark and 
+* copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+* distributing this font software.
+*
+* This font is NOT free. It is illegal to use this font without paying for a license. 
+*/
+@font-face {
+    font-family: 'Pictos';
+    src: url('/fonts/pictos-web.eot');
+    src: local('☺'), url('/fonts/pictos-web.woff') format('woff'), url('/fonts/pictos-web.ttf') format('truetype'), url('/fonts/pictos-web.svg#webfontIyfZbseF') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.pictos {
+    font-family: 'Pictos';
+    text-decoration: none;
 }

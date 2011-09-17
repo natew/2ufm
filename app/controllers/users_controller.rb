@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   
   def show
     @activities = Activity.where(:user_id => @user.id).page(params[:page]).per(12)
+    @song = Song.new
 
     respond_to do |format|
       format.html

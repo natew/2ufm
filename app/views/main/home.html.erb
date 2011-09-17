@@ -1,6 +1,6 @@
 <section class="title center">
   <h2>Take control of <em>your</em> favorite music blogs &amp; artists</h2>
-  <p><strong>Follow blogs, artists and friends.  Broadcast their music on your personl station.</strong></p>
+  <p><strong>Follow blogs, artists and friends.  Find good music. Post good music.</strong></p>
     
     <div id="quick-signup" class="clearfix">
       <%= form_tag do %>        
@@ -31,7 +31,7 @@
 </section>
 
 <div class="shelf">
-  <h2>Featured Stations</h2>
+  <h3>Featured Stations</h3>
   <ul>
     <%= render :partial => 'stations/shelf', :collection => @stations %>
   </ul>
@@ -39,7 +39,7 @@
 
 <div class="grid">
   <div class="twothirds">
-    <h2>Popular Songs</h2>
+    <h3>Popular Songs</h3>
     <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
     <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
   </div>

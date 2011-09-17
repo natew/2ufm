@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   
   acts_as_url :username, :url_attribute => :slug
   
-  before_create :create_station
+  before_create :make_station
   
   def to_param
     slug
@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   
   protected
   
-  def create_station
+  def make_station
     self.station_id = Station.create(:name => username).id
   end
   

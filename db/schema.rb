@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110916191049) do
+ActiveRecord::Schema.define(:version => 20110917203840) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -180,6 +180,8 @@ ActiveRecord::Schema.define(:version => 20110916191049) do
     t.datetime "image_updated_at"
     t.boolean  "processed",        :default => false
     t.integer  "broadcasts_count", :default => 0
+    t.string   "file_file_name"
+    t.string   "file_updated_at"
   end
 
   create_table "stations", :force => true do |t|

@@ -52,10 +52,10 @@ $(document).ready(function() {
   
 
   // Play from song
-  $('a.play-song').live('click',function() {
-    var $section = $(this).parent().parent().parent('section');
+  $('.play-song').live('click',function() {
+    var $section = $(this).parent().parent('section');
     if ($section.is('.playing')) {
-      mp.stop();
+      mp.pause();
     } else {
       mp.playSection($section);
     }

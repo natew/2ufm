@@ -7,25 +7,17 @@ class BlogsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.js { render :layout => false }
-      format.json { render json: @blogs }
     end
   end
 
   def show
     @blog = Blog.find_by_slug(params[:id])
-    @songs = @blog.songs.joins(:post, :blog).page(params[:page]).per(8)
-    @queued_songs = @blog.songs.where("songs.processed = false")
-    @posts = @blog.posts.order('created_at desc').limit(8)
     @station = @blog.station
-    
-    for post in @posts
-      logger.info post.title
-    end
+    @posts = @blog.posts.order('created_at desc').limit(8)
   
     respond_to do |format|
       format.html # show.html.erb
       format.js { render :layout => false }
-      format.json { render json: @blog }
     end
   end
 
@@ -38,7 +30,6 @@ class BlogsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.js { render :layout => false }
-      format.json { render json: @blog }
     end
   end
 

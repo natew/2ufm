@@ -3,6 +3,10 @@ namespace :songs do
     songs = Song.update_all(processed: false)
   end
   
+  task :processed => :environment do
+    puts Song.where(processed:true).count
+  end
+  
   namespace :scan do  
     task :unprocessed => :environment do
       songs = Song.where(processed: false)

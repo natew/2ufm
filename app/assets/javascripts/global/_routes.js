@@ -51,8 +51,13 @@ var page = {
   },
   
   load: function(data) {
+    // Set page in music player
+    mp.setPage(document.location.href);
+    
+    // Update html
     $('#body').html(data);    
     
+    // Run loaded functions
     pageLoaded();
   },
   

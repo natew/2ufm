@@ -1,12 +1,12 @@
 <%- length ||= 160 -%>
 <% unless song.processed? %>
 <section class="downloading" id="song-<%= song.id %>">
-  <h3>Downloading song <%= song.link_text %>...</h3>
+  <h4>Downloading song <%= song.link_text %>...</h4>
   <div class="song-meta"><%= song.url %></div>
 <% else %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter + params[:page].to_i %>" data-station="<%= station_id %>">
   <div class="song-info">
-    <h3><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h3>
+    <h4><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h4>
     <div class="song-art">
       <%= image_tag(song.image.url(:small)) %>
     </div>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <ul class="song-controls">
-    <li class="play"><%= link_to 'Play', song, :class => 'play-song control' %></li>
+    <li class="play-song pictos">9</li>
     <li class="broadcast"><%= song_broadcast(song) %></li>
   </ul>
 <% end %>

@@ -3,6 +3,7 @@ require 'mp3info'
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
+  include SongExtensions
   
   belongs_to  :blog
   belongs_to  :post
@@ -12,13 +13,12 @@ class Song < ActiveRecord::Base
   has_many    :artists, :through => :authors
   
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
+  has_attachment :file
 
   scope :with_posts, includes(:post)
   scope :processed, where(processed: true)
   
   acts_as_url :full_name, :url_attribute => :slug
-  
-  validates_presence_of :post_id, :blog_id
   
   before_save  :clean_url
   after_create :delayed_scan_and_save, :add_to_stations
@@ -40,7 +40,7 @@ class Song < ActiveRecord::Base
         
         open(URI.escape(url),
           :content_length_proc => lambda { |content_length|
-            if content_length > (1048576 * 20) # 20 MB maximum song size
+            if content_length > (1048576 * 40) # 20 MB maximum song size
               puts "Too big!"
               raise TooBig
             end
@@ -80,6 +80,7 @@ class Song < ActiveRecord::Base
             if picture
               picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
               pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
+              puts "Picture found, #{pic_type}"
               if pic_type
                 tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}.#{pic_type[0]}"
                 File.open(tmp_path, 'wb') { |f| f.write(picture[13,picture.length]) }
@@ -118,7 +119,7 @@ class Song < ActiveRecord::Base
   def add_to_stations
     add_to_new_station # The new songs station
     if self.blog and !self.blog.station.song_exists?(id)
-      self.blog.station.songs<<self
+      self.blog.station.songs << self
     end
   end
   
@@ -153,28 +154,35 @@ class Song < ActiveRecord::Base
       
   def parse_artists
     parse_from_link unless name and artist_name
-
-    # Strip unnecessary stuff and parse the song name
-    strip = /extended mix|vip mix|vip edit|original mix|radio edit|radio bootleg/i
-    name_artists = matching_artists(name.gsub(strip,''))
-
-    # Now parse the artist field
-    artist_artists = matching_artists(artist_name)
-    artist_artists =  artist_artists ? artists_artists : [[artist_name, :original]]
-
+    name_artists = artists_in_name
+    artist_artists = artists_in_artist
     name_artists | artist_artists
   end
   
-  def matching_artists(string)
-    matched = false
-    
+  def artists_in_name
+    # Strip unnecessary stuff and parse the song name
+    strip = /(extended|vip|original|club) mix|(vip|radio) edit|radio bootleg/i
+    matching_artists(name:name.gsub(strip,''))
+  end
+  
+  def artists_in_artist
+    # Now parse the artist field
+    artist_artists = matching_artists(artist:artist_name)
+    !artist_artists.empty? ? artist_artists : [[artist_name, :original]]
+  end
+  
+  def matching_artists(title)
+    artist = title[:artist].nil? ? false : true
+    string = title[:artist] || title[:name]
+    matched = []
+
     # Match their respective roles
     featured = /(featuring|ft\.?|feat\.?|f\.){1}/i
-    remixer  = / remix| rmx| edit| bootleg/i
+    remixer  = / remix| rmx| edit| bootleg| mix/i
     producer = /produced by /i
 
+    # Find any non-original artists
     if string =~ /#{featured}|#{remixer}|#{producer}/i
-      matched  = []
       string.split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|        
         # Splits up "one, two, three & four"
         split = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i
@@ -191,6 +199,15 @@ class Song < ActiveRecord::Base
           matched.push [artist,:producer] unless artist =~ producer or artist =~ /&|,/
         end
       end
+    elsif artist
+      # If artist, we can look for comma separated names
+      string.split(/, |& |vs\.? /).each do |artist|
+        matched.push [artist, :original]
+      end
+    else
+      # If name, we can look for a badly formatted mp3
+      # Such as "artist - song" inside the name
+      #matched.push [name.gsub(/-.*/,'').strip, :original]
     end
 
     matched
@@ -216,7 +233,7 @@ class Song < ActiveRecord::Base
   def add_to_new_station
     ns = Station.new_station
     if !ns.song_exists?(id)
-      ns.songs<<self
+      ns.songs << self
       ns.songs.last.destroy if ns.songs.count > 30 # So it stays only 30 songs!
     end
     

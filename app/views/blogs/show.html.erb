@@ -6,16 +6,9 @@
   <p class="description">
     <%= @blog.description || "Browse the latest from #{@blog.name}" %>
   </p>
-  <%= link_to "Listen to #{@blog.name} Radio", @blog.station, :class => 'button' %>
   
-  <h3>Recent posts</h3>
-  <%- if @posts.empty? -%>
-  <p>No posts!</p>
-  <%- else -%>
-  <div id="posts">
-    <%= render :partial => 'post', :collection => @posts, :as => :post %>
-  </div>
-  <%- end -%>
+  <h3>Listen to <%= @blog.name %></h3>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
 </div>
 
 <%= render 'side' %>

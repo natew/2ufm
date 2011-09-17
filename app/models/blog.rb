@@ -7,13 +7,13 @@ class Blog < ActiveRecord::Base
   has_many   :songs
   has_many   :posts, :dependent => :destroy
   belongs_to :station
-  
+
   acts_as_url :name, :url_attribute => :slug
   
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_save   :get_blog_info
-  after_create  :create_station, :get_feed_posts
+  after_create  :make_station, :get_feed_posts
   
   serialize :feed
   serialize :html
@@ -144,11 +144,8 @@ class Blog < ActiveRecord::Base
 #    doc = Nokogiri::HTML(open("http://google.com/search?q=inurl:#{url}"))
 #    Chronic.parse(doc.at('#ires span.f.std').text)
 #  end
-  
-  def create_station
-    self.create_station(
-      :name => name, 
-      :description => description
-    )
+
+  def make_station
+    self.station_id = Station.create(:name => name).id
   end
 end

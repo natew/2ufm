@@ -2,14 +2,16 @@
 
 .playlist {
   clear: both;
-  margin: 0 0 10px;
+  margin: -5px 0 10px;
   overflow: hidden;
   
   section {
     padding: 10px 0;
-    border-bottom: 1px dotted #555;
+    background: #4e4e4e;
+    margin: 0 0 5px 0;
     position: relative;
     overflow: hidden;
+    @include border-radius(3px);
     
     &:hover {
       background: #555;
@@ -17,46 +19,36 @@
     
     &.downloading {
       display: none;
-      
-      h3 { font-size: 16px; color: #999; }
     }
     
     &.playing {
       background: $playing;
-      
-      .song-controls {
-        .play-song {
-          background-position: -32px 0;
-          
-          &:hover {
-            background-position: -32px -32px;
-          }
-        }
-      }
     }
     
     .song-info {
       float: right;
-      width: 87%;
+      width: 474px;
+      margin: 0 68px 0 0;
       
-      h3 {
-        font-size: 18px;
+      h4 {
+        font-size: 20px;
         border: none;
         margin-bottom: 8px;
         display: block;
         background: none;
+        padding: 0;
       
         a {
           text-decoration: none;
-          
-          &.song-artist { color: #fff; }
-          &.song-name   { color: #ddd; }
+          color: #fff;
         }
       }
       
       .song-art {
-        float: right;
-        margin: 0 10px;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        z-index: 1;
         
         img {
           height: 55px;
@@ -75,6 +67,7 @@
           color: #777;
           height: 3em;
           overflow: hidden;
+          display: none;
         }
 
         span.active {
@@ -89,7 +82,7 @@
     
     .song-meta {
       margin: 0 0 5px 0;
-      font-size: 11px;
+      font-size: 12px;
       color: #aaa;
       line-height: 1.4em;
       
@@ -104,7 +97,21 @@
       float: left;
       width: 10%;
       border-right: none;
-      height: 172px;
+      height: 142px;
+      
+      .play-song {
+        margin: 15px 2px 0;
+        font-size: 49px;
+        color: #fff;
+        position: relative;
+        z-index: 10;
+        text-shadow: 0 1px 0 #000;
+        
+        &:hover {
+          cursor: pointer;
+          color: #000;
+        }
+      }
       
       li {
         float: right;
@@ -115,43 +122,22 @@
         input {
           margin: 10px 0 0 10px;
         }
-        
-        a {
-          width: 32px;
-          height: 32px;
-          display: block;
-          text-indent: -3000em;
-          overflow: hidden;
-        }
-        
-        .play-song {
-          background: url(/images/play_pause_icon.png) no-repeat 0 0;
-          margin: -2px -2px 0 0;
-          
-          &:hover {
-            background-position: 0 -32px;
-          }
-        }
 
         &.broadcast {
-          margin: 4px 0;
+          position: absolute;
+          right: 10px;
           
           a {
-            width: 16px;
-            height: 16px;
-            float: left;
-            background: url(/images/song_icons.png) no-repeat 0 0;
+            font-size: 24px;
+            color: #888;
             
-            &:hover { background-position: 0 -16px; }
-            &.remove { background-position: -16px 0;
-              &:hover { background-position: -16px -16px; }
-            }
+            &:hover { color: #aaa; }
           }
           
           span.count {
             font-size: 16px;
             font-weight: bold;
-            color: #666;
+            color: #fff;
             height: 16px;
             float: left;
             text-align: right;

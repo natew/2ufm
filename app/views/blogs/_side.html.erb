@@ -3,16 +3,16 @@
     <%= image_tag(@blog.image.url(:original)) %>
   </div>
   
-  <%= link_to "Listen to #{@blog.name} Radio", @blog.station, :class => 'button' %>
-  
   <h3>Genres</h3>
 
   <h3><%= @blog.name %> Stats</h3>
 
-  <% unless @queued_songs.empty? %>
-    <h3>Uploading tracks</h3>
-    <ul>
-      <%= render :partial => 'songs/song', :collection => @queued_songs, :as => :song %>
-    </ul>
-  <% end %>
+  <h3>Recent posts</h3>
+  <%- if @posts.empty? -%>
+  <p>No posts!</p>
+  <%- else -%>
+  <ul id="posts">
+    <%= render :partial => 'post', :collection => @posts, :as => :post %>
+  </ul>
+  <%- end -%>
 </div>

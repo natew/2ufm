@@ -4,23 +4,12 @@ class Station < ActiveRecord::Base
   has_and_belongs_to_many :genres
   belongs_to :user
   belongs_to :blog
-  #has_many   :favorites, :as => :favorable
   has_many   :broadcasts, :dependent => :destroy
-  has_many   :songs, :through => :broadcasts do
-    def to_playlist
-      self.map do |s|
-        {:id => s.id, :artist => s.artist_name, :name => s.name, :url => s.url } if s.processed?
-      end.compact.to_json
-    end
-  end
+  has_many   :songs, :through => :broadcasts, :extend => SongExtensions
   
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   acts_as_url :name, :url_attribute => :slug
-
-  validates :name,  :uniqueness => true,
-                    :presence   => true
-
 
   def to_param
     slug

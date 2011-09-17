@@ -2,16 +2,7 @@
   <h2>Step <%= @blog.step_index %>: <%= @blog.current_step.capitalize %> <small>Submit with three simple steps</small></h2>
   <div id="wizard">
   <%= form_for @blog, :html => { :multipart => true } do |f| %>
-    <% if @blog.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
-        <ul>
-        <% @blog.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= render :partial => 'shared/form_errors', :locals => { :object => @blog } %>
     <%= render "new_#{@blog.current_step}_step", :f => f %>
     <div class="actions clearfix">
       <%= f.submit "Continue", :class => 'control continue' %>
