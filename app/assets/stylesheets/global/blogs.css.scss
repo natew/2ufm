@@ -1,7 +1,7 @@
 @import "mixins.css.scss";
 
 #directory-list {
-  margin: 1em 0 0 -20px;
+  margin: 1em 0 0 -33px;
 
    section {
      float: left;
@@ -14,10 +14,12 @@
      }
      
      h3 {
-       margin: 0 0 -45px;
        line-height: 1em;
        z-index: 10;
-       position: relative;
+       position: absolute;
+       width: 100%;
+       padding: 0;
+       background: none;
        display: block;
        border: none;
        font-size: 18px;
@@ -30,7 +32,7 @@
         padding: 16px;
         display: block;
         text-decoration: none;
-        @include border-radius-top(10px);
+        @include border-radius-top(9px);
       }
      }
      
@@ -43,7 +45,10 @@
        background: url(/images/dim.png);
        color: white;
        overflow: hidden;
-       text-shadow: 0 2px 2px #000;
+       text-shadow: 0 1px 2px #000;
+       overflow: hidden;
+       height: 5em;
+       width: 260px;
        @include border-radius-bottom(10px);
      }
      

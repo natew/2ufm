@@ -31,10 +31,6 @@ class Song < ActiveRecord::Base
     "#{artist_name} - #{name}"
   end
   
-  def is_popular?
-    favorites.where('created at > ?', 10.days.ago).count > 10
-  end
-  
   def scan_and_save
     puts "Scanning #{url} ..."
     unless url.nil?
@@ -147,16 +143,11 @@ class Song < ActiveRecord::Base
     end
   end
   
-  def find_or_create_artists
-    artists = parse_artists
-    artists.each do |name,role|
+  def find_or_create_artists 
+    parse_artists.each do |name,role|
       match = Artist.where("name ILIKE (?)", name).first
-    
-      if match
-        self.artists << match
-      else
-        self.artists.create(name: name, role: role)
-      end
+      match = Artist.create(name: name) unless match
+      self.authors.create(artist: match, role: role)
     end
   end
       
@@ -178,7 +169,7 @@ class Song < ActiveRecord::Base
     matched = false
     
     # Match their respective roles
-    featured = /(featuring|ft.?|feat.?|f.){1}/i
+    featured = /(featuring|ft\.?|feat\.?|f\.){1}/i
     remixer  = / remix| rmx| edit| bootleg/i
     producer = /produced by /i
 
@@ -189,15 +180,15 @@ class Song < ActiveRecord::Base
         split = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i
 
         part.scan(/#{featured}#{split}/).flatten.compact.each do |artist|
-          matched.push [artist,:featured] unless artist =~ featured
+          matched.push [artist,:featured] unless artist =~ featured or artist =~ /&|,/
         end
 
         part.scan(/#{split}#{remixer}/).flatten.compact.each do |artist|
-          matched.push [artist,:remixer] unless artist =~ remixer
+          matched.push [artist,:remixer] unless artist =~ remixer or artist =~ /&|,/
         end
 
         part.scan(/#{producer}#{split}/).flatten.compact.each do |artist|
-          matched.push [artist,:producer] unless artist =~ producer
+          matched.push [artist,:producer] unless artist =~ producer or artist =~ /&|,/
         end
       end
     end

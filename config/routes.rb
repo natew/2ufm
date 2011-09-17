@@ -9,13 +9,15 @@ Fusefm::Application.routes.draw do
   
   resources :genres, :only => [:show]
 
-  resources :blogs, :posts, :stations, :favorites, :users, :artists, :broadcasts
+  resources :blogs, :posts, :stations, :favorites, :users, :broadcasts
   
   resources :songs, :only => [:index, :show] do
     collection do
       get :fresh
     end
   end
+  
+  resources :artists, :only => [:index, :show]
   
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
 

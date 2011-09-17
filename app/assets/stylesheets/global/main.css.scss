@@ -37,7 +37,7 @@ header {
     
     li {
       float: left;
-      padding: 0 6px;
+      padding: 0 3px;
       border-left: 1px dotted #555;
       
       &.active {
@@ -153,7 +153,7 @@ header {
         float: right;
         border: none;
         padding: 7px 12px;
-        width: 230px;
+        width: 210px;
         color: #ccc;
         background: #222;
         border: none;
@@ -345,6 +345,7 @@ header {
 
 
 /* Titles */
+
 h2.title { color: #ddd; }
 .title {
   padding: 15px 20px;
@@ -392,6 +393,29 @@ h2.title { color: #ddd; }
 
   .icon {
     float: left;
-    margin: 10px 20px 10px 0;
+    margin: 0 20px 0 0;
+    @include border-radius(8px);
+  }
+}
+
+
+/* Subnav */
+.subnav {
+  margin: -15px 0 20px 0;
+  background: #333;
+  padding: 4px;
+  @include border-radius(8px);
+  
+  li {
+    float: left;
+    list-style: none;
+    
+    a {
+      float: left;
+      padding: 8px 12px;
+      border-right: 1px dotted #444;
+      font-weight: bold;
+      text-decoration: none;
+    }
   }
 }

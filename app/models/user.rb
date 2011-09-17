@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   protected
   
   def create_station
-    self.create_station(:name => username)
+    self.station_id = Station.create(:name => username).id
   end
   
   # Devise override for logins

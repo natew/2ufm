@@ -6,7 +6,7 @@
 <% else %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter + params[:page].to_i %>" data-station="<%= station_id %>">
   <div class="song-info">
-    <h3><%= link_to song.artist_name, song.primary_artist, :class => 'song-artist tip', :title => "More songs by #{song.artist_name}" %> - <%= link_to song.name, song, :class => 'song-name' %></h3>
+    <h3><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h3>
     <div class="song-art">
       <%= image_tag(song.image.url(:small)) %>
     </div>

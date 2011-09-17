@@ -65,28 +65,17 @@ var page = {
   },
 }
 
-Path.map("#!/:action/:id").to(function(){
-  var action = this.params['action'];
-  var id = this.params['id'];
+Path.map("#!/:action(/:id)").to(function(){
+  var action = '/' + this.params['action'];
+  var id     = this.params['id'] ? '/'+this.params['id'] : '' ;
+  
   navSetActive(action);
   $.ajax({
     type:"GET",
     dataType:"html",
-    url: '/' + action + "/" + id,
+    url: action + id,
     success: page.load,
     error: page.error
-  });
-}).enter(page.enter).exit(page.exit);
-
-Path.map("#!/:action").to(function(){
-  var action = this.params['action'];
-  navSetActive(action);
-  $.ajax({
-    type:"GET",
-    dataType:"html",
-    url: '/' + action,
-    success: page.load,
-    error: page.exit
   });
 }).enter(page.enter).exit(page.exit);
 

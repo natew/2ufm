@@ -1,10 +1,19 @@
 <div class="title">
   <%= image_tag @artist.image.url(:small), :class => 'icon' %>
-  <h2 class="icon"><%= @artist.name %> Radio <small><%= @artist.about || "Listening to the latest songs from the #{@artist.name} station." %></small></h2>
+  <h2 class="icon"><%= @artist.name %> <small><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></small></h2>
 </div>
 
+<ul class="subnav">
+  <li><%= link_to 'Newest', '' %></li>
+  <li><%= link_to 'Most popular', '' %></li>
+  <li><%= link_to 'Original songs', '' %></li>
+  <li><%= link_to "Remixes by #{@artist.name}", '' %></li>
+  <li><%= link_to "Remixes of #{@artist.name}", '' %></li>
+</ul>
+
 <div class="twothirds">
-  <%= render :partial => 'stations/playlist', :locals => { :songs => @songs, :station => @station } %>
-  <%= paginate @songs unless @songs.empty? %>
+  <div id="playlist-<%= @artist.id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= @artist.to_json(:only => [:id, :slug, :name]) %>, &quot;songs&quot;: <%= @artist.songs.to_playlist %>}">
+    <%= render :partial => 'songs/song', :collection => @artist.songs, :locals => { :station_id => @artist.id } unless @artist.songs.nil? %>
+  </div>
 </div>
 

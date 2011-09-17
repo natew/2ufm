@@ -6,9 +6,6 @@
   <%= link_to "Listen to #{@blog.name} Radio", @blog.station, :class => 'button' %>
   
   <h3>Genres</h3>
-  <% if @blog.station.has_songs? %>
-    <%= render :partial => 'station_song', :collection => @station.songs, :as => :station_song %>
-  <% end %>
 
   <h3><%= @blog.name %> Stats</h3>
 
