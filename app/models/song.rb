@@ -21,10 +21,15 @@ class Song < ActiveRecord::Base
   acts_as_url :full_name, :url_attribute => :slug
   
   before_save  :clean_url
-  after_create :delayed_scan_and_save, :add_to_stations
-  
+  after_create :delayed_scan_and_save
+
   def to_param
     slug
+  end
+  
+  def resolve_image(*type)
+    type = type[0] || :original
+    image? ? image(type) : post.image(type)
   end
   
   def full_name
@@ -93,6 +98,7 @@ class Song < ActiveRecord::Base
               puts "Processed successfully"
               find_similar_songs
               find_or_create_artists
+              add_to_stations
               self.slug = full_name.to_url
             end
             
@@ -120,6 +126,14 @@ class Song < ActiveRecord::Base
     add_to_new_station # The new songs station
     if self.blog and !self.blog.station.song_exists?(id)
       self.blog.station.songs << self
+    end
+  end
+  
+  def add_to_new_station
+    ns = Station.new_station
+    if !ns.song_exists?(id)
+      ns.songs << self
+      ns.songs.last.destroy if ns.songs.count > 30 # So it stays only 30 songs!
     end
   end
   
@@ -228,14 +242,5 @@ class Song < ActiveRecord::Base
   
   def clean_url
     self.url = URI.escape(url)
-  end
-  
-  def add_to_new_station
-    ns = Station.new_station
-    if !ns.song_exists?(id)
-      ns.songs << self
-      ns.songs.last.destroy if ns.songs.count > 30 # So it stays only 30 songs!
-    end
-    
   end
 end

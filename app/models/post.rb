@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'sanitize'
 include AttachmentHelper
+include PaperclipExtensions
 
 class Post < ActiveRecord::Base  
   belongs_to :blog
@@ -14,7 +15,8 @@ class Post < ActiveRecord::Base
   
   acts_as_url :title, :url_attribute => :slug
   
-  after_create :save_songs
+  before_create :get_image
+  after_create :delayed_save_songs
   
   def to_param
     slug
@@ -22,6 +24,18 @@ class Post < ActiveRecord::Base
   
   def excerpt
     ActionController::Base.helpers.strip_tags(content)[0,300]
+  end
+  
+  def get_image
+    post  = Nokogiri::HTML(content)
+    img = post.css('img:first')
+    if !img.empty?
+      begin
+        self.image = UrlTempfile.new(img.first['src'])
+      rescue
+        puts "Error downloading file"
+      end
+    end
   end
   
   def save_songs
@@ -38,5 +52,8 @@ class Post < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :save_songs
+  
+  def delayed_save_songs
+    delay.save_songs
+  end
 end

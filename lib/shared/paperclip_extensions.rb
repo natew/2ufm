@@ -1,6 +1,6 @@
 require "open-uri"
 
-module Paperclip
+module PaperclipExtensions
   class UrlTempfile < Tempfile
     attr :content_type
 

@@ -18,6 +18,7 @@ gem 'sax-machine', :git => 'https://github.com/pauldix/sax-machine.git'
 gem 'loofah-activerecord'
 gem 'sanitize'
 gem 'cancan'
+gem 'hashie'
 
 # Gems used only for assets and not required
 # in production environments by default.

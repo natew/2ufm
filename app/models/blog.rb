@@ -1,22 +1,21 @@
 require 'feedzirra'
 require 'open-uri'
 require 'nokogiri'
-include AttachmentHelper
 
-class Blog < ActiveRecord::Base  
-  has_many   :songs
+class Blog < ActiveRecord::Base
+  include AttachmentHelper
+  
+  has_many   :songs, :extend => SongExtensions
   has_many   :posts, :dependent => :destroy
-  belongs_to :station
 
   acts_as_url :name, :url_attribute => :slug
   
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_save   :get_blog_info
-  after_create  :make_station, :get_feed_posts
+  after_create  :make_station, :get_new_posts
   
   serialize :feed
-  serialize :html
   
   attr_writer :current_step
   
@@ -32,11 +31,7 @@ class Blog < ActiveRecord::Base
   end
   
   def get_blog_info
-    set_correct_url
-    get_html
-    find_description
-    find_feed_url
-    update_feed
+    get_html_info
     @blog_info = true
   end
   
@@ -75,26 +70,23 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  def set_correct_url
-    if url =~ /nahright.com/
-      self.url = 'http://nahright.com/news/'
+  def get_html_info
+    begin
+      html = Nokogiri::HTML(open(url))
+    rescue
+      errors.add :url, 'Error accessing website'
+      return false
     end
-  end
-  
-  def has_html?
-    !html.nil?
-  end
-  
-  def find_description
-    if has_html?
+    
+    if html.nil?
+      errors.add :url, 'Nothing found!'
+      return false
+    else
       meta = html.at('meta[name="description"]')
       meta = meta['content'] unless meta.nil?
+      self.description = meta || html.at('title').text
+      self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
     end
-    self.description = meta || html.at('title').text || ''
-  end
-  
-  def find_feed_url
-    self.feed_url = html.at('head > link[type="application/rss+xml"]')['href'] if has_html?
   end
   
   def has_feed_url?
@@ -113,28 +105,33 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  def get_feed_posts
-    feed.entries.each do |post|
-      # Save posts to db
-      self.posts.create(
-          :title => post.title,
-          :author => post.author,
-          :url => post.url,
-          :content => post.content,
-          :created_at => post.published
-        )
+  def has_posts?
+    posts.count > 0
+  end
+  
+  def latest_post
+    posts.order('created_at desc').limit(1).first
+  end
+  
+  def get_new_posts
+    if !feed.nil?
+      update_feed
+      last_post = latest_post if has_posts?
+      feed.entries.each do |post|
+        break if post.url == last_post.url
+        # Save posts to db
+        self.posts.create(
+            :title => post.title,
+            :author => post.author,
+            :url => post.url,
+            :content => post.content,
+            :created_at => post.published
+          )
+      end
     end
   end
   
   private
-  
-  def get_html
-    self.html = Nokogiri::HTML(open(url))
-    if html.nil?
-      errors.add :url, 'No HTML found at url'
-      false
-    end
-  end
   
 #  def find_post_date(doc)
 #    Chronic.parse(html.css('.entry-date,.date').to_s)

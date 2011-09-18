@@ -12,8 +12,6 @@
 </ul>
 
 <div class="twothirds">
-  <div id="playlist-<%= @artist.id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= @artist.to_json(:only => [:id, :slug, :name]) %>, &quot;songs&quot;: <%= @artist.songs.to_playlist %>}">
-    <%= render :partial => 'songs/song', :collection => @artist.songs, :locals => { :station_id => @artist.id } unless @artist.songs.nil? %>
-  </div>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @artist } %>
 </div>
 

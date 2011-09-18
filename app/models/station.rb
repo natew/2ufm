@@ -40,20 +40,6 @@ class Station < ActiveRecord::Base
     Station.find_by_sql "SELECT stations.*, count(favorites.id) as favorites_count FROM stations INNER JOIN favorites on favorites.favorable_id = stations.id and favorites.favorable_type = 'Station'#{where} GROUP BY favorites.favorable_id, #{cols} ORDER BY favorites_count DESC LIMIT #{limit}"
   end
   
-  def image_or_parent(*types)
-    type = types[0] || :original
-
-    if image.file?
-      image(type)
-    elsif blog and blog.image.file?
-      blog.image(type)
-    elsif user and user.avatar.file?
-      user.avatar(type)
-    else
-      image(type)
-    end
-  end
-  
   def has_songs?
     songs.count > 0
   end

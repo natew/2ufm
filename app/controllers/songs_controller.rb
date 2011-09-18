@@ -9,7 +9,7 @@ class SongsController < ApplicationController
   end
   
   def create
-    params[:song][:file] = URLTempfile.new(params[:url])
+    params[:song][:file] = UrlTempfile.new(params[:url])
     @song = Song.new(params[:song])
     
     respond_to do |format|

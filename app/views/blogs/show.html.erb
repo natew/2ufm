@@ -8,7 +8,7 @@
   </p>
   
   <h3>Listen to <%= @blog.name %></h3>
-  <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @blog } %>
 </div>
 
 <%= render 'side' %>

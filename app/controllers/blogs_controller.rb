@@ -12,7 +12,6 @@ class BlogsController < ApplicationController
 
   def show
     @blog = Blog.find_by_slug(params[:id])
-    @station = @blog.station
     @posts = @blog.posts.order('created_at desc').limit(8)
   
     respond_to do |format|
@@ -58,12 +57,12 @@ class BlogsController < ApplicationController
   
   
   def edit
-    @blog = Blog.find(params[:id])
+    @blog = Blog.find_by_slug(params[:id])
   end
 
 
   def update
-    @blog = Blog.find(params[:id])
+    @blog = Blog.find_by_slug(params[:id])
 
     respond_to do |format|
       if @blog.update_attributes(params[:blog])

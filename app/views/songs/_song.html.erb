@@ -8,7 +8,7 @@
   <div class="song-info">
     <h4><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h4>
     <div class="song-art">
-      <%= image_tag(song.image.url(:small)) %>
+      <%= image_tag(song.resolve_image(:small)) %>
     </div>
     <div class="song-post">
       <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 25)}".html_safe, song.post.url %></div>
