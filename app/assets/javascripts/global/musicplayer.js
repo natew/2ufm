@@ -57,6 +57,9 @@ var mp = (function() {
     
     // Load playlist
     load: function() {
+      curSection = $('.playlist section:first');
+      playlistIndex = curSection.data('index');
+      
       if (curSection && playlistID != curSection.data('station')) {
         playingPage = curPage;
         if (curSection) {
@@ -70,16 +73,8 @@ var mp = (function() {
     play: function() {
       // Load
       if (!playlist) this.load();
-      
-      if (playlist) {
-        // Get section
-        if (!curSection) {
-          curSection = $('.playlist section:first');
-        }
-      
-        // Get playlist and index
-        playlistIndex = curSection.data('index');
 
+      if (playlist) {
         // Load song
         curSongInfo = playlist.songs[playlistIndex];
         curSong = soundManager.createSound({
@@ -120,17 +115,25 @@ var mp = (function() {
     },
     
     next: function() {
-      var next = curSection.next();
+      if (curSection) {
+        var next = curSection.next();
+      }
       this.stop();
       curSection = next;
+      playlistIndex++;
       this.play();
+      this.refresh();
     },
     
     prev: function() {
-      var prev = curSection.prev();
+      if (curSection) {
+        prev = curSection.prev();
+      }
       this.stop();
       curSection = prev;
+      playlistIndex--;
       this.play();
+      this.refresh();
     },
     
     refresh: function() {
