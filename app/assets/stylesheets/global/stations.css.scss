@@ -1,12 +1,12 @@
 @import "mixins.css.scss";
 
 .shelf {
-  margin: -25px 20px 0 20px;
+  margin: 0 20px 10px 20px;
   
   h3 {
-    margin: 0 0 -50px 0;
     position: relative;
     z-index: 10;
+    margin: 0;
   }
   
   ul {
@@ -22,8 +22,11 @@
     @include box-shadow(0,0,3px,#000);
     @include border-radius(4px);
     
+    img { @include border-radius(4px); }
+    
     a {
       text-decoration: none;
+      text-shadow: 0 1px 0 #000;
     }
     
     strong {
@@ -126,8 +129,6 @@
       font-size: 11px;
       font-weight: bold;
       text-decoration: none;
-      border-bottom: 1px solid #555;
-      @include border-radius(4px);
       
       &:hover {
         background: #222;

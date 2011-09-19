@@ -9,7 +9,6 @@ var mp = (function() {
   var curSongInfo;
   var curSong;
   var isPlaying =  false;
-  var isPaused = false;
   var dragging_position = false;
   var dragging_x;
   var curPage;
@@ -56,40 +55,47 @@ var mp = (function() {
     
     // Load playlist
     load: function() {
-      if (playlistID !== curSection.data('station')) {
+      if (curSection && playlistID != curSection.data('station')) {
         playingPage = curPage;
-        playlistID = curSection.data('station');
-        playlist   = $('#playlist-'+playlistID).data('playlist');
+        if (curSection) {
+          playlistID = curSection.data('station');
+          playlist   = $('#playlist-'+playlistID).data('playlist');
+        }
       }
     },
     
     // Play song
     play: function() {
-      // Get section
-      if (!curSection) curSection = $('.playlist section:first');
-      curSection.addClass('active');
-      
-      // Get playlist and index
+      // Load
       if (!playlist) this.load();
-      playlistIndex = curSection.data('index');
+      
+      if (playlist) {
+        // Get section
+        if (!curSection) {
+          curSection = $('.playlist section:first');
+        }
+      
+        // Get playlist and index
+        playlistIndex = curSection.data('index');
 
-      // Load song
-      curSongInfo = playlist.songs[playlistIndex];
-      curSong = soundManager.createSound({
-        id:curSongInfo.id,
-        url:curSongInfo.url,
-        onplay:events.play,
-        onstop:events.stop,
-        onpause:events.pause,
-        onresume:events.resume,
-        onfinish:events.finish,
-        whileloading:events.whileloading,
-        whileplaying:events.whileplaying,
-        onmetadata:events.metadata,
-        onload:events.onload
-      });
+        // Load song
+        curSongInfo = playlist.songs[playlistIndex];
+        curSong = soundManager.createSound({
+          id:curSongInfo.id,
+          url:curSongInfo.url,
+          onplay:events.play,
+          onstop:events.stop,
+          onpause:events.pause,
+          onresume:events.resume,
+          onfinish:events.finish,
+          whileloading:events.whileloading,
+          whileplaying:events.whileplaying,
+          onmetadata:events.metadata,
+          onload:events.onload
+        });
 
-      curSong.play();
+        curSong.play();
+      }
     },
     
     stop: function() {
@@ -105,7 +111,10 @@ var mp = (function() {
     },
     
     toggle: function() {
-      curSong.togglePause();
+      if (curSong)
+        curSong.togglePause();
+      else
+        this.play();
     },
     
     next: function() {
@@ -134,6 +143,16 @@ var mp = (function() {
       // <title>
       icon = isPlaying ? '\u25BA' : '\u25FC';
       $('title').html(icon + ' ' + curSongInfo.artist + ' - ' + curSongInfo.name);
+    },
+    
+    setCurSectionActive: function() {
+      curSection.addClass('playing');
+      curSection.find('.play-song').html('5');
+    },
+    
+    setCurSectionInactive: function() {
+      curSection.removeClass('playing');
+      curSection.find('.play-song').html('9');
     }
   }
   
@@ -193,13 +212,13 @@ var mp = (function() {
   var events = {
     play: function() {
       isPlaying = true;
-      curSection.addClass('playing');
+      player.setCurSectionActive();
       player.refresh();
     },
 
     stop: function() {
       isPlaying = false;
-      curSection.removeClass('playing');
+      player.setCurSectionInactive();
       curSection = null;
 
       // Update player
@@ -208,11 +227,13 @@ var mp = (function() {
 
     pause: function() {
       isPlaying = false;
+      player.setCurSectionInactive();
       player.refresh();
     },
 
     resume: function() {
       isPlaying = true;
+      player.setCurSectionActive();
       player.refresh();
     },
 
@@ -252,7 +273,8 @@ var mp = (function() {
     setPage: function(url) {
       if (curPage && curPage == playingPage) {
         // If we return to the page we started playing from, re-activate current song
-        $('section#song-' + curSongInfo.id).addClass('active');
+        curSection = $('section#song-' + curSongInfo.id);
+        player.setCurSectionActive();
       }
       curPage = url;
       curSection = null;

@@ -17,6 +17,17 @@ namespace :songs do
   end
   
   namespace :scan do  
+    task :similar => :environment do
+      songs = Song.processed
+      songs.each do |song|
+        puts "Scanning #{song.name} (#{song.id})..."
+        song.shared_id = nil
+        song.find_similar_songs
+        puts " == Similar to #{Song.find(song.shared_id).name}!" if song.shared_id
+        song.save
+      end
+    end
+    
     task :unprocessed => :environment do
       songs = Song.where(processed: false)
       songs.each do |song|

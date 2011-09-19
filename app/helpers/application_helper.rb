@@ -31,7 +31,8 @@ module ApplicationHelper
       if (return_date > 2.weeks.ago)
         time_ago_in_words(return_date) + " ago"
       else
-        return_date.strftime("%b #{return_date.day.ordinalize}, %Y")
+        year = return_date.year != Time.now.year ? ', %Y' : ''
+        return_date.strftime("%b #{return_date.day.ordinalize}#{year}")
       end
     rescue
       'pending'

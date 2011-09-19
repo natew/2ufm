@@ -9,10 +9,10 @@
      width: 300px;
      position: relative;
      @include box-shadow(0,0,3px,#000);
-     @include border-radius(4px);
+     @include border-radius(8px);
      
      img {
-        @include border-radius(4px);
+        @include border-radius(8px);
      }
      
      h3 {
@@ -33,7 +33,7 @@
         padding: 16px;
         display: block;
         text-decoration: none;
-         @include border-radius-top(3px);
+         @include border-radius-top(7px);
       }
      }
      

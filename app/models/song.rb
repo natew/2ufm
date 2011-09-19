@@ -17,8 +17,9 @@ class Song < ActiveRecord::Base
 
   scope :with_posts, includes(:post)
   scope :processed, where(processed: true)
-  
-  default_scope order('created_at desc')
+  scope :newest, order('songs.created_at desc')
+  scope :oldest, order('songs.created_at asc')
+  scope :group_by_shared, select('DISTINCT ON (songs.shared_id) *').order('songs.shared_id desc')
   
   acts_as_url :full_name, :url_attribute => :slug
   
@@ -27,6 +28,10 @@ class Song < ActiveRecord::Base
 
   def to_param
     slug
+  end
+  
+  def reposted?
+    shared_count > 0
   end
   
   def resolve_image(*type)
@@ -126,6 +131,7 @@ class Song < ActiveRecord::Base
   
   def add_to_stations
     add_to_new_station
+    # Add to user stations
   end
   
   def add_to_new_station
@@ -136,24 +142,28 @@ class Song < ActiveRecord::Base
     end
   end
   
-  def matching_songs
-    if name and artist_name
-      Song.where("artist_name ILIKE (?) and name ILIKE(?) and songs.id != ?", artist_name, search_name, id).first
-    else
-      false
-    end
-  end
-  
   def find_similar_songs
-    most_similar   = matching_songs
-    self.shared_id = most_similar ? most_similar.id : id
-  end
-  
-  def search_name
-    if name
-      name.gsub(/[()']/,'%').gsub(/( mix| remix|feat |ft |original mix|radio edit|extended edit|extended version| RMX|vip mix|vip edit)*|/i,'').strip
+    if name and artist_name
+      containers  = /[\[\]\(\)\,\&\-\']/
+      tags        = /( (rmx|remix|mix)|(feat|ft)(\.| )|(featuring|produced by) |(original|vip|radio|vip|extended) (edit|rip|mix))*/i
+      percents    = /(% ?){2,10}/
+      search_name = name.gsub(containers,'%').gsub(tags,'%').gsub(percents,'%').strip
+      found       = Song.where("artist_name ILIKE (?) and name ILIKE(?) and id != ?", artist_name, search_name, id).oldest.first
+    end
+    
+    if found
+      if found.shared_id.nil?
+        found.shared_id = found.id
+        found.save
+      else
+        songs = Song.where(shared_id:found.shared_id)
+        count = songs.count+1
+        songs.update_all(shared_count:count)
+        self.shared_count = count
+      end
+      self.shared_id = found.id
     else
-      false
+      self.shared_id = id
     end
   end
   
@@ -174,17 +184,17 @@ class Song < ActiveRecord::Base
   
   def artists_in_name
     # Strip unnecessary stuff and parse the song name
-    strip = /(extended|vip|original|club) mix|(vip|radio) edit|radio bootleg/i
-    matching_artists(name:name.gsub(strip,''))
+    strip = /(extended|vip|original|club) mix|(extended|vip|radio) edit|radio bootleg/i
+    all_artists(name:name.gsub(strip,''))
   end
   
   def artists_in_artist
     # Now parse the artist field
-    artist_artists = matching_artists(artist:artist_name)
+    artist_artists = all_artists(artist:artist_name)
     !artist_artists.empty? ? artist_artists : [[artist_name, :original]]
   end
   
-  def matching_artists(title)
+  def all_artists(title)
     artist = title[:artist].nil? ? false : true
     string = title[:artist] || title[:name]
     matched = []

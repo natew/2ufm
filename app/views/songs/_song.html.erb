@@ -1,9 +1,4 @@
 <%- length ||= 160 -%>
-<% unless song.processed? %>
-<section class="downloading" id="song-<%= song.id %>">
-  <h4>Downloading song <%= song.link_text %>...</h4>
-  <div class="song-meta"><%= song.url %></div>
-<% else %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter + params[:page].to_i %>" data-station="<%= station_id %>">
   <div class="song-info">
     <h4><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h4>
@@ -12,7 +7,14 @@
       <%= image_tag(song.resolve_image(:small)) %>
     </div>
     <div class="song-post">
-      <div class="song-meta">Posted <time><%= relative_time(song.created_at) %></time> &middot; Read post <%= link_to "#{truncate(song.post.title, :length => 25)}".html_safe, song.post.url %></div>
+      <div class="song-meta">
+        <%= link_to "#{truncate(song.blog.name)}".html_safe, song.blog %> &middot;
+        <%- if song.reposted? -%>
+          Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
+        &middot;
+        <%- end -%>
+        First posted <time><%= relative_time(song.created_at) %></time> (<%= link_to 'Read &raquo;'.html_safe, song.post.url, :target => '_blank' %>)
+      </div>
       <p><%= truncate(song.post.excerpt, :length => length) %></p>
       <%- if user_signed_in? and false -%>
       <span class="active">Active:
@@ -26,5 +28,12 @@
     <li class="play-song pictos">9</li>
     <li class="broadcast"><%= song_broadcast(song) %></li>
   </ul>
-<% end %>
+  <ul class="song-links">
+    <li>Purchase song:</li>
+    <li><%= link_to 'eMusic' %></li>
+    <li><%= link_to 'iTunes' %></li>
+    <li><%= link_to 'Amazon' %></li>
+    <li class="right"><%= link_to 'Stats' %></li>
+    <li class="right"><%= link_to 'Similar songs' %></li>
+  </ul>
 </section>
