@@ -11,7 +11,7 @@
   
   ul {
     padding: 0;
-    margin-left: -14px;
+    margin-left: -20px;
   }
   
   li {
@@ -19,26 +19,22 @@
     float: left;
     margin: 0 0 0 31px;
     position: relative;
+    @include box-shadow(0,0,3px,#000);
+    @include border-radius(4px);
     
     a {
       text-decoration: none;
     }
     
     strong {
-      background: #222;
+      background: url(/images/dim.png);
       text-align: center;
-      z-index: 3;
       color: #fff;
       padding: 4px 0;
       display: block;
       position: absolute;
       bottom: 0;
       width: 100%;
-      @include border-radius-bottom(14px)
-    }
-    
-    img {
-      @include border-radius(15px);
     }
   }
 }

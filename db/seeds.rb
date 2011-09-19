@@ -1,7 +1,7 @@
 # Delete old data
 Blog.destroy_all
 Station.destroy_all
-Favorite.destroy_all
+Broadcast.destroy_all
 User.destroy_all
 Genre.destroy_all
 
@@ -13,24 +13,32 @@ Station.create!(:name => 'Popular Songs', :description => 'Most popular songs ri
 Station.create!(:name => 'New Songs', :description => 'Newest songs')
 
 # Create blogs
-blog = [
+blogs = [
   {:url => 'http://bassdownload.com', :name => 'BassDownload' },
   {:url => 'http://thefilth.us', :name => 'The Filth' },
   {:url => 'http://earmilk.com', :name => 'EarMilk' },
   {:url => 'http://thissongissick.com/blog/', :name => 'ThisSongIsSick' },
-  {:url => 'http://themusicninja.com', :name => 'Music Ninja' }
+  {:url => 'http://dubstepremix.org/', :name => 'Dubstep Remix' },
+  {:url => 'http://musicformorons.com/', :name => 'Music for Morons' },
+  {:url => 'http://getoffthecoast.blogspot.com/', :name => 'Get off the Coast' },
+  {:url => 'http://coverlaydown.com/', :name => 'Cover Lay Down' },
+  {:url => 'http://causeequalstime.com/', :name => 'Cause=Time' },
+  {:url => 'http://winniecooper.net/', :name => 'Winnie Cooper' },
+  {:url => 'http://www.gorillavsbear.net/', :name => 'Gorilla vs. Bear' },
+  {:url => 'http://yesgoodmusic.com/', :name => 'Yes Good Music' },
+  {:url => 'http://pastaprima.net/', :name => 'Pasta Primavera' },
+  {:url => 'http://eatenbymonsters.wordpress.com/', :name => 'Eaten By Monsters' }
 ]
 
 
-i = 0
-while i < 5
-  b = Blog.new(blog[i])
+blogs.each_with_index do |blog,i|
+  b = Blog.new(blog)
   begin
     b.image = File.open("#{Rails.root}/tmp/images/album#{(i%4)+1}.png")
   rescue
+    puts "Error using image"
   end
   b.save
-  i += 1
 end
 
 
@@ -41,7 +49,7 @@ Genre.create(:name => "House")
 Genre.create(:name => "Electonic")
 Genre.create(:name => "R&B")
 Genre.create(:name => "Hip-Hop")
-Genre.create(:name => "House")
+Genre.create(:name => "Electro")
 Genre.create(:name => "Pop")
 Genre.create(:name => "Trance")
 Genre.create(:name => "Raggae")

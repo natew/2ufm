@@ -1,21 +1,22 @@
 @import "mixins.css.scss";
 
 #directory-list {
-  margin: 1em 0 0 -33px;
+  margin: 0 0 0 -20px;
 
    section {
      float: left;
-     margin: 0 0 20px 24px;
+     margin: 0 0 20px 20px;
      width: 300px;
      position: relative;
-   
+     @include box-shadow(0,0,3px,#000);
+     @include border-radius(4px);
+     
      img {
-       @include border-radius(10px);
+        @include border-radius(4px);
      }
      
      h3 {
        line-height: 1em;
-       z-index: 10;
        position: absolute;
        width: 100%;
        padding: 0;
@@ -32,7 +33,7 @@
         padding: 16px;
         display: block;
         text-decoration: none;
-        @include border-radius-top(9px);
+         @include border-radius-top(3px);
       }
      }
      
@@ -49,7 +50,7 @@
        overflow: hidden;
        height: 5em;
        width: 260px;
-       @include border-radius-bottom(10px);
+        @include border-radius-bottom(4px);
      }
      
      span {

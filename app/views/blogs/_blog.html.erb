@@ -1,6 +1,9 @@
 <section class="blog">
   <h3><%= link_to blog.name, blog %></h3>
-  <%= link_to image_tag(blog.image.url(:original)), blog, :class => 'image' %>
+  <a href="<%= url_for blog %>" class="image">
+    <%= image_tag(blog.image.url(:original)) %>
+    <div class="cover"><%= image_tag('/images/cover.png') %></div>
+  </a>
   <p><%= blog.description %></p>
   <span><%= link_to 'Edit', edit_blog_path(blog) %>
   <%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %>

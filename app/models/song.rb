@@ -18,6 +18,8 @@ class Song < ActiveRecord::Base
   scope :with_posts, includes(:post)
   scope :processed, where(processed: true)
   
+  default_scope order('created_at desc')
+  
   acts_as_url :full_name, :url_attribute => :slug
   
   before_save  :clean_url
@@ -123,10 +125,7 @@ class Song < ActiveRecord::Base
   end
   
   def add_to_stations
-    add_to_new_station # The new songs station
-    if self.blog and !self.blog.station.song_exists?(id)
-      self.blog.station.songs << self
-    end
+    add_to_new_station
   end
   
   def add_to_new_station

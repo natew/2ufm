@@ -2,11 +2,25 @@
 // So we can do wants.js but return HTML
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
 
-$("a:not(.control)").live("click", function(event){
-  var href = $(this).attr("href");
-  if(href[0] == "/"){
-      event.preventDefault();
-      window.location.hash = "#!" + href;
+// Lets allow middle clicking for new tabs
+var cmdPressed = false;
+$(window).keydown(function(e) {
+  if (e.metaKey || e.ctrlKey) {
+    cmdPressed = true;
+    console.log("pressed");
+  } 
+}).keyup(function(e) {
+  if (!e.metaKey && !e.ctrlKey) {
+    cmdPressed = false;
+    console.log("unpressed");
+  }
+});
+
+$("a:not(.control)").live('click', function(event) {
+  var href = $(this).attr('href');
+  if (href[0] == '/' && event.which != 2 && !cmdPressed) {
+    event.preventDefault();
+    window.location.hash = "#!" + href;
   }
 });
 

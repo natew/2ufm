@@ -1,6 +1,7 @@
   <li>
     <a href="<%= station_path(shelf) %>">
       <strong><%= shelf.name %></strong>
+      <div class="cover"><%= image_tag('/images/cover.png') %></div>
       <%= image_tag(shelf.image.url(:medium)) %>
     </a>
   </li>

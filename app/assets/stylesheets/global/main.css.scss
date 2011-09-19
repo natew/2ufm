@@ -4,7 +4,7 @@
 
 header {
   background: #333;
-  @include background-gradient(#555,#353535);
+  @include background-gradient(#444,#252525);
   position: fixed;
   width: 100%;
   top: 0;
@@ -165,15 +165,6 @@ header {
         outline: none;
         font-size: 13px;
         @include border-radius(18px);
-        
-        &::after {
-          content: "s";
-          position: absolute;
-          font-family: 'Pictos';
-          font-size: 19px;
-          right: 11px;
-          top: 18px;
-        }
 
         &:hover {
           background: #000;
@@ -188,16 +179,14 @@ header {
   }
   
   #player {
-    float: left;
-    width: 295px;
+    width: 300px;
     padding: 10px;
     overflow: hidden;
     white-space: nowrap;
     background: url(/images/dim.png);
-    border: 1px solid #444;
-    border-top: none;
-    border-bottom: none;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    margin-left: -160px;
     
     &.playing {
       #player-controls {
@@ -209,12 +198,9 @@ header {
     }
     
     #player-image {
+      position: relative;
       float: left;
       margin: 0 8px 0 0;
-      
-      img {
-        @include border-radius(8px);
-      }
     }
   
     #player-meta {
@@ -263,6 +249,7 @@ header {
       .play {
         position: absolute;
         top: 10px;
+        z-index: 11;
         left: 7px;
         width: 66px;
         height: 66px;
@@ -366,7 +353,7 @@ h2.title { color: #ddd; }
   margin: 0 20px 10px 20px;
   color: #999;
   position: relative;
-  background: #333;
+  @include dim(20);
   @include border-radius(8px);
   
   &.grid {
@@ -381,6 +368,7 @@ h2.title { color: #ddd; }
   h2 {
     color: #fff;
     font-size: 32px;
+    background: none;
     margin: 0;
     padding: 0;
     

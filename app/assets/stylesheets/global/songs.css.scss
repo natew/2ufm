@@ -7,14 +7,14 @@
   
   section {
     padding: 10px 0;
-    background: #4e4e4e;
     margin: 0 0 5px 0;
     position: relative;
     overflow: hidden;
+    @include light(5);
     @include border-radius(3px);
     
     &:hover {
-      background: #555;
+      @include light(10)
     }
     
     &.downloading {
@@ -22,7 +22,7 @@
     }
     
     &.playing {
-      background: $playing;
+      @include light(15);
     }
     
     .song-info {
@@ -52,7 +52,8 @@
         
         img {
           height: 55px;
-          @include border-radius(8px);
+          @include border-radius(4px);
+          @include box-shadow(0,0,3px,#000);
         }
       }
       
@@ -146,6 +147,29 @@
           }
         }
       }
+    }
+  }
+}
+
+.cover {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  
+  img {
+    width: 100%;
+    min-height: 200%;
+  }
+  
+  &:hover {
+    cursor: pointer;
+    
+    img {
+      position: absolute;
+      bottom: 0;
     }
   }
 }

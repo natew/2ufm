@@ -47,7 +47,10 @@
       </nav>
       
       <div id="player">
-        <a id="player-image" href="#"><%= image_tag('/images/default_small.jpg') %></a>
+        <a id="player-image" href="#">
+          <div class="cover"><%= image_tag('/images/cover.png') %></div>
+          <%= image_tag('/images/default_small.jpg') %>
+        </a>
         <div id="player-meta">
           <%= link_to 'No song', '#', :id => 'player-song' %>
           <%= link_to 'Choose a song to begin'.html_safe, '#', :id => 'player-artist' %>
@@ -97,15 +100,9 @@
         <%- elsif alert -%>
         <div id="dialog" class="alert"><%= alert %></div>
         <%- end -%>
-        
+
         <%= yield %>
       </div>
-    </div>
-  </div>
-  
-  <div id="main-bot">
-    <div class="page-contain">
-      
     </div>
   </div>
 

@@ -13,7 +13,7 @@ class Blog < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_save   :get_blog_info
-  after_create  :make_station, :get_new_posts
+  after_create  :get_new_posts
   
   serialize :feed
   
@@ -32,6 +32,7 @@ class Blog < ActiveRecord::Base
   
   def get_blog_info
     get_html_info
+    update_feed
     @blog_info = true
   end
   
@@ -116,9 +117,9 @@ class Blog < ActiveRecord::Base
   def get_new_posts
     if !feed.nil?
       update_feed
-      last_post = latest_post if has_posts?
+      last = latest_post
       feed.entries.each do |post|
-        break if post.url == last_post.url
+        break if last and last.url == post.url
         # Save posts to db
         self.posts.create(
             :title => post.title,
@@ -128,6 +129,7 @@ class Blog < ActiveRecord::Base
             :created_at => post.published
           )
       end
+      true
     end
   end
   
@@ -141,8 +143,4 @@ class Blog < ActiveRecord::Base
 #    doc = Nokogiri::HTML(open("http://google.com/search?q=inurl:#{url}"))
 #    Chronic.parse(doc.at('#ires span.f.std').text)
 #  end
-
-  def make_station
-    self.station_id = Station.create(:name => name).id
-  end
 end

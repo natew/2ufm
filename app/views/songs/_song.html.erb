@@ -8,6 +8,7 @@
   <div class="song-info">
     <h4><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h4>
     <div class="song-art">
+      <div class="cover"><%= image_tag('/images/cover.png') %></div>
       <%= image_tag(song.resolve_image(:small)) %>
     </div>
     <div class="song-post">

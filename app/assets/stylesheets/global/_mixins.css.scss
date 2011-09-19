@@ -7,6 +7,17 @@ $light-grey: #f6f6f6;
 $playing: #666;
 
 
+@mixin dim($percent) {
+  background: rgba(0,0,0,$percent/100);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#000000$percent,endColorstr=#000000$percent);
+}
+
+@mixin light($percent) {
+  background: rgba(255,255,255,$percent/100);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff$percent,endColorstr=#ffffff$percent);
+}
+
+
 /* Borders */
 
 @mixin border-radius($radius: 10px) {

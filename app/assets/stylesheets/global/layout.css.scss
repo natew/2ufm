@@ -3,7 +3,7 @@
 /* Layout */
 
 body {
-  background: #444;
+  background: url(/images/bg.jpg);
 }
 
 #main-mid {
@@ -96,8 +96,8 @@ h2, h3 {
   color: #fff;
   font-size: 30px;
   display: inline-block;
-  background: #333;
   padding: 8px;
+  @include dim(40);
 }
 
 h3 {
