@@ -30,6 +30,8 @@ var mp = (function() {
   soundManager.debugMode = true;
   soundManager.useFastPolling = true;
   soundManager.useHighPerformance = true;
+  soundManager.useHTML5Audio = true;
+  //soundManager.preferFlash = false;
   soundManager.onready(function() {
     if(soundManager.supported()) {
       pl.loaded.bind('mousedown', actions.startDrag);
@@ -260,6 +262,14 @@ var mp = (function() {
     },
 
     onload: function(success) {
+      if (!success) {
+        var failedSection = curSection.addClass('failed');
+        player.next();
+        $.post('songs/'+curSongInfo.id, { failing: 'true' }, function(data) {
+          $('body').append(data);
+          failedSection.remove();
+        });
+      }
     }
   };  
   

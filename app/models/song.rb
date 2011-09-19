@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'net/http'
 require 'mp3info'
 
 class Song < ActiveRecord::Base
@@ -17,6 +18,7 @@ class Song < ActiveRecord::Base
 
   scope :with_posts, includes(:post)
   scope :processed, where(processed: true)
+  scope :working, where(working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.created_at asc')
   scope :group_by_shared, select('DISTINCT ON (songs.shared_id) *').order('songs.shared_id desc')
@@ -43,19 +45,38 @@ class Song < ActiveRecord::Base
     "#{artist_name} - #{name}"
   end
   
+  def check_if_working
+    if !url.nil?
+      begin
+        uri  = URI.parse url
+        req  = Net::HTTP.new(uri.host,uri.port)
+        head = req.request_head(uri.path)
+        
+        if head.code == '200' and head.content_type =~ /audio/
+          self.working = true
+          self.save
+        end
+      rescue => exception
+        # error opening file
+        puts "error opening file"
+      end
+    end
+  end
+  
+  def delayed_check_if_working
+    delay.check_if_working
+  end
+  
   def scan_and_save
     puts "Scanning #{url} ..."
-    unless url.nil?
+    if !url.nil?
       begin
         total = nil
         prev  = 0
         
         open(URI.escape(url),
           :content_length_proc => lambda { |content_length|
-            if content_length > (1048576 * 40) # 20 MB maximum song size
-              puts "Too big!"
-              raise TooBig
-            end
+            raise "Too Big" if content_length > (1048576 * 40) # 20 MB maximum song size
             total = content_length
           },
           :progress_proc => lambda { |at|
@@ -68,6 +89,10 @@ class Song < ActiveRecord::Base
         ) do |song|
           Mp3Info.open(song.path) do |mp3|
             puts "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
+            
+            # Working
+            self.working = true
+            
             # Read from ID3
             self.name = mp3.tag.title
             self.artist_name = mp3.tag.artist

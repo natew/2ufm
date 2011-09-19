@@ -17,6 +17,8 @@ Fusefm::Application.routes.draw do
     end
   end
   
+  match "/songs/:id", :to => "songs#failed", :as => :post
+  
   resources :artists, :only => [:index, :show]
   
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post

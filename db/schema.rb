@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110919210609) do
+ActiveRecord::Schema.define(:version => 20110919214517) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20110919210609) do
     t.string   "file_file_name"
     t.string   "file_updated_at"
     t.integer  "shared_count",     :default => 0
+    t.boolean  "working",          :default => false
   end
 
   create_table "stations", :force => true do |t|

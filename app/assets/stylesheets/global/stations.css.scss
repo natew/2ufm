@@ -30,7 +30,6 @@
     }
     
     strong {
-      background: url(/images/dim.png);
       text-align: center;
       color: #fff;
       padding: 4px 0;
@@ -38,6 +37,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
+      @include dim(70);
     }
   }
 }

@@ -40,4 +40,17 @@ class SongsController < ApplicationController
       format.js { render :layout => false }
     end
   end
+  
+  def failed
+    @song = Song.find(params[:id])
+    
+    if @song
+      @song.working = false
+      @song.save
+    end
+    
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
 end

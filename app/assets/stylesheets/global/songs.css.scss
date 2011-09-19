@@ -26,6 +26,10 @@
       }
     }
     
+    &.failed {
+      .cover { background: red; }
+    }
+    
     .song-info {
       float: right;
       width: 474px;

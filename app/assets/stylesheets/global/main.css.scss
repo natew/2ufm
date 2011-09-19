@@ -201,6 +201,10 @@ header {
       position: relative;
       float: left;
       margin: 0 8px 0 0;
+      
+      img {
+        @include border-radius(4px);
+      }
     }
   
     #player-meta {
