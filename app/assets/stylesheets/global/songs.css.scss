@@ -109,7 +109,12 @@
       }
       
       a {
+        color: #666;
         float: left;
+        
+        &:hover {
+          color: #fff;
+        }
       }
     }
     
@@ -142,6 +147,7 @@
         padding: 18px 15px;
         top: 0;
         left: 0;
+        text-shadow: 0 0 4px #000;
         
         &:hover {
           cursor: pointer;

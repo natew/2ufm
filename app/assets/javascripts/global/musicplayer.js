@@ -51,21 +51,21 @@ var mp = (function() {
     // Play a section
     playSection: function(section) {
       this.stop();
+      if (section.data('station') != playlistID) {
+        this.load();
+      }
       curSection = section;
       this.play();
     },
     
     // Load playlist
     load: function() {
-      curSection = $('.playlist section:first');
-      playlistIndex = curSection.data('index');
-      
-      if (curSection && playlistID != curSection.data('station')) {
+      if (!curSection) curSection = $('.playlist section:first');
+      if (curSection) {
         playingPage = curPage;
-        if (curSection) {
-          playlistID = curSection.data('station');
-          playlist   = $('#playlist-'+playlistID).data('playlist');
-        }
+        playlistIndex = curSection.data('index');
+        playlistID = curSection.data('station');
+        playlist   = $('#playlist-'+playlistID).data('playlist');
       }
     },
     
@@ -122,7 +122,6 @@ var mp = (function() {
       curSection = next;
       playlistIndex++;
       this.play();
-      this.refresh();
     },
     
     prev: function() {
@@ -133,7 +132,6 @@ var mp = (function() {
       curSection = prev;
       playlistIndex--;
       this.play();
-      this.refresh();
     },
     
     refresh: function() {
