@@ -1,7 +1,8 @@
 include AttachmentHelper
+include PaperclipExtensions
 
 class Artist < ActiveRecord::Base
-  belongs_to :station
+  has_one    :station, :dependent => :destroy
   has_many   :authors
   has_many   :songs, :through => :authors, :extend => SongExtensions
   
@@ -26,24 +27,30 @@ class Artist < ActiveRecord::Base
   
   def get_discogs_info
     begin
+      puts "Getting info for #{name}"
       info = DiscogsApi.get_artist(name)
       info = Hashie::Mash.new info
-      self.image = URLTempfile.new(info.images.first.uri) unless info.images.nil?
+      puts "Info found" unless info.nil? or info.empty?
+      self.image = UrlTempfile.new(info.images.first.uri) unless info.images.nil?
       self.urls  = info.urls unless info.urls.nil?
-    rescue
+    rescue => exception
       # Artist not found!
+      puts "Not found! #{exception.message}"
     end
   end
   
   def get_wikipedia_info
-    url = urls.find { |e| /^wikipedia/ =~ e } unless urls.nil?
-    url = '' # get wikipedia url
-      
+    if urls
+      url = urls.find { |e| /^wikipedia/ =~ e }
+      if url
+        # get wikipedia url
+      end
+    end
   end
   
   protected
   
   def make_station
-    self.station_id = Station.create(:name => name).id
+    self.create_station
   end
 end

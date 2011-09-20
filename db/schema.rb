@@ -11,22 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110919214517) do
-
-  create_table "active_admin_comments", :force => true do |t|
-    t.integer  "resource_id",   :null => false
-    t.string   "resource_type", :null => false
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "namespace"
-  end
-
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+ActiveRecord::Schema.define(:version => 20110920184445) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -37,34 +22,6 @@ ActiveRecord::Schema.define(:version => 20110919214517) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "admin_users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
-  add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
-
-  create_table "albums", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "artist_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "albums", ["artist_id"], :name => "index_albums_on_artist_id"
 
   create_table "artists", :force => true do |t|
     t.string   "name"
@@ -102,11 +59,6 @@ ActiveRecord::Schema.define(:version => 20110919214517) do
     t.datetime "image_updated_at"
   end
 
-  create_table "blogs_songs", :id => false, :force => true do |t|
-    t.integer "blog_id"
-    t.integer "song_id"
-  end
-
   create_table "broadcasts", :force => true do |t|
     t.integer  "station_id"
     t.integer  "song_id"
@@ -130,6 +82,13 @@ ActiveRecord::Schema.define(:version => 20110919214517) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "follows", :force => true do |t|
+    t.integer "station_id"
+    t.integer "user_id"
+  end
+
+  add_index "follows", ["user_id", "station_id"], :name => "index_follows_on_user_id_and_station_id", :unique => true
 
   create_table "genres", :force => true do |t|
     t.string "name"
@@ -188,35 +147,11 @@ ActiveRecord::Schema.define(:version => 20110919214517) do
   end
 
   create_table "stations", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-    t.string   "image_file_name"
-    t.datetime "image_updated_at"
-  end
-
-  create_table "stations_users", :id => false, :force => true do |t|
-    t.integer "station_id"
+    t.text    "description"
+    t.integer "artist_id"
     t.integer "user_id"
-  end
-
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context"
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", :force => true do |t|
-    t.string "name"
+    t.integer "blog_id"
+    t.integer "follows_count", :default => 0
   end
 
   create_table "users", :force => true do |t|

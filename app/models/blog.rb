@@ -5,7 +5,7 @@ require 'nokogiri'
 class Blog < ActiveRecord::Base
   include AttachmentHelper
   
-  has_many   :songs, :extend => SongExtensions
+  has_one    :station, :dependent => :destroy
   has_many   :posts, :dependent => :destroy
 
   acts_as_url :name, :url_attribute => :slug
@@ -13,6 +13,7 @@ class Blog < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_save   :get_blog_info
+  before_create :make_station
   after_create  :get_new_posts
   
   serialize :feed
@@ -134,6 +135,10 @@ class Blog < ActiveRecord::Base
   end
   
   private
+  
+  def make_station
+    self.create_station
+  end
   
 #  def find_post_date(doc)
 #    Chronic.parse(html.css('.entry-date,.date').to_s)

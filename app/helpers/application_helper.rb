@@ -5,13 +5,21 @@ module ApplicationHelper
       i.to_json
     end
   end
+  
+  # Station follow
+  def follow_station(station)
+    has    = current_user.following_station?(station.id) if user_signed_in?
+    action = has ? "remove" : "add"
+    id     = has ? current_user.follows.where(:station_id => station.id).first.id : station.id
+    render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => station.follows.count }
+  end
 
   # Song broadcast
   def song_broadcast(song)
     has    = current_user.broadcasted_song?(song) if user_signed_in?
     action = has ? "remove" : "add"
-    id     = has ? current_user.station.broadcasts.where(:song_id => song.id).first.id : song.shared_id
-    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.size }
+    id     = has ? current_user.station.broadcasts.where(:song_id => song.id).first.id : song.id
+    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.count }
   end
 
   # Truncates the given text to the given length and appends truncate_string to the end if the text was truncated

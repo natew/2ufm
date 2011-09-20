@@ -3,22 +3,19 @@
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
 
 // Lets allow middle clicking for new tabs
-var cmdPressed = false;
-$(window).keydown(function(e) {
-  if (e.metaKey || e.ctrlKey) {
-    cmdPressed = true;
-    console.log("pressed");
-  } 
-}).keyup(function(e) {
-  if (!e.metaKey && !e.ctrlKey) {
-    cmdPressed = false;
-    console.log("unpressed");
-  }
-});
+var disableHashbang = false;
+var pressedDisable = function(e) {
+    var command = e.metaKey || e.ctrlKey;
+    if (command) disableHashbang = true;
+    else disableHashbang = false;
+    console.log("disable hashbang = " + disableHashbang);
+}
+$(window).keydown(pressedDisable).keyup(pressedDisable);
+$(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
 $("a:not(.control)").live('click', function(event) {
   var href = $(this).attr('href');
-  if (href[0] == '/' && event.which != 2 && !cmdPressed) {
+  if (href[0] == '/' && event.which != 2 && !disableHashbang) {
     event.preventDefault();
     window.location.hash = "#!" + href;
   }

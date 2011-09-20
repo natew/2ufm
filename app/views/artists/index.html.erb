@@ -10,6 +10,6 @@
   <%- end -%>
 </ul>
 
-<div class="artist-list full">
-  <%= render @artists %>
+<div class="shelf grid">
+  <%= render :partial => 'stations/shelf', :collection => @artists %>
 </div>

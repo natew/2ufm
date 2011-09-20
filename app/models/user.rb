@@ -15,9 +15,11 @@ class User < ActiveRecord::Base
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
   
-  belongs_to :station
+  has_one    :station, :dependent => :destroy
   has_many   :activities, :dependent => :destroy
-  has_many   :favorites
+  has_many   :follows
+  has_many   :stations, :through => :follows
+  has_many   :songs, :through => :stations, :extend => SongExtensions
   
   has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
@@ -37,19 +39,22 @@ class User < ActiveRecord::Base
     role == type.to_s
   end
   
+  def name
+    username
+  end
+  
   def broadcasted_song?(song)
-    id = song.shared_id.nil? ? song.shared_id : song.id  # should be temporary
-    station.broadcasts.where(:song_id => id).exists?
+    station.broadcasts.where(:song_id => song.id).exists?
   end
   
   def following_station?(id)
-    false
+    follows.where(:station_id => id).exists?
   end
   
   protected
   
   def make_station
-    self.station_id = Station.create(:name => username).id
+    self.create_station
   end
   
   # Devise override for logins

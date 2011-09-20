@@ -149,13 +149,17 @@ var mp = (function() {
     },
     
     setCurSectionActive: function() {
-      curSection.addClass('playing');
-      curSection.find('.play-song').html('5');
+      if (curSection) {
+        curSection.addClass('playing');
+        curSection.find('.play-song').html('5');
+      }
     },
     
     setCurSectionInactive: function() {
-      curSection.removeClass('playing');
-      curSection.find('.play-song').html('9');
+      if (curSection) {
+        curSection.removeClass('playing');
+        curSection.find('.play-song').html('9');
+      }
     }
   }
   

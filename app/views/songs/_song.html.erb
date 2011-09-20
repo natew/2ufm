@@ -13,7 +13,7 @@
           Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
         &middot;
         <%- end -%>
-        First posted <time><%= relative_time(song.created_at) %></time> (<%= link_to 'Read &raquo;'.html_safe, song.post.url, :target => '_blank' %>)
+        First posted <time><%= relative_time(song.created_at) %></time> (<%= link_to 'Read &raquo;'.html_safe, song.post_url, :target => '_blank' %>)
       </div>
       <p><%= truncate(song.post.excerpt, :length => length) %></p>
       <%- if user_signed_in? and false -%>

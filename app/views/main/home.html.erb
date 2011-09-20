@@ -1,3 +1,4 @@
+<%- if !user_signed_in? -%>
 <section class="title center">
   <h2>Take control of <em>your</em> favorite music blogs &amp; artists</h2>
   <p><strong>Follow blogs, artists and friends.  Find good music. Post good music.</strong></p>
@@ -29,34 +30,39 @@
       <% end %>
     </div>
 </section>
+<%- end -%>
 
 <div class="shelf">
+  <h3>Featured Blogs</h3>
   <ul>
-    <%= render :partial => 'stations/shelf', :collection => @stations %>
+    <%= render :partial => 'stations/shelf', :collection => @featured %>
   </ul>
 </div>
 
-<div class="grid">
-  <div class="twothirds">
-    <h3>Popular Songs</h3>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
-    <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
-  </div>
-  
-  <div class="third">
-    <section>
-      <h3>Browse by Genre</h3>
-      <ul id="genres">
-      <%= render @genres %>
-      </ul>
-    </section>
-  
-    <section>
-      <h3>Artists</h3>
-      <div class="artist-list">
-        <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
-      </div>
-      <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
-    </section>
-  </div>
+<div class="twothirds">
+<%- if user_signed_in? -%>
+  <h3>Song Feed</h3>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
+<%- else -%>
+  <h3>Popular Songs</h3>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
+  <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
+<%- end -%>
+</div>
+
+<div class="third">
+  <section>
+    <h3>Browse by Genre</h3>
+    <ul id="genres">
+    <%= render @genres %>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Artists</h3>
+    <div class="artist-list">
+      <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
+    </div>
+    <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
+  </section>
 </div>

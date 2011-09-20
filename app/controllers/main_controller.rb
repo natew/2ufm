@@ -3,8 +3,9 @@ class MainController < ApplicationController
   end
   
   def home
-    @popular  = Station.popular_station
-    @stations = Station.limit(6)
+    @popular  = Station.popular_station unless user_signed_in?
+    @feed     = current_user if user_signed_in?
+    @featured = Blog.order('random()').limit(6)
     @genres   = Genre.all
     @artists  = Artist.order('random()').limit(6)
     

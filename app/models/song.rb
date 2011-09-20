@@ -15,12 +15,14 @@ class Song < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   has_attachment :file
 
-  scope :with_posts, includes(:post)
+  scope :with_blog, joins(:blog)
+  scope :with_posts, joins(:post)
   scope :processed, where(processed: true)
   scope :working, where(working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.created_at asc')
-  scope :group_by_shared, select('DISTINCT ON (songs.shared_id) *').order('songs.shared_id desc')
+  scope :group_by_shared, select('DISTINCT ON (songs.shared_id) songs.*').order('songs.shared_id desc')
+  scope :playlist_ready, group_by_shared.select('posts.url as post_url, blogs.name, blogs.slug').with_blog.with_posts.processed.working.newest
   
   acts_as_url :full_name, :url_attribute => :slug
   
