@@ -5,24 +5,22 @@
   margin: -5px 0 10px;
   
   section {
-    padding: 10px 0 25px;
-    margin: 0 0 5px 0;
+    padding: 10px 0 20px;
+    border-bottom: 1px dotted #ddd;
+    margin: 0 0 4px 0;
     position: relative;
     overflow: hidden;
-    @include light(5);
-    @include border-radius(3px);
-    @include box-shadow(0,0,2px,#111);
     
     &:hover {
       @include light(10)
     }
 
     &.playing {
-      @include light(15);
+      background: #eee;
     
       .play-song {
         opacity: 1 !important;
-        padding: 20px 17px !important;
+        padding: 29px 16px !important;
       }
     }
     
@@ -32,31 +30,29 @@
     
     .song-info {
       float: right;
-      width: 474px;
-      margin: 0 68px 0 0;
+      width: 472px;
+      margin: 0 68px 18px 0;
       
       h4 {
-        font-size: 20px;
+        font-size: 18px;
         border: none;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         display: block;
         background: none;
         padding: 0;
       
         a {
           text-decoration: none;
-          color: #fff;
         }
       }
       
       .song-art {
         position: absolute;
-        left: 10px;
+        left: 0;
         top: 10px;
         z-index: 1;
         
         img {
-          height: 55px;
           @include border-radius(4px);
           @include box-shadow(0,0,3px,#000);
         }
@@ -86,12 +82,10 @@
     
     .song-links {
       margin: 0;
-      padding: 0 0 0 70px;
-      width: 550px;
+      padding: 0;
+      width: 536px;
       position: absolute;
-      bottom: 0;
       clear: both;
-      @include dim(20);
       
       li {
         list-style: none;
@@ -99,9 +93,7 @@
         color: #999;
         font-size: 11px;
         font-weight: bold;
-        text-shadow: 0 0 1px #000;
-        padding: 4px 8px;
-        border-left: 1px solid #333;
+        padding: 0 16px 0 0;
         
         &.right {
           float: right;
@@ -109,23 +101,24 @@
       }
       
       a {
-        color: #666;
+        color: #999;
         float: left;
         
         &:hover {
-          color: #fff;
+          color: #000;
         }
       }
     }
     
     .song-meta {
       margin: 0 0 5px 0;
-      font-size: 12px;
-      color: #aaa;
+      font-size: 14px;
+      color: #444;
       line-height: 1.4em;
       
       a {
-        color: #888;
+        color: #777;
+        &:hover { color: #000; }
       }
     }
     
@@ -138,15 +131,15 @@
       height: 142px;
       
       .play-song {
-        margin: 12px 0 0;
-        font-size: 49px;
+        margin: 10px 0 0;
+        font-size: 66px;
         color: #fff;
         position: absolute;
         z-index: 10;
-        opacity: 0.6;
-        padding: 18px 15px;
+        opacity: 0.5;
+        padding: 24px 12px;
         top: 0;
-        left: 0;
+        left: -10px;
         text-shadow: 0 0 4px #000;
         
         &:hover {
@@ -177,14 +170,14 @@
           }
           
           span.count {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            color: #fff;
             height: 16px;
             float: left;
             text-align: right;
             padding: 0 4px 0 0;
-            margin: -3px 3px 0;
+            margin: -2px 6px 0;
+            color: #999;
           }
         }
       }
@@ -202,7 +195,6 @@
   
   img {
     width: 100%;
-    min-height: 200%;
   }
   
   &:hover {

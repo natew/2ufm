@@ -4,7 +4,6 @@ require 'mp3info'
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
-  include SongExtensions
   
   belongs_to  :blog
   belongs_to  :post
@@ -34,6 +33,10 @@ class Song < ActiveRecord::Base
   
   def reposted?
     shared_count > 0
+  end
+  
+  def to_playlist
+    { id: id, artist:artist_name, name:name, url:url }
   end
   
   def resolve_image(*type)

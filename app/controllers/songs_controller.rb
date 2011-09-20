@@ -25,6 +25,7 @@ class SongsController < ApplicationController
   
   def show
     @song = Song.find_by_slug(params[:id])
+    @blogs = Blog.joins(:songs).where('songs.shared_id = ?',@song.shared_id)
     
     respond_to do |format|
       format.html

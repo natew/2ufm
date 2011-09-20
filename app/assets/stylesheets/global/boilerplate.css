@@ -10,10 +10,10 @@ html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-
 body { margin: 0; }
 body, button, input, select, textarea { font: 13px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #bbb; }
 
-::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::-moz-selection { background: #57b9fe; color: #fff; text-shadow: none; }
+::selection { background: #57b9fe; color: #fff; text-shadow: none; }
 
-a { color: #fff; }
+a { color: #0050a3; }
 a:hover { color: #0050a3; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }

@@ -19,7 +19,7 @@
     float: left;
     margin: 0 0 0 31px;
     position: relative;
-    @include box-shadow(0,0,3px,#000);
+    @include box-shadow(0,0,4px,#000);
     @include border-radius(4px);
     
     img { @include border-radius(4px); }
@@ -38,11 +38,12 @@
       bottom: 0;
       width: 100%;
       @include dim(70);
+      @include border-radius-bottom(3px);
     }
   }
 }
 
-#station-list {
+.station-list {
   margin: 0 0 20px 0;
 
   section {
@@ -121,17 +122,16 @@
     list-style: none;
     
     a {
-      padding: 1px 0 1px 10px;
+      padding: 1px 2px 1px 2px;
       margin: 0 0 4px 4px;
       float: left;
-      width: 87px;
-      color: #fff;
-      font-size: 11px;
+      width: 93px;
+      font-size: 12px;
       font-weight: bold;
       text-decoration: none;
       
       &:hover {
-        background: #222;
+        text-decoration: underline;
       }
     }
   }

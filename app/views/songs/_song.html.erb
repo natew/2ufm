@@ -23,17 +23,17 @@
       </span>
       <%- end -%>
     </div>
+    <ul class="song-links">
+      <li>Purchase song:</li>
+      <li><%= link_to 'eMusic' %></li>
+      <li><%= link_to 'iTunes' %></li>
+      <li><%= link_to 'Amazon' %></li>
+      <li class="right"><%= link_to 'Stats' %></li>
+      <li class="right"><%= link_to 'Similar songs' %></li>
+    </ul>
   </div>
   <ul class="song-controls">
     <li class="play-song pictos">9</li>
     <li class="broadcast"><%= song_broadcast(song) %></li>
-  </ul>
-  <ul class="song-links">
-    <li>Purchase song:</li>
-    <li><%= link_to 'eMusic' %></li>
-    <li><%= link_to 'iTunes' %></li>
-    <li><%= link_to 'Amazon' %></li>
-    <li class="right"><%= link_to 'Stats' %></li>
-    <li class="right"><%= link_to 'Similar songs' %></li>
   </ul>
 </section>

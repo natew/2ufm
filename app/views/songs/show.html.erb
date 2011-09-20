@@ -2,13 +2,25 @@
   <%= image_tag @song.image.url(:small), :class => 'icon' %>
   <h2 class="icon">
     <%= @song.name %>
-    <small>by artist</small>
+    <small><%= @song.artist_name %></small>
   </h2>
 </div>
 
 <div class="twothirds">
-  <h3>Posted on <%= pluralize @song.stations.size, 'station' %></h3>
-  <div id="station-list">
+  <h3>Listen to <%= @song.name %></h3>
+  <div id="playlist-single" class="playlist" data-playlist="{&quot;station&quot;: <%= @song.to_json(:only => [:id, :slug, :name]) %>, &quot;songs&quot;: <%= @song.to_playlist %>}">
+    <%= render :partial => 'songs/song', :locals => {  :song => @song, :song_counter => 0, :station_id => 0 } %>
+  </div>
+  
+  <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
+  <div class="shelf">
+    <%= render :partial => 'stations/shelf', :collection => @blogs %>
+  </div>
+</div>
+
+<div class="third">
+  <h4>Posted on <%= pluralize @song.stations.size, 'station' %></h4>
+  <div class="station-list">
     <%= render @song.stations %>
   </div>
 </div>

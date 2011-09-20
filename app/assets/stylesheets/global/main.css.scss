@@ -3,8 +3,7 @@
 /* Header */
 
 header {
-  background: #333;
-  @include background-gradient(#444,#252525);
+  background: #111;
   position: fixed;
   width: 100%;
   top: 0;
@@ -52,18 +51,13 @@ header {
       }
       
       a {
-        padding: 58px 6px 4px 6px;
+        padding: 29px 12px;
         margin: 4px 0;
         color: #ddd;
-        text-shadow: 0 -1px 1px black;
         float: left;
         text-decoration: none;
         font-weight: bold;
-        font-size: 12px;
-        text-transform: uppercase;
-        width: 60px;
-        text-align: center;
-        background: url(/images/head_icons.png) no-repeat -54px -11px;
+        font-size: 16px;
 
         &:hover {
           color: #fff;
@@ -125,10 +119,10 @@ header {
 
       .nav-dropdown {
         position: absolute;
-        top: 40px;
+        top: 34px;
         left: 34px;
         width: 200px;
-        background: #222;
+        background: #111;
         display: none;
         padding: 0;
         @include border-radius-bottom(5px);
@@ -140,7 +134,7 @@ header {
           width: 92%;
           max-width: 100%;
           padding: 10px 4%;
-          border-top: 1px solid #444;
+          border-top: 1px solid #333;
         }
 
         img {
@@ -160,11 +154,11 @@ header {
         padding: 7px 12px;
         width: 210px;
         color: #ccc;
-        background: url(/images/dim.png);
+        background: none;
         border: none;
+        border-bottom: 1px solid #666;
         outline: none;
         font-size: 13px;
-        @include border-radius(18px);
 
         &:hover {
           background: #000;
@@ -183,7 +177,6 @@ header {
     padding: 10px;
     overflow: hidden;
     white-space: nowrap;
-    background: url(/images/dim.png);
     position: absolute;
     left: 50%;
     margin-left: -160px;
@@ -208,9 +201,10 @@ header {
     }
   
     #player-meta {
-      margin: 0 0 7px 0;
+      margin: 0 0 5px 0;
       float: left;
       width: 75%;
+      font-size: 14px;
       
       a {
         color: #fff;
@@ -284,10 +278,11 @@ header {
       #player-progress-bar {
         background: #000;
         float: left;
-        height: 6px;
+        height: 8px;
+        padding: 1px;
         width: 150px;
-        margin: 9px 11px 0;
-        border-bottom: 1px solid #3b3f4b;
+        margin: 6px 12px 0;
+        border: 1px solid #999;
         position: relative;
         @include border-radius(8px);
         
@@ -300,7 +295,7 @@ header {
           z-index: 1;
           background: url(/images/button_bg.png) top;
           width: 0%;
-          height: 6px;
+          height: 8px;
           @include border-radius(4px);
           
           .progress {
@@ -308,7 +303,7 @@ header {
             width: 23px;
             height: 23px;
             position: absolute;
-            top: -9px;
+            top: -8px;
             right: -18px;
             text-indent: -3000em;
             overflow: hidden;
@@ -328,7 +323,7 @@ header {
           z-index: 0;
           background: #444;
           width: 0%;
-          height: 6px;
+          height: 8px;
           @include border-radius(4px);
         }
       }
@@ -351,14 +346,13 @@ header {
 
 /* Titles */
 
-h2.title { color: #ddd; }
+h2.title { color: #444; }
 .title {
-  padding: 15px 20px;
+  padding: 20px 20px 10px;
   margin: 0 20px 10px 20px;
   color: #999;
   position: relative;
-  @include dim(20);
-  @include border-radius(8px);
+  border-bottom: 1px solid #ccc;
   
   &.grid {
     padding-left: 0;
@@ -370,7 +364,7 @@ h2.title { color: #ddd; }
   }
 
   h2 {
-    color: #fff;
+    color: #444;
     font-size: 32px;
     background: none;
     margin: 0;
@@ -411,10 +405,10 @@ h2.title { color: #ddd; }
 
 /* Subnav */
 .subnav {
-  margin: -3px 20px 15px 20px;
-  background: #333;
-  padding: 4px;
-  @include border-radius(8px);
+  margin: -10px 20px 30px 20px;
+  background: #eee;
+  padding: 4px 12px;
+  @include border-radius-bottom(8px);
   
   li {
     float: left;
@@ -423,9 +417,13 @@ h2.title { color: #ddd; }
     a {
       float: left;
       padding: 8px 12px;
-      border-right: 1px dotted #444;
       font-weight: bold;
       text-decoration: none;
+      color: #000;
+      
+      &:hover {
+        color: #999;
+      }
     }
   }
 }

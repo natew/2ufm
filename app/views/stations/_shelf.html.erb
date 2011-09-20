@@ -1,5 +1,5 @@
   <li>
-    <a href="<%= station_path(shelf) %>">
+    <a href="<%= url_for(shelf) %>">
       <strong><%= shelf.name %></strong>
       <div class="cover"><%= image_tag('/images/cover.png') %></div>
       <%= image_tag(shelf.image.url(:medium)) %>
