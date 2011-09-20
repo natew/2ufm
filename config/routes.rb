@@ -9,7 +9,9 @@ Fusefm::Application.routes.draw do
   
   resources :genres, :only => [:show]
 
-  resources :blogs, :posts, :stations, :favorites, :users, :broadcasts, :follows
+  resources :blogs, :users
+  
+  resources :broadcasts, :follows, :only => [:create, :destroy]
   
   resources :songs, :only => [:index, :show] do
     collection do

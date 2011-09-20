@@ -4,6 +4,7 @@
 
 body {
   background: #eee;
+  color: #666;
 }
 
 #main-mid {
@@ -87,110 +88,4 @@ body {
     color: #999;
     border: none;
   }
-}
-
-
-/* HEADING AND TEXT STYLES */
-
-h2, h3 {
-  padding: 0;
-  margin: 0 0 20px 0;
-  color: #444;
-  font-size: 30px;
-  display: inline-block;
-}
-
-h3 {
-  font-size: 26px;
-}
-
-h2, h3, h4 {
-  margin: 0 0 10px 0;
-  line-height: 1em;
-  clear: both;
-  
-  small {
-    font-size: 75%;
-    color: #aaa;
-    font-weight: normal;
-    
-    a {
-      color: #ccc;
-    }
-  }
-}
-
-h2 small {
-  font-size: 55%;
-}
-
-h4 {
-  margin: 0 0 0.4em 0;
-  font-size: 16px;
-}
-
-.side h3 {
-  font-size: 18px;
-  margin-top: 0.3em;
-}
-
-p.description {
-  font-size: 16px;
-  margin-top: 0;
-}
-
-
-
-/* NAVIGATION AND PAGINATION */
-
-.pagination {
-  font-size: 13px;
-  border-right: 1px solid #ccc;
-  display: inline-block;
-  margin: 20px 0 0;
-  @include box-shadow(0px,1px,2px,#ddd);
-  @include border-radius-right(3px);
-  
-  span {
-    float: left;
-    
-    &:first-child {
-      @include border-radius-left(3px);
-      
-      a {
-        @include border-radius-left(3px);
-      }
-    }
-  }
-  
-  span {
-    float: left;
-  
-    a,
-    &.current,
-    &.gap {
-      padding: 9px 16px;
-      border: 1px solid #ccc;
-      border-right: none;
-      float: left;
-      text-decoration: none;
-    }
-    
-    &.gap {
-      color: #999;
-    }
-    
-    a:hover {
-      background: $light-blue;
-    }
-    
-    &.current {
-      background: $light-blue;
-      font-weight: bold;
-    }
-  }
-}
-
-#soundmanager-debug {
-  display: none !important;
 }

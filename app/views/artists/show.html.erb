@@ -1,6 +1,10 @@
 <div class="title">
   <%= image_tag @artist.image.url(:small), :class => 'icon' %>
   <h2 class="icon"><%= @artist.name %> <small><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></small></h2>
+  
+  <ul class="title_nav">
+    <li id="follow-<%= @artist.station.id %>"><%= follow_station(@artist.station) %></li>
+  </ul>
 </div>
 
 <ul class="subnav">

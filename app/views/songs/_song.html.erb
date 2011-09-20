@@ -8,7 +8,7 @@
     </div>
     <div class="song-post">
       <div class="song-meta">
-        <%= link_to "#{truncate(song.blog.name)}".html_safe, song.blog %> &middot;
+        <%= link_to "#{truncate(song.blog_name)}".html_safe, blog_path(song.blog_slug) %> &middot;
         <%- if song.reposted? -%>
           Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
         &middot;

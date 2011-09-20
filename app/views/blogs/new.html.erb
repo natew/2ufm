@@ -1,5 +1,10 @@
+<div class="title">
+  <h2>Submit your blog <small>Submit with three simple steps</small></h2>
+  <div class="title_nav"><h3>Step <%= @blog.step_index %>/3</h3></div>
+</div>
+
 <div class="twothirds">
-  <h2>Step <%= @blog.step_index %>: <%= @blog.current_step.capitalize %> <small>Submit with three simple steps</small></h2>
+  <h3><%= @blog.current_step.capitalize %></h3>
   <div id="wizard">
   <%= form_for @blog, :html => { :multipart => true } do |f| %>
     <%= render :partial => 'shared/form_errors', :locals => { :object => @blog } %>

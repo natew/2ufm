@@ -1,5 +1,5 @@
 <%- if !user_signed_in? -%>
-<section class="title center">
+<div class="title center">
   <h2>Take control of <em>your</em> favorite music blogs &amp; artists</h2>
   <p><strong>Follow blogs, artists and friends.  Find good music. Post good music.</strong></p>
     
@@ -29,7 +29,12 @@
         </ol>
       <% end %>
     </div>
-</section>
+</div>
+<%- else -%>
+<div class="title">
+  <h2>Welcome, <%= current_user.username %></h2>
+  <div class="title_nav"><%= link_to 'My Station', current_user, :class => 'button' %></div>
+</div>
 <%- end -%>
 
 <div class="shelf">

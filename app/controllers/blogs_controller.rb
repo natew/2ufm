@@ -1,7 +1,7 @@
 class BlogsController < ApplicationController
 
   def index
-    @blogs = Blog.page(params[:page]).per(24)
+    @blogs = Blog.order('random()').page(params[:page]).per(9)
     @genres = Genre.all
 
     respond_to do |format|

@@ -21,6 +21,11 @@ module ApplicationHelper
     id     = has ? current_user.station.broadcasts.where(:song_id => song.id).first.id : song.id
     render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.count }
   end
+  
+  # Self explanitory
+  def on_own_profile?
+    user_signed_in? and controller.controller_name == 'users' and params[:id] == current_user.slug
+  end
 
   # Truncates the given text to the given length and appends truncate_string to the end if the text was truncated
   def truncate(text, options = {})
