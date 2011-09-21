@@ -2,10 +2,10 @@
 
 .playlist {
   clear: both;
-  margin: -5px 0 10px;
+  margin: -5px 0 30px;
   
   section {
-    padding: 10px 0 20px;
+    padding: 10px 0;
     border-bottom: 1px dotted #ddd;
     margin: 0;
     position: relative;
@@ -20,7 +20,7 @@
     
       .play-song {
         opacity: 1 !important;
-        padding: 29px 16px !important;
+        padding: 29px 15px !important;
       }
     }
     
@@ -30,7 +30,7 @@
     
     .song-info {
       float: right;
-      width: 472px;
+      width: 466px;
       margin: 0 68px 18px 0;
       
       h4 {
@@ -48,7 +48,7 @@
       
       .song-art {
         position: absolute;
-        left: 0;
+        left: 10px;
         top: 10px;
         z-index: 1;
         
@@ -114,7 +114,7 @@
         opacity: 0.5;
         padding: 24px 12px;
         top: 0;
-        left: -10px;
+        left: 0;
         text-shadow: 0 0 4px #000;
         
         &:hover {
@@ -139,9 +139,9 @@
           
           a {
             font-size: 24px;
-            color: #888;
+            color: #444;
             
-            &:hover { color: #aaa; }
+            &:hover { color: #888; }
           }
           
           span.count {
@@ -152,7 +152,7 @@
             text-align: right;
             padding: 0 4px 0 0;
             margin: -2px 6px 0;
-            color: #999;
+            color: #444;
           }
         }
       }

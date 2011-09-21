@@ -42,11 +42,10 @@ p.description {
 /* Header */
 
 header {
-  background: rgb(207, 0, 74);
+  background: rgb(190, 0, 40);
   width: 100%;
   z-index: 100;
   line-height: 1em;
-  position: relative;
   @include box-shadow(0,0,4px,#000);
   
   h1 {
@@ -100,6 +99,7 @@ header {
   #functions {
     float: right;
     margin: 10px 0 0;
+    min-width: 250px;
     
     .nav {
       position: relative;
@@ -186,6 +186,7 @@ header {
   #player {
     white-space: nowrap;
     float: left;
+    width: 680px;
     
     &.playing {
       #player-controls {
@@ -193,8 +194,6 @@ header {
           content: "5";
         }
       }
-      
-      #player-meta span { display: inline; }
     }
     
     #player-image {
@@ -215,8 +214,6 @@ header {
       padding: 12px;
       float: left;
       
-      span { display: none; }
-      
       a {
         color: #fff;
         text-decoration: none;
@@ -231,6 +228,7 @@ header {
     
     #player-buttons {
       float: left;
+      width: 153px;
       
       a {
         float: left;

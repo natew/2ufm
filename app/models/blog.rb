@@ -5,8 +5,9 @@ require 'nokogiri'
 class Blog < ActiveRecord::Base
   include AttachmentHelper
   
-  has_one    :station, :dependent => :destroy
-  has_many   :posts, :dependent => :destroy
+  has_one  :station, :dependent => :destroy
+  has_many :songs, :through => :station 
+  has_many :posts, :dependent => :destroy
 
   acts_as_url :name, :url_attribute => :slug
   

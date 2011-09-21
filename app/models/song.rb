@@ -9,6 +9,7 @@ class Song < ActiveRecord::Base
   belongs_to  :post
   has_many    :broadcasts, :dependent => :destroy
   has_many    :stations, :through => :broadcasts
+  has_many    :users, :through => :stations
   has_many    :authors
   has_many    :artists, :through => :authors
   
