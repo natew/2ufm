@@ -22,7 +22,7 @@ class Song < ActiveRecord::Base
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.created_at asc')
   scope :group_by_shared, select('DISTINCT ON (songs.shared_id) songs.*').order('songs.shared_id desc')
-  scope :playlist_ready, group_by_shared.select('posts.url as post_url, blogs.name as blog_name, blogs.slug as blog_slug').with_blog.with_posts.processed.working.newest
+  scope :playlist_ready, group_by_shared.select('posts.url as post_url, posts.content, blogs.name as blog_name, blogs.slug as blog_slug').with_blog.with_posts.processed.working.newest
   
   acts_as_url :full_name, :url_attribute => :slug
   

@@ -1,4 +1,3 @@
-<%- length ||= 160 -%>
 <section id="song-<%= song.id %>" data-index="<%= song_counter + params[:page].to_i %>" data-station="<%= station_id %>">
   <div class="song-info">
     <h4><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h4>
@@ -13,9 +12,11 @@
           Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
         &middot;
         <%- end -%>
-        First posted <time><%= relative_time(song.created_at) %></time> (<%= link_to 'Read &raquo;'.html_safe, song.post_url, :target => '_blank' %>)
+        First posted <time><%= relative_time(song.created_at) %></time>
+        &middot;
+        <%= link_to 'Read post &raquo;'.html_safe, song.post_url, :target => '_blank' %>
       </div>
-      <p><%= truncate(song.post.excerpt, :length => length) %></p>
+      <p><%= truncate(strip_tags(song.post.content), :length => 140) %></p>
       <%- if user_signed_in? and false -%>
       <span class="active">Active:
         <%= hidden_field_tag('seen_ids[]', song.id) -%>

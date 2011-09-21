@@ -7,7 +7,7 @@
   section {
     padding: 10px 0 20px;
     border-bottom: 1px dotted #ddd;
-    margin: 0 0 4px 0;
+    margin: 0;
     position: relative;
     overflow: hidden;
     
@@ -57,27 +57,6 @@
           @include box-shadow(0,0,3px,#000);
         }
       }
-      
-      .song-post {
-        
-        p {
-          font-size: 13px;
-          margin: 0;
-          line-height: 1.6em;
-          color: #777;
-          height: 3em;
-          overflow: hidden;
-          display: none;
-        }
-
-        span.active {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          color: #999;
-          font-size: 12px;
-        }
-      }
     }
     
     .song-links {
@@ -101,20 +80,16 @@
       }
       
       a {
-        color: #999;
         float: left;
-        
-        &:hover {
-          color: #000;
-        }
       }
     }
     
     .song-meta {
       margin: 0 0 5px 0;
-      font-size: 14px;
-      color: #444;
+      color: #777;
       line-height: 1.4em;
+      
+      p { margin: 0 0 10px 0; }
       
       a {
         color: #777;

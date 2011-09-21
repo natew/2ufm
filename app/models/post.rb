@@ -22,10 +22,6 @@ class Post < ActiveRecord::Base
     slug
   end
   
-  def excerpt
-    ActionController::Base.helpers.strip_tags(content)[0,300]
-  end
-  
   def get_image
     post  = Nokogiri::HTML(content)
     img = post.css('img:first')

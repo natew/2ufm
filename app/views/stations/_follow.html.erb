@@ -1,0 +1,6 @@
+<% icon, title, method, path = (action == 'add') ? 
+    ['+','Follow', :post, follow_path(id)] :
+    ['-','Unfollow', :delete, follow_path(id) ]
+%>
+  <div class="count"><%= pluralize count, 'Follower' %></div>
+  <%= link_to "<span>#{icon}</span>#{title}".html_safe, path, class: "follow-station button #{action} control tip", title: title, remote: true, method: method unless on_own_profile? %>
