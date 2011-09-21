@@ -37,12 +37,13 @@
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %> wizard">
   <header>
     <div class="page-contain">
-      <h1><%= link_to 'fuse.fm', '/home', :class => 'tip-n', :title => 'Like twitter for music' %> </h1>
+      <h1><%= link_to 'fuse.fm', '/home', :class => 'tip-n', :title => 'Go Home!' %> </h1>
       <nav>
         <ul>
           <li><%= link 'Songs', '/songs', :id => 'nav-songs' %></li>
-          <li><%= link 'Blogs', '/blogs', :id => 'nav-stations' %></li>
+          <li><%= link 'Blogs', '/blogs', :id => 'nav-blogs' %></li>
           <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
+          <li><%= link 'Users', '/users', :id => 'nav-users' %></li>
         </ul>
       </nav>
       
@@ -88,9 +89,7 @@
           <% link_to 'Station', '#', :class => 'radio control tip-n', :title => 'Station controls' %>
         </div>
         <div id="player-meta">
-          <%= link_to '&laquo; Press Play'.html_safe, '#', :id => 'player-artist' %>
-          <span> - </span>
-          <%= link_to '', '#', :id => 'player-song' %>
+          <%= link_to '&laquo; Press Play'.html_safe, '#', :id => 'player-song' %>
         </div>
       </div>
       

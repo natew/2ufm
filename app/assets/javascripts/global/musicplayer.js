@@ -20,7 +20,7 @@ var mp = (function() {
     progress: $('#player-progress-position'),
     player: $('#player'),
     song: $('#player-song'),
-    artist: $('#player-artist')
+    play: $('#player-buttons .play')
   }
 
   // Soundmanager
@@ -137,10 +137,11 @@ var mp = (function() {
     refresh: function() {
       if (isPlaying) {
         pl.player.addClass('playing');
-        pl.song.html(curSongInfo.name);
-        pl.artist.html(curSongInfo.artist);
+        pl.song.html(curSongInfo.artist + ' - ' + curSongInfo.name);
+        pl.play.html('5');
       } else {
         pl.player.removeClass('playing');
+        pl.play.html('4');
       }
       
       // <title>
@@ -245,9 +246,7 @@ var mp = (function() {
     },
 
     finish: function() {
-      if (curPage == playingPage) {
-        player.next();
-      }
+      player.next();
     },
 
     whileloading: function() {

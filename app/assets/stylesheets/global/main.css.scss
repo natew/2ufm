@@ -42,14 +42,15 @@ p.description {
 /* Header */
 
 header {
-  background: rgb(190, 0, 40);
+  background: rgb(210, 0, 40);
   width: 100%;
+  position: relative;
   z-index: 100;
   line-height: 1em;
   @include box-shadow(0,0,4px,#000);
   
   h1 {
-    margin: 22px 10px 0 0;
+    margin: 22px 20px 0 0;
     font-size: 26px;
     font-family: 'PTF Nordic RND';
     float: left;
@@ -66,11 +67,11 @@ header {
 
   nav {
     float: left;
-    margin: 0;
+    overflow: hidden;
     
     li {
       float: left;
-      padding: 0 3px;
+      margin-left: -1px;
       
       &.active {
         background: #333;
@@ -78,15 +79,15 @@ header {
       }
       
       a {
-        padding: 16px 14px;
-        margin: 4px 0;
+        padding: 12px 15px;
+        margin: 8px 0;
         color: #fff;
-        text-shadow: 0 0 1px #000;
+        text-shadow: 0 1px 1px #000;
         float: left;
         text-decoration: none;
         font-weight: bold;
-        font-size: 16px;
-        text-transform: uppercase;
+        font-size: 18px;
+        border-left: 1px solid rgba(255,255,255,0.3);
 
         &:hover {
           color: #fff;
@@ -188,18 +189,10 @@ header {
     float: left;
     width: 680px;
     
-    &.playing {
-      #player-controls {
-        .play {
-          content: "5";
-        }
-      }
-    }
-    
     #player-image {
       border-right: 1px solid #444;
       float: left;
-      margin: 5px 5px 5px 0;
+      margin: 5px 8px 5px 0;
       position: relative;
       
       img {
@@ -210,9 +203,12 @@ header {
   
     #player-meta {
       margin: 0;
-      font-size: 18px;
+      font-size: 16px;
       padding: 12px;
       float: left;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 460px;
       
       a {
         color: #fff;
@@ -228,13 +224,14 @@ header {
     
     #player-buttons {
       float: left;
-      width: 153px;
+      width: 142px;
+      margin-right: -3px;
       
       a {
         float: left;
         color: #ccc;
         font-size: 30px;
-        padding: 16px 12px 8px;
+        padding: 16px 10px 8px;
         border-right: 1px solid #333;
         margin: 0 0 -4px 0;
         
