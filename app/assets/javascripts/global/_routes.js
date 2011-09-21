@@ -2,6 +2,8 @@
 // So we can do wants.js but return HTML
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
 
+// FUNCTIONS
+
 // Lets allow middle clicking for new tabs
 var disableHashbang = false;
 var pressedDisable = function(e) {
@@ -10,38 +12,32 @@ var pressedDisable = function(e) {
     else disableHashbang = false;
     console.log("disable hashbang = " + disableHashbang);
 }
-$(window).keydown(pressedDisable).keyup(pressedDisable);
-$(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
-$("a:not(.control)").live('click', function(event) {
-  var href = $(this).attr('href');
-  if (href[0] == '/' && event.which != 2 && !disableHashbang) {
-    event.preventDefault();
-    window.location.hash = "#!" + href;
-  }
-});
-
-var degrees = 0;
-var rotate = function() {
-  degrees = degrees+2;
-  $('#loading img').rotate(degrees);
-}
-
+// Set active nav tab
 function navSetActive(action) {
   $('nav li.active').removeClass('active');
   $('#nav-'+action).parent().addClass('active');
 }
 
-function pageLoaded() {
-  var $doc = $(document);
-  $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
-  
-  // AJAX forms
-  $doc.find("#wizard form").ajaxForm({
-    type: 'POST',
-    success: page.load
+
+// DOCUMENT.READY
+$(function() {
+  $(window).keydown(pressedDisable).keyup(pressedDisable);
+  $(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
+
+  $("a:not(.control)").live('click', function(event) {
+    var href = $(this).attr('href');
+    if (href[0] == '/' && event.which != 2 && !disableHashbang) {
+      event.preventDefault();
+      window.location.hash = "#!" + href;
+    }
   });
-}
+
+  $('a.disabled').live('click', function(e) {
+    e.preventDefault();
+  });
+});
+
 
 // Functions relating to moving about pages
 // In order of occurence
@@ -69,7 +65,25 @@ var page = {
     $('#body').html(data);    
     
     // Run loaded functions
-    pageLoaded();
+    var $doc = $(document);
+    var $body = $doc.find('body:first');
+    
+    $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+    
+    if ($body.is('.signed_out')) {
+      $doc.find('#body .control')
+        .removeAttr('data-remote')
+        .attr('title','Please sign in!')
+        .addClass('disabled');
+    }
+
+    // AJAX forms
+    if ($body.is('.wizard')) {
+      $doc.find("#wizard form").ajaxForm({
+        type: 'POST',
+        success: page.load
+      });
+    }
   },
   
   error: function() {

@@ -1,12 +1,15 @@
 @import "mixins.css.scss";
 
 .shelf {
-  margin: 0 20px 10px 20px;
+  margin: 0 20px 20px 20px;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #ddd;
   
   h3 {
     position: relative;
     z-index: 10;
-    margin: 0;
+    margin: -10px 0 10px 0;
+    font-size: 16px;
   }
   
   ul {
@@ -48,77 +51,6 @@
   
   li {
     margin-bottom: 20px;
-  }
-}
-
-.station-list {
-  margin: 0 0 20px 0;
-
-  section {
-    margin: 0 0 10px 0;
-    padding: 0 0 10px 0;
-    border-bottom: 1px dotted #ddd;
-    position: relative;
-    
-    .image {
-      float: left;
-      margin: 0 10px 0 0;
-      
-      img {
-        @include border-radius(5px);
-      }
-    }
-    
-    div {
-      width: 75%;
-      float: left;
-      
-      span {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        z-index: 10;
-        
-        a {
-          padding: 8px;
-          background: url(/images/dim.png);
-          text-decoration: none;
-          text-underline: none;
-          text-shadow: 0 2px 2px #000;
-          color: #fff;
-          font-weight: bold;
-        }
-      } 
-    }
-  } 
-}
-
-.third #station-list {
-  section {
-  padding: 8px 0;
-  
-    h3 {
-      margin: 0;
-    }
-    
-    p {
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 0;
-      height: 3.5em;
-      overflow: hidden;
-    }
-  }
-}
-
-.third {
-  div.image {
-    background: #333;
-    padding: 18px;
-    margin: 0 0 20px 0;
-    @include border-radius;
-    
-    img { width: 262px; }
   }
 }
 

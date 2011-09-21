@@ -8,10 +8,10 @@ body {
 }
 
 #main-mid {
-  padding: 81px 0 25px 0;
+  padding: 43px 0;
 }
 
-  .page-contain {
+.page-contain {
   width: 980px;
   margin: 0 auto;
   position: relative;
@@ -20,6 +20,7 @@ body {
     overflow: hidden;
     position: relative;
     background: #fff;
+    @include border-radius-bottom(10px);
   }
 }
 

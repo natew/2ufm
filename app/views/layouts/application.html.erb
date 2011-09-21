@@ -34,7 +34,7 @@
   <%= stylesheet_link_tag "application", :debug => Rails.env.development? %>
 </head>
 
-<body>
+<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %> wizard">
   <header>
     <div class="page-contain">
       <h1><%= link_to 'fuse.fm', '/home', :class => 'tip-n', :title => 'Like twitter for music' %> </h1>
@@ -46,33 +46,7 @@
         </ul>
       </nav>
       
-      <div id="player">
-        <a id="player-image" href="#">
-          <div class="cover"><%= image_tag('/images/cover.png') %></div>
-          <%= image_tag('/images/default_small.jpg') %>
-        </a>
-        <div id="player-meta">
-          <%= link_to 'No song', '#', :id => 'player-song' %>
-          <%= link_to 'Choose a song to begin'.html_safe, '#', :id => 'player-artist' %>
-        </div>
-        <div id="player-controls">
-          <%= link_to 'Play', '#', :class => 'play control' %>
-          <%= link_to 'Next', '#', :class => 'next control' %>
-          <div id="player-progress-bar">
-            <div id="player-progress-position">
-              <%= link_to 'Progress', '#', :class => 'progress control' %>
-            </div>
-            <div id="player-progress-loaded"></div>
-          </div>
-          <%= link_to 'Add to station', '#', :class => 'add control tip-n', :title => 'Add to station' %>
-          <% link_to 'Station', '#', :class => 'radio control tip-n', :title => 'Station controls' %>
-        </div>
-      </div>
-      
       <div id="functions">
-        <%= form_tag '/main/search', :method => 'get' do %>
-          <%= text_field_tag :query, '', :placeholder =>'Search blogs, songs...' %>
-        <% end -%>
         <div class="nav">
           <% if user_signed_in? %>
             <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username' %>
@@ -91,6 +65,40 @@
       </div>
     </div>
   </header>
+  
+  <div id="bar">
+    <div class="page-contain">
+      <div id="player">
+        <a id="player-image" href="#">
+          <%= image_tag('/images/default_small.jpg') %>
+        </a>
+        <div id="player-buttons">
+          <%= link_to '8', '#', :class => 'prev pictos control' %>
+          <%= link_to '4', '#', :class => 'play pictos control' %>
+          <%= link_to '7', '#', :class => 'next pictos control' %>
+        </div>
+        <div id="player-controls">
+          <div id="player-progress-bar">
+            <div id="player-progress-position">
+              <%= link_to 'Progress', '#', :class => 'progress control' %>
+            </div>
+            <div id="player-progress-loaded"></div>
+          </div>
+          <%= link_to 'Add to station', '#', :class => 'add control tip-n', :title => 'Add to station' %>
+          <% link_to 'Station', '#', :class => 'radio control tip-n', :title => 'Station controls' %>
+        </div>
+        <div id="player-meta">
+          <%= link_to '&laquo; Press Play'.html_safe, '#', :id => 'player-artist' %>
+          <span> - </span>
+          <%= link_to '', '#', :id => 'player-song' %>
+        </div>
+      </div>
+      
+      <%= form_tag '/main/search', :method => 'get' do %>
+        <%= text_field_tag :query, '', :placeholder =>'Search blogs, songs...' %>
+      <% end -%>
+    </div>
+  </div>
   
   <div id="main-mid">
     <div class="page-contain">

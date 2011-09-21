@@ -1,6 +1,16 @@
-$(document).ready(function() {
+$(function() {
   // Path.js
   Path.listen();
+  
+  // Scroll music palyer
+  $(window).scroll(function() {
+    var $bar = $('#bar');
+    if ($(window).scrollTop() > 50)
+      $("#bar").addClass('fixed');
+    else {
+      $('#bar').removeClass('fixed');
+    }
+  });
 
   // Tooltips
   $('.tip-n').tipsy({gravity: 'n', offset: 5});
@@ -26,26 +36,26 @@ $(document).ready(function() {
     }
     return false;
   });
-  
+
   // Username cutoff
   var username = $('#nav-username');
   if (username.length > 0) username.html(fitStringToWidth(username.html(), 110)+ " &darr;");
   
   // Player controls
   // PLAY
-  $('#player-controls a.play').click(function() {
+  $('#player-buttons a.play').click(function() {
     mp.toggle();
     return false;
   });
   
   // NEXT
-  $('#player-controls a.next').click(function() {
+  $('#player-buttons a.next').click(function() {
     mp.next();
     return false;
   });
   
   // PREV
-  $('#player-controls a.prev').click(function() {
+  $('#player-buttons a.prev').click(function() {
     mp.prev();
     return false;
   });
