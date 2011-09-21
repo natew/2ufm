@@ -305,11 +305,12 @@ header {
   form {
     margin: 6px 0 -6px;
     float: right;
+    position: relative;
 
     #query {
       float: right;
       border: none;
-      padding: 7px 12px;
+      padding: 8px 30px 8px 8px;
       width: 210px;
       color: #ccc;
       background: none;
@@ -326,6 +327,46 @@ header {
         background: #fff;
         color: #333;
       }
+    }
+    
+    #search {
+      background: none;
+      border: none;
+      position: absolute;
+      right: 0;
+      top: 4px;
+      font-size: 20px;
+    }
+  }
+}
+
+/* Ordered list for display results. */
+ol.mp_list {
+  background-color: #333;
+  overflow: hidden;
+  position: absolute;
+  width: 248px;
+  top: 20px;
+  z-index: 99999;
+  padding: 0;
+  
+  li {
+    color: #ddd;
+    padding: 4px 15px 5px;
+    list-style: none;
+    
+    &.mp_selectable { cursor: pointer; }
+    &.mp_highlighted {
+      background: #111;
+      color: #fff;
+    }
+    
+    &.header {
+      font-weight: bold;
+      font-size: 14px;
+      border-bottom: 1px solid #666;
+      padding: 10px 15px;
+      color: #fff;
     }
   }
 }

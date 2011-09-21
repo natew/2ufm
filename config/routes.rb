@@ -31,7 +31,7 @@ Fusefm::Application.routes.draw do
   # For Path.js home
   match "/home", :to => 'main#home'
   
-  match "/search/:query", :to => 'main#search'
+  match "/search", :to => 'main#search'
   match "/loading", :to => 'main#loading'
 
 end

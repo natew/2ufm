@@ -16,7 +16,18 @@ $(function() {
   $('.tip-n').tipsy({gravity: 'n', offset: 5});
   $('.tip').tipsy({gravity: 's', offset: 5, live: true});
   
-  $('#query').liveSearch({url: '/search/'});
+  $('#query').marcoPolo({
+    url: '/search',
+    selectable: ':not(.unselectable)',
+    formatItem: function (data, $item) {
+      if (data.selectable == 'false') $item.addClass('unselectable');
+      if (data.header == 'true') $item.addClass('unselectable').addClass('header');
+      return data.name;
+    },
+    onSelect: function (data, $item) {
+      window.location = data.url;
+    }
+  });
   
   // Dropdown menu
   $("body").bind("click", function(e) {

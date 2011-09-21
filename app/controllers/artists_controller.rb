@@ -6,6 +6,7 @@ class ArtistsController < ApplicationController
     
     respond_to do |format|
       format.js { render :layout => false }
+      format.html
     end
   end
   
@@ -14,6 +15,7 @@ class ArtistsController < ApplicationController
     
     respond_to do |format|
       format.js { render :layout => false }
+      format.html
     end
   end
 end

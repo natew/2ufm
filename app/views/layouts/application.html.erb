@@ -95,7 +95,8 @@
       </div>
       
       <%= form_tag '/main/search', :method => 'get' do %>
-        <%= text_field_tag :query, '', :placeholder =>'Search blogs, songs...' %>
+        <%= text_field_tag :query, '', :placeholder =>'Search artists, blogs, songs...' %>
+        <%= submit_tag :s, :id => 'search', :class => 'pictos' %>
       <% end -%>
     </div>
   </div>
