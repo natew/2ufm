@@ -111,15 +111,13 @@
         color: #fff;
         position: absolute;
         z-index: 10;
-        opacity: 0.8;
-        padding: 24px 12px;
+        padding: 29px 16px;
         top: 0;
         left: 0;
-        text-shadow: 0 0 1px #000;
         
         &:hover {
           cursor: pointer;
-          opacity: 1;
+          text-shadow: 0 1px 0 #000;
         }
       }
       
@@ -139,9 +137,13 @@
           
           a {
             font-size: 24px;
-            color: #444;
+            color: #777;
             
-            &:hover { color: #888; }
+            &:hover { color: #3ab30a; }
+            &.remove {
+              color: #239708;
+              &:hover { color: #970808;}
+            }
           }
           
           span.count {
@@ -152,7 +154,7 @@
             text-align: right;
             padding: 0 4px 0 0;
             margin: -2px 6px 0;
-            color: #444;
+            color: #777;
           }
         }
       }

@@ -13,7 +13,7 @@ $(function() {
   });
 
   // Tooltips
-  $('.tip-n').tipsy({gravity: 'n', offset: 5, live: true});
+  $('.tip-n').tipsy({gravity: 'n', offset: 10, live: true});
   $('.tip').tipsy({gravity: 's', offset: 5, live: true});
   
   // Livesearch

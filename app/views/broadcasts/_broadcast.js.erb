@@ -1,1 +1,2 @@
+$('.tipsy').remove();
 $('#song-<%= @song.id %> .broadcast').html("<%= escape_javascript(render :partial => 'songs/broadcast', :locals => @locals) %>")

@@ -164,7 +164,7 @@ var mp = (function() {
     setCurSectionInactive: function() {
       if (curSection) {
         curSection.removeClass('playing');
-        curSection.find('.play-song').html('9');
+        curSection.find('.play-song').html('4');
       }
     }
   }
@@ -234,7 +234,8 @@ var mp = (function() {
         url: '/listens',
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function(data) {
-          pl.shortcode.html('<a href="/listens/'+data+'" class="tip-n control" target="_blank" title="Share this link with friend to listen to this song together!">&laquo; Invite friends!</a>')
+          pl.shortcode.html('<a id="invite" href="/listens/'+data+'" class="tip-n control" title="Share this link with friends and listen to this song at the same time!">&laquo; Invite friends!</a>');
+          other.clipboard();
         },
         dataType: 'html'
       });
@@ -292,7 +293,29 @@ var mp = (function() {
         });
       }
     }
-  };  
+  };
+  
+  var other = {
+    clipboard: function() {
+      ZeroClipboard.setMoviePath('/swfs/ZeroClipboard.swf');
+      var clip = new ZeroClipboard.Client();
+      clip.setHandCursor(true);
+      clip.glue('invite','player-shortcode');
+      clip.setText(document.location.host+$('#invite').attr('href'));
+      clip.addEventListener('mouseOver', function (client) {
+      	$('#invite').trigger('mouseover').html('Copy link!');
+      });
+      clip.addEventListener('mouseOut', function (client) {
+      	$('#invite').trigger('mouseout').html('&laquo; Invite friends!');
+      });
+      clip.addEventListener('complete', function(client, text) {
+        var $invite = $('#invite');
+        var html = $invite.html();
+        $invite.html('Copied!')
+        setTimeout(function() { $invite.html(html); }, 2000);
+      });
+    }
+  };
   
   
   //

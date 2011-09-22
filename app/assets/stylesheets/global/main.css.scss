@@ -46,7 +46,7 @@ header, #bar {
 }
 
 header {
-  background: rgb(210, 0, 40);
+  background: #D20000;
   width: 100%;
   position: relative;
   z-index: 100;
@@ -90,30 +90,27 @@ header {
         text-decoration: none;
         font-weight: bold;
         font-size: 18px;
-        border-left: 1px solid rgba(255,255,255,0.3);
 
         &:hover {
           color: #fff;
-          background: rbga(255,255,255,0.5);
+          background-color: rgba(255,255,255,0.25);
         }
       }
     }
   }
   
   #now_playing {
-    position: absolute;
-    right: 160px;
-    top: 20px;
     color: rgba(255,255,255,0.7);
     font-size: 11px;
     font-weight: bold;
     text-shadow: none;
+    float: right;
+    padding: 20px 0;
   }
   
   #functions {
     float: right;
-    margin: 10px 0 0;
-    min-width: 250px;
+    margin: 10px 0 0 40px;
     
     .nav {
       position: relative;
@@ -127,13 +124,20 @@ header {
         display: block;
         float: right;
         padding: 11px;
-        max-width: 131px;
         text-align: right;
         white-space: nowrap;
-        overflow: hidden;
         text-decoration: none;
 
         &:hover {color: #fff;}
+        
+        &#nav-username::before {
+          content: "U";
+          display: block;
+          font-family: 'Pictos';
+          float: left;
+          margin: 0 10px 0 -18px;
+          font-size: 20px;
+        }
 
         &.inline {
           width: auto;
@@ -191,7 +195,7 @@ header {
   position: absolute;
   width: 100%;
   top: 53px;
-  z-index: 99;
+  z-index: 98;
   
   .page-contain { width: 940px; }
   
@@ -224,7 +228,7 @@ header {
       float: left;
       white-space: nowrap;
       overflow: hidden;
-      width: 394px;
+      width: 377px;
       
       a {
         color: #fff;
@@ -239,6 +243,7 @@ header {
     }
     
     #player-shortcode {
+      position: relative;
       float: right;
       padding: 11px 10px;
       
@@ -246,7 +251,7 @@ header {
         padding: 4px;
         color: #fff;
         font-weight: bold;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
     

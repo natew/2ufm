@@ -91,11 +91,15 @@ var page = {
         .addClass('disabled');
     } else {
       // Signed in
-      $('.remove').hover(function() {
-        $('span',this).html('-');
-      }, function() {
-        $('span',this).html('2');
-      })
+      $('.button.remove').hover(
+        function() { $('span',this).html('D'); },
+        function() { $('span',this).html('2');
+      });
+      
+      $('.broadcast-song.remove').hover(
+        function() { $(this).html('D'); },
+        function() { $(this).html('2');
+      });
     }
     
     // Listen sharing

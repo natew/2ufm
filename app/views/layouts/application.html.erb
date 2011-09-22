@@ -47,10 +47,6 @@
         </ul>
       </nav>
       
-      <span id="now_playing">
-        Now playing <%= Song.all.count %> songs from <%= Blog.all.count %> blogs
-      </span>
-      
       <div id="functions">
         <div class="nav">
           <% if user_signed_in? %>
@@ -70,6 +66,10 @@
           <% end %>
         </div>
       </div>
+      
+      <span id="now_playing">
+        Now playing <%= Song.all.count %> songs from <%= Blog.all.count %> blogs
+      </span>
     </div>
   </header>
   
