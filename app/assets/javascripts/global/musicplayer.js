@@ -234,7 +234,7 @@ var mp = (function() {
         url: '/listens',
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function(data) {
-          pl.shortcode.html('<a id="invite" href="/listens/'+data+'" class="tip-n control" title="Share this link with friends and listen to this song at the same time!">&laquo; Invite friends!</a>');
+          pl.shortcode.html('<a id="invite" href="/listens/'+data+'" class="tip-n control" title="Share this link with friends so they can listen along with you!">&laquo; Invite friends!</a>');
           other.clipboard();
         },
         dataType: 'html'
