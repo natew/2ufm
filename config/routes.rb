@@ -11,7 +11,8 @@ Fusefm::Application.routes.draw do
 
   resources :blogs, :users
   
-  resources :broadcasts, :follows, :only => [:create, :destroy]
+  resources :follows, :only => [:create, :destroy]
+  resources :broadcasts, :only => [:create, :destroy]
   
   resources :songs, :only => [:index, :show] do
     collection do
@@ -22,7 +23,7 @@ Fusefm::Application.routes.draw do
   match "/songs/:id", :to => "songs#failed", :as => :post
   
   resources :artists, :only => [:index, :show]
-  
+
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post
 

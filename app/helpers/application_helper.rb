@@ -1,10 +1,12 @@
-module ApplicationHelper
-
-  def Array.to_playlist
+class Array
+  def to_playlist
     self.map do |i|
       i.to_json
     end
   end
+end
+
+module ApplicationHelper
   
   # Station follow
   def follow_station(station)
@@ -15,7 +17,7 @@ module ApplicationHelper
   end
 
   # Song broadcast
-  def song_broadcast(song)
+  def broadcast_song(song)
     has    = current_user.broadcasted_song?(song) if user_signed_in?
     action = has ? "remove" : "add"
     id     = has ? current_user.station.broadcasts.where(:song_id => song.id).first.id : song.id

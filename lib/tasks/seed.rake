@@ -1,60 +1,73 @@
-namespace :db do
-  namespace :seed do
-    task :blogs_stations => :environment do
-      Song.all.each do |s|
-        blog = Blog.find(s.blog_id)
-        begin
-          blog.station.songs << s
-        rescue
-        end
-      end
-    end
-    
-    task :artists_stations => :environment do
-      Author.all.each do |author|
-        begin
-          artist = Artist.find(author.artist_id)
-          Broadcast.create(station_id: artist.station.id, song_id: author.song_id)
-        rescue
-        end
-      end
-    end
-    
-    task :broadcasts => :environment do
-      # Randomly follow stations
-      stations = Station.order('random()').limit(500).map(&:id)
-      songs    = Song.order('random()').limit(500).map(&:id)
+namespace :seed do
+  task :blogs_stations => :environment do
+    add_songs_to_blogs
+  end
+  
+  task :artists_stations => :environment do
+    add_songs_to_artists
+  end
+  
+  task :broadcasts => :environment do
+    # Randomly broadcast songs
+    stations = Station.select(:id).order('random()').where(blog_id:nil,artist_id:nil).limit(500).map(&:id)
+    songs    = Song.select(:id).order('random()').working.limit(100).map(&:id)
 
-      while !songs.empty?
-        begin
-          Broadcast.create(station_id: stations.pop, song_id: songs.pop, created_at: Date.today - rand(1440).minutes)
-        rescue
-          # Because were kinda cheating, lets ignore the inevitable index crash and just keep going
-        end
+    while !stations.empty?
+      begin
+        Broadcast.create(station_id: stations.pop, song_id: songs[rand(100)], created_at: Date.today - rand(9000).minutes)
+      rescue
+        # Because were kinda cheating, lets ignore the inevitable index crash and just keep going
       end
     end
-    
-    task :follows => :environment do
-      # Randomly follow stations
-      stations = Station.order('random()').limit(500).map(&:id)
-      users    = User.order('random()').limit(500).map(&:id)
+  end
+  
+  task :reset_broadcasts => :environment do
+    Broadcast.excluding_stations([Station.new_station.id]).destroy_all
+    add_songs_to_blogs
+    add_songs_to_artists
+  end
+  
+  task :follows => :environment do
+    # Randomly follow stations
+    stations = Station.order('random()').limit(500).map(&:id)
+    users    = User.order('random()').limit(500).map(&:id)
 
-      while !users.empty?
-        begin
-          Follow.create(station_id: stations.pop, song_id: songs.pop, created_at: Date.today - rand(1440).minutes)
-        rescue
-          # Because were kinda cheating, lets ignore the inevitable index crash and just keep going
-        end
+    while !users.empty?
+      begin
+        Follow.create(station_id: stations.pop, user_id: users.pop, created_at: Date.today - rand(1440).minutes)
+      rescue
+        # Because were kinda cheating, lets ignore the inevitable index crash and just keep going
       end
     end
-    
-    task :users => :environment do
-      # Create users
-      i = 0
-      while i < 500
-        User.create(username: "user#{i}", email: "email#{i}@email.com", password: 'password')
-        i += 1
-      end
+  end
+  
+  task :users => :environment do
+    # Create users
+    i = 0
+    while i < 200
+      num = i + rand(10000) + 500
+      User.create(username: "user#{num}", email: "email#{num}@email.com", password: 'password')
+      i += 1
+    end
+  end
+end
+
+def add_songs_to_blogs
+  Song.all.each do |s|
+    blog = Blog.find(s.blog_id)
+    begin
+      blog.station.songs << s
+    rescue
+    end
+  end
+end
+
+def add_songs_to_artists
+  Author.all.each do |author|
+    begin
+      artist = Artist.find(author.artist_id)
+      Broadcast.create(station_id: artist.station.id, song_id: author.song_id)
+    rescue
     end
   end
 end

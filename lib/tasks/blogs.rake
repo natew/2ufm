@@ -6,6 +6,11 @@ namespace :blogs do
     end
   end
   
+  task :reset, [:blog] => :environment do |t,args|
+    blog = Blog.find_by_slug(args.blog)
+    blog.reset
+  end
+  
   task :create => :environment do
     blogs = [
       {:url => 'http://getoffthecoast.blogspot.com/', :name => 'Get off the Coast' },

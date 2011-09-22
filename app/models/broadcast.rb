@@ -5,4 +5,5 @@ class Broadcast < ActiveRecord::Base
   validates :song_id, presence: true
   validates :station_id, presence: true
   
+  scope :excluding_stations, lambda { |ids| where(['station_id NOT IN (?)', ids]) if ids.any? }
 end

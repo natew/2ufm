@@ -1,6 +1,6 @@
 <% icon, title, method, path = (action == 'add') ? 
-    ['+','Add song to your station', :post, broadcast_path(id)] :
-    ['-','Remove song from your station', :delete, broadcast_path(id) ]
+    ['+','Add song to your station', :post, "/broadcasts/#{id}"] :
+    ['-','Remove song from your station', :delete, "/broadcasts/#{id}" ]
 %>
   <span class="count"><%= count %></span>
   <%= link_to icon, path, class: "broadcast-song #{action} control tip pictos", title: title, remote: true, method: method %>

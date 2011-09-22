@@ -1,3 +1,4 @@
+<%- station_id ||= -1 %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter + params[:page].to_i %>" data-station="<%= station_id %>">
   <div class="song-info">
     <h4><%= link_to song.artist_name, song, :class => 'song-artist' %> - <%= link_to song.name, song, :class => 'song-name' %></h4>
@@ -16,7 +17,7 @@
         &middot;
         <%= link_to 'Read post &raquo;'.html_safe, song.post_url, :target => '_blank' %>
       </div>
-      <p><%= truncate(strip_tags(song.post.content), :length => 140) %></p>
+      <p><%= truncate(strip_tags(song.post_content), :length => 140) %></p>
       <%- if user_signed_in? and false -%>
       <span class="active">Active:
         <%= hidden_field_tag('seen_ids[]', song.id) -%>
@@ -30,11 +31,10 @@
       <li><%= link_to 'iTunes' %></li>
       <li><%= link_to 'Amazon' %></li>
       <li class="right"><%= link_to 'Stats' %></li>
-      <li class="right"><%= link_to 'Similar songs' %></li>
     </ul>
   </div>
   <ul class="song-controls">
     <li class="play-song pictos">9</li>
-    <li class="broadcast"><%= song_broadcast(song) %></li>
+    <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
 </section>

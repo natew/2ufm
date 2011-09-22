@@ -83,6 +83,21 @@ var page = {
         type: 'POST',
         success: page.load
       });
+      
+      // Stats
+      var $stats = $('#stats');
+      var data = $stats.data('broadcasts');
+      
+      var options = {
+        xaxis: {
+          mode: "time",
+          minTickSize: [1, "day"],
+          min: data[0][0],
+          max: data[data.length-1][0]
+        }
+      }
+
+      $.plot($stats, [data], options);
     }
   },
   

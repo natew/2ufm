@@ -16,14 +16,15 @@ class Song < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   has_attachment :file
 
-  scope :with_blog, joins(:blog)
-  scope :with_posts, joins(:post)
-  scope :processed, where(processed: true)
-  scope :working, where(working: true)
+  # General
+  scope :with_blog_and_posts, joins(:blog, :post)
+  scope :working, where(processed: true,working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.created_at asc')
-  scope :group_by_shared, select('DISTINCT ON (songs.shared_id) songs.*').order('songs.shared_id desc')
-  scope :playlist_ready, group_by_shared.select('posts.url as post_url, posts.content, blogs.name as blog_name, blogs.slug as blog_slug').with_blog.with_posts.processed.working.newest
+  scope :group_by_shared, select('DISTINCT ON (broadcasts.created_at,songs.shared_id) songs.*').order('broadcasts.created_at desc, songs.shared_id desc')
+  scope :select_with_info, select('songs.*, posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
+  scope :individual, select_with_info.with_blog_and_posts.working
+  scope :playlist_ready, group_by_shared.select_with_info.with_blog_and_posts.working
   
   acts_as_url :full_name, :url_attribute => :slug
   
@@ -121,26 +122,27 @@ class Song < ActiveRecord::Base
             picture = mp3.tag2.APIC || mp3.tag2.PIC
             picture = picture[0] if picture.is_a? Array
             if picture
-              picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
+              #picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
               pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
               puts "Picture found, #{pic_type}"
               if pic_type
-                tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}.#{pic_type[0]}"
-                File.open(tmp_path, 'wb') { |f| f.write(picture[13,picture.length]) }
+                tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song#{id}.#{pic_type[0]}"
+                File.open(tmp_path, 'wb') do |f|
+                  logger.info("Song #{id}, Picture HEADER ===== #{picture[0,30]}")
+                  f.write(picture[pic_type[0].length+3,picture.length])
+                end
                 self.image = File.new(tmp_path)
               end
             end
             
             # Update info if we have processed this song
             if processed?
-              puts "Processed successfully"
               find_similar_songs
-              find_or_create_artists
-              add_to_stations
               self.slug = full_name.to_url
+              puts "Processed successfully"
             end
             
-            # Done
+            # Save processing
             self.save
             puts "Saved!"
             
@@ -150,8 +152,14 @@ class Song < ActiveRecord::Base
             #
           end
         end
-      rescue Exception => e
+      rescue OpenURI::Error => e
         logger.info(e.message + "\n" + e.backtrace.inspect)
+      end
+      
+      # Post-saving stuff
+      if processed?
+        find_or_create_artists
+        add_to_stations
       end
     end
   end
@@ -161,24 +169,38 @@ class Song < ActiveRecord::Base
   end
   
   def add_to_stations
-    add_to_new_station
-    # Add to user stations
+    if processed?
+      add_to_new_station
+      add_to_blog_station
+      add_to_artists_stations
+    end
+  end
+  
+  def add_to_artists_stations
+    authors.each do |author|
+      artist = Artist.find(author.artist_id)
+      artist.station.songs << self
+    end
+  end
+  
+  def add_to_blog_station
+    Blog.find(blog_id).station.songs << self
   end
   
   def add_to_new_station
     ns = Station.new_station
     if !ns.song_exists?(id)
       ns.songs << self
-      ns.songs.last.destroy if ns.songs.count > 30 # So it stays only 30 songs!
+      ns.songs.delete(ns.songs.group_by_shared.last) if ns.songs.count > 50 # So it stays only 30 songs!
     end
   end
   
   def find_similar_songs
     if name and artist_name
       containers  = /[\[\]\(\)\,\&\-\']/
-      tags        = /( (rmx|remix|mix)|(feat|ft)(\.| )|(featuring|produced by) |(original|vip|radio|vip|extended) (edit|rip|mix))*/i
+      tags        = /( (rmx|remix|mix)|(feat|ft)(\.| )|(featuring|produced by) |(original|vip|radio|vip|extended) (edit|rip|mix))+/i
       percents    = /(% ?){2,10}/
-      search_name = name.gsub(containers,'%').gsub(tags,'%').gsub(percents,'%').strip
+      search_name = name.gsub(containers,'%').gsub(tags,'%').gsub(percents,'').strip
       found       = Song.where("artist_name ILIKE (?) and name ILIKE(?) and id != ?", artist_name, search_name, id).oldest.first
     end
     

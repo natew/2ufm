@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
   def show
     @blog = Blog.find_by_slug(params[:id])
     @posts = @blog.posts.order('created_at desc').limit(8)
-  
+
     respond_to do |format|
       format.html # show.html.erb
       format.js { render :layout => false }

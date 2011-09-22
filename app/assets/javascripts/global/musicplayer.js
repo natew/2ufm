@@ -51,10 +51,8 @@ var mp = (function() {
     // Play a section
     playSection: function(section) {
       this.stop();
-      if (section.data('station') != playlistID) {
-        this.load();
-      }
       curSection = section;
+      this.load();
       this.play();
     },
     

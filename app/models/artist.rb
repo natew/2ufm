@@ -19,7 +19,7 @@ class Artist < ActiveRecord::Base
   def to_param
     slug
   end
-  
+
   def get_info
     get_discogs_info
     get_wikipedia_info

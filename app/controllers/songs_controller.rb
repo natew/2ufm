@@ -25,8 +25,9 @@ class SongsController < ApplicationController
   
   def show
     @original = Song.find_by_slug(params[:id])
-    @songs    = Song.where(shared_id:@original.shared_id).playlist_ready
+    @songs    = Song.where(shared_id:@original.shared_id).individual
     @blogs    = Blog.joins(:songs).where('songs.shared_id = ? ', @original.shared_id)
+    @stats    = Broadcast.find_by_sql("SELECT date_part('day', created_at), count(*) from broadcasts where song_id=251 group by date_part('day', created_at) order by date_part('day', created_at);").map {|x| [((Time.now.day - x.date_part.to_i).days.ago.to_f*1000).round,x.count.to_i]}
     
     respond_to do |format|
       format.html

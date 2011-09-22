@@ -8,7 +8,11 @@
 
 <div class="twothirds">
   <h3>Listen to <%= @original.name %></h3>
-  <%= render :partial => 'stations/playlist', :collection => @songs, :locals => { :station => @blogs.first.station } %>
+  <%- if @songs.size > 0 %>
+    <%= render :partial => 'stations/playlist', :locals => { :songs => @songs } %>
+  <%- else -%>
+    <%= render :partial => 'single', :locals => { :single => @songs } %>
+  <%- end -%>
   
   <h4>Posted on <%= pluralize @blogs.size, 'blog' %></h4>
   <div class="shelf">
@@ -17,8 +21,10 @@
 </div>
 
 <div class="third">
+  <h4>Broadcasts this week</h4>
+  <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
+  
   <h4>Re-posted by <%= pluralize @original.users.size, 'person' %></h4>
   <div class="user-list">
-    <%= render @original.users %>
   </div>
 </div>

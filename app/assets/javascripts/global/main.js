@@ -16,6 +16,7 @@ $(function() {
   $('.tip-n').tipsy({gravity: 'n', offset: 5});
   $('.tip').tipsy({gravity: 's', offset: 5, live: true});
   
+  // Livesearch
   $('#query').marcoPolo({
     url: '/search',
     selectable: ':not(.unselectable)',
@@ -47,10 +48,6 @@ $(function() {
     }
     return false;
   });
-
-  // Username cutoff
-  var username = $('#nav-username');
-  if (username.length > 0) username.html(fitStringToWidth(username.html(), 110)+ " &darr;");
   
   // Player controls
   // PLAY

@@ -6,7 +6,7 @@ class Blog < ActiveRecord::Base
   include AttachmentHelper
   
   has_one  :station, :dependent => :destroy
-  has_many :songs, :through => :station 
+  has_many :songs, :through => :station, :dependent => :destroy
   has_many :posts, :dependent => :destroy
 
   acts_as_url :name, :url_attribute => :slug
@@ -36,6 +36,14 @@ class Blog < ActiveRecord::Base
     get_html_info
     update_feed
     @blog_info = true
+  end
+  
+  def reset
+    posts.destroy
+    feed = nil
+    get_blog_info
+    get_new_posts
+    true if self.save
   end
   
   def current_step
