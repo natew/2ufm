@@ -75,13 +75,14 @@ class Song < ActiveRecord::Base
   end
   
   def scan_and_save
-    puts "Scanning #{url} ..."
-    if !url.nil?
+    if !url.nil?      
       begin
         total = nil
         prev  = 0
+        curl  = get_real_url
+        puts "Scanning #{curl} ..."
         
-        open(URI.escape(url),
+        open(URI.parse(URI.encode(curl)),
           :content_length_proc => lambda { |content_length|
             raise "Too Big" if content_length > (1048576 * 40) # 20 MB maximum song size
             total = content_length
@@ -152,7 +153,7 @@ class Song < ActiveRecord::Base
             #
           end
         end
-      rescue OpenURI::Error => e
+      rescue Exception => e
         logger.info(e.message + "\n" + e.backtrace.inspect)
       end
       
@@ -166,6 +167,37 @@ class Song < ActiveRecord::Base
   
   def delayed_scan_and_save
     delay.scan_and_save
+  end
+  
+  # For processing SoundCloud, Hulkshare and the like
+  def get_real_url
+    curl = cleaned_url
+    case curl
+    when /hulkshare\.com/
+      page = Nokogiri::HTML(open(curl))
+      links = page.css('a.hoverf').each do |link|
+        if link['href'] =~ /tracker\.hulkshare/
+          return link['href']
+        end
+      end
+      false
+    else
+      curl
+    end
+  end
+  
+  # Clean url
+  def cleaned_url
+    scrub_url(url)
+  end
+  
+  def scrub_url(uri)
+    clean = uri.gsub(/\/.*/) do |t|
+      t.gsub(/[^.\/a-zA-Z0-9\-_ ]/) do |c|
+        "%#{ c[0].ord<16 ? "0" : "" }#{ c[0].ord.to_s(16).upcase }"
+      end.gsub(" ", "+")
+    end
+    clean.gsub(/\[/,'%5B').gsub(/\]/,'%5D')
   end
   
   def add_to_stations

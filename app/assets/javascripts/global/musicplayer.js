@@ -20,7 +20,8 @@ var mp = (function() {
     progress: $('#player-progress-position'),
     player: $('#player'),
     song: $('#player-song'),
-    play: $('#player-buttons .play')
+    play: $('#player-buttons .play'),
+    shortcode: $('#player-shortcode'),
   }
 
   // Soundmanager
@@ -52,6 +53,7 @@ var mp = (function() {
     playSection: function(section) {
       this.stop();
       curSection = section;
+      console.log(curSection);
       this.load();
       this.play();
     },
@@ -60,10 +62,12 @@ var mp = (function() {
     load: function() {
       if (!curSection) curSection = $('.playlist section:first');
       if (curSection) {
+        console.log('loading playlist');
         playingPage = curPage;
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
         playlist   = $('#playlist-'+playlistID).data('playlist');
+        console.log('playlist loaded: '+playlistID);
       }
     },
     
@@ -74,6 +78,7 @@ var mp = (function() {
 
       if (playlist) {
         // Load song
+        console.log('playing song at index: '+playlistIndex);
         curSongInfo = playlist.songs[playlistIndex];
         curSong = soundManager.createSound({
           id:curSongInfo.id,
@@ -89,6 +94,7 @@ var mp = (function() {
           onload:events.onload
         });
 
+        console.log('song loaded: ' + curSong);
         curSong.play();
       }
     },
@@ -96,6 +102,7 @@ var mp = (function() {
     stop: function() {
       if (isPlaying) {
         curSong.stop();
+        soundManager.stopAll();
       }
     },
     
@@ -220,6 +227,17 @@ var mp = (function() {
       isPlaying = true;
       player.setCurSectionActive();
       player.refresh();
+      
+      // Scrobbling
+      $.ajax({
+        type: 'POST',
+        url: '/listens',
+        data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
+        success: function(data) {
+          pl.shortcode.html('<a href="/listens/'+data+'" class="tip-n control" target="_blank" title="Share this link with friend to listen to this song together!">&laquo; Invite friends!</a>')
+        },
+        dataType: 'html'
+      });
     },
 
     stop: function() {
@@ -244,6 +262,7 @@ var mp = (function() {
     },
 
     finish: function() {
+      player.setCurSectionInactive();
       player.next();
     },
 
@@ -287,9 +306,10 @@ var mp = (function() {
         // If we return to the page we started playing from, re-activate current song
         curSection = $('section#song-' + curSongInfo.id);
         player.setCurSectionActive();
+      } else {
+        curSection = null;
       }
       curPage = url;
-      curSection = null;
     },
     
     toggle: function() {

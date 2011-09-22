@@ -14,6 +14,8 @@ Fusefm::Application.routes.draw do
   resources :follows, :only => [:create, :destroy]
   resources :broadcasts, :only => [:create, :destroy]
   
+  resources :listens, :only => [:create, :show]
+  
   resources :songs, :only => [:index, :show] do
     collection do
       get :fresh

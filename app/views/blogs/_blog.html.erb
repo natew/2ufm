@@ -5,7 +5,5 @@
     <div class="cover"><%= image_tag('/images/cover.png') %></div>
   </a>
   <p><%= blog.description %></p>
-  <span><%= link_to 'Edit', edit_blog_path(blog) %>
-  <%= link_to 'Destroy', blog, confirm: 'Are you sure?', method: :delete %>
-  </span>
+  <div id="follow-<%= blog.station.id %>" class="follow"><%= follow_station(blog.station) %></div>
 </section>

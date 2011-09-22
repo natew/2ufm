@@ -1,3 +1,5 @@
+var curPage;
+
 // jQuery and Rails compatability!
 // So we can do wants.js but return HTML
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
@@ -39,15 +41,23 @@ $(function() {
 });
 
 
+// So we can read parameters
+function getParameterByName(name) {
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  var regexS = "[\\?&]" + name + "=([^&#]*)";
+  var regex = new RegExp(regexS);
+  var results = regex.exec(curPage);
+  if (results == null) return false;
+  else return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
 // Functions relating to moving about pages
 // In order of occurence
 // enter -> load -> error -> exit
 var page = {
 
   enter: function() {
-    // Update google analytics
-    //_gaq.push(['_trackPageview', document.location.href]);
-    
     // Remove tooltips
     $('.tipsy').remove();
     
@@ -58,8 +68,11 @@ var page = {
   },
   
   load: function(data) {
+    // Update google analytics
+    //_gaq.push(['_trackPageview', curPage]);
+    
     // Set page in music player
-    mp.setPage(document.location.href);
+    mp.setPage(curPage);
     
     // Update html
     $('#body').html(data);    
@@ -70,11 +83,26 @@ var page = {
     
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
     
+    // Disable AJAX stuff signed out
     if ($body.is('.signed_out')) {
       $doc.find('#body .control')
         .removeAttr('data-remote')
         .attr('title','Please sign in!')
         .addClass('disabled');
+    } else {
+      // Signed in
+      $('.remove').hover(function() {
+        $('span',this).html('-');
+      }, function() {
+        $('span',this).html('2');
+      })
+    }
+    
+    // Listen sharing
+    if (getParameterByName('play')) {
+      var song = getParameterByName('song');
+      var time = getParameterByName('time');
+      mp.playSection($('#song-'+song));
     }
 
     // AJAX forms
@@ -115,18 +143,20 @@ var page = {
 Path.map("#!/:action(/:id)").to(function(){
   var action = '/' + this.params['action'];
   var id     = this.params['id'] ? '/'+this.params['id'] : '' ;
+  curPage = action+id;
   
   navSetActive(action);
   $.ajax({
     type:"GET",
     dataType:"html",
-    url: action + id,
+    url: curPage,
     success: page.load,
     error: page.error
   });
 }).enter(page.enter).exit(page.exit);
 
 Path.map("#!/").to(function(){
+  curPage = '/';
   $.ajax({
     type:"GET",
     dataType:"html",

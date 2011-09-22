@@ -12,7 +12,7 @@ module ApplicationHelper
     has    = current_user.following_station?(station.id) if user_signed_in?
     action = has ? "remove" : "add"
     id     = has ? current_user.follows.where(:station_id => station.id).first.id : station.id
-    render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => station.follows.count }
+    render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => station.follows.size }
   end
 
   # Song broadcast
@@ -20,7 +20,7 @@ module ApplicationHelper
     has    = current_user.broadcasted_song?(song) if user_signed_in?
     action = has ? "remove" : "add"
     id     = has ? current_user.station.broadcasts.where(:song_id => song.id).first.id : song.id
-    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.count }
+    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.size }
   end
   
   # Self explanitory

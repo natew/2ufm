@@ -16,4 +16,21 @@
   <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
 </div>
 
-<%= render 'side' %>
+<div class="third">
+  <div class="image">
+    <%= image_tag(@blog.image.url(:original)) %>
+  </div>
+  
+  <h4>Genres</h4>
+
+  <h4>Stats</h4>
+
+  <h4>Recent posts</h4>
+  <%- if @posts.empty? -%>
+  <p>We haven't gotten around to scanning any posts yet!</p>
+  <%- else -%>
+  <div class="artist-list">
+    <%= render :partial => 'post', :collection => @posts, :as => :post %>
+  </div>
+  <%- end -%>
+</div>

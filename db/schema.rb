@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110920184445) do
+ActiveRecord::Schema.define(:version => 20110922154039) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(:version => 20110920184445) do
     t.string   "slug"
     t.string   "image_file_name"
     t.string   "image_updated_at"
-    t.integer  "station_id"
     t.text     "urls"
   end
 
@@ -98,6 +97,16 @@ ActiveRecord::Schema.define(:version => 20110920184445) do
   create_table "genres_stations", :id => false, :force => true do |t|
     t.integer "genre_id"
     t.integer "station_id"
+  end
+
+  create_table "listens", :force => true do |t|
+    t.string   "shortcode"
+    t.string   "url"
+    t.integer  "time",       :default => 0
+    t.integer  "song_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "posts", :force => true do |t|

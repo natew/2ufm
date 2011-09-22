@@ -123,23 +123,20 @@
 #body .signin,
 #body .button,
 #body .input-submit {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  border-color: #0064cd #0064cd #003f81;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
   color: #fff;
   font-size: 14px;
   text-decoration: none;
   padding: 4px 16px;
   border: none;
-  border: 1px solid #005AB8;
+  border: 1px solid #0064cd;
   float: left;
   margin: 2px 4px 10px 0;
   @include border-radius(4px);
-  @include transition(background,linear,0.5s);
   @include background-gradient(#049cdb, #0064cd);
   
   &:hover {
-    background-position: 0 -15px;
+    background-position: 0 -25px;
   }
   
   &.right {
@@ -150,17 +147,33 @@
   
   &.disabled {
     color: #777;
-    border: 1px solid #999;
+    border-color: #aaa;
     text-shadow: none;
     @include background-gradient(#ccc, #aaa);
   }
   
+  &.add {
+    color: #444;
+    border-color: #ccc;
+    @include background-gradient(#eee, #ccc);
+    text-shadow: none;
+    span { color: #239708; }
+  }
+  
+  &.remove {
+    @include background-gradient(#3ab30a, #239708);
+    border-color: #239708;
+    
+    &:hover {
+      @include background-gradient(#c40e0e, #970808);
+      border-color: #970808;
+    }
+  }
+  
   span {
-    margin: -6px 10px -6px -7px;
-    padding: 10px 0;
-    padding-right: 8px;
-    border-right: 1px solid #ddd;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    margin: -6px 0 -6px -3px;
+    padding-right: 10px;
+    font-size: 19px;
   }
 }
 

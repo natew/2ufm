@@ -1,4 +1,7 @@
-<li>
-  <h4><%= link_to post.title, post %> <small><%= post.author %></small></h4>
-  <span class="meta"><%= relative_time(post.created_at) %></span>
-</li>
+<% size ||= :small %>
+<section class="section">
+  <%= link_to image_tag(post.image.url(size)), post.url, {:target => '_blank', :class => 'image'} %>
+  <div>
+    <h3><%= link_to post.title, post.url, :target => '_blank' %> <small><%= relative_time(post.created_at) %></small></h3>
+  </div>
+</section>
