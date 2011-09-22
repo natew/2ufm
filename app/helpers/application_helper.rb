@@ -1,13 +1,12 @@
 class Array
   def to_playlist
-    self.map do |i|
-      i.to_json
-    end
+    self.map do |s|
+      {:id => s.id, :artist => s.artist_name, :name => s.name, :url => s.url } if s.processed?
+    end.compact.to_json
   end
 end
 
-module ApplicationHelper
-  
+module ApplicationHelper  
   # Station follow
   def follow_station(station)
     has    = current_user.following_station?(station.id) if user_signed_in?

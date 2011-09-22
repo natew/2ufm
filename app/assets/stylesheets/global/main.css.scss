@@ -47,6 +47,7 @@ header {
   position: relative;
   z-index: 100;
   line-height: 1em;
+  text-shadow: 0 1px 1px #000;
   @include box-shadow(0,0,4px,#000);
   
   h1 {
@@ -58,7 +59,6 @@ header {
     a {
       color: #fff;
       padding: 4px;
-      text-shadow: 0 1px 1px #000;
       text-decoration: none;
       
       &:hover { color: #fff; }
@@ -82,7 +82,6 @@ header {
         padding: 12px 15px;
         margin: 8px 0;
         color: #fff;
-        text-shadow: 0 1px 1px #000;
         float: left;
         text-decoration: none;
         font-weight: bold;
@@ -97,6 +96,16 @@ header {
     }
   }
   
+  #now_playing {
+    position: absolute;
+    right: 160px;
+    top: 20px;
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    font-weight: bold;
+    text-shadow: none;
+  }
+  
   #functions {
     float: right;
     margin: 10px 0 0;
@@ -109,7 +118,6 @@ header {
       a {
         font-size: 12px;
         color: #fff;
-        text-shadow: 0 0 1px #000;
         text-transform: uppercase;
         font-weight: bold;
         display: block;

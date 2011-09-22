@@ -83,9 +83,11 @@ var page = {
         type: 'POST',
         success: page.load
       });
+    }
       
-      // Stats
-      var $stats = $('#stats');
+    // Stats
+    var $stats = $('#stats');
+    if ($stats.length > 0) {
       var data = $stats.data('broadcasts');
       
       var options = {
