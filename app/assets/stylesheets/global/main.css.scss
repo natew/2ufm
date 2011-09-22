@@ -71,11 +71,9 @@ header {
 
   nav {
     float: left;
-    overflow: hidden;
     
     li {
       float: left;
-      margin-left: -1px;
       
       &.active {
         background: #333;
@@ -83,7 +81,7 @@ header {
       }
       
       a {
-        padding: 11px 15px 13px;
+        padding: 11px 12px 13px;
         margin: 8px 0;
         color: #fff;
         float: left;
@@ -344,12 +342,12 @@ header {
     #query {
       float: right;
       border: none;
-      padding: 8px 30px 8px 8px;
-      width: 190px;
-      color: #ccc;
+      padding: 8px 36px 8px 8px;
+      width: 184px;
+      color: #ddd;
       background: none;
       border: none;
-      border-bottom: 1px solid #666;
+      border-bottom: 1px solid #777;
       outline: none;
       font-size: 13px;
 
@@ -367,16 +365,18 @@ header {
       background: none;
       border: none;
       position: absolute;
-      right: 0;
+      right: 4px;
       top: 4px;
       font-size: 20px;
+      
+      &:hover { color: #fff; }
     }
   }
 }
 
 /* Ordered list for display results. */
 ol.mp_list {
-  background-color: #333;
+  background-color: #444;
   overflow: hidden;
   position: absolute;
   width: 268px;
