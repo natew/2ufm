@@ -5,7 +5,8 @@ class MainController < ApplicationController
   def home
     @popular  = Station.popular_station unless user_signed_in?
     @feed     = current_user if user_signed_in?
-    @featured = Blog.order('random()').limit(6)
+    limit     = user_signed_in? ? 2 : 6
+    @featured = Blog.order('random()').limit(limit)
     @genres   = Genre.all
     @artists  = Artist.order('random()').limit(6)
     

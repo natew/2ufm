@@ -28,9 +28,8 @@ h2 small {
   font-size: 55%;
 }
 
-.side h3 {
+.third h3, .third .shelf h3 {
   font-size: 18px;
-  margin-top: 0.3em;
 }
 
 p.description {
@@ -41,18 +40,17 @@ p.description {
 
 /* Header */
 
-header, #bar {
-  min-width: 980px;
-}
-
+header, #bar { min-width: 980px; }
+body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
   width: 100%;
   position: relative;
   z-index: 100;
   line-height: 1em;
   text-shadow: 0 1px 1px #000;
-  @include background-gradient(#d20000,#a20000);
-  @include box-shadow(0,0,4px,#000);
+  @include background-gradient(#111,#333);
+  
+  .page-contain { width: 940px; }
   
   h1 {
     margin: 22px 15px 0 0;
@@ -92,7 +90,7 @@ header {
 
         &:hover {
           color: #fff;
-          background-color: rgba(255,255,255,0.25);
+          background: #444;
         }
       }
     }
@@ -104,16 +102,17 @@ header {
     font-weight: bold;
     text-shadow: none;
     float: right;
-    padding: 20px 0;
+    padding: 19px 0;
   }
   
   #functions {
     float: right;
-    margin: 10px 0 0 40px;
+    margin: 9px 0 0 10px;
     
     .nav {
       position: relative;
       margin: 0 -5px 0 0;
+      min-width: 175px;
 
       a {
         font-size: 12px;
@@ -127,7 +126,10 @@ header {
         white-space: nowrap;
         text-decoration: none;
 
-        &:hover {color: #fff;}
+        &:hover {
+          color: #fff;
+          background: #444;
+        }
         
         &#nav-username::before {
           content: "U";
@@ -155,14 +157,14 @@ header {
 
       .nav-dropdown {
         position: absolute;
-        top: 43px;
+        top: 44px;
         right: 0;
         width: 200px;
-        background: #111;
+        background: #333;
         display: none;
         padding: 0;
         @include border-radius-bottom(5px);
-        @include box-shadow(0,4px,9px,#111);
+        @include box-shadow(0,2px,2px,#111);
 
         a {
           display: block;
@@ -173,7 +175,7 @@ header {
           border-top: 1px solid #333;
           
           &:hover {
-            background: #333;
+            background: #444;
           }
         }
 
@@ -207,32 +209,19 @@ header {
     white-space: nowrap;
     float: left;
     width: 712px;
-    
-    #player-image {
-      border-right: 1px solid #444;
-      float: left;
-      margin: 5px 8px 5px 0;
-      position: relative;
-      
-      img {
-        width: 34px;
-        @include border-radius(4px);
-      }
-    }
   
     #player-meta {
       margin: 0;
       font-size: 16px;
-      padding: 12px;
+      padding: 12px 11px 11px;
       float: left;
       white-space: nowrap;
       overflow: hidden;
-      width: 370px;
+      width: 420px;
       
       a {
-        color: #fff;
+        color: #ccc;
         text-decoration: none;
-        text-shadow: 0 1px #000;
         width: 100%;
         
         &:hover {
@@ -247,31 +236,35 @@ header {
       padding: 8px 10px;
       
       a {
-        padding: 4px;
-        color: #fff;
+        padding: 3px;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 11px;
         width: 101px;
         display: block;
-        text-align: right;
+        text-align: center;
+        text-decoration: none;
+        display: none;
+        color: #fff;
+        border-color: #239708;
+        @include background-gradient(#3ab30a, #239708);
+        @include border-radius(4px);
+        
+        &.show { display: block; }
       }
     }
     
     #player-buttons {
       float: left;
-      width: 142px;
+      width: 140px;
       margin-right: -3px;
       
       a {
         float: left;
         color: #ccc;
         font-size: 30px;
-        padding: 16px 10px 8px;
-        border-right: 1px solid #444;
-        margin: 0 0 -4px 0;
+        padding: 15px 10px 8px;
         
         &:hover { color: #fff; background: #444; }
-        &.next { border: none; }
       }
     }
     
@@ -408,6 +401,42 @@ ol.mp_list {
 
 
 
+/* Lists */
+.third .list {
+  margin: -10px 0 20px 0;
+  padding: 0;
+  
+  section, li {
+    padding: 10px;
+    margin: 0;
+    border: none;
+    height: auto;
+    float: none;
+    border-bottom: 1px dotted #ddd;
+    list-style: none;
+  
+    div { display: inline; }
+    .image { margin: 0 10px 0 0; }
+    img { width: 24px; }
+  
+    h4 {
+      margin: 0;
+      display: inline;
+      a { text-decoration: none; }
+    }
+    
+    p {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 0;
+      height: 3.5em;
+      overflow: hidden;
+    }
+  }
+}
+
+
+
 /* Titles */
 
 h2.title { color: #444; }
@@ -449,7 +478,7 @@ h2.title { color: #444; }
   p {
     font-size: 22px;
     line-height: 1em;
-    margin: 12px 0 0;
+    margin: 8px 0 0;
   }
 
   small {

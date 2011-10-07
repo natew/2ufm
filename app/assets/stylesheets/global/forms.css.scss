@@ -132,6 +132,7 @@
   border: 1px solid #0064cd;
   float: left;
   margin: 2px 4px 10px 0;
+  font-weight: bold;
   @include border-radius(4px);
   @include background-gradient(#049cdb, #0064cd);
   
@@ -153,7 +154,7 @@
   }
   
   &.add {
-    color: #444;
+    color: #000;
     border-color: #ccc;
     @include background-gradient(#eee, #ccc);
     text-shadow: none;

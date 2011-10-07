@@ -8,6 +8,7 @@ class Blog < ActiveRecord::Base
   has_one  :station, :dependent => :destroy
   has_many :songs, :through => :station, :dependent => :destroy
   has_many :posts, :dependent => :destroy
+  has_and_belongs_to_many :genres
 
   acts_as_url :name, :url_attribute => :slug
   
@@ -21,8 +22,8 @@ class Blog < ActiveRecord::Base
   
   attr_writer :current_step
   
-  validates_uniqueness_of :name, :url
-  validates_presence_of :name, :url
+  validates_uniqueness_of :name, :url, :if => lambda { |o| o.current_step == "about" }
+  validates_presence_of :name, :url, :if => lambda { |o| o.current_step == "about" }
   
   def to_param
     slug

@@ -3,4 +3,4 @@
     ['2','Following','Unfollow', :delete, follow_path(id) ]
 %>
   <div class="count"><%= pluralize count, 'Follower' %></div>
-  <%= link_to "<span>#{icon}</span>#{label}".html_safe, path, class: "follow-station button #{action} control tip", title: title, remote: true, method: method unless on_own_profile? %>
+  <%= link_to "<span>#{icon}</span>#{label}".html_safe, path, class: "follow-station button #{action} control restricted tip", title: title, remote: true, method: method unless on_own_profile? %>

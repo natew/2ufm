@@ -2,7 +2,7 @@
 
 .playlist {
   clear: both;
-  margin: -10px 0 30px;
+  margin: 0 0 20px;
   
   section {
     padding: 15px 0;
@@ -12,7 +12,7 @@
     overflow: hidden;
     
     &:nth-child(2n+1) {
-      background: #eee;
+      background: #f5f5f5;
     }
 
     &.playing {

@@ -10,8 +10,8 @@
     <%= render :partial => 'shared/form_errors', :locals => { :object => @blog } %>
     <%= render "new_#{@blog.current_step}_step", :f => f %>
     <div class="actions clearfix">
-      <%= f.submit "Continue", :class => 'control continue' %>
-      <%= f.submit "Back", :name => 'back_button' unless @blog.first_step? %>
+      <%= f.submit "Continue", :class => 'form-control continue' %>
+      <%= f.submit "Back", :name => 'form-control back_button' unless @blog.first_step? %>
     </div>
   <% end %>
   </div>

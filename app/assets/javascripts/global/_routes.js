@@ -12,7 +12,6 @@ var pressedDisable = function(e) {
     var command = e.metaKey || e.ctrlKey;
     if (command) disableHashbang = true;
     else disableHashbang = false;
-    console.log("disable hashbang = " + disableHashbang);
 }
 
 // Set active nav tab
@@ -36,6 +35,7 @@ $(function() {
   });
 
   $('a.disabled').live('click', function(e) {
+    // Sign in modal
     e.preventDefault();
   });
 });
@@ -85,7 +85,7 @@ var page = {
     
     // Disable AJAX stuff signed out
     if ($body.is('.signed_out')) {
-      $doc.find('#body .control')
+      $doc.find('#body .control.restricted')
         .removeAttr('data-remote')
         .attr('title','Please sign in!')
         .addClass('disabled');
@@ -110,10 +110,13 @@ var page = {
     }
 
     // AJAX forms
-    if ($body.is('.wizard')) {
+    if ($doc.find('#wizard').length > 0) {
       $doc.find("#wizard form").ajaxForm({
         type: 'POST',
-        success: page.load
+        success: function() {
+          $('h2').html('we did it')
+          this.load();
+        }
       });
     }
       

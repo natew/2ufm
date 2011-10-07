@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   end
   
   def broadcasted_song?(song)
-    station.broadcasts.where(:song_id => song.id).exists?
+    station.broadcasts.where(:song_id => song.shared_id).exists?
   end
   
   def following_station?(id)

@@ -1,9 +1,12 @@
 class Listen < ActiveRecord::Base
   belongs_to :song
+  belongs_to :user
   
   validates :url, :presence => true
   validates :song_id, :presence => true
   validates :user_id, :presence => true
+  
+  default_scope order('listens.created_at desc')
   
   before_create :gen_shortcode
   

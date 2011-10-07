@@ -20,3 +20,35 @@
     }
   }
 }
+
+#body #new_song {
+  margin: 0 0 20px 0;
+  
+  label {
+    display: block;
+    float: none;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 2px 0;
+    font-size: 14px;
+    color: #222;
+    
+    a {
+      font-weight: normal;
+      color: #666;
+    }
+  }
+  
+  #song_url {
+    width: 507px;
+    padding: 12px;
+    margin: 0 10px 20px 0;
+  }
+  
+  .input-submit {
+    padding: 12px;
+    padding: 9px 18px;
+  }
+}

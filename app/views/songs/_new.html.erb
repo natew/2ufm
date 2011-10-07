@@ -1,6 +1,6 @@
 <%= form_for @song, :html => { :multipart => true } do |f| %>
   <%= render :partial => 'shared/form_errors', :locals => { :object => @song } %>
-  <%= f.label :url %>
+  <%= f.label :url, 'Post a song <a href="">What can I post?</a>'.html_safe %>
   <%= f.text_field :url %>
   <%= f.submit "Post!", :class => 'control continue' %>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110922154039) do
+ActiveRecord::Schema.define(:version => 20110928234621) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -56,6 +56,11 @@ ActiveRecord::Schema.define(:version => 20110922154039) do
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
+  end
+
+  create_table "blogs_genres", :id => false, :force => true do |t|
+    t.integer "blog_id"
+    t.integer "genre_id"
   end
 
   create_table "broadcasts", :force => true do |t|
@@ -194,6 +199,9 @@ ActiveRecord::Schema.define(:version => 20110922154039) do
     t.integer  "station_id"
     t.text     "bio"
     t.string   "role",                                  :default => "user"
+    t.string   "last_visited"
+    t.integer  "last_station"
+    t.integer  "last_song"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

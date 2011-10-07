@@ -46,6 +46,15 @@
   }
 }
 
+.third .shelf {
+  margin: 0;
+  border: none;
+  
+  h3 { margin: 0 0 20px 0; }
+  li { margin: 0 0 0 20px; }
+  img { width: 140px; }
+}
+
 .shelf.grid {
   margin-left: -6px;
   

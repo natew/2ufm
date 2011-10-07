@@ -1,6 +1,6 @@
 <div class="title">
   <%= image_tag @user.avatar.url(:small), :class => 'icon' %>
-  <h2 class="icon"><%= @user.username %> Radio <small>Listen to the latest songs <%= @user.username %> has liked.</small></h2>
+  <h2 class="icon"><%= @user.username %><small>See what <%= @user.username %> likes and listens to.</small></h2>
   
   <ul class="title_nav">
     <li id="follow-<%= @user.station.id %>"><%= follow_station(@user.station) %></li>
@@ -8,30 +8,18 @@
 </div>
 
   <div class="twothirds">
-    <ul class="subnav">
-      <li><%= link_to "#{@user.username.pluralize} Station" %></li>
-      <li><%= link_to "#{@user.username.pluralize} Activity Feed" %></li>
-    </ul>
-    
-    <!-- <h3>What <%= @user.username.pluralize %> been up to</h3>
-    <div id="activity-list">
-      <%= render :partial => 'shared/activity', :collection => @activities %>
-    </div>
-
-    <%= paginate @activities %> -->
-    
     <%= render :partial => 'songs/new' %>
-    
-    <%= render :partial => 'stations/playlist', :locals => { :station => @user.station } %>
+
     <%- if @user.station.songs.empty? -%>
       <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
+    <%- else -%>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @user.station } %>
     <%- end -%>
   </div>
 
   <div class="third">
-    <div class="image">
-      <%= image_tag(@user.avatar.url) %>
-    </div>
-
-    <h3><%= @user.username %> Stats</h3>
+    <h3>Recently Played</h3>
+    <ul class="list">
+      <%= render :partial => 'play', :collection => @plays %>
+    </ul>
   </div>

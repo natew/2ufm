@@ -34,23 +34,28 @@ class BlogsController < ApplicationController
 
 
   def create
-    @blog = Blog.new(params[:blog])
+    session[:blog_params].deep_merge!(params[:blog]) if params[:blog]
+    @blog = Blog.new(session[:blog_params])
+    @blog.current_step = session[:blog_step]
     
     if @blog.valid?
       if params[:back_button]
         @blog.previous_step
       elsif @blog.last_step?
-        redrect_to @blog if @blog.all_valid?
+        @blog.save if @blog.all_valid?
       else
-        @blog.next_step if @blog.save
+        @blog.next_step
       end
-      
-      respond_to do |format|
-        format.html { render 'new', :layout => false }
-      end
-    else
-      respond_to do |format|
-        format.html { render 'new', :layout => false }
+      session[:blog_step] = @blog.current_step
+    end
+    
+    respond_to do |format|
+      if @blog.new_record?
+        format.js { render 'new', :layout => false }
+      else
+        session[:blog_step] = session[:blog_params] = nil
+        flash[:notice] = "Blog saved!"
+        redirect_to @blog
       end
     end
   end

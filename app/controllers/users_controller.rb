@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    @activities = Activity.where(:user_id => @user.id).page(params[:page]).per(12)
+    @plays = Listen.select('listens.created_at, listens.url, songs.name, songs.slug, users.username, users.slug').joins(:song,:user).where(:user_id => @user.id).limit(12)
     @song = Song.new
 
     respond_to do |format|

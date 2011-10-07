@@ -19,7 +19,7 @@ module ApplicationHelper
   def broadcast_song(song)
     has    = current_user.broadcasted_song?(song) if user_signed_in?
     action = has ? "remove" : "add"
-    id     = has ? current_user.station.broadcasts.where(:song_id => song.id).first.id : song.id
+    id     = has ? current_user.station.broadcasts.where(:song_id => song.shared_id).first.id : song.id
     render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.size }
   end
   

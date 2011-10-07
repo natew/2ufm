@@ -43,7 +43,6 @@
           <li><%= link 'Songs', '/songs', :id => 'nav-songs' %></li>
           <li><%= link 'Blogs', '/blogs', :id => 'nav-blogs' %></li>
           <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
-          <li><%= link 'Users', '/users', :id => 'nav-users' %></li>
         </ul>
       </nav>
       
@@ -76,9 +75,6 @@
   <div id="bar">
     <div class="page-contain">
       <div id="player">
-        <a id="player-image" href="#">
-          <%= image_tag('/images/default_small.jpg') %>
-        </a>
         <div id="player-buttons">
           <%= link_to '8', '#', :class => 'prev pictos control' %>
           <%= link_to '4', '#', :class => 'play pictos control' %>
@@ -95,14 +91,15 @@
           <% link_to 'Station', '#', :class => 'radio control tip-n', :title => 'Station controls' %>
         </div>
         <div id="player-meta">
-          <%= link_to '&laquo; Press Play'.html_safe, '#', :id => 'player-song' %>
+          <%= link_to '', '#', :id => 'player-song' %>
         </div>
         <div id="player-shortcode">
+          <a id="invite" class="tip-n control" title="Share this link with friends so they can listen along with you!">&laquo; Invite friends!</a>
         </div>
       </div>
       
       <%= form_tag '/main/search', :method => 'get' do %>
-        <%= text_field_tag :query, '', :placeholder =>'Search artists, blogs, songs...' %>
+        <%= text_field_tag :query, '', :placeholder =>'Live search for anything' %>
         <%= submit_tag :s, :id => 'search', :class => 'pictos' %>
       <% end -%>
     </div>

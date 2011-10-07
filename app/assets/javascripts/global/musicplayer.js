@@ -21,7 +21,7 @@ var mp = (function() {
     player: $('#player'),
     song: $('#player-song'),
     play: $('#player-buttons .play'),
-    shortcode: $('#player-shortcode'),
+    invite: $('#invite'),
   }
 
   // Soundmanager
@@ -76,7 +76,7 @@ var mp = (function() {
       // Load
       if (!playlist) this.load();
 
-      if (playlist) {
+      if (playlist && playlistIndex < playlist.songs.length) {
         // Load song
         console.log('playing song at index: '+playlistIndex);
         curSongInfo = playlist.songs[playlistIndex];
@@ -96,6 +96,11 @@ var mp = (function() {
 
         console.log('song loaded: ' + curSong);
         curSong.play();
+        return true;
+      } else {
+        curSection = null;
+        this.refresh();
+        return false;
       }
     },
     
@@ -120,38 +125,46 @@ var mp = (function() {
     },
     
     next: function() {
-      if (curSection) {
-        var next = curSection.next();
-      }
+      if (curSection) var next = curSection.next();
       this.stop();
-      curSection = next;
+      this.setCurSectionInactive();
+      if (next) {
+        curSection = next;
+        this.setCurSectionActive();
+      }
       playlistIndex++;
       this.play();
     },
     
     prev: function() {
-      if (curSection) {
-        prev = curSection.prev();
-      }
+      if (curSection) prev = curSection.prev();
       this.stop();
-      curSection = prev;
+      this.setCurSectionInactive();
+      if (prev) {
+        curSection = prev;
+        this.setCurSectionActive();
+      }
       playlistIndex--;
       this.play();
     },
     
     refresh: function() {
       if (isPlaying) {
+        var title = curSongInfo.artist + ' - ' + curSongInfo.name;
         pl.player.addClass('playing');
-        pl.song.html(curSongInfo.artist + ' - ' + curSongInfo.name);
+        pl.song.html(title);
         pl.play.html('5');
+        // <title>
+        icon = isPlaying ? '\u25BA' : '\u25FC';
+        $('title').html(icon + ' ' + title);
       } else {
         pl.player.removeClass('playing');
         pl.play.html('4');
+        
+        if (curSection == null) {
+          pl.song.html('')
+        }
       }
-      
-      // <title>
-      icon = isPlaying ? '\u25BA' : '\u25FC';
-      $('title').html(icon + ' ' + curSongInfo.artist + ' - ' + curSongInfo.name);
     },
     
     setCurSectionActive: function() {
@@ -229,16 +242,19 @@ var mp = (function() {
       player.refresh();
       
       // Scrobbling
-      $.ajax({
-        type: 'POST',
-        url: '/listens',
-        data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
-        success: function(data) {
-          pl.shortcode.html('<a id="invite" href="/listens/'+data+'" class="tip-n control" title="Share this link with friends so they can listen along with you!">&laquo; Invite friends!</a>');
-          other.clipboard();
-        },
-        dataType: 'html'
-      });
+      if ($('body').is('.signed_in')) {
+        $.ajax({
+          type: 'POST',
+          url: '/listens',
+          data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
+          success: function(data) {
+            pl.invite.attr('href','/listens/'+data);
+            pl.invite.addClass('show');
+            other.clipboard();
+          },
+          dataType: 'html'
+        });
+      }
     },
 
     stop: function() {
@@ -263,6 +279,7 @@ var mp = (function() {
     },
 
     finish: function() {
+      
       player.setCurSectionInactive();
       player.next();
     },
@@ -286,7 +303,7 @@ var mp = (function() {
     onload: function(success) {
       if (!success) {
         var failedSection = curSection.addClass('failed');
-        player.next();
+        if (curPage == playingPage) player.next();
         $.post('songs/'+curSongInfo.id, { failing: 'true' }, function(data) {
           $('body').append(data);
           failedSection.remove();
@@ -336,7 +353,7 @@ var mp = (function() {
     },
     
     toggle: function() {
-      player.toggle();
+      var played = player.toggle();
       return isPlaying;
     },
     
@@ -362,6 +379,10 @@ var mp = (function() {
     
     getSection: function() {
       return curSection;
+    },
+    
+    getPlaylist: function() {
+      return playlist;
     }
     
   }
