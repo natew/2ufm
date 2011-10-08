@@ -106,8 +106,9 @@ var page = {
     if (getParameterByName('play')) {
       var song = getParameterByName('song');
       var time = getParameterByName('time');
-      $('h2').html(song)
-      mp.playSection($('#song-'+song));
+      var section = $('#song-'+song);
+      mp.playSection(section);
+      $(window).scrollTop(section.offset().top-100);
     }
 
     // AJAX forms

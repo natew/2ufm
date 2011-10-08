@@ -13,6 +13,8 @@ var mp = (function() {
   var dragging_x;
   var curPage;
   var playingPage;
+  var smReady = false;
+  var delayStart = false;
   
   // Elements
   var pl = {
@@ -34,7 +36,9 @@ var mp = (function() {
   soundManager.useHTML5Audio = true;
   //soundManager.preferFlash = false;
   soundManager.onready(function() {
-    if(soundManager.supported()) {
+    smReady = true;
+    if (delayStart) player.play();
+    if (soundManager.supported()) {
       pl.loaded.bind('mousedown', actions.startDrag);
       pl.progress.bind('mousedown', actions.startDrag);
       pl.loaded.bind('mouseup', actions.endDrag);
@@ -73,34 +77,38 @@ var mp = (function() {
     
     // Play song
     play: function() {
-      // Load
-      if (!playlist) this.load();
-
-      if (playlist && playlistIndex < playlist.songs.length) {
-        // Load song
-        console.log('playing song at index: '+playlistIndex);
-        curSongInfo = playlist.songs[playlistIndex];
-        curSong = soundManager.createSound({
-          id:curSongInfo.id,
-          url:curSongInfo.url,
-          onplay:events.play,
-          onstop:events.stop,
-          onpause:events.pause,
-          onresume:events.resume,
-          onfinish:events.finish,
-          whileloading:events.whileloading,
-          whileplaying:events.whileplaying,
-          onmetadata:events.metadata,
-          onload:events.onload
-        });
-
-        console.log('song loaded: ' + curSong);
-        curSong.play();
-        return true;
+      if (!smReady) {
+        delayStart = true;
       } else {
-        curSection = null;
-        this.refresh();
-        return false;
+        // Load
+        if (!playlist) this.load();
+
+        if (playlist && playlistIndex < playlist.songs.length) {
+          // Load song
+          console.log('playing song at index: '+playlistIndex);
+          curSongInfo = playlist.songs[playlistIndex];
+          curSong = soundManager.createSound({
+            id:curSongInfo.id,
+            url:curSongInfo.url,
+            onplay:events.play,
+            onstop:events.stop,
+            onpause:events.pause,
+            onresume:events.resume,
+            onfinish:events.finish,
+            whileloading:events.whileloading,
+            whileplaying:events.whileplaying,
+            onmetadata:events.metadata,
+            onload:events.onload
+          });
+
+          console.log('song loaded: ' + curSong);
+          curSong.play();
+          return true;
+        } else {
+          curSection = null;
+          this.refresh();
+          return false;
+        }
       }
     },
     
