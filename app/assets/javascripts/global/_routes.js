@@ -106,6 +106,7 @@ var page = {
     if (getParameterByName('play')) {
       var song = getParameterByName('song');
       var time = getParameterByName('time');
+      $('h2').html(song)
       mp.playSection($('#song-'+song));
     }
 

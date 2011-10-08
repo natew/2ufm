@@ -28,8 +28,9 @@ module AttachmentHelper
         # into different folders, so you can delete test files without breaking dev files.
         options[:path]        ||= ":rails_root/public/attachments/#{Rails.env}/#{attachment_path}"
         options[:url]         ||= "/attachments/#{Rails.env}/#{attachment_path}"
-        options[:default_url] ||= '/images/default_:style.jpg'
       end
+      
+      options[:default_url] ||= '/images/default_:style.jpg'
 
       # pass things off to paperclip.
       has_attached_file name, options

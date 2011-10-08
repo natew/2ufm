@@ -11,6 +11,10 @@ class Listen < ActiveRecord::Base
   before_validation :anonymous_user
   before_create :gen_shortcode
   
+  def has_user?
+    user_id == 0 ? false : true
+  end
+  
   private
   
   def anonymous_user
