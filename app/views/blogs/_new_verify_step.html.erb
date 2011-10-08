@@ -1,0 +1,11 @@
+<h3><%= @blog.name %> <small><%= @blog.url %></small></h3>
+
+<p><%= image_tag(@blog.image.url) %></p>
+
+<h4>Description</h4>
+<p><%= @blog.description %></p>
+
+<h4>Genres</h4>
+<ul id="genres">
+  <%= render @blog.genres %>
+</ul>
