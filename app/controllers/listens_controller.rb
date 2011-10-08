@@ -1,6 +1,4 @@
-class ListensController < ApplicationController
-  before_filter :authenticate_user!, :only => [:create]
-  
+class ListensController < ApplicationController  
   def show
     listen = Listen.find_by_shortcode(params[:id])
     @song  = Song.find(listen.song_id)

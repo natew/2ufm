@@ -288,6 +288,7 @@ class Song < ActiveRecord::Base
     featured = /(featuring|ft\.?|feat\.?|f\.){1}/i
     remixer  = / remix| rmx| edit| bootleg| mix/i
     producer = /produced by /i
+    #cover    = / cover/i
 
     # Find any non-original artists
     if string =~ /#{featured}|#{remixer}|#{producer}/i
