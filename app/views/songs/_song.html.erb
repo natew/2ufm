@@ -13,9 +13,9 @@
           Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
         &middot;
         <%- end -%>
-        Added <time><%= relative_time(song.updated_at) %></time>
+        <time><%= relative_time(song.updated_at) %></time>
       </div>
-      <p><%= truncate(strip_tags(song.post_content), :length => 120) %> <%= link_to "Posted #{relative_time(song.created_at)} &raquo;".html_safe, song.post_url, :target => '_blank' %></p>
+      <p><%= truncate(strip_tags(song.post_content), :length => 60) %> <%= link_to "First posted #{relative_time(song.created_at)} &raquo;".html_safe, song.post_url, :target => '_blank' %></p>
       <%- if user_signed_in? and false -%>
       <span class="active">Active:
         <%= hidden_field_tag('seen_ids[]', song.id) -%>
@@ -28,6 +28,7 @@
       <li><%= link_to 'eMusic' %></li>
       <li><%= link_to 'iTunes' %></li>
       <li><%= link_to 'Amazon' %></li>
+      <li class="right"><%= link_to 'Download' %></li>
       <li class="right"><%= link_to 'Stats' %></li>
     </ul>
   </div>

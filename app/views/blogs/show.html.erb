@@ -29,7 +29,7 @@
   <%- if @posts.empty? -%>
   <p>We haven't gotten around to scanning any posts yet!</p>
   <%- else -%>
-  <div class="artist-list">
+  <div class="list">
     <%= render :partial => 'post', :collection => @posts, :as => :post %>
   </div>
   <%- end -%>

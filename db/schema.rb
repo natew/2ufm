@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110928234621) do
+ActiveRecord::Schema.define(:version => 20111120050627) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -127,6 +127,33 @@ ActiveRecord::Schema.define(:version => 20110928234621) do
     t.string   "slug"
     t.string   "image_file_name"
     t.string   "image_updated_at"
+  end
+
+  create_table "socialite_facebook_identities", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "socialite_identities", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "api_id"
+    t.string   "api_type"
+    t.string   "unique_id",  :null => false
+    t.string   "provider",   :null => false
+    t.text     "auth_hash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "socialite_identities", ["api_id", "api_type"], :name => "index_socialite_identities_on_api_id_and_api_type"
+  add_index "socialite_identities", ["provider", "unique_id"], :name => "index_socialite_identities_on_provider_and_unique_id", :unique => true
+  add_index "socialite_identities", ["user_id", "provider"], :name => "index_socialite_identities_on_user_id_and_provider", :unique => true
+  add_index "socialite_identities", ["user_id"], :name => "index_socialite_identities_on_user_id"
+
+  create_table "socialite_users", :force => true do |t|
+    t.string   "remember_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "songs", :force => true do |t|

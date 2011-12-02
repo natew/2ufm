@@ -7,7 +7,6 @@
 </div>
 
 <div class="twothirds">
-  <h3>Listen to <%= @original.name %></h3>
   <%- if @songs.size > 0 %>
     <%= render :partial => 'stations/playlist', :locals => { :songs => @songs } %>
   <%- else -%>

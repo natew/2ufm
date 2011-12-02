@@ -20,6 +20,8 @@ gem 'sanitize'
 gem 'cancan'
 gem 'hashie'
 gem 'texticle', '~> 2.0', :require => 'texticle/rails'
+gem 'foreman'
+gem 'socialite'
 
 # Gems used only for assets and not required
 # in production environments by default.

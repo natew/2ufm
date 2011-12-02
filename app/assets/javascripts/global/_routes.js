@@ -36,7 +36,7 @@ $(function() {
 
   $('a.disabled').live('click', function(e) {
     // Sign in modal
-    e.preventDefault();
+    return false;
   });
 });
 
@@ -88,7 +88,9 @@ var page = {
       $doc.find('#body .control.restricted')
         .removeAttr('data-remote')
         .attr('title','Please sign in!')
-        .addClass('disabled');
+        .attr('href','#new_user')
+        .addClass('disabled')
+        .colorbox({inline: true, width: '50%'});
     } else {
       // Signed in
       $('.button.remove').hover(

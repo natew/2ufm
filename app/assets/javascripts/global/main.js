@@ -2,14 +2,11 @@ $(function() {
   // Path.js
   Path.listen();
   
-  // Scroll music palyer
+  // Scroll music player
   $(window).scroll(function() {
     var $bar = $('#bar');
-    if ($(window).scrollTop() > 50)
-      $("#bar").addClass('fixed');
-    else {
-      $('#bar').removeClass('fixed');
-    }
+    if ($(window).scrollTop() > 50) $bar.addClass('fixed');
+    else $bar.removeClass('fixed');
   });
 
   // Tooltips
@@ -49,6 +46,11 @@ $(function() {
     }
     return false;
   });
+  
+  // Modal windows
+  //$('a.control.restricted').colorbox({href: '#new_user', inline: true, width: '50%'});
+  $('.nav a.control').colorbox({href: '#new_user', inline: true, width: '50%'});
+    
   
   // Player controls
   // PLAY

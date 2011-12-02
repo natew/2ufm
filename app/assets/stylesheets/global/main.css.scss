@@ -53,15 +53,17 @@ header {
   .page-contain { width: 940px; }
   
   h1 {
-    margin: 22px 20px 0 0;
+    margin: 11px 20px 0 0;
     font-size: 28px;
-    font-family: 'PTF Nordic RND';
     float: left;
     
     a {
-      color: #fff;
-      padding: 4px;
-      text-decoration: none;
+      background: url(/images/2ufm.png) no-repeat top left;
+      width: 66px;
+      height: 29px;
+      overflow: hidden;
+      text-indent: -3000em;
+      display: block;
       
       &:hover { color: #fff; }
     }
@@ -80,7 +82,7 @@ header {
       
       a {
         padding: 11px 10px 13px;
-        margin: 8px 0;
+        margin: 7px 0;
         color: #fff;
         float: left;
         text-decoration: none;
@@ -195,7 +197,7 @@ header {
   background: #555;
   position: absolute;
   width: 100%;
-  top: 53px;
+  top: 51px;
   z-index: 98;
   
   .page-contain { width: 940px; }
@@ -212,12 +214,12 @@ header {
   
     #player-meta {
       margin: 0;
-      font-size: 16px;
-      padding: 12px 11px 11px;
+      font-size: 15px;
+      padding: 7px 11px;
       float: left;
       white-space: nowrap;
       overflow: hidden;
-      width: 420px;
+      width: 444px;
       
       a {
         color: #ccc;
@@ -233,7 +235,7 @@ header {
     #player-shortcode {
       position: relative;
       float: right;
-      padding: 8px 10px;
+      padding: 4px 10px;
       
       a {
         padding: 3px;
@@ -255,14 +257,15 @@ header {
     
     #player-buttons {
       float: left;
-      width: 140px;
+      width: 122px;
       margin-right: -3px;
       
       a {
         float: left;
-        color: #ccc;
+        color: #fff;
         font-size: 30px;
-        padding: 15px 10px 8px;
+        padding: 10px 10px 5px;
+        font-size: 23px;
         
         &:hover { color: #fff; background: #444; }
       }
@@ -328,14 +331,14 @@ header {
   }
   
   form {
-    margin: 6px 0 -6px;
+    margin: 4px 0 -6px;
     float: right;
     position: relative;
 
     #query {
       float: right;
       border: none;
-      padding: 8px 36px 8px 8px;
+      padding: 6px 36px 6px 8px;
       width: 184px;
       color: #ddd;
       background: none;
@@ -359,7 +362,7 @@ header {
       border: none;
       position: absolute;
       right: 4px;
-      top: 4px;
+      top: 2px;
       font-size: 20px;
       
       &:hover { color: #fff; }
@@ -369,11 +372,11 @@ header {
 
 /* Ordered list for display results. */
 ol.mp_list {
-  background-color: #444;
+  background-color: #555;
   overflow: hidden;
   position: absolute;
   width: 268px;
-  top: 20px;
+  top: 17px;
   z-index: 99999;
   padding: 0;
   left: -20px;
@@ -403,7 +406,7 @@ ol.mp_list {
 
 /* Lists */
 .third .list {
-  margin: -10px 0 20px 0;
+  margin: -15px 0 20px 0;
   padding: 0;
   
   section, li {
@@ -417,11 +420,13 @@ ol.mp_list {
   
     div { display: inline; }
     .image { margin: 0 10px 0 0; }
-    img { width: 24px; }
+    img { width: 24px; margin: -6px 0 -3px; }
   
     h4 {
       margin: 0;
       display: inline;
+      line-height: 21px;
+      
       a { text-decoration: none; }
     }
     
@@ -441,11 +446,15 @@ ol.mp_list {
 
 h2.title { color: #444; }
 .title {
-  padding: 20px 0 20px;
+  padding: 18px 0 18px;
   margin: 0 20px 20px 20px;
   color: #999;
   position: relative;
   border-bottom: 1px solid #ddd;
+  
+  &.center h2 {
+    font-size: 38px;
+  }
   
   &.grid {
     padding-left: 0;
@@ -518,7 +527,7 @@ h2.title { color: #444; }
 
 /* Subnav */
 .subnav {
-  margin: -20px 20px 30px 20px;
+  margin: -20px 20px 20px 20px;
   background: #eee;
   padding: 4px 12px;
   @include border-radius-bottom(8px);
@@ -599,6 +608,12 @@ h2.title { color: #444; }
     }
   }
 }
+
+
+
+/* Modals */
+.hidden { display: none; }
+
 
 
 /* Pictos Font

@@ -30,13 +30,22 @@
     
     .song-info {
       float: right;
-      width: 466px;
-      margin: 0 68px 18px 0;
+      width: 514px;
+      margin: 0 0 18px 0;
+      padding: 0 20px 0 0;
       
-      p { margin: 0 0 10px 0; }
+      p {
+        margin: 0 0 10px 0;
+        font-size: 12px;
+        color: #888;
+        
+        a {
+          color: #666;
+        }
+      }
       
       h4 {
-        font-size: 20px;
+        font-size: 16px;
         border: none;
         margin-bottom: 6px;
         display: block;
@@ -64,20 +73,35 @@
     .song-links {
       margin: 0;
       padding: 0;
-      width: 536px;
+      width: 531px;
       position: absolute;
+      bottom: 10px;
       clear: both;
       
       li {
         list-style: none;
         float: left;
-        color: #999;
         font-size: 11px;
         font-weight: bold;
         padding: 0 16px 0 0;
         
+        a {
+          color: #999;
+        }
+        
         &.right {
           float: right;
+          padding: 0 8px 0 0;
+          
+          a {
+            color: #666;
+            text-shadow: 0 1px -1px #fff;
+            background: url(/images/fade.png) repeat-x top left;
+            border: 1px solid #ccc;
+            padding: 1px 8px;
+            text-decoration: none;
+            @include border-radius(3px);
+          }
         }
       }
       
@@ -88,13 +112,10 @@
     
     .song-meta {
       margin: 0 0 5px 0;
-      color: #777;
-      line-height: 1.4em;
-      
-      a {
-        color: #777;
-        &:hover { color: #000; }
-      }
+      padding: 0 0 5px 0;
+      border-bottom: 1px solid #ddd;
+      font-size: 12px;
+      color: #444;
     }
     
     .song-controls {
@@ -111,13 +132,18 @@
         color: #fff;
         position: absolute;
         z-index: 10;
-        padding: 29px 16px;
         top: 0;
-        left: 0;
+        left: 10px;
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        text-indent: -3000em;
+        background: url(/images/play.png) no-repeat;
         
         &:hover {
           cursor: pointer;
           text-shadow: 0 1px 0 #000;
+          background-position: 0 -64px;
         }
       }
       
@@ -133,7 +159,8 @@
 
         &.broadcast {
           position: absolute;
-          right: 10px;
+          left: 10px;
+          top: 93px;
           
           a {
             font-size: 24px;
