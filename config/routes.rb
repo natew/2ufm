@@ -15,6 +15,7 @@ Fusefm::Application.routes.draw do
   resources :broadcasts, :only => [:create, :destroy]
   
   resources :listens, :only => [:create, :show]
+  match "/l/:id", :to => "listens#show"
   
   resources :songs, :only => [:index, :show] do
     collection do

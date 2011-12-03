@@ -2,6 +2,6 @@
     <a href="<%= url_for(shelf) %>">
       <strong><%= shelf.name %></strong>
       <div class="cover"><%= image_tag('/images/cover.png') %></div>
-      <%= image_tag(shelf.image.url(:medium)) %>
+      <%= image_tag shelf.image.url(:medium), :class => 'cover-medium' %>
     </a>
   </li>

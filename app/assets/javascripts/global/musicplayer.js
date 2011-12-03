@@ -255,7 +255,7 @@ var mp = (function() {
         url: '/listens',
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function(data) {
-          pl.invite.attr('href','/listens/'+data);
+          pl.invite.attr('href','/l/'+data);
           pl.invite.addClass('show');
           other.clipboard();
         },

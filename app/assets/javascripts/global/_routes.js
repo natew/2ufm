@@ -54,7 +54,7 @@ function getParameterByName(name) {
 
 // Functions relating to moving about pages
 // In order of occurence
-// enter -> load -> error -> exit
+// enter -> load / error -> exit
 var page = {
 
   enter: function() {
@@ -140,6 +140,10 @@ var page = {
 
       $.plot($stats, [data], options);
     }
+    
+    // Image errors
+    $('img.cover-medium').error(function(){ $(this).attr('src', '/images/default_medium.jpg'); });
+    $('img.cover-small').error(function(){ $(this).attr('src', '/images/default_small.jpg'); });
   },
   
   error: function() {

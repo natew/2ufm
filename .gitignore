@@ -6,3 +6,4 @@ tmp/
 public/assets/*
 vendor/psds/*
 public/attachments/*
+.DS_Store
