@@ -1,0 +1,29 @@
+<%= form_for(:user, :url => new_user_registration_path) do |f| %>
+  <%= devise_error_messages! if defined? resource %>
+
+  <div class="clearfix">
+    <%= f.label :username, "Username".html_safe %>
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="clearfix sep">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+    <span class="help">We will only use email address to verify your account</span>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :password_confirmation, "Confirm Password" %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="actions clearfix">
+    <%= f.submit "Sign up" %>
+    <p><%= render :partial => "devise/shared/links" %></p>
+  </div>
+<% end %>
