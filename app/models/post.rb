@@ -11,8 +11,10 @@ class Post < ActiveRecord::Base
   
   acts_as_url :title, :url_attribute => :slug
   
+  validates_uniqueness_of :url
+  
   before_create :get_image
-  after_create :delayed_save_songs
+  after_create :save_songs
   
   def to_param
     slug
@@ -44,8 +46,5 @@ class Post < ActiveRecord::Base
       end
     end
   end
-  
-  def delayed_save_songs
-    delay.save_songs
-  end
+  handle_asynchronously :save_songs if Rails.env.production?
 end

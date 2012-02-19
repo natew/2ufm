@@ -29,7 +29,7 @@ class Song < ActiveRecord::Base
   acts_as_url :full_name, :url_attribute => :slug
   
   before_save  :clean_url
-  after_create :delayed_scan_and_save
+  after_create :scan_and_save
 
   def to_param
     slug
@@ -117,7 +117,7 @@ class Song < ActiveRecord::Base
               self.processed = true
             end
             
-            puts "Completed processing... #{processed}"
+            puts "Processed... #{processed}"
             
             # Save picture
             picture = mp3.tag2.APIC || mp3.tag2.PIC
@@ -164,10 +164,7 @@ class Song < ActiveRecord::Base
       end
     end
   end
-  
-  def delayed_scan_and_save
-    delay.scan_and_save
-  end
+  handle_asynchronously :scan_and_save if Rails.env.production?
   
   # For processing SoundCloud, Hulkshare and the like
   def get_real_url
@@ -237,19 +234,29 @@ class Song < ActiveRecord::Base
     end
     
     if found
+      # Ok we found a song that already exists similar to this one
+      # Set our shared ID first
+      self.shared_id = found.id
+      self.save
+
       if found.shared_id.nil?
+        # This means this is the first "match", so lets update it
         found.shared_id = found.id
+        found.shared_count = 2
         found.save
       else
-        songs = Song.where(shared_id:found.shared_id)
-        count = songs.count+1
-        songs.update_all(shared_count:count)
-        self.shared_count = count
+        # Else we have more than one song already existing thats similar
+        # So we need to update all similar songs' shared_counts+1
+        existing_similar_songs = Song.where(shared_id:shared_id)
+        existing_similar_songs.update_all(shared_count:existing_similar_songs.count)
       end
-      self.shared_id = found.id
     else
       self.shared_id = id
     end
+  end
+  
+  def similar_songs
+    Song.where(shared_id:id)
   end
   
   def find_or_create_artists 

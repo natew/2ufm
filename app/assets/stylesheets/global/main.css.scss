@@ -11,7 +11,7 @@ h2, h3, h4 {
   clear: both;
   padding: 0;
   margin: 0 0 20px 0;
-  color: #444;
+  color: $subtitle;
   
   small {
     font-size: 75%;
@@ -48,7 +48,6 @@ header {
   z-index: 100;
   line-height: 1em;
   text-shadow: 0 1px 1px #000;
-  @include background-gradient(#111,#333);
   
   .page-contain { width: 940px; }
   
@@ -98,13 +97,31 @@ header {
     }
   }
   
-  #now_playing {
+  #tagline {
     color: #777;
     font-size: 11px;
     font-weight: bold;
     text-shadow: none;
     float: right;
     padding: 19px 0;
+  }
+  
+  #loading {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    width: 200px;
+    margin-left: -100px;
+    
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  
+  &.loading #loading {
+    display: block;
   }
   
   #functions {
@@ -114,7 +131,7 @@ header {
     .nav {
       position: relative;
       margin: 0 -5px 0 0;
-      min-width: 175px;
+      min-width: 140px;
 
       a {
         font-size: 12px;
@@ -196,9 +213,12 @@ header {
 #bar {
   background: #555;
   position: absolute;
-  width: 100%;
+  width: 980px;
+  left: 50%;
   top: 51px;
+  margin-left: -490px;
   z-index: 98;
+  @include border-radius-bottom(4px);
   
   .page-contain { width: 940px; }
   
@@ -415,7 +435,7 @@ ol.mp_list {
     border: none;
     height: auto;
     float: none;
-    border-bottom: 1px dotted #ddd;
+    border-bottom: 1px dotted $border;
     list-style: none;
   
     div { display: inline; }
@@ -425,7 +445,7 @@ ol.mp_list {
     h4 {
       margin: 0;
       display: inline;
-      line-height: 21px;
+      line-height: 16px;
       
       a { text-decoration: none; }
     }
@@ -444,13 +464,13 @@ ol.mp_list {
 
 /* Titles */
 
-h2.title { color: #444; }
+h2.title { color: $subtitle; }
 .title {
   padding: 18px 0 18px;
   margin: 0 20px 20px 20px;
   color: #999;
   position: relative;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $border;
   
   &.center h2 {
     font-size: 38px;
@@ -466,7 +486,7 @@ h2.title { color: #444; }
   }
 
   h2 {
-    color: #000;
+    color: $title;
     font-size: 34px;
     background: none;
     margin: 0;
@@ -562,10 +582,9 @@ h2.title { color: #444; }
 
 .pagination {
   font-size: 13px;
-  border-right: 1px solid #ccc;
   display: inline-block;
   margin: 20px 0;
-  @include box-shadow(0px,1px,2px,#ddd);
+  @include box-shadow(0px,1px,2px,#000);
   @include border-radius-right(3px);
   
   span {

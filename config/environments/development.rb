@@ -23,5 +23,8 @@ Fusefm::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Do not compress assets
-  #config.assets.enabled = false
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
 end

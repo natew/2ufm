@@ -48,8 +48,11 @@ $(function() {
   });
   
   // Modal windows
-  //$('a.control.restricted').colorbox({href: '#new_user', inline: true, width: '50%'});
-  $('.nav a.control').colorbox({href: '#new_user', inline: true, width: '50%'});
+  $('.nav a.control').click(function(e) {
+    e.preventDefault();
+    $('#modal').html($(this).attr('href').html());
+    $('#overlay').show();
+  });
     
   
   // Player controls

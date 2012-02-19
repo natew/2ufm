@@ -12,7 +12,6 @@
     <%= @blog.description || "Browse the latest from #{@blog.name}" %>
   </p>
   
-  <h3>Listen to <%= @blog.name %></h3>
   <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
 </div>
 

@@ -3,8 +3,9 @@
 /* Layout */
 
 body {
-  background: #eee;
+  background: #111;
   color: #666;
+  @include background-gradient(#111,#333);
 }
 
 #main-mid {
@@ -19,7 +20,6 @@ body {
   #body {
     overflow: hidden;
     position: relative;
-    background: #fff;
     padding: 0 0 20px 0;
     @include border-radius-bottom(10px);
   }
@@ -39,7 +39,6 @@ body {
 .fourth    { width: 220px; }
 .half      { width: 460px; }
 .whole     { width: 940px; }
-
 
 
 .feature {
@@ -67,27 +66,5 @@ body {
   
   &.alert {
     text-shadow: 0 -1px 0 #a84a43;
-  }
-}
-
-/*  LOADING SPINNER  */
-
-#loading {
-  width: 100%;
-  text-align: center;
-  position: relative;
-  margin: 30px 0;
-  
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-  
-  span {
-    top: 40%;
-    position: relative;
-    z-index: 10;
-    color: #999;
-    border: none;
   }
 }

@@ -18,6 +18,8 @@ class Blog < ActiveRecord::Base
   before_create :make_station
   after_create  :get_new_posts
   
+  default_scope where(working:true)
+  
   serialize :feed
   
   attr_writer :current_step
@@ -30,13 +32,13 @@ class Blog < ActiveRecord::Base
   end
   
   def has_blog_info?
-    @blog_info || false
+    working
   end
   
   def get_blog_info
     get_html_info
-    update_feed
-    @blog_info = true
+    updated = update_feed
+    self.working = true if updated
   end
   
   def reset
@@ -82,6 +84,7 @@ class Blog < ActiveRecord::Base
     end
   end
   
+  # Gets the description and RSS
   def get_html_info
     begin
       html = Nokogiri::HTML(open(url))
@@ -102,19 +105,7 @@ class Blog < ActiveRecord::Base
   end
   
   def has_feed_url?
-    !(feed_url.nil? or feed_url.empty?)
-  end
-  
-  def update_feed
-    if has_feed_url?
-      if feed.nil?
-        self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-        self.feed_updated_at = feed.last_modified
-      else
-        self.feed = Feedzirra::Feed.update(feed)
-        self.feed_updated_at = feed.last_modified
-      end
-    end
+    !feed_url.blank?
   end
   
   def has_posts?
@@ -122,27 +113,48 @@ class Blog < ActiveRecord::Base
   end
   
   def latest_post
-    posts.order('created_at desc').limit(1).first
+    posts.order('created_at desc').first
+  end
+
+  # Either fetches feed or updates feed 
+  # Returns only new entries
+  def update_feed
+    if has_feed_url?
+      if feed_updated_at.blank?
+        self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
+        if feed != 0
+          self.feed_updated_at = feed.last_modified
+          return feed.entries
+        else
+          return false
+        end
+      else
+        self.feed = Feedzirra::Feed.update(feed)
+        self.feed_updated_at = feed.last_modified
+        return feed.new_entries
+      end
+    end
   end
   
+  # Scans feed and adds new posts
   def get_new_posts
     if !feed.nil?
-      update_feed
-      last = latest_post
-      feed.entries.each do |post|
-        break if last and last.url == post.url
-        # Save posts to db
-        self.posts.create(
+      entries = update_feed
+      if !entries.blank?
+        entries.each do |post|
+          # Save posts to db
+          self.posts.create(
             :title => post.title,
             :author => post.author,
             :url => post.url,
             :content => post.content,
             :created_at => post.published
           )
+        end
       end
-      true
     end
   end
+  handle_asynchronously :get_new_posts if Rails.env.production?
   
   private
   

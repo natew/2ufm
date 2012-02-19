@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '3.1'
+gem 'rails', '3.2'
 gem 'pg'
 gem 'kaminari'
 gem 'paperclip'
@@ -20,18 +20,20 @@ gem 'sanitize'
 gem 'cancan'
 gem 'hashie'
 gem 'texticle', '~> 2.0', :require => 'texticle/rails'
-gem 'foreman'
-gem 'socialite'
+
+# Deploy
+gem 'capistrano'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'coffee-rails'
-  gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => '3-1-stable'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails',   '~> 3.2.3'
   gem 'uglifier'
 end
 
 group :development do
+	gem 'foreman'
   gem 'taps'
 end
 

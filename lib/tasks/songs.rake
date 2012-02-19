@@ -1,6 +1,6 @@
 namespace :songs do
   task :reset => :environment do
-    songs = Song.update_all(processed: false)
+    songs = Song.update_all(processed:false)
   end
   
   task :processed => :environment do
@@ -13,6 +13,13 @@ namespace :songs do
     
     popular_songs.each do |broadcast|
       Broadcast.create(song_id: broadcast.song_id, station_id: popular_station_id)
+    end
+  end
+  
+  task :fix_similar_count => :environment do
+    Song.all.each do |song|
+      #song.shared_count = Song.where(shared_id:id).count
+      song.save
     end
   end
   

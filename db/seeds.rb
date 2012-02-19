@@ -4,13 +4,15 @@ Station.destroy_all
 Broadcast.destroy_all
 User.destroy_all
 Genre.destroy_all
+Artist.destroy_all
 
 # Delete old jobs
 `rake jobs:clear`
 
 # Default stations
-Station.create!(:name => 'Popular Songs', :description => 'Most popular songs right now')
-Station.create!(:name => 'New Songs', :description => 'Newest songs')
+Station.connection.execute("SELECT setval('stations_id_seq',1);") # Reset ID sequence
+Station.create!(:description => 'Popular')
+Station.create!(:description => 'New')
 
 # Create blogs
 blogs = [
@@ -32,6 +34,7 @@ blogs = [
 
 
 blogs.each_with_index do |blog,i|
+  puts "Creating blog #{blog[:name]}"
   b = Blog.new(blog)
   begin
     b.image = File.open("#{Rails.root}/tmp/images/album#{(i%4)+1}.png")

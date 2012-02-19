@@ -58,13 +58,9 @@ function getParameterByName(name) {
 var page = {
 
   enter: function() {
-    // Remove tooltips
+    // Remove tooltips, show loading bar
     $('.tipsy').remove();
-    
-    // Loading...
-    $('#body').html('<div id="loading"><span>Loading</span><img src="/images/ajax-loading.gif" /></div>');
-    //window.clearInterval(rotate);
-    //window.setInterval(rotate, 50);
+    $('header').addClass('loading');
   },
   
   load: function(data) {
@@ -75,7 +71,8 @@ var page = {
     mp.setPage(curPage);
     
     // Update html
-    $('#body').html(data);    
+    $('#body').html(data); 
+	$('header').removeClass('loading');
     
     // Run loaded functions
     var $doc = $(document);

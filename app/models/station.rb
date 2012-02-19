@@ -10,11 +10,11 @@ class Station < ActiveRecord::Base
   has_many   :follows
   
   def self.popular_station
-    find(10)
+    find(2)
   end
   
   def self.new_station
-    find(11)
+    find(3)
   end
   
   def has_songs?
