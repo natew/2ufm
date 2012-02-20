@@ -7,7 +7,7 @@ set :user, "nwienert"
 set :application, "2u"
 set :domain, "199.36.105.18"
 set :repository,  "ssh://nwienert@199.36.105.18/var/git/#{application}.git"
-set :deploy_to, "/var/www/#{application}.com/web"
+set :deploy_to, "/var/www/#{application}.fm/web"
 set :scm, :git
 set :branch, 'master'
 set :scm_verbose, true
