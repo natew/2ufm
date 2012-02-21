@@ -1,5 +1,5 @@
 var Path = {
-    'version': "0.8",
+    'version': "0.8.2",
     'map': function (path) {
         if (Path.routes.defined.hasOwnProperty(path)) {
             return Path.routes.defined[path];
@@ -106,14 +106,18 @@ var Path = {
             if (Path.routes.root !== null) {
                 location.hash = Path.routes.root;
             }
-        } else {
-            Path.dispatch(location.hash);
         }
 
-        if ("onhashchange" in window) {
+        // The 'document.documentMode' checks below ensure that PathJS fires the right events
+        // even in IE "Quirks Mode".
+        if ("onhashchange" in window && (!document.documentMode || document.documentMode >= 8)) {
             window.onhashchange = fn;
         } else {
             setInterval(fn, 50);
+        }
+
+        if(location.hash !== "") {
+            Path.dispatch(location.hash);
         }
     },
     'core': {

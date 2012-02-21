@@ -3,9 +3,8 @@
 /* Layout */
 
 body {
-  background: #111;
+  background: #fff;
   color: #666;
-  @include background-gradient(#111,#333);
 }
 
 #main-mid {

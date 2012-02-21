@@ -1,33 +1,9 @@
 <%- if !user_signed_in? -%>
-<div class="title center">
-  <h2>Find &amp; share music with your friends</h2>
-    
-    <div id="quick-signup" class="clearfix">
-      <%= form_tag do %>        
-        <ol class="clearfix">
-          <li>
-            <div class="clearfix">
-              <%= label_tag :blog1, "Username" %>
-              <%= text_field_tag :blog1, '' %>
-            </div>
-          </li>
-          <li>
-            <div class="clearfix">
-              <%= label_tag :blog2, "Password" %>
-              <%= text_field_tag :blog2, '' %>
-            </div>
-          </li>
-          <li id="qs-buttons">
-            <div class="clearfix">
-              <%= label_tag :facebook, "Login with one of these" %>
-              <%= link_to 'Facebook', '#', :class => 'signin facebook' %>
-              <%= link_to 'Twitter', '#', :class => 'signin twitter' %>
-              <%= link_to 'Google', '#', :class => 'signin google' %>
-            </div>
-          </li>
-        </ol>
-      <% end %>
-    </div>
+<div class="announce">
+  <div class="twothirds">
+    <strong>The best new music from around the web.</strong>
+    Find and share new music with your friends.  Sign up for free!
+  </div>
 </div>
 <%- else -%>
 <div class="title">
@@ -38,7 +14,7 @@
 
 <%- if !user_signed_in? -%>
 <div class="shelf">
-  <h3>Featured Blogs</h3>
+  <h3>Featured Stations</h3>
   <ul>
     <%= render :partial => 'stations/shelf', :collection => @featured %>
   </ul>
@@ -50,7 +26,7 @@
   <h3>Song Feed</h3>
   <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
 <%- else -%>
-  <h3>Popular Songs</h3>
+  <h3>Popular Now</h3>
   <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
   <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
 <%- end -%>

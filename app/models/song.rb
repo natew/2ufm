@@ -5,6 +5,7 @@ require 'mp3info'
 class Song < ActiveRecord::Base
   include AttachmentHelper
   
+  # Relationships
   belongs_to  :blog
   belongs_to  :post
   has_many    :broadcasts, :dependent => :destroy
@@ -13,10 +14,11 @@ class Song < ActiveRecord::Base
   has_many    :authors
   has_many    :artists, :through => :authors
   
+  # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   has_attachment :file
 
-  # General
+  # Scopes
   scope :with_blog_and_posts, joins(:blog, :post)
   scope :working, where(processed: true,working: true)
   scope :newest, order('songs.created_at desc')
@@ -164,7 +166,7 @@ class Song < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :scan_and_save if Rails.env.production?
+  handle_asynchronously :scan_and_save
   
   # For processing SoundCloud, Hulkshare and the like
   def get_real_url

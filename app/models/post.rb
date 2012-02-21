@@ -4,17 +4,21 @@ include AttachmentHelper
 include PaperclipExtensions
 
 class Post < ActiveRecord::Base  
+  # Relationships
   belongs_to :blog
   has_many   :songs, :dependent => :destroy
   
+  # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
+  # Scopes
+
   acts_as_url :title, :url_attribute => :slug
   
   validates_uniqueness_of :url
   
   before_create :get_image
-  after_create :save_songs
+  after_create  :save_songs
   
   def to_param
     slug
@@ -46,5 +50,5 @@ class Post < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :save_songs if Rails.env.production?
+  handle_asynchronously :save_songs
 end

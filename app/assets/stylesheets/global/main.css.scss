@@ -3,14 +3,14 @@
 /* HEADING AND TEXT STYLES */
 
 h2 { font-size: 30px; }
-h3 { font-size: 22px; }
+h3 { font-size: 18px; }
 h4 { font-size: 16px; }
 
 h2, h3, h4 {
   line-height: 1em;
   clear: both;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
   color: $subtitle;
   
   small {
@@ -49,7 +49,11 @@ header {
   line-height: 1em;
   text-shadow: 0 1px 1px #000;
   
-  .page-contain { width: 940px; }
+  .page-contain {
+    width: 940px;
+    padding: 0 20px;
+    background: #cb0000;
+  }
   
   h1 {
     margin: 11px 20px 0 0;
@@ -98,7 +102,7 @@ header {
   }
   
   #tagline {
-    color: #777;
+    color: #ccc;
     font-size: 11px;
     font-weight: bold;
     text-shadow: none;
@@ -211,7 +215,7 @@ header {
 
 /* BAR */
 #bar {
-  background: #555;
+  background: #333;
   position: absolute;
   width: 980px;
   left: 50%;
@@ -358,12 +362,12 @@ header {
     #query {
       float: right;
       border: none;
-      padding: 6px 36px 6px 8px;
+      padding: 7px 36px 6px 8px;
       width: 184px;
       color: #ddd;
       background: none;
       border: none;
-      border-bottom: 1px solid #777;
+      border-bottom: 1px solid #555;
       outline: none;
       font-size: 13px;
 
@@ -382,8 +386,9 @@ header {
       border: none;
       position: absolute;
       right: 4px;
-      top: 2px;
+      top: 3px;
       font-size: 20px;
+      color: #777;
       
       &:hover { color: #fff; }
     }
@@ -435,7 +440,6 @@ ol.mp_list {
     border: none;
     height: auto;
     float: none;
-    border-bottom: 1px dotted $border;
     list-style: none;
   
     div { display: inline; }
@@ -464,13 +468,28 @@ ol.mp_list {
 
 /* Titles */
 
+.announce {
+  display: block;
+  border-bottom: 1px solid #ddd;
+  color: #888;
+  font-size: 16px;
+  padding: 15px 0;
+  margin: 0 0 20px 0;
+
+  strong {
+    font-size: 24px;
+    display: block;
+    color: #000;
+    margin: 0 0 8px 0;
+  }
+}
+
 h2.title { color: $subtitle; }
 .title {
-  padding: 18px 0 18px;
-  margin: 0 20px 20px 20px;
+  padding: 20px;
+  margin: 0 20px px 20px;
   color: #999;
   position: relative;
-  border-bottom: 1px solid $border;
   
   &.center h2 {
     font-size: 38px;
@@ -547,10 +566,9 @@ h2.title { color: $subtitle; }
 
 /* Subnav */
 .subnav {
-  margin: -20px 20px 20px 20px;
+  margin: 0 0 20px 0;
   background: #eee;
-  padding: 4px 12px;
-  @include border-radius-bottom(8px);
+  padding: 0 20px;
   
   li {
     float: left;
@@ -558,7 +576,7 @@ h2.title { color: $subtitle; }
     
     a {
       float: left;
-      padding: 8px 12px;
+      padding: 8px 10px;
       font-weight: bold;
       text-decoration: none;
       color: #000;

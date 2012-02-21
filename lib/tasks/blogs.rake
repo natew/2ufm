@@ -1,8 +1,10 @@
 namespace :blogs do
-  task :update => :environment do
-    Blog.all.each do |blog|
-      puts "Updating #{blog.name}"
-      blog.get_new_posts
+  namespace :update do
+    task :all => :environment do
+      Blog.all.each do |blog|
+        puts "Updating #{blog.name}"
+        blog.get_new_posts
+      end
     end
   end
   

@@ -1,27 +1,25 @@
 @import "mixins.css.scss";
 
 .shelf {
-  margin: 0 20px 20px 20px;
-  padding: 0 0 10px 0;
-  border-bottom: 1px solid $border;
+  margin: 20px;
+  padding: 10px 0;
   
   h3 {
     position: relative;
     z-index: 10;
     margin: -10px 0 10px 0;
-    font-size: 16px;
   }
   
   ul {
     padding: 0;
-    margin-left: -24px;
+    margin-left: -30px;
     margin-bottom: 6px;
   }
   
   li {
     list-style: none;
     float: left;
-    margin: 0 0 0 31px;
+    margin: 0 0 0 33px;
     position: relative;
     @include box-shadow(0,0,4px,#000);
     @include border-radius(4px);
@@ -36,6 +34,7 @@
     strong {
       text-align: center;
       color: #fff;
+      font-size: 14px;
       padding: 4px 0;
       display: block;
       position: absolute;

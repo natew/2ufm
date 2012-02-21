@@ -8,6 +8,12 @@ class Station < ActiveRecord::Base
   has_many   :broadcasts, :dependent => :destroy
   has_many   :songs, :through => :broadcasts, :extend => SongExtensions
   has_many   :follows
+
+  acts_as_url :title, :url_attribute => :slug, :sync_url => true
+
+  def to_param
+    url
+  end
   
   def self.popular_station
     find(2)

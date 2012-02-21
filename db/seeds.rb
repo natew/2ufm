@@ -11,8 +11,8 @@ Artist.destroy_all
 
 # Default stations
 Station.connection.execute("SELECT setval('stations_id_seq',1);") # Reset ID sequence
-Station.create!(:description => 'Popular')
-Station.create!(:description => 'New')
+Station.create!(:title => 'Popular songs')
+Station.create!(:title => 'New songs')
 
 # Create blogs
 blogs = [
@@ -49,13 +49,13 @@ end
 Genre.create(:name => "Drum & Bass")
 Genre.create(:name => "Dubstep")
 Genre.create(:name => "House")
-Genre.create(:name => "Electonic")
+Genre.create(:name => "Electo")
 Genre.create(:name => "R&B")
 Genre.create(:name => "Hip-Hop")
-Genre.create(:name => "Electro")
+Genre.create(:name => "Downtempo")
 Genre.create(:name => "Pop")
 Genre.create(:name => "Trance")
-Genre.create(:name => "Raggae")
+Genre.create(:name => "Progressive")
 Genre.create(:name => "Techno")
 Genre.create(:name => "Rock")
 Genre.create(:name => "Folk")
