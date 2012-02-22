@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "delayed/recipes"  
 load 'deploy/assets'
 
 default_run_options[:pty] = true
@@ -11,6 +12,7 @@ set :deploy_to, "/var/www/#{application}.fm/web"
 set :scm, :git
 set :branch, 'master'
 set :scm_verbose, true
+set :rails_env, "production"
 
 role :web, domain
 role :app, domain
@@ -30,3 +32,7 @@ namespace :deploy do
     run "touch #{current_release}/tmp/restart.txt"
   end
 end
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"

@@ -24,7 +24,11 @@
     @include box-shadow(0,0,4px,#000);
     @include border-radius(4px);
     
-    img { @include border-radius(4px); }
+    img {
+      width: 128px;
+      height: 128px;
+      @include border-radius(4px);
+    }
     
     a {
       text-decoration: none;
