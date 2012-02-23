@@ -44,9 +44,6 @@ gem 'jquery-rails'
 # Use thin as the web server
 gem 'thin'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 

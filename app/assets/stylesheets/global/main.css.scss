@@ -47,23 +47,21 @@ header {
   position: relative;
   z-index: 100;
   line-height: 1em;
-  text-shadow: 0 1px 1px #000;
   
   .page-contain {
     width: 940px;
     padding: 0 20px;
-    background: #cb0000;
   }
   
   h1 {
-    margin: 8px 15px 0 0;
-    font-size: 28px;
-    float: left;
+    position: absolute;
+    top: 10px;
+    left: 10px;
     
     a {
-      background: url(/images/2ufm.png) no-repeat top left;
-      width: 66px;
-      height: 29px;
+      background: url(/images/2ulogo.png) no-repeat top left;
+      width: 100px;
+      height: 86px;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
@@ -86,7 +84,7 @@ header {
       a {
         padding: 11px 10px 13px;
         margin: 4px 0;
-        color: #fff;
+        color: #444;
         float: left;
         text-decoration: none;
         font-weight: bold;
@@ -114,9 +112,10 @@ header {
     display: none;
     position: absolute;
     left: 50%;
-    top: 7px;
-    width: 200px;
-    margin-left: -100px;
+    top: 2px;
+    width: 48px;
+    height: 48px;
+    margin-left: -24px;
     
     img {
       display: block;
@@ -139,7 +138,7 @@ header {
 
       a {
         font-size: 12px;
-        color: #fff;
+        color: #444;
         text-transform: uppercase;
         font-weight: bold;
         display: block;
