@@ -25,9 +25,13 @@
     @include border-radius(4px);
     
     img {
-      width: 128px;
-      height: 128px;
       @include border-radius(4px);
+
+      .cover-medium {
+        width: 128px;
+        height: 128px;
+        overflow: hidden;
+      }
     }
     
     a {

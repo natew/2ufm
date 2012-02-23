@@ -5,5 +5,4 @@ tmp/
 .sass-cache/
 public/assets/*
 vendor/psds/*
-public/attachments/*
 .DS_Store
