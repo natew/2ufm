@@ -41,10 +41,8 @@
   <%- end -%>
   
   <section>
-    <h3>Browse by Genre</h3>
-    <ul id="genres">
-    <%= render @genres %>
-    </ul>
+    <h3>Latest Music</h3>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @new, :pagination => false, :per => 8 } %>
   </section>
 
   <section>

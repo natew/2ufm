@@ -245,7 +245,11 @@
   
   section {
     background: none !important;
-    
+
+    .song-art {
+      display: none;
+    }
+
     .song-info {
       width: 100%;
       float: left;
@@ -265,4 +269,8 @@
       width: 18%;
     }
   }
+}
+
+.third .pagination {
+  display: none;
 }
