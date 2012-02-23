@@ -72,6 +72,7 @@ header {
 
   nav {
     float: left;
+    padding-left: 80px;
     
     li {
       float: left;
@@ -129,7 +130,7 @@ header {
   
   #functions {
     float: right;
-    margin: 6px 0 0 10px;
+    margin: 5px 0 0 10px;
     
     .nav {
       position: relative;
@@ -147,6 +148,7 @@ header {
         text-align: right;
         white-space: nowrap;
         text-decoration: none;
+        @include border-radius(4px);
 
         &:hover {
           color: #fff;
@@ -221,6 +223,7 @@ header {
   top: 45px;
   margin-left: -490px;
   z-index: 98;
+  @include border-radius(4px);
   @include box-shadow-inset(0px,0,2px,#333);
   
   .page-contain { width: 940px; }
@@ -233,7 +236,8 @@ header {
   #player {
     white-space: nowrap;
     float: left;
-    width: 712px;
+    padding-left: 100px;
+    width: 612px;
   
     #player-meta {
       margin: 0;
