@@ -3,7 +3,7 @@
 /* HEADING AND TEXT STYLES */
 
 h2 { font-size: 30px; }
-h3 { font-size: 18px; }
+h3 { font-size: 20px; }
 h4 { font-size: 16px; }
 
 h2, h3, h4 {
@@ -56,7 +56,7 @@ header {
   }
   
   h1 {
-    margin: 11px 20px 0 0;
+    margin: 8px 15px 0 0;
     font-size: 28px;
     float: left;
     
@@ -85,7 +85,7 @@ header {
       
       a {
         padding: 11px 10px 13px;
-        margin: 7px 0;
+        margin: 4px 0;
         color: #fff;
         float: left;
         text-decoration: none;
@@ -107,14 +107,14 @@ header {
     font-weight: bold;
     text-shadow: none;
     float: right;
-    padding: 19px 0;
+    padding: 16px 0;
   }
   
   #loading {
     display: none;
     position: absolute;
     left: 50%;
-    top: 10px;
+    top: 7px;
     width: 200px;
     margin-left: -100px;
     
@@ -130,7 +130,7 @@ header {
   
   #functions {
     float: right;
-    margin: 9px 0 0 10px;
+    margin: 6px 0 0 10px;
     
     .nav {
       position: relative;
@@ -215,14 +215,14 @@ header {
 
 /* BAR */
 #bar {
-  background: #333;
+  background: #555;
   position: absolute;
   width: 980px;
   left: 50%;
-  top: 51px;
+  top: 45px;
   margin-left: -490px;
   z-index: 98;
-  @include border-radius-bottom(4px);
+  @include box-shadow-inset(0px,0,2px,#333);
   
   .page-contain { width: 940px; }
   
@@ -239,7 +239,7 @@ header {
     #player-meta {
       margin: 0;
       font-size: 15px;
-      padding: 7px 11px;
+      padding: 8px 11px;
       float: left;
       white-space: nowrap;
       overflow: hidden;
@@ -288,7 +288,7 @@ header {
         float: left;
         color: #fff;
         font-size: 30px;
-        padding: 10px 10px 5px;
+        padding: 11px 10px 6px;
         font-size: 23px;
         
         &:hover { color: #fff; background: #444; }
@@ -302,7 +302,7 @@ header {
       #player-progress-bar {
         background: #000;
         float: left;
-        height: 8px;
+        height: 9px;
         padding: 1px;
         width: 150px;
         margin: 6px 12px 0;
@@ -355,7 +355,7 @@ header {
   }
   
   form {
-    margin: 4px 0 -6px;
+    margin: 5px 0 -6px;
     float: right;
     position: relative;
 
@@ -470,17 +470,18 @@ ol.mp_list {
 
 .announce {
   display: block;
-  border-bottom: 1px solid #ddd;
-  color: #888;
+  background: #fcfbec;
+  border: 1px solid #ececd3;
+  color: #858468;
   font-size: 16px;
-  padding: 15px 0;
-  margin: 0 0 20px 0;
+  padding: 8px 0;
+  margin: 0 0 15px 0;
+  text-align: center;
+  @include border-radius-bottom(4px);
 
   strong {
-    font-size: 24px;
-    display: block;
-    color: #000;
-    margin: 0 0 8px 0;
+    color: #3f3e2d;
+    margin: 0 0 6px 0;
   }
 }
 
@@ -602,7 +603,7 @@ h2.title { color: $subtitle; }
   font-size: 13px;
   display: inline-block;
   margin: 20px 0;
-  @include box-shadow(0px,1px,2px,#000);
+  @include box-shadow(0px,1px,2px,#999);
   @include border-radius-right(3px);
   
   span {
@@ -624,7 +625,7 @@ h2.title { color: $subtitle; }
     &.current,
     &.gap {
       padding: 9px 16px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-right: none;
       float: left;
       text-decoration: none;

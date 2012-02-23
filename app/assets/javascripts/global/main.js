@@ -5,7 +5,7 @@ $(function() {
   // Scroll music player
   $(window).scroll(function() {
     var $bar = $('#bar');
-    if ($(window).scrollTop() > 50) $bar.addClass('fixed');
+    if ($(window).scrollTop() > 48) $bar.addClass('fixed');
     else $bar.removeClass('fixed');
   });
 
@@ -48,11 +48,12 @@ $(function() {
   });
   
   // Modal windows
+  /*
   $('.nav a.control').click(function(e) {
     e.preventDefault();
-    $('#modal').html($(this).attr('href').html());
+    $('#modal').html($('#' + $(this).data('target')).html());
     $('#overlay').show();
-  });
+  });*/
     
   
   // Player controls

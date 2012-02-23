@@ -6,30 +6,18 @@
       <div class="cover"><%= image_tag('/images/cover.png') %></div>
       <%= image_tag song.resolve_image(:small), :class => 'cover-small' %>
     </div>
-    <div class="song-post">
-      <div class="song-meta">
-        <%= link_to "#{truncate(song.blog_name)}".html_safe, blog_path(song.blog_slug) %> &middot;
-        <%- if song.reposted? -%>
-          Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
+    <div class="song-meta">
+      <%= link_to "#{truncate(song.blog_name)}".html_safe, blog_path(song.blog_slug) %> &middot;
+      <%- if song.reposted? -%>
+        Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
         &middot;
-        <%- end -%>
-        <time><%= relative_time(song.created_at) %></time>
-      </div>
-      <p><%= truncate(strip_tags(song.post_content), :length => 90) %></p>
-      <%- if user_signed_in? and false -%>
-      <span class="active">Active:
-        <%= hidden_field_tag('seen_ids[]', song.id) -%>
-        <%= check_box_tag 'song_ids[]', song.id, @station.songs.include?(song), { :id => song.id } -%>
-      </span>
       <%- end -%>
+      <time><%= relative_time(song.created_at) %></time>
+      <p><%= truncate(strip_tags(song.post_content), :length => 90) %></p>
     </div>
     <ul class="song-links">
-      <li>Purchase song:</li>
-      <li><%= link_to 'eMusic' %></li>
-      <li><%= link_to 'iTunes' %></li>
-      <li><%= link_to 'Amazon' %></li>
-      <li class="right"><%= link_to 'Read Post &raquo;'.html_safe, song.post_url, :target => '_blank' %></li>
-      <li class="right"><%= link_to 'Stats' %></li>
+      <li class="right"><%= link_to 'Purchase' %></li>
+      <li class="right"><%= link_to 'Read &raquo;'.html_safe, song.post_url, :target => '_blank' %></li>
     </ul>
   </div>
   <ul class="song-controls">

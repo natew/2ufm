@@ -86,8 +86,7 @@ var page = {
         .removeAttr('data-remote')
         .attr('title','Please sign in!')
         .attr('href','#new_user')
-        .addClass('disabled')
-        .colorbox({inline: true, width: '50%'});
+        .addClass('disabled');
     } else {
       // Signed in
       $('.button.remove').hover(

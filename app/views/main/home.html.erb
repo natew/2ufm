@@ -1,9 +1,7 @@
 <%- if !user_signed_in? -%>
 <div class="announce">
-  <div class="twothirds">
     <strong>The best new music from around the web.</strong>
     Find and share new music with your friends.  Sign up for free!
-  </div>
 </div>
 <%- else -%>
 <div class="title">
@@ -28,7 +26,7 @@
 <%- else -%>
   <h3>Popular Now</h3>
   <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
-  <%= link_to 'Browse more songs', '/songs', :class => 'button' %>
+  <%= link_to 'Browse more songs', '/songs', :class => 'button right' %>
 <%- end -%>
 </div>
 

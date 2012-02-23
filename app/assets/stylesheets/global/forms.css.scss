@@ -140,10 +140,14 @@
     background-position: 0 -25px;
   }
   
-  &.right {
+  &.abs-right {
     position: absolute;
     top: 12px;
     right: 12px;
+  }
+
+  &.right {
+    float: right;
   }
   
   &.disabled {

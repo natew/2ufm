@@ -2,16 +2,31 @@
 
 .playlist {
   clear: both;
-  margin: -10px 0 20px;
+  margin: 0 0 20px;
   
   section {
     padding: 10px 0;
-    margin: 0 0 10px 0;
+    margin: 0;
     position: relative;
     overflow: hidden;
     
     &:nth-child(2n+1) {
-      background: rgba(255,255,255,0.05);
+      background: #f0f8fc;
+    }
+
+    &:hover {
+      .play-song {
+        visibility: visible !important;
+      }
+
+      .song-links {
+        visibility: visible;
+      }
+
+      .song-controls li.broadcast span.count,
+      .song-controls li.broadcast a {
+        color: #000;
+      }
     }
 
     &.playing {
@@ -29,27 +44,41 @@
     
     .song-info {
       float: right;
-      width: 522px;
-      margin: -2px 0 18px 0;
+      width: 514px;
+      margin: 0;
       padding: 0 20px 0 0;
       
-      p {
-        margin: 0 0 10px 0;
-        font-size: 12px;
-        color: #666;
-        
+      .song-meta {
+        font-size: 11px;
+        margin: 2px 0 0;
+        color: #999;
+        font-weight: bold;
+
         a {
-          color: #666;
+          color: #999;
+        }
+
+        p {
+          display: block;
+          margin: 4px 0 0;
+          font-weight: normal;
+          font-size: 12px;
+          color: #999;
+          width: 375px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
       
       h4 {
-        font-size: 18px;
+        font-size: 16px;
         border: none;
         display: block;
         background: none;
         padding: 0;
         margin: 0;
+        width: 450px;
       
         a {
           text-decoration: none;
@@ -58,7 +87,7 @@
       
       .song-art {
         position: absolute;
-        left: 0;
+        left: 10px;
         top: 10px;
         z-index: 1;
         
@@ -72,10 +101,11 @@
     .song-links {
       margin: 0;
       padding: 0;
-      width: 531px;
       position: absolute;
       bottom: 8px;
+      right: 2px;
       clear: both;
+      visibility: hidden;
       
       li {
         list-style: none;
@@ -110,19 +140,8 @@
       }
     }
     
-    .song-meta {
-      margin: 0 0 5px 0;
-      font-size: 11px;
-      font-weight: bold;
-      color: #999;
-
-      a {
-        color: #999;
-      }
-    }
-    
     .song-controls {
-      margin: -6px -10px -90px -10px;
+      margin: -6px -10px -90px 0;
       padding: 10px 10px 0 10px;
       float: left;
       width: 10%;
@@ -130,13 +149,14 @@
       height: 142px;
       
       .play-song {
+        visibility: hidden;
         margin: 10px 0 0;
         font-size: 66px;
         color: #fff;
         position: absolute;
         z-index: 10;
         top: 0;
-        left: 0;
+        left: 10px;
         width: 64px;
         height: 64px;
         overflow: hidden;
@@ -162,16 +182,16 @@
 
         &.broadcast {
           position: absolute;
-          left: 0;
-          top: 82px;
-          width: 65px;
+          right: 10px;
+          top: 10px;
+          width: 70px;
           text-align: right;
           
           a {
             font-size: 24px;
             color: #777;
             
-            &:hover { color: #3ab30a; }
+            &:hover { color: #cb0000; }
             &.remove {
               color: #239708;
               &:hover { color: #970808;}
