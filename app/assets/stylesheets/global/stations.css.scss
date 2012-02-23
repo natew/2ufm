@@ -47,10 +47,10 @@
       padding: 4px 0;
       display: block;
       position: absolute;
-      bottom: 0;
+      top: 0;
       width: 100%;
       @include dim(70);
-      @include border-radius-bottom(3px);
+      @include border-radius-top(3px);
     }
   }
 }
