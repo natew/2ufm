@@ -55,8 +55,9 @@ header {
   
   h1 {
     position: absolute;
-    top: 10px;
+    top: -6px;
     left: 10px;
+    margin: 0;
     
     a {
       background: url(/images/2ulogo.png) no-repeat top left;
@@ -101,7 +102,7 @@ header {
   }
   
   #tagline {
-    color: #ccc;
+    color: #bbb;
     font-size: 11px;
     font-weight: bold;
     text-shadow: none;
@@ -223,8 +224,7 @@ header {
   top: 45px;
   margin-left: -490px;
   z-index: 98;
-  @include border-radius(4px);
-  @include box-shadow-inset(0px,0,2px,#333);
+  @include border-radius-bottom(6px);
   
   .page-contain { width: 940px; }
   
@@ -477,7 +477,7 @@ ol.mp_list {
   border: 1px solid #ececd3;
   color: #858468;
   font-size: 14px;
-  padding: 10px 0;
+  padding: 10px 0 8px;
   margin: 0 0 15px 0;
   text-align: center;
   @include border-radius-bottom(4px);
