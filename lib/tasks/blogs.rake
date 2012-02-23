@@ -3,7 +3,8 @@ namespace :blogs do
     task :all => :environment do
       Blog.all.each do |blog|
         puts "Updating #{blog.name}"
-        blog.get_new_posts
+        posts = blog.get_new_posts
+        posts.each { |p| puts "Fetched #{p.title}" }
       end
     end
   end
