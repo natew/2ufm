@@ -99,6 +99,9 @@ var page = {
         function() { $(this).html('2');
       });
     }
+
+    // Play button on first song
+    $doc.find('.playlist section:first-child').addClass('show-play');
     
     // Listen sharing
     if (getParameterByName('play')) {

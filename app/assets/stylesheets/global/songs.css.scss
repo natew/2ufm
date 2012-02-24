@@ -14,7 +14,7 @@
       background: #f0f8fc;
     }
 
-    &:nth-child(1) {
+    &.show-play {
       .play-song { visibility: visible !important; }
     }
 
@@ -36,9 +36,15 @@
     &.playing {
       background: #ffd;
     
-      .play-song {
-        opacity: 1 !important;
-        padding: 29px 15px !important;
+      .song-controls {
+        .play-song {
+          background-position: -64px 0;
+          visibility: visible;
+        }
+
+        &:hover .play-song {
+          background-position: -64px -64px;
+        }
       }
     }
     
@@ -54,7 +60,7 @@
       
       .song-meta {
         font-size: 11px;
-        margin: 2px 0 0;
+        margin: 0;
         color: #999;
         font-weight: bold;
 
@@ -107,8 +113,8 @@
       margin: 0;
       padding: 0;
       position: absolute;
-      bottom: 8px;
-      right: 2px;
+      bottom: 12px;
+      right: 4px;
       clear: both;
       visibility: hidden;
       
@@ -166,7 +172,7 @@
         height: 64px;
         overflow: hidden;
         text-indent: -3000em;
-        background: url(/images/play.png) no-repeat;
+        background: url(/images/play_pause.png) no-repeat;
         
         &:hover {
           cursor: pointer;
@@ -250,6 +256,7 @@
   
   section {
     background: none !important;
+    padding: 7px 0;
 
     .song-art {
       display: none;

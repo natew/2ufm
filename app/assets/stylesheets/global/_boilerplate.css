@@ -14,7 +14,7 @@ body, button, input, select, textarea { font: 13px/21px "HelveticaNeue", "Helvet
 ::selection { background: #57b9fe; color: #fff; text-shadow: none; }
 
 a { color: #1057a3; }
-a:hover { color: #177eeb; }
+a:hover { color: #198dd0; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 

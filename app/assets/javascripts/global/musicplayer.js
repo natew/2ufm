@@ -380,6 +380,7 @@ var mp = (function() {
     },
     
     playSection: function(section) {
+      $('.playlist section:first-child').removeClass('show-play');
       player.playSection(section);
     },
     
