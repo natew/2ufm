@@ -14,6 +14,10 @@
       background: #f0f8fc;
     }
 
+    &:nth-child(1) {
+      .play-song { visibility: visible !important; }
+    }
+
     &:hover {
       .play-song {
         visibility: visible !important;

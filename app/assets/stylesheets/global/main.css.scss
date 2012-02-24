@@ -111,22 +111,32 @@ header {
   }
   
   #loading {
-    display: none;
     position: absolute;
     left: 50%;
-    top: 2px;
+    top: -4px;
     width: 48px;
     height: 48px;
     margin-left: -24px;
+    z-index: 0;
+    background: url(/images/loading-planets.gif) no-repeat top left;
+
+    &.hide #hide-loading {
+      display: none;
+    }
+    
+
+    #hide-loading {
+      display: block;
+      width: 48px;
+      height: 48px;
+      position: absolute;
+      background: #fff;
+    }
     
     img {
       display: block;
       margin: 0 auto;
     }
-  }
-  
-  &.loading #loading {
-    display: block;
   }
   
   #functions {

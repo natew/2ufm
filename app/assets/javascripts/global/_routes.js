@@ -60,7 +60,7 @@ var page = {
   enter: function() {
     // Remove tooltips, show loading bar
     $('.tipsy').remove();
-    $('header').addClass('loading');
+    $('#loading').addClass('hide');
   },
   
   load: function(data) {
@@ -72,7 +72,7 @@ var page = {
     
     // Update html
     $('#body').html(data); 
-	$('header').removeClass('loading');
+	  $('#loading').removeClass('hide');
     
     // Run loaded functions
     var $doc = $(document);

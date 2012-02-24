@@ -57,7 +57,9 @@
         </div>
       </div>
       
-      <div id="loading"><img src="/images/loading-planets.gif" /></div>
+      <div id="loading">
+        <span id="hide-loading"></span> <!-- prevent stupid chrom gif redraw flicker bug -->
+      </div>
       
       <span id="tagline">
         Now playing <%= Song.all.count %> songs from <%= Blog.all.count %> blogs
