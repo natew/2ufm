@@ -77,16 +77,12 @@
         </div>
         <div id="player-controls">
           <div id="player-progress-bar">
-            <div id="player-progress-position">
-              <%= link_to 'Progress', '#', :class => 'progress control' %>
-            </div>
+            <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
+            <div id="player-progress-position"></div>
             <div id="player-progress-loaded"></div>
           </div>
           <%= link_to 'Add to station', '#', :class => 'add control tip-n', :title => 'Add to station' %>
           <% link_to 'Station', '#', :class => 'radio control tip-n', :title => 'Station controls' %>
-        </div>
-        <div id="player-meta">
-          <%= link_to '', '#', :id => 'player-song' %>
         </div>
         <div id="player-shortcode">
           <a id="invite" class="tip-n control" title="Share this link with friends so they can listen along with you!">&laquo; Invite friends!</a>

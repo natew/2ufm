@@ -244,28 +244,8 @@ header {
   #player {
     white-space: nowrap;
     float: left;
-    padding-left: 95px;
+    margin-left: 95px;
     width: 822px;
-  
-    #player-meta {
-      margin: 0;
-      font-size: 15px;
-      padding: 8px 11px;
-      float: left;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 60%;
-      
-      a {
-        color: #ccc;
-        text-decoration: none;
-        width: 100%;
-        
-        &:hover {
-          color: #fff;
-        }
-      }
-    }
     
     #player-shortcode {
       position: relative;
@@ -307,59 +287,58 @@ header {
     }
     
     #player-controls {
-      display: none;
-      float: left;
+      position: absolute;
+      margin-left: 125px;
     
       #player-progress-bar {
-        background: #000;
         float: left;
-        height: 9px;
-        padding: 1px;
-        width: 150px;
-        margin: 6px 12px 0;
-        border: 1px solid #999;
+        width: 560px;
+        margin: 0 12px 0 0;
         position: relative;
-        @include border-radius(8px);
         
         &:hover {
           cursor: pointer;
         }
-        
-        #player-progress-position {
-          position: absolute;
-          z-index: 1;
-          background: url(/images/button_bg.png) top;
-          width: 0%;
-          height: 8px;
-          @include border-radius(4px);
+
+        #player-meta {
+          margin: 0;
+          font-size: 15px;
+          padding: 8px;
+          float: left;
+          white-space: nowrap;
+          overflow: hidden;
+          position: relative;
+          z-index: 10;
           
-          .progress {
-            display: block;
-            width: 23px;
-            height: 23px;
-            position: absolute;
-            top: -8px;
-            right: -18px;
-            text-indent: -3000em;
-            overflow: hidden;
-            background: url(/images/player_controls.png) no-repeat -46px 0;
+          a {
+            color: #ccc;
+            text-decoration: none;
+            width: 100%;
             
             &:hover {
-              background-position: -46px -23px;
-            }
-            
-            &:active {
-              background-position: -46px -46px;
+              color: #ccc;
             }
           }
         }
         
+        #player-progress-position {
+          position: absolute;
+          top: 4px;
+          z-index: 1;
+          width: 0%;
+          height: 30px;
+          background: #444;
+        }
+        
         #player-progress-loaded {
+          position: absolute;
+          top: 2px;
           z-index: 0;
           background: #444;
           width: 0%;
-          height: 8px;
-          @include border-radius(4px);
+          height: 34px;
+          margin: 2px 0 0;
+          background: #000;
         }
       }
     }

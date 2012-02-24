@@ -126,10 +126,8 @@ var mp = (function() {
     },
     
     toggle: function() {
-      if (curSong)
-        curSong.togglePause();
-      else
-        this.play();
+      if (isPlaying) curSong.togglePause();
+      else this.play();
     },
     
     next: function() {
@@ -187,6 +185,10 @@ var mp = (function() {
         curSection.removeClass('playing');
         curSection.find('.play-song').html('4');
       }
+    },
+
+    updateProgress: function(event, element) {
+
     }
   }
   
@@ -267,8 +269,6 @@ var mp = (function() {
       isPlaying = false;
       player.setCurSectionInactive();
       curSection = null;
-
-      // Update player
       player.refresh();
     },
 
@@ -285,7 +285,6 @@ var mp = (function() {
     },
 
     finish: function() {
-      
       player.setCurSectionInactive();
       player.next();
     },
