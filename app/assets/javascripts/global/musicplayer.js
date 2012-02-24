@@ -31,10 +31,10 @@ var mp = (function() {
   soundManager.flashVersion = 9; // optional: shiny features (default = 8)
   soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
   soundManager.debugMode = true;
-  soundManager.useFastPolling = true;
-  soundManager.useHighPerformance = true;
+  //soundManager.useFastPolling = true;
+  //soundManager.useHighPerformance = true;
   soundManager.useHTML5Audio = true;
-  //soundManager.preferFlash = false;
+  soundManager.preferFlash = false;
   soundManager.onready(function() {
     smReady = true;
     if (delayStart) player.play();
