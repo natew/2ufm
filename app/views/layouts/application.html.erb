@@ -23,6 +23,7 @@
   <![endif]-->
 
   <%= stylesheet_link_tag "application", :debug => Rails.env.development? %>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css' />
 </head>
 
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %> wizard">

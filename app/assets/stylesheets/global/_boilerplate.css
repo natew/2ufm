@@ -8,7 +8,7 @@ audio:not([controls]) { display: none; }
 
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 body { margin: 0; }
-body, button, input, select, textarea { font: 13px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #bbb; }
+body, button, input, select, textarea { font: 13px/21px 'Lato', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #bbb; }
 
 ::-moz-selection { background: #57b9fe; color: #fff; text-shadow: none; }
 ::selection { background: #57b9fe; color: #fff; text-shadow: none; }
