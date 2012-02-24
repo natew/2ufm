@@ -1,11 +1,29 @@
 namespace :blogs do
+  task :list => :environment do
+    Blog.all.each do |blog|
+      puts "#{blog.id} | #{blog.name}"
+    end
+  end
+
   namespace :update do
     task :all => :environment do
       Blog.all.each do |blog|
         puts "Updating #{blog.name}"
         posts = blog.get_new_posts
-        posts.each { |p| puts "Fetched #{p.title}" }
+        if posts.nil?
+          puts "No new posts"
+        else
+          posts.each { |p| puts "Fetched #{p.title}" }
+        end
       end
+    end
+
+    task :one, [:id] => :environment do |t, args|
+      return if args.id.nil?
+      blog = Blog.find(args.id.to_i)
+      puts "Updating #{blog.name}"
+      blog.get_new_posts
+      puts "Done"
     end
   end
   

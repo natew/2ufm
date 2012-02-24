@@ -156,6 +156,7 @@ class Song < ActiveRecord::Base
           end
         end
       rescue Exception => e
+        puts "Error: '#{e.message}' please check logs for stacktrace"
         logger.info(e.message + "\n" + e.backtrace.inspect)
       end
       
@@ -164,6 +165,8 @@ class Song < ActiveRecord::Base
         find_or_create_artists
         add_to_stations
       end
+    else
+      puts "No URL!"
     end
   end
   handle_asynchronously :scan_and_save

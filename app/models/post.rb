@@ -11,8 +11,6 @@ class Post < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
-  # Scopes
-
   acts_as_url :title, :url_attribute => :slug
   
   validates_uniqueness_of :url
@@ -37,16 +35,19 @@ class Post < ActiveRecord::Base
   end
   
   def save_songs
+    puts "Saving songs from post #{title}"
     parse = Nokogiri::HTML(content)
     parse.css('a').each do |link|
       if link['href'] =~ /.mp3/
-        Song.create!(
+        puts "Found song!"
+        found_song = Song.create(
           :blog_id    => blog_id,
           :post_id    => id,
           :url        => link['href'],
           :link_text  => link.content,
           :created_at => created_at
         )
+        puts "Created song #{link.content}"
       end
     end
   end

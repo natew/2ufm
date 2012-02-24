@@ -119,18 +119,23 @@ class Blog < ActiveRecord::Base
   # Either fetches feed or updates feed 
   # Returns only new entries
   def update_feed
+    puts "Updating feed"
     if has_feed_url?
       if feed_updated_at.blank?
+        puts "No feed yet, grabbing rss"
         self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
         if feed != 0
+          puts "Found new entries"
           self.feed_updated_at = feed.last_modified
           return feed.entries
         else
+          puts "No entries found"
           return false
         end
       else
         self.feed = Feedzirra::Feed.update(feed)
         self.feed_updated_at = feed.last_modified
+        puts "Done"
         return feed.new_entries
       end
     end
@@ -150,7 +155,10 @@ class Blog < ActiveRecord::Base
             :content => post.content,
             :created_at => post.published
           )
+          puts "Created post #{post.title}"
         end
+      else
+        puts "No new posts"
       end
     end
   end
