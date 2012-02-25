@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script type="text/javascript">
-    // Redirect to HashBang URI's
-    if (window.location.pathname != '/') {
-      window.location = ('/#!' + window.location.pathname);
-    }
-  </script>
-  
   <title>2u.fm</title>
   
   <!-- Meta -->
@@ -29,7 +22,7 @@
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %> wizard">
   <header>
     <div class="page-contain">
-      <h1><%= link_to '2u.fm', '/home', :class => 'tip-n', :title => 'Go Home!' %> </h1>
+      <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
       <nav>
         <ul>
           <li><%= link 'Songs', '/songs', :id => 'nav-songs' %></li>

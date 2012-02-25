@@ -27,6 +27,10 @@
         visibility: visible;
       }
 
+      .song-info .song-meta p {
+        width: 400px;
+      }
+
       .song-controls li.broadcast span.count,
       .song-controls li.broadcast a {
         color: #000;
@@ -70,11 +74,11 @@
 
         p {
           display: block;
-          margin: 4px 0 0;
+          margin: 2px 0 0;
           font-weight: normal;
-          font-size: 12px;
+          font-size: 13px;
           color: #999;
-          width: 375px;
+          width: 500px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -82,7 +86,6 @@
       }
       
       h4 {
-        font-size: 16px;
         line-height: 1.2em;
         border: none;
         display: block;
@@ -214,7 +217,7 @@
             font-weight: bold;
             height: 16px;
             padding: 0;
-            margin: -2px 0 0;
+            margin: -2px 4px 0 0;
             color: #777;
           }
         }

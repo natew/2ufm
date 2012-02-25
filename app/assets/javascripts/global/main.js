@@ -1,7 +1,4 @@
 $(function() {
-  // Path.js
-  Path.listen();
-  
   // Scroll music player
   $(window).scroll(function() {
     var $bar = $('#bar');

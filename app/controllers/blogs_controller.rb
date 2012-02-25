@@ -1,7 +1,7 @@
 class BlogsController < ApplicationController
 
   def index
-    @blogs = Blog.order('random()').page(params[:page]).per(9)
+    @blogs = Blog.order('created_at desc').page(params[:page]).per(9)
 
     respond_to do |format|
       format.html # index.html.erb

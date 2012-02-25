@@ -3,8 +3,8 @@
 /* HEADING AND TEXT STYLES */
 
 h2 { font-size: 30px; }
-h3 { font-size: 20px; }
-h4 { font-size: 16px; }
+h3 { font-size: 22px; }
+h4 { font-size: 17px; }
 
 h2, h3, h4 {
   line-height: 1em;
@@ -26,10 +26,6 @@ h2, h3, h4 {
 
 h2 small {
   font-size: 55%;
-}
-
-.third h3, .third .shelf h3 {
-  font-size: 18px;
 }
 
 p.description {
@@ -79,13 +75,13 @@ header {
       float: left;
       
       &.active {
-        background: #333;
-        a { color: #fff; }
+        
+        a { background: #333; color: #fff; }
       }
       
       a {
         padding: 11px 10px 13px;
-        margin: 4px 0;
+        margin: 4px 4px 0 0;
         color: #111;
         float: left;
         text-decoration: none;
@@ -148,7 +144,7 @@ header {
       min-width: 140px;
 
       a {
-        font-size: 12px;
+        font-size: 13px;
         color: #444;
         text-transform: uppercase;
         font-weight: bold;
@@ -438,15 +434,19 @@ ol.mp_list {
   padding: 0;
   
   section, li {
-    padding: 10px;
+    padding: 12px 0 8px;
     margin: 0;
     border: none;
     height: auto;
     float: none;
     list-style: none;
   
-    div { display: inline; }
-    .image { margin: 0 10px 0 0; }
+    div {
+      display: inline-block;
+      margin: 0 0 -9px 0;
+    }
+
+    .image { margin: 0 5px 0 0; }
     img { width: 24px; margin: -6px 0 -3px; }
   
     h4 {
@@ -476,7 +476,7 @@ ol.mp_list {
   background: #fcfbec;
   border: 1px solid #ececd3;
   color: #858468;
-  font-size: 14px;
+  font-size: 16px;
   padding: 10px 0 8px;
   margin: 0 0 15px 0;
   text-align: center;

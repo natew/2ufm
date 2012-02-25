@@ -23,7 +23,7 @@ class Listen < ActiveRecord::Base
   
   def gen_shortcode
     while true
-      self.shortcode = (0...8).map{ ('A'..'Z').to_a.concat((0..9).to_a)[rand(35)] }.join
+      self.shortcode = (0..5).map{ ('A'..'Z').to_a.concat((0..9).to_a)[rand(35)] }.join
       break unless Listen.find_by_shortcode(shortcode)
     end
   end

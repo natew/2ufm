@@ -7,30 +7,33 @@ $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
 // FUNCTIONS
 
 // Lets allow middle clicking for new tabs
-var disableHashbang = false;
+var commandPressed = false;
 var pressedDisable = function(e) {
     var command = e.metaKey || e.ctrlKey;
-    if (command) disableHashbang = true;
-    else disableHashbang = false;
+    if (command) commandPressed = true;
+    else commandPressed = false;
 }
 
 // Set active nav tab
 function navSetActive(action) {
   $('nav li.active').removeClass('active');
-  $('#nav-'+action).parent().addClass('active');
+  if (action != null) $('#nav-'+action).parent().addClass('active');
 }
 
 
 // DOCUMENT.READY
 $(function() {
+  // html5 pushState using Path.js
+  Path.history.listen();
+
   $(window).keydown(pressedDisable).keyup(pressedDisable);
   $(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
   $("a:not(.control)").live('click', function(event) {
     var href = $(this).attr('href');
-    if (href[0] == '/' && event.which != 2 && !disableHashbang) {
+    if (href[0] == '/' && event.which != 2 && !commandPressed) {
       event.preventDefault();
-      window.location.hash = "#!" + href;
+      Path.history.pushState({}, "", $(this).attr("href"));
     }
   });
 
@@ -145,17 +148,17 @@ var page = {
     $('img.cover-small').error(function(){ $(this).attr('src', '/images/default_small.jpg'); });
   },
   
-  error: function() {
-    alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-    alert("responseText: "+xhr.responseText);
+  error: function(xhr) {
+    console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+    console.log("responseText: "+xhr.responseText);
   },
   
   exit: function(xhr,err) {
   },
 }
 
-Path.map("#!/:action(/:id)").to(function(){
-  var action = '/' + this.params['action'];
+Path.map("/:action(/:id)").to(function(){
+  var action = this.params['action'];
   var id     = this.params['id'] ? '/'+this.params['id'] : '' ;
   curPage = action+id;
   
@@ -169,15 +172,16 @@ Path.map("#!/:action(/:id)").to(function(){
   });
 }).enter(page.enter).exit(page.exit);
 
-Path.map("#!/").to(function(){
+Path.map("/").to(function(){
   curPage = '/';
+  navSetActive(null);
   $.ajax({
     type:"GET",
     dataType:"html",
-    url: '/',
+    url: '/home',
     success: page.load,
     error: page.exit
   });
 }).enter(page.enter).exit(page.exit);
 
-Path.root("#!/home");
+Path.root("/");

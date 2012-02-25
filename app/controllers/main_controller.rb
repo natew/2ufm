@@ -7,7 +7,7 @@ class MainController < ApplicationController
     @new      = Station.new_station
     @feed     = current_user if user_signed_in?
     limit     = user_signed_in? ? 2 : 6
-    @featured = Blog.order('random()').limit(limit)
+    @featured = Blog.order('created_at asc').limit(limit)
     @artists  = Artist.order('random()').limit(6)
     
     respond_to do |format|
