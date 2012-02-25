@@ -15,8 +15,6 @@ $(function() {
   // html5 pushState using Path.js
   Path.history.listen();
 
-  console.log(('state' in window.history));
-
   // Disable path.js when command button pressed (allow middle click)
   $(window).keydown(pressedDisable).keyup(pressedDisable);
   $(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled

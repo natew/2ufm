@@ -27,6 +27,14 @@ var Path = {
             }
         },
         'popState': function(event){
+            // Prevent chrome from initial popState
+            console.log(Path.routes.popped);
+            console.log(location.href);
+            console.log(Path.routes.initial);
+            var initialPop = !Path.routes.popped && location.href == Path.routes.initial
+            Path.routes.popped = true;
+            if (initialPop) return;
+
             Path.routes.state = 'pop';
             Path.dispatch(document.location.pathname);
         },
@@ -138,6 +146,8 @@ var Path = {
         'rescue': null,
         'previous': null,
         'state': null,
+        'popped': ('state' in window.history),
+        'initial': location.href,
         'defined': {}
     }
 };
