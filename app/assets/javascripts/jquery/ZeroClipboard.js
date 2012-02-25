@@ -58,7 +58,7 @@ var ZeroClipboard = {
 		var info = {
 			left: 0, 
 			top: 0, 
-			width: obj.width ? obj.width : obj.offsetWidth, 
+			width: obj.width ? obj.width+'13' : obj.offsetWidth, 
 			height: obj.height ? obj.height : obj.offsetHeight
 		};
 

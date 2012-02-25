@@ -2,19 +2,19 @@ var mp = (function() {
   //
   // Variables
   //
-  var playlist = null;
-  var playlistID = null;
-  var playlistIndex = null;
-  var curSection = null;
-  var curSongInfo;
-  var curSong;
-  var isPlaying =  false;
-  var dragging_position = false;
-  var dragging_x;
-  var curPage;
-  var playingPage;
-  var smReady = false;
-  var delayStart = false;
+  var playlist = null,
+      playlistID = null,
+      playlistIndex = null,
+      curSection = null,
+      curSongInfo,
+      curSong,
+      isPlaying =  false,
+      dragging_position = false,
+      dragging_x,
+      curPage,
+      playingPage,
+      smReady = false,
+      delayStart = false;
   
   // Elements
   var pl = {
@@ -248,6 +248,7 @@ var mp = (function() {
   var events = {
     play: function() {
       isPlaying = true;
+      $('#player').addClass('loaded');
       player.setCurSectionActive();
       player.refresh();
       

@@ -243,7 +243,7 @@ header {
     margin-left: 95px;
     width: 822px;
 
-    &.playing {
+    &.loaded {
       #player-buttons a.add {display: block;}
     }
     
@@ -255,8 +255,8 @@ header {
       a {
         padding: 3px;
         font-weight: bold;
-        font-size: 11px;
-        width: 101px;
+        font-size: 13px;
+        width: 110px;
         display: block;
         text-align: center;
         text-decoration: none;
@@ -283,7 +283,7 @@ header {
         width: 20px;
         font-size: 23px;
         
-        &:hover { color: #fff; background: #333; }
+        &:hover { color: #fff; background: #444; }
         &.add {
           display: none;
           font-size: 25px;
@@ -478,7 +478,7 @@ ol.mp_list {
   color: #858468;
   font-size: 16px;
   padding: 10px 0 8px;
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
   text-align: center;
   @include border-radius-bottom(4px);
 

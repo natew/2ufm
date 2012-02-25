@@ -86,7 +86,7 @@
       
       <%= form_tag '/main/search', :method => 'get' do %>
         <%= text_field_tag :query, '', :placeholder =>'Live search for anything' %>
-        <%= submit_tag :s, :id => 'search', :class => 'pictos' %>
+        <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
       <% end -%>
     </div>
   </div>
