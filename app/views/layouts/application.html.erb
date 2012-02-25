@@ -25,8 +25,9 @@
       <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
       <nav>
         <ul>
-          <li><%= link 'Songs', '/songs', :id => 'nav-songs' %></li>
-          <li><%= link 'Blogs', '/blogs', :id => 'nav-blogs' %></li>
+          <li><%= link 'New', '/songs-new', :id => 'nav-songs-new' %></li>
+          <li><%= link 'Popular', '/songs', :id => 'nav-songs' %></li>
+          <li><%= link 'Stations', '/blogs', :id => 'nav-blogs' %></li>
           <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
         </ul>
       </nav>
@@ -110,7 +111,7 @@
       <%- elsif alert -%>
       <div id="dialog" class="alert"><%= alert %></div>
       <%- end -%>
-      
+
       <div id="body">
         <%= yield %>
       </div>

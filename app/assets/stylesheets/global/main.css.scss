@@ -570,8 +570,9 @@ h2.title { color: $subtitle; }
 /* Subnav */
 .subnav {
   margin: 0 0 20px 0;
-  background: #eee;
+  background: #bbe5fa;
   padding: 0 20px;
+  @include border-radius(4px);
   
   li {
     float: left;

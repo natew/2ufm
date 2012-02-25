@@ -4,7 +4,7 @@ Fusefm::Application.routes.draw do
   devise_for :users
   
   match "/users", :to => "users#index"
-  match "/songs/popular", :to => "songs#popular"
+  match "/songs-new", :to => "songs#fresh"
   match "/activity", :to => "main#activity"
   
   resources :genres, :only => [:show]
@@ -17,11 +17,7 @@ Fusefm::Application.routes.draw do
   resources :listens, :only => [:create, :show]
   match "/l/:id", :to => "listens#show"
   
-  resources :songs, :only => [:index, :show] do
-    collection do
-      get :fresh
-    end
-  end
+  resources :songs, :only => [:index, :show]
   
   match "/songs/:id", :to => "songs#failed", :as => :post
   

@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :set_pagination_vars
+
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
   
   private
   

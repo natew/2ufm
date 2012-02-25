@@ -162,15 +162,15 @@ var page = {
 }
 
 Path.map("/:action(/:id)").to(function(){
-  var action = this.params['action'];
-  var id     = this.params['id'] ? '/'+this.params['id'] : '' ;
-  curPage = action+id;
-  
-  navSetActive(action);
+  var id  = this.params['id'] ? '/'+this.params['id'] : '';
+  curPage = this.params['action']+id;
+  navSetActive(this.params['action']);
+
+  // Get the page
   $.ajax({
     type:"GET",
     dataType:"html",
-    url: curPage,
+    url: '/'+curPage,
     success: page.load,
     error: page.error
   });
@@ -178,7 +178,7 @@ Path.map("/:action(/:id)").to(function(){
 
 Path.map("/").to(function(){
   curPage = '/';
-  navSetActive(null);
+  navSetActive(null,null);
   $.ajax({
     type:"GET",
     dataType:"html",
