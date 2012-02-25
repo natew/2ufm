@@ -245,9 +245,9 @@ header {
     visibility: hidden;
     position: absolute;
     width: 14px;
-    height: 29px;
+    height: 25px;
     top: 10px;
-    left: 48px;
+    left: 56px;
     font-size: 19px;
     color: #999;
     overflow: hidden;
@@ -258,9 +258,10 @@ header {
   }
 
   #bar-home {
-    top: 4px;
-    left: 7px;
-    width: 33px;
+    top: -1px;
+    left: 4px;
+    width: 45px;
+    height: 40px;
     text-indent: -3000em;
     background: url(/images/bar-home.png) no-repeat top left;
   }
@@ -268,18 +269,19 @@ header {
   #player {
     white-space: nowrap;
     float: left;
-    margin-left: 95px;
-    width: 822px;
+    margin-left: 90px;
+    width: 827px;
 
     &.loaded {
       #player-buttons a.add {display: block;}
       #player-buttons a.next, #player-buttons a.prev {color: #fff;}
+      #player-controls a.control {visibility: visible !important;}
     }
     
     #player-shortcode {
       position: relative;
       float: right;
-      padding: 5px 10px;
+      padding: 6px 8px 0;
       
       a {
         padding: 3px;
@@ -289,13 +291,16 @@ header {
         display: block;
         text-align: center;
         text-decoration: none;
-        display: none;
-        color: #fff;
-        border-color: #239708;
-        @include background-gradient(#3ab30a, #239708);
+        color: #999;
+        border-color: #444;
+        @include background-gradient(#999, #555);
         @include border-radius(4px);
         
-        &.show { display: block; }
+        &.show { 
+          color: #fff;
+          border-color: #239708;
+          @include background-gradient(#3ab30a, #239708);
+        }
       }
     }
     
@@ -327,10 +332,24 @@ header {
     #player-controls {
       position: absolute;
       margin-left: 165px;
-      width: 513px;
+      width: 534px;
+
+      .control {
+        float: right;
+        width: 24px;
+        height: 24px;
+        margin: 7px 2px;
+        overflow: hidden;
+        text-indent: -3000em;
+        visibility: hidden;
+
+        &.facebook {background: url(/images/facebook.png) no-repeat top left;}
+        &.twitter {background: url(/images/twitter.png) no-repeat top left;}
+      }
     
       #player-progress-bar {
-        position: relative;
+        position: absolute;
+        width: 472px;
         
         &:hover {
           cursor: pointer;
@@ -347,13 +366,9 @@ header {
           z-index: 10;
           
           a {
-            color: #ccc;
+            color: #fff;
             text-decoration: none;
             width: 100%;
-            
-            &:hover {
-              color: #ccc;
-            }
           }
         }
         
@@ -380,16 +395,22 @@ header {
   
   form {
     margin: 5px 0 -6px;
-    float: right;
-    position: relative;
+    right: 0;
+    position: absolute;
+    z-index: 1000;
     width: 32px;
     overflow: hidden;
+    background: #444;
+
+    &:hover {
+      width: 215px;
+    }
 
     #query {
       float: right;
       border: none;
       padding: 7px 8px 6px;
-      width: 184px;
+      width: 164px;
       margin-right: 32px;
       color: #ddd;
       background: none;

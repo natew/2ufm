@@ -7,12 +7,17 @@ var pressedDisable = function(e) {
   else commandPressed = false;
 }
 
-// document.ready
-$(function() {
-  var $bar       = $('#bar'),
-      $window    = $(window);
+// Sets bar to fixed
+function setBarPosition() {
+  if ($(window).scrollTop() > 44) $('#bar').addClass('fixed');
+  else $('#bar').removeClass('fixed');
+}
 
-  // html5 pushState using Path.js
+//
+// Document.ready
+//
+$(function() {
+  // HTML5 pushState using Path.js
   Path.history.listen();
 
   // Disable path.js when command button pressed (allow middle click)
@@ -33,10 +38,8 @@ $(function() {
   });
 
   // Scroll music player
-  $window.scroll(function() {
-    if ($window.scrollTop() > 44) $bar.addClass('fixed');
-    else $bar.removeClass('fixed');
-  });
+  setBarPosition();
+  $(window).scroll(setBarPosition);
 
   // Bar buttons under logo
   $('#bar-top').click(function(e) {
