@@ -14,13 +14,6 @@ var pressedDisable = function(e) {
     else commandPressed = false;
 }
 
-// Set active nav tab
-function navSetActive(action) {
-  $('nav li.active').removeClass('active');
-  if (action != null) $('#nav-'+action).parent().addClass('active');
-}
-
-
 // DOCUMENT.READY
 $(function() {
   // html5 pushState using Path.js
@@ -164,7 +157,6 @@ var page = {
 Path.map("/:action(/:id)").to(function(){
   var id  = this.params['id'] ? '/'+this.params['id'] : '';
   curPage = this.params['action']+id;
-  navSetActive(this.params['action']);
 
   // Get the page
   $.ajax({
@@ -178,7 +170,6 @@ Path.map("/:action(/:id)").to(function(){
 
 Path.map("/").to(function(){
   curPage = '/';
-  navSetActive(null,null);
   $.ajax({
     type:"GET",
     dataType:"html",

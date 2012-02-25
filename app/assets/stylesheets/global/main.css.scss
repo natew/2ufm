@@ -50,14 +50,14 @@ header {
   
   h1 {
     position: absolute;
-    top: -3px;
+    top: -4px;
     left: 5px;
     margin: 0;
     
     a {
       background: url(/images/2ulogo.png) no-repeat top left;
-      width: 92px;
-      height: 83px;
+      width: 100px;
+      height: 90px;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
@@ -139,7 +139,7 @@ header {
     
     .nav {
       position: relative;
-      margin: 0 -5px 0 0;
+      margin: 0;
       min-width: 140px;
 
       a {
@@ -235,6 +235,34 @@ header {
   &.fixed {
     position: fixed;
     top: 0;
+
+    #bar-home,
+    #bar-top { visibility: visible; }
+  }
+
+  #bar-home,
+  #bar-top {
+    visibility: hidden;
+    position: absolute;
+    width: 14px;
+    height: 29px;
+    top: 10px;
+    left: 48px;
+    font-size: 19px;
+    color: #999;
+    overflow: hidden;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  #bar-home {
+    top: 4px;
+    left: 7px;
+    width: 33px;
+    text-indent: -3000em;
+    background: url(/images/bar-home.png) no-repeat top left;
   }
   
   #player {

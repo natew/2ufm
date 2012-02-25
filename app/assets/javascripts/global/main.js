@@ -1,9 +1,17 @@
 $(function() {
+  var $bar       = $('#bar'),
+      $window    = $(window);
+
   // Scroll music player
-  $(window).scroll(function() {
-    var $bar = $('#bar');
-    if ($(window).scrollTop() > 48) $bar.addClass('fixed');
+  $window.scroll(function() {
+    if ($window.scrollTop() > 44) $bar.addClass('fixed');
     else $bar.removeClass('fixed');
+  });
+
+  // Bar buttons under logo
+  $('#bar-top').click(function(e) {
+    e.preventDefault();
+    $('html,body').animate({scrollTop:0}, 200);
   });
 
   // Tooltips
