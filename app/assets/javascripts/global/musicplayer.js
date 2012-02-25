@@ -18,8 +18,9 @@ var mp = (function() {
   
   // Elements
   var pl = {
+    bar: $('#player-progress-bar'),
     loaded: $('#player-progress-loaded'),
-    progress: $('#player-progress-position'),
+    position: $('#player-progress-position'),
     player: $('#player'),
     song: $('#player-song'),
     play: $('#player-buttons .play'),
@@ -40,11 +41,11 @@ var mp = (function() {
     if (delayStart) player.play();
     if (soundManager.supported()) {
       pl.loaded.bind('mousedown', actions.startDrag);
-      pl.progress.bind('mousedown', actions.startDrag);
+      pl.position.bind('mousedown', actions.startDrag);
       pl.loaded.bind('mouseup', actions.endDrag);
-      pl.progress.bind('mouseup', actions.endDrag);
+      pl.position.bind('mouseup', actions.endDrag);
     } else {
-      // not supported
+      alert('Your browser does not support audio playback');
     }
   });
   
@@ -187,7 +188,7 @@ var mp = (function() {
       }
     },
 
-    updateProgress: function(event, element) {
+    updateProgress: function(position) {
 
     }
   }
@@ -201,10 +202,11 @@ var mp = (function() {
       if (!event) var event = window.event;
       element = event.target || event.srcElement;
 
+      console.log('startdrag: ' + element.id)
       if (element.id.match(/progress/)) {
         dragging_position = true;
-        $(window).unbind('mousemove').bind('mousemove', this.followDrag);
-        $(window).unbind('mouseup').bind('mouseup', this.endDrag);
+        $(document).unbind('mousemove').bind('mousemove', actions.followDrag);
+        $(document).unbind('mouseup').bind('mouseup', actions.endDrag);
       }
 
       return false;
@@ -215,8 +217,8 @@ var mp = (function() {
       element = event.target || event.srcElement;
 
       dragging_position = false;
-      $(window).unbind('mousemove');
-      $(window).unbind('mouseup');
+      $(document).unbind('mousemove');
+      $(document).unbind('mouseup');
 
       if (element.id.match(/progress/)) {
         player.updateProgress(event, element);
@@ -229,13 +231,17 @@ var mp = (function() {
       if (!event) var event = window.event;
       element = event.target || event.srcElement;
 
-      var x = parseInt(event.clientX);
-      var pos = curSong.position;
+      var x      = parseInt(event.clientX),
+          offset = pl.bar.offset().left,
+          width  = pl.bar.width(),
+          curPos = curSong.position,
+          newPos = Math.round(((x - offset) / width) * 100);
 
-      elements.loaded.width((Math.round( player_position / player_duration * 100 * 100) / 100 ) + '%')
+      console.log('followdrag: ' + x + ' / ' + newPos + '%');
+      pl.position.attr('width',newPos);
 
       player.updateProgress(event, element);
-      if (player_position >= player_duration) this.endDrag();
+      if (player_position >= player_duration) actions.endDrag();
     },
     
     

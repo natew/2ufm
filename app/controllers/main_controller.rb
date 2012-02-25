@@ -1,8 +1,5 @@
 class MainController < ApplicationController
   def index
-  end
-  
-  def home
     @popular  = Station.popular_station unless user_signed_in?
     @new      = Station.new_station
     @feed     = current_user if user_signed_in?

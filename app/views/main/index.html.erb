@@ -1,0 +1,43 @@
+<%- if !user_signed_in? -%>
+<div class="shelf">
+  <h3>Featured Stations</h3>
+  <ul>
+    <%= render :partial => 'stations/shelf', :collection => @featured %>
+  </ul>
+</div>
+<%- end -%>
+
+<div class="twothirds">
+<%- if user_signed_in? -%>
+  <h3>Song Feed</h3>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
+<%- else -%>
+  <h3>Popular Now</h3>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
+  <%= link_to 'Browse more songs', '/songs', :class => 'button right' %>
+<%- end -%>
+</div>
+
+<div class="third">
+  <%- if user_signed_in? -%>
+  <div class="shelf">
+    <h3>Featured Blogs</h3>
+    <ul>
+      <%= render :partial => 'stations/shelf', :collection => @featured %>
+    </ul>
+  </div>
+  <%- end -%>
+  
+  <section>
+    <h3>Latest Music</h3>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @new, :pagination => false, :per => 8 } %>
+  </section>
+
+  <section>
+    <h3>Artists</h3>
+    <ul class="list">
+      <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
+    </ul>
+    <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
+  </section>
+</div>

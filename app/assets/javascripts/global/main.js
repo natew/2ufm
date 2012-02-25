@@ -1,6 +1,35 @@
+// Allow middle clicking for new tabs
+var commandPressed = false;
+var pressedDisable = function(e) {
+  console.log('command toggle');
+  var command = e.metaKey || e.ctrlKey;
+  if (command) commandPressed = true;
+  else commandPressed = false;
+}
+
 $(function() {
   var $bar       = $('#bar'),
       $window    = $(window);
+
+  // html5 pushState using Path.js
+  Path.history.listen();
+
+  // Disable path.js when command button pressed (allow middle click)
+  $(window).keydown(pressedDisable).keyup(pressedDisable);
+  $(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
+
+  $("a:not(.control)").live('click', function(event) {
+    var href = $(this).attr('href');
+    if (href[0] == '/' && event.which != 2 && !commandPressed) {
+      event.preventDefault();
+      Path.history.pushState({}, "", $(this).attr("href"));
+    }
+  });
+
+  $('a.disabled').live('click', function(e) {
+    // Sign in modal
+    return false;
+  });
 
   // Scroll music player
   $window.scroll(function() {
