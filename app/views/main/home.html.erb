@@ -1,16 +1,4 @@
 <%- if !user_signed_in? -%>
-<div class="announce">
-    <strong>The best new music from around the web.</strong>
-    Find and share new music with your friends.  Sign up for free!
-</div>
-<%- else -%>
-<div class="title">
-  <h2>Welcome, <%= current_user.username %></h2>
-  <div class="title_nav"><%= link_to 'My Station', current_user, :class => 'button' %></div>
-</div>
-<%- end -%>
-
-<%- if !user_signed_in? -%>
 <div class="shelf">
   <h3>Featured Stations</h3>
   <ul>

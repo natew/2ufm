@@ -45,14 +45,13 @@ header {
   line-height: 1em;
   
   .page-contain {
-    width: 940px;
-    padding: 0 20px;
+    width: 980px;
   }
   
   h1 {
     position: absolute;
     top: -3px;
-    left: 10px;
+    left: 5px;
     margin: 0;
     
     a {
@@ -69,20 +68,19 @@ header {
 
   nav {
     float: left;
-    padding-left: 80px;
+    padding-left: 95px;
     
     li {
       float: left;
       
       &.active {
-        
-        a { background: #333; color: #fff; }
+        a { background: #ebf5fa; color: #000; }
       }
       
       a {
         padding: 11px 10px 13px;
         margin: 4px 4px 0 0;
-        color: #111;
+        color: #555;
         float: left;
         text-decoration: none;
         font-weight: bold;
@@ -90,7 +88,8 @@ header {
         @include border-radius(4px);
 
         &:hover {
-          background: #eee;
+          background: #ebf5fa;
+          color: #000;
         }
       }
     }
@@ -145,7 +144,7 @@ header {
 
       a {
         font-size: 13px;
-        color: #444;
+        color: #555;
         text-transform: uppercase;
         font-weight: bold;
         display: block;
@@ -157,8 +156,8 @@ header {
         @include border-radius(4px);
 
         &:hover {
-          color: #fff;
-          background: #444;
+          color: #000;
+          background: #ebf5fa;
         }
         
         &#nav-username::before {
@@ -222,13 +221,14 @@ header {
 
 /* BAR */
 #bar {
-  background: #111;
+  background: #444;
   position: absolute;
   width: 980px;
   left: 50%;
   top: 45px;
   margin-left: -490px;
   z-index: 98;
+  @include border-radius-bottom(4px);
   
   .page-contain { width: 950px; }
   
@@ -283,7 +283,7 @@ header {
         width: 20px;
         font-size: 23px;
         
-        &:hover { color: #fff; background: #444; }
+        &:hover { color: #fff; background: #222; }
         &.add {
           display: none;
           font-size: 25px;
@@ -297,7 +297,7 @@ header {
     #player-controls {
       position: absolute;
       margin-left: 165px;
-      width: 530px;
+      width: 513px;
     
       #player-progress-bar {
         position: relative;
@@ -333,18 +333,16 @@ header {
           z-index: 1;
           width: 0%;
           height: 30px;
-          background: #444;
+          background: #222;
         }
         
         #player-progress-loaded {
           position: absolute;
-          top: 2px;
+          top: 4px;
           z-index: 0;
-          background: #444;
           width: 0%;
-          height: 34px;
-          margin: 2px 0 0;
-          background: #000;
+          height: 30px;
+          background: #555;
         }
       }
     }
@@ -478,7 +476,7 @@ ol.mp_list {
   color: #858468;
   font-size: 16px;
   padding: 10px 0 8px;
-  margin: 0 0 10px 0;
+  margin: 0 0 15px 0;
   text-align: center;
   @include border-radius-bottom(4px);
 
