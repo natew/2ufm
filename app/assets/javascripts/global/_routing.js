@@ -74,8 +74,12 @@ var page = {
     mp.setPage(curPage);
     
     // Update html
-    $('#body').html(data); 
+    $('#body').html(data);
 	  $('#loading').removeClass('hide');
+
+    // Scroll to top if we are going to new page
+    if (Path.routes.state == 'push' && $('body').scrollTop() > 0)
+      $('html,body').animate({scrollTop:0}, 200);
     
     // Run loaded functions
     var $doc = $(document);

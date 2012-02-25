@@ -15,6 +15,7 @@ var Path = {
     },
     'history': {
         'pushState': function(state, title, path){
+            Path.routes.state = 'push';
             if(Path.history.supported){
                 if(Path.dispatch(path)){
                     history.pushState(state, title, path);
@@ -26,6 +27,7 @@ var Path = {
             }
         },
         'popState': function(event){
+            Path.routes.state = 'pop';
             Path.dispatch(document.location.pathname);
         },
         'listen': function(fallback){
@@ -135,6 +137,7 @@ var Path = {
         'root': null,
         'rescue': null,
         'previous': null,
+        'state': null,
         'defined': {}
     }
 };
