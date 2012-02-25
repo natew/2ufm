@@ -7,12 +7,15 @@ var pressedDisable = function(e) {
   else commandPressed = false;
 }
 
+// document.ready
 $(function() {
   var $bar       = $('#bar'),
       $window    = $(window);
 
   // html5 pushState using Path.js
   Path.history.listen();
+
+  console.log(('state' in window.history));
 
   // Disable path.js when command button pressed (allow middle click)
   $(window).keydown(pressedDisable).keyup(pressedDisable);
