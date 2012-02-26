@@ -19,14 +19,14 @@ class Song < ActiveRecord::Base
   has_attachment :file
 
   # Scopes
-  scope :with_blog_and_posts, joins(:blog, :post)
+  scope :with_blog_and_post, joins(:blog, :post)
   scope :working, where(processed: true,working: true)
-  scope :newest, order('songs.created_at desc')
-  scope :oldest, order('songs.created_at asc')
+  scope :newest, order('songs.published_at desc')
+  scope :oldest, order('songs.published_at asc')
   scope :group_by_shared, select('DISTINCT ON (broadcasts.created_at,songs.shared_id) songs.*').order('broadcasts.created_at desc, songs.shared_id desc')
   scope :select_with_info, select('songs.*, posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
-  scope :individual, select_with_info.with_blog_and_posts.working
-  scope :playlist_ready, group_by_shared.select_with_info.with_blog_and_posts.working
+  scope :individual, select_with_info.with_blog_and_post.working
+  scope :playlist_ready, group_by_shared.select_with_info.with_blog_and_post.working
   
   acts_as_url :full_name, :url_attribute => :slug
   

@@ -1,6 +1,7 @@
 require 'feedzirra'
 require 'open-uri'
 require 'nokogiri'
+require 'anemone'
 
 class Blog < ActiveRecord::Base
   include AttachmentHelper
@@ -29,6 +30,34 @@ class Blog < ActiveRecord::Base
   
   def to_param
     slug
+  end
+
+  def crawl
+    puts "Crawling #{name}"
+    Anemone.crawl(url) do |anemone|
+      anemone.storage = Anemone::Storage.MongoDB
+      anemone.on_every_page do |page|
+        puts "Crawling #{page.url} (#{page.code})"
+        if page.code == 200
+          headers_date = Date.parse(page.headers['date'][0])
+          html = Nokogiri::HTML(page.body)
+          html.css('a').each do |link|
+            if link['href'] =~ /\.mp3(\?(.*))?$/
+              puts "Found song! #{link['href']}"
+              post = Post.find_or_create_by_url(
+                  :url => page.url,
+                  :blog_id => id,
+                  :title => html.at('title').text || meta['content'] || '',
+                  :author => '',
+                  :content => page.body,
+                  :published_at => headers_date
+                )
+              break
+            end
+          end
+        end
+      end
+    end
   end
   
   def has_blog_info?

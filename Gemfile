@@ -21,6 +21,9 @@ gem 'cancan'
 gem 'hashie'
 gem 'texticle', '~> 2.0', :require => 'texticle/rails'
 gem 'ramon'
+gem 'anemone'
+gem 'mongo_mapper'
+gem 'bson_ext'
 
 # Deploy
 gem 'capistrano'

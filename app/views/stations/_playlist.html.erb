@@ -1,5 +1,5 @@
 <%- per        ||= 12
-	songs      ||= station.songs.playlist_ready.page(params[:page]).per(per)
+	songs      ||= station.songs.playlist_ready.newest.page(params[:page]).per(per)
     station    ||= Station.new
     pagination ||= true -%>
 <div id="playlist-<%= station.id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= station.to_json(:only => [:id, :slug, :name]) %>, &quot;songs&quot;: <%= songs.to_a.to_playlist %>}">

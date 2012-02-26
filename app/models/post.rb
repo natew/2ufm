@@ -38,14 +38,14 @@ class Post < ActiveRecord::Base
     puts "Saving songs from post #{title}"
     parse = Nokogiri::HTML(content)
     parse.css('a').each do |link|
-      if link['href'] =~ /.mp3/
+      if link['href'] =~ /\.mp3(\?(.*))?$/
         puts "Found song!"
         found_song = Song.create(
           :blog_id    => blog_id,
           :post_id    => id,
           :url        => link['href'],
           :link_text  => link.content,
-          :created_at => created_at
+          :published_at => created_at
         )
         puts "Created song #{link.content}"
       end

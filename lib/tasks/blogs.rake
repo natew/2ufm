@@ -5,6 +5,22 @@ namespace :blogs do
     end
   end
 
+  task :get_post_format, [:id] => :environment do
+    return if args.id.nil?
+    blog = Blog.find(args.id.to_i)
+    unless blog.nil?
+      
+    end
+  end
+
+  task :rescan, [:id] => :environment do
+    return if args.id.nil?
+    blog = Blog.find(args.id.to_i)
+    unless blog.nil?
+
+    end
+  end
+
   namespace :update do
     task :all => :environment do
       Blog.all.each do |blog|
@@ -21,9 +37,11 @@ namespace :blogs do
     task :one, [:id] => :environment do |t, args|
       return if args.id.nil?
       blog = Blog.find(args.id.to_i)
-      puts "Updating #{blog.name}"
-      blog.get_new_posts
-      puts "Done"
+      unless blog.nil?
+        puts "Updating #{blog.name}"
+        blog.get_new_posts
+        puts "Done"
+      end
     end
   end
   
