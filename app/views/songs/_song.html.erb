@@ -12,7 +12,7 @@
         Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
         &middot;
       <%- end -%>
-      <time><%= relative_time(song.created_at) %></time>
+      <time><%= relative_time(song.published_at) %></time>
       <p><%= truncate(strip_tags(song.post_content), :length => 90) %></p>
     </div>
     <ul class="song-links">
