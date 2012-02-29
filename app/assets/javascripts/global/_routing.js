@@ -1,4 +1,4 @@
-var curPage;
+var curPage = window.location.pathname;
 
 // jQuery and Rails compatability!
 // So we can do wants.js but return HTML
@@ -10,7 +10,7 @@ function getParameterByName(name) {
   name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
   var regexS = "[\\?&]" + name + "=([^&#]*)";
   var regex = new RegExp(regexS);
-  var results = regex.exec(curPage);
+  var results = regex.exec(window.location.search);
   if (results == null) return false;
   else return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
@@ -124,13 +124,13 @@ var page = {
 
 Path.map("/(:action)(/:id)").to(function(){
   var id  = this.params['id'] ? '/'+this.params['id'] : '';
-  curPage = this.params['action'] ? this.params['action']+id : '';
+  curPage = '/' + (this.params['action'] ? this.params['action']+id : '');
 
   // Get the page
   $.ajax({
     type:"GET",
     dataType:"html",
-    url: '/'+curPage,
+    url: curPage,
     success: page.load,
     error: page.error
   });

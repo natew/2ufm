@@ -10,7 +10,7 @@ gem 'aws-ses'
 gem 'devise'
 gem 'nokogiri'
 gem 'chronic'
-gem 'ruby-mp3info', :git => 'git://github.com/NateW/ruby-mp3info.git'
+gem 'ruby-mp3info'
 gem 'delayed_job'
 gem 'stringex', :git => 'git://github.com/rsl/stringex.git'
 gem 'curb'
@@ -41,7 +41,7 @@ group :development do
   gem 'taps'
 end
 
-# JavasScript libs
+# Javascript libs
 gem 'jquery-rails'
 
 # Use thin as the web server

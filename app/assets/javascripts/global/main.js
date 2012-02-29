@@ -17,6 +17,9 @@ function setBarPosition() {
 // Document.ready
 //
 $(function() {
+  // Fire initial page load
+  page.load();
+
   // HTML5 pushState using Path.js
   Path.history.listen();
 

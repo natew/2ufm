@@ -5,5 +5,6 @@
 // the compiled file.
 //
 //= require jquery-1.7.1
+//= require jquery_ujs
 //= require_tree ./plugins
 //= require_tree ./global

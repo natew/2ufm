@@ -1,5 +1,29 @@
 @import "mixins.css.scss";
 
+/* Layout */
+
+body {
+  background: #fff;
+  color: #666;
+}
+
+#main-mid {
+  padding: 35px 0;
+}
+
+.page-contain {
+  width: 980px;
+  margin: 0 auto;
+  position: relative;
+
+  #body {
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+    @include border-radius-bottom(10px);
+  }
+}
+
 /* HEADING AND TEXT STYLES */
 
 h2 { font-size: 30px; }
@@ -24,13 +48,30 @@ h2, h3, h4 {
   }
 }
 
-h2 small {
-  font-size: 55%;
+h2 small { font-size: 55%; }
+
+/* PAGE LAYOUT */
+.third, .twothirds,
+.fourth, .half,
+.whole, .section {
+  float: left;
+  margin-left: 20px;
+  position: relative;
 }
 
-p.description {
-  font-size: 16px;
-  margin-top: 0;
+.third     { width: 300px; }
+.twothirds { width: 620px; }
+.fourth    { width: 220px; }
+.half      { width: 460px; }
+.whole     { width: 940px; }
+
+
+.feature {
+  clear: both;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-right: none;
+  border-left: none;
 }
 
 
@@ -50,7 +91,7 @@ header {
   
   h1 {
     position: absolute;
-    top: -4px;
+    top: -8px;
     left: 5px;
     margin: 0;
     
@@ -68,7 +109,7 @@ header {
 
   nav {
     float: left;
-    padding-left: 95px;
+    padding-left: 100px;
     
     li {
       float: left;
@@ -78,9 +119,9 @@ header {
       }
       
       a {
-        padding: 11px 10px 13px;
+        padding: 11px 8px 13px;
         margin: 4px 4px 0 0;
-        color: #555;
+        color: #000;
         float: left;
         text-decoration: none;
         font-weight: bold;
@@ -258,7 +299,7 @@ header {
   }
 
   #bar-home {
-    top: -1px;
+    top: -2px;
     left: 4px;
     width: 45px;
     height: 40px;
@@ -269,8 +310,8 @@ header {
   #player {
     white-space: nowrap;
     float: left;
-    margin-left: 90px;
-    width: 827px;
+    margin-left: 100px;
+    width: 817px;
 
     &.loaded {
       #player-buttons a.add {display: block;}
@@ -332,7 +373,7 @@ header {
     #player-controls {
       position: absolute;
       margin-left: 165px;
-      width: 534px;
+      width: 524px;
 
       .control {
         float: right;
@@ -349,7 +390,7 @@ header {
     
       #player-progress-bar {
         position: absolute;
-        width: 472px;
+        width: 462px;
         
         &:hover {
           cursor: pointer;
@@ -400,7 +441,7 @@ header {
     z-index: 1000;
     width: 32px;
     overflow: hidden;
-    background: #444;
+    background: #000;
 
     &:hover {
       width: 215px;
@@ -440,6 +481,24 @@ header {
       
       &:hover { color: #fff; }
     }
+  }
+}
+
+/* NOTICES */
+
+#dialog {
+  text-align: center;
+  background: orange;
+  height: 36px;
+  line-height: 2.9em;
+  color: white;
+  margin: -4px 0 15px 0;
+  text-shadow: 0 -1px 0 #579357;
+  font-weight: bold;
+  @include border-radius-bottom(4px);
+  
+  &.alert {
+    text-shadow: 0 -1px 0 #a84a43;
   }
 }
 
@@ -538,8 +597,8 @@ ol.mp_list {
 
 h2.title { color: $subtitle; }
 .title {
-  padding: 20px;
-  margin: 0 20px px 20px;
+  padding: 0 20px;
+  margin: 0 0 20px;
   color: #999;
   position: relative;
   

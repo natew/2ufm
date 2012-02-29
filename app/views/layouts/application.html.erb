@@ -42,12 +42,12 @@
                 <%= link_to "Home", '/home' %>
                 <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
                 <%= link_to "Account".html_safe, '/users/edit' %>
-                <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete' %>
+                <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
               </div>
             </div>
           <% else %>
-            <%= link_to 'Login', new_user_session_path, :class => 'inline control', 'data-target' => 'new_user' %>  
-            <%= link_to 'Signup', new_user_registration_path, :class => 'inline control', 'data-target' => 'new_user'  %>
+            <%= link_to 'Login', new_user_session_path, :class => 'inline', 'data-target' => 'new_user' %>  
+            <%= link_to 'Signup', new_user_registration_path, :class => 'inline', 'data-target' => 'new_user'  %>
           <% end %>
         </div>
       </div>
@@ -98,15 +98,10 @@
   
   <div id="main-mid">
     <div class="page-contain">
-      <%- if !user_signed_in? -%>
+      <%- unless user_signed_in? -%>
       <div class="announce">
           <strong>The best new music from around the web.</strong>
           Find and share new music with your friends.  Sign up for free!
-      </div>
-      <%- else -%>
-      <div class="announce">
-        <strong>Welcome, <%= current_user.username %></strong>
-        <%= link_to 'My Station', current_user, :class => 'button' %>
       </div>
       <%- end -%>
 
