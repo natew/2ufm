@@ -14,7 +14,7 @@ namespace :blogs do
   end
 
   namespace :crawl do
-    task :one => :environment do
+    task :one, [:id] => :environment do
       return if args.id.nil?
       blog = Blog.find(args.id.to_i)
       unless blog.nil?
