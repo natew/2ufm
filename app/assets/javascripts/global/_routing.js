@@ -107,10 +107,6 @@ var page = {
 
       $.plot($stats, [data], options);
     }
-    
-    // Image errors
-    $('img.cover-medium').error(function(){ $(this).attr('src', '/images/default_medium.jpg'); });
-    $('img.cover-small').error(function(){ $(this).attr('src', '/images/default_small.jpg'); });
   },
   
   error: function(xhr) {

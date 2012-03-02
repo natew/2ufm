@@ -64,7 +64,7 @@ class Blog < ActiveRecord::Base
       puts exception.backtrace
     end
   end
-  handle_asynchronously :crawl, :priority => 1 if Rails.env.production?
+  handle_asynchronously :crawl, :priority => 3 if Rails.env.production?
   
   def has_blog_info?
     working
