@@ -169,7 +169,7 @@ class Song < ActiveRecord::Base
       puts "No URL!"
     end
   end
-  handle_asynchronously :scan_and_save
+  handle_asynchronously :scan_and_save, :priority => 3
   
   # For processing SoundCloud, Hulkshare and the like
   def get_real_url

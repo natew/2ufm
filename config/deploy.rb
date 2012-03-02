@@ -13,7 +13,7 @@ set :branch, 'master'
 set :scm_verbose, true
 set :rails_env, "production"
 set :dj_workers, 4
-set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
+set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} nice -n 25 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
 
 role :web, domain
 role :app, domain
