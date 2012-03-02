@@ -13,7 +13,7 @@ set :branch, 'master'
 set :scm_verbose, true
 set :rails_env, "production"
 set :dj_workers, 4
-set :dj_script, "nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
+set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} sudo -c nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
 
 role :web, domain
 role :app, domain
@@ -32,17 +32,6 @@ namespace :deploy do
   desc "Restart Application"
   task :restart, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
-    
-    # Delayed job
-    run "cd #{current_path};"
-    run "RAILS_ENV=#{rails_env}"
-    surun "#{dj_script} restart"
-  end
-end
-
-def surun(command)
-  password = fetch(:root_password, Capistrano::CLI.password_prompt("root password: "))
-  run("su - -c '#{command}'") do |channel, stream, output|
-    channel.send_data("#{password}n") if output
+    run "#{dj_script} restart"
   end
 end
