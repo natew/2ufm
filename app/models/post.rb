@@ -1,9 +1,8 @@
 require 'nokogiri'
-require 'sanitize'
 include AttachmentHelper
 include PaperclipExtensions
 
-class Post < ActiveRecord::Base  
+class Post < ActiveRecord::Base
   # Relationships
   belongs_to :blog
   has_many   :songs, :dependent => :destroy
@@ -13,8 +12,6 @@ class Post < ActiveRecord::Base
   
   acts_as_url :title, :url_attribute => :slug
   
-  validates_uniqueness_of :url
-  
   before_create :get_image
   after_create  :save_songs
   
@@ -23,14 +20,14 @@ class Post < ActiveRecord::Base
   end
   
   def get_image
-    post  = Nokogiri::HTML(content)
-    img = post.css('img:first')
-    if !img.empty?
-      begin
-        self.image = UrlTempfile.new(img.first['src'])
-      rescue
-        puts "Error downloading file"
-      end
+    puts "Getting image"
+    begin
+      post  = Nokogiri::HTML(content)
+      img = post.css('img:first')
+      self.image = UrlTempfile.new(img.first['src']) unless img.empty?
+    rescue => exception
+      puts exception.message
+      puts exception.backtrace
     end
   end
   
@@ -51,5 +48,5 @@ class Post < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :save_songs
+  handle_asynchronously :save_songs if Rails.env.production?
 end

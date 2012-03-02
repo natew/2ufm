@@ -5,6 +5,13 @@ GIT
     stringex (1.3.2)
 
 GIT
+  remote: git://github.com/tenderlove/texticle.git
+  revision: 5badef616aa2a9241775d1a968c44ea223e23c9c
+  specs:
+    texticle (2.0.3)
+      activerecord (~> 3.0)
+
+GIT
   remote: https://github.com/pauldix/sax-machine.git
   revision: d05e6f5c1d9b286940eec6ae2529a4ec7eedf0f0
   specs:
@@ -194,8 +201,6 @@ GEM
       sinatra (~> 1.0.0)
       sqlite3-ruby (~> 1.2)
     term-ansicolor (1.0.7)
-    texticle (2.0.1)
-      activerecord (>= 3.0.0)
     thin (1.2.11)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -247,7 +252,7 @@ DEPENDENCIES
   sax-machine!
   stringex!
   taps
-  texticle (~> 2.0)
+  texticle!
   thin
   turn
   uglifier

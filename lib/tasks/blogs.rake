@@ -13,11 +13,21 @@ namespace :blogs do
     end
   end
 
-  task :rescan, [:id] => :environment do
-    return if args.id.nil?
-    blog = Blog.find(args.id.to_i)
-    unless blog.nil?
+  namespace :crawl do
+    task :one => :environment do
+      return if args.id.nil?
+      blog = Blog.find(args.id.to_i)
+      unless blog.nil?
+        puts "Crawling #{blog.name}"
+        blog.crawl
+      end
+    end
 
+    task :all => :environment do
+      Blog.all.each do |blog|
+        puts "Crawling #{blog.name}"
+        blog.crawl
+      end
     end
   end
 
