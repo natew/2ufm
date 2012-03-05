@@ -164,17 +164,31 @@ class Song < ActiveRecord::Base
     picture = mp3.tag2.APIC || mp3.tag2.PIC
     picture = picture[0] if picture.is_a? Array
     if picture
-      #picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
+      # Read picture
+      text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
+      puts "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
+
+      # Setup for writing
       pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
-      puts "Picture type: #{pic_type}"
-      if pic_type
-        tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song#{id}.#{pic_type[0]}"
-        File.open(tmp_path, 'wb') do |f|
-          logger.info("Song #{id}, Picture HEADER ===== #{picture[0,30]}")
-          f.write(picture[pic_type[0].length+3,picture.length])
-        end
-        self.image = File.new(tmp_path)
+      type     = pic_type[0]
+      path     = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song.#{type}"
+
+      # Handle JPEGs slightly differently
+      if type != 'JPEG'
+        write_picture(path, picture_data)
+      else
+        write_picture(path, picture[14,picture.length])
       end
+
+      # Set for paperclip to write
+      self.image = File.new(path)
+    end
+  end
+
+  # Write binary pictures
+  def write_picture(path, data)
+    File.open(path, 'wb') do |f|
+      f.write data
     end
   end
   
