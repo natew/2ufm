@@ -148,7 +148,7 @@ class Song < ActiveRecord::Base
       puts "No URL!"
     end
   end
-  handle_asynchronously :scan_and_save, :priority => 1
+  handle_asynchronously :scan_and_save, :priority => 1 if Rails.env.production?
 
   # Parse album art from ID3 tag
   def get_album_art(*mp3)
@@ -156,6 +156,8 @@ class Song < ActiveRecord::Base
       open(url) do |song|
         mp3 = Mp3Info.open(song.path)
       end
+    else
+      mp3 = mp3.first
     end
 
     # Save picture
@@ -203,12 +205,13 @@ class Song < ActiveRecord::Base
   def add_to_artists_stations
     authors.each do |author|
       artist = Artist.find(author.artist_id)
-      artist.station.songs << self
+      artist.station.songs << self unless artist.station.song_exists?(id)
     end
   end
   
   def add_to_blog_station
-    Blog.find(blog_id).station.songs << self
+    blog = Blog.find(blog_id)
+    blog.station.songs << self unless blog.station.song_exists?(id)
   end
   
   def add_to_new_station

@@ -14,16 +14,16 @@ gem 'ruby-mp3info'
 gem 'delayed_job'
 gem 'stringex', :git => 'git://github.com/rsl/stringex.git'
 gem 'curb'
-gem 'sax-machine', :git => 'https://github.com/pauldix/sax-machine.git'
 gem 'loofah-activerecord'
 gem 'sanitize'
 gem 'cancan'
 gem 'hashie'
 gem 'texticle', :git => 'git://github.com/tenderlove/texticle.git', :require => 'texticle/rails'
-gem 'ramon'
+#gem 'ramon'
 gem 'anemone'
 gem 'mongo_mapper'
 gem 'bson_ext'
+gem 'feedzirra', :git => 'git://github.com/NateW/feedzirra.git'
 
 # Deploy
 gem 'capistrano'
@@ -37,7 +37,7 @@ group :assets do
 end
 
 group :development do
-	gem 'foreman'
+  gem 'foreman'
   gem 'taps'
 end
 

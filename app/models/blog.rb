@@ -15,8 +15,7 @@ class Blog < ActiveRecord::Base
   
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
-  before_save   :get_blog_info
-  before_create :make_station
+  before_create :make_station, :get_blog_info
   after_create  :get_new_posts
   
   default_scope where(working:true)
@@ -151,6 +150,12 @@ class Blog < ActiveRecord::Base
     posts.order('created_at desc').first
   end
 
+  def reset_feed
+    self.feed = nil
+    self.feed_updated_at = nil
+    self.save
+  end
+
   # Either fetches feed or updates feed 
   # Returns only new entries
   def update_feed
@@ -175,29 +180,40 @@ class Blog < ActiveRecord::Base
       end
     end
   end
+
+  def update_feed_and_save
+    update_feed
+    self.save
+  end
   
-  # Scans feed and adds new posts
+  # Get only new posts
   def get_new_posts
     if !feed.nil?
       entries = update_feed
       if !entries.blank?
-        entries.each do |post|
-          # Save posts to db
-          self.posts.create(
-            :title => post.title,
-            :author => post.author,
-            :url => post.url,
-            :content => post.content,
-            :created_at => post.published
-          )
-          puts "Created post #{post.title}"
-        end
+        get_posts(entries)
       else
         puts "No new posts"
       end
     end
   end
   handle_asynchronously :get_new_posts if Rails.env.production?
+
+  # Will get posts, regarless of new or not
+  def get_posts(*entries)
+    entries = feed.entries if entries.size.zero?
+    entries.each do |post|
+      # Save posts to db
+      self.posts.create(
+        :title => post.title,
+        :author => post.author,
+        :url => post.url,
+        :content => post.content,
+        :created_at => post.published
+      )
+      puts "Created post #{post.title}"
+    end
+  end
   
   private
   
