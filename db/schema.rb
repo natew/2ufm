@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226023037) do
+ActiveRecord::Schema.define(:version => 20120305045224) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20120226023037) do
     t.integer  "shared_count",     :default => 0
     t.boolean  "working",          :default => false
     t.datetime "published_at"
+    t.string   "absolute_url"
   end
 
   create_table "stations", :force => true do |t|

@@ -32,7 +32,6 @@ h4 { font-size: 17px; }
 
 h2, h3, h4 {
   line-height: 1em;
-  clear: both;
   padding: 0;
   margin: 0 0 15px 0;
   color: $subtitle;
@@ -601,6 +600,17 @@ h2.title { color: $subtitle; }
   margin: 0 0 20px;
   color: #999;
   position: relative;
+
+  .image {
+    float: left;
+    margin: 2px 15px 0 0;
+
+    img {
+      height: 64px;
+      width: 64px;
+    }
+  }
+
   
   &.center h2 {
     font-size: 38px;
@@ -656,7 +666,7 @@ h2.title { color: $subtitle; }
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 16px;
+    top: 0;
     right: 10px;
     
     ul { margin-top: 14px; }

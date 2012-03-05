@@ -30,7 +30,7 @@ class Song < ActiveRecord::Base
   
   acts_as_url :full_name, :url_attribute => :slug
   
-  before_save  :clean_url
+  before_save  :clean_url, :get_real_url
   after_create :scan_and_save
 
   def to_param
@@ -70,21 +70,22 @@ class Song < ActiveRecord::Base
         puts "error opening file"
       end
     end
+    self.working
   end
   
   def delayed_check_if_working
     delay.check_if_working
   end
   
+  # Read ID3 Tag and generally collect information on the song
   def scan_and_save
     if !url.nil?      
       begin
         total = nil
         prev  = 0
-        curl  = get_real_url
-        puts "Scanning #{curl} ..."
+        puts "Scanning #{url} ..."
         
-        open(URI.parse(URI.encode(curl)),
+        open(url,
           :content_length_proc => lambda { |content_length|
             raise "Too Big" if content_length > (1048576 * 40) # 20 MB maximum song size
             total = content_length
@@ -95,8 +96,7 @@ class Song < ActiveRecord::Base
               puts "Downloading... #{now}%" 
               prev = now
             end
-          }
-        ) do |song|
+        }) do |song|
           Mp3Info.open(song.path) do |mp3|
             puts "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
             
@@ -119,40 +119,19 @@ class Song < ActiveRecord::Base
               self.processed = true
             end
             
-            puts "Processed... #{processed}"
-            
-            # Save picture
-            picture = mp3.tag2.APIC || mp3.tag2.PIC
-            picture = picture[0] if picture.is_a? Array
-            if picture
-              #picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
-              pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
-              puts "Picture found, #{pic_type}"
-              if pic_type
-                tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song#{id}.#{pic_type[0]}"
-                File.open(tmp_path, 'wb') do |f|
-                  logger.info("Song #{id}, Picture HEADER ===== #{picture[0,30]}")
-                  f.write(picture[pic_type[0].length+3,picture.length])
-                end
-                self.image = File.new(tmp_path)
-              end
-            end
-            
             # Update info if we have processed this song
             if processed?
+              get_album_art(mp3)
               find_similar_songs
               self.slug = full_name.to_url
               puts "Processed successfully"
+            else
+              puts "Could not process"
             end
             
             # Save processing
             self.save
             puts "Saved!"
-            
-            # Destroy tmp image!
-            #
-            #
-            #
           end
         end
       rescue Exception => e
@@ -170,36 +149,47 @@ class Song < ActiveRecord::Base
     end
   end
   handle_asynchronously :scan_and_save, :priority => 1
+
+  # Parse album art from ID3 tag
+  def get_album_art(*mp3)
+    if mp3.size.zero?
+      open(url) do |song|
+        mp3 = Mp3Info.open(song.path)
+      end
+    end
+
+    # Save picture
+    picture = mp3.tag2.APIC || mp3.tag2.PIC
+    picture = picture[0] if picture.is_a? Array
+    if picture
+      #picture.gsub(/\x00[PNG|JPG|JPEG|GIF]\x00\x00/,'')
+      pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
+      puts "Picture type: #{pic_type}"
+      if pic_type
+        tmp_path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song#{id}.#{pic_type[0]}"
+        File.open(tmp_path, 'wb') do |f|
+          logger.info("Song #{id}, Picture HEADER ===== #{picture[0,30]}")
+          f.write(picture[pic_type[0].length+3,picture.length])
+        end
+        self.image = File.new(tmp_path)
+      end
+    end
+  end
   
-  # For processing SoundCloud, Hulkshare and the like
+  # Rules for filesharing sites
   def get_real_url
-    curl = cleaned_url
-    case curl
+    case url
     when /hulkshare\.com/
       page = Nokogiri::HTML(open(curl))
       links = page.css('a.hoverf').each do |link|
         if link['href'] =~ /tracker\.hulkshare/
-          return link['href']
+          absolute_url = link['href']
         end
       end
       false
     else
-      curl
+      absolute_url = url
     end
-  end
-  
-  # Clean url
-  def cleaned_url
-    scrub_url(url)
-  end
-  
-  def scrub_url(uri)
-    clean = uri.gsub(/\/.*/) do |t|
-      t.gsub(/[^.\/a-zA-Z0-9\-_ ]/) do |c|
-        "%#{ c[0].ord<16 ? "0" : "" }#{ c[0].ord.to_s(16).upcase }"
-      end.gsub(" ", "+")
-    end
-    clean.gsub(/\[/,'%5B').gsub(/\]/,'%5D')
   end
   
   def add_to_stations
@@ -348,6 +338,6 @@ class Song < ActiveRecord::Base
   end
   
   def clean_url
-    self.url = URI.escape(url)
+    self.url = URI.encode(URI.escape(url))
   end
 end
