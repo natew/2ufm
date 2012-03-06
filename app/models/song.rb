@@ -30,7 +30,7 @@ class Song < ActiveRecord::Base
   
   acts_as_url :full_name, :url_attribute => :slug
   
-  before_save  :clean_url, :get_real_url
+  before_create  :clean_url, :get_real_url
   after_create :scan_and_save
 
   def to_param
@@ -61,13 +61,17 @@ class Song < ActiveRecord::Base
         req  = Net::HTTP.new(uri.host,uri.port)
         head = req.request_head(uri.path)
         
-        if head.code == '200' and head.content_type =~ /audio/
+        if head.code == '200' and head.content_type =~ /audio|download/
+          puts "Working"
           self.working = true
-          self.save
+        else
+          puts "Not working, #{head.code} | #{head.content_type}"
+          self.working = false
         end
+        self.save
       rescue => exception
         # error opening file
-        puts "error opening file"
+        puts "Error opening file"
       end
     end
     self.working
@@ -351,6 +355,6 @@ class Song < ActiveRecord::Base
   end
   
   def clean_url
-    self.url = URI.encode(URI.escape(url))
+    self.url = URI.encode(url)
   end
 end
