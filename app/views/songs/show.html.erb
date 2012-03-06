@@ -2,7 +2,7 @@
   <%= image_tag @original.image.url(:small), :class => 'icon' %>
   <h2 class="icon">
     <%= @original.name %>
-    <small><%= @original.artist_name %></small>
+    <small>Artists: <%= artists_list @original %></small>
   </h2>
 </div>
 

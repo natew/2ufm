@@ -19,3 +19,9 @@
   <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station } %>
 </div>
 
+<div class="third">
+  <h3>Blogs</h3>
+  <ul class="shelf">
+    <%= render :partial => 'stations/shelf', :collection => @artist.station.blogs %>
+  </ul>
+</div>

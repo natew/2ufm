@@ -22,6 +22,15 @@ module ApplicationHelper
     id     = has ? current_user.station.broadcasts.where(:song_id => song.shared_id).first.id : song.id
     render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.broadcasts.size }
   end
+
+  # Render artists for a song
+  def artists_list(song)
+    links = []
+    song.artists.each do |artist|
+      links.push link_to(artist.name, artist)
+    end
+    raw links.join(', ')
+  end
   
   # Self explanitory
   def on_own_profile?

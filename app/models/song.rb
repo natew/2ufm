@@ -167,14 +167,10 @@ class Song < ActiveRecord::Base
       # Read picture
       text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
       puts "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
-
-      # Setup for writing
-      pic_type = picture.match(/PNG|JPG|JPEG|GIF/)
-      type     = pic_type[0]
-      path     = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song.#{type}"
+      path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song.#{mime_type}"
 
       # Handle JPEGs slightly differently
-      if type != 'JPEG'
+      if mime_type != 'JPEG'
         write_picture(path, picture_data)
       else
         write_picture(path, picture[14,picture.length])
@@ -306,7 +302,7 @@ class Song < ActiveRecord::Base
     # Match their respective roles
     featured = /(featuring|ft\.?|feat\.?|f\.){1}/i
     remixer  = / remix| rmx| edit| bootleg| mix/i
-    producer = /produced by /i
+    producer = /(produced|prod\.?) by/i
     #cover    = / cover/i
 
     # Find any non-original artists

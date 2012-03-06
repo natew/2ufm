@@ -16,4 +16,8 @@
 </div>
 
 <div class="third">
+  <h3>Artists on this station</h3>
+  <ul class="list">
+	  <%= render :partial => 'artists/artist', :collection => @blog.station.artists %>
+  </ul>
 </div>

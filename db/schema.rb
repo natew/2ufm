@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305045224) do
+ActiveRecord::Schema.define(:version => 20120306072852) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20120305045224) do
     t.integer "song_id"
     t.string  "role",      :default => "original"
   end
+
+  add_index "authors", ["artist_id", "song_id", "role"], :name => "index_authors_on_artist_id_and_song_id_and_role", :unique => true
 
   create_table "blogs", :force => true do |t|
     t.string   "name"
