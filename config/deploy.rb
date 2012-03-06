@@ -12,12 +12,15 @@ set :scm, :git
 set :branch, 'master'
 set :scm_verbose, true
 set :rails_env, "production"
+set :keep_releases, 3
 set :dj_workers, 4
 set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
 
 role :web, domain
 role :app, domain
 role :db,  domain, :primary => true # This is where Rails migrations will run
+
+after "deploy:update", "deploy:cleanup"
 
 namespace :deploy do
   task :start, :roles => :app do
