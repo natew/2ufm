@@ -8,7 +8,7 @@ class Station < ActiveRecord::Base
   has_many   :broadcasts, :dependent => :destroy
   has_many   :songs, :through => :broadcasts, :extend => SongExtensions
   has_many   :follows
-  has_many   :artists, :through => :songs
+  has_many   :artists, :through => :songs, :uniq => true
   has_many   :blogs, :through => :songs, :uniq => true
 
   acts_as_url :title, :url_attribute => :slug, :sync_url => true
