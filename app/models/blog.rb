@@ -15,8 +15,8 @@ class Blog < ActiveRecord::Base
   
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
-  before_create :make_station, :get_blog_info
-  after_create  :get_new_posts
+  before_create :make_station
+  after_create  :get_blog_info
   
   default_scope where(working:true)
   
@@ -71,8 +71,8 @@ class Blog < ActiveRecord::Base
   
   def get_blog_info
     get_html_info
-    updated = update_feed
-    self.working = true if updated
+    self.working = true if get_new_posts
+    self.save
   end
   
   def reset
@@ -131,10 +131,10 @@ class Blog < ActiveRecord::Base
       errors.add :url, 'Nothing found!'
       return false
     else
-      meta = html.at('meta[name="description"]')
-      meta = meta['content'] unless meta.nil?
-      self.description = meta || html.at('title').text
-      self.feed_url = html.at('head > link[type="application/rss+xml"]')['href']
+      self.description = html.at('title') ? html.at('title').text : ''
+
+      feed  = html.at('head > link[type="application/rss+xml"]')
+      self.feed_url = feed ? feed['href'] : nil
     end
   end
   
@@ -192,8 +192,10 @@ class Blog < ActiveRecord::Base
       entries = update_feed
       if !entries.blank?
         get_posts(entries)
+        true
       else
         puts "No new posts"
+        false
       end
     end
   end

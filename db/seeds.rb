@@ -1,16 +1,32 @@
 # Delete old data
+puts "Deleting old data"
 Blog.destroy_all
 Station.destroy_all
 Broadcast.destroy_all
 User.destroy_all
 Genre.destroy_all
 Artist.destroy_all
+Author.destroy_all
+Song.destroy_all
 
 # Delete old jobs
+puts "Deleting old jobs"
 `rake jobs:clear`
 
+# Reset sequences
+puts "Resetting sequences"
+Station.connection.execute("SELECT setval('stations_id_seq',1);")
+Station.connection.execute("SELECT setval('blogs_id_seq',1);")
+Station.connection.execute("SELECT setval('broadcasts_id_seq',1);")
+Station.connection.execute("SELECT setval('users_id_seq',1);")
+Station.connection.execute("SELECT setval('genres_id_seq',1);")
+Station.connection.execute("SELECT setval('artists_id_seq',1);")
+Station.connection.execute("SELECT setval('authors_id_seq',1);")
+Station.connection.execute("SELECT setval('posts_id_seq',1);")
+Station.connection.execute("SELECT setval('songs_id_seq',1);")
+
 # Default stations
-Station.connection.execute("SELECT setval('stations_id_seq',1);") # Reset ID sequence
+puts "Creating default stations"
 Station.create!(:title => 'Popular songs')
 Station.create!(:title => 'New songs')
 
@@ -82,6 +98,7 @@ end
 
 
 # Create Genres
+puts "Creating Genres"
 Genre.create(:name => "Drum & Bass")
 Genre.create(:name => "Dubstep")
 Genre.create(:name => "House")
