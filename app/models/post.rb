@@ -13,7 +13,7 @@ class Post < ActiveRecord::Base
   acts_as_url :title, :url_attribute => :slug
   
   before_create :get_image
-  after_create  :save_songs
+  after_create  :delayed_save_songs
   
   def to_param
     slug
@@ -48,5 +48,12 @@ class Post < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :save_songs, :priority => 2 if Rails.application.config.delay_jobs
+
+  def delayed_save_songs
+    if Rails.application.config.delay_jobs
+      delay(:priority => 2).save_songs
+    else
+      save_songs
+    end
+  end
 end

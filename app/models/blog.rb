@@ -16,7 +16,7 @@ class Blog < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_create :make_station
-  after_create  :get_blog_info
+  after_create  :delayed_get_blog_info
   
   scope :working, where(working:true)
   
@@ -63,7 +63,14 @@ class Blog < ActiveRecord::Base
       puts exception.backtrace
     end
   end
-  handle_asynchronously :crawl, :priority => 3 if Rails.application.config.delay_jobs
+
+  def delayed_crawl
+    if Rails.application.config.delay_jobs
+      delay(:priority => 3).crawl
+    else
+      crawl
+    end
+  end
   
   def has_blog_info?
     working
@@ -73,6 +80,14 @@ class Blog < ActiveRecord::Base
     get_html_info
     self.working = true if get_new_posts
     self.save
+  end
+
+  def delayed_get_blog_info
+    if Rails.application.config.delay_jobs
+      delay.get_blog_info
+    else
+      get_blog_info
+    end
   end
   
   def reset
@@ -196,7 +211,6 @@ class Blog < ActiveRecord::Base
       false
     end
   end
-  handle_asynchronously :get_new_posts if Rails.application.config.delay_jobs
 
   # Will get posts, regarless of new or not
   def get_posts(entries)

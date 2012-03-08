@@ -30,8 +30,8 @@ class Song < ActiveRecord::Base
   
   acts_as_url :full_name, :url_attribute => :slug
   
-  before_create  :clean_url, :get_real_url
-  after_create :scan_and_save
+  before_create  :get_real_url, :clean_url
+  after_create :delayed_scan_and_save
 
   def to_param
     slug
@@ -78,7 +78,7 @@ class Song < ActiveRecord::Base
   end
   
   def delayed_check_if_working
-    delay.check_if_working
+    delay(:priority => 4).check_if_working
   end
   
   # Read ID3 Tag and generally collect information on the song
@@ -152,7 +152,14 @@ class Song < ActiveRecord::Base
       puts "No URL!"
     end
   end
-  handle_asynchronously :scan_and_save, :priority => 1 if Rails.application.config.delay_jobs
+
+  def delayed_scan_and_save
+    if Rails.application.config.delay_jobs
+      delay(:priority => 1).scan_and_save
+    else
+      scan_and_save
+    end
+  end
 
   # Parse album art from ID3 tag
   def get_album_art(*mp3)
@@ -243,7 +250,7 @@ class Song < ActiveRecord::Base
     ns = Station.new_station
     if !ns.song_exists?(id)
       ns.songs << self
-      ns.songs.delete(ns.songs.group_by_shared.last) if ns.songs.count > 50 # So it stays only 30 songs!
+      ns.songs.delete(ns.songs.group_by_shared.last) if ns.songs.count > 50 # So it stays this long
     end
   end
   
