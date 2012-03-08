@@ -48,5 +48,5 @@ class Post < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :save_songs, :priority => 2 if Rails.env.production?
+  handle_asynchronously :save_songs, :priority => 2 if Rails.application.config.delay_jobs
 end

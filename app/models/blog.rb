@@ -63,7 +63,7 @@ class Blog < ActiveRecord::Base
       puts exception.backtrace
     end
   end
-  handle_asynchronously :crawl, :priority => 3 if Rails.env.production?
+  handle_asynchronously :crawl, :priority => 3 if Rails.application.config.delay_jobs
   
   def has_blog_info?
     working
@@ -197,7 +197,7 @@ class Blog < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :get_new_posts if Rails.env.production?
+  handle_asynchronously :get_new_posts if Rails.application.config.delay_jobs
 
   # Will get posts, regarless of new or not
   def get_posts(*entries)

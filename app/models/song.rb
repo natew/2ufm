@@ -152,7 +152,7 @@ class Song < ActiveRecord::Base
       puts "No URL!"
     end
   end
-  handle_asynchronously :scan_and_save, :priority => 1 if Rails.env.production?
+  handle_asynchronously :scan_and_save, :priority => 1 if Rails.application.config.delay_jobs
 
   # Parse album art from ID3 tag
   def get_album_art(*mp3)
@@ -170,12 +170,23 @@ class Song < ActiveRecord::Base
     if picture
       # Read picture
       text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
+      file_type = mime_type[/gif|png|jpg|jpeg/i]
       puts "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
-      path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song.#{mime_type}"
+      path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song.#{file_type.downcase}"
 
       # Handle JPEGs slightly differently
-      if mime_type != 'JPEG'
-        write_picture(path, picture_data)
+      if mime_type[/jpeg|jpg/i]
+        # Find the E byte to determine beginning of jpeg 0_0
+        write_at = 0
+        (0..30).each do |i|
+          if picture_data[i] == 'E'
+            write_at = i
+            break
+          elsif i == 30
+            write_at = 0 # Not found :( just try writing whole thing
+          end
+        end
+        write_picture(path, picture[write_at,picture.length])
       else
         write_picture(path, picture[14,picture.length])
       end
@@ -275,7 +286,7 @@ class Song < ActiveRecord::Base
     parse_artists.each do |name,role|
       match = Artist.where("name ILIKE (?)", name).first
       match = Artist.create(name: name) unless match
-      self.authors.create(artist: match, role: role)
+      self.authors.find_or_create_by_artist_id_and_role(match.id, role)
     end
   end
       
