@@ -18,7 +18,7 @@ class Blog < ActiveRecord::Base
   before_create :make_station
   after_create  :get_blog_info
   
-  default_scope where(working:true)
+  scope :working, where(working:true)
   
   serialize :feed
   
@@ -188,22 +188,18 @@ class Blog < ActiveRecord::Base
   
   # Get only new posts
   def get_new_posts
-    if !feed.nil?
-      entries = update_feed
-      if !entries.blank?
-        get_posts(entries)
-        true
-      else
-        puts "No new posts"
-        false
-      end
+    entries = update_feed
+    if !entries.blank?
+      get_posts(entries)
+    else
+      puts "No new posts"
+      false
     end
   end
   handle_asynchronously :get_new_posts if Rails.application.config.delay_jobs
 
   # Will get posts, regarless of new or not
-  def get_posts(*entries)
-    entries = feed.entries if entries.size.zero?
+  def get_posts(entries)
     entries.each do |post|
       # Save posts to db
       self.posts.create(
@@ -214,6 +210,7 @@ class Blog < ActiveRecord::Base
         :created_at => post.published
       )
       puts "Created post #{post.title}"
+      true
     end
   end
   
