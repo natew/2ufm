@@ -14,7 +14,7 @@ set :scm_verbose, true
 set :rails_env, "production"
 set :keep_releases, 3
 set :dj_workers, 4
-set :dj_script, "cd #{current_path}; sudo nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
+set :dj_script, "cd #{current_path}; nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
 
 role :web, domain
 role :app, domain
