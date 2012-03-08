@@ -261,7 +261,7 @@ header {
 
 /* BAR */
 #bar {
-  background: #000;
+  background: #444;
   position: absolute;
   width: 980px;
   left: 50%;
@@ -440,7 +440,7 @@ header {
     z-index: 1000;
     width: 32px;
     overflow: hidden;
-    background: #000;
+    background: #444;
 
     &:hover {
       width: 215px;
