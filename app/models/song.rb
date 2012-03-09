@@ -134,13 +134,14 @@ class Song < ActiveRecord::Base
             end
             
             # Save processing
-            self.save
+            self.save!
             puts "Saved!"
           end
         end
       rescue Exception => e
-        puts "Error: '#{e.message}' please check logs for stacktrace"
-        logger.info(e.message + "\n" + e.backtrace.inspect)
+        puts e.message
+        puts e.backtrace.join("\n")
+        logger.error(e.message + "\n" + e.backtrace.join("\n"))
       end
       
       # Post-saving stuff
@@ -183,17 +184,7 @@ class Song < ActiveRecord::Base
 
       # Handle JPEGs slightly differently
       if mime_type[/jpeg|jpg/i]
-        # Find the E byte to determine beginning of jpeg 0_0
-        write_at = 0
-        (0..30).each do |i|
-          if picture_data[i] == 'E'
-            write_at = i
-            break
-          elsif i == 30
-            write_at = 0 # Not found :( just try writing whole thing
-          end
-        end
-        write_picture(path, picture[write_at,picture.length])
+        write_picture(path, picture_data)
       else
         write_picture(path, picture[14,picture.length])
       end
@@ -249,7 +240,7 @@ class Song < ActiveRecord::Base
   def add_to_new_station
     ns = Station.new_station
     if !ns.song_exists?(id)
-      ns.songs << self
+      ns.songs << self 
       ns.songs.delete(ns.songs.group_by_shared.last) if ns.songs.count > 50 # So it stays this long
     end
   end
