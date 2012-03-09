@@ -6,4 +6,4 @@ tmp/
 public/assets/*
 vendor/psds/*
 .DS_Store
-public/attachments
+public/attachments/development

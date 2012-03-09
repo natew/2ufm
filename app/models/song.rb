@@ -105,7 +105,7 @@ class Song < ActiveRecord::Base
             puts "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
             
             # Working
-            self.working = true
+            self.processed = true
             
             # Read from ID3
             self.name = mp3.tag.title
@@ -115,22 +115,25 @@ class Song < ActiveRecord::Base
             self.genre = mp3.tag.genre
             self.bitrate = mp3.tag.bitrate.to_i
             self.length = mp3.tag.length.to_f
+
+            # Like it says...
+            get_album_art(mp3)
             
-            # If the ID3 doenst help us
-            if !name or !artist_name
-              self.processed = parse_from_link
+            if name and artist_name
+              # Weve gotten enough info
+              self.working = true
             else
-              self.processed = true
+              # If the ID3 doesnt work, try at least using link text
+              self.working = parse_from_link
             end
             
             # Update info if we have processed this song
-            if processed?
-              get_album_art(mp3)
+            if working?
               find_similar_songs
               self.slug = full_name.to_url
-              puts "Processed successfully"
+              puts "Processed and working!"
             else
-              puts "Could not process"
+              puts "Processed (couldn't read information)"
             end
             
             # Save processing
@@ -180,17 +183,14 @@ class Song < ActiveRecord::Base
       text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
       file_type = mime_type[/gif|png|jpg|jpeg/i]
       puts "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
-      path = "#{Rails.root}/tmp/albumart/apic_#{Process.pid}_song.#{file_type.downcase}"
+      path = "#{Rails.root}/public/attachments/#{Rails.env}/song_images/tmp/apic_#{Process.pid}_song_#{id}.#{file_type.downcase}"
 
-      # Handle JPEGs slightly differently
-      if mime_type[/jpeg|jpg/i]
-        write_picture(path, picture_data)
+      # Handle JPEGs
+      if mime_type[/png/i]
+        self.image = write_picture(path, picture[14,picture.length])
       else
-        write_picture(path, picture[14,picture.length])
+        self.image = write_picture(path, picture_data)
       end
-
-      # Set for paperclip to write
-      self.image = File.new(path)
     end
   end
 
