@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'open-uri'
 require 'net/http'
 require 'mp3info'
@@ -350,10 +352,10 @@ class Song < ActiveRecord::Base
   end
   
   def parse_from_link
-    split = link_text.split(/\s*(-|—)\s*/)
-    if split.size == 2
+    split = link_text.split(/\s*(-|—|–)\s*/)
+    if split.size == 3
       self.artist_name = split[0]
-      self.name = split[1]
+      self.name = split[2]
       true
     else
       false
