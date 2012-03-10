@@ -350,7 +350,7 @@ class Song < ActiveRecord::Base
   end
   
   def parse_from_link
-    split = link_text.split(/\s*(-|–)\s*/)
+    split = link_text.split(/\s*(-|—)\s*/)
     if split.size == 2
       self.artist_name = split[0]
       self.name = split[1]
