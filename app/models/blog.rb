@@ -32,18 +32,18 @@ class Blog < ActiveRecord::Base
   end
 
   def crawl
-    puts "Crawling #{name}"
+    logger.info "Crawling #{name}"
     begin
       Anemone.crawl(fetch_url) do |anemone|
         anemone.storage = Anemone::Storage.MongoDB
         anemone.on_every_page do |page|
-          puts "Crawling #{page.url} (#{page.code})"
+          logger.info "Crawling #{page.url} (#{page.code})"
           if page.code == 200
             headers_date = Date.parse(page.headers['date'][0])
             html = Nokogiri::HTML(page.body)
             html.css('a').each do |link|
               if link['href'] =~ /\.mp3(\?(.*))?$/
-                puts "Found song! #{link['href']}"
+                logger.info "Found song! #{link['href']}"
                 post = Post.find_or_create_by_url(
                     :url => page.url.to_s,
                     :blog_id => id,
@@ -59,8 +59,8 @@ class Blog < ActiveRecord::Base
         end
       end
     rescue => exception
-      puts exception.inspect
-      puts exception.backtrace
+      logger.info exception.inspect
+      logger.info exception.backtrace
     end
   end
 
@@ -174,23 +174,23 @@ class Blog < ActiveRecord::Base
   # Either fetches feed or updates feed 
   # Returns only new entries
   def update_feed
-    puts "Updating feed"
+    logger.info "Updating feed"
     if has_feed_url?
       if feed_updated_at.blank?
-        puts "No feed yet, grabbing rss"
+        logger.info "No feed yet, grabbing rss"
         self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
         if feed != 0
-          puts "Found new entries"
+          logger.info "Found new entries"
           self.feed_updated_at = feed.last_modified
           return feed.entries
         else
-          puts "No entries found"
+          logger.info "No entries found"
           return false
         end
       else
         self.feed = Feedzirra::Feed.update(feed)
         self.feed_updated_at = feed.last_modified
-        puts "Done"
+        logger.info "Done"
         return feed.new_entries
       end
     end
@@ -207,7 +207,7 @@ class Blog < ActiveRecord::Base
     if !entries.blank?
       get_posts(entries)
     else
-      puts "No new posts"
+      logger.info "No new posts"
       false
     end
   end
@@ -223,7 +223,7 @@ class Blog < ActiveRecord::Base
         :content => post.content,
         :created_at => post.published
       )
-      puts "Created post #{post.title}"
+      logger.info "Created post #{post.title}"
       true
     end
   end

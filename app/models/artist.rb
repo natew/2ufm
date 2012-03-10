@@ -27,15 +27,17 @@ class Artist < ActiveRecord::Base
   
   def get_discogs_info
     begin
-      puts "Getting info for #{name}"
+      logger.info "Getting info for #{name}"
       info = DiscogsApi.get_artist(name)
       info = Hashie::Mash.new info
-      puts "Info found" unless info.nil? or info.empty?
+      logger.info "Info found" unless info.nil? or info.empty?
       self.image = UrlTempfile.new(info.images.first.uri) unless info.images.nil?
       self.urls  = info.urls unless info.urls.nil?
     rescue => exception
       # Artist not found!
-      puts "Not found! #{exception.message}"
+      logger.info "Error or not found!"
+      logger.info exception.message
+      logger.info exception.backtrace
     end
   end
   

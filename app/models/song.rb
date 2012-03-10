@@ -64,16 +64,16 @@ class Song < ActiveRecord::Base
         head = req.request_head(uri.path)
         
         if head.code == '200' and head.content_type =~ /audio|download/
-          puts "Working"
+          logger.info "Working"
           self.working = true
         else
-          puts "Not working, #{head.code} | #{head.content_type}"
+          logger.info "Not working, #{head.code} | #{head.content_type}"
           self.working = false
         end
         self.save
       rescue => exception
         # error opening file
-        puts "Error opening file"
+        logger.info "Error opening file"
       end
     end
     self.working
@@ -89,7 +89,7 @@ class Song < ActiveRecord::Base
       begin
         total = nil
         prev  = 0
-        puts "Scanning #{url} ..."
+        logger.info "Scanning #{url} ..."
         
         open(url,
           :content_length_proc => lambda { |content_length|
@@ -99,12 +99,12 @@ class Song < ActiveRecord::Base
           :progress_proc => lambda { |at|
             now = (at.fdiv(total)*100).round
             if now > (prev+9)
-              puts "Downloading... #{now}%" 
+              logger.info "Downloading... #{now}%" 
               prev = now
             end
         }) do |song|
           Mp3Info.open(song.path) do |mp3|
-            puts "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
+            logger.info "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
             
             # Working
             self.processed = true
@@ -133,19 +133,19 @@ class Song < ActiveRecord::Base
             if working?
               find_similar_songs
               self.slug = full_name.to_url
-              puts "Processed and working!"
+              logger.info "Processed and working!"
             else
-              puts "Processed (couldn't read information)"
+              logger.info "Processed (couldn't read information)"
             end
             
             # Save processing
             self.save!
-            puts "Saved!"
+            logger.info "Saved!"
           end
         end
       rescue Exception => e
-        puts e.message
-        puts e.backtrace.join("\n")
+        logger.info e.message
+        logger.info e.backtrace.join("\n")
         logger.error(e.message + "\n" + e.backtrace.join("\n"))
       end
       
@@ -155,7 +155,7 @@ class Song < ActiveRecord::Base
         add_to_stations
       end
     else
-      puts "No URL!"
+      logger.info "No URL!"
     end
   end
 
@@ -184,7 +184,7 @@ class Song < ActiveRecord::Base
       # Read picture
       text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
       file_type = mime_type[/gif|png|jpg|jpeg/i]
-      puts "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
+      logger.info "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
       path = "#{Rails.root}/public/attachments/#{Rails.env}/song_images/tmp/apic_#{Process.pid}_song_#{id}.#{file_type.downcase}"
 
       if mime_type[/png/i]
