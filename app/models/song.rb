@@ -206,7 +206,7 @@ class Song < ActiveRecord::Base
   def get_real_url
     case url
     when /hulkshare\.com/
-      page = Nokogiri::HTML(open(curl))
+      page = Nokogiri::HTML(open(url))
       links = page.css('a.hoverf').each do |link|
         if link['href'] =~ /tracker\.hulkshare/
           absolute_url = link['href']
