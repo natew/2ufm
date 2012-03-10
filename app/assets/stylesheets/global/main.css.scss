@@ -64,6 +64,11 @@ h2 small { font-size: 55%; }
 .half      { width: 460px; }
 .whole     { width: 940px; }
 
+.third, .twothirds, .fourth, .half, .whole {
+  .third, .twothirds, .fourth, .half, .whole {
+    margin-left: 0;
+  }
+}
 
 .feature {
   clear: both;
@@ -536,12 +541,12 @@ ol.mp_list {
 
 
 /* Lists */
-.third .list {
+.list {
   margin: -15px 0 20px 0;
   padding: 0;
   
   section, li {
-    padding: 12px 0 8px;
+    padding: 10px 0 2px 10px;
     margin: 0;
     border: none;
     height: auto;
@@ -553,8 +558,7 @@ ol.mp_list {
       margin: 0 0 -9px 0;
     }
 
-    .image { margin: 0 5px 0 0; }
-    img { width: 24px; margin: -6px 0 -3px; }
+    img { width: 24px; margin: -6px 8px -3px 0; }
   
     h4 {
       margin: 0;

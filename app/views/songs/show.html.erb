@@ -1,7 +1,6 @@
 <div class="title">
-  <%= image_tag @original.image.url(:small), :class => 'icon' %>
   <h2 class="icon">
-    <%= @original.name %>
+    <%= @original.full_name %>
     <small>Artists: <%= artists_list @original %></small>
   </h2>
 </div>
@@ -12,18 +11,32 @@
   <%- else -%>
     <%= render :partial => 'single', :locals => { :single => @songs } %>
   <%- end -%>
-  
-  <h4>Posted on <%= pluralize @blogs.size, 'blog' %></h4>
-  <div class="shelf">
-    <%= render :partial => 'stations/shelf', :collection => @blogs %>
-  </div>
-</div>
 
-<div class="third">
-  <h4>Broadcasts this week</h4>
-  <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
+  <div class="third">
+    <h4>Remixes</h4>
+    <ul class="list">
+    <%- for artist in @original.artists -%>
+    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes of #{artist.name}".html_safe, artist, :class => 'image' %></li>
+    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes by #{artist.name}".html_safe, artist, :class => 'image' %></li>
+    <%- end -%>
+    </ul>
+  </div>
   
-  <h4>Re-posted by <%= pluralize @original.users.size, 'person' %></h4>
-  <div class="user-list">
+  <div class="third">
+    <h4>Broadcasts this week</h4>
+    <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
+  </div>
+
+  <div class="third">
+    <h4>Re-posted by <%= pluralize @original.users.size, 'person' %></h4>
+    <div class="list">
+    </div>
+  </div>
+  
+  <div class="third">
+    <h4>Posted on <%= pluralize @blogs.size, 'blog' %></h4>
+    <div class="shelf">
+      <%= render :partial => 'stations/shelf', :collection => @blogs %>
+    </div>
   </div>
 </div>

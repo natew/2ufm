@@ -148,7 +148,7 @@ class Song < ActiveRecord::Base
       end
       
       # Post-saving stuff
-      if processed?
+      if working?
         find_or_create_artists
         add_to_stations
       end
@@ -185,7 +185,6 @@ class Song < ActiveRecord::Base
       puts "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
       path = "#{Rails.root}/public/attachments/#{Rails.env}/song_images/tmp/apic_#{Process.pid}_song_#{id}.#{file_type.downcase}"
 
-      # Handle JPEGs
       if mime_type[/png/i]
         self.image = write_picture(path, picture[14,picture.length])
       else
@@ -350,10 +349,8 @@ class Song < ActiveRecord::Base
     matched
   end
   
-  private
-  
   def parse_from_link
-    split = link_text.split(/\s*-\s*/)
+    split = link_text.split(/\s*(-|–)\s*/)
     if split.size == 2
       self.artist_name = split[0]
       self.name = split[1]
