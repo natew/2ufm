@@ -212,6 +212,10 @@ class Blog < ActiveRecord::Base
     end
   end
 
+  def delayed_get_new_posts
+    delay.get_new_posts
+  end
+
   # Will get posts, regarless of new or not
   def get_posts(entries)
     entries.each do |post|
