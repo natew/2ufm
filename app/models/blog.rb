@@ -34,7 +34,7 @@ class Blog < ActiveRecord::Base
   def crawl
     puts "Crawling #{name}"
     begin
-      Anemone.crawl(url) do |anemone|
+      Anemone.crawl(fetch_url) do |anemone|
         anemone.storage = Anemone::Storage.MongoDB
         anemone.on_every_page do |page|
           puts "Crawling #{page.url} (#{page.code})"
@@ -229,6 +229,14 @@ class Blog < ActiveRecord::Base
   end
   
   private
+
+  def fetch_url
+    final_uri = ''
+    open(url) do |h|
+      final_uri = h.base_uri
+    end
+    final_uri
+  end
   
   def make_station
     self.create_station
