@@ -104,6 +104,7 @@ GEM
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
       warden (~> 1.1.1)
+    discogs-wrapper (1.1.2)
     erubis (2.7.0)
     eventmachine (0.12.10)
     execjs (1.2.4)
@@ -247,6 +248,7 @@ DEPENDENCIES
   curb
   delayed_job_active_record
   devise
+  discogs-wrapper
   feedzirra!
   foreman
   hashie

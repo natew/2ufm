@@ -1,8 +1,9 @@
-# encoding: utf-8
+# encoding: UTF-8
 
 require 'open-uri'
 require 'net/http'
 require 'mp3info'
+require 'tempfile'
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
@@ -85,7 +86,7 @@ class Song < ActiveRecord::Base
   
   # Read ID3 Tag and generally collect information on the song
   def scan_and_save
-    if !url.nil?      
+    if !url.nil?
       begin
         total = nil
         prev  = 0
@@ -110,8 +111,8 @@ class Song < ActiveRecord::Base
             self.processed = true
             
             # Read from ID3
-            self.name = mp3.tag.title
-            self.artist_name = mp3.tag.artist
+            self.name = mp3.tag.title || link_info[0] || '(Not Found)'
+            self.artist_name = mp3.tag.artist || link_info[1] || '(Not Found)'
             self.album_name = mp3.tag.album
             self.track_number = mp3.tag.tracknum.to_i
             self.genre = mp3.tag.genre
@@ -121,13 +122,8 @@ class Song < ActiveRecord::Base
             # Like it says...
             get_album_art(mp3)
             
-            if name and artist_name
-              # Weve gotten enough info
-              self.working = true
-            else
-              # If the ID3 doesnt work, try at least using link text
-              self.working = parse_from_link
-            end
+            # Working if we have name or artist name at least
+            self.working = name != '(Not Found)' or artist_name != '(Not Found)'
             
             # Update info if we have processed this song
             if working?
@@ -183,23 +179,20 @@ class Song < ActiveRecord::Base
     if picture
       # Read picture
       text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
-      file_type = mime_type[/gif|png|jpg|jpeg/i]
       logger.info "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
-      path = "#{Rails.root}/public/attachments/#{Rails.env}/song_images/tmp/apic_#{Process.pid}_song_#{id}.#{file_type.downcase}"
 
-      if mime_type[/png/i]
-        self.image = write_picture(path, picture[14,picture.length])
-      else
-        self.image = write_picture(path, picture_data)
-      end
+      # Save pictures
+      filetype = mime_type[/gif|png|jpg|jpeg/i]
+      filename = "song_#{id}.#{filetype}"
+      self.image = write_tempfile(filename, picture_data)
     end
   end
 
   # Write binary pictures
-  def write_picture(path, data)
-    File.open(path, 'wb') do |f|
-      f.write data
-    end
+  def write_tempfile(filename, data)
+    tmp = Paperclip::Tempfile.new(filename, Rails.root.join('tmp'))
+    tmp.binmode
+    tmp << data
   end
   
   # Rules for filesharing sites
@@ -290,7 +283,6 @@ class Song < ActiveRecord::Base
   end
       
   def parse_artists
-    parse_from_link unless name and artist_name
     name_artists = artists_in_name
     artist_artists = artists_in_artist
     name_artists | artist_artists
@@ -351,15 +343,9 @@ class Song < ActiveRecord::Base
     matched
   end
   
-  def parse_from_link
+  def link_info
     split = link_text.split(/\s*(-|—|–)\s*/)
-    if split.size == 3
-      self.artist_name = split[0]
-      self.name = split[2]
-      true
-    else
-      false
-    end
+    split.size >= 3 ? [split[0], split[2]] : [nil,nil]
   end
   
   def clean_url

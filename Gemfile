@@ -24,6 +24,7 @@ gem 'anemone'
 gem 'mongo_mapper'
 gem 'bson_ext'
 gem 'feedzirra', :git => 'git://github.com/NateW/feedzirra.git'
+gem 'discogs-wrapper'
 
 # Deploy
 gem 'capistrano'
