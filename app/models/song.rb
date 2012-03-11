@@ -225,20 +225,26 @@ class Song < ActiveRecord::Base
   def add_to_artists_stations
     authors.each do |author|
       artist = Artist.find(author.artist_id)
-      artist.station.songs << self unless artist.station.song_exists?(id)
+      Broadcast.create(song_id:id,station_id:artist.station.id) unless artist.station.song_exists?(id)
     end
   end
   
   def add_to_blog_station
-    blog = Blog.find(blog_id)
-    blog.station.songs << self unless blog.station.song_exists?(id)
+    if blog_id
+      blog = Blog.find(blog_id)
+      Broadcast.create(song_id:id,station_id:blog.station.id) << self unless blog.station.song_exists?(id)
+    else
+      logger.info "No Blog ID"
+    end
   end
   
   def add_to_new_station
     ns = Station.new_station
     if !ns.song_exists?(id)
-      ns.songs << self 
-      ns.songs.delete(ns.songs.group_by_shared.last) if ns.songs.count > 50 # So it stays this long
+      Broadcast.create(song_id:id,station_id:ns.id)
+      ns.songs.delete(ns.songs.group_shared_order_broadcast.last) if ns.songs.count > 50 # So it stays this long
+    else
+      logger.info "Song already on new station"
     end
   end
   
@@ -352,6 +358,6 @@ class Song < ActiveRecord::Base
   end
   
   def clean_url
-    self.url = URI.encode(url)
+    self.url = URI.escape(url)
   end
 end
