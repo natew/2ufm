@@ -225,16 +225,19 @@ class Song < ActiveRecord::Base
   def add_to_artists_stations
     authors.each do |author|
       artist = Artist.find(author.artist_id)
-      Broadcast.create(song_id:id,station_id:artist.station.id) unless artist.station.song_exists?(id)
+      if artist and artist.station
+        Broadcast.create(song_id:id,station_id:artist.station.id) unless artist.station.song_exists?(id)
+      else
+        logger.info "No artist or artist station"
+      end
     end
   end
   
   def add_to_blog_station
-    if blog_id
-      blog = Blog.find(blog_id)
-      Broadcast.create(song_id:id,station_id:blog.station.id) << self unless blog.station.song_exists?(id)
+    if blog and blog.station
+      Broadcast.create(song_id:id,station_id:blog.station.id) unless blog.station.song_exists?(id)
     else
-      logger.info "No Blog ID"
+      logger.info "No Blog or Blog station"
     end
   end
   
