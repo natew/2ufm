@@ -22,10 +22,13 @@ class Blog < ActiveRecord::Base
   
   serialize :feed
   
-  attr_writer :current_step
-  
   validates_uniqueness_of :name, :url, :if => lambda { |o| o.current_step == "about" }
   validates_presence_of :name, :url, :if => lambda { |o| o.current_step == "about" }
+
+  attr_writer :current_step
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :name, :url, :description, :image, :feed_url
   
   def to_param
     slug
@@ -33,11 +36,14 @@ class Blog < ActiveRecord::Base
 
   def crawl
     logger.info "Crawling #{name}"
+    pages = 0
+    self.crawl_started_at = Time.now
     begin
       Anemone.crawl(fetch_url) do |anemone|
         anemone.storage = Anemone::Storage.MongoDB
         anemone.on_every_page do |page|
           logger.info "Crawling #{page.url} (#{page.code})"
+          pages += 1
           if page.code == 200
             headers_date = Date.parse(page.headers['date'][0])
             html = Nokogiri::HTML(page.body)
@@ -58,6 +64,8 @@ class Blog < ActiveRecord::Base
           end
         end
       end
+      self.crawl_finished_at = Time.now
+      self.crawled_pages = pages
     rescue => exception
       logger.info exception.inspect
       logger.info exception.backtrace

@@ -24,17 +24,22 @@ class Song < ActiveRecord::Base
   # Scopes
   scope :with_blog_and_post, joins(:blog, :post)
   scope :working, where(processed: true,working: true)
-  scope :newest, order('songs.published_at desc')
+  scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
-  scope :group_by_shared, select('DISTINCT ON (broadcasts.created_at,songs.shared_id) songs.*').order('broadcasts.created_at desc, songs.shared_id desc')
+  scope :group_shared_order_broadcast, select('DISTINCT ON (broadcasts.created_at,songs.shared_id) songs.*').order('broadcasts.created_at desc, songs.shared_id desc')
+  scope :group_shared_order_published, select('DISTINCT ON (songs.published_at,songs.shared_id) songs.*').order('songs.published_at desc, songs.shared_id desc')
   scope :select_with_info, select('songs.*, posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
   scope :individual, select_with_info.with_blog_and_post.working
-  scope :playlist_ready, group_by_shared.select_with_info.with_blog_and_post.working
+  scope :playlist_order_broadcasted, group_shared_order_broadcast.select_with_info.with_blog_and_post.working
+  scope :playlist_order_published, group_shared_order_published.select_with_info.with_blog_and_post.working
   
   acts_as_url :full_name, :url_attribute => :slug
   
   before_create  :get_real_url, :clean_url
   after_create :delayed_scan_and_save
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at
 
   def to_param
     slug
@@ -140,8 +145,6 @@ class Song < ActiveRecord::Base
           end
         end
       rescue Exception => e
-        logger.info e.message
-        logger.info e.backtrace.join("\n")
         logger.error(e.message + "\n" + e.backtrace.join("\n"))
       end
       

@@ -110,8 +110,8 @@ var page = {
   },
   
   error: function(xhr) {
-    console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-    console.log("responseText: "+xhr.responseText);
+    $('#loading').addClass('hide');
+    $('#body').addClass('error').html('<h2>'+xhr.status+'</h2>'+'<div id="error">'+xhr.responseText+'</h2>');
   },
   
   exit: function(xhr,err) {
@@ -124,8 +124,7 @@ Path.map("/(:action)(/:id)").to(function(){
 
   // Get the page
   $.ajax({
-    type:"GET",
-    dataType:"html",
+    dataType: "html",
     url: curPage,
     success: page.load,
     error: page.error

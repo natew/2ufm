@@ -13,6 +13,13 @@ class Station < ActiveRecord::Base
 
   acts_as_url :title, :url_attribute => :slug, :sync_url => true
 
+  validates :title, presence: true
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :title, :description
+
+  attr_accessor :limit
+
   def to_param
     url
   end

@@ -1,5 +1,3 @@
-require 'discogs'
-
 include AttachmentHelper
 include PaperclipExtensions
 

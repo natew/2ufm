@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308052157) do
+ActiveRecord::Schema.define(:version => 20120311200616) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(:version => 20120308052157) do
     t.string   "image_file_name"
     t.datetime "image_updated_at"
     t.boolean  "working"
+    t.datetime "crawl_started_at"
+    t.datetime "crawl_finished_at"
+    t.integer  "crawled_pages",     :default => 0
   end
 
   create_table "blogs_genres", :id => false, :force => true do |t|
