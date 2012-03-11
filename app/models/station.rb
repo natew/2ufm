@@ -18,8 +18,6 @@ class Station < ActiveRecord::Base
   # Whitelist mass-assignment attributes
   attr_accessible :title, :description
 
-  attr_accessor :limit
-
   def to_param
     url
   end
