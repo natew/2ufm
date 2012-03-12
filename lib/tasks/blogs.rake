@@ -19,14 +19,14 @@ namespace :blogs do
       blog = Blog.find(args.id.to_i)
       unless blog.nil?
         puts "Crawling #{blog.name}"
-        blog.crawl
+        blog.delayed_crawl
       end
     end
 
     task :all => :environment do
       Blog.all.each do |blog|
         puts "Crawling #{blog.name}"
-        blog.crawl
+        blog.delayed_crawl
       end
     end
   end
@@ -49,7 +49,7 @@ namespace :blogs do
       blog = Blog.find(args.id.to_i)
       unless blog.nil?
         puts "Updating #{blog.name}"
-        blog.get_new_posts
+        blog.delayed_get_new_posts
         puts "Done"
       end
     end

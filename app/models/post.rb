@@ -10,6 +10,10 @@ class Post < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
+  # Validations
+  validates :url, presence: true, uniqueness: true
+
+  # Slug
   acts_as_url :title, :url_attribute => :slug
   
   before_create :get_image

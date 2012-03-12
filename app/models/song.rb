@@ -21,7 +21,12 @@ class Song < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   has_attachment :file
 
+  # Validations
+  validates :url, presence: true, uniqueness: true
+
   # Scopes
+  scope :unprocessed, where(processed:false)
+  scope :processed, where(processed:true)
   scope :with_blog_and_post, joins(:blog, :post)
   scope :working, where(processed: true,working: true)
   scope :newest, order('songs.created_at desc')
@@ -145,7 +150,7 @@ class Song < ActiveRecord::Base
           end
         end
       rescue Exception => e
-        logger.error(e.message + "\n" + e.backtrace.join("\n"))
+        logger.error e.message + "\n" + e.backtrace.join("\n")
       end
       
       # Post-saving stuff
@@ -167,27 +172,32 @@ class Song < ActiveRecord::Base
   end
 
   # Parse album art from ID3 tag
-  def get_album_art(*mp3)
-    if mp3.size.zero?
+  def get_album_art(*args)
+    if args.size.zero?
+      mp3 = nil
       open(url) do |song|
         mp3 = Mp3Info.open(song.path)
       end
     else
-      mp3 = mp3.first
+      mp3 = args.first
     end
 
-    # Save picture
-    picture = mp3.tag2.APIC || mp3.tag2.PIC
-    picture = picture[0] if picture.is_a? Array
-    if picture
-      # Read picture
-      text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
-      logger.info "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
+    begin
+      # Save picture
+      picture = mp3.tag2.APIC || mp3.tag2.PIC
+      picture = picture[0] if picture.is_a? Array
+      if picture
+        # Read picture
+        text_encoding, mime_type, picture_type, description, picture_data = picture.unpack("c Z* c Z* a*")
+        logger.info "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type} Description: #{description}"
 
-      # Save pictures
-      filetype = mime_type[/gif|png|jpg|jpeg/i]
-      filename = "song_#{id}.#{filetype}"
-      self.image = write_tempfile(filename, picture_data)
+        # Save pictures
+        filetype = mime_type[/gif|png|jpg|jpeg/i]
+        filename = "song_#{id}.#{filetype}"
+        self.image = write_tempfile(filename, picture_data)
+      end
+    rescue Exception => e
+      logger.error e.message + "\n" + e.backtrace.join("\n")
     end
   end
 
