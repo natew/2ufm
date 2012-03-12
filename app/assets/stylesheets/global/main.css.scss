@@ -139,14 +139,51 @@ header {
       }
     }
   }
-  
-  #tagline {
-    color: #bbb;
-    font-size: 11px;
-    font-weight: bold;
-    text-shadow: none;
-    float: right;
-    padding: 16px 0;
+
+  form {
+    position: absolute;
+    top: 9px;
+    right: 110px;
+    z-index: 1000;
+
+    &:hover {
+      width: 215px;
+    }
+
+    #query {
+      float: right;
+      border: none;
+      padding: 5px 12px;
+      width: 164px;
+      margin-right: 32px;
+      color: #ddd;
+      background: none;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 13px;
+      @include border-radius(20px);
+
+      &:hover {
+        color: #444;
+      }
+
+      &:focus {
+        border-color: #777;
+        color: #444;
+      }
+    }
+    
+    #search {
+      background: none;
+      border: none;
+      position: absolute;
+      right: 35px;
+      top: 2px;
+      font-size: 20px;
+      color: #ccc;
+      
+      &:hover { color: #666; }
+    }
   }
   
   #loading {
@@ -275,7 +312,7 @@ header {
   z-index: 98;
   @include border-radius-bottom(4px);
   
-  .page-contain { width: 950px; }
+  .page-contain { width: 980px; }
   
   &.fixed {
     position: fixed;
@@ -313,9 +350,7 @@ header {
   
   #player {
     white-space: nowrap;
-    float: left;
     margin-left: 100px;
-    width: 817px;
 
     &.loaded {
       #player-buttons a.add {display: block;}
@@ -377,7 +412,7 @@ header {
     #player-controls {
       position: absolute;
       margin-left: 165px;
-      width: 524px;
+      width: 544px;
 
       .control {
         float: right;
@@ -435,55 +470,6 @@ header {
           background: #555;
         }
       }
-    }
-  }
-  
-  form {
-    margin: 5px 0 -6px;
-    right: 0;
-    position: absolute;
-    z-index: 1000;
-    width: 32px;
-    overflow: hidden;
-    background: #444;
-
-    &:hover {
-      width: 215px;
-    }
-
-    #query {
-      float: right;
-      border: none;
-      padding: 7px 8px 6px;
-      width: 164px;
-      margin-right: 32px;
-      color: #ddd;
-      background: none;
-      border: none;
-      border-bottom: 1px solid #555;
-      outline: none;
-      font-size: 13px;
-
-      &:hover {
-        background: #000;
-      }
-
-      &:focus {
-        background: #fff;
-        color: #333;
-      }
-    }
-    
-    #search {
-      background: none;
-      border: none;
-      position: absolute;
-      right: 0;
-      top: 3px;
-      font-size: 20px;
-      color: #fff;
-      
-      &:hover { color: #fff; }
     }
   }
 }

@@ -55,10 +55,11 @@
       <div id="loading">
         <span id="hide-loading"></span> <!-- prevent stupid chrom gif redraw flicker bug -->
       </div>
-      
-      <span id="tagline">
-        Now playing <%= Song.all.count %> songs from <%= Blog.all.count %> blogs
-      </span>
+
+      <%= form_tag '/main/search', :method => 'get' do %>
+        <%= text_field_tag :query, '', :placeholder =>'Live search for anything' %>
+        <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+      <% end -%>
     </div>
   </header>
   
@@ -88,11 +89,6 @@
           <a id="invite" class="tip-n control" title="Send this song to a friend!">&laquo; Invite friends!</a>
         </div>
       </div>
-      
-      <%= form_tag '/main/search', :method => 'get' do %>
-        <%= text_field_tag :query, '', :placeholder =>'Live search for anything' %>
-        <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-      <% end -%>
     </div>
   </div>
   

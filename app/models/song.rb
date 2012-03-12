@@ -356,7 +356,7 @@ class Song < ActiveRecord::Base
       end
     elsif artist
       # If artist, we can look for comma separated names
-      string.split(/, |& |vs\.? /).each do |artist|
+      string.split(/, |& |vs\.? /i).each do |artist|
         matched.push [artist, :original]
       end
     else
