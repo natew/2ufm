@@ -115,16 +115,19 @@ class Song < ActiveRecord::Base
             end
         }) do |song|
           file = TagLib::MPEG::File.new(song.path)
+          
+          # Properties
+          props = file.audio_properties
+          self.bitrate = props.bitrate.to_i
+          self.length = props.length.to_f
+
+          # Tag
           tag  = file.id3v2_tag
-            
-          # Read from ID3
           self.name = tag.title || link_info[0] || '(Not Found)'
           self.artist_name = tag.artist || link_info[1] || '(Not Found)'
           self.album_name = tag.album
           self.track_number = tag.track.to_i
           self.genre = tag.genre
-          self.bitrate = tag.bitrate.to_i
-          self.length = tag.length.to_f
           self.image = get_album_art(tag)
           
           # Working if we have name or artist name at least
