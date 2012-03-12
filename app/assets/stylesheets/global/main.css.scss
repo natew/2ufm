@@ -19,7 +19,7 @@ body {
   #body {
     overflow: hidden;
     position: relative;
-    padding: 20px 0;
+    padding: 15px 0;
     @include border-radius-bottom(10px);
   }
 }
@@ -353,7 +353,6 @@ header {
     margin-left: 100px;
 
     &.loaded {
-      #player-buttons a.add {display: block;}
       #player-buttons a.next, #player-buttons a.prev {color: #fff;}
       #player-controls a.control {visibility: visible !important;}
     }
@@ -384,11 +383,13 @@ header {
       }
     }
     
-    #player-buttons {
+    #player-controls {
       float: left;
       width: 160px;
       margin-right: -3px;
-      
+    }
+
+    .player-buttons {
       a {
         float: left;
         color: #fff;
@@ -400,7 +401,6 @@ header {
         &:hover { color: #fff; background: #222; }
         &.next, &.prev {color: #999;}
         &.add {
-          display: none;
           font-size: 25px;
           padding: 8px;
           padding-right: 10px;
@@ -408,11 +408,77 @@ header {
         }
       }
     }
+
+    #player-controls-after {
+      float: left;
+      margin-right: 5px;
+
+      a.volume {
+        font-size: 20px;
+        padding: 10px 6px 6px;
+        color: #999;
+      }
+    }
+
+    #player-progress-bar {
+      float: left;
+      margin: 4px 0 0;
+      height: 30px;
+      width: 490px;
+      overflow: hidden;
+      position: relative;
+      
+      &:hover {
+        cursor: pointer;
+      }
+
+      #player-meta {
+        margin: 0;
+        font-size: 15px;
+        padding: 5px 8px;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+        
+        a {
+          color: #fff;
+          text-decoration: none;
+          width: 100%;
+        }
+      }
+
+      #player-progress-grabber {
+        position: absolute;
+        top: 0;
+        z-index: 11;
+        width: 100%;
+        height: 100%;
+      }
+      
+      #player-progress-position {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        width: 0%;
+        height: 100%;
+        background: #222;
+      }
+      
+      #player-progress-loaded {
+        position: absolute;
+        top: 0;
+        z-index: 0;
+        width: 0%;
+        height: 100%;
+        background: #555;
+      }
+    }
     
-    #player-controls {
-      position: absolute;
-      margin-left: 165px;
-      width: 544px;
+    #player-share {
+      float: left;
+      width: 56px;
 
       .control {
         float: right;
@@ -421,54 +487,9 @@ header {
         margin: 7px 2px;
         overflow: hidden;
         text-indent: -3000em;
-        visibility: hidden;
 
         &.facebook {background: url(/images/facebook.png) no-repeat top left;}
         &.twitter {background: url(/images/twitter.png) no-repeat top left;}
-      }
-    
-      #player-progress-bar {
-        position: absolute;
-        width: 462px;
-        
-        &:hover {
-          cursor: pointer;
-        }
-
-        #player-meta {
-          margin: 0;
-          font-size: 15px;
-          padding: 8px;
-          float: left;
-          white-space: nowrap;
-          overflow: hidden;
-          position: relative;
-          z-index: 10;
-          
-          a {
-            color: #fff;
-            text-decoration: none;
-            width: 100%;
-          }
-        }
-        
-        #player-progress-position {
-          position: absolute;
-          top: 4px;
-          z-index: 1;
-          width: 0%;
-          height: 30px;
-          background: #222;
-        }
-        
-        #player-progress-loaded {
-          position: absolute;
-          top: 4px;
-          z-index: 0;
-          width: 0%;
-          height: 30px;
-          background: #555;
-        }
       }
     }
   }

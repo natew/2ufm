@@ -68,19 +68,22 @@
       <a id="bar-top" class="pictos control" href="#">{</a>
       <a id="bar-home" href="/">Home</a>
       <div id="player">
-        <div id="player-buttons">
-          <%= link_to '8', '#', :class => 'prev pictos control' %>
-          <%= link_to '4', '#', :class => 'play pictos control' %>
-          <%= link_to '7', '#', :class => 'next pictos control' %>
-          <%= link_to 'k', '#', :class => 'add pictos control tip-n', :title => 'Add to favorites' %>
+        <div id="player-controls" class="player-buttons">
+          <%= link_to '8', '#', :class => 'prev pictos control', :id => 'player-prev', :title => 'Previous song' %>
+          <%= link_to '4', '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
+          <%= link_to '7', '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
+          <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
         </div>
-        <div id="player-controls">
-          <div id="player-progress-bar">
-            <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
-            <div id="player-progress-position"></div>
-            <div id="player-progress-loaded"></div>
-          </div>
-          
+        <div id="player-progress-bar">
+          <div id="player-progress-grabber"></div>
+          <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
+          <div id="player-progress-position"></div>
+          <div id="player-progress-loaded"></div>
+        </div>
+        <div id="player-controls-after" class="player-buttons">
+          <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
+        </div>
+        <div id="player-share">          
           <% link_to 'Station', '#', :class => 'radio control tip-n', :title => 'Return to Station' %>
           <%= link_to 'Share on Facebook', '#', :class => 'facebook control tip-n', :title => 'Share on Facebook' %>
           <%= link_to 'Share on Twitter', '#', :class => 'twitter control tip-n', :title => 'Share on Twitter' %>
