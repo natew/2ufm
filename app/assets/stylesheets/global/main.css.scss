@@ -96,7 +96,7 @@ header {
   h1 {
     position: absolute;
     top: -8px;
-    left: 5px;
+    left: -5px;
     margin: 0;
     
     a {
@@ -329,7 +329,7 @@ header {
     width: 14px;
     height: 25px;
     top: 10px;
-    left: 56px;
+    left: 62px;
     font-size: 19px;
     color: #999;
     overflow: hidden;
@@ -341,7 +341,7 @@ header {
 
   #bar-home {
     top: -2px;
-    left: 4px;
+    left: 14px;
     width: 45px;
     height: 40px;
     text-indent: -3000em;
@@ -350,11 +350,11 @@ header {
   
   #player {
     white-space: nowrap;
-    margin-left: 100px;
+    margin-left: 92px;
 
     &.loaded {
-      #player-buttons a.next, #player-buttons a.prev {color: #fff;}
-      #player-controls a.control {visibility: visible !important;}
+      .player-buttons a.next, #player-buttons a.prev {color: #fff;}
+      .player-buttons a.control {visibility: visible !important;}
     }
     
     #player-shortcode {
@@ -385,8 +385,6 @@ header {
     
     #player-controls {
       float: left;
-      width: 160px;
-      margin-right: -3px;
     }
 
     .player-buttons {
@@ -394,8 +392,7 @@ header {
         float: left;
         color: #fff;
         font-size: 30px;
-        padding: 11px 10px 6px;
-        width: 20px;
+        padding: 11px 9px 6px;
         font-size: 23px;
         
         &:hover { color: #fff; background: #222; }
@@ -422,7 +419,7 @@ header {
 
     #player-progress-bar {
       float: left;
-      margin: 4px 5px 0;
+      margin: 4px 8px 0;
       height: 30px;
       width: 480px;
       overflow: hidden;
@@ -432,10 +429,21 @@ header {
         cursor: pointer;
       }
 
+      #player-goto {
+        position: absolute;
+        top: 6px;
+        left: 9px;
+        z-index: 100;
+        color: #888;
+        font-size: 11px;
+
+        &:hover {color: #fff;}
+      }
+
       #player-meta {
         margin: 0;
         font-size: 15px;
-        padding: 5px 8px;
+        padding: 4px 8px 5px 24px;
         float: left;
         white-space: nowrap;
         overflow: hidden;
