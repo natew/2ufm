@@ -19,7 +19,7 @@ body {
   #body {
     overflow: hidden;
     position: relative;
-    padding: 20px 0;
+    padding: 15px 0;
     @include border-radius-bottom(10px);
   }
 }
@@ -64,6 +64,11 @@ h2 small { font-size: 55%; }
 .half      { width: 460px; }
 .whole     { width: 940px; }
 
+.third, .twothirds, .fourth, .half, .whole {
+  .third, .twothirds, .fourth, .half, .whole {
+    margin-left: 0;
+  }
+}
 
 .feature {
   clear: both;
@@ -134,14 +139,51 @@ header {
       }
     }
   }
-  
-  #tagline {
-    color: #bbb;
-    font-size: 11px;
-    font-weight: bold;
-    text-shadow: none;
-    float: right;
-    padding: 16px 0;
+
+  form {
+    position: absolute;
+    top: 9px;
+    right: 110px;
+    z-index: 1000;
+
+    &:hover {
+      width: 215px;
+    }
+
+    #query {
+      float: right;
+      border: none;
+      padding: 5px 12px;
+      width: 164px;
+      margin-right: 32px;
+      color: #ddd;
+      background: none;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 13px;
+      @include border-radius(20px);
+
+      &:hover {
+        color: #444;
+      }
+
+      &:focus {
+        border-color: #777;
+        color: #444;
+      }
+    }
+    
+    #search {
+      background: none;
+      border: none;
+      position: absolute;
+      right: 35px;
+      top: 2px;
+      font-size: 20px;
+      color: #ccc;
+      
+      &:hover { color: #666; }
+    }
   }
   
   #loading {
@@ -270,7 +312,7 @@ header {
   z-index: 98;
   @include border-radius-bottom(4px);
   
-  .page-contain { width: 950px; }
+  .page-contain { width: 980px; }
   
   &.fixed {
     position: fixed;
@@ -308,12 +350,9 @@ header {
   
   #player {
     white-space: nowrap;
-    float: left;
     margin-left: 100px;
-    width: 817px;
 
     &.loaded {
-      #player-buttons a.add {display: block;}
       #player-buttons a.next, #player-buttons a.prev {color: #fff;}
       #player-controls a.control {visibility: visible !important;}
     }
@@ -344,11 +383,13 @@ header {
       }
     }
     
-    #player-buttons {
+    #player-controls {
       float: left;
       width: 160px;
       margin-right: -3px;
-      
+    }
+
+    .player-buttons {
       a {
         float: left;
         color: #fff;
@@ -360,7 +401,6 @@ header {
         &:hover { color: #fff; background: #222; }
         &.next, &.prev {color: #999;}
         &.add {
-          display: none;
           font-size: 25px;
           padding: 8px;
           padding-right: 10px;
@@ -368,11 +408,77 @@ header {
         }
       }
     }
+
+    #player-controls-after {
+      float: left;
+      margin-right: 5px;
+
+      a.volume {
+        font-size: 20px;
+        padding: 10px 6px 6px;
+        color: #999;
+      }
+    }
+
+    #player-progress-bar {
+      float: left;
+      margin: 4px 5px 0;
+      height: 30px;
+      width: 480px;
+      overflow: hidden;
+      position: relative;
+      
+      &:hover {
+        cursor: pointer;
+      }
+
+      #player-meta {
+        margin: 0;
+        font-size: 15px;
+        padding: 5px 8px;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+        
+        a {
+          color: #fff;
+          text-decoration: none;
+          width: 100%;
+        }
+      }
+
+      #player-progress-grabber {
+        position: absolute;
+        top: 0;
+        z-index: 11;
+        width: 100%;
+        height: 100%;
+      }
+      
+      #player-progress-position {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        width: 0%;
+        height: 100%;
+        background: #222;
+      }
+      
+      #player-progress-loaded {
+        position: absolute;
+        top: 0;
+        z-index: 0;
+        width: 0%;
+        height: 100%;
+        background: #555;
+      }
+    }
     
-    #player-controls {
-      position: absolute;
-      margin-left: 165px;
-      width: 524px;
+    #player-share {
+      float: left;
+      width: 56px;
 
       .control {
         float: right;
@@ -381,104 +487,10 @@ header {
         margin: 7px 2px;
         overflow: hidden;
         text-indent: -3000em;
-        visibility: hidden;
 
         &.facebook {background: url(/images/facebook.png) no-repeat top left;}
         &.twitter {background: url(/images/twitter.png) no-repeat top left;}
       }
-    
-      #player-progress-bar {
-        position: absolute;
-        width: 462px;
-        
-        &:hover {
-          cursor: pointer;
-        }
-
-        #player-meta {
-          margin: 0;
-          font-size: 15px;
-          padding: 8px;
-          float: left;
-          white-space: nowrap;
-          overflow: hidden;
-          position: relative;
-          z-index: 10;
-          
-          a {
-            color: #fff;
-            text-decoration: none;
-            width: 100%;
-          }
-        }
-        
-        #player-progress-position {
-          position: absolute;
-          top: 4px;
-          z-index: 1;
-          width: 0%;
-          height: 30px;
-          background: #222;
-        }
-        
-        #player-progress-loaded {
-          position: absolute;
-          top: 4px;
-          z-index: 0;
-          width: 0%;
-          height: 30px;
-          background: #555;
-        }
-      }
-    }
-  }
-  
-  form {
-    margin: 5px 0 -6px;
-    right: 0;
-    position: absolute;
-    z-index: 1000;
-    width: 32px;
-    overflow: hidden;
-    background: #444;
-
-    &:hover {
-      width: 215px;
-    }
-
-    #query {
-      float: right;
-      border: none;
-      padding: 7px 8px 6px;
-      width: 164px;
-      margin-right: 32px;
-      color: #ddd;
-      background: none;
-      border: none;
-      border-bottom: 1px solid #555;
-      outline: none;
-      font-size: 13px;
-
-      &:hover {
-        background: #000;
-      }
-
-      &:focus {
-        background: #fff;
-        color: #333;
-      }
-    }
-    
-    #search {
-      background: none;
-      border: none;
-      position: absolute;
-      right: 0;
-      top: 3px;
-      font-size: 20px;
-      color: #fff;
-      
-      &:hover { color: #fff; }
     }
   }
 }
@@ -536,12 +548,12 @@ ol.mp_list {
 
 
 /* Lists */
-.third .list {
+.list {
   margin: -15px 0 20px 0;
   padding: 0;
   
   section, li {
-    padding: 12px 0 8px;
+    padding: 10px 0 2px 10px;
     margin: 0;
     border: none;
     height: auto;
@@ -553,8 +565,7 @@ ol.mp_list {
       margin: 0 0 -9px 0;
     }
 
-    .image { margin: 0 5px 0 0; }
-    img { width: 24px; margin: -6px 0 -3px; }
+    img { width: 24px; margin: -6px 8px -3px 0; }
   
     h4 {
       margin: 0;

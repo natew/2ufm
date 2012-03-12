@@ -1,6 +1,9 @@
+# encoding: UTF-8
+
 require 'open-uri'
 require 'net/http'
-require 'mp3info'
+require 'taglib'
+require 'tempfile'
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
@@ -18,20 +21,30 @@ class Song < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   has_attachment :file
 
+  # Validations
+  validates :url, presence: true, uniqueness: true
+
   # Scopes
+  scope :unprocessed, where(processed:false)
+  scope :processed, where(processed:true)
   scope :with_blog_and_post, joins(:blog, :post)
   scope :working, where(processed: true,working: true)
-  scope :newest, order('songs.published_at desc')
+  scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
-  scope :group_by_shared, select('DISTINCT ON (broadcasts.created_at,songs.shared_id) songs.*').order('broadcasts.created_at desc, songs.shared_id desc')
+  scope :group_shared_order_broadcast, select('DISTINCT ON (broadcasts.created_at,songs.shared_id) songs.*').order('broadcasts.created_at desc, songs.shared_id desc')
+  scope :group_shared_order_published, select('DISTINCT ON (songs.published_at,songs.shared_id) songs.*').order('songs.published_at desc, songs.shared_id desc')
   scope :select_with_info, select('songs.*, posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
   scope :individual, select_with_info.with_blog_and_post.working
-  scope :playlist_ready, group_by_shared.select_with_info.with_blog_and_post.working
+  scope :playlist_order_broadcasted, group_shared_order_broadcast.select_with_info.with_blog_and_post.working
+  scope :playlist_order_published, group_shared_order_published.select_with_info.with_blog_and_post.working
   
   acts_as_url :full_name, :url_attribute => :slug
   
   before_create  :get_real_url, :clean_url
   after_create :delayed_scan_and_save
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at
 
   def to_param
     slug
@@ -62,16 +75,16 @@ class Song < ActiveRecord::Base
         head = req.request_head(uri.path)
         
         if head.code == '200' and head.content_type =~ /audio|download/
-          puts "Working"
+          logger.info "Working"
           self.working = true
         else
-          puts "Not working, #{head.code} | #{head.content_type}"
+          logger.info "Not working, #{head.code} | #{head.content_type}"
           self.working = false
         end
         self.save
       rescue => exception
         # error opening file
-        puts "Error opening file"
+        logger.info "Error opening file"
       end
     end
     self.working
@@ -83,11 +96,11 @@ class Song < ActiveRecord::Base
   
   # Read ID3 Tag and generally collect information on the song
   def scan_and_save
-    if !url.nil?      
+    if !url.nil?
       begin
         total = nil
         prev  = 0
-        puts "Scanning #{url} ..."
+        logger.info "Scanning #{url} ..."
         
         open(url,
           :content_length_proc => lambda { |content_length|
@@ -97,63 +110,58 @@ class Song < ActiveRecord::Base
           :progress_proc => lambda { |at|
             now = (at.fdiv(total)*100).round
             if now > (prev+9)
-              puts "Downloading... #{now}%" 
+              logger.info "Downloading... #{now}%" 
               prev = now
             end
         }) do |song|
-          Mp3Info.open(song.path) do |mp3|
-            puts "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
-            
-            # Working
-            self.processed = true
-            
-            # Read from ID3
-            self.name = mp3.tag.title
-            self.artist_name = mp3.tag.artist
-            self.album_name = mp3.tag.album
-            self.track_number = mp3.tag.tracknum.to_i
-            self.genre = mp3.tag.genre
-            self.bitrate = mp3.tag.bitrate.to_i
-            self.length = mp3.tag.length.to_f
+          file = TagLib::MPEG::File.new(song.path)
+          
+          # Properties
+          props = file.audio_properties
+          self.bitrate = props.bitrate.to_i
+          self.length = props.length.to_f
 
-            # Like it says...
-            get_album_art(mp3)
-            
-            if name and artist_name
-              # Weve gotten enough info
-              self.working = true
-            else
-              # If the ID3 doesnt work, try at least using link text
-              self.working = parse_from_link
-            end
-            
-            # Update info if we have processed this song
-            if working?
-              find_similar_songs
-              self.slug = full_name.to_url
-              puts "Processed and working!"
-            else
-              puts "Processed (couldn't read information)"
-            end
-            
-            # Save processing
-            self.save!
-            puts "Saved!"
+          # Tag
+          tag  = file.id3v2_tag
+          self.name = tag.title || link_info[0] || '(Not Found)'
+          self.artist_name = tag.artist || link_info[1] || '(Not Found)'
+          self.album_name = tag.album
+          self.track_number = tag.track.to_i
+          self.genre = tag.genre
+          self.image = get_album_art(tag)
+          
+          # Working if we have name or artist name at least
+          self.working = name != '(Not Found)' or artist_name != '(Not Found)'
+
+          # Processed
+          self.processed = true
+          
+          # Update info if we have processed this song
+          if working?
+            find_similar_songs
+            self.slug = full_name.to_url
+            logger.info "Processed and working!"
+          else
+            logger.info "Processed (couldn't read information)"
           end
+          
+          # Save processing
+          self.save!
+          logger.info "Saved!"
         end
       rescue Exception => e
-        puts e.message
-        puts e.backtrace.join("\n")
-        logger.error(e.message + "\n" + e.backtrace.join("\n"))
+        # self.processed = false
+        # self.working = false
+        logger.error e.message + "\n" + e.backtrace.join("\n")
       end
       
       # Post-saving stuff
-      if processed?
+      if working?
         find_or_create_artists
         add_to_stations
       end
     else
-      puts "No URL!"
+      logger.info "No URL!"
     end
   end
 
@@ -166,46 +174,48 @@ class Song < ActiveRecord::Base
   end
 
   # Parse album art from ID3 tag
-  def get_album_art(*mp3)
-    if mp3.size.zero?
+  def get_album_art(*args)
+    if args.size.zero?
+      tag = nil
       open(url) do |song|
-        mp3 = Mp3Info.open(song.path)
+        tag = TagLib::MPEG::File.new(song.path).id3v2_tag
       end
     else
-      mp3 = mp3.first
+      tag = args.first
     end
 
-    # Save picture
-    picture = mp3.tag2.APIC || mp3.tag2.PIC
-    picture = picture[0] if picture.is_a? Array
-    if picture
-      # Read picture
-      text_encoding, mime_type, picture_type, picture_data = picture.unpack("c Z* c a*")
-      file_type = mime_type[/gif|png|jpg|jpeg/i]
-      puts "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type}"
-      path = "#{Rails.root}/public/attachments/#{Rails.env}/song_images/tmp/apic_#{Process.pid}_song_#{id}.#{file_type.downcase}"
-
-      # Handle JPEGs
-      if mime_type[/png/i]
-        self.image = write_picture(path, picture[14,picture.length])
-      else
-        self.image = write_picture(path, picture_data)
+    begin
+      # Save picture
+      cover = tag.frame_list('APIC').first
+      if cover
+        # Save pictures
+        filetype = cover.mime_type[/gif|png|jpg|jpeg/i]
+        filename = "song_#{id}.#{filetype}"
+        write_tempfile(filename, cover.picture)
       end
+    rescue Exception => e
+      logger.error e.message + "\n" + e.backtrace.join("\n")
     end
   end
 
+  # Parse and save album art
+  def save_album_art
+    get_album_art
+    self.save
+  end
+
   # Write binary pictures
-  def write_picture(path, data)
-    File.open(path, 'wb') do |f|
-      f.write data
-    end
+  def write_tempfile(filename, data)
+    tmp = Paperclip::Tempfile.new(filename, Rails.root.join('tmp'))
+    tmp.binmode
+    tmp << data
   end
   
   # Rules for filesharing sites
   def get_real_url
     case url
     when /hulkshare\.com/
-      page = Nokogiri::HTML(open(curl))
+      page = Nokogiri::HTML(open(url))
       links = page.css('a.hoverf').each do |link|
         if link['href'] =~ /tracker\.hulkshare/
           absolute_url = link['href']
@@ -228,20 +238,29 @@ class Song < ActiveRecord::Base
   def add_to_artists_stations
     authors.each do |author|
       artist = Artist.find(author.artist_id)
-      artist.station.songs << self unless artist.station.song_exists?(id)
+      if artist and artist.station
+        Broadcast.create(song_id:id,station_id:artist.station.id) unless artist.station.song_exists?(id)
+      else
+        logger.info "No artist or artist station"
+      end
     end
   end
   
   def add_to_blog_station
-    blog = Blog.find(blog_id)
-    blog.station.songs << self unless blog.station.song_exists?(id)
+    if blog and blog.station
+      Broadcast.create(song_id:id,station_id:blog.station.id) unless blog.station.song_exists?(id)
+    else
+      logger.info "No Blog or Blog station"
+    end
   end
   
   def add_to_new_station
     ns = Station.new_station
     if !ns.song_exists?(id)
-      ns.songs << self 
-      ns.songs.delete(ns.songs.group_by_shared.last) if ns.songs.count > 50 # So it stays this long
+      Broadcast.create(song_id:id,station_id:ns.id)
+      ns.songs.delete(ns.songs.group_shared_order_broadcast.last) if ns.songs.count > 50 # So it stays this long
+    else
+      logger.info "Song already on new station"
     end
   end
   
@@ -289,7 +308,6 @@ class Song < ActiveRecord::Base
   end
       
   def parse_artists
-    parse_from_link unless name and artist_name
     name_artists = artists_in_name
     artist_artists = artists_in_artist
     name_artists | artist_artists
@@ -338,7 +356,7 @@ class Song < ActiveRecord::Base
       end
     elsif artist
       # If artist, we can look for comma separated names
-      string.split(/, |& |vs\.? /).each do |artist|
+      string.split(/, |& |vs\.? /i).each do |artist|
         matched.push [artist, :original]
       end
     else
@@ -350,20 +368,12 @@ class Song < ActiveRecord::Base
     matched
   end
   
-  private
-  
-  def parse_from_link
-    split = link_text.split(/\s*-\s*/)
-    if split.size == 2
-      self.artist_name = split[0]
-      self.name = split[1]
-      true
-    else
-      false
-    end
+  def link_info
+    split = link_text.split(/\s*(-|—|–)\s*/)
+    split.size >= 3 ? [split[0], split[2]] : [nil,nil]
   end
   
   def clean_url
-    self.url = URI.encode(url)
+    self.url = URI.escape(url)
   end
 end

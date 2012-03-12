@@ -10,33 +10,40 @@ class Post < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
+  # Validations
+  validates :url, presence: true, uniqueness: true
+
+  # Slug
   acts_as_url :title, :url_attribute => :slug
   
   before_create :get_image
   after_create  :delayed_save_songs
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :title, :url, :blog_id, :author, :content, :published_at
   
   def to_param
     slug
   end
   
   def get_image
-    puts "Getting image"
+    logger.info "Getting image"
     begin
       post  = Nokogiri::HTML(content)
       img = post.css('img:first')
       self.image = UrlTempfile.new(img.first['src']) unless img.empty?
     rescue => exception
-      puts exception.message
-      puts exception.backtrace
+      logger.info exception.message
+      logger.info exception.backtrace
     end
   end
   
   def save_songs
-    puts "Saving songs from post #{title}"
+    logger.info "Saving songs from post #{title}"
     parse = Nokogiri::HTML(content)
     parse.css('a').each do |link|
       if link['href'] =~ /\.mp3(\?(.*))?$/
-        puts "Found song!"
+        logger.info "Found song!"
         found_song = Song.create(
           :blog_id    => blog_id,
           :post_id    => id,
@@ -44,7 +51,7 @@ class Post < ActiveRecord::Base
           :link_text  => link.content,
           :published_at => created_at
         )
-        puts "Created song #{link.content}"
+        logger.info "Created song #{link.content}"
       end
     end
   end

@@ -6,44 +6,57 @@ require 'anemone'
 class Blog < ActiveRecord::Base
   include AttachmentHelper
   
+  # Relationships
   has_one  :station, :dependent => :destroy
   has_many :songs, :through => :station, :dependent => :destroy
   has_many :posts, :dependent => :destroy
   has_and_belongs_to_many :genres
 
+  # Slug
   acts_as_url :name, :url_attribute => :slug
   
+  # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_create :make_station
   after_create  :delayed_get_blog_info
   
+  # Scopes
   scope :working, where(working:true)
   
   serialize :feed
   
-  attr_writer :current_step
-  
+  # Validations
+  validates :url, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true
   validates_uniqueness_of :name, :url, :if => lambda { |o| o.current_step == "about" }
   validates_presence_of :name, :url, :if => lambda { |o| o.current_step == "about" }
+
+  attr_writer :current_step
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :name, :url, :description, :image, :feed_url
   
   def to_param
     slug
   end
 
   def crawl
-    puts "Crawling #{name}"
+    logger.info "Crawling #{name}"
+    pages = 0
+    self.crawl_started_at = Time.now
     begin
-      Anemone.crawl(url) do |anemone|
+      Anemone.crawl(fetch_url) do |anemone|
         anemone.storage = Anemone::Storage.MongoDB
         anemone.on_every_page do |page|
-          puts "Crawling #{page.url} (#{page.code})"
+          logger.info "Crawling #{page.url} (#{page.code})"
+          pages += 1
           if page.code == 200
             headers_date = Date.parse(page.headers['date'][0])
             html = Nokogiri::HTML(page.body)
             html.css('a').each do |link|
               if link['href'] =~ /\.mp3(\?(.*))?$/
-                puts "Found song! #{link['href']}"
+                logger.info "Found song! #{link['href']}"
                 post = Post.find_or_create_by_url(
                     :url => page.url.to_s,
                     :blog_id => id,
@@ -58,9 +71,11 @@ class Blog < ActiveRecord::Base
           end
         end
       end
+      self.crawl_finished_at = Time.now
+      self.crawled_pages = pages
     rescue => exception
-      puts exception.inspect
-      puts exception.backtrace
+      logger.info exception.inspect
+      logger.info exception.backtrace
     end
   end
 
@@ -174,23 +189,23 @@ class Blog < ActiveRecord::Base
   # Either fetches feed or updates feed 
   # Returns only new entries
   def update_feed
-    puts "Updating feed"
+    logger.info "Updating feed"
     if has_feed_url?
       if feed_updated_at.blank?
-        puts "No feed yet, grabbing rss"
+        logger.info "No feed yet, grabbing rss"
         self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
         if feed != 0
-          puts "Found new entries"
+          logger.info "Found new entries"
           self.feed_updated_at = feed.last_modified
           return feed.entries
         else
-          puts "No entries found"
+          logger.info "No entries found"
           return false
         end
       else
         self.feed = Feedzirra::Feed.update(feed)
         self.feed_updated_at = feed.last_modified
-        puts "Done"
+        logger.info "Done"
         return feed.new_entries
       end
     end
@@ -207,9 +222,13 @@ class Blog < ActiveRecord::Base
     if !entries.blank?
       get_posts(entries)
     else
-      puts "No new posts"
+      logger.info "No new posts"
       false
     end
+  end
+
+  def delayed_get_new_posts
+    delay.get_new_posts
   end
 
   # Will get posts, regarless of new or not
@@ -223,12 +242,20 @@ class Blog < ActiveRecord::Base
         :content => post.content,
         :created_at => post.published
       )
-      puts "Created post #{post.title}"
+      logger.info "Created post #{post.title}"
       true
     end
   end
   
   private
+
+  def fetch_url
+    final_uri = ''
+    open(url) do |h|
+      final_uri = h.base_uri
+    end
+    final_uri
+  end
   
   def make_station
     self.create_station

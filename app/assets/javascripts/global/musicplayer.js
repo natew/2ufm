@@ -14,17 +14,20 @@ var mp = (function() {
       curPage,
       playingPage,
       smReady = false,
-      delayStart = false;
+      delayStart = false,
+      volume = 100;
   
   // Elements
   var pl = {
     bar: $('#player-progress-bar'),
     loaded: $('#player-progress-loaded'),
     position: $('#player-progress-position'),
+    grabber: $('#player-progress-grabber'),
     player: $('#player'),
     song: $('#player-song'),
-    play: $('#player-buttons .play'),
+    play: $('#player-play'),
     invite: $('#invite'),
+    volume: $('#player-volume')
   }
 
   // Soundmanager
@@ -40,10 +43,8 @@ var mp = (function() {
     smReady = true;
     if (delayStart) player.play();
     if (soundManager.supported()) {
-      pl.loaded.bind('mousedown', actions.startDrag);
-      pl.position.bind('mousedown', actions.startDrag);
-      pl.loaded.bind('mouseup', actions.endDrag);
-      pl.position.bind('mouseup', actions.endDrag);
+      pl.grabber.bind('mousedown', actions.startDrag);
+      pl.grabber.bind('mouseup', actions.endDrag);
     } else {
       alert('Your browser does not support audio playback');
     }
@@ -99,7 +100,8 @@ var mp = (function() {
             whileloading:events.whileloading,
             whileplaying:events.whileplaying,
             onmetadata:events.metadata,
-            onload:events.onload
+            onload:events.onload,
+            volume:volume
           });
 
           console.log('song loaded: ' + curSong);
@@ -188,8 +190,28 @@ var mp = (function() {
       }
     },
 
-    updateProgress: function(position) {
+    updateProgress: function(percent) {
+      pl.position.attr('width',percent+'%');
+      console.log(curSong.durationEstimate, (percent/100), curSong.durationEstimate*(percent/100));
+      curSong.setPosition(curSong.durationEstimate*(percent/100));
+    },
 
+    volumeToggle: function() {
+      if (volume == 100) {
+        pl.volume.html('<');
+        volume = 0;
+        this.setVolume();
+      } else {
+        pl.volume.html('>');
+        volume = 100;
+        this.setVolume();
+      }
+    },
+
+    setVolume: function() {
+      if (curSong) {
+        curSong.setVolume(volume);
+      }
     }
   }
   
@@ -203,10 +225,10 @@ var mp = (function() {
       element = event.target || event.srcElement;
 
       console.log('startdrag: ' + element.id)
-      if (element.id.match(/progress/)) {
+      if (element.id.match(/grabber/)) {
         dragging_position = true;
-        $(document).unbind('mousemove').bind('mousemove', actions.followDrag);
-        $(document).unbind('mouseup').bind('mouseup', actions.endDrag);
+        pl.grabber.unbind('mousemove').bind('mousemove', actions.followDrag);
+        pl.grabber.unbind('mouseup').bind('mouseup', actions.endDrag);
       }
 
       return false;
@@ -217,11 +239,11 @@ var mp = (function() {
       element = event.target || event.srcElement;
 
       dragging_position = false;
-      $(document).unbind('mousemove');
-      $(document).unbind('mouseup');
+      pl.grabber.unbind('mousemove');
+      pl.grabber.unbind('mouseup');
 
-      if (element.id.match(/progress/)) {
-        player.updateProgress(event, element);
+      if (element.id.match(/grabber/)) {
+        //player.updateProgress(event, element);
       }
 
       return false;
@@ -232,16 +254,15 @@ var mp = (function() {
       element = event.target || event.srcElement;
 
       var x      = parseInt(event.clientX),
-          offset = pl.bar.offset().left,
-          width  = pl.bar.width(),
+          offset = pl.grabber.offset().left,
+          width  = pl.grabber.width(),
           curPos = curSong.position,
           newPos = Math.round(((x - offset) / width) * 100);
 
       console.log('followdrag: ' + x + ' / ' + newPos + '%');
-      pl.position.attr('width',newPos);
 
-      player.updateProgress(event, element);
-      if (player_position >= player_duration) actions.endDrag();
+      player.updateProgress(newPos);
+      if (newPos >= 100 || newPos <= 0) actions.endDrag();
     },
     
     
@@ -383,6 +404,10 @@ var mp = (function() {
     
     prev: function() {
       player.prev();
+    },
+
+    volumeToggle: function() {
+      player.volumeToggle();
     },
     
     playSection: function(section) {

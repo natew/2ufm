@@ -103,20 +103,26 @@ $(function() {
   
   // Player controls
   // PLAY
-  $('#player-buttons a.play').click(function() {
+  $('#player-play').click(function() {
     mp.toggle();
     return false;
   });
   
   // NEXT
-  $('#player-buttons a.next').click(function() {
+  $('#player-next').click(function() {
     mp.next();
     return false;
   });
   
   // PREV
-  $('#player-buttons a.prev').click(function() {
+  $('#player-prev').click(function() {
     mp.prev();
+    return false;
+  });
+
+  // VOLUME
+  $('#player-volume').click(function() {
+    mp.volumeToggle();
     return false;
   });
   

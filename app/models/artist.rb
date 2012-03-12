@@ -1,3 +1,5 @@
+require 'discogs'
+
 include AttachmentHelper
 include PaperclipExtensions
 
@@ -27,15 +29,22 @@ class Artist < ActiveRecord::Base
   
   def get_discogs_info
     begin
-      puts "Getting info for #{name}"
-      info = DiscogsApi.get_artist(name)
-      info = Hashie::Mash.new info
-      puts "Info found" unless info.nil? or info.empty?
-      self.image = UrlTempfile.new(info.images.first.uri) unless info.images.nil?
-      self.urls  = info.urls unless info.urls.nil?
+      logger.info "Getting info for #{name}"
+      wrapper = Discogs::Wrapper.new("fusefm")
+      artist = wrapper.get_artist(name)
+
+      if !artist.nil?
+        logger.info "Info found"
+        self.image = UrlTempfile.new(artist.images.first.uri) unless artist.images.nil?
+        self.urls  = artist.urls unless artist.urls.nil?
+      else
+        logger.info "No information found"
+      end
     rescue => exception
       # Artist not found!
-      puts "Not found! #{exception.message}"
+      logger.info "Error!"
+      logger.info exception.message
+      logger.info exception.backtrace
     end
   end
   
