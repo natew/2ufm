@@ -2,7 +2,7 @@
 
 require 'open-uri'
 require 'net/http'
-require 'mp3info'
+require 'taglib'
 require 'tempfile'
 
 class Song < ActiveRecord::Base
@@ -114,42 +114,41 @@ class Song < ActiveRecord::Base
               prev = now
             end
         }) do |song|
-          Mp3Info.open(song.path) do |mp3|
-            logger.info "Opened... #{mp3.tag.artist} - #{mp3.tag.title}"
+          file = TagLib::MPEG::File.new(song.path)
+          tag  = file.id3v2_tag
             
-            # Working
-            self.processed = true
-            
-            # Read from ID3
-            self.name = mp3.tag.title || link_info[0] || '(Not Found)'
-            self.artist_name = mp3.tag.artist || link_info[1] || '(Not Found)'
-            self.album_name = mp3.tag.album
-            self.track_number = mp3.tag.tracknum.to_i
-            self.genre = mp3.tag.genre
-            self.bitrate = mp3.tag.bitrate.to_i
-            self.length = mp3.tag.length.to_f
+          # Read from ID3
+          self.name = tag.title || link_info[0] || '(Not Found)'
+          self.artist_name = tag.artist || link_info[1] || '(Not Found)'
+          self.album_name = tag.album
+          self.track_number = tag.track.to_i
+          self.genre = tag.genre
+          self.bitrate = tag.bitrate.to_i
+          self.length = tag.length.to_f
+          self.image = get_album_art(tag)
+          
+          # Working if we have name or artist name at least
+          self.working = name != '(Not Found)' or artist_name != '(Not Found)'
 
-            # Like it says...
-            get_album_art(mp3)
-            
-            # Working if we have name or artist name at least
-            self.working = name != '(Not Found)' or artist_name != '(Not Found)'
-            
-            # Update info if we have processed this song
-            if working?
-              find_similar_songs
-              self.slug = full_name.to_url
-              logger.info "Processed and working!"
-            else
-              logger.info "Processed (couldn't read information)"
-            end
-            
-            # Save processing
-            self.save!
-            logger.info "Saved!"
+          # Processed
+          self.processed = true
+          
+          # Update info if we have processed this song
+          if working?
+            find_similar_songs
+            self.slug = full_name.to_url
+            logger.info "Processed and working!"
+          else
+            logger.info "Processed (couldn't read information)"
           end
+          
+          # Save processing
+          self.save!
+          logger.info "Saved!"
         end
       rescue Exception => e
+        # self.processed = false
+        # self.working = false
         logger.error e.message + "\n" + e.backtrace.join("\n")
       end
       
@@ -174,31 +173,32 @@ class Song < ActiveRecord::Base
   # Parse album art from ID3 tag
   def get_album_art(*args)
     if args.size.zero?
-      mp3 = nil
+      tag = nil
       open(url) do |song|
-        mp3 = Mp3Info.open(song.path)
+        tag = TagLib::MPEG::File.new(song.path).id3v2_tag
       end
     else
-      mp3 = args.first
+      tag = args.first
     end
 
     begin
       # Save picture
-      picture = mp3.tag2.APIC || mp3.tag2.PIC
-      picture = picture[0] if picture.is_a? Array
-      if picture
-        # Read picture
-        text_encoding, mime_type, picture_type, description, picture_data = picture.unpack("c Z* c Z* a*")
-        logger.info "Text Encoding: #{text_encoding} Mime type: #{mime_type} Picture type: #{picture_type} Description: #{description}"
-
+      cover = tag.frame_list('APIC').first
+      if cover
         # Save pictures
-        filetype = mime_type[/gif|png|jpg|jpeg/i]
+        filetype = cover.mime_type[/gif|png|jpg|jpeg/i]
         filename = "song_#{id}.#{filetype}"
-        self.image = write_tempfile(filename, picture_data)
+        write_tempfile(filename, cover.picture)
       end
     rescue Exception => e
       logger.error e.message + "\n" + e.backtrace.join("\n")
     end
+  end
+
+  # Parse and save album art
+  def save_album_art
+    get_album_art
+    self.save
   end
 
   # Write binary pictures
