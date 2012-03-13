@@ -29,6 +29,11 @@ class Station < ActiveRecord::Base
   def self.new_station
     find(3)
   end
+
+  def to_playlist_json
+    # TODO image from parent
+    self.to_json(:only => [:id, :slug, :name])
+  end
   
   def has_songs?
     songs.size > 0

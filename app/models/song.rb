@@ -55,7 +55,7 @@ class Song < ActiveRecord::Base
   end
   
   def to_playlist
-    { id: id, artist:artist_name, name:name, url:url }
+    { id: id, artist:artist_name, name:name, url:url, image:resolve_image(:small) }
   end
   
   def resolve_image(*type)
