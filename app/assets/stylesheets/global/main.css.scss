@@ -24,7 +24,6 @@ body {
     overflow: hidden;
     position: relative;
     padding: 25px 0;
-    @include border-radius-bottom(10px);
   }
 }
 
@@ -134,7 +133,7 @@ header {
         text-decoration: none;
         font-weight: bold;
         font-size: 18px;
-        @include border-radius(4px);
+        @include border-radius(5px);
 
         &:hover {
           background: #ebf5fa;
@@ -239,7 +238,7 @@ header {
         text-align: right;
         white-space: nowrap;
         text-decoration: none;
-        @include border-radius(4px);
+        @include border-radius(5px);
 
         &:hover {
           color: #000;
@@ -314,7 +313,7 @@ header {
   top: 45px;
   margin-left: -490px;
   z-index: 98;
-  @include border-radius-bottom(4px);
+  @include border-radius-bottom(5px);
   
   .page-contain { width: 980px; }
   
@@ -383,7 +382,7 @@ header {
         color: #999;
         border-color: #444;
         @include background-gradient(#999, #555);
-        @include border-radius(4px);
+        @include border-radius(5px);
         
         &.show { 
           color: #fff;
@@ -519,18 +518,23 @@ header {
   /* PLAYLIST */
   #player-playlist {
     display: none;
-    background: #333;
+    overflow: hidden;
+    background: #444;
+    @include border-radius-bottom(5px);
 
     .shelf {
       margin: 4px 0;
       padding: 0;
       overflow: hidden;
-      height: 67px;
+      height: 50px;
+      background: #333;
 
       li {
         margin-left: 10px;
         margin-bottom: 10px;
         overflow: hidden;
+        width: 48px;
+        height: 48px;
 
         a {
           &:hover {
@@ -561,12 +565,11 @@ header {
   .tracks {
     clear: both;
     background: #444;
-    border-top: 1px solid #555;
     overflow: hidden;
     height: 30px;
     padding: 0;
     margin: 0;
-    @include border-radius-bottom(4px);
+    @include border-radius-bottom(5px);
 
     li {
       float: left;
@@ -587,7 +590,7 @@ header {
       float: left;
       padding: 3px 8px;
       font-size: 11px;
-      width: 166px;
+      max-width: 211px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -704,7 +707,7 @@ ol.mp_list {
   font-size: 16px;
   padding: 10px 0 8px;
   text-align: center;
-  @include border-radius-bottom(4px);
+  @include border-radius-bottom(5px);
 
   strong {
     color: #3f3e2d;
@@ -808,7 +811,7 @@ h2.title { color: $subtitle; }
   margin: 0 0 20px 0;
   background: #bbe5fa;
   padding: 0 20px;
-  @include border-radius(4px);
+  @include border-radius(5px);
   
   li {
     float: left;
@@ -843,16 +846,16 @@ h2.title { color: $subtitle; }
   display: inline-block;
   margin: 20px 0;
   @include box-shadow(0px,1px,2px,#999);
-  @include border-radius-right(3px);
+  @include border-radius-right(5px);
   
   span {
     float: left;
     
     &:first-child {
-      @include border-radius-left(3px);
+      @include border-radius-left(5px);
       
       a {
-        @include border-radius-left(3px);
+        @include border-radius-left(5px);
       }
     }
   }
