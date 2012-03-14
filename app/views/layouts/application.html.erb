@@ -108,12 +108,14 @@
         </li>
         {{/songs}}
       </ul>
-      <ul class="tracks">
-        <li class="title">Next:</li>
-        {{#songs}}
-          <li><a href="">{{artist}} - {{name}}</a></li>
-        {{/songs}}
-      </ul>
+      <div class="tracks">
+        <ul>
+          <li class="title">Next:</li>
+          {{#songs}}
+            <li><a href="">{{artist}} - {{name}}</a></li>
+          {{/songs}}
+        </ul>
+      </div>
     </div>
   </div>
   

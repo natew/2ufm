@@ -523,11 +523,11 @@ header {
     @include border-radius-bottom(5px);
 
     .shelf {
-      margin: 4px 0;
-      padding: 0;
-      overflow: hidden;
-      height: 50px;
       background: #333;
+      height: 50px;
+      padding: 4px 0;
+      margin: 0;
+      overflow: hidden;
 
       li {
         margin-left: 10px;
@@ -563,13 +563,19 @@ header {
   }
 
   .tracks {
-    clear: both;
-    background: #444;
+    width: 100%;
     overflow: hidden;
-    height: 30px;
-    padding: 0;
-    margin: 0;
     @include border-radius-bottom(5px);
+
+    ul {
+      clear: both;
+      background: #444;
+      overflow: hidden;
+      height: 28px;
+      padding: 0;
+      margin: 0;
+      width: 1300px;
+    }
 
     li {
       float: left;
