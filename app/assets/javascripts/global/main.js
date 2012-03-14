@@ -1,5 +1,8 @@
+// Variables
+var commandPressed = false,
+    $window = $(window);
+
 // Allow middle clicking for new tabs
-var commandPressed = false;
 var pressedDisable = function(e) {
   console.log('command toggle');
   var command = e.metaKey || e.ctrlKey;
@@ -13,9 +16,16 @@ function setBarPosition() {
   else $('#bar').removeClass('fixed');
 }
 
-// Image errors
-$('img.cover-medium').error(function(){ $(this).attr('src', '/images/default_medium.jpg'); });
-$('img.cover-small').error(function(){ $(this).attr('src', '/images/default_small.jpg'); });
+function keyShortcuts(e) {
+  e.preventDefault();
+  switch(e.keyCode) {
+    // Left arrow
+    case 37:
+      mp.prev();
+      break;
+    // TODO ALL KEYBOARD SHORTCUTS
+  }
+}
 
 //
 // Document.ready
@@ -27,9 +37,12 @@ $(function() {
   // HTML5 pushState using Path.js
   Path.history.listen();
 
+  // Keyboard shortucts
+  $window.keyDown(keyShortcuts);
+
   // Disable path.js when command button pressed (allow middle click)
-  $(window).keydown(pressedDisable).keyup(pressedDisable);
-  $(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
+  $window.keydown(pressedDisable).keyup(pressedDisable);
+  $window.blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
   $("a:not(.control)").live('click', function(event) {
     var href = $(this).attr('href');
@@ -46,7 +59,7 @@ $(function() {
 
   // Scroll music player
   setBarPosition();
-  $(window).scroll(setBarPosition);
+  $window.scroll(setBarPosition);
 
   // Bar buttons under logo
   $('#bar-top').click(function(e) {
@@ -55,7 +68,7 @@ $(function() {
   });
 
   // Tooltips
-  $(window).scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
+  $window.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
   $('.tip-n').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip').tipsy({gravity: 's', offset: 5, live: true});
   
@@ -91,15 +104,6 @@ $(function() {
     }
     return false;
   });
-  
-  // Modal windows
-  /*
-  $('.nav a.control').click(function(e) {
-    e.preventDefault();
-    $('#modal').html($('#' + $(this).data('target')).html());
-    $('#overlay').show();
-  });*/
-    
   
   // Player controls
   // PLAY
@@ -137,4 +141,8 @@ $(function() {
     }
     return false;
   });
+
+  // Image errors
+  $('img.cover-medium').error(function(){ $(this).attr('src', '/images/default_medium.jpg'); });
+  $('img.cover-small').error(function(){ $(this).attr('src', '/images/default_small.jpg'); });
 });
