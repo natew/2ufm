@@ -519,12 +519,10 @@ header {
   /* PLAYLIST */
   #player-playlist {
     display: none;
-    padding: 10px 0 8px;
     background: #333;
-    @include border-radius-bottom(4px);
 
     .shelf {
-      margin: 0 0 4px 0;
+      margin: 4px 0;
       padding: 0;
       overflow: hidden;
       height: 67px;
@@ -562,22 +560,44 @@ header {
 
   .tracks {
     clear: both;
+    background: #444;
     border-top: 1px solid #555;
     overflow: hidden;
-    height: 22px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    @include border-radius-bottom(4px);
 
     li {
       float: left;
+      list-style: none;
+
+      &.title {
+        padding: 4px 20px;
+        font-weight: bold;
+        width: 30px;
+      }
+
+      &:nth-child(2) {
+        display: none;
+      }
     }
 
     a {
       float: left;
-      padding: 6px 8px;
+      padding: 3px 8px;
       font-size: 11px;
-      max-width: 120px;
+      width: 166px;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+
+      &:hover {
+        background: #555;
+      }
     }
   }
 }

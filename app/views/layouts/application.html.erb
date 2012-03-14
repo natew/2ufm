@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    <div id="player-playlist" class="page-contain playlist-wrap">
+    <div id="player-playlist" class="page-contain playlist-wrap clearfix">
       <ul class="shelf">
         {{#songs}}
         <li>
@@ -109,6 +109,7 @@
         {{/songs}}
       </ul>
       <ul class="tracks">
+        <li class="title">Next:</li>
         {{#songs}}
           <li><a href="">{{artist}} - {{name}}</a></li>
         {{/songs}}
