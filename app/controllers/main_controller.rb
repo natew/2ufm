@@ -1,6 +1,7 @@
 class MainController < ApplicationController
   def index
-    @popular  = Station.popular_station unless user_signed_in?
+    @popular  = Station.new(:id => 1)
+    @popular.songs = Song.order(:rank).limit(12).playlist_order_published
     @new      = Station.new_station
     @feed     = current_user if user_signed_in?
     limit     = user_signed_in? ? 2 : 6

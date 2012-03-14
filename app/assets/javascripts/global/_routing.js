@@ -32,12 +32,12 @@ var page = {
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
     
-    // Set page in music player
-    mp.setPage(curPage);
-    
     // Update html
     $('#body').html(data);
 	  $('#loading').removeClass('hide');
+    
+    // Set page in music player
+    mp.setPage(curPage);
 
     // Scroll to top if we are going to new page
     if (Path.routes.state == 'push' && $('body').scrollTop() > 0)

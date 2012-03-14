@@ -16,6 +16,7 @@ class Song < ActiveRecord::Base
   has_many    :users, :through => :stations
   has_many    :authors
   has_many    :artists, :through => :authors
+  has_many    :listens
   
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['64x64#'], icon: ['32x32#'], tiny: ['16x16#'] }
@@ -31,8 +32,8 @@ class Song < ActiveRecord::Base
   scope :working, where(processed: true,working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
-  scope :group_shared_order_broadcast, select('DISTINCT ON (broadcasts.created_at,songs.shared_id) songs.*').order('broadcasts.created_at desc, songs.shared_id desc')
-  scope :group_shared_order_published, select('DISTINCT ON (songs.published_at,songs.shared_id) songs.*').order('songs.published_at desc, songs.shared_id desc')
+  scope :group_shared_order_broadcast, select('DISTINCT ON (songs.rank, broadcasts.created_at,songs.shared_id) songs.*').order('songs.rank, broadcasts.created_at desc, songs.shared_id desc')
+  scope :group_shared_order_published, select('DISTINCT ON (songs.rank, songs.published_at,songs.shared_id) songs.*').order('songs.rank, songs.published_at desc, songs.shared_id desc')
   scope :select_with_info, select('songs.*, posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
   scope :individual, select_with_info.with_blog_and_post.working
   scope :playlist_order_broadcasted, group_shared_order_broadcast.select_with_info.with_blog_and_post.working
@@ -42,6 +43,7 @@ class Song < ActiveRecord::Base
   
   before_create  :get_real_url, :clean_url
   after_create :delayed_scan_and_save
+  before_save :set_rank
 
   # Whitelist mass-assignment attributes
   attr_accessible :url, :link_text, :blog_id, :post_id, :published_at
@@ -65,6 +67,14 @@ class Song < ActiveRecord::Base
   
   def full_name
     "#{artist_name} - #{name}"
+  end
+
+  # Ranking algorithm
+  def set_rank
+    plays = Math.log([listens.count,2].max)
+    favs  = Math.log([broadcasts.count,2].max*100)
+    time  = (created_at - Time.new(2012))/100000
+    self.rank = plays + favs + time
   end
   
   def check_if_working

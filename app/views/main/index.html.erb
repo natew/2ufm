@@ -13,7 +13,7 @@
   <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
 <%- else -%>
   <h3>Popular Now</h3>
-  <%= render :partial => 'stations/playlist', :locals => { :station => @popular } %>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs } %>
   <%= link_to 'Browse more songs', '/songs', :class => 'button right' %>
 <%- end -%>
 </div>

@@ -74,7 +74,7 @@
           <%= link_to '7', '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
         </div>
         <div id="player-progress-bar">
-          <a href="#" id="player-goto" class="goto pictos control tip-n" title="Return to station">a</a>
+          <a href="#" id="player-goto" class="goto pictos disabled tip-n" title="Return to station">a</a>
           <div id="player-progress-grabber"></div>
           <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
           <div id="player-progress-position"></div>
@@ -150,12 +150,12 @@
     <div id="new_user">
       <div class="half first">
         <h4>Login</h4>
-        <%= render :partial => 'devise/sessions/new_form' %>
+        <%= render :partial => 'sessions/new_form' %>
       </div>
       <span id="between">or</span>
       <div class="half">
         <h4>Signup</h4>
-        <%= render :partial => 'devise/registrations/new_form' %>
+        <%= render :partial => 'registrations/new_form' %>
       </div>
     </div>
   </div>

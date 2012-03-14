@@ -74,7 +74,7 @@ var mp = (function() {
 
         // Remember this page
         playingPage = curPage;
-        $('#player-goto').attr('href',playingPage).removeClass('control');
+        $('#player-goto').attr('href',playingPage).removeClass('disabled');
 
         // Get playlist info
         playlistIndex = curSection.data('index');
@@ -392,8 +392,10 @@ var mp = (function() {
     setPage: function(url) {
       curPage = url;
       if (curPage && curPage == playingPage) {
+        console.log('RETURNED!!!!!!!!!!!!');
         // If we return to the page we started playing from, re-activate current song
-        curSection = $(document).find('section#song-' + curSongInfo.id);
+        curSection = $(document).find('#song-' + curSongInfo.id);
+        console.log(curSongInfo.id,curSection);
         player.setCurSectionActive();
       } else {
         curSection = null;
@@ -440,6 +442,10 @@ var mp = (function() {
 
     getPlayingPage: function() {
       return playingPage;
+    },
+
+    getCurPage: function() {
+
     }
     
   }

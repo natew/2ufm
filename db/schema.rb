@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311200616) do
+ActiveRecord::Schema.define(:version => 20120314073744) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(:version => 20120311200616) do
     t.boolean  "working",          :default => false
     t.datetime "published_at"
     t.string   "absolute_url"
+    t.float    "rank"
   end
 
   create_table "stations", :force => true do |t|

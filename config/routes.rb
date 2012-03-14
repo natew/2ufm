@@ -1,5 +1,8 @@
 Fusefm::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {
+    :registrations => 'registrations',
+    :sessions => 'sessions'
+  }
   
   match "/users", :to => "users#index"
   match "/songs-new", :to => "songs#fresh"
