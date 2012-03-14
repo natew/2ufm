@@ -18,7 +18,7 @@ class Song < ActiveRecord::Base
   has_many    :artists, :through => :authors
   
   # Attachments
-  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
+  has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['64x64#'], icon: ['32x32#'], tiny: ['16x16#'] }
   has_attachment :file
 
   # Validations

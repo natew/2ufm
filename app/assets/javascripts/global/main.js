@@ -14,8 +14,8 @@ function setBarPosition() {
 }
 
 // Image errors
-$('#body img.cover-medium').error(function(){ $(this).attr('src', '/images/default_medium.jpg'); });
-$('#body img.cover-small').error(function(){ $(this).attr('src', '/images/default_small.jpg'); });
+$('#body img.cover-medium').live('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
+$('#body img.cover-small').live('error',function(){ $(this).attr('src', '/images/default_small.jpg'); });
 
 //
 // Document.ready

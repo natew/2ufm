@@ -35,6 +35,8 @@
     a {
       text-decoration: none;
       text-shadow: 0 1px 0 #000;
+      position: relative;
+      display: block;
     }
     
     strong {
@@ -46,7 +48,7 @@
       position: absolute;
       top: 0;
       width: 100%;
-      @include dim(70);
+      @include dim(60);
       @include border-radius-top(3px);
     }
   }

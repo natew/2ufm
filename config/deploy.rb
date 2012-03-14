@@ -20,7 +20,8 @@ role :web, domain
 role :app, domain
 role :db,  domain, :primary => true # This is where Rails migrations will run
 
-after "deploy:update", "deploy:cleanup"
+after 'deploy:update', 'deploy:cleanup'
+after 'deploy:update', 'deploy:symlink_attachments'
 
 namespace :deploy do
   task :start, :roles => :app do
@@ -36,5 +37,9 @@ namespace :deploy do
   task :restart, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
     run "#{dj_script} restart"
+  end
+
+  task :symlink_attachments do
+    run "ln -nfs #{shared_path}/attachments #{release_path}/public/attachments"
   end
 end

@@ -71,12 +71,19 @@ var mp = (function() {
       if (!curSection) curSection = $('.playlist section:first');
       if (curSection) {
         console.log('loading playlist');
+
+        // Remember this page
         playingPage = curPage;
+        $('#player-goto').attr('href',playingPage).removeClass('control');
+
+        // Get playlist info
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
         playlist   = $('#playlist-'+playlistID).data('playlist');
 
         $('#main-mid').addClass('loaded');
+
+        // Render playlist
         playlist_template = Mustache.render(pl.playlist.html(),playlist);
         pl.playlist.html(playlist_template);
         pl.playlist.addClass('loaded');
@@ -175,8 +182,6 @@ var mp = (function() {
         icon = isPlaying ? '\u25BA' : '\u25FC';
         $('title').html(icon + ' ' + title);
       } else {
-        pl.loaded.css('width', 0);
-        pl.position.css('width', 0);
         pl.player.removeClass('playing');
         pl.play.html('4');
       }
@@ -385,14 +390,14 @@ var mp = (function() {
   return {
     
     setPage: function(url) {
+      curPage = url;
       if (curPage && curPage == playingPage) {
         // If we return to the page we started playing from, re-activate current song
-        curSection = $('section#song-' + curSongInfo.id);
+        curSection = $(document).find('section#song-' + curSongInfo.id);
         player.setCurSectionActive();
       } else {
         curSection = null;
       }
-      curPage = url;
     },
     
     toggle: function() {
@@ -431,6 +436,10 @@ var mp = (function() {
     
     getPlaylist: function() {
       return playlist;
+    },
+
+    getPlayingPage: function() {
+      return playingPage;
     }
     
   }
