@@ -28,8 +28,8 @@ function keyShortcuts(e) {
 }
 
 // Image errors
-$('img.cover-medium').live('error'function(){ $(this).attr('src', '/images/default_medium.jpg'); });
-$('img.cover-small').live('error'function(){ $(this).attr('src', '/images/default_small.jpg'); });
+$('img.cover-medium').live('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
+$('img.cover-small').live('error',function(){ $(this).attr('src', '/images/default_small.jpg'); });
 
 //
 // Document.ready
