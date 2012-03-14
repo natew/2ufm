@@ -1,6 +1,5 @@
 // Variables
-var commandPressed = false,
-    $window = $(window);
+var commandPressed = false;
 
 // Allow middle clicking for new tabs
 var pressedDisable = function(e) {
@@ -16,7 +15,7 @@ function setBarPosition() {
   else $('#bar').removeClass('fixed');
 }
 
-function keyShortcuts(e) {
+var keyShortcuts = function(e) {
   e.preventDefault();
   switch(e.keyCode) {
     // Left arrow
@@ -42,11 +41,11 @@ $(function() {
   Path.history.listen();
 
   // Keyboard shortucts
-  $window.keyDown(keyShortcuts);
+  $(window).keyDown(keyShortcuts);
 
   // Disable path.js when command button pressed (allow middle click)
-  $window.keydown(pressedDisable).keyup(pressedDisable);
-  $window.blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
+  $(window).keydown(pressedDisable).keyup(pressedDisable);
+  $(window).blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
   $("a:not(.control)").live('click', function(event) {
     var href = $(this).attr('href');
@@ -63,7 +62,7 @@ $(function() {
 
   // Scroll music player
   setBarPosition();
-  $window.scroll(setBarPosition);
+  $(window).scroll(setBarPosition);
 
   // Bar buttons under logo
   $('#bar-top').click(function(e) {
@@ -72,7 +71,7 @@ $(function() {
   });
 
   // Tooltips
-  $window.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
+  $(window).scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
   $('.tip-n').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip').tipsy({gravity: 's', offset: 5, live: true});
   
