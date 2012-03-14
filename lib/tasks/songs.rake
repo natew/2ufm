@@ -7,12 +7,15 @@ namespace :songs do
     puts Song.where(processed:true).count
   end
   
-  task :popular => :environment do
-    popular_station_id = Station.popular_station.id
-    popular_songs = Broadcast.select('song_id, COUNT(song_id) as count_song_id').where('created_at > ?', 7.days.ago).group(:song_id).order(:count_song_id).limit(50)
-    
-    popular_songs.each do |broadcast|
-      Broadcast.create(song_id: broadcast.song_id, station_id: popular_station_id)
+  task :save => :environment do
+    begin
+      Song.where(working:true).each do |song|
+        puts "Saving song #{song.id}"
+        song.save
+        puts "  rank = #{song.rank}"
+      end
+    rescue Exception => e
+      puts e.message
     end
   end
   

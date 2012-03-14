@@ -21,13 +21,20 @@ class Station < ActiveRecord::Base
   def to_param
     url
   end
-  
+
   def self.popular_station
-    find(2)
+    p = Station.new(:id => 1)
+    p.songs = Song.order(:rank).playlist_order_published.limit(20)
+    p
   end
   
   def self.new_station
     find(3)
+  end
+
+  def to_playlist_json
+    # TODO image from parent
+    self.to_json(:only => [:id, :slug, :name])
   end
   
   def has_songs?

@@ -64,7 +64,7 @@
   </header>
   
   <div id="bar">
-    <div class="page-contain">
+    <div class="page-contain player-wrap">
       <a id="bar-top" class="pictos control" href="#">{</a>
       <a id="bar-home" href="/">Home</a>
       <div id="player">
@@ -74,7 +74,7 @@
           <%= link_to '7', '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
         </div>
         <div id="player-progress-bar">
-          <a href="#" id="player-goto" class="goto pictos control tip-n" title="Go to song">a</a>
+          <a href="#" id="player-goto" class="goto pictos disabled tip-n" title="Return to station">a</a>
           <div id="player-progress-grabber"></div>
           <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
           <div id="player-progress-position"></div>
@@ -94,11 +94,31 @@
         </div>
       </div>
     </div>
+
+    <div id="player-playlist" class="page-contain playlist-wrap">
+      <ul class="shelf">
+        {{#songs}}
+        <li>
+          <a class="tip-n" title="{{artist}} - {{name}}" href="{{url}}">
+            <div class="cover">
+              <img class="cover" src="/images/cover.png" />
+            </div>
+            <img class="cover-small" src="{{image}}" />
+          </a>
+        </li>
+        {{/songs}}
+      </ul>
+      <ul class="tracks">
+        {{#songs}}
+          <li><a href="">{{artist}} - {{name}}</a></li>
+        {{/songs}}
+      </ul>
+    </div>
   </div>
   
   <div id="main-mid">
     <div class="page-contain">
-      <%- unless user_signed_in? -%>
+      <%- if false -%>
       <div class="announce">
           <strong>The best new music from around the web.</strong>
           Find and share new music with your friends.  Sign up for free!
@@ -134,12 +154,12 @@
     <div id="new_user">
       <div class="half first">
         <h4>Login</h4>
-        <%= render :partial => 'devise/sessions/new_form' %>
+        <%= render :partial => 'sessions/new_form' %>
       </div>
       <span id="between">or</span>
       <div class="half">
         <h4>Signup</h4>
-        <%= render :partial => 'devise/registrations/new_form' %>
+        <%= render :partial => 'registrations/new_form' %>
       </div>
     </div>
   </div>

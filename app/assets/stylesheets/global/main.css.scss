@@ -9,6 +9,10 @@ body {
 
 #main-mid {
   padding: 35px 0;
+
+  &.loaded {
+    padding-top: 123px;
+  }
 }
 
 .page-contain {
@@ -19,7 +23,7 @@ body {
   #body {
     overflow: hidden;
     position: relative;
-    padding: 15px 0;
+    padding: 25px 0;
     @include border-radius-bottom(10px);
   }
 }
@@ -96,7 +100,7 @@ header {
   h1 {
     position: absolute;
     top: -8px;
-    left: -5px;
+    left: -14px;
     margin: 0;
     
     a {
@@ -113,7 +117,7 @@ header {
 
   nav {
     float: left;
-    padding-left: 100px;
+    padding-left: 80px;
     
     li {
       float: left;
@@ -352,9 +356,15 @@ header {
     white-space: nowrap;
     margin-left: 92px;
 
+    .player-buttons a.control {
+      width: 18px;
+    }
+
     &.loaded {
-      .player-buttons a.next, #player-buttons a.prev {color: #fff;}
-      .player-buttons a.control {visibility: visible !important;}
+      .player-buttons a.next,
+      .player-buttons a.prev {
+        color: #fff;
+      }
     }
     
     #player-shortcode {
@@ -384,6 +394,7 @@ header {
     }
     
     #player-controls {
+      width: 108px;
       float: left;
     }
 
@@ -408,6 +419,7 @@ header {
 
     #player-controls-after {
       float: left;
+      width: 72px;
       margin-right: 5px;
 
       a.volume {
@@ -419,11 +431,12 @@ header {
 
     #player-progress-bar {
       float: left;
-      margin: 4px 8px 0;
+      margin: 4px 5px 0;
       height: 30px;
-      width: 480px;
+      width: 505px;
       overflow: hidden;
       position: relative;
+      background: #555;
       
       &:hover {
         cursor: pointer;
@@ -432,7 +445,7 @@ header {
       #player-goto {
         position: absolute;
         top: 6px;
-        left: 9px;
+        left: 8px;
         z-index: 100;
         color: #888;
         font-size: 11px;
@@ -480,7 +493,7 @@ header {
         z-index: 0;
         width: 0%;
         height: 100%;
-        background: #555;
+        background: #666;
       }
     }
     
@@ -499,6 +512,72 @@ header {
         &.facebook {background: url(/images/facebook.png) no-repeat top left;}
         &.twitter {background: url(/images/twitter.png) no-repeat top left;}
       }
+    }
+  }
+
+
+  /* PLAYLIST */
+  #player-playlist {
+    display: none;
+    padding: 10px 0 8px;
+    background: #333;
+    @include border-radius-bottom(4px);
+
+    .shelf {
+      margin: 0 0 4px 0;
+      padding: 0;
+      overflow: hidden;
+      height: 67px;
+
+      li {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+
+        a {
+          &:hover {
+            strong {
+              visibility: hidden;
+            }
+          }
+        }
+
+        strong {
+          font-size: 10px;
+          line-height: 11px;
+          padding: 4px;
+          width: 56px;
+          height: 56px;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .cover img {
+        height: 200%;
+      }
+    }
+
+    &.loaded {display:block;}
+  }
+
+  .tracks {
+    clear: both;
+    border-top: 1px solid #555;
+    overflow: hidden;
+    height: 22px;
+
+    li {
+      float: left;
+    }
+
+    a {
+      float: left;
+      padding: 6px 8px;
+      font-size: 11px;
+      max-width: 120px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 }

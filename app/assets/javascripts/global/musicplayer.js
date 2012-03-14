@@ -15,7 +15,8 @@ var mp = (function() {
       playingPage,
       smReady = false,
       delayStart = false,
-      volume = 100;
+      volume = 100,
+      playlist_template = '';
   
   // Elements
   var pl = {
@@ -27,7 +28,8 @@ var mp = (function() {
     song: $('#player-song'),
     play: $('#player-play'),
     invite: $('#invite'),
-    volume: $('#player-volume')
+    volume: $('#player-volume'),
+    playlist: $('#player-playlist')
   }
 
   // Soundmanager
@@ -69,10 +71,23 @@ var mp = (function() {
       if (!curSection) curSection = $('.playlist section:first');
       if (curSection) {
         console.log('loading playlist');
+
+        // Remember this page
         playingPage = curPage;
+        $('#player-goto').attr('href',playingPage).removeClass('disabled');
+
+        // Get playlist info
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
         playlist   = $('#playlist-'+playlistID).data('playlist');
+
+        $('#main-mid').addClass('loaded');
+
+        // Render playlist
+        playlist_template = Mustache.render(pl.playlist.html(),playlist);
+        pl.playlist.html(playlist_template);
+        pl.playlist.addClass('loaded');
+
         console.log('playlist loaded: '+playlistID);
       }
     },
@@ -169,10 +184,6 @@ var mp = (function() {
       } else {
         pl.player.removeClass('playing');
         pl.play.html('4');
-        
-        if (curSection == null) {
-          pl.song.html('')
-        }
       }
     },
     
@@ -220,6 +231,10 @@ var mp = (function() {
   // Actions
   //
   var actions = {
+    click: function() {
+
+    },
+
     startDrag: function(event) {
       if (!event) var event = window.event;
       element = event.target || event.srcElement;
@@ -319,14 +334,14 @@ var mp = (function() {
 
     whileloading: function() {
       function doWork() {
-        $('#player-progress-loaded').css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
+        pl.loaded.css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
       }
       doWork.apply(this);
     },
 
     whileplaying: function() {
       //updateTime.apply(this);
-      $('#player-progress-position').css('width',(Math.round(this.position/this.durationEstimate*1000)/10)+'%');
+      pl.position.css('width',(Math.round(this.position/this.durationEstimate*1000)/10)+'%');
     },
 
     metadata: function() {
@@ -375,14 +390,16 @@ var mp = (function() {
   return {
     
     setPage: function(url) {
+      curPage = url;
       if (curPage && curPage == playingPage) {
+        console.log('RETURNED!!!!!!!!!!!!');
         // If we return to the page we started playing from, re-activate current song
-        curSection = $('section#song-' + curSongInfo.id);
+        curSection = $(document).find('#song-' + curSongInfo.id);
+        console.log(curSongInfo.id,curSection);
         player.setCurSectionActive();
       } else {
         curSection = null;
       }
-      curPage = url;
     },
     
     toggle: function() {
@@ -421,6 +438,14 @@ var mp = (function() {
     
     getPlaylist: function() {
       return playlist;
+    },
+
+    getPlayingPage: function() {
+      return playingPage;
+    },
+
+    getCurPage: function() {
+
     }
     
   }
