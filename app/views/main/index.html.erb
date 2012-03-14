@@ -14,7 +14,7 @@
 <%- else -%>
   <h3>Popular Now</h3>
   <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs } %>
-  <%= link_to 'Browse more songs', '/songs', :class => 'button right' %>
+  <%= link_to 'Browse more songs', '/songs/fresh', :class => 'button right' %>
 <%- end -%>
 </div>
 

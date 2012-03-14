@@ -21,9 +21,11 @@ class Station < ActiveRecord::Base
   def to_param
     url
   end
-  
+
   def self.popular_station
-    find(2)
+    p = Station.new(:id => 1)
+    p.songs = Song.order(:rank).playlist_order_published
+    p
   end
   
   def self.new_station

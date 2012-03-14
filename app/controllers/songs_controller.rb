@@ -1,6 +1,6 @@
 class SongsController < ApplicationController
   def index
-    @station = Station.popular_station
+    @popular = Station.popular_station
     
     respond_to do |format|
       format.html
