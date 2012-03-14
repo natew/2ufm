@@ -65,11 +65,11 @@
       .song-meta {
         font-size: 11px;
         margin: 0;
-        color: #999;
+        color: #666;
         font-weight: bold;
 
         a {
-          color: #999;
+          color: #888;
         }
 
         p {
@@ -203,7 +203,7 @@
           
           a {
             font-size: 24px;
-            color: #777;
+            color: #ccc;
             
             &:hover { color: #cb0000; }
             &.remove {
@@ -218,7 +218,7 @@
             height: 16px;
             padding: 0;
             margin: -2px 4px 0 0;
-            color: #777;
+            color: #666;
           }
         }
       }

@@ -3,7 +3,6 @@
 		per        ||= 12
     songs      ||= station.songs.playlist_order_published.page(params[:page]).per(per)
     pagination ||= true -%>
-    <%= station.id %>
 <div id="playlist-<%= id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= station.to_playlist_json %>, &quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
   <%= render :partial => 'songs/song', :collection => songs, :locals => { :station_id => id } unless songs.nil? %>
 </div>

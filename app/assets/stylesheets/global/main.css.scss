@@ -409,7 +409,7 @@ header {
         &.next, &.prev {color: #999;}
         &.add {
           font-size: 25px;
-          padding: 8px;
+          padding: 8px 5px 9px;
           padding-right: 10px;
           color: #cb0000;
         }
@@ -418,12 +418,11 @@ header {
 
     #player-controls-after {
       float: left;
-      width: 72px;
-      margin-right: 5px;
+      width: 68px;
 
       a.volume {
         font-size: 20px;
-        padding: 10px 6px 6px;
+        padding: 10px 6px 7px;
         color: #999;
       }
     }
@@ -432,7 +431,7 @@ header {
       float: left;
       margin: 4px 5px 0;
       height: 30px;
-      width: 505px;
+      width: 514px;
       overflow: hidden;
       position: relative;
       background: #555;
@@ -582,7 +581,7 @@ header {
       list-style: none;
 
       &.title {
-        padding: 4px 20px;
+        padding: 3px 9px 3px 15px;
         font-weight: bold;
         width: 30px;
       }
@@ -851,19 +850,9 @@ h2.title { color: $subtitle; }
   font-size: 13px;
   display: inline-block;
   margin: 20px 0;
-  @include box-shadow(0px,1px,2px,#999);
-  @include border-radius-right(5px);
   
   span {
     float: left;
-    
-    &:first-child {
-      @include border-radius-left(5px);
-      
-      a {
-        @include border-radius-left(5px);
-      }
-    }
   }
   
   span {
