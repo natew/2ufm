@@ -536,6 +536,8 @@ header {
         height: 48px;
 
         a {
+          height: 100%;
+
           &:hover {
             strong {
               visibility: hidden;
@@ -814,7 +816,7 @@ h2.title { color: $subtitle; }
 /* Subnav */
 .subnav {
   margin: 0 0 20px 0;
-  background: #bbe5fa;
+  background: #eee;
   padding: 0 20px;
   @include border-radius(5px);
   

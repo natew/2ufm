@@ -33,13 +33,16 @@
         overflow: hidden;
       }
     }
+
+    .cover img {
+      height: 200%;
+    }
     
     a {
       text-decoration: none;
       text-shadow: 0 1px 0 #000;
       position: relative;
       display: block;
-      height: 100%;
     }
     
     strong {
