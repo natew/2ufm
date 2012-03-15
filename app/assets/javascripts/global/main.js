@@ -1,6 +1,7 @@
 // Variables
 var commandPressed = false,
-    $window = $(window);
+    $window = $(window),
+    playing = null;
 
 // Allow middle clicking for new tabs
 var pressedDisable = function(e) {
@@ -131,6 +132,25 @@ $(function() {
   // VOLUME
   $('#player-volume').click(function() {
     mp.volumeToggle();
+    return false;
+  });
+
+  // Play from playlist
+  $('#player-playlist a').live('click',function() {
+    console.log('playing from playlist');
+    var $this    = $(this),
+        $section = $($this.attr('href')),
+        index    = $this.data('index');
+
+    if ($section.length) {
+      mp.playSection($section);
+    } else {
+      mp.playSong(index);
+    }
+
+    playing.removeClass('playing');
+    playing = $('.song-'+index).addClass('playing');
+    
     return false;
   });
   

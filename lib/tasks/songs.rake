@@ -25,16 +25,16 @@ namespace :songs do
       song.save
     end
   end
-  
-  namespace :scan do  
-    task :working => :environment do
-      songs = Song.where('created_at > ?',31.days.ago)
-      songs.each do |song|
-        puts "Checking song #{song.name}..."
-        working = song.delayed_check_if_working
-      end
+
+  task :check_if_working => :environment do
+    songs = Song.where('created_at > ?',31.days.ago)
+    songs.each do |song|
+      puts "Checking song #{song.name}..."
+      working = song.delayed_check_if_working
     end
-    
+  end
+  
+  namespace :scan do
     task :similar => :environment do
       songs = Song.processed
       songs.each do |song|

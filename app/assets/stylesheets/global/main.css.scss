@@ -538,6 +538,10 @@ header {
         a {
           height: 100%;
 
+          &.playing {
+            border: 2px solid blue;
+          }
+
           &:hover {
             strong {
               visibility: hidden;
@@ -604,6 +608,10 @@ header {
       text-decoration: none;
       color: #fff;
       font-weight: bold;
+
+      &.playing {
+        background: #666;
+      }
 
       &:hover {
         background: #555;

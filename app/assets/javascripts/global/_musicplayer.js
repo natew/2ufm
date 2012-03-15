@@ -23,7 +23,7 @@ var mp = (function() {
     bar: $('#player-progress-bar'),
     loaded: $('#player-progress-loaded'),
     position: $('#player-progress-position'),
-    grabber: $('#player-progress-grabber'),
+    handle: $('#player-progress-grabber'),
     player: $('#player'),
     song: $('#player-song'),
     play: $('#player-play'),
@@ -45,8 +45,8 @@ var mp = (function() {
     smReady = true;
     if (delayStart) player.play();
     if (soundManager.supported()) {
-      pl.grabber.bind('mousedown', actions.startDrag);
-      pl.grabber.bind('mouseup', actions.endDrag);
+      pl.handle.bind('mousedown', actions.startDrag);
+      pl.handle.bind('mouseup', actions.endDrag);
     } else {
       alert('Your browser does not support audio playback');
     }
@@ -240,10 +240,10 @@ var mp = (function() {
       element = event.target || event.srcElement;
 
       console.log('startdrag: ' + element.id)
-      if (element.id.match(/grabber/)) {
+      if (element.id.match(/handle/)) {
         dragging_position = true;
-        pl.grabber.unbind('mousemove').bind('mousemove', actions.followDrag);
-        pl.grabber.unbind('mouseup').bind('mouseup', actions.endDrag);
+        pl.handle.unbind('mousemove').bind('mousemove', actions.followDrag);
+        pl.handle.unbind('mouseup').bind('mouseup', actions.endDrag);
       }
 
       return false;
@@ -254,10 +254,10 @@ var mp = (function() {
       element = event.target || event.srcElement;
 
       dragging_position = false;
-      pl.grabber.unbind('mousemove');
-      pl.grabber.unbind('mouseup');
+      pl.handle.unbind('mousemove');
+      pl.handle.unbind('mouseup');
 
-      if (element.id.match(/grabber/)) {
+      if (element.id.match(/handle/)) {
         //player.updateProgress(event, element);
       }
 
@@ -269,8 +269,8 @@ var mp = (function() {
       element = event.target || event.srcElement;
 
       var x      = parseInt(event.clientX),
-          offset = pl.grabber.offset().left,
-          width  = pl.grabber.width(),
+          offset = pl.handle.offset().left,
+          width  = pl.handle.width(),
           curPos = curSong.position,
           newPos = Math.round(((x - offset) / width) * 100);
 
@@ -399,6 +399,14 @@ var mp = (function() {
         player.setCurSectionActive();
       } else {
         curSection = null;
+      }
+    },
+
+    playSong: function(index) {
+      if (playlist) {
+        playlistIndex = index;
+        player.stop();
+        player.play();
       }
     },
     

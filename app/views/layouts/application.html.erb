@@ -99,7 +99,7 @@
       <ul class="shelf">
         {{#songs}}
         <li>
-          <a class="tip-n" title="{{artist}} - {{name}}" href="{{url}}">
+          <a class="control tip-n song-{{id}}" title="{{artist}} - {{name}}" href="#song-{{id}}" data-index="{{id}}">
             <div class="cover">
               <img class="cover" src="/images/cover.png" />
             </div>
@@ -112,7 +112,7 @@
         <ul>
           <li class="title">Next:</li>
           {{#songs}}
-            <li><a href="">{{artist}} - {{name}}</a></li>
+            <li><a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">{{artist}} - {{name}}</a></li>
           {{/songs}}
         </ul>
       </div>
