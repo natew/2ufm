@@ -353,7 +353,7 @@ header {
   
   #player {
     white-space: nowrap;
-    margin-left: 92px;
+    margin-left: 88px;
 
     .player-buttons a.control {
       width: 18px;
@@ -366,29 +366,26 @@ header {
       }
     }
     
-    #player-shortcode {
-      position: relative;
+    #player-invite {
       float: right;
-      padding: 6px 8px 0;
+      margin: 6px 8px 0;
+      padding: 3px;
+      font-weight: bold;
+      font-size: 13px;
+      width: 110px;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background: #555;
+      color: #fff;
+      border: 1px solid #239708;
+      @include border-radius(5px);
+      @include background-gradient(#3ab30a, #239708);
       
-      a {
-        padding: 3px;
-        font-weight: bold;
-        font-size: 13px;
-        width: 110px;
-        display: block;
-        text-align: center;
-        text-decoration: none;
+      &.disabled { 
+        border: none;
         color: #999;
-        border-color: #444;
-        @include background-gradient(#999, #555);
-        @include border-radius(5px);
-        
-        &.show { 
-          color: #fff;
-          border-color: #239708;
-          @include background-gradient(#3ab30a, #239708);
-        }
+        background-image: none;
       }
     }
     
@@ -431,7 +428,7 @@ header {
       float: left;
       margin: 4px 5px 0;
       height: 30px;
-      width: 514px;
+      width: 518px;
       overflow: hidden;
       position: relative;
       background: #555;
@@ -876,6 +873,10 @@ h2.title { color: $subtitle; }
       border-right: none;
       float: left;
       text-decoration: none;
+    }
+
+    a.last {
+      border-right: 1px solid #ddd;
     }
     
     &.gap {

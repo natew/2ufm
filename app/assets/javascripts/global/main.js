@@ -74,8 +74,8 @@ $(function() {
 
   // Tooltips
   $window.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
-  $('.tip-n').tipsy({gravity: 'n', offset: 5, live: true});
-  $('.tip').tipsy({gravity: 's', offset: 5, live: true});
+  $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
+  $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
   
   // Livesearch
   $('#query').marcoPolo({
@@ -111,32 +111,11 @@ $(function() {
   });
   
   // Player controls
-  // PLAY
   mp.mapClick({
-    '#player-play': 'toggle'
-  })
-
-  $('#player-play').click(function() {
-    mp.toggle();
-    return false;
-  });
-  
-  // NEXT
-  $('#player-next').click(function() {
-    mp.next();
-    return false;
-  });
-  
-  // PREV
-  $('#player-prev').click(function() {
-    mp.prev();
-    return false;
-  });
-
-  // VOLUME
-  $('#player-volume').click(function() {
-    mp.volumeToggle();
-    return false;
+    'togglePlay': '#player-play',
+    'next': '#player-next',
+    'prev': '#player-prev',
+    'volumeToggle': '#player-volume'
   });
 
   // Play from playlist

@@ -27,10 +27,10 @@ var mp = (function() {
     player: $('#player'),
     song: $('#player-song'),
     play: $('#player-play'),
-    invite: $('#invite'),
+    invite: $('#player-invite'),
     volume: $('#player-volume'),
     playlist: $('#player-playlist')
-  }
+  };
 
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
@@ -45,8 +45,8 @@ var mp = (function() {
     smReady = true;
     if (delayStart) player.play();
     if (soundManager.supported()) {
-      pl.handle.bind('mousedown', actions.startDrag);
-      pl.handle.bind('mouseup', actions.endDrag);
+      pl.handle.bind('mousedown', player.startDrag);
+      pl.handle.bind('mouseup', player.endDrag);
     } else {
       alert('Your browser does not support audio playback');
     }
@@ -127,6 +127,14 @@ var mp = (function() {
           this.refresh();
           return false;
         }
+      }
+    },
+
+    playSong: function(index) {
+      if (playlist) {
+        playlistIndex = index;
+        this.stop();
+        this.play();
       }
     },
     
@@ -223,16 +231,6 @@ var mp = (function() {
       if (curSong) {
         curSong.setVolume(volume);
       }
-    }
-  }
-  
-  
-  //
-  // Actions
-  //
-  var actions = {
-    click: function() {
-
     },
 
     startDrag: function(event) {
@@ -242,8 +240,8 @@ var mp = (function() {
       console.log('startdrag: ' + element.id)
       if (element.id.match(/handle/)) {
         dragging_position = true;
-        pl.handle.unbind('mousemove').bind('mousemove', actions.followDrag);
-        pl.handle.unbind('mouseup').bind('mouseup', actions.endDrag);
+        pl.handle.unbind('mousemove').bind('mousemove', this.followDrag);
+        pl.handle.unbind('mouseup').bind('mouseup', this.endDrag);
       }
 
       return false;
@@ -277,10 +275,8 @@ var mp = (function() {
       console.log('followdrag: ' + x + ' / ' + newPos + '%');
 
       player.updateProgress(newPos);
-      if (newPos >= 100 || newPos <= 0) actions.endDrag();
-    },
-    
-    
+      if (newPos >= 100 || newPos <= 0) this.endDrag();
+    }
   };
 
 
@@ -301,8 +297,8 @@ var mp = (function() {
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function(data) {
           pl.invite.attr('href','/l/'+data);
-          pl.invite.addClass('show');
-          other.clipboard();
+          pl.invite.removeClass('disable');
+          fn.clipboard();
         },
         dataType: 'html'
       });
@@ -360,34 +356,21 @@ var mp = (function() {
     }
   };
   
-  var other = {
-    clipboard: function() {
-      ZeroClipboard.setMoviePath('/swfs/ZeroClipboard.swf');
-      var clip = new ZeroClipboard.Client();
-      clip.setHandCursor(true);
-      clip.glue('invite','player-shortcode');
-      clip.setText(document.location.host+$('#invite').attr('href'));
-      clip.addEventListener('mouseOver', function (client) {
-      	$('#invite').trigger('mouseover').html('Copy link!');
-      });
-      clip.addEventListener('mouseOut', function (client) {
-      	$('#invite').trigger('mouseout').html('&laquo; Invite friends!');
-      });
-      clip.addEventListener('complete', function(client, text) {
-        var $invite = $('#invite');
-        var html = $invite.html();
-        $invite.html('Copied!')
-        setTimeout(function() { $invite.html(html); }, 2000);
-      });
-    }
-  };
-  
   
   //
   // API
   //
   
   return {
+
+    mapClick: function(object) {
+      for (var key in object) {
+        $(object).bind('click', function(e) {
+          e.preventDefault();
+          this.call(key);
+        });
+      }
+    },
     
     setPage: function(url) {
       curPage = url;
@@ -403,14 +386,10 @@ var mp = (function() {
     },
 
     playSong: function(index) {
-      if (playlist) {
-        playlistIndex = index;
-        player.stop();
-        player.play();
-      }
+      player.playSong(index);
     },
     
-    toggle: function() {
+    togglePlay: function() {
       var played = player.toggle();
       return isPlaying;
     },
@@ -456,6 +435,6 @@ var mp = (function() {
 
     }
     
-  }
+  };
   
 }());
