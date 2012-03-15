@@ -112,6 +112,10 @@ $(function() {
   
   // Player controls
   // PLAY
+  mp.mapClick({
+    '#player-play': 'toggle'
+  })
+
   $('#player-play').click(function() {
     mp.toggle();
     return false;
@@ -150,8 +154,6 @@ $(function() {
 
     playing.removeClass('playing');
     playing = $('.song-'+index).addClass('playing');
-    
-    return false;
   });
   
 
