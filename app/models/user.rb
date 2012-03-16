@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   protected
   
   def make_station
-    self.create_station
+    self.create_station(title:username)
   end
   
   # Devise override for logins

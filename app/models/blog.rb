@@ -19,10 +19,7 @@ class Blog < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_create :make_station
-  after_create  :delayed_get_blog_info
-  
-  # Scopes
-  scope :working, where(working:true)
+  after_create  :delayed_get_blog_info, :delayed_save_new_entries
   
   serialize :feed
   
@@ -41,44 +38,31 @@ class Blog < ActiveRecord::Base
     slug
   end
 
+  # Uses Anemone to crawl a website
+  #     http://anemone.rubyforge.org/
+  #     http://anemone.rubyforge.org/doc/index.html
   def crawl
     logger.info "Crawling #{name}"
     pages = 0
     self.crawl_started_at = Time.now
     begin
-      Anemone.crawl(fetch_url) do |anemone|
+      Anemone.crawl(fetch_url(url)) do |anemone|
         anemone.storage = Anemone::Storage.MongoDB
         anemone.on_every_page do |page|
-          logger.info "Crawling #{page.url} (#{page.code})"
           pages += 1
-          if page.code == 200
-            headers_date = Date.parse(page.headers['date'][0])
-            html = Nokogiri::HTML(page.body)
-            html.css('a').each do |link|
-              if link['href'] =~ /\.mp3(\?(.*))?$/
-                logger.info "Found song! #{link['href']}"
-                post = Post.find_or_create_by_url(
-                    :url => page.url.to_s,
-                    :blog_id => id,
-                    :title => html.at('title').text || meta['content'] || '',
-                    :author => '',
-                    :content => page.body,
-                    :published_at => headers_date
-                  )
-                break
-              end
-            end
-          end
+          save_page(page)
         end
       end
       self.crawl_finished_at = Time.now
       self.crawled_pages = pages
+      self.save
     rescue => exception
-      logger.info exception.inspect
-      logger.info exception.backtrace
+      logger.error exception.inspect
+      logger.error exception.backtrace
     end
   end
 
+  # Use delayed_job to run the crawl function
   def delayed_crawl
     if Rails.application.config.delay_jobs
       delay(:priority => 3).crawl
@@ -86,15 +70,39 @@ class Blog < ActiveRecord::Base
       crawl
     end
   end
-  
-  def has_blog_info?
-    working
+
+  # Given an Anemone::Page, save as a post if it finds an MP3 file
+  #     Anemone::Page http://anemone.rubyforge.org/doc/classes/Anemone/Page.html
+  def save_page(page)
+    logger.info "Processing #{page.url} (#{page.code})"
+    if page.code == 200
+      find_song_in(page.body) do |html|
+        title = find_description(html)
+        logger.info "Creating post #{title} (#{page.url})"
+        post = Post.create(
+            :url => page.url.to_s,
+            :blog_id => id,
+            :title => title,
+            :author => '',
+            :content => page.body,
+            :published_at => Date.parse(page.headers['date'][0])
+          )
+      end
+    else
+      logger.error "Page header response is not 200"
+    end
   end
   
+  # Saves description and feed
   def get_blog_info
-    get_html_info
-    self.working = true if get_new_posts
-    self.save
+    html = get_html(url)
+    if html
+      self.description = find_description(html)
+      self.feed_url = find_feed_url(html)
+      self.save
+    else
+      errors.add :url, 'Nothing found at url!'
+    end
   end
 
   def delayed_get_blog_info
@@ -105,14 +113,134 @@ class Blog < ActiveRecord::Base
     end
   end
   
+  # Search Nokogiri::HTML for a title or meta description
+  def find_description(html)
+    title = html.at('title')
+    meta  = html.at('meta[type=description]')
+    title ? title.text : (meta ? meta['content'] : nil)
+  end
+
+  # Search Nokogiri::HTML for an RSS feed
+  def find_feed_url(html)
+    feed  = html.at('head > link[type="application/rss+xml"]')
+    feed ? feed['href'] : nil
+  end
+
+  # Get only new posts
+  def save_new_entries
+    save_posts(get_new_rss_entries)
+  end
+
+  def delayed_save_new_entries
+    if Rails.application.config.delay_jobs
+      delay.save_new_entries
+    else
+      save_new_entries
+    end
+  end
+
+  def save_current_entries
+    save_posts(feed.entries)
+  end
+
+  def save_posts(entries)
+    if entries
+      entries.each do |post|
+        puts "Searching for songs in #{post.title}"
+        # Search for song
+        find_song_in(post.content) do
+          logger.info "Creating post #{post.title}"
+          # Save posts to db
+          Post.create(
+            :url => post.url.to_s,
+            :blog_id => id,
+            :title => post.title,
+            :author => post.author,
+            :content => post.content,
+            :created_at => post.published
+          )
+        end
+      end
+    end
+  end
+
+  # Either fetches feed or updates feed 
+  # Returns only new entries
+  def get_new_rss_entries
+    logger.info "Updating feed"
+    if feed_url
+      # Check if weve ever fetched feed
+      if feed_updated_at
+        # Already have feed, get new entries
+        self.feed = Feedzirra::Feed.update(feed)
+        self.feed_updated_at = feed.last_modified
+        posts = feed.new_entries
+      else
+        # Get feed and return entries
+        logger.info "No feed yet, grabbing rss"
+        self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
+        if feed
+          logger.info "Found new entries"
+          self.feed_updated_at = feed.last_modified
+          posts = feed.entries
+        else
+          logger.error "No entries found"
+          return false
+        end
+      end
+
+      self.save
+
+      if !posts.blank?
+        posts
+      else
+        logger.info "No new posts"
+        false
+      end
+    end
+  end
+
+  # Gets a post based on URL
+  def get_post_from_url(page_url)
+    begin
+      # Check if this url comes from this blog
+      if URI(page_url).host =~ /#{URI(url).host}/
+        Anemone.crawl(page_url) do |anemone|
+          anemone.on_every_page do |page|
+            save_page(page)
+            return true # one page only
+          end
+        end
+      else
+        logger.error "URI does not match (#{URI(page_url).host} == #{URI(url).host})"
+      end
+    rescue Exception => e
+      puts e.message
+      puts e.backtrace.join("\n")
+    end
+  end
+
+  def reset_feed
+    self.feed = nil
+    self.feed_updated_at = nil
+    self.save
+  end
+
   def reset
     posts.destroy
     feed = nil
     get_blog_info
-    get_new_posts
-    true if self.save
+    self.save
   end
   
+  def has_posts?
+    posts.count > 0
+  end
+  
+  def latest_post
+    posts.order('created_at desc').first
+  end
+
   def current_step
     @current_step || steps.first
   end
@@ -148,117 +276,38 @@ class Blog < ActiveRecord::Base
     end
   end
   
-  # Gets the description and RSS
-  def get_html_info
+  private
+
+  def get_html(url)
     begin
-      html = Nokogiri::HTML(open(url))
+      Nokogiri::HTML(open(url))
     rescue
-      errors.add :url, 'Error accessing website'
-      return false
-    end
-    
-    if html.nil?
-      errors.add :url, 'Nothing found!'
-      return false
-    else
-      self.description = html.at('title') ? html.at('title').text : ''
-
-      feed  = html.at('head > link[type="application/rss+xml"]')
-      self.feed_url = feed ? feed['href'] : nil
-    end
-  end
-  
-  def has_feed_url?
-    !feed_url.blank?
-  end
-  
-  def has_posts?
-    posts.count > 0
-  end
-  
-  def latest_post
-    posts.order('created_at desc').first
-  end
-
-  def reset_feed
-    self.feed = nil
-    self.feed_updated_at = nil
-    self.save
-  end
-
-  # Either fetches feed or updates feed 
-  # Returns only new entries
-  def update_feed
-    logger.info "Updating feed"
-    if has_feed_url?
-      if feed_updated_at.blank?
-        logger.info "No feed yet, grabbing rss"
-        self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-        if feed != 0
-          logger.info "Found new entries"
-          self.feed_updated_at = feed.last_modified
-          return feed.entries
-        else
-          logger.info "No entries found"
-          return false
-        end
-      else
-        self.feed = Feedzirra::Feed.update(feed)
-        self.feed_updated_at = feed.last_modified
-        logger.info "Done"
-        return feed.new_entries
-      end
-    end
-  end
-
-  def update_feed_and_save
-    update_feed
-    self.save
-  end
-  
-  # Get only new posts
-  def get_new_posts
-    entries = update_feed
-    if !entries.blank?
-      get_posts(entries)
-    else
-      logger.info "No new posts"
+      logger.error "Error opening url #{url}"
       false
     end
   end
 
-  def delayed_get_new_posts
-    delay.get_new_posts
-  end
-
-  # Will get posts, regarless of new or not
-  def get_posts(entries)
-    entries.each do |post|
-      # Save posts to db
-      self.posts.create(
-        :title => post.title,
-        :author => post.author,
-        :url => post.url,
-        :content => post.content,
-        :created_at => post.published
-      )
-      logger.info "Created post #{post.title}"
-      true
-    end
-  end
-  
-  private
-
-  def fetch_url
-    final_uri = ''
+  def fetch_url(url)
     open(url) do |h|
       final_uri = h.base_uri
     end
     final_uri
   end
+
+  def find_song_in(content)
+    html = Nokogiri::HTML(content)
+    html.css('a').each do |link|
+      logger.debug "Checking link #{link['href']}"
+      if link['href'] =~ /\.mp3(\?(.*))?$/
+        logger.info "Found song! #{link['href']}"
+        yield html
+        break
+      end
+    end
+  end
   
   def make_station
-    self.create_station
+    self.create_station(title:name)
   end
   
 #  def find_post_date(doc)

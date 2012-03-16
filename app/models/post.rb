@@ -33,8 +33,8 @@ class Post < ActiveRecord::Base
       img = post.css('img:first')
       self.image = UrlTempfile.new(img.first['src']) unless img.empty?
     rescue => exception
-      logger.info exception.message
-      logger.info exception.backtrace
+      logger.error exception.message
+      logger.error exception.backtrace
     end
   end
   
@@ -53,6 +53,13 @@ class Post < ActiveRecord::Base
         )
         logger.info "Created song #{link.content}"
       end
+    end
+  end
+
+  def process_songs
+    songs.each do |song|
+      logger.info "Processing song #{song.url}"
+      song.scan_and_save
     end
   end
 

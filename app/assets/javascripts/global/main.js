@@ -17,8 +17,7 @@ function setBarPosition() {
   else $('#bar').removeClass('fixed');
 }
 
-var keyShortcuts = function(e) {
-  e.preventDefault();
+function keyShortcuts(e) {
   switch(e.keyCode) {
     // Left arrow
     case 37:
@@ -26,6 +25,14 @@ var keyShortcuts = function(e) {
       break;
     // TODO ALL KEYBOARD SHORTCUTS
   }
+}
+
+function mpClick(selector,fn) {
+  $(selector).click(function(e) {
+    e.preventDefault();
+    console.log(fn);
+    mp[fn].call();
+  });
 }
 
 // Image errors
@@ -111,12 +118,10 @@ $(function() {
   });
   
   // Player controls
-  mp.mapClick({
-    'togglePlay': '#player-play',
-    'next': '#player-next',
-    'prev': '#player-prev',
-    'volumeToggle': '#player-volume'
-  });
+  mpClick('#player-play', 'togglePlay');
+  mpClick('#player-next', 'next');
+  mpClick('#player-prev', 'prev');
+  mpClick('#player-volume', 'volumeToggle');
 
   // Play from playlist
   $('#player-playlist a').live('click',function() {

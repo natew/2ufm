@@ -8,10 +8,7 @@ Genre.destroy_all
 Artist.destroy_all
 Author.destroy_all
 Song.destroy_all
-
-# Delete old jobs
-puts "Deleting old jobs"
-`rake jobs:clear`
+Delayed::Job.destroy_all
 
 # Reset sequences
 puts "Resetting sequences"
@@ -89,7 +86,7 @@ blogs.each_with_index do |blog,i|
   puts "Creating blog #{blog[:name]}"
   b = Blog.new(blog)
   begin
-    b.image = File.open("#{Rails.root}/tmp/images/album#{(i%4)+1}.png")
+    b.image = File.open("#{Rails.root}/tmp/images/album#{(i%6)+1}.png")
   rescue
     puts "Error using image"
   end

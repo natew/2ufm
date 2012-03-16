@@ -73,7 +73,7 @@ class Song < ActiveRecord::Base
   def set_rank
     plays = Math.log([listens.count,2].max)
     favs  = Math.log([broadcasts.count,2].max*100)
-    time  = (created_at - Time.new(2012))/100000
+    time  = ((created_at || Time.now) - Time.new(2012))/100000
     self.rank = plays + favs + time
   end
   
@@ -124,6 +124,7 @@ class Song < ActiveRecord::Base
               prev = now
             end
         }) do |song|
+          logger.info "Getting song information"
           file = TagLib::MPEG::File.new(song.path)
           
           # Properties
@@ -154,10 +155,9 @@ class Song < ActiveRecord::Base
           else
             logger.info "Processed (couldn't read information)"
           end
-          
-          # Save processing
+
+          # Save
           self.save!
-          logger.info "Saved!"
         end
       rescue Exception => e
         # self.processed = false
@@ -251,7 +251,7 @@ class Song < ActiveRecord::Base
       if artist and artist.station
         Broadcast.create(song_id:id,station_id:artist.station.id) unless artist.station.song_exists?(id)
       else
-        logger.info "No artist or artist station"
+        logger.error "No artist or artist station"
       end
     end
   end
@@ -260,7 +260,7 @@ class Song < ActiveRecord::Base
     if blog and blog.station
       Broadcast.create(song_id:id,station_id:blog.station.id) unless blog.station.song_exists?(id)
     else
-      logger.info "No Blog or Blog station"
+      logger.error "No Blog or Blog station"
     end
   end
   
