@@ -18,7 +18,7 @@ var mp = (function() {
       volume = 100,
       playlist_template = ''
       self = this;
-  
+
   // Elements
   var pl = {
     bar: $('#player-progress-bar'),
@@ -52,8 +52,8 @@ var mp = (function() {
       alert('Your browser does not support audio playback');
     }
   });
-  
-  
+
+
   //
   // Player functions
   //
@@ -66,7 +66,7 @@ var mp = (function() {
       this.load();
       this.play();
     },
-    
+
     // Load playlist
     load: function() {
       if (!curSection) curSection = $('.playlist section:first');
@@ -92,7 +92,7 @@ var mp = (function() {
         console.log('playlist loaded: '+playlistID);
       }
     },
-    
+
     // Play song
     play: function() {
       if (!smReady) {
@@ -138,25 +138,25 @@ var mp = (function() {
         this.play();
       }
     },
-    
+
     stop: function() {
       if (isPlaying) {
         curSong.stop();
         soundManager.stopAll();
       }
     },
-    
+
     pause: function() {
       if (isPlaying) {
         curSong.pause();
       }
     },
-    
+
     toggle: function() {
       if (isPlaying) curSong.togglePause();
       else this.play();
     },
-    
+
     next: function() {
       if (curSection) var next = curSection.next();
       this.stop();
@@ -168,7 +168,7 @@ var mp = (function() {
       playlistIndex++;
       this.play();
     },
-    
+
     prev: function() {
       if (curSection) prev = curSection.prev();
       this.stop();
@@ -180,7 +180,7 @@ var mp = (function() {
       playlistIndex--;
       this.play();
     },
-    
+
     refresh: function() {
       if (isPlaying) {
         var title = curSongInfo.artist + ' - ' + curSongInfo.name;
@@ -195,14 +195,14 @@ var mp = (function() {
         pl.play.html('4');
       }
     },
-    
+
     setCurSectionActive: function() {
       if (curSection) {
         curSection.addClass('playing');
         curSection.find('.play-song').html('5');
       }
     },
-    
+
     setCurSectionInactive: function() {
       if (curSection) {
         curSection.removeClass('playing');
@@ -290,7 +290,7 @@ var mp = (function() {
       $('#player').addClass('loaded');
       player.setCurSectionActive();
       player.refresh();
-      
+
       // Scrobbling
       $.ajax({
         type: 'POST',
@@ -356,14 +356,14 @@ var mp = (function() {
       }
     }
   };
-  
-  
+
+
   //
   // API
   //
-  
+
   return {
-    
+
     setPage: function(url) {
       curPage = url;
       if (curPage && curPage == playingPage) {
@@ -380,24 +380,24 @@ var mp = (function() {
     playSong: function(index) {
       player.playSong(index);
     },
-    
+
     togglePlay: function() {
       var played = player.toggle();
       return isPlaying;
     },
-    
+
     stop: function() {
       player.stop();
     },
-    
+
     pause: function() {
       player.pause();
     },
-    
+
     next: function() {
       player.next();
     },
-    
+
     prev: function() {
       player.prev();
     },
@@ -405,16 +405,16 @@ var mp = (function() {
     volumeToggle: function() {
       player.volumeToggle();
     },
-    
+
     playSection: function(section) {
       $('.playlist section:first-child').removeClass('show-play');
       player.playSection(section);
     },
-    
+
     getSection: function() {
       return curSection;
     },
-    
+
     getPlaylist: function() {
       return playlist;
     },
@@ -426,7 +426,7 @@ var mp = (function() {
     getCurPage: function() {
 
     }
-    
+
   };
-  
+
 }());

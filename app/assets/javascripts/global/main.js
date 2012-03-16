@@ -73,10 +73,20 @@ $(function() {
   setBarPosition();
   $window.scroll(setBarPosition);
 
-  // Bar buttons under logo
+  // Bar buttons
   $('#bar-top').click(function(e) {
     e.preventDefault();
     $('html,body').animate({scrollTop:0}, 200);
+  });
+
+  $('#bar-bottom').toggle(function(e) {
+    e.preventDefault();
+    $(this).removeClass('tip-n').addClass('tip')
+    $('#bar').addClass('bottom');
+  }, function() {
+    e.preventDefault();
+    $(this).removeClass('tip').addClass('tip-n')
+    $('#bar').removeClass('bottom');
   });
 
   // Tooltips

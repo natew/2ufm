@@ -38,12 +38,12 @@ h2, h3, h4 {
   padding: 0;
   margin: 0 0 15px 0;
   color: $subtitle;
-  
+
   small {
     font-size: 75%;
     color: #aaa;
     font-weight: normal;
-    
+
     a {
       color: #ccc;
     }
@@ -91,17 +91,17 @@ header {
   position: relative;
   z-index: 100;
   line-height: 1em;
-  
+
   .page-contain {
     width: 980px;
   }
-  
+
   h1 {
     position: absolute;
     top: -8px;
     left: -14px;
     margin: 0;
-    
+
     a {
       background: url(/images/2ulogo.png) no-repeat top left;
       width: 100px;
@@ -109,7 +109,7 @@ header {
       overflow: hidden;
       text-indent: -3000em;
       display: block;
-      
+
       &:hover { color: #fff; }
     }
   }
@@ -117,14 +117,14 @@ header {
   nav {
     float: left;
     padding-left: 80px;
-    
+
     li {
       float: left;
-      
+
       &.active {
         a { background: #ebf5fa; color: #000; }
       }
-      
+
       a {
         padding: 11px 8px 13px;
         margin: 4px 4px 0 0;
@@ -175,7 +175,7 @@ header {
         color: #444;
       }
     }
-    
+
     #search {
       background: none;
       border: none;
@@ -184,11 +184,11 @@ header {
       top: 2px;
       font-size: 20px;
       color: #ccc;
-      
+
       &:hover { color: #666; }
     }
   }
-  
+
   #loading {
     position: absolute;
     left: 50%;
@@ -202,7 +202,7 @@ header {
     &.hide #hide-loading {
       display: none;
     }
-    
+
 
     #hide-loading {
       display: block;
@@ -211,17 +211,17 @@ header {
       position: absolute;
       background: #fff;
     }
-    
+
     img {
       display: block;
       margin: 0 auto;
     }
   }
-  
+
   #functions {
     float: right;
     margin: 5px 0 0 10px;
-    
+
     .nav {
       position: relative;
       margin: 0;
@@ -244,7 +244,7 @@ header {
           color: #000;
           background: #ebf5fa;
         }
-        
+
         &#nav-username::before {
           content: "U";
           display: block;
@@ -287,7 +287,7 @@ header {
           max-width: 100%;
           padding: 10px 4%;
           border-top: 1px solid #333;
-          
+
           &:hover {
             background: #444;
           }
@@ -314,15 +314,22 @@ header {
   margin-left: -490px;
   z-index: 98;
   @include border-radius-bottom(5px);
-  
+
   .page-contain { width: 980px; }
-  
+
   &.fixed {
     position: fixed;
     top: 0;
 
     #bar-home,
     #bar-top { visibility: visible; }
+  }
+
+  &.bottom {
+    top: auto;
+    bottom: 86px;
+    @include border-radius-bottom(0);
+    @include border-radius-top(5px);
   }
 
   #bar-home,
@@ -350,7 +357,36 @@ header {
     text-indent: -3000em;
     background: url(/images/bar-home.png) no-repeat top left;
   }
-  
+
+  #bar-bottom {
+    color: #999;
+    
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .player-buttons {
+    float: left;
+
+    a {
+      float: left;
+      color: #fff;
+      font-size: 30px;
+      padding: 11px 9px 6px;
+      font-size: 23px;
+
+      &:hover { color: #fff; background: #222; }
+      &.next, &.prev {color: #999;}
+      &.add {
+        font-size: 25px;
+        padding: 8px 5px 9px;
+        padding-right: 10px;
+        color: #cb0000;
+      }
+    }
+  }
+
   #player {
     white-space: nowrap;
     margin-left: 88px;
@@ -365,9 +401,9 @@ header {
         color: #fff;
       }
     }
-    
+
     #player-invite {
-      float: right;
+      float: left;
       margin: 6px 8px 0;
       padding: 3px;
       font-weight: bold;
@@ -381,36 +417,17 @@ header {
       border: 1px solid #239708;
       @include border-radius(5px);
       @include background-gradient(#3ab30a, #239708);
-      
-      &.disabled { 
+
+      &.disabled {
         border: none;
         color: #999;
         background-image: none;
       }
     }
-    
+
     #player-controls {
       width: 108px;
       float: left;
-    }
-
-    .player-buttons {
-      a {
-        float: left;
-        color: #fff;
-        font-size: 30px;
-        padding: 11px 9px 6px;
-        font-size: 23px;
-        
-        &:hover { color: #fff; background: #222; }
-        &.next, &.prev {color: #999;}
-        &.add {
-          font-size: 25px;
-          padding: 8px 5px 9px;
-          padding-right: 10px;
-          color: #cb0000;
-        }
-      }
     }
 
     #player-controls-after {
@@ -428,11 +445,11 @@ header {
       float: left;
       margin: 4px 5px 0;
       height: 30px;
-      width: 518px;
+      width: 482px;
       overflow: hidden;
       position: relative;
       background: #555;
-      
+
       &:hover {
         cursor: pointer;
       }
@@ -457,7 +474,7 @@ header {
         overflow: hidden;
         position: relative;
         z-index: 10;
-        
+
         a {
           color: #fff;
           text-decoration: none;
@@ -472,7 +489,7 @@ header {
         width: 100%;
         height: 100%;
       }
-      
+
       #player-progress-position {
         position: absolute;
         top: 0;
@@ -481,7 +498,7 @@ header {
         height: 100%;
         background: #222;
       }
-      
+
       #player-progress-loaded {
         position: absolute;
         top: 0;
@@ -491,7 +508,7 @@ header {
         background: #666;
       }
     }
-    
+
     #player-share {
       float: left;
       width: 56px;
@@ -509,110 +526,113 @@ header {
       }
     }
   }
+}
 
+/* PLAYLIST */
+#player-playlist {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  left: -470px;
+  display: none;
+  overflow: hidden;
+  background: #444;
+  @include border-radius-top(5px);
 
-  /* PLAYLIST */
-  #player-playlist {
-    display: none;
+  .shelf {
+    background: #333;
+    height: 50px;
+    padding: 4px 0;
+    margin: 0;
     overflow: hidden;
-    background: #444;
-    @include border-radius-bottom(5px);
-
-    .shelf {
-      background: #333;
-      height: 50px;
-      padding: 4px 0;
-      margin: 0;
-      overflow: hidden;
-
-      li {
-        margin-left: 10px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        width: 48px;
-        height: 48px;
-
-        a {
-          height: 100%;
-
-          &.playing {
-            border: 2px solid blue;
-          }
-
-          &:hover {
-            strong {
-              visibility: hidden;
-            }
-          }
-        }
-
-        strong {
-          font-size: 10px;
-          line-height: 11px;
-          padding: 4px;
-          width: 56px;
-          height: 56px;
-          text-overflow: ellipsis;
-        }
-      }
-
-      .cover img {
-        height: 200%;
-      }
-    }
-
-    &.loaded {display:block;}
-  }
-
-  .tracks {
-    width: 100%;
-    overflow: hidden;
-    @include border-radius-bottom(5px);
-
-    ul {
-      clear: both;
-      background: #444;
-      overflow: hidden;
-      height: 28px;
-      padding: 0;
-      margin: 0;
-      width: 1300px;
-    }
 
     li {
-      float: left;
-      list-style: none;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      width: 48px;
+      height: 48px;
 
-      &.title {
-        padding: 3px 9px 3px 15px;
-        font-weight: bold;
-        width: 30px;
+      a {
+        height: 100%;
+
+        &.playing {
+          border: 2px solid blue;
+        }
+
+        &:hover {
+          strong {
+            visibility: hidden;
+          }
+        }
       }
 
-      &:nth-child(2) {
-        display: none;
+      strong {
+        font-size: 10px;
+        line-height: 11px;
+        padding: 4px;
+        width: 56px;
+        height: 56px;
+        text-overflow: ellipsis;
       }
     }
 
-    a {
-      float: left;
-      padding: 3px 8px;
-      font-size: 11px;
-      max-width: 211px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      text-decoration: none;
-      color: #fff;
+    .cover img {
+      height: 200%;
+    }
+  }
+
+  &.loaded {display:block;}
+}
+
+.tracks {
+  width: 100%;
+  overflow: hidden;
+  @include border-radius-bottom(5px);
+
+  ul {
+    clear: both;
+    background: #444;
+    overflow: hidden;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    width: 1300px;
+  }
+
+  li {
+    float: left;
+    list-style: none;
+
+    &.title {
+      padding: 3px 9px 3px 15px;
       font-weight: bold;
+      width: 30px;
+    }
 
-      &.playing {
-        background: #666;
-      }
+    &:nth-child(2) {
+      display: none;
+    }
+  }
 
-      &:hover {
-        background: #555;
-      }
+  a {
+    float: left;
+    padding: 3px 8px;
+    font-size: 11px;
+    max-width: 211px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+
+    &.playing {
+      background: #666;
+    }
+
+    &:hover {
+      background: #555;
     }
   }
 }
@@ -629,7 +649,7 @@ header {
   text-shadow: 0 -1px 0 #579357;
   font-weight: bold;
   @include border-radius-bottom(4px);
-  
+
   &.alert {
     text-shadow: 0 -1px 0 #a84a43;
   }
@@ -645,18 +665,18 @@ ol.mp_list {
   z-index: 99999;
   padding: 0;
   left: -20px;
-  
+
   li {
     color: #ddd;
     padding: 4px 15px 5px;
     list-style: none;
-    
+
     &.mp_selectable { cursor: pointer; }
     &.mp_highlighted {
       background: #111;
       color: #fff;
     }
-    
+
     &.header {
       font-weight: bold;
       font-size: 14px;
@@ -673,7 +693,7 @@ ol.mp_list {
 .list {
   margin: -15px 0 20px 0;
   padding: 0;
-  
+
   section, li {
     padding: 10px 0 2px 10px;
     margin: 0;
@@ -681,22 +701,22 @@ ol.mp_list {
     height: auto;
     float: none;
     list-style: none;
-  
+
     div {
       display: inline-block;
       margin: 0 0 -9px 0;
     }
 
     img { width: 24px; margin: -6px 8px -3px 0; }
-  
+
     h4 {
       margin: 0;
       display: inline;
       line-height: 16px;
-      
+
       a { text-decoration: none; }
     }
-    
+
     p {
       font-size: 12px;
       color: #666;
@@ -744,15 +764,15 @@ h2.title { color: $subtitle; }
     }
   }
 
-  
+
   &.center h2 {
     font-size: 38px;
   }
-  
+
   &.grid {
     padding-left: 0;
     padding-right: 0;
-    
+
     .third {
       margin-left: 0;
     }
@@ -764,7 +784,7 @@ h2.title { color: $subtitle; }
     background: none;
     margin: 0;
     padding: 0;
-    
+
     &.icon {
       clear: none;
       float: left;
@@ -794,20 +814,20 @@ h2.title { color: $subtitle; }
     margin: 0 20px 0 0;
     @include border-radius(8px);
   }
-  
+
   .title_nav {
     margin: 0;
     padding: 0;
     position: absolute;
     top: 0;
     right: 10px;
-    
+
     ul { margin-top: 14px; }
     li {
       list-style: none;
       padding: 0;
       float: left;
-      
+
       div.count {
         float: left;
         padding: 10px 20px;
@@ -824,18 +844,18 @@ h2.title { color: $subtitle; }
   background: #eee;
   padding: 0 20px;
   @include border-radius(5px);
-  
+
   li {
     float: left;
     list-style: none;
-    
+
     a {
       float: left;
       padding: 8px 10px;
       font-weight: bold;
       text-decoration: none;
       color: #000;
-      
+
       &:hover {
         color: #999;
       }
@@ -857,14 +877,14 @@ h2.title { color: $subtitle; }
   font-size: 13px;
   display: inline-block;
   margin: 20px 0;
-  
+
   span {
     float: left;
   }
-  
+
   span {
     float: left;
-  
+
     a,
     &.current,
     &.gap {
@@ -878,15 +898,15 @@ h2.title { color: $subtitle; }
     a.last {
       border-right: 1px solid #ddd;
     }
-    
+
     &.gap {
       color: #999;
     }
-    
+
     a:hover {
       background: $light-blue;
     }
-    
+
     &.current {
       background: $light-blue;
       color: #000;
@@ -907,11 +927,11 @@ h2.title { color: $subtitle; }
 * http://www.drewwilson.com  -  http://pictos.drewwilson.com
 *
 * The fonts included in this stylesheet are subject to the End User License you purchased
-* from Drew Wilson. The fonts are protected under domestic and international trademark and 
+* from Drew Wilson. The fonts are protected under domestic and international trademark and
 * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
 * distributing this font software.
 *
-* This font is NOT free. It is illegal to use this font without paying for a license. 
+* This font is NOT free. It is illegal to use this font without paying for a license.
 */
 @font-face {
     font-family: 'Pictos';

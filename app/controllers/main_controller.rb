@@ -6,13 +6,13 @@ class MainController < ApplicationController
     limit     = user_signed_in? ? 2 : 6
     @featured = Blog.order('created_at asc').limit(limit)
     @artists  = Artist.order('random()').limit(6)
-    
+
     respond_to do |format|
       format.html
       format.js { render :layout => false }
     end
   end
-  
+
   def search
     songs = Song.search_by_name(params[:q]).limit(5) | Song.search_by_artist_name(params[:q]).limit(5)
     artists = Artist.search_by_name(params[:q]).limit(5)
@@ -20,11 +20,11 @@ class MainController < ApplicationController
 
     render :text => "[#{search_ready('Songs',songs,true)}#{search_ready('Artists',artists)}#{search_ready('Blogs',blogs)[0..-2]}]"
   end
-  
+
   def loading
     render :text => '<div id="loading"><h2>Loading</h2></div>'
   end
-  
+
   private
 
   # Search formatting

@@ -3,13 +3,13 @@
 .playlist {
   clear: both;
   margin: 0 0 18px;
-  
+
   section {
     padding: 10px 0;
     margin: 0;
     position: relative;
     overflow: hidden;
-    
+
     &:nth-child(2n+1) {
       background: #ebf5fa;
     }
@@ -39,7 +39,7 @@
 
     &.playing {
       background: #ffd;
-    
+
       .song-controls {
         .play-song {
           background-position: -64px 0;
@@ -51,17 +51,17 @@
         }
       }
     }
-    
+
     &.failed {
       .cover { background: red; }
     }
-    
+
     .song-info {
       float: right;
       width: 514px;
       margin: 0;
       padding: 0 20px 0 0;
-      
+
       .song-meta {
         font-size: 11px;
         margin: 0;
@@ -84,7 +84,7 @@
           text-overflow: ellipsis;
         }
       }
-      
+
       h4 {
         line-height: 1.2em;
         border: none;
@@ -93,25 +93,25 @@
         padding: 0;
         margin: 0;
         width: 450px;
-      
+
         a {
           text-decoration: none;
         }
       }
-      
+
       .song-art {
         position: absolute;
         left: 10px;
         top: 10px;
         z-index: 1;
-        
+
         img {
           @include border-radius(4px);
           @include box-shadow(0,0,3px,#000);
         }
       }
     }
-    
+
     .song-links {
       margin: 0;
       padding: 0;
@@ -120,22 +120,22 @@
       right: 4px;
       clear: both;
       visibility: hidden;
-      
+
       li {
         list-style: none;
         float: left;
         font-size: 11px;
         font-weight: bold;
         padding: 0 10px 0 0;
-        
+
         a {
           color: #999;
         }
-        
+
         &.right {
           float: right;
           padding: 0 5px 0 0;
-          
+
           a {
             color: #666;
             text-shadow: 0 1px -1px #fff;
@@ -148,12 +148,12 @@
           }
         }
       }
-      
+
       a {
         float: left;
       }
     }
-    
+
     .song-controls {
       margin: -6px -10px -90px 0;
       padding: 10px 10px 0 10px;
@@ -161,7 +161,7 @@
       width: 10%;
       border-right: none;
       height: 142px;
-      
+
       .play-song {
         visibility: hidden;
         margin: 10px 0 0;
@@ -176,20 +176,20 @@
         overflow: hidden;
         text-indent: -3000em;
         background: url(/images/play_pause.png) no-repeat;
-        
+
         &:hover {
           cursor: pointer;
           text-shadow: 0 1px 0 #000;
           background-position: 0 -64px;
         }
       }
-      
+
       li {
         float: right;
         clear: both;
         list-style: none;
         margin: 0 0 6px 0;
-        
+
         input {
           margin: 10px 0 0 10px;
         }
@@ -200,18 +200,18 @@
           top: 10px;
           width: 70px;
           text-align: right;
-          
+
           a {
             font-size: 24px;
             color: #ccc;
-            
+
             &:hover { color: #cb0000; }
             &.remove {
               color: #239708;
               &:hover { color: #970808;}
             }
           }
-          
+
           span.count {
             font-size: 18px;
             font-weight: bold;
@@ -233,7 +233,7 @@
   position: absolute;
   top: 0;
   z-index: 2;
-  
+
   img {
     width: 100%;
 
@@ -243,10 +243,10 @@
       overflow: hidden;
     }
   }
-  
+
   &:hover {
     cursor: pointer;
-    
+
     img {
       position: absolute;
       bottom: 0;
@@ -256,7 +256,7 @@
 
 .third .playlist {
   border: none;
-  
+
   section {
     background: none !important;
     padding: 7px 0;
@@ -268,17 +268,17 @@
     .song-info {
       width: 100%;
       float: left;
-      
+
       h4 {
         font-size: 14px;
         width: 100%;
       }
-      
+
       p {
         display: none;
       }
     }
-    
+
     .song-controls {
       display: none;
       border: none;

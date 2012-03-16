@@ -36,6 +36,12 @@ $playing: #666;
   -webkit-border-radius: $radius;
 }
 
+@mixin no-border-radius() {
+  border-radius: none;
+  -moz-border-radius: none;
+  -webkit-border-radius: none;
+}
+
 @mixin border-radius-top($radius: 5px) {
   border-top-left-radius: $radius;
   -moz-border-radius-topleft: $radius;
