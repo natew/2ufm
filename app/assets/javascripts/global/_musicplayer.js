@@ -33,9 +33,11 @@ var mp = (function() {
     volume: $('#player-volume')
   };
 
+  console.log($('#player-playlist'));
+
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
-  soundManager.flashVersion = 9; // optional: shiny features (default = 8)
+  //soundManager.flashVersion = 9; // optional: shiny features (default = 8)
   soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
   soundManager.debugMode = true;
   //soundManager.useFastPolling = true;

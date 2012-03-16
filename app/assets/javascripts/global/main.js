@@ -74,12 +74,12 @@ $(function() {
   $window.scroll(setBarPosition);
 
   // Bar buttons
-  $('#bar-top').click(function(e) {
+  $('#bar-top').html('{').click(function(e) {
     e.preventDefault();
     $('html,body').animate({scrollTop:0}, 200);
   });
 
-  $('#bar-bottom').toggle(function(e) {
+  $('#bar-bottom').html('}').toggle(function(e) {
     e.preventDefault();
     $(this).html('{').removeClass('tip-n').addClass('tip')
     $('#bar').addClass('bottom');
