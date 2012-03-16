@@ -104,7 +104,9 @@ var mp = (function() {
         delayStart = true;
       } else {
         // Load
+        console.log('Playing... playlist', playlist);
         if (!playlist) this.load();
+        console.log('After load... playlist', playlist);
 
         if (playlist && playlistIndex < playlist.songs.length) {
           // Load song

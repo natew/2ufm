@@ -116,8 +116,6 @@
     </div>
   </div>
 
-  <%= javascript_include_tag "application", :debug => Rails.env.development? %>
-
   <div id="player-playlist" class="page-contain playlist-wrap clearfix">
     <ul class="shelf">
       {{#songs}}
@@ -140,6 +138,8 @@
       </ul>
     </div>
   </div>
+
+  <%= javascript_include_tag "application", :debug => Rails.env.development? %>
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID
   <script>
