@@ -340,7 +340,7 @@ header {
     height: 25px;
     top: 10px;
     left: 62px;
-    font-size: 19px;
+    font-size: 16px;
     color: #999;
     overflow: hidden;
 
@@ -356,15 +356,6 @@ header {
     height: 40px;
     text-indent: -3000em;
     background: url(/images/bar-home.png) no-repeat top left;
-  }
-
-  #bar-bottom {
-    font-size: 19px;
-    color: #999;
-
-    &:hover {
-      color: #fff;
-    }
   }
 
   .player-buttons {
@@ -423,7 +414,7 @@ header {
       float: left;
       margin: 4px 5px 0;
       height: 30px;
-      width: 482px;
+      width: 498px;
       overflow: hidden;
       position: relative;
       background: #555;
@@ -507,7 +498,7 @@ header {
 
   #player-invite {
     float: left;
-    margin: 6px 8px 0;
+    margin: 6px 4px 0 6px;
     padding: 3px;
     font-weight: bold;
     font-size: 13px;
@@ -525,6 +516,16 @@ header {
       border: none;
       color: #999;
       background-image: none;
+    }
+  }
+
+  #bar-bottom {
+    font-size: 16px;
+    color: #999;
+
+    &:hover {
+      color: #fff;
+      background: none;
     }
   }
 }

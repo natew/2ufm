@@ -81,11 +81,11 @@ $(function() {
 
   $('#bar-bottom').toggle(function(e) {
     e.preventDefault();
-    $(this).removeClass('tip-n').addClass('tip')
+    $(this).html('{').removeClass('tip-n').addClass('tip')
     $('#bar').addClass('bottom');
   }, function(e) {
     e.preventDefault();
-    $(this).removeClass('tip').addClass('tip-n')
+    $(this).html('}').removeClass('tip').addClass('tip-n')
     $('#bar').removeClass('bottom');
   });
 
@@ -93,7 +93,7 @@ $(function() {
   $window.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
-  
+
   // Livesearch
   $('#query').marcoPolo({
     url: '/search',
@@ -107,7 +107,7 @@ $(function() {
       window.location = data.url;
     }
   });
-  
+
   // Dropdown menu
   $("body").bind("click", function(e) {
     $(".nav-dropdown").hide();
@@ -126,7 +126,7 @@ $(function() {
     }
     return false;
   });
-  
+
   // Player controls
   mpClick('#player-play', 'togglePlay');
   mpClick('#player-next', 'next');
@@ -149,7 +149,7 @@ $(function() {
     playing.removeClass('playing');
     playing = $('.song-'+index).addClass('playing');
   });
-  
+
 
   // Play from song
   $('.play-song').live('click',function() {
