@@ -22,6 +22,7 @@ var mp = (function() {
   // Elements
   var pl = {
     bar: $('#bar'),
+    playlist: $('#player-playlist'),
     loaded: $('#player-progress-loaded'),
     position: $('#player-progress-position'),
     handle: $('#player-progress-grabber'),
@@ -29,8 +30,7 @@ var mp = (function() {
     song: $('#player-song'),
     play: $('#player-play'),
     invite: $('#player-invite'),
-    volume: $('#player-volume'),
-    playlist: $('#player-playlist')
+    volume: $('#player-volume')
   };
 
   // Soundmanager
