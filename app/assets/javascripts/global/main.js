@@ -83,7 +83,7 @@ $(function() {
     e.preventDefault();
     $(this).removeClass('tip-n').addClass('tip')
     $('#bar').addClass('bottom');
-  }, function() {
+  }, function(e) {
     e.preventDefault();
     $(this).removeClass('tip').addClass('tip-n')
     $('#bar').removeClass('bottom');

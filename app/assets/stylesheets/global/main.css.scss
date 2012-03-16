@@ -359,8 +359,9 @@ header {
   }
 
   #bar-bottom {
+    font-size: 19px;
     color: #999;
-    
+
     &:hover {
       color: #fff;
     }
@@ -399,29 +400,6 @@ header {
       .player-buttons a.next,
       .player-buttons a.prev {
         color: #fff;
-      }
-    }
-
-    #player-invite {
-      float: left;
-      margin: 6px 8px 0;
-      padding: 3px;
-      font-weight: bold;
-      font-size: 13px;
-      width: 110px;
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      background: #555;
-      color: #fff;
-      border: 1px solid #239708;
-      @include border-radius(5px);
-      @include background-gradient(#3ab30a, #239708);
-
-      &.disabled {
-        border: none;
-        color: #999;
-        background-image: none;
       }
     }
 
@@ -508,22 +486,45 @@ header {
         background: #666;
       }
     }
+  }
 
-    #player-share {
-      float: left;
-      width: 56px;
+  #player-share {
+    float: left;
+    width: 56px;
 
-      .control {
-        float: right;
-        width: 24px;
-        height: 24px;
-        margin: 7px 2px;
-        overflow: hidden;
-        text-indent: -3000em;
+    .control {
+      float: right;
+      width: 24px;
+      height: 24px;
+      margin: 7px 2px;
+      overflow: hidden;
+      text-indent: -3000em;
 
-        &.facebook {background: url(/images/facebook.png) no-repeat top left;}
-        &.twitter {background: url(/images/twitter.png) no-repeat top left;}
-      }
+      &.facebook {background: url(/images/facebook.png) no-repeat top left;}
+      &.twitter {background: url(/images/twitter.png) no-repeat top left;}
+    }
+  }
+
+  #player-invite {
+    float: left;
+    margin: 6px 8px 0;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 13px;
+    width: 110px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background: #555;
+    color: #fff;
+    border: 1px solid #239708;
+    @include border-radius(5px);
+    @include background-gradient(#3ab30a, #239708);
+
+    &.disabled {
+      border: none;
+      color: #999;
+      background-image: none;
     }
   }
 }
