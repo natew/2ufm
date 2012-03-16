@@ -16,7 +16,7 @@ class Artist < ActiveRecord::Base
   
   serialize :urls
   
-  validates :name, presence: true, allow_blank: false
+  validates :name, presence: true, uniqueness: true, allow_blank: false
   
   def to_param
     slug
@@ -40,11 +40,11 @@ class Artist < ActiveRecord::Base
       else
         logger.info "No information found"
       end
-    rescue => exception
+    rescue Exception => e
       # Artist not found!
       logger.info "Error!"
-      logger.info exception.message
-      logger.info exception.backtrace
+      logger.info e.message
+      logger.info e.backtrace
     end
   end
   

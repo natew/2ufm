@@ -56,6 +56,13 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def process_songs
+    songs.each do |song|
+      logger.info "Processing song #{song.url}"
+      song.scan_and_save
+    end
+  end
+
   def delayed_save_songs
     if Rails.application.config.delay_jobs
       delay(:priority => 2).save_songs

@@ -55,6 +55,7 @@ class Blog < ActiveRecord::Base
       end
       self.crawl_finished_at = Time.now
       self.crawled_pages = pages
+      self.save
     rescue => exception
       logger.error exception.inspect
       logger.error exception.backtrace
@@ -64,9 +65,9 @@ class Blog < ActiveRecord::Base
   # Use delayed_job to run the crawl function
   def delayed_crawl
     if Rails.application.config.delay_jobs
-      delay(:priority => 3).crawl!
+      delay(:priority => 3).crawl
     else
-      crawl!
+      crawl
     end
   end
 
@@ -98,6 +99,7 @@ class Blog < ActiveRecord::Base
     if html
       self.description = find_description(html)
       self.feed_url = find_feed_url(html)
+      self.save
     else
       errors.add :url, 'Nothing found at url!'
     end
@@ -105,9 +107,9 @@ class Blog < ActiveRecord::Base
 
   def delayed_get_blog_info
     if Rails.application.config.delay_jobs
-      delay.get_blog_info!
+      delay.get_blog_info
     else
-      get_blog_info!
+      get_blog_info
     end
   end
   
@@ -147,7 +149,11 @@ class Blog < ActiveRecord::Base
   end
 
   def delayed_fetch_new_posts
-    delay.fetch_new_posts
+    if Rails.application.config.delay_jobs
+      delay.fetch_new_posts
+    else
+      fetch_new_posts
+    end
   end
 
   # Either fetches feed or updates feed 
@@ -188,13 +194,15 @@ class Blog < ActiveRecord::Base
   def get_post_from_url(page_url)
     begin
       # Check if this url comes from this blog
-      if URI(page_url).host == URI(url).host
+      if URI(page_url).host =~ /#{URI(url).host}/
         Anemone.crawl(page_url) do |anemone|
           anemone.on_every_page do |page|
             save_page(page)
             return true # one page only
           end
         end
+      else
+        logger.error "URI does not match (#{URI(page_url).host} == #{URI(url).host})"
       end
     rescue Exception => e
       puts e.message
