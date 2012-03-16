@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120314073744) do
+ActiveRecord::Schema.define(:version => 20120316043819) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(:version => 20120314073744) do
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
-    t.boolean  "working"
     t.datetime "crawl_started_at"
     t.datetime "crawl_finished_at"
     t.integer  "crawled_pages",     :default => 0

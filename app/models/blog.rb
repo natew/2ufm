@@ -19,7 +19,7 @@ class Blog < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
   
   before_create :make_station
-  after_create  :delayed_get_blog_info, :delayed_fetch_new_posts
+  after_create  :delayed_get_blog_info, :delayed_save_new_entries
   
   serialize :feed
   
@@ -127,10 +127,26 @@ class Blog < ActiveRecord::Base
   end
 
   # Get only new posts
-  def fetch_new_posts
-    entries = get_new_rss_entries!
+  def save_new_entries
+    save_posts(get_new_rss_entries)
+  end
+
+  def delayed_save_new_entries
+    if Rails.application.config.delay_jobs
+      delay.save_new_entries
+    else
+      save_new_entries
+    end
+  end
+
+  def save_current_entries
+    save_posts(feed.entries)
+  end
+
+  def save_posts(entries)
     if entries
       entries.each do |post|
+        puts "Searching for songs in #{post.title}"
         # Search for song
         find_song_in(post.content) do
           logger.info "Creating post #{post.title}"
@@ -145,14 +161,6 @@ class Blog < ActiveRecord::Base
           )
         end
       end
-    end
-  end
-
-  def delayed_fetch_new_posts
-    if Rails.application.config.delay_jobs
-      delay.fetch_new_posts
-    else
-      fetch_new_posts
     end
   end
 
@@ -180,6 +188,8 @@ class Blog < ActiveRecord::Base
           return false
         end
       end
+
+      self.save
 
       if !posts.blank?
         posts
@@ -268,9 +278,26 @@ class Blog < ActiveRecord::Base
   
   private
 
+  def get_html(url)
+    begin
+      Nokogiri::HTML(open(url))
+    rescue
+      logger.error "Error opening url #{url}"
+      false
+    end
+  end
+
+  def fetch_url(url)
+    open(url) do |h|
+      final_uri = h.base_uri
+    end
+    final_uri
+  end
+
   def find_song_in(content)
     html = Nokogiri::HTML(content)
     html.css('a').each do |link|
+      logger.debug "Checking link #{link['href']}"
       if link['href'] =~ /\.mp3(\?(.*))?$/
         logger.info "Found song! #{link['href']}"
         yield html
