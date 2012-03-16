@@ -8,6 +8,22 @@ class ApplicationController < ActionController::Base
   end
   
   private
+
+  def get_html(url)
+    begin
+      Nokogiri::HTML(open(url))
+    rescue
+      logger.error "Error opening url #{url}"
+      false
+    end
+  end
+
+  def fetch_url(url)
+    open(url) do |h|
+      final_uri = h.base_uri
+    end
+    final_uri
+  end
   
   def set_pagination_vars
     @per = {

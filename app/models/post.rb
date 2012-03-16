@@ -33,8 +33,8 @@ class Post < ActiveRecord::Base
       img = post.css('img:first')
       self.image = UrlTempfile.new(img.first['src']) unless img.empty?
     rescue => exception
-      logger.info exception.message
-      logger.info exception.backtrace
+      logger.error exception.message
+      logger.error exception.backtrace
     end
   end
   

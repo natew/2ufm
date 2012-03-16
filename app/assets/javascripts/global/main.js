@@ -18,7 +18,6 @@ function setBarPosition() {
 }
 
 var keyShortcuts = function(e) {
-  e.preventDefault();
   switch(e.keyCode) {
     // Left arrow
     case 37:
