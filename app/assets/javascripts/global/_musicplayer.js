@@ -16,12 +16,12 @@ var mp = (function() {
       smReady = false,
       delayStart = false,
       volume = 100,
-      playlist_template = ''
+      playlist_template = '',
       self = this;
 
   // Elements
   var pl = {
-    bar: $('#player-progress-bar'),
+    bar: $('#bar'),
     loaded: $('#player-progress-loaded'),
     position: $('#player-progress-position'),
     handle: $('#player-progress-grabber'),
@@ -287,7 +287,7 @@ var mp = (function() {
   var events = {
     play: function() {
       isPlaying = true;
-      $('#bar').addClass('loaded');
+      pl.bar.addClass('loaded');
       player.setCurSectionActive();
       player.refresh();
 
