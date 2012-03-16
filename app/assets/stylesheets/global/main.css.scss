@@ -9,10 +9,6 @@ body {
 
 #main-mid {
   padding: 35px 0;
-
-  &.loaded {
-    padding-top: 123px;
-  }
 }
 
 .page-contain {
@@ -327,9 +323,20 @@ header {
 
   &.bottom {
     top: auto;
-    bottom: 86px;
+    bottom: 0;
     @include border-radius-bottom(0);
     @include border-radius-top(5px);
+  }
+
+  &.loaded {
+    .player-buttons a.next,
+    .player-buttons a.prev {
+      color: #fff;
+    }
+  }
+
+  &.loaded.bottom {
+    bottom: 86px;
   }
 
   #bar-home,
@@ -386,13 +393,6 @@ header {
 
     .player-buttons a.control {
       width: 18px;
-    }
-
-    &.loaded {
-      .player-buttons a.next,
-      .player-buttons a.prev {
-        color: #fff;
-      }
     }
 
     #player-controls {
@@ -523,6 +523,8 @@ header {
   #bar-bottom {
     font-size: 16px;
     color: #999;
+    padding-right: 4px;
+    padding-left: 4px;
 
     &:hover {
       color: #fff;

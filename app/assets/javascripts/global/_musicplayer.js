@@ -287,7 +287,7 @@ var mp = (function() {
   var events = {
     play: function() {
       isPlaying = true;
-      $('#player').addClass('loaded');
+      pl.bar.addClass('loaded');
       player.setCurSectionActive();
       player.refresh();
 
