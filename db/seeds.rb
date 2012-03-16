@@ -12,15 +12,15 @@ Delayed::Job.destroy_all
 
 # Reset sequences
 puts "Resetting sequences"
-Station.connection.execute("SELECT setval('stations_id_seq',1);")
-Station.connection.execute("SELECT setval('blogs_id_seq',1);")
-Station.connection.execute("SELECT setval('broadcasts_id_seq',1);")
-Station.connection.execute("SELECT setval('users_id_seq',1);")
-Station.connection.execute("SELECT setval('genres_id_seq',1);")
-Station.connection.execute("SELECT setval('artists_id_seq',1);")
-Station.connection.execute("SELECT setval('authors_id_seq',1);")
-Station.connection.execute("SELECT setval('posts_id_seq',1);")
-Station.connection.execute("SELECT setval('songs_id_seq',1);")
+Station.connection.execute("SELECT setval('stations_id_seq',0);")
+Station.connection.execute("SELECT setval('blogs_id_seq',0);")
+Station.connection.execute("SELECT setval('broadcasts_id_seq',0);")
+Station.connection.execute("SELECT setval('users_id_seq',0);")
+Station.connection.execute("SELECT setval('genres_id_seq',0);")
+Station.connection.execute("SELECT setval('artists_id_seq',0);")
+Station.connection.execute("SELECT setval('authors_id_seq',0);")
+Station.connection.execute("SELECT setval('posts_id_seq',0);")
+Station.connection.execute("SELECT setval('songs_id_seq',0);")
 
 # Default stations
 puts "Creating default stations"

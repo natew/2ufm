@@ -307,7 +307,7 @@ class Blog < ActiveRecord::Base
   end
   
   def make_station
-    self.create_station
+    self.create_station(title:name)
   end
   
 #  def find_post_date(doc)
