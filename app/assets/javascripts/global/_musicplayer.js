@@ -16,7 +16,8 @@ var mp = (function() {
       smReady = false,
       delayStart = false,
       volume = 100,
-      playlist_template = '';
+      playlist_template = ''
+      self = this;
   
   // Elements
   var pl = {
@@ -362,15 +363,6 @@ var mp = (function() {
   //
   
   return {
-
-    mapClick: function(object) {
-      for (var key in object) {
-        $(object).bind('click', function(e) {
-          e.preventDefault();
-          this.call(key);
-        });
-      }
-    },
     
     setPage: function(url) {
       curPage = url;
