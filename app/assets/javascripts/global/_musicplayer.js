@@ -83,12 +83,12 @@ var mp = (function() {
         playlist   = $('#playlist-'+playlistID).data('playlist');
 
         console.log(playlist);
+        console.log(pl);
 
         $('#main-mid').addClass('loaded');
 
         // Render playlist
         playlist_template = Mustache.render(pl.playlist.html(),playlist);
-        console.log(playlist_template);
         pl.playlist.html(playlist_template);
         pl.playlist.addClass('loaded');
 
