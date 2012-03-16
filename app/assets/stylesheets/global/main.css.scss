@@ -537,17 +537,17 @@ header {
 #player-playlist {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  margin-left: -490px;
+  width: 100%;
   display: none;
   overflow: hidden;
-  background: #444;
+  background: #fff;
+  z-index: 1000;
   @include border-radius-top(5px);
+  @include box-shadow(0,0,8px,rgba(0,0,0,0.3));
 
   .shelf {
-    background: #333;
     height: 50px;
-    padding: 4px 0;
+    padding: 10px 0 2px;
     margin: 0;
     overflow: hidden;
 
@@ -597,12 +597,11 @@ header {
 
   ul {
     clear: both;
-    background: #444;
     overflow: hidden;
     height: 28px;
     padding: 0;
     margin: 0;
-    width: 1300px;
+    width: 200%;
   }
 
   li {
@@ -613,6 +612,7 @@ header {
       padding: 3px 9px 3px 15px;
       font-weight: bold;
       width: 30px;
+      background: #eee;
     }
 
     &:nth-child(2) {
@@ -629,15 +629,16 @@ header {
     white-space: nowrap;
     overflow: hidden;
     text-decoration: none;
-    color: #fff;
+    color: #555;
     font-weight: bold;
 
     &.playing {
-      background: #666;
+      background: #eee;
+      color: #000;
     }
 
     &:hover {
-      background: #555;
+      background: #eee;
     }
   }
 }
