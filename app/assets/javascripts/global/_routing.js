@@ -27,7 +27,7 @@ var page = {
   },
 
   load: function(data) {
-    log('_routing: page.load()');
+    fn.log('_routing: page.load()');
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
 

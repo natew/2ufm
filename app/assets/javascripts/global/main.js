@@ -6,7 +6,7 @@ var commandPressed = false,
 
 // Allow middle clicking for new tabs
 var pressedDisable = function(e) {
-  log('command toggle');
+  fn.log('command toggle');
   var command = e.metaKey || e.ctrlKey;
   if (command) commandPressed = true;
   else commandPressed = false;
@@ -31,7 +31,7 @@ function keyShortcuts(e) {
 function mpClick(selector,fn) {
   $(selector).click(function(e) {
     e.preventDefault();
-    log(fn);
+    fn.log(fn);
     mp[fn].call();
   });
 }
@@ -136,7 +136,7 @@ $(function() {
 
   // Play from playlist
   $('#player-playlist a').on('click',function() {
-    log('playing from playlist');
+    fn.log('playing from playlist');
     var $this    = $(this),
         $section = $($this.attr('href')),
         index    = $this.data('index');
@@ -165,9 +165,9 @@ $(function() {
   $('.broadcast-song span:not(.added)').on({
     mouseenter: function() {
       var $this = $(this);
-      log('hover');
+      fn.log('hover');
       likeTimeout = window.setTimeout(function() {
-        log('running');
+        fn.log('running');
         if ($this.is(':hover')) {
           $('.tipsy-inner').html('Liked!');
           $this.addClass('added');
@@ -175,7 +175,7 @@ $(function() {
       }, 920);
     },
     mouseleave: function() {
-      log('clearing');
+      fn.log('clearing');
       window.clearTimeout(likeTimeout);
     }
   });
