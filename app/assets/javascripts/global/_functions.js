@@ -2,7 +2,7 @@ DO_LOGGING = true;
 
 var fn = {
   log: function() {
-    if (DO_LOGGING) console.log('->', arguments.callee.caller.name.toString(), ': ', arguments);
+    if (DO_LOGGING) console.log('[' + arguments.callee.caller.name.toString() + '] ' + Array.prototype.join.call(arguments,''));
   },
 
   flatten: function(obj, includePrototype, into, prefix) {
