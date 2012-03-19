@@ -15,15 +15,6 @@ function getParameterByName(name) {
   else return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-
-
-function broadcastHover(element) {
-  console.log(element);
-  if (!element.hasClass('added')) {
-    element.addClass('added');
-  }
-}
-
 // Functions relating to moving about pages
 // In order of occurence
 // enter -> load / error -> exit
@@ -57,12 +48,6 @@ var page = {
 
     // Styling for inputs
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
-
-    $body.find('.broadcast-song span').hover(function() {
-      setInterval(broadcastHover($(this)), 1000);
-    }, function() {
-      clearInterval(broadcastHover);
-    });
 
     // Disable AJAX stuff signed out
     if ($body.is('.signed_out')) {

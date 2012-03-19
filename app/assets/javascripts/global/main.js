@@ -1,7 +1,8 @@
 // Variables
 var commandPressed = false,
     $window = $(window),
-    playing = null;
+    playing,
+    likeTimeout;
 
 // Allow middle clicking for new tabs
 var pressedDisable = function(e) {
@@ -150,7 +151,6 @@ $(function() {
     playing = $('.song-'+index).addClass('playing');
   });
 
-
   // Play from song
   $('.play-song').live('click',function() {
     var $section = $(this).parent().parent('section');
@@ -160,5 +160,23 @@ $(function() {
       mp.playSection($section);
     }
     return false;
+  });
+
+  $('.broadcast-song span:not(.added)').live({
+    mouseenter: function() {
+      var $this = $(this);
+      console.log('hover');
+      likeTimeout = window.setTimeout(function() {
+        console.log('running');
+        if ($this.is(':hover')) {
+          $('.tipsy-inner').html('Liked!');
+          $this.addClass('added');
+        }
+      }, 980);
+    },
+    mouseleave: function() {
+      console.log('clearing');
+      window.clearTimeout(likeTimeout);
+    }
   });
 });

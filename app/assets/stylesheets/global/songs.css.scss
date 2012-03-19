@@ -304,6 +304,10 @@ table.playlist {
           @include animation-none();
           @include transform(scale(1) !important);
         }
+
+        &.added {
+          background: #cb0000;
+        }
       }
     }
 
@@ -319,6 +323,8 @@ table.playlist {
   }
 
   .song-info {
+    width: 365px;
+
     h3 {
       margin: 0;
 
