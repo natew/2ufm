@@ -7,8 +7,23 @@
 </div>
 <%- end -%>
 
-<div class="whole">
+<div class="twothirds">
   <h3>Trending Songs</h3>
   <%= render :partial => 'stations/table', :locals => { :station => @popular, :songs => @popular.songs } %>
   <%= link_to 'Browse more songs', '/songs/fresh', :class => 'button right' %>
+</div>
+
+<div class="third">
+  <section>
+   <h3>Latest Music</h3>
+   <%= render :partial => 'stations/playlist', :locals => { :station => @new, :pagination => false, :per => 8 } %>
+  </section>
+
+  <section>
+   <h3>Artists</h3>
+   <ul class="list">
+     <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
+   </ul>
+   <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
+  </section>
 </div>

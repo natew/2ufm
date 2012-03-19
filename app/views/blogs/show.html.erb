@@ -2,9 +2,9 @@
   <div class="image">
     <%= image_tag(@blog.image.url(:original)) %>
   </div>
-  
+
   <h2><%= @blog.name %> <small><%= @blog.description || "Browse the latest from #{@blog.name}" %></small></h2>
-  
+
   <ul class="title_nav">
     <li id="follow-<%= @blog.station.id %>"><%= follow_station(@blog.station) %></li>
     <li><%= link_to "Visit Blog &raquo;".html_safe, @blog.url, :target => '_blank', :class => 'button' %></li>
@@ -12,7 +12,7 @@
 </div>
 
 <div class="twothirds">
-  <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
+  <%= render :partial => 'stations/table', :locals => { :station => @blog.station } %>
 </div>
 
 <div class="third">

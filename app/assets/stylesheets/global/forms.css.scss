@@ -4,7 +4,7 @@
   .field_with_errors {
     color: red;
   }
-  
+
   #error_explanation {
     h2 {
       background: #811810;
@@ -14,13 +14,13 @@
       font-size: 18px;
       @include border-radius(4px);
     }
-    
+
     ul {
       margin: .7em 0 1.4em;
       color: #999;
     }
   }
-  
+
   h3 {
     border: none;
     font-size: 18px;
@@ -30,18 +30,18 @@
     clear: both;
     padding: 0 0 6px 0;
     margin: 0 0 6px 0;
-    
+
     &.sep {
       border-bottom: 1px dotted #ddd;
       margin-bottom: 16px;
       padding-bottom: 10px;
     }
-    
+
     br {
       display: none;
     }
   }
-  
+
   label {
     width: 150px;
     float: left;
@@ -49,7 +49,7 @@
     text-align: right;
     font-size: 13px;
   }
-  
+
   .input-text,
   .input-email,
   .input-password,
@@ -64,26 +64,26 @@
     @include border-radius(6px);
     @include box-shadow-inset(0px,1px,3px,#ccc);
     @include transition(all,linear,0.2s);
-    
+
     &:focus {
       border-color: #049adb;
       @include box-shadow(0px,0px,8px,#80cced);
     }
   }
-  
+
   .input-checkbox {
     margin: 10px;
   }
-  
+
   textarea {
     width: 65%;
     height: 200px;
   }
-  
+
   input.right {
     float: right;
   }
-  
+
   span.help {
     display: block;
     max-width: 600px;
@@ -92,22 +92,22 @@
     color: #aaa;
     font-size: 12px;
   }
-  
+
   .actions {
     background: #f5f5f5;
     margin: 18px 0 0;
     padding: 17px 20px 18px 178px;
     border-top: 1px solid #ddd;
     @include border-radius-bottom(10px);
-    
+
     &.nopad {
       padding-left: 0;
     }
-    
+
     p {
       float: left;
       margin: 5px 0 0 20px;
-      
+
       a {
         margin: 0 20px 0 0;
         font-size: 12px;
@@ -135,11 +135,11 @@
   font-weight: bold;
   @include border-radius(4px);
   @include background-gradient(#049cdb, #0064cd);
-  
+
   &:hover {
     background-position: 0 -25px;
   }
-  
+
   &.abs-right {
     position: absolute;
     top: 12px;
@@ -149,14 +149,18 @@
   &.right {
     float: right;
   }
-  
+
+  &.small {
+    padding: 0 4px;
+  }
+
   &.disabled {
     color: #777;
     border-color: #aaa;
     text-shadow: none;
     @include background-gradient(#ccc, #aaa);
   }
-  
+
   &.add {
     color: #000;
     border-color: #ccc;
@@ -164,17 +168,17 @@
     text-shadow: none;
     span { color: #239708; }
   }
-  
+
   &.remove {
     @include background-gradient(#3ab30a, #239708);
     border-color: #239708;
-    
+
     &:hover {
       @include background-gradient(#c40e0e, #970808);
       border-color: #970808;
     }
   }
-  
+
   span {
     margin: -6px 0 -6px -3px;
     padding-right: 10px;
@@ -183,7 +187,7 @@
 }
 
 #body .button {
-  padding: 6px 16px;
+  padding: 4px 12px;
   font-size: 14px;
   display: block;
   text-align: center;
