@@ -1,6 +1,6 @@
-<% icon, title, method, path = (action == 'add') ? 
-    ['k','Add song to your station', :post, "/broadcasts/#{id}"] :
+<% icon, title, method, path = (action == 'add') ?
+    ['k','Hover to like this song', :post, "/broadcasts/#{id}"] :
     ['2','Remove song from your station', :delete, "/broadcasts/#{id}" ]
 %>
-  <span class="count"><%= count %></span>
-  <%= link_to icon, path, class: "broadcast-song #{action} control restricted tip pictos", title: title, remote: true, method: method %>
+
+  <%= link_to "<strong>#{count}</strong><span></span>".html_safe, path, class: "broadcast-song #{action} control restricted tip", title: title, remote: true, method: method %>

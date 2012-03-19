@@ -1,3 +1,7 @@
+/* Animation variables */
+
+$bounce-start: 0.5;
+$bounce-end: 0.55;
 
 /*  Colors  */
 $title: #000;
@@ -110,11 +114,49 @@ $light-yellow: #ffd;
 
 
 
-/* Transitions */
+/* Transitions, Transforms, Animations */
 
-@mixin  transition($property: all, $type: linear, $time: 0.2s) {
+@mixin transition($property: all, $type: linear, $time: 0.2s) {
   -webkit-transition: $property $type $time;
   -moz-transition: $property $type $time;
-  -o-transition: $property $type $time;
   transition: $property $type $time;
+}
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -moz-transform: $property;
+  transform: $property;
+}
+
+@mixin animation($name,$duration,$iteration: infinite) {
+  -webkit-animation: $name $duration $iteration;
+  -moz-animation: $name $duration $iteration;
+  animation: $name $duration $iteration;
+}
+
+@mixin animation-none() {
+  -webkit-animation: none !important;
+  -moz-animation: none !important;
+  animation: none !important;
+}
+
+
+/* Animations */
+
+@-moz-keyframes bounce {
+  0%   { @include transform(scale($bounce-start)); }
+  50%  { @include transform(scale($bounce-end)); }
+  100% { @include transform(scale($bounce-start)); }
+}
+
+@-webkit-keyframes bounce {
+  0%   { @include transform(scale($bounce-start)); }
+  50%  { @include transform(scale($bounce-end)); }
+  100% { @include transform(scale($bounce-start)); }
+}
+
+@keyframes bounce {
+  0%   { @include transform(scale($bounce-start)); }
+  50%  { @include transform(scale($bounce-end)); }
+  100% { @include transform(scale($bounce-start)); }
 }
