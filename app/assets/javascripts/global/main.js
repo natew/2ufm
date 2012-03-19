@@ -13,12 +13,12 @@ var pressedDisable = function(e) {
 }
 
 // Sets bar to fixed
-function setBarPosition() {
+var setBarPosition = function() {
   if ($(window).scrollTop() > 44) $('#bar').addClass('fixed');
   else $('#bar').removeClass('fixed');
 }
 
-function keyShortcuts(e) {
+var keyShortcuts = function(e) {
   switch(e.keyCode) {
     // Left arrow
     case 37:
@@ -28,7 +28,7 @@ function keyShortcuts(e) {
   }
 }
 
-function mpClick(selector,fn) {
+var mpClick = function(selector,fn) {
   $(selector).click(function(e) {
     e.preventDefault();
     fn.log(fn);
