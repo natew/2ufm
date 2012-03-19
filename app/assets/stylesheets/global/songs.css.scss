@@ -312,8 +312,8 @@ table.playlist {
       top: 4px;
       left: 4px;
       z-index: 9;
-      height: 86%;
-      width: auto;
+      height: 48px;
+      width: 48px;
       @include border-radius(5px);
     }
   }
