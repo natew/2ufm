@@ -172,7 +172,7 @@ $(function() {
           $('.tipsy-inner').html('Liked!');
           $this.addClass('added');
         }
-      }, 920);
+      }, 600);
     },
     mouseleave: function() {
       fn.log('clearing');

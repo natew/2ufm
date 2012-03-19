@@ -298,7 +298,7 @@ table.playlist {
         @include transform(scale($bounce-start));
         @include animation(bounce,3s);
         @include border-radius(50px);
-        @include transition(all,linear,.7s);
+        @include transition(all,linear,.6s);
 
         &:hover, &.added {
           @include animation-none();
