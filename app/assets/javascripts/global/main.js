@@ -6,7 +6,7 @@ var commandPressed = false,
 
 // Allow middle clicking for new tabs
 var pressedDisable = function(e) {
-  console.log('command toggle');
+  log('command toggle');
   var command = e.metaKey || e.ctrlKey;
   if (command) commandPressed = true;
   else commandPressed = false;
@@ -31,14 +31,14 @@ function keyShortcuts(e) {
 function mpClick(selector,fn) {
   $(selector).click(function(e) {
     e.preventDefault();
-    console.log(fn);
+    log(fn);
     mp[fn].call();
   });
 }
 
 // Image errors
-$('img.cover-medium').live('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
-$('img.cover-small').live('error',function(){ $(this).attr('src', '/images/default_small.jpg'); });
+$('img.cover-medium').on('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
+$('img.cover-small').on('error',function(){ $(this).attr('src', '/images/default_small.jpg'); });
 
 //
 // Document.ready
@@ -57,7 +57,7 @@ $(function() {
   $window.keydown(pressedDisable).keyup(pressedDisable);
   $window.blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
-  $("a:not(.control)").live('click', function(event) {
+  $("a:not(.control)").on('click', function(event) {
     var href = $(this).attr('href');
     if (href[0] == '/' && event.which != 2 && !commandPressed) {
       event.preventDefault();
@@ -65,7 +65,7 @@ $(function() {
     }
   });
 
-  $('a.disabled').live('click', function(e) {
+  $('a.disabled').on('click', function(e) {
     // Sign in modal
     return false;
   });
@@ -135,8 +135,8 @@ $(function() {
   mpClick('#player-volume', 'volumeToggle');
 
   // Play from playlist
-  $('#player-playlist a').live('click',function() {
-    console.log('playing from playlist');
+  $('#player-playlist a').on('click',function() {
+    log('playing from playlist');
     var $this    = $(this),
         $section = $($this.attr('href')),
         index    = $this.data('index');
@@ -152,7 +152,7 @@ $(function() {
   });
 
   // Play from song
-  $('.play-song').live('click',function() {
+  $('.play-song').on('click',function() {
     var $section = $(this).parent().parent('section');
     if ($section.is('.playing')) {
       mp.pause();
@@ -162,20 +162,20 @@ $(function() {
     return false;
   });
 
-  $('.broadcast-song span:not(.added)').live({
+  $('.broadcast-song span:not(.added)').on({
     mouseenter: function() {
       var $this = $(this);
-      console.log('hover');
+      log('hover');
       likeTimeout = window.setTimeout(function() {
-        console.log('running');
+        log('running');
         if ($this.is(':hover')) {
           $('.tipsy-inner').html('Liked!');
           $this.addClass('added');
         }
-      }, 980);
+      }, 920);
     },
     mouseleave: function() {
-      console.log('clearing');
+      log('clearing');
       window.clearTimeout(likeTimeout);
     }
   });

@@ -33,7 +33,7 @@ var mp = (function() {
     volume: $('#player-volume')
   };
 
-  console.log($('#player-playlist'));
+  log($('#player-playlist'));
 
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
@@ -64,7 +64,7 @@ var mp = (function() {
     playSection: function(section) {
       this.stop();
       curSection = section;
-      console.log(curSection);
+      log(curSection);
       this.load();
       this.play();
     },
@@ -73,7 +73,7 @@ var mp = (function() {
     load: function() {
       if (!curSection) curSection = $('.playlist section:first,.playlist tbody tr:first');
       if (curSection) {
-        console.log('loading playlist');
+        log('loading playlist');
 
         // Remember this page
         playingPage = curPage;
@@ -84,8 +84,8 @@ var mp = (function() {
         playlistID = curSection.data('station');
         playlist   = $('#playlist-'+playlistID).data('playlist');
 
-        console.log(playlist);
-        console.log(pl);
+        log(playlist);
+        log(pl);
 
         $('#main-mid').addClass('loaded');
 
@@ -94,7 +94,7 @@ var mp = (function() {
         pl.playlist.html(playlist_template);
         pl.playlist.addClass('loaded');
 
-        console.log('playlist loaded: '+playlistID);
+        log('playlist loaded: '+playlistID);
       }
     },
 
@@ -104,13 +104,13 @@ var mp = (function() {
         delayStart = true;
       } else {
         // Load
-        console.log('Playing... playlist', playlist);
+        log('Playing... playlist', playlist);
         if (!playlist) this.load();
-        console.log('After load... playlist', playlist);
+        log('After load... playlist', playlist);
 
         if (playlist && playlistIndex < playlist.songs.length) {
           // Load song
-          console.log('playing song at index: '+playlistIndex);
+          log('playing song at index: '+playlistIndex);
           curSongInfo = playlist.songs[playlistIndex];
           curSong = soundManager.createSound({
             id:curSongInfo.id,
@@ -127,7 +127,7 @@ var mp = (function() {
             volume:volume
           });
 
-          console.log('song loaded: ' + curSong);
+          log('song loaded: ' + curSong);
           curSong.play();
           return true;
         } else {
@@ -219,7 +219,7 @@ var mp = (function() {
 
     updateProgress: function(percent) {
       pl.position.attr('width',percent+'%');
-      console.log(curSong.durationEstimate, (percent/100), curSong.durationEstimate*(percent/100));
+      log(curSong.durationEstimate, (percent/100), curSong.durationEstimate*(percent/100));
       curSong.setPosition(curSong.durationEstimate*(percent/100));
     },
 
@@ -245,7 +245,7 @@ var mp = (function() {
       if (!event) var event = window.event;
       element = event.target || event.srcElement;
 
-      console.log('startdrag: ' + element.id)
+      log('startdrag: ' + element.id)
       if (element.id.match(/handle/)) {
         dragging_position = true;
         pl.handle.unbind('mousemove').bind('mousemove', this.followDrag);
@@ -280,7 +280,7 @@ var mp = (function() {
           curPos = curSong.position,
           newPos = Math.round(((x - offset) / width) * 100);
 
-      console.log('followdrag: ' + x + ' / ' + newPos + '%');
+      log('followdrag: ' + x + ' / ' + newPos + '%');
 
       player.updateProgress(newPos);
       if (newPos >= 100 || newPos <= 0) this.endDrag();
@@ -374,10 +374,10 @@ var mp = (function() {
     setPage: function(url) {
       curPage = url;
       if (curPage && curPage == playingPage) {
-        console.log('RETURNED!!!!!!!!!!!!');
+        log('RETURNED!!!!!!!!!!!!');
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
-        console.log(curSongInfo.id,curSection);
+        log(curSongInfo.id,curSection);
         player.setCurSectionActive();
       } else {
         curSection = null;

@@ -1,4 +1,8 @@
 var fn = {
+  log: function() {
+    console.log('->', arguments.callee.caller.name, ': ', arguments);
+  },
+
   flatten: function(obj, includePrototype, into, prefix) {
     into = into || {};
     prefix = prefix || "";
