@@ -5,15 +5,27 @@ var curPage = window.location.pathname;
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
 
 
-// So we can read parameters
-function getParameterByName(name) {
-  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-  var regexS = "[\\?&]" + name + "=([^&#]*)";
-  var regex = new RegExp(regexS);
-  var results = regex.exec(window.location.search);
-  if (results == null) return false;
-  else return decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+// Read URL parameters
+var urlParams = {};
+var updateParams = (function () {
+  function update() {
+    var e,
+        a = /\+/g,  // Regex for replacing addition symbol with a space
+        r = /([^&=]+)=?([^&]*)/g,
+        d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+        q = window.location.search.substring(1);
+
+    while (e = r.exec(q))
+       urlParams[d(e[1])] = d(e[2]);
+  }
+
+  return {
+    run: function() {
+      update();
+    }
+  }
+})();
+
 
 // Functions relating to moving about pages
 // In order of occurence
@@ -72,9 +84,10 @@ var page = {
     $doc.find('.playlist section:first-child').addClass('show-play');
 
     // Listen sharing
-    if (getParameterByName('play')) {
-      var song = getParameterByName('song');
-      var time = getParameterByName('time');
+    updateParams.run();
+    if (urlParams['play']) {
+      var song = urlParams['song'];
+      var time = urlParams['time'];
       var section = $('#song-'+song);
       mp.playSection(section);
       $(window).scrollTop(section.offset().top-100);
