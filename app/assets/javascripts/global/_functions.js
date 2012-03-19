@@ -1,10 +1,8 @@
 DO_LOGGING = true;
-FUNC_LOGGING = true;
 
 var fn = {
   log: function() {
-    if (FUNC_LOGGING) console.log('->', arguments.callee.caller.name, ': ');
-    if (DO_LOGGING) console.log(arguments);
+    if (DO_LOGGING) console.log('->', arguments.callee.caller.name.toString(), ': ', arguments);
   },
 
   flatten: function(obj, includePrototype, into, prefix) {
