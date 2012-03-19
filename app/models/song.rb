@@ -7,7 +7,7 @@ require 'tempfile'
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
-  
+
   # Relationships
   belongs_to  :blog
   belongs_to  :post
@@ -17,9 +17,9 @@ class Song < ActiveRecord::Base
   has_many    :authors
   has_many    :artists, :through => :authors
   has_many    :listens
-  
+
   # Attachments
-  has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['64x64#'], icon: ['32x32#'], tiny: ['16x16#'] }
+  has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['64x64#'], icon: ['32x32#'], tiny: ['24x24#'] }
   has_attachment :file
 
   # Validations
@@ -38,9 +38,9 @@ class Song < ActiveRecord::Base
   scope :individual, select_with_info.with_blog_and_post.working
   scope :playlist_order_broadcasted, group_shared_order_broadcast.select_with_info.with_blog_and_post.working
   scope :playlist_order_published, group_shared_order_published.select_with_info.with_blog_and_post.working
-  
+
   acts_as_url :full_name, :url_attribute => :slug
-  
+
   before_create  :get_real_url, :clean_url
   after_create :delayed_scan_and_save
   before_save :set_rank
@@ -51,22 +51,26 @@ class Song < ActiveRecord::Base
   def to_param
     slug
   end
-  
+
   def reposted?
     shared_count > 0
   end
-  
+
   def to_playlist
     { id: id, artist:artist_name, name:name, url:url, image:resolve_image(:small) }
   end
-  
+
   def resolve_image(*type)
     type = type[0] || :original
     image? ? image(type) : post.image(type)
   end
-  
+
   def full_name
     "#{artist_name} - #{name}"
+  end
+
+  def original_artists
+    artists.where("authors.role = 'original'").joins(:authors)
   end
 
   # Ranking algorithm
@@ -76,14 +80,14 @@ class Song < ActiveRecord::Base
     time  = ((created_at || Time.now) - Time.new(2012))/100000
     self.rank = plays + favs + time
   end
-  
+
   def check_if_working
     if !url.nil?
       begin
         uri  = URI.parse url
         req  = Net::HTTP.new(uri.host,uri.port)
         head = req.request_head(uri.path)
-        
+
         if head.code == '200' and head.content_type =~ /audio|download/
           logger.info "Working"
           self.working = true
@@ -99,11 +103,11 @@ class Song < ActiveRecord::Base
     end
     self.working
   end
-  
+
   def delayed_check_if_working
     delay(:priority => 4).check_if_working
   end
-  
+
   # Read ID3 Tag and generally collect information on the song
   def scan_and_save
     if !url.nil?
@@ -111,22 +115,22 @@ class Song < ActiveRecord::Base
         total = nil
         prev  = 0
         logger.info "Scanning #{url} ..."
-        
+
         open(url,
           :content_length_proc => lambda { |content_length|
-            raise "Too Big" if content_length > (1048576 * 40) # 20 MB maximum song size
+            raise "Too Big" if (content_length > (1048576 * 40)) # 20 MB maximum song size
             total = content_length
           },
           :progress_proc => lambda { |at|
             now = (at.fdiv(total)*100).round
             if now > (prev+9)
-              logger.info "Downloading... #{now}%" 
+              logger.info "Downloading... #{now}%"
               prev = now
             end
         }) do |song|
           logger.info "Getting song information"
           file = TagLib::MPEG::File.new(song.path)
-          
+
           # Properties
           props = file.audio_properties
           self.bitrate = props.bitrate.to_i
@@ -140,16 +144,24 @@ class Song < ActiveRecord::Base
           self.track_number = tag.track.to_i
           self.genre = tag.genre
           self.image = get_album_art(tag)
-          
+
           # Working if we have name or artist name at least
           self.working = name != '(Not Found)' or artist_name != '(Not Found)'
 
           # Processed
           self.processed = true
-          
+
           # Update info if we have processed this song
           if working?
+            # Parse artists and determine if original song
+            self.original_song = find_or_create_artists
+
+            # Add to blog station, new station, artist and user stations
+            add_to_stations
+
+            # Determine if we already have this song
             find_similar_songs
+
             self.slug = full_name.to_url
             logger.info "Processed and working!"
           else
@@ -163,12 +175,6 @@ class Song < ActiveRecord::Base
         # self.processed = false
         # self.working = false
         logger.error e.message + "\n" + e.backtrace.join("\n")
-      end
-      
-      # Post-saving stuff
-      if working?
-        find_or_create_artists
-        add_to_stations
       end
     else
       logger.info "No URL!"
@@ -220,7 +226,7 @@ class Song < ActiveRecord::Base
     tmp.binmode
     tmp << data
   end
-  
+
   # Rules for filesharing sites
   def get_real_url
     case url
@@ -236,7 +242,7 @@ class Song < ActiveRecord::Base
       absolute_url = url
     end
   end
-  
+
   def add_to_stations
     if processed?
       add_to_new_station
@@ -244,7 +250,7 @@ class Song < ActiveRecord::Base
       add_to_artists_stations
     end
   end
-  
+
   def add_to_artists_stations
     authors.each do |author|
       artist = Artist.find(author.artist_id)
@@ -255,7 +261,7 @@ class Song < ActiveRecord::Base
       end
     end
   end
-  
+
   def add_to_blog_station
     if blog and blog.station
       Broadcast.create(song_id:id,station_id:blog.station.id) unless blog.station.song_exists?(id)
@@ -263,7 +269,7 @@ class Song < ActiveRecord::Base
       logger.error "No Blog or Blog station"
     end
   end
-  
+
   def add_to_new_station
     ns = Station.new_station
     if !ns.song_exists?(id)
@@ -273,7 +279,7 @@ class Song < ActiveRecord::Base
       logger.info "Song already on new station"
     end
   end
-  
+
   def find_similar_songs
     if name and artist_name
       containers  = /[\[\]\(\)\,\&\-\']/
@@ -282,7 +288,7 @@ class Song < ActiveRecord::Base
       search_name = name.gsub(containers,'%').gsub(tags,'%').gsub(percents,'').strip
       found       = Song.where("artist_name ILIKE (?) and name ILIKE(?) and id != ?", artist_name, search_name, id).oldest.first
     end
-    
+
     if found
       # Ok we found a song that already exists similar to this one
       # Set our shared ID first
@@ -304,37 +310,40 @@ class Song < ActiveRecord::Base
       self.shared_id = id
     end
   end
-  
+
   def similar_songs
     Song.where(shared_id:id)
   end
-  
-  def find_or_create_artists 
+
+  def find_or_create_artists
+    original_song = true
     parse_artists.each do |name,role|
+      original_song = false if role == :remixer
       match = Artist.where("name ILIKE (?)", name).first
       match = Artist.create(name: name) unless match
       self.authors.find_or_create_by_artist_id_and_role(match.id, role)
     end
+    original_song
   end
-      
+
   def parse_artists
     name_artists = artists_in_name
     artist_artists = artists_in_artist
     name_artists | artist_artists
   end
-  
+
   def artists_in_name
     # Strip unnecessary stuff and parse the song name
     strip = /(extended|vip|original|club) mix|(extended|vip|radio) edit|radio bootleg/i
     all_artists(name:name.gsub(strip,''))
   end
-  
+
   def artists_in_artist
     # Now parse the artist field
     artist_artists = all_artists(artist:artist_name)
     !artist_artists.empty? ? artist_artists : [[artist_name, :original]]
   end
-  
+
   def all_artists(title)
     artist = title[:artist].nil? ? false : true
     string = title[:artist] || title[:name]
@@ -348,7 +357,7 @@ class Song < ActiveRecord::Base
 
     # Find any non-original artists
     if string =~ /#{featured}|#{remixer}|#{producer}/i
-      string.split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|        
+      string.split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|
         # Splits up "one, two, three & four"
         split = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i
 
@@ -377,12 +386,12 @@ class Song < ActiveRecord::Base
 
     matched
   end
-  
+
   def link_info
     split = link_text.split(/\s*(-|—|–)\s*/)
     split.size >= 3 ? [split[0], split[2]] : [nil,nil]
   end
-  
+
   def clean_url
     self.url = URI.escape(url)
   end

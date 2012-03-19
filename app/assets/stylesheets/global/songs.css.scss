@@ -1,6 +1,6 @@
 @import "mixins.css.scss";
 
-.playlist {
+div.playlist {
   clear: both;
   margin: 0 0 18px;
 
@@ -38,7 +38,7 @@
     }
 
     &.playing {
-      background: #ffd;
+      background: $light-yellow;
 
       .song-controls {
         .play-song {
@@ -224,6 +224,80 @@
       }
     }
   }
+}
+
+table.playlist {
+  width: 100%;
+
+  a {
+    text-decoration: none;
+  }
+
+  th {
+    font-size: 10px;
+    color: #444;
+    background: $light-blue;
+    text-align: left;
+    padding: 0 6px;
+  }
+
+  tbody {
+    tr:nth-child(2n+1) {
+      background: $lighter-blue;
+    }
+
+    tr.playing {
+      background: $light-yellow;
+    }
+
+    td {
+      padding: 6px;
+      vertical-align: middle;
+    }
+  }
+
+  .song-art {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .song-likes {
+    text-align: center;
+    position: relative;
+
+    span {
+      position: absolute;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      left: 0;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    a {
+      font-size: 36px;
+      color: darkred;
+    }
+  }
+
+  .song-info {
+    h3 {
+      margin: 0;
+
+      a {
+      }
+    }
+
+    span {
+      font-size: 12px;
+    }
+  }
+  .song-meta {
+    font-size: 11px;
+  }
+  .song-stats {}
+  .song-more {}
 }
 
 .cover {

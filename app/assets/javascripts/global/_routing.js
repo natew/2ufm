@@ -26,29 +26,29 @@ var page = {
     $('.tipsy').remove();
     $('#loading').addClass('hide');
   },
-  
+
   load: function(data) {
     console.log('_routing: page.load()');
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
-    
+
     // Update html
     $('#body').html(data);
 	  $('#loading').removeClass('hide');
-    
+
     // Set page in music player
     mp.setPage(curPage);
 
     // Scroll to top if we are going to new page
     if (Path.routes.state == 'push' && $('body').scrollTop() > 0)
       $('html,body').animate({scrollTop:0}, 200);
-    
+
     // Run loaded functions
     var $doc = $(document);
     var $body = $doc.find('body:first');
-    
+
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
-    
+
     // Disable AJAX stuff signed out
     if ($body.is('.signed_out')) {
       $doc.find('#body .control.restricted')
@@ -62,7 +62,7 @@ var page = {
         function() { $('span',this).html('D'); },
         function() { $('span',this).html('2');
       });
-      
+
       $('.broadcast-song.remove').hover(
         function() { $(this).html('D'); },
         function() { $(this).html('2');
@@ -71,7 +71,7 @@ var page = {
 
     // Play button on first song
     $doc.find('.playlist section:first-child').addClass('show-play');
-    
+
     // Listen sharing
     if (getParameterByName('play')) {
       var song = getParameterByName('song');
@@ -91,12 +91,12 @@ var page = {
         }
       });
     }
-      
+
     // Stats
     var $stats = $('#stats');
     if ($stats.length > 0) {
       var data = $stats.data('broadcasts');
-      
+
       var options = {
         xaxis: {
           mode: "time",
@@ -109,12 +109,12 @@ var page = {
       $.plot($stats, [data], options);
     }
   },
-  
+
   error: function(xhr) {
     $('#loading').addClass('hide');
     $('#body').addClass('error').html('<h2>'+xhr.status+'</h2>'+'<div id="error">'+xhr.responseText+'</h2>');
   },
-  
+
   exit: function(xhr,err) {
   },
 }

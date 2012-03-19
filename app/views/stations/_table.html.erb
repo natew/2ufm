@@ -1,0 +1,24 @@
+<%- station    ||= Station.new
+		id           = station.id || 0
+		per        ||= 12
+    songs      ||= station.songs.playlist_order_published.page(params[:page]).per(per)
+    pagination ||= true -%>
+<table id="playlist-<%= id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= station.to_playlist_json %>, &quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
+	<thead>
+		<tr>
+			<th class="title-likes"></th>
+			<th class="title-art"></th>
+			<th class="title-info">Name</th>
+			<th class="title-meta">Posted</th>
+			<th class="title-stats">Stats</th>
+			<th class="title-more">More</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render :partial => 'songs/row', :collection => songs, :locals => { :station_id => id } unless songs.nil? %>
+	</tbody>
+</table>
+<div>
+
+</div>
+<%= paginate songs if !station.id.nil? and pagination %>

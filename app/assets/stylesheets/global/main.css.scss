@@ -25,15 +25,15 @@ body {
 
 /* HEADING AND TEXT STYLES */
 
-h2 { font-size: 30px; }
-h3 { font-size: 22px; }
-h4 { font-size: 17px; }
+h2 { font-size: 21px; }
+h3 { font-size: 17px; }
+h4 { font-size: 14px; }
 
 h2, h3, h4 {
   line-height: 1em;
   padding: 0;
   margin: 0 0 15px 0;
-  color: $subtitle;
+  color: #000;
 
   small {
     font-size: 75%;
@@ -753,7 +753,7 @@ ol.mp_list {
   }
 }
 
-h2.title { color: $subtitle; }
+h2.title { color: #000; }
 .title {
   padding: 0 20px;
   margin: 0 0 20px;

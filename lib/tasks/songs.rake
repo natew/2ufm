@@ -2,11 +2,11 @@ namespace :songs do
   task :reset => :environment do
     songs = Song.update_all(processed:false)
   end
-  
+
   task :processed => :environment do
     puts Song.where(processed:true).count
   end
-  
+
   task :save => :environment do
     begin
       Song.where(working:true).each do |song|
@@ -18,7 +18,7 @@ namespace :songs do
       puts e.message
     end
   end
-  
+
   task :fix_similar_count => :environment do
     Song.all.each do |song|
       #song.shared_count = Song.where(shared_id:id).count
@@ -33,7 +33,7 @@ namespace :songs do
       working = song.delayed_check_if_working
     end
   end
-  
+
   namespace :scan do
     task :similar => :environment do
       songs = Song.processed
@@ -45,14 +45,14 @@ namespace :songs do
         song.save
       end
     end
-    
+
     task :unprocessed => :environment do
       songs = Song.where(processed: false)
       songs.each do |song|
         song.delayed_scan_and_save
       end
     end
-    
+
     task :some => :environment do
       songs = Song.order('random()').limit(20)
       songs.each do |song|

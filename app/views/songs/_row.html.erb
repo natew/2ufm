@@ -1,0 +1,24 @@
+<%- station_id ||= -1 %>
+<tr id="song-<%= row.id %>" data-index="<%= row_counter %>" data-station="<%= station_id %>">
+  <td class="song-likes">
+    <%= broadcast_song(row) %>
+  </td>
+  <td class="song-art">
+    <%= image_tag row.resolve_image(:icon), :class => 'cover-icon' %>
+  </td>
+  <td class="song-info">
+    <h3><%= link_to row.name, row %></h3>
+    <% if !row.original_song? %><span>Originally by <%= links row.original_artists %></span><% end %>
+  </td>
+  <td class="song-meta">
+    <time><%= relative_time(row.published_at) %></time>
+    <span>by <%= link_to "#{truncate(row.blog_name)} #{image_tag('link-external.png')}".html_safe, blog_path(row.blog_slug) %></span>
+  </td>
+  <td class="song-stats">
+    Stats
+  </td>
+  <td class="song-more">
+    <%= link_to '$', nil, :class => 'pictos' %>
+    <%= link_to 'a'.html_safe, row.post_url, :class => 'pictos', :target => '_blank' %>
+  </td>
+</tr>

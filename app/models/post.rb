@@ -6,26 +6,26 @@ class Post < ActiveRecord::Base
   # Relationships
   belongs_to :blog
   has_many   :songs, :dependent => :destroy
-  
+
   # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
-  
+
   # Validations
   validates :url, presence: true, uniqueness: true
 
   # Slug
   acts_as_url :title, :url_attribute => :slug
-  
+
   before_create :get_image
   after_create  :delayed_save_songs
 
   # Whitelist mass-assignment attributes
   attr_accessible :title, :url, :blog_id, :author, :content, :published_at
-  
+
   def to_param
     slug
   end
-  
+
   def get_image
     logger.info "Getting image"
     begin
@@ -37,7 +37,7 @@ class Post < ActiveRecord::Base
       logger.error exception.backtrace
     end
   end
-  
+
   def save_songs
     logger.info "Saving songs from post #{title}"
     parse = Nokogiri::HTML(content)

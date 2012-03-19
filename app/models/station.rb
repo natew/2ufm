@@ -1,4 +1,4 @@
-class Station < ActiveRecord::Base  
+class Station < ActiveRecord::Base
   include AttachmentHelper
 
   has_and_belongs_to_many :genres
@@ -27,7 +27,7 @@ class Station < ActiveRecord::Base
     p.songs = Song.order(:rank).playlist_order_published.limit(20)
     p
   end
-  
+
   def self.new_station
     find(3)
   end
@@ -36,11 +36,11 @@ class Station < ActiveRecord::Base
     # TODO image from parent
     self.to_json(:only => [:id, :slug, :name])
   end
-  
+
   def has_songs?
     songs.size > 0
   end
-  
+
   def song_exists?(song_id)
     Broadcast.where('song_id = ? and station_id = ?', song_id, id).exists?
   end

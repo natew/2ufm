@@ -71,7 +71,7 @@ var mp = (function() {
 
     // Load playlist
     load: function() {
-      if (!curSection) curSection = $('.playlist section:first');
+      if (!curSection) curSection = $('.playlist section:first,.playlist tbody tr:first');
       if (curSection) {
         console.log('loading playlist');
 

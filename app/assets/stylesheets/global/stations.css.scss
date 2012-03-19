@@ -2,18 +2,18 @@
 
 .shelf {
   margin: 0 20px 20px;
-  
+
   h3 {
     position: relative;
     z-index: 10;
   }
-  
+
   ul {
     padding: 0;
     margin-left: -30px;
     margin-bottom: 6px;
   }
-  
+
   li {
     list-style: none;
     float: left;
@@ -21,7 +21,7 @@
     position: relative;
     @include box-shadow(0,0,4px,#000);
     @include border-radius(4px);
-    
+
     img {
       width: 100%;
       height: 100%;
@@ -37,14 +37,14 @@
     .cover img {
       height: 200%;
     }
-    
+
     a {
       text-decoration: none;
       text-shadow: 0 1px 0 #000;
       position: relative;
       display: block;
     }
-    
+
     strong {
       text-align: center;
       color: #fff;
@@ -63,7 +63,7 @@
 .third .shelf {
   margin: 0;
   border: none;
-  
+
   h3 { margin: 0 0 20px 0; }
   li { margin: 0 0 0 20px; }
   img { width: 140px; }
@@ -71,7 +71,7 @@
 
 .shelf.grid {
   margin-left: -6px;
-  
+
   li {
     margin-bottom: 20px;
   }
@@ -80,10 +80,10 @@
 #genres {
   padding: 0;
   margin: 0 0 30px -4px;
-  
+
   li {
     list-style: none;
-    
+
     a {
       padding: 1px 2px 1px 2px;
       margin: 0 0 4px 4px;
@@ -92,7 +92,7 @@
       font-size: 12px;
       font-weight: bold;
       text-decoration: none;
-      
+
       &:hover {
         text-decoration: underline;
       }

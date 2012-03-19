@@ -24,10 +24,10 @@ module ApplicationHelper
   end
 
   # Render artists for a song
-  def artists_list(song)
+  def links(models)
     links = []
-    song.artists.each do |artist|
-      links.push link_to(artist.name, artist)
+    models.each do |model|
+      links.push link_to(model.name, model)
     end
     raw links.join(', ')
   end
