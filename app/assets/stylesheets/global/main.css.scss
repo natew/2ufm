@@ -8,12 +8,15 @@ body {
   color: #666;
 }
 
+#body, #bar, header {
+  min-width: 800px;
+}
+
 #body {
   clear: both;
   overflow: scroll;
   height: 100%;
   width: 100%;
-  min-width: 800px;
   position: absolute;
   top: 0;
 }
