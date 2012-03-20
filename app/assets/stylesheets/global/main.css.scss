@@ -8,10 +8,6 @@ body {
   color: #666;
 }
 
-#body, #bar, header {
-  min-width: 800px;
-}
-
 #body {
   clear: both;
   overflow: scroll;
@@ -302,21 +298,6 @@ header {
   z-index: 98;
   height: 38px;
 
-  &.fixed {
-    position: fixed;
-    top: 0;
-
-    #bar-home,
-    #bar-top { visibility: visible; }
-  }
-
-  &.bottom {
-    top: auto;
-    bottom: 0;
-    @include border-radius-bottom(0);
-    @include border-radius-top(5px);
-  }
-
   &.loaded {
     .player-buttons a.next,
     .player-buttons a.prev {
@@ -324,39 +305,9 @@ header {
     }
   }
 
-  &.loaded.bottom {
-    bottom: 86px;
-  }
-
   #bar-before {
     position: absolute;
     left: 0;
-  }
-
-  #bar-home,
-  #bar-top {
-    visibility: hidden;
-    position: absolute;
-    width: 14px;
-    height: 25px;
-    top: 10px;
-    left: 62px;
-    font-size: 16px;
-    color: #999;
-    overflow: hidden;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-
-  #bar-home {
-    top: -2px;
-    left: 14px;
-    width: 45px;
-    height: 40px;
-    text-indent: -3000em;
-    background: url(/images/bar-home.png) no-repeat top left;
   }
 
   .player-buttons {
@@ -366,7 +317,7 @@ header {
       float: left;
       color: #fff;
       font-size: 30px;
-      padding: 11px 9px 6px;
+      padding: 11px 8px 6px;
       font-size: 23px;
 
       &:hover { color: #fff; background: #222; }
@@ -382,7 +333,7 @@ header {
   #player-controls {
     width: 116px;
     float: left;
-    margin-left: 85px;
+    margin-left: 98px;
   }
 
   #bar-mid {
@@ -508,7 +459,7 @@ header {
       }
     }
 
-    #bar-bottom {
+    #bar-top {
       font-size: 16px;
       color: #999;
       padding-right: 4px;

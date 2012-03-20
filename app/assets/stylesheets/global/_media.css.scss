@@ -1,0 +1,25 @@
+@media screen and (max-width: 920px) {
+  .shelf {
+  	margin-left: -5%;
+  }
+
+  .shelf li {
+  	width: 28%;
+  	margin-left: 5%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+	#main {
+		margin-right: 0;
+	}
+
+	#side {
+		position: relative;
+		width: auto;
+	}
+
+	#bar-top {
+		display: none;
+	}
+}
