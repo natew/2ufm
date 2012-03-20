@@ -28,11 +28,11 @@ var keyShortcuts = function(e) {
   }
 }
 
-var mpClick = function(selector,fn) {
+var mpClick = function(selector,callback) {
   $(selector).click(function(e) {
     e.preventDefault();
     fn.log(fn);
-    mp[fn].call();
+    mp[callback].call();
   });
 }
 
