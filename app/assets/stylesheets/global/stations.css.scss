@@ -1,7 +1,12 @@
 @import "mixins.css.scss";
 
+@media screen and (max-width: 920px) {
+  .shelf {margin-left: -3%;}
+  .shelf li {width: 15%; margin-left: 3%;}
+}
+
 .shelf {
-  margin: 0 0 30px;
+  margin: 0 0 30px -5%;
   padding: 0;
 
   h3 {
@@ -12,7 +17,8 @@
   li {
     list-style: none;
     float: left;
-    margin-right: 20px;
+    margin: 0 0 20px 5%;
+    width: 28%;
     position: relative;
     @include box-shadow(0,0,4px,#000);
     @include border-radius(4px);

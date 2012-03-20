@@ -12,6 +12,8 @@ body {
   clear: both;
   overflow: scroll;
   height: 100%;
+  width: 100%;
+  min-width: 800px;
   position: absolute;
   top: 0;
 }
@@ -71,9 +73,6 @@ h2 small { font-size: 55%; }
 
 
 /* Header */
-
-header, #bar { min-width: 980px; }
-body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
   width: 100%;
   height: 45px;
