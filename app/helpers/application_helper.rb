@@ -6,7 +6,7 @@ class Array
   end
 end
 
-module ApplicationHelper  
+module ApplicationHelper
   # Station follow
   def follow_station(station)
     has    = current_user.following_station?(station.id) if user_signed_in?
@@ -31,7 +31,7 @@ module ApplicationHelper
     end
     raw links.join(', ')
   end
-  
+
   # Self explanitory
   def on_own_profile?
     user_signed_in? and controller.controller_name == 'users' and params[:id] == current_user.slug
@@ -41,12 +41,12 @@ module ApplicationHelper
   def truncate(text, options = {})
     length = options[:length] || 120
     truncate_string = options[:truncate_with] || "&hellip;".html_safe
-    
+
     return if text.nil?
     text = (text.mb_chars.length > length) ? text[/\A.{#{length}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
     raw h(strip_tags(text))
   end
-  
+
   # Returns time_ago_in_words within two weeks, otherwise formatted date
   def relative_time(date)
     begin
@@ -61,7 +61,7 @@ module ApplicationHelper
       'pending'
     end
   end
-  
+
   # Determines if a link is "active" and wraps in ".active" if so
   def link(*args)
     options         = args[1] || {}
@@ -73,9 +73,9 @@ module ApplicationHelper
 
     link_to(args[0], options, html_options)
   end
-  
+
   private
-  
+
   def is_active_link?(url, options = {})
     case options[:when]
       when :self, nil

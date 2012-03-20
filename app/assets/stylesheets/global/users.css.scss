@@ -8,13 +8,13 @@
   overflow: hidden;
   @include border-radius(4px);
   @include box-shadow(0px,1px,2px,#ddd);
-  
+
   section {
     padding: 5px 10px;
     border-bottom: 1px solid #ddd;
     position: relative;
     overflow: hidden;
-    
+
     &:nth-child(2n+1) {
       background: $light-grey;
     }
@@ -23,7 +23,7 @@
 
 #body #new_song {
   margin: 0 0 20px 0;
-  
+
   label {
     display: block;
     float: none;
@@ -34,19 +34,19 @@
     padding: 0 0 2px 0;
     font-size: 14px;
     color: #222;
-    
+
     a {
       font-weight: normal;
       color: #666;
     }
   }
-  
+
   #song_url {
     width: 507px;
     padding: 12px;
     margin: 0 10px 20px 0;
   }
-  
+
   .input-submit {
     padding: 12px;
     padding: 9px 18px;

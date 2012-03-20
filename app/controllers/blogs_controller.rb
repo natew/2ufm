@@ -37,7 +37,7 @@ class BlogsController < ApplicationController
     session[:blog_params].deep_merge!(params[:blog]) if params[:blog]
     @blog = Blog.new(session[:blog_params])
     @blog.current_step = session[:blog_step]
-    
+
     if @blog.valid?
       if params[:back_button]
         @blog.previous_step
@@ -48,7 +48,7 @@ class BlogsController < ApplicationController
       end
       session[:blog_step] = @blog.current_step
     end
-    
+
     respond_to do |format|
       if @blog.new_record?
         format.js { render 'new', :layout => false }
@@ -59,8 +59,8 @@ class BlogsController < ApplicationController
       end
     end
   end
-  
-  
+
+
   def edit
     @blog = Blog.find_by_slug(params[:id])
   end

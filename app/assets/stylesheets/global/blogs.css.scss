@@ -10,11 +10,11 @@
      position: relative;
      @include box-shadow(0,0,4px,#000);
      @include border-radius(8px);
-     
+
      img {
         @include border-radius(8px);
      }
-     
+
      h3 {
        line-height: 1em;
        position: absolute;
@@ -25,7 +25,7 @@
        border: none;
        font-size: 18px;
        height: 45px;
-        
+
       a {
         color: #fff;
         text-shadow: 0 2px 2px #000;
@@ -36,7 +36,7 @@
          @include border-radius-top(7px);
       }
      }
-     
+
      p {
        margin: 0;
        position: absolute;
@@ -52,23 +52,23 @@
        width: 260px;
         @include border-radius-bottom(4px);
      }
-     
+
      .follow {
        position: absolute;
        z-index: 97;
        right: 10px;
        top: 60px;
-       
+
        .count { display: none; }
        .button { @include box-shadow(0,0,20px,rgba(0,0,0,0.5)); }
      }
-   } 
+   }
 }
 
 
 .image {
   margin: 0 0 20px 0;
-  
+
   img {
     @include border-radius(8px);
   }
