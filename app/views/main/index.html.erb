@@ -1,19 +1,17 @@
-<%- if !user_signed_in? -%>
-<div class="shelf">
-  <h3>Featured Stations</h3>
-  <ul>
-    <%= render :partial => 'stations/shelf', :collection => @featured %>
-  </ul>
-</div>
-<%- end -%>
+<div id="main">
+  <div class="contain">
+    <h3>Featured Stations</h3>
+    <ul class="shelf">
+      <%= render :partial => 'stations/shelf', :collection => @featured %>
+    </ul>
 
-<div class="twothirds">
-  <h3>Trending Songs</h3>
-  <%= render :partial => 'stations/table', :locals => { :station => @popular, :songs => @popular.songs } %>
-  <%= link_to 'Browse more songs', '/songs/fresh', :class => 'button right' %>
+    <h3>Trending Songs</h3>
+    <%= render :partial => 'stations/table', :locals => { :station => @popular, :songs => @popular.songs } %>
+    <%= link_to 'Browse more songs', '/songs/fresh', :class => 'button right' %>
+  </div>
 </div>
 
-<div class="third">
+<div id="side">
   <section>
    <h3>Latest Music</h3>
    <%= render :partial => 'stations/playlist', :locals => { :station => @new, :pagination => false, :per => 8 } %>

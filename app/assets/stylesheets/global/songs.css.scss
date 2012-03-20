@@ -2,7 +2,7 @@
 
 div.playlist {
   clear: both;
-  margin: 0 0 18px;
+  margin: -8px 0 18px;
 
   section {
     padding: 10px 0;
@@ -323,7 +323,6 @@ table.playlist {
   }
 
   .song-info {
-    width: 365px;
 
     h3 {
       margin: 0;
@@ -376,7 +375,7 @@ table.playlist {
   }
 }
 
-.third .playlist {
+#side .playlist {
   border: none;
 
   section {

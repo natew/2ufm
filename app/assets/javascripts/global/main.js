@@ -36,6 +36,13 @@ var mpClick = function(selector,fn) {
   });
 }
 
+// Window resize
+var resizeFrame = function() {
+  var w = $(window).width();
+  $('#body').css('width', w);
+}
+$(window).resize(resizeFrame);
+
 // Image errors
 $('img.cover-medium').on('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
 $('img.cover-small').on('error',function(){ $(this).attr('src', '/images/default_small.jpg'); });
@@ -46,6 +53,9 @@ $('img.cover-small').on('error',function(){ $(this).attr('src', '/images/default
 $(function() {
   // Fire initial page load
   page.load();
+
+  // Page width
+  resizeFrame();
 
   // HTML5 pushState using Path.js
   Path.history.listen();
