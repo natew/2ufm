@@ -79,6 +79,7 @@ header {
   position: relative;
   z-index: 100;
   line-height: 1em;
+  @include background-gradient(#f5f5f5,#ddd);
 
   h1 {
     position: absolute;
@@ -193,7 +194,7 @@ header {
       width: 48px;
       height: 48px;
       position: absolute;
-      background: #fff;
+      @include background-gradient(#fff,#ddd);
     }
 
     img {
@@ -290,7 +291,7 @@ header {
 
 /* BAR */
 #bar {
-  background: #444;
+  background: rgba(0,0,0,0.8);
   position: absolute;
   width: 100%;
   left: 0;

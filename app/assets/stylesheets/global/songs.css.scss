@@ -57,9 +57,7 @@ div.playlist {
     }
 
     .song-info {
-      float: right;
-      width: 514px;
-      margin: 0;
+      margin: 0 0 0 86px;
       padding: 0 20px 0 0;
 
       .song-meta {
@@ -154,73 +152,53 @@ div.playlist {
       }
     }
 
-    .song-controls {
-      margin: -6px -10px -90px 0;
-      padding: 10px 10px 0 10px;
-      float: left;
-      width: 10%;
-      border-right: none;
-      height: 142px;
+    .play-song {
+      visibility: hidden;
+      margin: 10px 0 0;
+      font-size: 66px;
+      color: #fff;
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 10px;
+      width: 64px;
+      height: 64px;
+      overflow: hidden;
+      text-indent: -3000em;
+      background: url(/images/play_pause.png) no-repeat;
 
-      .play-song {
-        visibility: hidden;
-        margin: 10px 0 0;
-        font-size: 66px;
-        color: #fff;
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        left: 10px;
-        width: 64px;
-        height: 64px;
-        overflow: hidden;
-        text-indent: -3000em;
-        background: url(/images/play_pause.png) no-repeat;
+      &:hover {
+        cursor: pointer;
+        text-shadow: 0 1px 0 #000;
+        background-position: 0 -64px;
+      }
+    }
 
-        &:hover {
-          cursor: pointer;
-          text-shadow: 0 1px 0 #000;
-          background-position: 0 -64px;
+    .broadcast {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      width: 70px;
+      text-align: right;
+
+      a {
+        font-size: 24px;
+        color: #ccc;
+
+        &:hover { color: #cb0000; }
+        &.remove {
+          color: #239708;
+          &:hover { color: #970808;}
         }
       }
 
-      li {
-        float: right;
-        clear: both;
-        list-style: none;
-        margin: 0 0 6px 0;
-
-        input {
-          margin: 10px 0 0 10px;
-        }
-
-        &.broadcast {
-          position: absolute;
-          right: 10px;
-          top: 10px;
-          width: 70px;
-          text-align: right;
-
-          a {
-            font-size: 24px;
-            color: #ccc;
-
-            &:hover { color: #cb0000; }
-            &.remove {
-              color: #239708;
-              &:hover { color: #970808;}
-            }
-          }
-
-          span.count {
-            font-size: 18px;
-            font-weight: bold;
-            height: 16px;
-            padding: 0;
-            margin: -2px 4px 0 0;
-            color: #333;
-          }
-        }
+      span.count {
+        font-size: 18px;
+        font-weight: bold;
+        height: 16px;
+        padding: 0;
+        margin: -2px 4px 0 0;
+        color: #333;
       }
     }
   }
@@ -242,6 +220,10 @@ table.playlist {
     padding: 0 6px;
   }
 
+  .title-likes {width: 44px;}
+  .title-more {width: 54px;}
+  .title-meta {width: 100px;}
+
   tbody {
     tr:nth-child(2n+1) {
       background: $lighter-blue;
@@ -258,7 +240,6 @@ table.playlist {
   }
 
   .song-likes {
-    width: 44px;
     text-align: center;
     position: relative;
 
@@ -323,8 +304,8 @@ table.playlist {
   }
 
   .song-info {
-
     h3 {
+      font-size: 15px;
       margin: 0;
 
       a {
@@ -336,7 +317,6 @@ table.playlist {
     }
   }
   .song-meta {
-    width: 100px;
     font-size: 11px;
 
     span {
@@ -382,13 +362,14 @@ table.playlist {
     background: none !important;
     padding: 7px 0;
 
+    .song-meta,
     .song-art {
       display: none;
     }
 
     .song-info {
       width: 100%;
-      float: left;
+      margin-left: 0;
 
       h4 {
         font-size: 14px;
@@ -400,14 +381,12 @@ table.playlist {
       }
     }
 
-    .song-controls {
+    .broadcast, .play-song {
       display: none;
-      border: none;
-      width: 18%;
     }
   }
 }
 
-.third .pagination {
+#side .pagination {
   display: none;
 }

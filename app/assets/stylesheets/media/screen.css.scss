@@ -1,29 +1,29 @@
-@media screen and (max-width: 920px) {
-  .shelf {
-  	margin-left: -5%;
+@media screen and (max-width: 860px) {
+  #main {
+  	margin-right: 0;
   }
 
-  .shelf li {
-  	width: 28%;
-  	margin-left: 5%;
+  #side {
+  	position: relative;
+  	width: auto;
+  }
+
+  #bar-top {
+  	display: none;
+  }
+
+  .announce {
+  	font-size: 13px;
   }
 }
 
 @media screen and (max-width: 640px) {
-	#main {
-		margin-right: 0;
+	.shelf {
+		margin-left: -5%;
 	}
 
-	#side {
-		position: relative;
-		width: auto;
-	}
-
-	#bar-top {
-		display: none;
-	}
-
-	.announce {
-		font-size: 13px;
+	.shelf li {
+		width: 28%;
+		margin-left: 5%;
 	}
 }

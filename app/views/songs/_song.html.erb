@@ -9,7 +9,7 @@
     <div class="song-meta">
       <%= link_to "#{truncate(song.blog_name)}".html_safe, blog_path(song.blog_slug) %> &middot;
       <%- if song.reposted? -%>
-        Posted by <%= link_to pluralize(song.shared_count,'blog'), song %> 
+        Posted by <%= link_to pluralize(song.shared_count,'blog'), song %>
         &middot;
       <%- end -%>
       <time><%= relative_time(song.published_at) %></time>
@@ -20,8 +20,7 @@
       <li class="right"><%= link_to 'Read &raquo;'.html_safe, song.post_url, :target => '_blank' %></li>
     </ul>
   </div>
-  <ul class="song-controls">
-    <li class="play-song pictos">4</li>
-    <li class="broadcast"><%= broadcast_song(song) %></li>
+  <a class="play-song control pictos">4</a>
+  <span class="broadcast"><%= broadcast_song(song) %></>
   </ul>
 </section>
