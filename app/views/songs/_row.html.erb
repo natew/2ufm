@@ -5,7 +5,7 @@
     <%= image_tag row.resolve_image(:small), :class => 'cover-small' %>
   </td>
   <td class="song-info">
-    <h3><%= link_to row.name, row %></h3>
+    <h3><%= link_to row.full_name, row %></h3>
     <% if !row.original_song? %><span>Originally by <%= links row.original_artists %></span><% end %>
   </td>
   <td class="song-meta">
