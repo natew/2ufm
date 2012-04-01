@@ -28,6 +28,7 @@ var keyShortcuts = function(e) {
   }
 }
 
+// Bind selectors to callbacks
 var mpClick = function(selector,callback) {
   $(selector).click(function(e) {
     e.preventDefault();
@@ -35,6 +36,27 @@ var mpClick = function(selector,callback) {
     mp[callback].call();
   });
 }
+
+// Read URL parameters
+var urlParams = {};
+var updateParams = (function () {
+  function update() {
+    var e,
+        a = /\+/g,  // Regex for replacing addition symbol with a space
+        r = /([^&=]+)=?([^&]*)/g,
+        d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+        q = window.location.search.substring(1);
+
+    while (e = r.exec(q))
+       urlParams[d(e[1])] = d(e[2]);
+  }
+
+  return {
+    run: function() {
+      update();
+    }
+  }
+})();
 
 // Image errors
 $('img.cover-medium').on('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
@@ -45,10 +67,8 @@ $('img.cover-small').on('error',function(){ $(this).attr('src', '/images/default
 //
 $(function() {
   // Fire initial page load
-  page.load();
-
-  // HTML5 pushState using Path.js
-  Path.history.listen();
+  page.start();
+  page.end();
 
   // Keyboard shortucts
   $window.keydown(keyShortcuts);
@@ -57,18 +77,22 @@ $(function() {
   $window.keydown(pressedDisable).keyup(pressedDisable);
   $window.blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
-  $("a:not(.control)").on('click', function(event) {
-    var href = $(this).attr('href');
-    if (href[0] == '/' && event.which != 2 && !commandPressed) {
-      event.preventDefault();
-      Path.history.pushState({}, "", $(this).attr("href"));
-    }
-  });
+  $("a:not(.control)").pjax('#body');
 
   $('a.disabled').on('click', function(e) {
     // Sign in modal
     return false;
   });
+
+  // Listen sharing
+  updateParams.run();
+  if (urlParams['play']) {
+    var song = urlParams['song'];
+    var time = urlParams['time'];
+    var section = $('#song-'+song);
+    mp.playSection(section);
+    $(window).scrollTop(section.offset().top-100);
+  }
 
   // Scroll music player
   setBarPosition();

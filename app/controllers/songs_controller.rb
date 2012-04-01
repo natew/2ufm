@@ -4,7 +4,6 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js { render :layout => false }
     end
   end
 
@@ -14,11 +13,9 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       if @song.save!
-        format.html { render 'index' }
-        format.js { render 'index', layout: false, notice: 'Posted song!' }
+        format.html { render 'index', notice: 'Posted song!' }
       else
         format.html { render 'index', notice: 'Could not post song!' }
-        format.js { render 'index', layout: false }
       end
     end
   end
@@ -31,7 +28,6 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js { render :layout => false }
     end
   end
 
@@ -40,7 +36,6 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js { render :layout => false }
     end
   end
 
@@ -53,7 +48,7 @@ class SongsController < ApplicationController
     end
 
     respond_to do |format|
-      format.js { render :layout => false }
+      format.html
     end
   end
 end

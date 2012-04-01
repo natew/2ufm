@@ -22,7 +22,14 @@ Fusefm::Application.routes.draw do
 
   match "/songs/:id", :to => "songs#failed", :as => :post
 
-  resources :artists, :only => [:index, :show]
+  resources :artists, :only => [:index, :show] do
+    member do
+      get 'remixes_of'
+      get 'remixes_by'
+      get 'originals'
+      get 'popular'
+    end
+  end
 
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post

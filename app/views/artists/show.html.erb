@@ -1,18 +1,18 @@
 <div class="title">
   <%= image_tag @artist.image.url(:small), :class => 'icon' %>
   <h2 class="icon"><%= @artist.name %> <small><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></small></h2>
-  
+
   <ul class="title_nav">
     <li id="follow-<%= @artist.station.id %>"><%= follow_station(@artist.station) %></li>
   </ul>
 </div>
 
 <ul class="subnav">
-  <li><%= link_to 'Newest', '' %></li>
-  <li><%= link_to 'Most popular', '' %></li>
-  <li><%= link_to 'Original songs', '' %></li>
-  <li><%= link_to "Remixes by #{@artist.name}", '' %></li>
-  <li><%= link_to "Remixes of #{@artist.name}", '' %></li>
+  <li><%= link_to 'Newest', @artist %></li>
+  <li><%= link_to 'Most popular', popular_artist_path(@artist) %></li>
+  <li><%= link_to 'Original songs', originals_artist_path(@artist) %></li>
+  <li><%= link_to "Remixes by #{@artist.name}", remixes_by_artist_path(@artist) %></li>
+  <li><%= link_to "Remixes of #{@artist.name}", remixes_of_artist_path(@artist) %></li>
 </ul>
 
 <div class="twothirds">

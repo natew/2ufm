@@ -6,5 +6,12 @@
 //
 //= require jquery-1.7.1
 //= require jquery_ujs
-//= require_tree ./plugins
-//= require_tree ./global
+//= require jquery.form
+//= require jquery.marcopolo
+//= require jquery.tipsy
+//= require jquery.flot.min
+//= require jquery.pjax
+//= require mustache
+//= require soundmanager2
+//= require ZeroClipboard
+//= require_tree .

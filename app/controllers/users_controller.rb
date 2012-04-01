@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js { render :layout => false }
     end
   end
 
@@ -28,7 +27,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js { render :layout => false }
       format.rss { render :layout => false }
     end
   end

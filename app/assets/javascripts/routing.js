@@ -1,57 +1,28 @@
 var curPage = window.location.pathname;
 
-// jQuery and Rails compatability!
-// So we can do wants.js but return HTML
-$.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;
-
-
-// Read URL parameters
-var urlParams = {};
-var updateParams = (function () {
-  function update() {
-    var e,
-        a = /\+/g,  // Regex for replacing addition symbol with a space
-        r = /([^&=]+)=?([^&]*)/g,
-        d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
-        q = window.location.search.substring(1);
-
-    while (e = r.exec(q))
-       urlParams[d(e[1])] = d(e[2]);
-  }
-
-  return {
-    run: function() {
-      update();
-    }
-  }
-})();
-
-
 // Functions relating to moving about pages
 // In order of occurence
 // enter -> load / error -> exit
 var page = {
 
-  enter: function() {
+  start: function() {
     // Remove tooltips, show loading bar
     $('.tipsy').remove();
     $('#loading').addClass('hide');
   },
 
-  load: function(data) {
+  end: function(data) {
     fn.log('_routing: page.load()');
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
 
-    // Update html
-    $('#body').html(data);
-	  $('#loading').removeClass('hide');
+    $('#loading').removeClass('hide');
 
     // Set page in music player
     mp.setPage(curPage);
 
     // Scroll to top if we are going to new page
-    if (Path.routes.state == 'push' && $('body').scrollTop() > 0)
+    if ($('body').scrollTop() > 0)
       $('html,body').animate({scrollTop:0}, 200);
 
     // Run loaded functions
@@ -80,30 +51,6 @@ var page = {
       });
     }
 
-    // Play button on first song
-    $doc.find('.playlist section:first-child').addClass('show-play');
-
-    // Listen sharing
-    updateParams.run();
-    if (urlParams['play']) {
-      var song = urlParams['song'];
-      var time = urlParams['time'];
-      var section = $('#song-'+song);
-      mp.playSection(section);
-      $(window).scrollTop(section.offset().top-100);
-    }
-
-    // AJAX forms
-    if ($doc.find('#wizard').length > 0) {
-      $doc.find("#wizard form").ajaxForm({
-        type: 'POST',
-        success: function() {
-          $('h2').html('we did it')
-          this.load();
-        }
-      });
-    }
-
     // Stats
     var $stats = $('#stats');
     if ($stats.length > 0) {
@@ -125,23 +72,10 @@ var page = {
   error: function(xhr) {
     $('#loading').addClass('hide');
     $('#body').addClass('error').html('<h2>'+xhr.status+'</h2>'+'<div id="error">'+xhr.responseText+'</h2>');
-  },
-
-  exit: function(xhr,err) {
-  },
+  }
 }
 
-Path.map("/(:action)(/:id)").to(function(){
-  var id  = this.params['id'] ? '/'+this.params['id'] : '';
-  curPage = '/' + (this.params['action'] ? this.params['action']+id : '');
-
-  // Get the page
-  $.ajax({
-    dataType: "html",
-    url: curPage,
-    success: page.load,
-    error: page.error
-  });
-}).enter(page.enter).exit(page.exit);
-
-Path.root("/");
+$('#body')
+  .on('pjax:start',page.start)
+  .on('pjax:end',page.end)
+  .on('pjax:error',page.error);

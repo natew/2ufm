@@ -4,8 +4,7 @@ class BlogsController < ApplicationController
     @blogs = Blog.order('created_at desc').page(params[:page]).per(9)
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.js { render :layout => false }
+      format.html
     end
   end
 
@@ -15,8 +14,7 @@ class BlogsController < ApplicationController
     @artists = @blog.station.artists.limit(20)
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.js { render :layout => false }
+      format.html
     end
   end
 
@@ -27,8 +25,7 @@ class BlogsController < ApplicationController
     @blog.current_step = session[:blog_step]
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.js { render :layout => false }
+      format.html
     end
   end
 
@@ -51,7 +48,7 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       if @blog.new_record?
-        format.js { render 'new', :layout => false }
+        format.html { render 'new' }
       else
         session[:blog_step] = session[:blog_params] = nil
         flash[:notice] = "Blog saved!"

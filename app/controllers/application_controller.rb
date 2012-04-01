@@ -2,12 +2,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :set_pagination_vars
+  layout :set_layout
 
   def not_found
     raise ActionController::RoutingError.new('Not Found')
   end
 
   private
+
+  def set_layout
+    if request.headers['X-PJAX']
+      false
+    else
+      'application'
+    end
+  end
 
   def set_pagination_vars
     @per = {

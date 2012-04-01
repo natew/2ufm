@@ -5,7 +5,6 @@ class ArtistsController < ApplicationController
     @artists = Artist.where("name ~* '^[#{letter}]'").order('name desc').limit(30)
 
     respond_to do |format|
-      format.js { render :layout => false }
       format.html
     end
   end
@@ -14,7 +13,12 @@ class ArtistsController < ApplicationController
     @artist  = Artist.find_by_slug(params[:id]) || not_found
 
     respond_to do |format|
-      format.js { render :layout => false }
+      format.html
+    end
+  end
+
+  def remixes_of
+    respond_to do |format|
       format.html
     end
   end
