@@ -1,0 +1,29 @@
+@media screen and (max-width: 860px) {
+  #main {
+  	margin-right: 0;
+  }
+
+  #side {
+  	position: relative;
+  	width: auto;
+  }
+
+  #bar-top {
+  	display: none;
+  }
+
+  .announce {
+  	font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+	.shelf {
+		margin-left: -5%;
+	}
+
+	.shelf li {
+		width: 28%;
+		margin-left: 5%;
+	}
+}
