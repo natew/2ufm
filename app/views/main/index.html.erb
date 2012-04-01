@@ -9,7 +9,7 @@
 
 <div class="twothirds">
   <h3>Trending Songs</h3>
-  <%= render :partial => 'stations/table', :locals => { :station => @popular, :songs => @popular.songs } %>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs } %>
   <%= link_to 'Browse more songs', '/songs/fresh', :class => 'button right' %>
 </div>
 
