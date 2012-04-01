@@ -6,8 +6,6 @@
   <!-- Meta -->
   <meta charset="utf-8">
   <%= csrf_meta_tag %>
-  <!-- TODO REMOVE THIS BEFORE LAUNCH -->
-  <meta name="robots" content="noindex, nofollow" />
   <meta name="description" content="">
   <meta name="author" content="Nate Wienert">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,66 +20,70 @@
 </head>
 
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %> wizard">
-  <header class="clearfix">
-    <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
-    <nav>
-      <ul>
-        <li><%= link 'New', '/songs-new', :id => 'nav-songs-new' %></li>
-        <li><%= link 'Popular', '/songs', :id => 'nav-songs' %></li>
-        <li><%= link 'Stations', '/blogs', :id => 'nav-blogs' %></li>
-        <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
-      </ul>
-    </nav>
+  <header>
+    <div class="page-contain">
+      <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
+      <nav>
+        <ul>
+          <li><%= link 'New', '/songs-new', :id => 'nav-songs-new' %></li>
+          <li><%= link 'Popular', '/songs', :id => 'nav-songs' %></li>
+          <li><%= link 'Stations', '/blogs', :id => 'nav-blogs' %></li>
+          <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
+        </ul>
+      </nav>
 
-    <div id="functions">
-      <div class="nav">
-        <% if user_signed_in? %>
-          <span id="current_user" data-id="<%= current_user.id %>"></span>
-          <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username' %>
-          <div class="nav-dropdown">
-            <div id="nav-user">
-              <%= link_to "Home", '/home' %>
-              <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
-              <%= link_to "Account".html_safe, '/users/edit' %>
-              <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+      <div id="functions">
+        <div class="nav">
+          <% if user_signed_in? %>
+            <span id="current_user" data-id="<%= current_user.id %>"></span>
+            <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username' %>
+            <div class="nav-dropdown">
+              <div id="nav-user">
+                <%= link_to "Home", '/home' %>
+                <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
+                <%= link_to "Account".html_safe, '/users/edit' %>
+                <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+              </div>
             </div>
-          </div>
-        <% else %>
-          <%= link_to 'Login', new_user_session_path, :class => 'inline', 'data-target' => 'new_user' %>
-          <%= link_to 'Signup', new_user_registration_path, :class => 'inline', 'data-target' => 'new_user'  %>
-        <% end %>
+          <% else %>
+            <%= link_to 'Login', new_user_session_path, :class => 'inline', 'data-target' => 'new_user' %>
+            <%= link_to 'Signup', new_user_registration_path, :class => 'inline', 'data-target' => 'new_user'  %>
+          <% end %>
+        </div>
       </div>
-    </div>
 
-    <div id="loading">
-      <span id="hide-loading"></span> <!-- prevent stupid chrome gif redraw flicker bug -->
-    </div>
+      <div id="loading">
+        <span id="hide-loading"></span> <!-- prevent stupid chrome gif redraw flicker bug -->
+      </div>
 
-    <%= form_tag '/main/search', :method => 'get' do %>
-      <%= text_field_tag :query, '', :placeholder =>'Live search for anything' %>
-      <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-    <% end -%>
+      <%= form_tag '/main/search', :method => 'get' do %>
+        <%= text_field_tag :query, '', :placeholder =>'Live search for anything' %>
+        <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+      <% end -%>
+    </div>
   </header>
 
   <div id="bar">
-    <div id="bar-before">
-      <div id="player-controls" class="player-buttons">
-        <%= link_to '8', '#', :class => 'prev pictos control', :id => 'player-prev', :title => 'Previous song' %>
-        <%= link_to '4', '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
-        <%= link_to '7', '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
-      </div>
-    </div>
-    <div id="bar-mid">
-      <a href="#" id="player-goto" class="goto pictos disabled tip-n" title="Return to station">a</a>
-      <div id="player-progress-grabber"></div>
-      <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
-      <div id="player-progress-position"></div>
-      <div id="player-progress-loaded"></div>
-    </div>
-    <div id="bar-after">
-      <div id="player-controls-after" class="player-buttons">
-        <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
-        <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
+    <div class="page-contain player-wrap">
+      <a id="bar-top" class="pictos control tip-n" title="Go to top" href="#"></a>
+      <a id="bar-home" href="/">Home</a>
+      <div id="player">
+        <div id="player-controls" class="player-buttons">
+          <%= link_to '8', '#', :class => 'prev pictos control', :id => 'player-prev', :title => 'Previous song' %>
+          <%= link_to '4', '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
+          <%= link_to '7', '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
+        </div>
+        <div id="player-progress-bar">
+          <a href="#" id="player-goto" class="goto pictos disabled tip-n" title="Return to station">a</a>
+          <div id="player-progress-grabber"></div>
+          <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
+          <div id="player-progress-position"></div>
+          <div id="player-progress-loaded"></div>
+        </div>
+        <div id="player-controls-after" class="player-buttons">
+          <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
+          <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
+        </div>
       </div>
       <div id="player-share">
         <% link_to 'Station', '#', :class => 'radio control tip-n', :title => 'Return to Station' %>
@@ -89,16 +91,18 @@
         <%= link_to 'Share on Twitter', '#', :class => 'twitter control tip-n', :title => 'Share on Twitter' %>
       </div>
       <a id="player-invite" class="tip-n control disabled" title="Send this song to a friend!">&laquo; Invite friends!</a>
-      <div class="player-buttons"><a id="bar-top" class="pictos control tip-n" title="Go to top!" href="#"></a></div>
+      <div class="player-buttons"><a id="bar-bottom" class="pictos control tip-n" title="Move player to bottom" href="#"></a></div>
     </div>
   </div>
 
-  <div id="body">
-    <div id="body-inner">
+  <div id="main-mid">
+    <div class="page-contain">
+      <%- if false -%>
       <div class="announce">
-        <strong>The best new music from around the web.</strong>
-        Find and share new music with your friends.  Sign up for free!
+          <strong>The best new music from around the web.</strong>
+          Find and share new music with your friends.  Sign up for free!
       </div>
+      <%- end -%>
 
       <%- if notice -%>
       <div id="dialog" class="notice"><%= notice %></div>
@@ -106,7 +110,7 @@
       <div id="dialog" class="alert"><%= alert %></div>
       <%- end -%>
 
-      <div id="content">
+      <div id="body">
         <%= yield %>
       </div>
     </div>

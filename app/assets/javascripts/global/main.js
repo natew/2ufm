@@ -28,11 +28,11 @@ var keyShortcuts = function(e) {
   }
 }
 
-var mpClick = function(selector,callback) {
+var mpClick = function(selector,fn) {
   $(selector).click(function(e) {
     e.preventDefault();
     fn.log(fn);
-    mp[callback].call();
+    mp[fn].call();
   });
 }
 
@@ -78,6 +78,16 @@ $(function() {
   $('#bar-top').html('{').click(function(e) {
     e.preventDefault();
     $('html,body').animate({scrollTop:0}, 200);
+  });
+
+  $('#bar-bottom').html('}').toggle(function(e) {
+    e.preventDefault();
+    $(this).html('{').removeClass('tip-n').addClass('tip')
+    $('#bar').addClass('bottom');
+  }, function(e) {
+    e.preventDefault();
+    $(this).html('}').removeClass('tip').addClass('tip-n')
+    $('#bar').removeClass('bottom');
   });
 
   // Tooltips

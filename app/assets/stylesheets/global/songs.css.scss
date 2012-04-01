@@ -2,7 +2,7 @@
 
 div.playlist {
   clear: both;
-  margin: -8px 0 18px;
+  margin: 0 0 18px;
 
   section {
     padding: 10px 0;
@@ -57,7 +57,9 @@ div.playlist {
     }
 
     .song-info {
-      margin: 0 0 0 86px;
+      float: right;
+      width: 514px;
+      margin: 0;
       padding: 0 20px 0 0;
 
       .song-meta {
@@ -152,53 +154,73 @@ div.playlist {
       }
     }
 
-    .play-song {
-      visibility: hidden;
-      margin: 10px 0 0;
-      font-size: 66px;
-      color: #fff;
-      position: absolute;
-      z-index: 10;
-      top: 0;
-      left: 10px;
-      width: 64px;
-      height: 64px;
-      overflow: hidden;
-      text-indent: -3000em;
-      background: url(/images/play_pause.png) no-repeat;
+    .song-controls {
+      margin: -6px -10px -90px 0;
+      padding: 10px 10px 0 10px;
+      float: left;
+      width: 10%;
+      border-right: none;
+      height: 142px;
 
-      &:hover {
-        cursor: pointer;
-        text-shadow: 0 1px 0 #000;
-        background-position: 0 -64px;
-      }
-    }
+      .play-song {
+        visibility: hidden;
+        margin: 10px 0 0;
+        font-size: 66px;
+        color: #fff;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 10px;
+        width: 64px;
+        height: 64px;
+        overflow: hidden;
+        text-indent: -3000em;
+        background: url(/images/play_pause.png) no-repeat;
 
-    .broadcast {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      width: 70px;
-      text-align: right;
-
-      a {
-        font-size: 24px;
-        color: #ccc;
-
-        &:hover { color: #cb0000; }
-        &.remove {
-          color: #239708;
-          &:hover { color: #970808;}
+        &:hover {
+          cursor: pointer;
+          text-shadow: 0 1px 0 #000;
+          background-position: 0 -64px;
         }
       }
 
-      span.count {
-        font-size: 18px;
-        font-weight: bold;
-        height: 16px;
-        padding: 0;
-        margin: -2px 4px 0 0;
-        color: #333;
+      li {
+        float: right;
+        clear: both;
+        list-style: none;
+        margin: 0 0 6px 0;
+
+        input {
+          margin: 10px 0 0 10px;
+        }
+
+        &.broadcast {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          width: 70px;
+          text-align: right;
+
+          a {
+            font-size: 24px;
+            color: #ccc;
+
+            &:hover { color: #cb0000; }
+            &.remove {
+              color: #239708;
+              &:hover { color: #970808;}
+            }
+          }
+
+          span.count {
+            font-size: 18px;
+            font-weight: bold;
+            height: 16px;
+            padding: 0;
+            margin: -2px 4px 0 0;
+            color: #333;
+          }
+        }
       }
     }
   }
@@ -220,10 +242,6 @@ table.playlist {
     padding: 0 6px;
   }
 
-  .title-likes {width: 44px;}
-  .title-more {width: 54px;}
-  .title-meta {width: 100px;}
-
   tbody {
     tr:nth-child(2n+1) {
       background: $lighter-blue;
@@ -240,6 +258,7 @@ table.playlist {
   }
 
   .song-likes {
+    width: 44px;
     text-align: center;
     position: relative;
 
@@ -304,8 +323,9 @@ table.playlist {
   }
 
   .song-info {
+    width: 365px;
+
     h3 {
-      font-size: 15px;
       margin: 0;
 
       a {
@@ -317,6 +337,7 @@ table.playlist {
     }
   }
   .song-meta {
+    width: 100px;
     font-size: 11px;
 
     span {
@@ -355,21 +376,20 @@ table.playlist {
   }
 }
 
-#side .playlist {
+.third .playlist {
   border: none;
 
   section {
     background: none !important;
     padding: 7px 0;
 
-    .song-meta,
     .song-art {
       display: none;
     }
 
     .song-info {
       width: 100%;
-      margin-left: 0;
+      float: left;
 
       h4 {
         font-size: 14px;
@@ -381,12 +401,14 @@ table.playlist {
       }
     }
 
-    .broadcast, .play-song {
+    .song-controls {
       display: none;
+      border: none;
+      width: 18%;
     }
   }
 }
 
-#side .pagination {
+.third .pagination {
   display: none;
 }

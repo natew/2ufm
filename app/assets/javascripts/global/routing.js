@@ -44,7 +44,7 @@ var page = {
     //_gaq.push(['_trackPageview', curPage]);
 
     // Update html
-    $('#content').html(data);
+    $('#body').html(data);
 	  $('#loading').removeClass('hide');
 
     // Set page in music player

@@ -1,48 +1,26 @@
 @import "mixins.css.scss";
 
 /* Layout */
-html,body {height: 100%;}
 
 body {
   background: #fff;
   color: #666;
 }
 
-#body {
-  clear: both;
-  overflow: scroll;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
+#main-mid {
+  padding: 35px 0;
 }
 
-#body-inner {
+.page-contain {
+  width: 980px;
+  margin: 0 auto;
   position: relative;
-  margin: 83px 20px 20px;
-}
 
-#content {
-  position: absolute;
-  top: 55px;
-  left: 0;
-  width: 100%;
-}
-
-#main {
-  margin-right: 320px;
-  width: auto;
-
-  .contain {
-    width: 100%;
+  #body {
+    overflow: hidden;
+    position: relative;
+    padding: 25px 0;
   }
-}
-
-#side {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 300px;
 }
 
 /* HEADING AND TEXT STYLES */
@@ -70,21 +48,54 @@ h2, h3, h4 {
 
 h2 small { font-size: 55%; }
 
+/* PAGE LAYOUT */
+.third, .twothirds,
+.fourth, .half,
+.whole, .section {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+
+.third     { width: 300px; }
+.twothirds { width: 620px; }
+.fourth    { width: 220px; }
+.half      { width: 460px; }
+.whole     { width: 940px; }
+
+.third, .twothirds, .fourth, .half, .whole {
+  .third, .twothirds, .fourth, .half, .whole {
+    margin-left: 0;
+  }
+}
+
+.feature {
+  clear: both;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-right: none;
+  border-left: none;
+}
+
 
 /* Header */
+
+header, #bar { min-width: 980px; }
+body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
   width: 100%;
-  height: 45px;
-  background: #fff;
   position: relative;
   z-index: 100;
   line-height: 1em;
-  @include background-gradient(#f5f5f5,#ddd);
+
+  .page-contain {
+    width: 980px;
+  }
 
   h1 {
     position: absolute;
-    top: -6px;
-    left: -6px;
+    top: -8px;
+    left: -14px;
     margin: 0;
 
     a {
@@ -194,7 +205,7 @@ header {
       width: 48px;
       height: 48px;
       position: absolute;
-      @include background-gradient(#fff,#ddd);
+      background: #fff;
     }
 
     img {
@@ -291,13 +302,31 @@ header {
 
 /* BAR */
 #bar {
-  background: rgba(0,0,0,0.8);
+  background: #444;
   position: absolute;
-  width: 100%;
-  left: 0;
+  width: 980px;
+  left: 50%;
   top: 45px;
+  margin-left: -490px;
   z-index: 98;
-  height: 38px;
+  @include border-radius-bottom(5px);
+
+  .page-contain { width: 980px; }
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+
+    #bar-home,
+    #bar-top { visibility: visible; }
+  }
+
+  &.bottom {
+    top: auto;
+    bottom: 0;
+    @include border-radius-bottom(0);
+    @include border-radius-top(5px);
+  }
 
   &.loaded {
     .player-buttons a.next,
@@ -306,9 +335,34 @@ header {
     }
   }
 
-  #bar-before {
+  &.loaded.bottom {
+    bottom: 86px;
+  }
+
+  #bar-home,
+  #bar-top {
+    visibility: hidden;
     position: absolute;
-    left: 0;
+    width: 14px;
+    height: 25px;
+    top: 10px;
+    left: 62px;
+    font-size: 16px;
+    color: #999;
+    overflow: hidden;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  #bar-home {
+    top: -2px;
+    left: 14px;
+    width: 45px;
+    height: 40px;
+    text-indent: -3000em;
+    background: url(/images/bar-home.png) no-repeat top left;
   }
 
   .player-buttons {
@@ -318,7 +372,7 @@ header {
       float: left;
       color: #fff;
       font-size: 30px;
-      padding: 11px 8px 6px;
+      padding: 11px 9px 6px;
       font-size: 23px;
 
       &:hover { color: #fff; background: #222; }
@@ -326,88 +380,25 @@ header {
       &.add {
         font-size: 25px;
         padding: 8px 5px 9px;
+        padding-right: 10px;
         color: #cb0000;
       }
     }
   }
 
-  #player-controls {
-    width: 116px;
+  #player {
+    white-space: nowrap;
+    margin-left: 88px;
     float: left;
-    margin-left: 98px;
-  }
 
-  #bar-mid {
-    margin: 4px 282px 0 208px;
-    height: 30px;
-    overflow: hidden;
-    position: relative;
-    background: #555;
-
-    &:hover {
-      cursor: pointer;
+    .player-buttons a.control {
+      width: 18px;
     }
 
-    #player-goto {
-      position: absolute;
-      top: 6px;
-      left: 8px;
-      z-index: 100;
-      color: #888;
-      font-size: 11px;
-
-      &:hover {color: #fff;}
-    }
-
-    #player-meta {
-      margin: 0;
-      font-size: 15px;
-      padding: 4px 8px 5px 24px;
+    #player-controls {
+      width: 108px;
       float: left;
-      white-space: nowrap;
-      overflow: hidden;
-      position: relative;
-      z-index: 10;
-
-      a {
-        color: #fff;
-        text-decoration: none;
-        width: 100%;
-      }
     }
-
-    #player-progress-grabber {
-      position: absolute;
-      top: 0;
-      z-index: 11;
-      width: 100%;
-      height: 100%;
-    }
-
-    #player-progress-position {
-      position: absolute;
-      top: 0;
-      z-index: 1;
-      width: 0%;
-      height: 100%;
-      background: #222;
-    }
-
-    #player-progress-loaded {
-      position: absolute;
-      top: 0;
-      z-index: 0;
-      width: 0%;
-      height: 100%;
-      background: #666;
-    }
-  }
-
-  #bar-after {
-    width: 275px;
-    position: absolute;
-    right: 0;
-    top: 0;
 
     #player-controls-after {
       float: left;
@@ -420,56 +411,124 @@ header {
       }
     }
 
-    #player-share {
+    #player-progress-bar {
       float: left;
-      width: 56px;
-
-      .control {
-        float: right;
-        width: 24px;
-        height: 24px;
-        margin: 7px 2px;
-        overflow: hidden;
-        text-indent: -3000em;
-
-        &.facebook {background: url(/images/facebook.png) no-repeat top left;}
-        &.twitter {background: url(/images/twitter.png) no-repeat top left;}
-      }
-    }
-
-    #player-invite {
-      float: left;
-      margin: 6px 4px 0 6px;
-      padding: 3px;
-      font-weight: bold;
-      font-size: 13px;
-      width: 110px;
-      display: block;
-      text-align: center;
-      text-decoration: none;
+      margin: 4px 5px 0;
+      height: 30px;
+      width: 498px;
+      overflow: hidden;
+      position: relative;
       background: #555;
-      color: #fff;
-      border: 1px solid #239708;
-      @include border-radius(5px);
-      @include background-gradient(#3ab30a, #239708);
-
-      &.disabled {
-        border: none;
-        color: #999;
-        background-image: none;
-      }
-    }
-
-    #bar-top {
-      font-size: 16px;
-      color: #999;
-      padding-right: 4px;
-      padding-left: 4px;
 
       &:hover {
-        color: #fff;
-        background: none;
+        cursor: pointer;
       }
+
+      #player-goto {
+        position: absolute;
+        top: 6px;
+        left: 8px;
+        z-index: 100;
+        color: #888;
+        font-size: 11px;
+
+        &:hover {color: #fff;}
+      }
+
+      #player-meta {
+        margin: 0;
+        font-size: 15px;
+        padding: 4px 8px 5px 24px;
+        float: left;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+
+        a {
+          color: #fff;
+          text-decoration: none;
+          width: 100%;
+        }
+      }
+
+      #player-progress-grabber {
+        position: absolute;
+        top: 0;
+        z-index: 11;
+        width: 100%;
+        height: 100%;
+      }
+
+      #player-progress-position {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        width: 0%;
+        height: 100%;
+        background: #222;
+      }
+
+      #player-progress-loaded {
+        position: absolute;
+        top: 0;
+        z-index: 0;
+        width: 0%;
+        height: 100%;
+        background: #666;
+      }
+    }
+  }
+
+  #player-share {
+    float: left;
+    width: 56px;
+
+    .control {
+      float: right;
+      width: 24px;
+      height: 24px;
+      margin: 7px 2px;
+      overflow: hidden;
+      text-indent: -3000em;
+
+      &.facebook {background: url(/images/facebook.png) no-repeat top left;}
+      &.twitter {background: url(/images/twitter.png) no-repeat top left;}
+    }
+  }
+
+  #player-invite {
+    float: left;
+    margin: 6px 4px 0 6px;
+    padding: 3px;
+    font-weight: bold;
+    font-size: 13px;
+    width: 110px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background: #555;
+    color: #fff;
+    border: 1px solid #239708;
+    @include border-radius(5px);
+    @include background-gradient(#3ab30a, #239708);
+
+    &.disabled {
+      border: none;
+      color: #999;
+      background-image: none;
+    }
+  }
+
+  #bar-bottom {
+    font-size: 16px;
+    color: #999;
+    padding-right: 4px;
+    padding-left: 4px;
+
+    &:hover {
+      color: #fff;
+      background: none;
     }
   }
 }
@@ -684,7 +743,7 @@ ol.mp_list {
   border: 1px solid #ececd3;
   color: #858468;
   font-size: 16px;
-  padding: 8px 0;
+  padding: 10px 0 8px;
   text-align: center;
   @include border-radius-bottom(5px);
 

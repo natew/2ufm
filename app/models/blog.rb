@@ -279,19 +279,10 @@ class Blog < ActiveRecord::Base
   private
 
   def get_html(url)
-    logger.info "Getting HTML for #{url}..."
-    html = ''
     begin
-      timeout(8) do
-        html = Nokogiri::HTML(open(url))
-      end
-      logger.info "Got it"
-      html
-    rescue OpenURI::HTTPError
-      logger.error "Error connecting url #{url}"
-      false
-    rescue Timeout::Error
-      logger.error = "Timeout reaching url #{url}"
+      Nokogiri::HTML(open(url))
+    rescue
+      logger.error "Error opening url #{url}"
       false
     end
   end
