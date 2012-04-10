@@ -1,6 +1,6 @@
 // Variables
 var commandPressed = false,
-    $window = $(window),
+    $window        = $(window),
     playing,
     likeTimeout;
 
@@ -77,12 +77,20 @@ $(function() {
   $window.keydown(pressedDisable).keyup(pressedDisable);
   $window.blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
+  // html5 pushState
   $("a:not(.control)").pjax('#body');
 
+  // Disabled links modal windows
   $('a.disabled').on('click', function(e) {
     // Sign in modal
     return false;
   });
+
+  // Hash tag to denote time in songs
+  if (window.location.hash) {
+    var time = window.location.hash.split(':');
+    mp.playSection($('.playlist section:first'), time[0]*60 + time[1]);
+  }
 
   // Listen sharing
   updateParams.run();

@@ -76,6 +76,6 @@ var page = {
 }
 
 $('#body')
-  .on('pjax:start',page.start)
-  .on('pjax:end',page.end)
-  .on('pjax:error',page.error);
+  .on('pjax:start', page.start)
+  .on('pjax:end', page.end)
+  .on('pjax:error', page.error);

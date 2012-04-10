@@ -17,7 +17,8 @@ var mp = (function() {
       delayStart = false,
       volume = 100,
       playlist_template = '',
-      self = this;
+      self = this,
+      time = 0;
 
   // Elements
   var pl = {
@@ -127,7 +128,13 @@ var mp = (function() {
             volume:volume
           });
 
-          fn.log('song loaded: ' + curSong);
+          // If we have a time set
+          if (time > 0) {
+            curSong.setPosition(time*1000);
+            time = 0;
+          }
+
+          // Play
           curSong.play();
           return true;
         } else {
@@ -411,6 +418,10 @@ var mp = (function() {
 
     volumeToggle: function() {
       player.volumeToggle();
+    },
+
+    setTime: function(seconds) {
+      time = seconds;
     },
 
     playSection: function(section) {

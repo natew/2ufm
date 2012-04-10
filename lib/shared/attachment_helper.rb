@@ -1,10 +1,10 @@
-module AttachmentHelper  
+module AttachmentHelper
   class << self
     def included(base)
       base.extend ClassMethods
     end
   end
-  
+
   module ClassMethods
     def has_attachment(name, options = {})
 
@@ -31,7 +31,7 @@ module AttachmentHelper
         options[:path]        ||= ":rails_root/public/attachments/#{rails_env}/#{attachment_path}"
         options[:url]         ||= "/attachments/#{rails_env}/#{attachment_path}"
       end
-      
+
       options[:default_url] ||= '/images/default_:style.jpg'
 
       # pass things off to paperclip.
