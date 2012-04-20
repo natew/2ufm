@@ -86,16 +86,52 @@ div.playlist {
       }
 
       h4 {
-        line-height: 1.2em;
+        font-size: 16px;
+        line-height: 1.3em;
         border: none;
         display: block;
         background: none;
+        position: relative;
         padding: 0;
         margin: 0;
         width: 450px;
 
         a {
           text-decoration: none;
+          position: relative;
+          z-index: 2;
+        }
+
+        .role {
+          margin: 0 21px 0 0;
+          display: inline-block;
+          @include border-radius(4px);
+        }
+
+        .role:after {
+          display: block;
+          content: "";
+          position: absolute;
+          right: -19px;
+          bottom: 5px;
+          width: 16px;
+          height: 9px;
+          background: url(/images/artist-icons.png) no-repeat top left;
+        }
+
+        .role-remixer:after {background-position:0 -9px;}
+        .role-producer:after {background-position:0 -18px;}
+        .role-cover:after {background-position:0 -27px;}
+        .role-featured:after {background-position:0 -36px;}
+
+        a.song-link {
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 1;
         }
       }
 

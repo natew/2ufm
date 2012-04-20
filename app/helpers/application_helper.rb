@@ -32,6 +32,19 @@ module ApplicationHelper
     raw links.join(', ')
   end
 
+  # Render a link with the artists highlighted by type
+  def title_with_artist_links(song)
+    title = song.full_name
+    song.authors.each do |author|
+      title = highlight_artist(title, author.artist, author.role)
+    end
+    title.html_safe
+  end
+
+  def highlight_artist(string, artist, role)
+    string.gsub(/#{artist.name}/,link_to(artist.name,artist,:class => "role role-#{role}"))
+  end
+
   # Self explanitory
   def on_own_profile?
     user_signed_in? and controller.controller_name == 'users' and params[:id] == current_user.slug

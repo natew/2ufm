@@ -361,15 +361,15 @@ class Song < ActiveRecord::Base
         # Splits up "one, two, three & four"
         split = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i
 
-        part.scan(/#{featured}#{split}/).flatten.compact.each do |artist|
+        part.scan(/#{featured}#{split}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:featured] unless artist =~ featured or artist =~ /&|,/
         end
 
-        part.scan(/#{split}#{remixer}/).flatten.compact.each do |artist|
+        part.scan(/#{split}#{remixer}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:remixer] unless artist =~ remixer or artist =~ /&|,/
         end
 
-        part.scan(/#{producer}#{split}/).flatten.compact.each do |artist|
+        part.scan(/#{producer}#{split}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:producer] unless artist =~ producer or artist =~ /&|,/
         end
       end
