@@ -38,7 +38,9 @@ module ApplicationHelper
     song.authors.each do |author|
       title = highlight_artist(title, author.artist, author.role)
     end
-    title.html_safe
+
+    keywords = /\(|\)|www\.\S*|\S*\.com|\S*\.\S*\.\S*|featuring|ft\.?|feat\.?|f\.| remix| rmx| edit| bootleg| mix|produced|prod\.?|(extended|vip|original|club) mix|(extended|vip|radio) edit|radio bootleg/i
+    title.gsub(keywords,'').gsub(/\s{2}/,'').html_safe
   end
 
   def highlight_artist(string, artist, role)

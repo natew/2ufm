@@ -5,14 +5,11 @@ div.playlist {
   margin: 0 0 18px;
 
   section {
-    padding: 10px 0;
+    padding: 15px 0;
     margin: 0;
     position: relative;
     overflow: hidden;
-
-    &:nth-child(2n+1) {
-      background: #ebf5fa;
-    }
+    border-bottom: 2px solid #f2f2f2;
 
     &.show-play {
       .play-song { visibility: visible !important; }
@@ -71,18 +68,18 @@ div.playlist {
         a {
           color: #888;
         }
+      }
 
-        p {
-          display: block;
-          margin: 2px 0 0;
-          font-weight: normal;
-          font-size: 13px;
-          color: #999;
-          width: 500px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
+      p {
+        display: block;
+        margin: 2px 0 0;
+        font-weight: normal;
+        font-size: 13px;
+        color: #999;
+        width: 500px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       h4 {
@@ -94,7 +91,7 @@ div.playlist {
         position: relative;
         padding: 0;
         margin: 0;
-        width: 450px;
+        width: 490px;
 
         a {
           text-decoration: none;
@@ -103,17 +100,19 @@ div.playlist {
         }
 
         .role {
-          margin: 0 21px 0 0;
+          margin: -1px 1px -1px 1px;
           display: inline-block;
-          @include border-radius(4px);
+          padding: 1px 22px 2px 2px;
+          background: rgba(0,0,0,0.05);
+          @include border-radius(3px);
         }
 
         .role:after {
           display: block;
           content: "";
           position: absolute;
-          right: -19px;
-          bottom: 5px;
+          right: 2px;
+          bottom: 7px;
           width: 16px;
           height: 9px;
           background: url(/images/artist-icons.png) no-repeat top left;
@@ -294,8 +293,8 @@ div.playlist {
   border: none;
 
   section {
-    background: none !important;
     padding: 7px 0;
+    border-bottom: 1px solid #f2f2f2;
 
     .song-art {
       display: none;
@@ -309,10 +308,10 @@ div.playlist {
         font-size: 14px;
         width: 100%;
       }
+    }
 
-      p {
-        display: none;
-      }
+    .song-meta {
+      display: none;
     }
 
     .song-controls {
