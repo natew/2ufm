@@ -350,7 +350,7 @@ class Song < ActiveRecord::Base
     matched = []
 
     # Match their respective roles
-    featured = /(featuring|ft\.?|feat\.?|f\.){1}/i
+    featured = /(featuring |ft\.? |feat\.? |f\.){1}/i
     remixer  = / remix| rmx| edit| bootleg| mix/i
     producer = /(produced|prod\.?) by/i
     #cover    = / cover/i

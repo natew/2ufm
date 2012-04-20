@@ -24,13 +24,13 @@ class Station < ActiveRecord::Base
 
   def self.popular_station
     p = Station.new(:id => 1)
-    p.songs = Song.playlist_order_rank
+    p.songs = Song.playlist_order_rank.limit(40)
     p
   end
 
   def self.new_station
     p = Station.new(:id => 0)
-    p.songs = Song.playlist_order_published
+    p.songs = Song.playlist_order_published.limit(40)
     p
   end
 
