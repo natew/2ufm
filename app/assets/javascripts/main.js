@@ -78,7 +78,10 @@ $(function() {
   $window.blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
   // html5 pushState
-  $("a:not(.control)").pjax('#body');
+  $("a:not(.control)").pjax({
+    container: '#body',
+    timeout: 6000
+  });
 
   // Disabled links modal windows
   $('a.disabled').on('click', function(e) {
