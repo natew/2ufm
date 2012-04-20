@@ -39,6 +39,7 @@ end
 group :development do
   gem 'foreman'
   gem 'taps'
+  gem 'quiet_assets'
 end
 
 # Javascript libs

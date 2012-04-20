@@ -16,7 +16,7 @@
 <div class="third">
   <section>
    <h3>Latest Music</h3>
-   <%= render :partial => 'stations/playlist', :locals => { :station => @new, :pagination => false, :per => 8 } %>
+   <%= render :partial => 'stations/playlist', :locals => { :station => @new, :songs => @new.songs, :pagination => false, :per => 8 } %>
   </section>
 
   <section>
