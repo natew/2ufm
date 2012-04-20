@@ -35,12 +35,17 @@ module ApplicationHelper
   # Render a link with the artists highlighted by type
   def title_with_artist_links(song)
     title = song.full_name
+
+    # GSub bad stuff
+    keywords = /\(|\)|www\.\S*|\S*\.com|\S*\.\S*\.\S*|featuring|ft\.?|feat\.?|f\.| remix| rmx| edit| bootleg| mix|produced|prod\.?|(extended|vip|original|club) mix|(extended|vip|radio) edit|radio bootleg/i
+    title = title.gsub(keywords,' ').gsub(/\s{2}/,' ')
+
+    # Replace authors with links
     song.authors.each do |author|
       title = highlight_artist(title, author.artist, author.role)
     end
 
-    keywords = /\(|\)|www\.\S*|\S*\.com|\S*\.\S*\.\S*|featuring|ft\.?|feat\.?|f\.| remix| rmx| edit| bootleg| mix|produced|prod\.?|(extended|vip|original|club) mix|(extended|vip|radio) edit|radio bootleg/i
-    title.gsub(keywords,'').gsub(/\s{2}/,'').html_safe
+    title.html_safe
   end
 
   def highlight_artist(string, artist, role)

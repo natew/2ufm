@@ -102,9 +102,14 @@ div.playlist {
         .role {
           margin: -1px 1px -1px 1px;
           display: inline-block;
-          padding: 1px 22px 2px 2px;
+          padding: 1px 22px 1px 2px;
           background: rgba(0,0,0,0.05);
           @include border-radius(3px);
+        }
+
+        .role-original {
+          background: none;
+          padding-right: 2px;
         }
 
         .role:after {
@@ -118,6 +123,7 @@ div.playlist {
           background: url(/images/artist-icons.png) no-repeat top left;
         }
 
+        .role-original:after {display:none;}
         .role-remixer:after {background-position:0 -9px;}
         .role-producer:after {background-position:0 -18px;}
         .role-cover:after {background-position:0 -27px;}
