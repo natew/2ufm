@@ -501,8 +501,12 @@ header {
     }
   }
 
-  #player-invite {
+  #player-invite-container {
+    position: relative;
     float: left;
+  }
+
+  #player-invite {
     margin: 6px 4px 0 6px;
     padding: 3px;
     font-weight: bold;
@@ -513,12 +517,10 @@ header {
     text-decoration: none;
     background: #555;
     color: #fff;
-    border: 1px solid #239708;
     @include border-radius(5px);
     @include background-gradient(#3ab30a, #239708);
 
     &.disabled {
-      border: none;
       color: #555;
       background: #333;
       background-image: none;

@@ -32,22 +32,22 @@ var fn = {
   },
 
   clipboard: function() {
+    var invite = $('#player-invite');
     ZeroClipboard.setMoviePath('/swfs/ZeroClipboard.swf');
     var clip = new ZeroClipboard.Client();
     clip.setHandCursor(true);
-    clip.glue('invite','player-shortcode');
-    clip.setText(document.location.host+$('#invite').attr('href'));
+    clip.glue('player-invite','player-invite-container');
+    clip.setText(document.location.host+invite.attr('href'));
     clip.addEventListener('mouseOver', function (client) {
-      $('#invite').trigger('mouseover').html('Copy link!');
+      invite.trigger('mouseover').html('Copy link!');
     });
     clip.addEventListener('mouseOut', function (client) {
-      $('#invite').trigger('mouseout').html('&laquo; Invite friends!');
+      invite.trigger('mouseout').html('&laquo; Invite friends!');
     });
     clip.addEventListener('complete', function(client, text) {
-      var $invite = $('#invite');
-      var html = $invite.html();
-      $invite.html('Copied!')
-      setTimeout(function() { $invite.html(html); }, 2000);
+      var html = invite.html();
+      invite.html('Copied!')
+      setTimeout(function() { invite.html(html); }, 2000);
     });
   }
 };

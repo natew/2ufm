@@ -52,6 +52,7 @@ div.playlist {
     &.failed {
       background: #f2f2f2;
       .cover { background: red; }
+      &:hover { cursor: default; }
     }
 
     a.song-link {

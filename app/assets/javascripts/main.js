@@ -1,31 +1,10 @@
 // Variables
-var commandPressed = false,
-    $window        = $(window),
-    playing,
-    likeTimeout;
-
-// Allow middle clicking for new tabs
-var pressedDisable = function(e) {
-  fn.log('command toggle');
-  var command = e.metaKey || e.ctrlKey;
-  if (command) commandPressed = true;
-  else commandPressed = false;
-}
+var jwindow = $(window);
 
 // Sets bar to fixed
 var setBarPosition = function() {
   if ($(window).scrollTop() > 44) $('#bar').addClass('fixed');
   else $('#bar').removeClass('fixed');
-}
-
-var keyShortcuts = function(e) {
-  switch(e.keyCode) {
-    // Left arrow
-    case 37:
-      mp.prev();
-      break;
-    // TODO ALL KEYBOARD SHORTCUTS
-  }
 }
 
 // Bind selectors to callbacks
@@ -38,44 +17,39 @@ var mpClick = function(selector,callback) {
 }
 
 // Read URL parameters
-var urlParams = {};
-var updateParams = (function () {
-  function update() {
-    var e,
-        a = /\+/g,  // Regex for replacing addition symbol with a space
-        r = /([^&=]+)=?([^&]*)/g,
-        d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
-        q = window.location.search.substring(1);
+var urlParams = {},
+    updateParams = (function () {
+      function update() {
+        var e,
+            a = /\+/g,  // Regex for replacing addition symbol with a space
+            r = /([^&=]+)=?([^&]*)/g,
+            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+            q = window.location.search.substring(1);
 
-    while (e = r.exec(q))
-       urlParams[d(e[1])] = d(e[2]);
-  }
+        while (e = r.exec(q))
+           urlParams[d(e[1])] = d(e[2]);
+      }
 
-  return {
-    run: function() {
-      update();
-    }
-  }
-})();
+      return {
+        run: function() {
+          update();
+        }
+      }
+    })();
 
 // Image errors
 $('img.cover-medium').on('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
 $('img.cover-small').on('error',function(){ $(this).attr('src', '/images/default_small.jpg'); });
 
+
 //
 // Document.ready
 //
+
 $(function() {
   // Fire initial page load
   page.start();
   page.end();
-
-  // Keyboard shortucts
-  $window.keydown(keyShortcuts);
-
-  // Disable path.js when command button pressed (allow middle click)
-  $window.keydown(pressedDisable).keyup(pressedDisable);
-  $window.blur(pressedDisable); // Prevents bug where alt+tabbing always disabled
 
   // html5 pushState
   $("a:not(.control)").pjax({
@@ -107,7 +81,7 @@ $(function() {
 
   // Scroll music player
   setBarPosition();
-  $window.scroll(setBarPosition);
+  jwindow.scroll(setBarPosition);
 
   // Bar buttons
   $('#bar-top').html('{').click(function(e) {
@@ -126,7 +100,7 @@ $(function() {
   });
 
   // Tooltips
-  $window.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
+  jwindow.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
 
@@ -164,30 +138,13 @@ $(function() {
   });
 
   // Player controls
-  mpClick('#player-play', 'togglePlay');
+  mpClick('#player-play', 'toggle');
   mpClick('#player-next', 'next');
   mpClick('#player-prev', 'prev');
   mpClick('#player-volume', 'volumeToggle');
 
-  // Play from playlist
-  $('#player-playlist a').on('click',function() {
-    fn.log('playing from playlist');
-    var $this    = $(this),
-        $section = $($this.attr('href')),
-        index    = $this.data('index');
-
-    if ($section.length) {
-      mp.playSection($section);
-    } else {
-      mp.playSong(index);
-    }
-
-    playing.removeClass('playing');
-    playing = $('.song-'+index).addClass('playing');
-  });
-
   // Play from song
-  $('.song-link').on('click',function() {
+  $('section:not(.failed) .song-link').on('click',function() {
     var $section = $(this).parent();
     if ($section.is('.playing')) {
       mp.pause();
@@ -195,23 +152,5 @@ $(function() {
       mp.playSection($section);
     }
     return false;
-  });
-
-  $('.broadcast-song span:not(.added)').on({
-    mouseenter: function() {
-      var $this = $(this);
-      fn.log('hover');
-      likeTimeout = window.setTimeout(function() {
-        fn.log('running');
-        if ($this.is(':hover')) {
-          $('.tipsy-inner').html('Liked!');
-          $this.addClass('added');
-        }
-      }, 600);
-    },
-    mouseleave: function() {
-      fn.log('clearing');
-      window.clearTimeout(likeTimeout);
-    }
   });
 });

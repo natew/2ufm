@@ -310,7 +310,7 @@ var mp = (function() {
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function(data) {
           pl.invite.attr('href','/l/'+data);
-          pl.invite.removeClass('disable');
+          pl.invite.removeClass('disabled');
           fn.clipboard();
         },
         dataType: 'html'
@@ -390,7 +390,7 @@ var mp = (function() {
       player.playSong(index);
     },
 
-    togglePlay: function() {
+    toggle: function() {
       var played = player.toggle();
       return isPlaying;
     },
