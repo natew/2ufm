@@ -34,8 +34,6 @@ var mp = (function() {
     volume: $('#player-volume')
   };
 
-  fn.log($('#player-playlist'));
-
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
   //soundManager.flashVersion = 9; // optional: shiny features (default = 8)
@@ -91,9 +89,9 @@ var mp = (function() {
         $('#main-mid').addClass('loaded');
 
         // Render playlist
-        playlist_template = Mustache.render(pl.playlist.html(),playlist);
-        pl.playlist.html(playlist_template);
-        pl.playlist.addClass('loaded');
+        // playlist_template = Mustache.render(pl.playlist.html(),playlist);
+        // pl.playlist.html(playlist_template);
+        // pl.playlist.addClass('loaded');
 
         fn.log('playlist loaded: '+playlistID);
       }

@@ -1,9 +1,6 @@
-/* Animation variables */
-
-$bounce-start: 0.5;
-$bounce-end: 0.55;
 
 /*  Colors  */
+
 $title: #000;
 $border: #555;
 
@@ -12,6 +9,12 @@ $lighter-blue: #e1f5fc;
 $light-grey: #f6f6f6;
 $playing: #666;
 $light-yellow: #ffd;
+
+
+/* Animation variables */
+
+$bounce-start: 0.5;
+$bounce-end: 0.55;
 
 
 @mixin box-sizing($type) {
