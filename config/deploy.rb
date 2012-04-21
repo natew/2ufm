@@ -6,6 +6,7 @@ load 'deploy/assets'
 
 # Whenever
 set :whenever_command, "bundle exec whenever"
+set :job_template, nil
 require "whenever/capistrano"
 
 default_run_options[:pty] = true
