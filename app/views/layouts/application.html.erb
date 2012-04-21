@@ -117,20 +117,11 @@
   </div>
 
   <div id="player-playlist" class="page-contain playlist-wrap clearfix">
-    <section class="songs">
+    <ul class="songs">
       {{#songs}}
       <li>
         <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
-          <div class="playlist-cover control tip" title="{{artist}} - {{name}}" href="#song-{{id}}" data-index="{{id}}">
-            <div class="cover">
-              <img class="cover" src="/images/cover.png" />
-            </div>
-            <img class="cover-small" src="{{image}}" />
-          </div>
-          <div class="song-info">
-            <span class="artist">{{artist}}</span>
-            <span class="name">{{name}}</span>
-          </div>
+          <span class="artist">{{artist}}</span> - <span class="name">{{name}}</span>
         </a>
       </li>
       {{/songs}}
