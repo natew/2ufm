@@ -2,8 +2,9 @@
 		id           = station.id || 0
 		per        ||= 12
     songs      ||= station.songs.playlist_order_rank.page(params[:page]).per(per)
-    pagination ||= true -%>
+    pagination ||= true
+    compact    ||= false -%>
 <div id="playlist-<%= id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= station.to_playlist_json %>, &quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
-  <%= render :partial => 'songs/song', :collection => songs, :locals => { :station_id => id } unless songs.nil? %>
+  <%= render :partial => (compact ? 'songs/mini' : 'songs/song'), :collection => songs, :locals => { :station_id => id } unless songs.nil? %>
 </div>
 <%= paginate songs if !station.id.nil? and pagination %>

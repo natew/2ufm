@@ -1,11 +1,13 @@
 @import "mixins.css.scss";
 
+$song-pad: 12px;
+
 div.playlist {
   clear: both;
   margin: 0 0 18px;
 
   section {
-    padding: 15px 2px;
+    padding: $song-pad 2px;
     margin: 0;
     position: relative;
     overflow: hidden;
@@ -25,7 +27,7 @@ div.playlist {
       }
 
       .song-info {
-        p { width: 78%; }
+        p { width: 75%; }
       }
 
       .song-controls li.broadcast span.count,
@@ -69,7 +71,7 @@ div.playlist {
       position: relative;
       width: 64px;
       height: 64px;
-      margin: 0;
+      margin: 0 0 0 -2+$song-pad;
 
       img {
         @include border-radius(5px);
@@ -79,7 +81,7 @@ div.playlist {
 
     .song-info {
       float: left;
-      margin: -64px 0 0 75px;
+      margin: -64px 0 0 75px+$song-pad;
       width: 88%;
 
       h4 {
@@ -91,7 +93,7 @@ div.playlist {
         position: relative;
         padding: 0;
         margin: -2px 0 0;
-        width: 490px;
+        width: 480px-$song-pad;
 
         a {
           text-decoration: none;
@@ -134,7 +136,7 @@ div.playlist {
 
       .song-meta {
         font-size: 11px;
-        margin: 0 0 -1px 0;
+        margin: 0;
         color: #888;
         font-weight: bold;
 
@@ -176,7 +178,7 @@ div.playlist {
       padding: 0;
       position: absolute;
       bottom: 12px;
-      right: 4px;
+      right: $song-pad;
       clear: both;
       visibility: hidden;
 
@@ -185,7 +187,6 @@ div.playlist {
         float: left;
         font-size: 11px;
         font-weight: bold;
-        padding: 0 10px 0 0;
 
         a {
           color: #999;
@@ -193,7 +194,7 @@ div.playlist {
 
         &.right {
           float: right;
-          padding: 0 3px 0 0;
+          padding: 0 0 0 3px;
 
           a {
             color: #666;
@@ -219,7 +220,7 @@ div.playlist {
     .song-controls {
       position: absolute;
       top: 0;
-      right: 12px;
+      right: $song-pad;
       z-index: 3;
 
       li {
@@ -292,17 +293,18 @@ div.playlist {
     padding: 7px 0;
     border-bottom: 1px solid #f2f2f2;
 
-    .song-art {
-      display: none;
-    }
-
     .song-info {
-      width: 100%;
-      float: left;
+      margin: 0;
+      padding: 4px 0;
+      width: auto;
+      float: none;
 
       h4 {
-        font-size: 14px;
+        font-size: 11px;
         width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
