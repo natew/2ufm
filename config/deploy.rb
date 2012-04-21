@@ -50,4 +50,8 @@ namespace :deploy do
   task :symlink_attachments do
     run "ln -nfs #{shared_path}/attachments #{release_path}/public/attachments"
   end
+
+  task :symlink_tmp do
+    run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
+  end
 end
