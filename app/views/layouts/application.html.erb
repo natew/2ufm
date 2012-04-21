@@ -117,26 +117,24 @@
   </div>
 
   <div id="player-playlist" class="page-contain playlist-wrap clearfix">
-    <ul class="shelf">
+    <section class="songs">
       {{#songs}}
       <li>
-        <a class="control tip song-{{id}}" title="{{artist}} - {{name}}" href="#song-{{id}}" data-index="{{id}}">
-          <div class="cover">
-            <img class="cover" src="/images/cover.png" />
+        <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
+          <div class="playlist-cover control tip" title="{{artist}} - {{name}}" href="#song-{{id}}" data-index="{{id}}">
+            <div class="cover">
+              <img class="cover" src="/images/cover.png" />
+            </div>
+            <img class="cover-small" src="{{image}}" />
           </div>
-          <img class="cover-small" src="{{image}}" />
+          <div class="song-info">
+            <span class="artist">{{artist}}</span>
+            <span class="name">{{name}}</span>
+          </div>
         </a>
       </li>
       {{/songs}}
     </ul>
-    <div class="tracks">
-      <ul>
-        <li class="title">Next:</li>
-        {{#songs}}
-          <li><a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">{{artist}} - {{name}}</a></li>
-        {{/songs}}
-      </ul>
-    </div>
   </div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>

@@ -28,7 +28,7 @@ class MainController < ApplicationController
 
   # Search formatting
   def search_ready(type,records,song=false)
-    only   = song ? {only: ['full_name','slug'], methods: 'full_name'} : {only: ['name','url']}
+    only   = song ? {only: ['full_name','slug'], methods: 'full_name'} : {only: ['name','slug']}
     header = "{\"name\":\"#{type}\",\"header\":\"true\"},"
 
     if records.length > 0

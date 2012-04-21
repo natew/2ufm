@@ -19,7 +19,7 @@ class Blog < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
   before_create :make_station
-  after_create  :delayed_get_blog_info, :delayed_save_new_entries
+  after_create  :delayed_get_blog_info, :delayed_get_new_posts
 
   serialize :feed
 
@@ -127,15 +127,15 @@ class Blog < ActiveRecord::Base
   end
 
   # Get only new posts
-  def save_new_entries
+  def get_new_posts
     save_posts(get_new_rss_entries)
   end
 
-  def delayed_save_new_entries
+  def delayed_get_new_posts
     if Rails.application.config.delay_jobs
-      delay.save_new_entries
+      delay.get_new_posts
     else
-      save_new_entries
+      get_new_posts
     end
   end
 

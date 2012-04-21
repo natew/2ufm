@@ -549,40 +549,26 @@ header {
   @include border-radius-top(5px);
   @include box-shadow(0,0,8px,rgba(0,0,0,0.3));
 
-  .shelf {
+  .songs {
     height: 50px;
-    padding: 10px 0 2px;
+    padding: 10px 0;
     margin: 0;
     overflow: hidden;
+    list-style: none;
 
     li {
       margin-left: 10px;
-      margin-bottom: 10px;
       overflow: hidden;
-      width: 48px;
-      height: 48px;
+      float: left;
 
-      a {
-        height: 100%;
-
-        &.playing {
-          border: 2px solid blue;
-        }
-
-        &:hover {
-          strong {
-            visibility: hidden;
-          }
-        }
+      .playlist-cover {
+        width: 48px;
+        height: 48px;
+        float: left;
       }
 
-      strong {
-        font-size: 10px;
-        line-height: 11px;
-        padding: 4px;
-        width: 56px;
-        height: 56px;
-        text-overflow: ellipsis;
+      .song-info {
+        float: left;
       }
     }
 
@@ -592,59 +578,6 @@ header {
   }
 
   &.loaded {display:block;}
-}
-
-.tracks {
-  width: 100%;
-  overflow: hidden;
-  @include border-radius-bottom(5px);
-
-  ul {
-    clear: both;
-    overflow: hidden;
-    height: 28px;
-    padding: 0;
-    margin: 0;
-    width: 200%;
-  }
-
-  li {
-    float: left;
-    list-style: none;
-
-    &.title {
-      padding: 3px 9px 3px 15px;
-      font-weight: bold;
-      width: 30px;
-      background: #eee;
-    }
-
-    &:nth-child(2) {
-      display: none;
-    }
-  }
-
-  a {
-    float: left;
-    padding: 3px 8px;
-    font-size: 11px;
-    max-width: 211px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    text-decoration: none;
-    color: #555;
-    font-weight: bold;
-
-    &.playing {
-      background: #eee;
-      color: #000;
-    }
-
-    &:hover {
-      background: #eee;
-    }
-  }
 }
 
 /* NOTICES */

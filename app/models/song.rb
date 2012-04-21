@@ -46,7 +46,7 @@ class Song < ActiveRecord::Base
   before_save :set_rank
 
   # Whitelist mass-assignment attributes
-  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at
+  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at
 
   def to_param
     slug
@@ -245,7 +245,6 @@ class Song < ActiveRecord::Base
 
   def add_to_stations
     if processed?
-      add_to_new_station
       add_to_blog_station
       add_to_artists_stations
     end
@@ -267,16 +266,6 @@ class Song < ActiveRecord::Base
       Broadcast.create(song_id:id,station_id:blog.station.id) unless blog.station.song_exists?(id)
     else
       logger.error "No Blog or Blog station"
-    end
-  end
-
-  def add_to_new_station
-    ns = Station.new_station
-    if !ns.song_exists?(id)
-      Broadcast.create(song_id:id,station_id:ns.id)
-      ns.songs.delete(ns.songs.group_shared_order_broadcast.last) if ns.songs.count > 50 # So it stays this long
-    else
-      logger.info "Song already on new station"
     end
   end
 
