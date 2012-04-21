@@ -9,8 +9,8 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @blog = Blog.find_by_slug(params[:id]) || not_found
-    @posts = @blog.posts.order('created_at desc').limit(8)
+    @blog    = Blog.find_by_slug(params[:id]) || not_found
+    @posts   = @blog.posts.order('created_at desc').limit(8)
     @artists = @blog.station.artists.limit(20)
 
     respond_to do |format|

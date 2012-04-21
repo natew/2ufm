@@ -363,10 +363,7 @@ var mp = (function() {
       if (!success) {
         var failedSection = curSection.addClass('failed');
         if (curPage == playingPage) player.next();
-        $.post('songs/'+curSongInfo.id, { failing: 'true' }, function(data) {
-          $('body').append(data);
-          failedSection.remove();
-        });
+        $.post('songs/'+curSongInfo.id, { failing: 'true' });
       }
     }
   };

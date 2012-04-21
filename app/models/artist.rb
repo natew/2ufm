@@ -31,7 +31,7 @@ class Artist < ActiveRecord::Base
     begin
       logger.info "Getting info for #{name}"
       wrapper = Discogs::Wrapper.new("fusefm")
-      artist = wrapper.get_artist(name)
+      artist  = wrapper.get_artist(name)
 
       if !artist.nil?
         logger.info "Info found"

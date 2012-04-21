@@ -122,7 +122,7 @@ class Blog < ActiveRecord::Base
 
   # Search Nokogiri::HTML for an RSS feed
   def find_feed_url(html)
-    feed  = html.at('head > link[type="application/rss+xml"]')
+    feed = html.at('head > link[type="application/rss+xml"]')
     feed ? feed['href'] : nil
   end
 

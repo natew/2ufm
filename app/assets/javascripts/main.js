@@ -187,8 +187,8 @@ $(function() {
   });
 
   // Play from song
-  $('.play-song').on('click',function() {
-    var $section = $(this).parent().parent('section');
+  $('.song-link').on('click',function() {
+    var $section = $(this).parent();
     if ($section.is('.playing')) {
       mp.pause();
     } else {

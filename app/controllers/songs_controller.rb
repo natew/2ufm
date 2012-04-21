@@ -43,7 +43,8 @@ class SongsController < ApplicationController
     @song = Song.find(params[:id])
 
     if @song
-      @song.working = false
+      @song.failures += 1
+      @song.working = false if @song.failures > 10
       @song.save
     end
 

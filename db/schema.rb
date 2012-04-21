@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319023521) do
+ActiveRecord::Schema.define(:version => 20120421193403) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(:version => 20120319023521) do
     t.string   "absolute_url"
     t.float    "rank"
     t.boolean  "original_song"
+    t.integer  "failures"
   end
 
   create_table "stations", :force => true do |t|

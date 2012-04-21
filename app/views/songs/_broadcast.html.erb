@@ -3,4 +3,5 @@
     ['2','Remove song from your station', :delete, "/broadcasts/#{id}" ]
 %>
 
-  <%= link_to "<strong>#{count}</strong><span class=\"pictos\">#{icon}</span>".html_safe, path, class: "broadcast-song #{action} control restricted", title: title, remote: true, method: method %>
+  <span class="count"><%= count %></span>
+  <%= link_to "#{icon}".html_safe, path, class: "broadcast-song #{action} pictos control restricted", title: title, remote: true, method: method %>

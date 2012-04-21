@@ -5,11 +5,11 @@ div.playlist {
   margin: 0 0 18px;
 
   section {
-    padding: 15px 0;
+    padding: 15px 2px;
     margin: 0;
     position: relative;
     overflow: hidden;
-    border-bottom: 2px solid #f2f2f2;
+    border-bottom: 2px solid #eee;
 
     &.show-play {
       .play-song { visibility: visible !important; }
@@ -24,13 +24,13 @@ div.playlist {
         visibility: visible;
       }
 
-      .song-info .song-meta p {
-        width: 400px;
+      .song-info {
+        p { width: 78%; }
       }
 
       .song-controls li.broadcast span.count,
       .song-controls li.broadcast a {
-        color: #000;
+        color: #777;
       }
     }
 
@@ -50,59 +50,56 @@ div.playlist {
     }
 
     &.failed {
+      background: #f2f2f2;
       .cover { background: red; }
     }
 
-    .song-info {
-      float: right;
-      width: 514px;
+    a.song-link {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    .song-art {
+      position: relative;
+      width: 64px;
+      height: 64px;
       margin: 0;
-      padding: 0 20px 0 0;
 
-      .song-meta {
-        font-size: 11px;
-        margin: 0;
-        color: #666;
-        font-weight: bold;
-
-        a {
-          color: #888;
-        }
+      img {
+        @include border-radius(5px);
+        @include box-shadow(0,0,5px,rgba(0,0,0,0.5));
       }
+    }
 
-      p {
-        display: block;
-        margin: 2px 0 0;
-        font-weight: normal;
-        font-size: 13px;
-        color: #999;
-        width: 500px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+    .song-info {
+      float: left;
+      margin: -64px 0 0 75px;
+      width: 88%;
 
       h4 {
         font-size: 16px;
-        line-height: 1.3em;
+        line-height: 1.4em;
         border: none;
         display: block;
         background: none;
         position: relative;
         padding: 0;
-        margin: 0;
+        margin: -2px 0 0;
         width: 490px;
 
         a {
           text-decoration: none;
-          position: relative;
-          z-index: 2;
         }
 
         .role {
-          margin: -1px 1px -1px 1px;
+          margin: 0 1px 0 1px;
           display: inline-block;
-          padding: 1px 22px 1px 2px;
+          padding: 0 22px 0 2px;
           background: rgba(0,0,0,0.05);
           @include border-radius(3px);
         }
@@ -116,7 +113,7 @@ div.playlist {
           content: "";
           position: absolute;
           right: 2px;
-          bottom: 7px;
+          bottom: 0.45em;
           width: 16px;
           height: 9px;
           background: url(/images/artist-icons.png) no-repeat top left;
@@ -127,28 +124,49 @@ div.playlist {
         .role-producer:after {background-position:0 -18px;}
         .role-cover:after {background-position:0 -27px;}
         .role-featured:after {background-position:0 -36px;}
+      }
 
-        a.song-link {
-          display: block;
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-          z-index: 1;
+      a {
+        position: relative;
+        z-index: 3;
+      }
+
+      .song-meta {
+        font-size: 11px;
+        margin: 0 0 -1px 0;
+        color: #888;
+        font-weight: bold;
+
+        a {
+          color: #888;
+        }
+
+        a.permalink {
+          font-size: 11px;
+          vertical-align: middle;
+          margin: -6px 0 0 2px;
+          display: inline-block;
+          height: 16px;
+          width: 16px;
+          color: #ccc;
+          line-height: 1.6em;
+          text-align: center;
+          @include border-radius(8px);
+
+          &:hover {
+            background: #ccc;
+            color: #fff;
+          }
         }
       }
 
-      .song-art {
-        position: absolute;
-        left: 10px;
-        top: 10px;
-        z-index: 1;
-
-        img {
-          @include border-radius(4px);
-          @include box-shadow(0,0,3px,#000);
-        }
+      p {
+        font-weight: normal;
+        color: #999;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
@@ -174,17 +192,20 @@ div.playlist {
 
         &.right {
           float: right;
-          padding: 0 5px 0 0;
+          padding: 0 3px 0 0;
 
           a {
             color: #666;
             text-shadow: 0 1px -1px #fff;
-            background: url(/images/fade.png) repeat-x top left;
-            border: 1px solid #ccc;
-            padding: 2px 6px;
+            border: 1px solid #ddd;
+            padding: 1px 4px;
             text-decoration: none;
             line-height: 1.5em;
             @include border-radius(3px);
+
+            &:hover {
+              background: url(/images/fade.png) repeat-x top left;
+            }
           }
         }
       }
@@ -195,56 +216,25 @@ div.playlist {
     }
 
     .song-controls {
-      margin: -6px -10px -90px 0;
-      padding: 10px 10px 0 10px;
-      float: left;
-      width: 10%;
-      border-right: none;
-      height: 142px;
-
-      .play-song {
-        visibility: hidden;
-        margin: 10px 0 0;
-        font-size: 66px;
-        color: #fff;
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        left: 10px;
-        width: 64px;
-        height: 64px;
-        overflow: hidden;
-        text-indent: -3000em;
-        background: url(/images/play_pause.png) no-repeat;
-
-        &:hover {
-          cursor: pointer;
-          text-shadow: 0 1px 0 #000;
-          background-position: 0 -64px;
-        }
-      }
+      position: absolute;
+      top: 0;
+      right: 12px;
+      z-index: 3;
 
       li {
         float: right;
-        clear: both;
         list-style: none;
-        margin: 0 0 6px 0;
 
-        input {
-          margin: 10px 0 0 10px;
+        a {
+          font-size: 24px;
+          color: #ccc;
+          text-decoration: none;
         }
 
         &.broadcast {
-          position: absolute;
-          right: 10px;
-          top: 10px;
-          width: 70px;
           text-align: right;
 
           a {
-            font-size: 24px;
-            color: #ccc;
-
             &:hover { color: #cb0000; }
             &.remove {
               color: #239708;
@@ -252,13 +242,13 @@ div.playlist {
             }
           }
 
-          span.count {
+          .count {
             font-size: 18px;
             font-weight: bold;
             height: 16px;
             padding: 0;
             margin: -2px 4px 0 0;
-            color: #333;
+            color: #999;
           }
         }
       }

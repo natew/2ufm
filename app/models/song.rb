@@ -132,18 +132,18 @@ class Song < ActiveRecord::Base
           file = TagLib::MPEG::File.new(song.path)
 
           # Properties
-          props = file.audio_properties
+          props        = file.audio_properties
           self.bitrate = props.bitrate.to_i
-          self.length = props.length.to_f
+          self.length  = props.length.to_f
 
           # Tag
-          tag  = file.id3v2_tag
-          self.name = tag.title || link_info[0] || '(Not Found)'
-          self.artist_name = tag.artist || link_info[1] || '(Not Found)'
-          self.album_name = tag.album
+          tag               = file.id3v2_tag
+          self.name         = tag.title || link_info[0] || '(Not Found)'
+          self.artist_name  = tag.artist || link_info[1] || '(Not Found)'
+          self.album_name   = tag.album
           self.track_number = tag.track.to_i
-          self.genre = tag.genre
-          self.image = get_album_art(tag)
+          self.genre        = tag.genre
+          self.image        = get_album_art(tag)
 
           # Working if we have name or artist name at least
           self.working = name != '(Not Found)' or artist_name != '(Not Found)'
@@ -345,12 +345,12 @@ class Song < ActiveRecord::Base
   end
 
   def all_artists(title)
-    artist = title[:artist].nil? ? false : true
-    string = title[:artist] || title[:name]
+    artist  = title[:artist].nil? ? false : true
+    string  = title[:artist] || title[:name]
     matched = []
 
     # Match their respective roles
-    featured = /(featuring |ft\.? |feat\.? |f\.){1}/i
+    featured = /(featuring |ft(\.?| )|feat(\.?| )|f\.){1}/i
     remixer  = / remix| rmx| edit| bootleg| mix/i
     producer = /(produced|prod\.?) by/i
     #cover    = / cover/i

@@ -13,9 +13,9 @@ class MainController < ApplicationController
   end
 
   def search
-    songs = Song.search_by_name(params[:q]).limit(5) | Song.search_by_artist_name(params[:q]).limit(5)
+    songs   = Song.search_by_name(params[:q]).limit(5) | Song.search_by_artist_name(params[:q]).limit(5)
     artists = Artist.search_by_name(params[:q]).limit(5)
-    blogs = Blog.search_by_name(params[:q]).limit(5)
+    blogs   = Blog.search_by_name(params[:q]).limit(5)
 
     render :text => "[#{search_ready('Songs',songs,true)}#{search_ready('Artists',artists)}#{search_ready('Blogs',blogs)[0..-2]}]"
   end
@@ -28,8 +28,9 @@ class MainController < ApplicationController
 
   # Search formatting
   def search_ready(type,records,song=false)
-    only = song ? {only: ['full_name','slug'], methods: 'full_name'} : {only: ['name','url']}
+    only   = song ? {only: ['full_name','slug'], methods: 'full_name'} : {only: ['name','url']}
     header = "{\"name\":\"#{type}\",\"header\":\"true\"},"
+
     if records.length > 0
       result = records.to_json(only)
         .gsub(/slug\":\"/,"url\":\"#{type.downcase}/")
