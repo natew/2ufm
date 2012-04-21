@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :set_pagination_vars
+  before_filter :set_pagination_vars, :get_counts
   layout :set_layout
 
   def not_found
@@ -16,6 +16,14 @@ class ApplicationController < ActionController::Base
     else
       'application'
     end
+  end
+
+  def get_counts
+    @count = {
+      :blogs => Rails.cache.fetch(:blogs_count, :expires_in => 24.hours) { Blog.count },
+      :songs => Rails.cache.fetch(:songs_count, :expires_in => 30.minutes) { Song.count },
+      :users => Rails.cache.fetch(:users_count, :expires_in => 1.hour) { User.count }
+    }
   end
 
   def set_pagination_vars

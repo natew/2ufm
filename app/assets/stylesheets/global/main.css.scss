@@ -157,13 +157,13 @@ header {
       float: right;
       border: none;
       padding: 5px 12px;
-      width: 164px;
+      width: 184px;
       margin-right: 32px;
       color: #ddd;
       background: none;
       border: 1px solid #ccc;
       outline: none;
-      font-size: 13px;
+      font-size: 12px;
       @include border-radius(20px);
 
       &:hover {
