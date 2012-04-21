@@ -9,7 +9,7 @@ namespace :blogs do
     return if args.id.nil?
     blog = Blog.find(args.id.to_i)
     unless blog.nil?
-      
+
     end
   end
 
@@ -54,12 +54,12 @@ namespace :blogs do
       end
     end
   end
-  
+
   task :reset, [:blog] => :environment do |t,args|
     blog = Blog.find_by_slug(args.blog)
     blog.reset
   end
-  
+
   task :create => :environment do
     blogs = [
       {:url => 'http://getoffthecoast.blogspot.com/', :name => 'Get off the Coast' },
@@ -71,7 +71,7 @@ namespace :blogs do
       {:url => 'http://pastaprima.net/', :name => 'Pasta Primavera' },
       {:url => 'http://eatenbymonsters.wordpress.com/', :name => 'Eaten By Monsters' }
     ]
-    
+
     blogs.each_with_index do |blog,i|
       b = Blog.new(blog)
       begin
