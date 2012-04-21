@@ -1,0 +1,17 @@
+<%- station_id ||= -1 %>
+<section id="song-<%= mini.id %>" data-index="<%= mini_counter %>" data-station="<%= station_id %>">
+  <div class="song-info">
+    <h4><%= title_with_artist_links(mini) %></h4>
+    <div class="song-meta">
+      <%= link_to "#{truncate(mini.blog_name)}".html_safe, blog_path(mini.blog_slug) %> &nbsp;&middot;
+      <%- if mini.reposted? -%>
+        Posted by <%= link_to pluralize(mini.shared_count,'blog'), mini %>
+        &nbsp;&middot;
+      <%- end -%>
+      <time><%= relative_time(mini.published_at) %></time>
+      &nbsp;&middot;
+      <%= link_to 'j', mini, :class => 'pictos permalink' %>
+    </div>
+  </div>
+  <%= link_to '', mini, :class => 'song-link' %>
+</section>
