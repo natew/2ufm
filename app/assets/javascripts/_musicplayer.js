@@ -10,7 +10,7 @@ var mp = (function() {
       curSong,
       isPlaying =  false,
       dragging_position = false,
-      dragging_x,
+      dragging_percent,
       curPage,
       playingPage,
       smReady = false,
@@ -60,7 +60,7 @@ var mp = (function() {
   //
   var player = {
     // Play a section
-    playSection: function(section) {
+    playSection: function playSection(section) {
       this.stop();
       curSection = section;
       fn.log(curSection);
@@ -69,7 +69,7 @@ var mp = (function() {
     },
 
     // Load playlist
-    load: function() {
+    load: function load() {
       if (!curSection) curSection = $('.playlist section:first,.playlist tbody tr:first');
       if (curSection) {
         fn.log('loading playlist');
@@ -98,7 +98,7 @@ var mp = (function() {
     },
 
     // Play song
-    play: function() {
+    play: function play() {
       if (!smReady) {
         delayStart = true;
       } else {
@@ -143,7 +143,7 @@ var mp = (function() {
       }
     },
 
-    playSong: function(index) {
+    playSong: function playSong(index) {
       if (playlist) {
         playlistIndex = index;
         this.stop();
@@ -151,25 +151,25 @@ var mp = (function() {
       }
     },
 
-    stop: function() {
+    stop: function stop() {
       if (isPlaying) {
         curSong.stop();
         soundManager.stopAll();
       }
     },
 
-    pause: function() {
+    pause: function pause() {
       if (isPlaying) {
         curSong.pause();
       }
     },
 
-    toggle: function() {
+    toggle: function toggle() {
       if (isPlaying) curSong.togglePause();
       else this.play();
     },
 
-    next: function() {
+    next: function next() {
       if (curSection) var next = curSection.next();
       this.stop();
       this.setCurSectionInactive();
@@ -181,7 +181,7 @@ var mp = (function() {
       this.play();
     },
 
-    prev: function() {
+    prev: function prev() {
       if (curSection) prev = curSection.prev();
       this.stop();
       this.setCurSectionInactive();
@@ -193,7 +193,7 @@ var mp = (function() {
       this.play();
     },
 
-    refresh: function() {
+    refresh: function refresh() {
       if (isPlaying) {
         var title = curSongInfo.artist + ' - ' + curSongInfo.name;
         pl.player.addClass('playing');
@@ -208,27 +208,21 @@ var mp = (function() {
       }
     },
 
-    setCurSectionActive: function() {
+    setCurSectionActive: function setCurSectionActive() {
       if (curSection) {
         curSection.addClass('playing');
         curSection.find('.play-song').html('5');
       }
     },
 
-    setCurSectionInactive: function() {
+    setCurSectionInactive: function setCurSectionInactive() {
       if (curSection) {
         curSection.removeClass('playing');
         curSection.find('.play-song').html('4');
       }
     },
 
-    updateProgress: function(percent) {
-      pl.position.attr('width',percent+'%');
-      fn.log(curSong.durationEstimate, (percent/100), curSong.durationEstimate*(percent/100));
-      curSong.setPosition(curSong.durationEstimate*(percent/100));
-    },
-
-    volumeToggle: function() {
+    volumeToggle: function volumeToggle() {
       if (volume == 100) {
         pl.volume.html('<');
         volume = 0;
@@ -240,55 +234,47 @@ var mp = (function() {
       }
     },
 
-    setVolume: function() {
+    setVolume: function setVolume() {
       if (curSong) {
         curSong.setVolume(volume);
       }
     },
 
-    startDrag: function(event) {
-      if (!event) var event = window.event;
-      element = event.target || event.srcElement;
-
-      fn.log('startdrag: ' + element.id)
-      if (element.id.match(/handle/)) {
-        dragging_position = true;
-        pl.handle.unbind('mousemove').bind('mousemove', this.followDrag);
-        pl.handle.unbind('mouseup').bind('mouseup', this.endDrag);
-      }
-
-      return false;
+    startDrag: function startDrag(e) {
+      e.preventDefault();
+      dragging_position = true;
+      pl.handle.unbind('mousemove').bind('mousemove', player.followDrag);
+      pl.handle.unbind('mouseup').bind('mouseup', player.endDrag);
     },
 
-    endDrag: function(event) {
-      if (!event) var event = window.event; // IE Fix
-      element = event.target || event.srcElement;
-
+    endDrag: function endDrag(e) {
+      e.preventDefault();
       dragging_position = false;
       pl.handle.unbind('mousemove');
       pl.handle.unbind('mouseup');
-
-      if (element.id.match(/handle/)) {
-        //player.updateProgress(event, element);
-      }
-
-      return false;
+      player.followDrag(e);
+      player.updateProgress();
     },
 
-    followDrag: function(event) {
-      if (!event) var event = window.event;
-      element = event.target || event.srcElement;
-
-      var x      = parseInt(event.clientX),
+    followDrag: function followDrag(e) {
+      var e      = e ? e : window.event,
+          x      = parseInt(e.clientX),
           offset = pl.handle.offset().left,
           width  = pl.handle.width(),
-          curPos = curSong.position,
           newPos = Math.round(((x - offset) / width) * 100);
 
-      fn.log('followdrag: ' + x + ' / ' + newPos + '%');
+      // fn.log(e,x,offset,width,newPos);
+      dragging_percent = newPos;
+      if (dragging_percent >= 99 || dragging_percent <= 0) player.endDrag();
+      else player.updateProgress();
+    },
 
-      player.updateProgress(newPos);
-      if (newPos >= 100 || newPos <= 0) this.endDrag();
+    updateProgress: function updateProgress() {
+      var duration     = curSong.duration || curSong.durationEstimate,
+          milliseconds = Math.round(duration*(dragging_percent/100));
+      // fn.log(dragging_percent/100, duration, milliseconds);
+      pl.position.attr('width',dragging_percent+'%');
+      curSong.setPosition(milliseconds);
     }
   };
 
@@ -297,7 +283,7 @@ var mp = (function() {
   // Events
   //
   var events = {
-    play: function() {
+    play: function play() {
       isPlaying = true;
       pl.bar.addClass('loaded');
       player.setCurSectionActive();
@@ -317,47 +303,47 @@ var mp = (function() {
       });
     },
 
-    stop: function() {
+    stop: function stop() {
       isPlaying = false;
       player.setCurSectionInactive();
       curSection = null;
       player.refresh();
     },
 
-    pause: function() {
+    pause: function pause() {
       isPlaying = false;
       player.setCurSectionInactive();
       player.refresh();
     },
 
-    resume: function() {
+    resume: function resume() {
       isPlaying = true;
       player.setCurSectionActive();
       player.refresh();
     },
 
-    finish: function() {
+    finish: function finish() {
       player.setCurSectionInactive();
       player.next();
     },
 
-    whileloading: function() {
+    whileloading: function whileloading() {
       function doWork() {
         pl.loaded.css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
       }
       doWork.apply(this);
     },
 
-    whileplaying: function() {
+    whileplaying: function whileplaying() {
       //updateTime.apply(this);
       pl.position.css('width',(Math.round(this.position/this.durationEstimate*1000)/10)+'%');
     },
 
-    metadata: function() {
+    metadata: function metadata() {
 
     },
 
-    onload: function(success) {
+    onload: function onload(success) {
       if (!success) {
         curSection.addClass('failed');
         if (curPage == playingPage) player.next();

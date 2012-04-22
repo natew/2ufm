@@ -86,16 +86,6 @@ $(function() {
     $('html,body').animate({scrollTop:0}, 200);
   });
 
-  $('#bar-bottom').html('}').toggle(function(e) {
-    e.preventDefault();
-    $(this).html('{').removeClass('tip-n').addClass('tip')
-    $('#bar').addClass('bottom');
-  }, function(e) {
-    e.preventDefault();
-    $(this).html('}').removeClass('tip').addClass('tip-n')
-    $('#bar').removeClass('bottom');
-  });
-
   // Tooltips
   jwindow.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});

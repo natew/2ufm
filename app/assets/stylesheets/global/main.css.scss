@@ -419,7 +419,7 @@ header {
       float: left;
       margin: 4px 5px 0;
       height: 30px;
-      width: 498px;
+      width: 518px;
       overflow: hidden;
       position: relative;
       background: #555;
@@ -524,18 +524,6 @@ header {
       color: #555;
       background: #333;
       background-image: none;
-    }
-  }
-
-  #bar-bottom {
-    font-size: 16px;
-    color: #999;
-    padding-right: 4px;
-    padding-left: 4px;
-
-    &:hover {
-      color: #fff;
-      background: none;
     }
   }
 }
