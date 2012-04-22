@@ -2,7 +2,6 @@
   <h3><%= link_to blog.name, blog %></h3>
   <a href="<%= url_for blog %>" class="image">
     <%= image_tag(blog.image.url(:original)) %>
-    <div class="cover"><%= image_tag('/images/cover.png') %></div>
   </a>
   <p><%= blog.description %></p>
   <div id="follow-<%= blog.station.id %>" class="follow"><%= follow_station(blog.station) %></div>

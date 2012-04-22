@@ -59,8 +59,7 @@ $(function() {
 
   // Disabled links modal windows
   $('a.disabled').on('click', function(e) {
-    // Sign in modal
-    return false;
+    e.preventDefault();
   });
 
   // Hash tag to denote time in songs
@@ -119,22 +118,23 @@ $(function() {
   });
 
   // Dropdown menu
-  $("body").bind("click", function(e) {
-    $(".nav-dropdown").hide();
-    $('.nav a').parent("div").removeClass("open").children("div.nav-dropdown").hide();
+  $('body').on('click', function(e) {
+    $('.nav-dropdown').hide();
+    $('.nav a').parent('div').removeClass('open').children('div.nav-dropdown').hide();
   });
-  $("#nav-username").click(function(e) {
+
+  $('#nav-username').click(function(e) {
+    e.preventDefault();
     var $target = $(this);
-    var $parent = $target.parent("div");
-    var $siblings = $parent.siblings("div.nav-dropdown");
-    if ($parent.hasClass("open")) {
-      $parent.removeClass("open");
+    var $parent = $target.parent('div');
+    var $siblings = $parent.siblings('div.nav-dropdown');
+    if ($parent.hasClass('open')) {
+      $parent.removeClass('open');
       $siblings.hide();
     } else {
-      $parent.addClass("open");
+      $parent.addClass('open');
       $siblings.show();
     }
-    return false;
   });
 
   // Player controls
@@ -144,13 +144,11 @@ $(function() {
   mpClick('#player-volume', 'volumeToggle');
 
   // Play from song
-  $('section:not(.failed) .song-link').on('click',function() {
-    var $section = $(this).parent();
-    if ($section.is('.playing')) {
-      mp.pause();
-    } else {
-      mp.playSection($section);
-    }
-    return false;
+  fn.log('binding song clicks');
+  $('.song-link').on('click',function songClick(e) {
+    e.preventDefault();
+    var section = $(this).parent();
+    fn.log(section);
+    section.is('.playing') ? mp.pause() : mp.playSection(section);
   });
 });

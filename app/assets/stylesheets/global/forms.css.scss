@@ -62,12 +62,12 @@
     float: left;
     outline: none;
     @include border-radius(6px);
-    @include box-shadow-inset(0px,1px,3px,#ccc);
-    @include transition(all,linear,0.2s);
+    @include box-shadow(inset 0px 1px 3px #ccc);
+    @include transition(all linear 0.2s);
 
     &:focus {
       border-color: #049adb;
-      @include box-shadow(0px,0px,8px,#80cced);
+      @include box-shadow(0px 0px 8px #80cced);
     }
   }
 
@@ -98,7 +98,7 @@
     margin: 18px 0 0;
     padding: 17px 20px 18px 178px;
     border-top: 1px solid #ddd;
-    @include border-radius-bottom(10px);
+    @include border-bottom-radius(10px);
 
     &.nopad {
       padding-left: 0;

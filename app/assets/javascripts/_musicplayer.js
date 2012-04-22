@@ -359,7 +359,7 @@ var mp = (function() {
 
     onload: function(success) {
       if (!success) {
-        var failedSection = curSection.addClass('failed');
+        curSection.addClass('failed');
         if (curPage == playingPage) player.next();
         $.post('songs/'+curSongInfo.id, { failing: 'true' });
       }

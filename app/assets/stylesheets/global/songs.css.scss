@@ -75,7 +75,7 @@ div.playlist {
 
       img {
         @include border-radius(5px);
-        @include box-shadow(0,0,5px,rgba(0,0,0,0.5));
+        @include box-shadow(0 0 5px rgba(0,0,0,0.5));
       }
     }
 
@@ -147,7 +147,7 @@ div.playlist {
         a.permalink {
           font-size: 11px;
           vertical-align: middle;
-          margin: -6px 0 0 2px;
+          margin: -6px 0 0 6px;
           display: inline-block;
           height: 16px;
           width: 16px;
@@ -254,34 +254,6 @@ div.playlist {
           }
         }
       }
-    }
-  }
-}
-
-.cover {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  z-index: 2;
-
-  img {
-    width: 100%;
-
-    .cover-small {
-      width: 64px;
-      height: 64px;
-      overflow: hidden;
-    }
-  }
-
-  &:hover {
-    cursor: pointer;
-
-    img {
-      position: absolute;
-      bottom: 0;
     }
   }
 }

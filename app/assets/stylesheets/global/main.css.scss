@@ -277,8 +277,8 @@ header {
         background: #333;
         display: none;
         padding: 0;
-        @include border-radius-bottom(5px);
-        @include box-shadow(0,2px,2px,#111);
+        @include border-bottom-radius(5px);
+        @include box-shadow(0 2px 2px #111);
 
         a {
           display: block;
@@ -313,7 +313,7 @@ header {
   top: 45px;
   margin-left: -490px;
   z-index: 98;
-  @include border-radius-bottom(5px);
+  @include border-bottom-radius(5px);
 
   .page-contain { width: 980px; }
 
@@ -328,8 +328,8 @@ header {
   &.bottom {
     top: auto;
     bottom: 0;
-    @include border-radius-bottom(0);
-    @include border-radius-top(5px);
+    @include border-bottom-radius(0);
+    @include border-top-radius(5px);
   }
 
   &.loaded {
@@ -549,8 +549,8 @@ header {
   overflow: hidden;
   background: #fff;
   z-index: 1000;
-  @include border-radius-top(5px);
-  @include box-shadow(0,0,8px,rgba(0,0,0,0.3));
+  @include border-top-radius(5px);
+  @include box-shadow(0 0 8px rgba(0,0,0,0.3));
 
   .songs {
     height: 50px;
@@ -574,10 +574,6 @@ header {
         float: left;
       }
     }
-
-    .cover img {
-      height: 200%;
-    }
   }
 
   &.loaded {display:block;}
@@ -594,7 +590,7 @@ header {
   margin: -4px 0 15px 0;
   text-shadow: 0 -1px 0 #579357;
   font-weight: bold;
-  @include border-radius-bottom(4px);
+  @include border-bottom-radius(4px);
 
   &.alert {
     text-shadow: 0 -1px 0 #a84a43;
@@ -687,7 +683,7 @@ ol.mp_list {
   font-size: 16px;
   padding: 10px 0 8px;
   text-align: center;
-  @include border-radius-bottom(5px);
+  @include border-bottom-radius(5px);
 
   strong {
     color: #3f3e2d;

@@ -25,7 +25,7 @@ gem 'feedzirra', :git => 'git://github.com/NateW/feedzirra.git'
 gem 'discogs-wrapper'
 gem 'taglib-ruby'
 gem 'whenever', :require => false
-gem 'cape'
+gem 'bourbon'
 
 # Deploy
 gem 'capistrano'
