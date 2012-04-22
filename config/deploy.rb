@@ -9,12 +9,6 @@ set :whenever_command, "bundle exec whenever"
 set :job_template, nil
 require "whenever/capistrano"
 
-# Cape
-require 'cape'
-Cape do
-  mirror_rake_tasks
-end
-
 default_run_options[:pty] = true
 
 set :user, "nwienert"
