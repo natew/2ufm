@@ -53,6 +53,6 @@ namespace :deploy do
   end
 
   task :symlink_tmp do
-    run "rm -rf #{shared_path}/tmp; ln -nfs #{shared_path}/tmp #{release_path}/tmp"
+    run "cp -r #{release_path}/tmp/* #{shared_path}/tmp; rm -rf #{release_path}/tmp; ln -nfs #{shared_path}/tmp #{release_path}/tmp"
   end
 end
