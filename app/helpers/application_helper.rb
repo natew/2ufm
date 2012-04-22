@@ -37,7 +37,7 @@ module ApplicationHelper
     title = song.full_name
 
     # GSub bad stuff
-    keywords = /\(|\)|www\.\S*|\S*\.com|\S*\.\S*\.\S*|featuring |ft\.? |feat\.? |f\. | remix| rmx\.?|produced by|prod\.? by|(extended|vip|original|club) mix|(extended|vip|radio) edit|radio rip|\S* bootleg/i
+    keywords = /\(|\)|www\.\S*|\S*\.com|\S*\.\S*\.\S*|featuring |ft(\.?| )|feat(\.?| )|f\.| remix| rmx\.?|produced by|prod\.? by|(extended|vip|original|club) mix|(extended|vip|radio) edit|radio rip|\S* bootleg/i
     title = title.gsub(keywords,' ').gsub(/\s{2}/,' ')
 
     # Replace authors with links
