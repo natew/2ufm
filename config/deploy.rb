@@ -38,6 +38,15 @@ def run_rake(task, options={}, &block)
   run(command, options, &block)
 end
 
+# Runs +command+ as root invoking the command with su -c
+# and handling the root password prompt.
+def surun(command)
+  password = fetch(:root_password, Capistrano::CLI.password_prompt("root password: "))
+  run("su - -c '#{command}'") do |channel, stream, output|
+    channel.send_data("#{password}n") if output
+  end
+end
+
 namespace :deploy do
   task :start, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
@@ -45,13 +54,13 @@ namespace :deploy do
   end
 
   task :stop, :roles => :app do
-    run "#{dj_script} stop"
+    surun "#{dj_script} stop"
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
-    run "#{dj_script} restart"
+    surun "#{dj_script} restart"
   end
 
   task :symlink_attachments do
