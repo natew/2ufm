@@ -72,7 +72,7 @@ module ApplicationHelper
     begin
       return_date = date.to_time
       if (return_date > 2.weeks.ago)
-        time_ago_in_words(return_date) + " ago"
+        time_ago_in_words(return_date).gsub(/about/,'') + " ago"
       else
         year = return_date.year != Time.now.year ? ', %Y' : ''
         return_date.strftime("%b #{return_date.day.ordinalize}#{year}")

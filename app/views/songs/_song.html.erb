@@ -6,10 +6,11 @@
   <div class="song-info">
     <h4><%= title_with_artist_links(song) %></h4>
     <div class="song-meta">
-      <%= link_to "#{truncate(song.blog_name)}".html_safe, blog_path(song.blog_slug) %> &nbsp;&middot;
       <%- if song.reposted? -%>
         Posted by <%= link_to pluralize(song.shared_count,'blog'), song %>
         &nbsp;&middot;
+      <% else %>
+        <%= link_to "#{truncate(song.blog_name)}".html_safe, blog_path(song.blog_slug) %> &nbsp;&middot;
       <%- end -%>
       <time><%= relative_time(song.published_at) %></time>
       <%= link_to 'j', song, :class => 'pictos permalink' %>
