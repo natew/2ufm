@@ -78,6 +78,7 @@ GEM
       bson (= 1.6.0)
     builder (3.0.0)
     cancan (1.6.5)
+    cape (1.4.0)
     capistrano (2.9.0)
       highline
       net-scp (>= 1.0.0)
@@ -249,6 +250,7 @@ DEPENDENCIES
   aws-ses
   bson_ext
   cancan
+  cape
   capistrano
   chronic
   coffee-rails (~> 3.2.1)
