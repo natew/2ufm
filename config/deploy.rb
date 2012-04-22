@@ -9,6 +9,12 @@ set :whenever_command, "bundle exec whenever"
 set :job_template, nil
 require "whenever/capistrano"
 
+# Cape
+require 'cape'
+Cape do
+  mirror_rake_tasks
+end
+
 default_run_options[:pty] = true
 
 set :user, "nwienert"
@@ -33,6 +39,12 @@ after 'deploy:update', 'deploy:symlink_attachments'
 after 'deploy:update', 'deploy:symlink_tmp'
 after 'deploy:update', 'deploy:clear_cache'
 
+# Run rake tasks
+def run_rake(task, options={}, &block)
+  command = "cd #{latest_release} && /usr/bin/env bundle exec rake #{task}"
+  run(command, options, &block)
+end
+
 namespace :deploy do
   task :start, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
@@ -54,11 +66,13 @@ namespace :deploy do
   end
 
   task :symlink_tmp do
-    run "cp -r #{release_path}/tmp/* #{shared_path}/tmp; rm -rf #{release_path}/tmp; ln -nfs #{shared_path}/tmp #{release_path}/tmp"
+    run "rm -rf #{shared_path}/tmp"
+    run "cp -r #{release_path}/tmp/* #{shared_path}/tmp"
+    run "rm -rf #{release_path}/tmp"
+    run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
   end
 
   task :clear_cache do
-    set :rake_cmd, "tmp:cache:clear"
-    rake_exec
+    run_rake "tmp:cache:clear"
   end
 end
