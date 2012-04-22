@@ -6,11 +6,7 @@
 </div>
 
 <div class="twothirds">
-  <%- if @songs.size > 0 %>
-    <%= render :partial => 'stations/playlist', :locals => { :songs => @songs } %>
-  <%- else -%>
-    <%= render :partial => 'single', :locals => { :single => @songs } %>
-  <%- end -%>
+  <%= render :partial => 'stations/playlist', :locals => { :songs => @songs } %>
 
   <div class="third">
     <h4>Remixes</h4>
@@ -21,7 +17,7 @@
     <%- end -%>
     </ul>
   </div>
-  
+
   <div class="third">
     <h4>Broadcasts this week</h4>
     <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
@@ -32,7 +28,7 @@
     <div class="list">
     </div>
   </div>
-  
+
   <div class="third">
     <h4>Posted on <%= pluralize @blogs.size, 'blog' %></h4>
     <div class="shelf">

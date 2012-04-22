@@ -34,7 +34,7 @@ class Song < ActiveRecord::Base
   scope :oldest, order('songs.published_at asc')
   scope :group_shared_order_rank, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc')
   scope :group_shared_order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc')
-  scope :select_with_info, select('posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
+  scope :select_with_info, select('songs.*, posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
   scope :individual, select_with_info.with_blog_and_post.working
   scope :playlist_order_rank, group_shared_order_rank.select_with_info.with_blog_and_post.working
   scope :playlist_order_published, group_shared_order_published.select_with_info.with_blog_and_post.working

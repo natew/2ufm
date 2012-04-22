@@ -54,13 +54,13 @@ namespace :deploy do
   end
 
   task :stop, :roles => :app do
-    surun "#{dj_script} stop"
+    surun "#{dj_script} stop >> /dev/null"
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
-    surun "#{dj_script} restart"
+    surun "#{dj_script} restart >> /dev/null"
   end
 
   task :symlink_attachments do
