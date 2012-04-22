@@ -29,7 +29,7 @@ div.playlist {
       }
 
       .song-info {
-        p { width: 75%; }
+        p { width: 72%; }
       }
 
       .song-controls li.broadcast span.count,
@@ -71,14 +71,10 @@ div.playlist {
 
     .song-art {
       position: relative;
+      z-index: 1;
       width: 64px;
       height: 64px;
       margin: 0 0 0 -2+$song-pad;
-
-      img {
-        @include border-radius(5px);
-        @include box-shadow(0 0 5px rgba(0,0,0,0.5));
-      }
     }
 
     .song-info {
@@ -149,7 +145,7 @@ div.playlist {
 
     .song-meta {
       font-size: 11px;
-      margin: 0;
+      margin: 0 0 1px 0;
       color: #888;
       font-weight: bold;
 
@@ -185,6 +181,7 @@ div.playlist {
       padding: 0;
       position: absolute;
       bottom: 12px;
+      z-index: 3;
       right: $song-pad;
       clear: both;
       visibility: hidden;
@@ -228,7 +225,6 @@ div.playlist {
       position: absolute;
       top: 0;
       right: $song-pad;
-      z-index: 3;
 
       li {
         float: right;
@@ -238,6 +234,8 @@ div.playlist {
           font-size: 24px;
           color: #ccc;
           text-decoration: none;
+          position: relative;
+          z-index: 3;
         }
 
         &.broadcast {

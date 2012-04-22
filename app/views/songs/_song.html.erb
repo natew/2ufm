@@ -17,8 +17,9 @@
     </div>
     <p><%= truncate(strip_tags(song.post_content), :length => 90) %></p>
     <ul class="song-links">
-      <li class="right"><%= link_to 'Purchase' %></li>
-      <li class="right"><%= link_to 'Read &raquo;'.html_safe, song.post_url, :target => '_blank' %></li>
+      <li class="right"><%= link_to 'Buy', '', :target => '_blank' %></li>
+      <li class="right"><%= link_to 'Read Post'.html_safe, song.post_url, :target => '_blank' %></li>
+      <li class="right"><%= link_to 'j'.html_safe, song, :class => 'pictos' %></li>
     </ul>
   </div>
   <ul class="song-controls">
