@@ -266,6 +266,12 @@ div.playlist {
   section {
     padding: 5px 0;
 
+    &:hover {
+      .song-controls {
+        background: $lighter-blue;
+      }
+    }
+
     .song-info {
       margin: 0;
       padding: 4px;
@@ -274,7 +280,7 @@ div.playlist {
 
       h4 {
         font-size: 11px;
-        width: 100%;
+        width: 84%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -287,9 +293,11 @@ div.playlist {
     }
 
     .song-controls {
-      display: none;
-      border: none;
-      width: 18%;
+      background: #fff;
+      z-index: 3;
+      top: 0;
+      right: 0;
+      padding: $song-pad 4px $song-pad 8px;
     }
   }
 }

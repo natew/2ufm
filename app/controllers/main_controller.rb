@@ -1,11 +1,15 @@
 class MainController < ApplicationController
   def index
-    @popular  = Station.popular_station
-    @new      = Station.new_station(:limit => 12)
-    @feed     = current_user if user_signed_in?
-    limit     = user_signed_in? ? 2 : 6
-    @featured = Blog.order('created_at asc').limit(limit)
-    @artists  = Artist.order('random()').limit(6)
+    @feed    = current_user if user_signed_in? and !current_user.songs.empty?
+    @popular = Station.popular_station unless @feed
+    @artists = Artist.order('random()').limit(6)
+
+    if !user_signed_in?
+      @new = Station.new_station(:limit => 12)
+      @featured = Blog.order('created_at asc').limit(6)
+    else
+      @stations = current_user.stations
+    end
 
     respond_to do |format|
       format.html

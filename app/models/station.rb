@@ -1,6 +1,4 @@
 class Station < ActiveRecord::Base
-  include AttachmentHelper
-
   has_and_belongs_to_many :genres
   belongs_to :user
   belongs_to :blog
@@ -17,10 +15,6 @@ class Station < ActiveRecord::Base
 
   # Whitelist mass-assignment attributes
   attr_accessible :title, :description
-
-  def to_param
-    url
-  end
 
   def self.popular_station(opts={})
     p = Station.new(:id => 1)

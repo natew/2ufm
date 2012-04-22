@@ -571,12 +571,11 @@ header {
 
 #dialog {
   text-align: center;
-  background: orange;
+  background: #357a38;
   height: 36px;
   line-height: 2.9em;
   color: white;
-  margin: -4px 0 15px 0;
-  text-shadow: 0 -1px 0 #579357;
+  margin: 0;
   font-weight: bold;
   @include border-bottom-radius(4px);
 

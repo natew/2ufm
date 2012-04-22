@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
     follows.where(:station_id => id).exists?
   end
 
+  def to_playlist_json
+    self.to_json(:only => [:id, :slug, :name])
+  end
+
   protected
 
   def make_station
