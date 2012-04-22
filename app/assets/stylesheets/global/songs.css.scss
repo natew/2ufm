@@ -125,7 +125,13 @@ div.playlist {
         .role-remixer:after {background-position:0 -9px;}
         .role-producer:after {background-position:0 -18px;}
         .role-cover:after {background-position:0 -27px;}
-        .role-featured:after {background-position:0 -36px;}
+
+        .role-featured { padding: 0 2px 0 22px; }
+        .role-featured:after {
+          background-position:0 -36px;
+          right: auto;
+          left: 2px;
+        }
       }
 
       a {
