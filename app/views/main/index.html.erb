@@ -8,14 +8,14 @@
 <%- end -%>
 
 <div class="twothirds">
-  <h3>Trending Songs</h3>
+  <h3>Trending</h3>
   <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs } %>
   <%= link_to 'Browse more songs', '/songs/fresh', :class => 'button right' %>
 </div>
 
 <div class="third">
   <section>
-   <h3>Latest Music</h3>
+   <h3>Latest</h3>
    <%= render :partial => 'stations/playlist', :locals => { :station => @new, :songs => @new.songs, :pagination => false, :per => 8, :compact => true } %>
   </section>
 

@@ -1,7 +1,7 @@
 set :output, "/var/www/2u.fm/web/shared/log/cron.log"
 set :job_template, "/bin/zsh -c ':job'"
 
-job_type :rake,    "cd :path && RAILS_ENV=:environment bundle exec rake :task --silent :output"
+job_type :rake,    "cd :path && RAILS_ENV=:environment && source /usr/local/bin && bundle exec rake :task --silent :output"
 
 every 30.minutes do
   rake "blogs:update:all"
