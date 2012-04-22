@@ -37,14 +37,12 @@ var urlParams = {},
       }
     })();
 
-// Image errors
-$('img.cover-medium').on('error',function(){ $(this).attr('src', '/images/default_medium.jpg'); });
-$('img.cover-small').on('error',function(){ $(this).attr('src', '/images/default_small.jpg'); });
-
 
 //
 // Document.ready
 //
+
+$('img').on('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
 
 $(function() {
   // Fire initial page load

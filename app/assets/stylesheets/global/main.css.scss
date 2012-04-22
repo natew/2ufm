@@ -860,6 +860,50 @@ h2.title { color: #000; }
 }
 
 
+/* Image Covers */
+.cover-small {
+  width: 64px;
+  height: 64px;
+
+  &:before,
+  img,
+  strong {
+    @include border-radius(5px);
+  }
+}
+
+.cover-medium {
+  width: 128px;
+  height: 128px;
+
+  &:before,
+  img,
+  strong {
+    @include border-radius(7px);
+  }
+}
+
+[class^="cover-"]:before, [class*=" cover-"]:before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 3;
+  background: url(/images/cover.png);
+  width: 100%;
+  height: 100%;
+  @include box-shadow(0 0 5px rgba(0,0,0,0.5));
+  @include background-size(100% auto);
+}
+
+[class^="cover-"]:hover:before, [class*=" cover-"]:hover:before {
+  background-position: bottom left;
+}
+
+[class^="cover-"] strong, span[class*=" cover-"] strong {
+  z-index: 2;
+  @include border-bottom-radius(0);
+}
+
 
 /* Modals */
 .hidden { display: none; }

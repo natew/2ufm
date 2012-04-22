@@ -1,6 +1,6 @@
   <li>
-    <a href="<%= url_for(shelf) %>">
+    <a class="cover-medium" href="<%= url_for(shelf) %>">
       <strong><%= shelf.name %></strong>
-      <%= image_tag shelf.image.url(:medium), :class => 'cover-medium' %>
+      <span><%= image_tag shelf.image.url(:medium) %></span>
     </a>
   </li>

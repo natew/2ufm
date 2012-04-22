@@ -1,7 +1,7 @@
 <%- station_id ||= -1 %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>">
-  <div class="song-art">
-    <%= image_tag song.resolve_image(:small), :class => 'cover-small' %>
+  <div class="song-art cover-small">
+    <span><%= image_tag song.resolve_image(:small) %></span>
   </div>
   <div class="song-info">
     <h4><%= title_with_artist_links(song) %></h4>

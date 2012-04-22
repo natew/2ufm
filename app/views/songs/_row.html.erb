@@ -1,8 +1,8 @@
 <%- station_id ||= -1 %>
 <tr id="song-<%= row.id %>" data-index="<%= row_counter %>" data-station="<%= station_id %>">
-  <td class="song-likes tip" title="Hover to like!">
+  <td class="cover-small" class="song-likes tip" title="Hover to like!">
     <%= broadcast_song(row) %>
-    <%= image_tag row.resolve_image(:small), :class => 'cover-small' %>
+    <span><%= image_tag row.resolve_image(:small) %></span>
   </td>
   <td class="song-info">
     <h3><%= link_to row.name, row %></h3>
