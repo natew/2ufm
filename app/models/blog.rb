@@ -203,18 +203,18 @@ class Blog < ActiveRecord::Base
   end
 
   # Gets a post based on URL
-  def get_post_from_url(page_url)
+  def get_post(url)
     begin
       # Check if this url comes from this blog
-      if URI(page_url).host =~ /#{URI(url).host}/
-        Anemone.crawl(page_url) do |anemone|
+      if URI(url).host =~ /#{URI(url).host}/
+        Anemone.crawl(url) do |anemone|
           anemone.on_every_page do |page|
             save_page(page)
             return true # one page only
           end
         end
       else
-        logger.error "URI does not match (#{URI(page_url).host} == #{URI(url).host})"
+        logger.error "URI does not match (#{URI(url).host} == #{URI(url).host})"
       end
     rescue Exception => e
       puts e.message
