@@ -18,6 +18,8 @@ div.playlist {
     }
 
     &:hover {
+      background: #f2f2f2;
+
       .play-song {
         visibility: visible !important;
       }
@@ -134,35 +136,6 @@ div.playlist {
         z-index: 3;
       }
 
-      .song-meta {
-        font-size: 11px;
-        margin: 0;
-        color: #888;
-        font-weight: bold;
-
-        a {
-          color: #888;
-        }
-
-        a.permalink {
-          font-size: 11px;
-          vertical-align: middle;
-          margin: -6px 0 0 6px;
-          display: inline-block;
-          height: 16px;
-          width: 16px;
-          color: #ccc;
-          line-height: 1.6em;
-          text-align: center;
-          @include border-radius(8px);
-
-          &:hover {
-            background: #ccc;
-            color: #fff;
-          }
-        }
-      }
-
       p {
         font-weight: normal;
         color: #999;
@@ -170,6 +143,39 @@ div.playlist {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+    }
+
+    .song-meta {
+      font-size: 11px;
+      margin: 0;
+      color: #888;
+      font-weight: bold;
+
+      a {
+        color: #888;
+
+        &:hover {
+          color: #666;
+        }
+      }
+
+      a.permalink {
+        font-size: 11px;
+        vertical-align: middle;
+        margin: -.4em 0 0 6px;
+        display: inline-block;
+        height: 16px;
+        width: 16px;
+        color: #ccc;
+        line-height: 1.6em;
+        text-align: center;
+        @include border-radius(8px);
+
+        &:hover {
+          background: #ccc;
+          color: #fff;
+        }
       }
     }
 
@@ -262,12 +268,12 @@ div.playlist {
   border: none;
 
   section {
-    padding: 7px 0;
-    border-bottom: 1px solid #f2f2f2;
+    padding: 5px 0;
+    border-width: 1px;
 
     .song-info {
       margin: 0;
-      padding: 4px 0;
+      padding: 4px;
       width: auto;
       float: none;
 
@@ -281,7 +287,8 @@ div.playlist {
     }
 
     .song-meta {
-      display: none;
+      font-size: 10px !important;
+      margin: -3px 0 -7px 2px;
     }
 
     .song-controls {

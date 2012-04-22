@@ -5,6 +5,7 @@ job_type :rake,    "cd :path && RAILS_ENV=:environment bundle exec rake :task --
 
 every 30.minutes do
   rake "blogs:update:all"
+  rake "songs:update:rank"
 end
 
 # Use this file to easily define all of your cron jobs.

@@ -12,7 +12,6 @@
         &nbsp;&middot;
       <%- end -%>
       <time><%= relative_time(song.published_at) %></time>
-      &nbsp;&middot;
       <%= link_to 'j', song, :class => 'pictos permalink' %>
     </div>
     <p><%= truncate(strip_tags(song.post_content), :length => 90) %></p>

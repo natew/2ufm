@@ -22,15 +22,15 @@ class Station < ActiveRecord::Base
     url
   end
 
-  def self.popular_station
+  def self.popular_station(opts={})
     p = Station.new(:id => 1)
-    p.songs = Song.playlist_order_rank.limit(20)
+    p.songs = Song.playlist_order_rank.limit(opts[:limit] || 20)
     p
   end
 
-  def self.new_station
+  def self.new_station(opts={})
     p = Station.new(:id => 0)
-    p.songs = Song.playlist_order_published.limit(20)
+    p.songs = Song.playlist_order_published.limit(opts[:limit] || 20)
     p
   end
 

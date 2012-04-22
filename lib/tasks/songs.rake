@@ -34,6 +34,15 @@ namespace :songs do
     end
   end
 
+  namespace :update do
+    task :rank => :environment do
+      Song.working.each do |song|
+        song.set_rank
+        song.save
+      end
+    end
+  end
+
   namespace :scan do
     task :similar => :environment do
       songs = Song.processed
