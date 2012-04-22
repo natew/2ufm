@@ -42,7 +42,7 @@ var urlParams = {},
 // Document.ready
 //
 
-$('img').on('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
+$('img').live('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
 
 $(function() {
   // Fire initial page load

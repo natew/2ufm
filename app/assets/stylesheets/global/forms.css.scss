@@ -128,7 +128,6 @@
   font-size: 14px;
   text-decoration: none;
   padding: 4px 16px;
-  border: none;
   border: 1px solid #0064cd;
   float: left;
   margin: 2px 4px 10px 0;
@@ -161,22 +160,24 @@
     @include background-gradient(#ccc, #aaa);
   }
 
+  /* Keep above .remove, .remove.first-hover needs precedence */
+  &.remove:hover {
+    @include background-gradient(#c40e0e, #970808);
+    border-color: #970808;
+  }
+
+  &.remove,
+  &.remove.first-hover {
+    @include background-gradient(#3ab30a, #239708);
+    border-color: #239708;
+  }
+
   &.add {
     color: #000;
     border-color: #ccc;
     @include background-gradient(#eee, #ccc);
     text-shadow: none;
     span { color: #239708; }
-  }
-
-  &.remove {
-    @include background-gradient(#3ab30a, #239708);
-    border-color: #239708;
-
-    &:hover {
-      @include background-gradient(#c40e0e, #970808);
-      border-color: #970808;
-    }
   }
 
   span {

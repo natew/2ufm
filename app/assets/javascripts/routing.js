@@ -33,21 +33,12 @@ var page = {
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
 
     // Disable AJAX stuff signed out
-    if ($body.is('.signed_out')) {
-      // $doc.find('#body .control.restricted')
-      //   .removeAttr('data-remote')
-      //   .attr('title','Please sign in!')
-      //   .attr('href','/users/sign_up');
-    } else {
-      // Signed in
-      $('.button.remove').hover(
-        function() { $('span',this).html('D'); },
-        function() { $('span',this).html('2');
-      });
-
-      $('.broadcast-song.remove')
-        .on('mouseenter', function() { $(this).html('D'); })
-        .on('mouseleave', function() { $(this).html('2'); });
+    if ($body.is('.signed_out'));
+    // Signed in
+    else {
+      $('.remove')
+        .live('mouseenter', function() { $('span',this).html('D'); })
+        .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
     }
 
     // Stats

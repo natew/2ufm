@@ -223,8 +223,9 @@ div.playlist {
 
     .song-controls {
       position: absolute;
-      top: 0;
+      top: $song-pad;
       right: $song-pad;
+      margin: -2px 0 0;
 
       li {
         float: right;

@@ -12,7 +12,7 @@ module ApplicationHelper
     has    = current_user.following_station?(station.id) if user_signed_in?
     action = has ? "remove" : "add"
     id     = has ? current_user.follows.where(:station_id => station.id).first.id : station.id
-    render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => station.follows.size }
+    render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => station.follows.size, :changed => false }
   end
 
   # Song broadcast

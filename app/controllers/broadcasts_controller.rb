@@ -1,5 +1,5 @@
 class BroadcastsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:create, :destroy]
+  before_filter :authenticate_user!
 
   def create
     @song      = Song.find(params[:song_id])

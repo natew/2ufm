@@ -1,8 +1,8 @@
 <div class="title">
   <h2>Music Blog Directory</h2>
   <p>Browse blogs and subscribe to their stations</p>
-  
-  <div class="title_nav">
+
+  <div class="title-nav">
     <%= link_to 'Submit your blog', new_blog_path, :class => 'button' %>
   </div>
 </div>
@@ -11,6 +11,6 @@
   <div id="directory-list">
     <%= render @blogs %>
   </div>
-  
+
   <%= paginate @blogs %>
 </div>

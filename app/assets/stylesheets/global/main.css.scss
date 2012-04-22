@@ -759,7 +759,7 @@ h2.title { color: #000; }
     @include border-radius(8px);
   }
 
-  .title_nav {
+  .title-nav {
     margin: 0;
     padding: 0;
     position: absolute;
@@ -771,6 +771,7 @@ h2.title { color: #000; }
       list-style: none;
       padding: 0;
       float: left;
+      display: block;
 
       div.count {
         float: left;
