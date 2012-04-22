@@ -31,6 +31,7 @@ role :db,  domain, :primary => true # This is where Rails migrations will run
 after 'deploy:update', 'deploy:cleanup'
 after 'deploy:update', 'deploy:symlink_attachments'
 after 'deploy:update', 'deploy:symlink_tmp'
+after 'deploy:update', 'deploy:clear_cache'
 
 namespace :deploy do
   task :start, :roles => :app do
@@ -54,5 +55,10 @@ namespace :deploy do
 
   task :symlink_tmp do
     run "cp -r #{release_path}/tmp/* #{shared_path}/tmp; rm -rf #{release_path}/tmp; ln -nfs #{shared_path}/tmp #{release_path}/tmp"
+  end
+
+  task :clear_cache do
+    set :rake_cmd, "tmp:cache:clear"
+    rake_exec
   end
 end
