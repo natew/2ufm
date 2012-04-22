@@ -1,5 +1,5 @@
-set :output, "/var/www/2u.fm/web/shared/log/cron_log.log"
-set :job_template, nil
+set :output, "/var/www/2u.fm/web/shared/log/cron.log"
+set :job_template, "/bin/zsh -c ':job'"
 
 every 30.minutes do
   rake "blogs:update:all"
