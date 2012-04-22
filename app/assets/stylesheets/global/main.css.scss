@@ -8,8 +8,8 @@ body {
   color: #666;
 }
 
-a { color: #1057a3; }
-a:hover { color: #198dd0; }
+a { color: $link-color; }
+a:hover { color: $link-hover; }
 
 #main-mid {
   padding: 35px 0;
@@ -263,12 +263,6 @@ header {
         }
       }
 
-      &.open {
-        .nav-dropdown {
-          display: block !important;
-        }
-      }
-
       .nav-dropdown {
         position: absolute;
         top: 44px;
@@ -280,6 +274,10 @@ header {
         @include border-bottom-radius(5px);
         @include box-shadow(0 2px 2px #111);
 
+        &.open {
+          display: block;
+        }
+
         a {
           display: block;
           text-align: left;
@@ -287,6 +285,8 @@ header {
           max-width: 100%;
           padding: 10px 4%;
           border-top: 1px solid #333;
+          color: #eee;
+          @include box-sizing(border-box);
 
           &:hover {
             background: #444;

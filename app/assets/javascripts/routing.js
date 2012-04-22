@@ -45,10 +45,9 @@ var page = {
         function() { $('span',this).html('2');
       });
 
-      $('.broadcast-song.remove').hover(
-        function() { $(this).html('D'); },
-        function() { $(this).html('2');
-      });
+      $('.broadcast-song.remove')
+        .on('mouseenter', function() { $(this).html('D'); })
+        .on('mouseleave', function() { $(this).html('2'); });
     }
 
     // Stats

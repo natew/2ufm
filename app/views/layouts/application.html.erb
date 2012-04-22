@@ -36,7 +36,7 @@
         <div class="nav">
           <% if user_signed_in? %>
             <span id="current_user" data-id="<%= current_user.id %>"></span>
-            <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username' %>
+            <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'control' %>
             <div class="nav-dropdown">
               <div id="nav-user">
                 <%= link_to "Home", '/home' %>

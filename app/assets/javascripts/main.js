@@ -116,23 +116,13 @@ $(function() {
   });
 
   // Dropdown menu
-  $('body').on('click', function(e) {
-    $('.nav-dropdown').hide();
-    $('.nav a').parent('div').removeClass('open').children('div.nav-dropdown').hide();
-  });
 
   $('#nav-username').click(function(e) {
     e.preventDefault();
-    var $target = $(this);
-    var $parent = $target.parent('div');
-    var $siblings = $parent.siblings('div.nav-dropdown');
-    if ($parent.hasClass('open')) {
-      $parent.removeClass('open');
-      $siblings.hide();
-    } else {
-      $parent.addClass('open');
-      $siblings.show();
-    }
+    var nav = $(this).next('.nav-dropdown');
+
+    if (nav.is('.open')) nav.removeClass('open');
+    else nav.addClass('open');
   });
 
   // Player controls

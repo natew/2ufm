@@ -11,7 +11,7 @@ div.playlist {
     margin: 0;
     position: relative;
     overflow: hidden;
-    border-bottom: 2px solid #eee;
+    border-bottom: 1px solid #eee;
 
     &.show-play {
       .play-song { visibility: visible !important; }
@@ -29,6 +29,7 @@ div.playlist {
       }
 
       .song-info {
+        h4 .role {background: none;}
         p { width: 75%; }
       }
 
@@ -96,6 +97,7 @@ div.playlist {
         padding: 0;
         margin: -2px 0 0;
         width: 480px-$song-pad;
+        color: $link-color;
 
         a {
           text-decoration: none;
@@ -269,7 +271,6 @@ div.playlist {
 
   section {
     padding: 5px 0;
-    border-width: 1px;
 
     .song-info {
       margin: 0;

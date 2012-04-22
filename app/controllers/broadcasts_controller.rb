@@ -4,7 +4,7 @@ class BroadcastsController < ApplicationController
   def create
     @song      = Song.find(params[:song_id])
     @broadcast = current_user.station.broadcasts.create(:song_id => @song.id)
-    @locals     = { :action => 'remove', :id => @broadcast.id, :count => @song.broadcasts.size+1 }
+    @locals     = { :action => 'remove', :id => @broadcast.id, :count => @song.broadcasts.count }
 
     respond_to do |format|
       format.js { render :partial => 'broadcast' }
@@ -15,7 +15,7 @@ class BroadcastsController < ApplicationController
     @broadcast = Broadcast.find(params[:id])
     @song      = @broadcast.song
     @broadcast.destroy
-    @locals     = { :action => 'add', :id => @song.id, :count => @song.broadcasts.size-1 }
+    @locals     = { :action => 'add', :id => @song.id, :count => @song.broadcasts.count }
 
     respond_to do |format|
       format.js { render :partial => 'broadcast' }
