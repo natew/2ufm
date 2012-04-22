@@ -1,4 +1,4 @@
-set :output, "/var/www/2u.fm/web/shared/log/cron_log"
+set :output, "/var/www/2u.fm/web/shared/log/cron_log.log"
 set :job_template, nil
 
 every 30.minutes do
