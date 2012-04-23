@@ -1,6 +1,10 @@
 // Variables
 var jwindow = $(window),
-    playlistCurSong;
+    highlightedSong,
+    highlightTimeout,
+    songOffsets = [],
+    playlistOffset,
+    songSections;
 
 // Sets bar to fixed
 var setBarPosition = function() {
@@ -143,4 +147,24 @@ $(function() {
     playlistCurSong.removeClass('playing');
     playlistCurSong = $('.song-'+index).addClass('playing');
   });
+
+  // Window scroll highlights songs
+  highlightSong();
+  $(window).scroll(function() {
+    clearTimeout(highlightTimeout);
+    highlightTimeout = setTimeout(highlightSong,50);
+  });
+
+  function highlightSong() {
+    var windowOffset = $(window).scrollTop()+30,
+        cur = highlightedSong,
+        i = 0;
+
+    for (; i<songOffsets.length; i++) {
+      if (songOffsets[i] > windowOffset) break;
+    }
+
+    highlightedSong = songSections.eq(i).addClass('highlight');
+    if (cur && cur.attr('id') != highlightedSong.attr('id')) cur.removeClass('highlight');
+  }
 });

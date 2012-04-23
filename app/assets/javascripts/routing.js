@@ -57,6 +57,13 @@ var page = {
 
       $.plot($stats, [data], options);
     }
+
+    // Song heights
+    playlistOffset = $('.playlist:first').offset().top;
+    songSections = $('.playlist:first section');
+    songSections.each(function(index) {
+      songOffsets[index] = $(this).offset().top;
+    })
   },
 
   error: function(xhr) {
