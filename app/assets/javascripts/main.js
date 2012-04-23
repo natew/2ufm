@@ -1,5 +1,6 @@
 // Variables
-var jwindow = $(window);
+var jwindow = $(window),
+    playlistCurSong;
 
 // Sets bar to fixed
 var setBarPosition = function() {
@@ -128,5 +129,18 @@ $(function() {
     var section = $(this).parent();
     fn.log(section);
     section.is('.playing') ? mp.pause() : mp.playSection(section);
+  });
+
+  // Play from playlist
+  $('#player-playlist a').live('click',function() {
+    fn.log('playing from playlist');
+    var song    = $(this),
+        section = $(song.attr('href')),
+        index   = song.data('index');
+
+    if (section.length) mp.playSection($section);
+    else mp.playSong(index);
+    playlistCurSong.removeClass('playing');
+    playlistCurSong = $('.song-'+index).addClass('playing');
   });
 });

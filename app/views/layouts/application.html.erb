@@ -79,6 +79,18 @@
           <div id="player-meta"><%= link_to '', '#', :id => 'player-song' %></div>
           <div id="player-progress-position"></div>
           <div id="player-progress-loaded"></div>
+
+          <div id="player-playlist">
+            <ul class="songs">
+              {{#songs}}
+              <li>
+                <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
+                  <span class="artist">{{artist}}</span> - <span class="name">{{name}}</span>
+                </a>
+              </li>
+              {{/songs}}
+            </ul>
+          </div>
         </div>
         <div id="player-controls-after" class="player-buttons">
           <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
@@ -113,18 +125,6 @@
         <%= yield %>
       </div>
     </div>
-  </div>
-
-  <div id="player-playlist" class="page-contain playlist-wrap clearfix">
-    <ul class="songs">
-      {{#songs}}
-      <li>
-        <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
-          <span class="artist">{{artist}}</span> - <span class="name">{{name}}</span>
-        </a>
-      </li>
-      {{/songs}}
-    </ul>
   </div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>

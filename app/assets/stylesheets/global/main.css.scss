@@ -306,7 +306,7 @@ header {
 
 /* BAR */
 #bar {
-  background: #444;
+  background: $bar-bg;
   position: absolute;
   width: 980px;
   left: 50%;
@@ -420,12 +420,15 @@ header {
       margin: 4px 5px 0;
       height: 30px;
       width: 518px;
-      overflow: hidden;
       position: relative;
       background: #555;
 
       &:hover {
         cursor: pointer;
+
+        #player-playlist {
+          display: block;
+        }
       }
 
       #player-goto {
@@ -442,12 +445,15 @@ header {
       #player-meta {
         margin: 0;
         font-size: 15px;
+        width: 100%;
         padding: 4px 8px 5px 24px;
         float: left;
         white-space: nowrap;
         overflow: hidden;
+        text-overflow: ellipsis;
         position: relative;
         z-index: 10;
+        @include box-sizing(border-box);
 
         a {
           color: #fff;
@@ -530,41 +536,43 @@ header {
 
 /* PLAYLIST */
 #player-playlist {
-  position: fixed;
-  bottom: 0;
+  display: none;
+  position: absolute;
+  top: 26px;
+  left: -15px;
+  padding: 15px;
+  padding-top: 8px;
   width: 100%;
   display: none;
   overflow: hidden;
-  background: #fff;
-  z-index: 1000;
-  @include border-top-radius(5px);
-  @include box-shadow(0 0 8px rgba(0,0,0,0.3));
 
   .songs {
-    height: 50px;
-    padding: 10px 0;
+    padding: 0;
     margin: 0;
     overflow: hidden;
     list-style: none;
+    background: $bar-bg;
 
     li {
-      margin-left: 10px;
-      overflow: hidden;
-      float: left;
 
-      .playlist-cover {
-        width: 48px;
-        height: 48px;
-        float: left;
-      }
+      a {
+        display: block;
+        color: #ccc;
+        padding: 4px 8px;
+        font-size: 14px;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-      .song-info {
-        float: left;
+        &:hover,
+        &.playing {
+          background: #222;
+          color: #fff;
+        }
       }
     }
   }
-
-  &.loaded {display:block;}
 }
 
 /* NOTICES */

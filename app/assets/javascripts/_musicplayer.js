@@ -2,13 +2,13 @@ var mp = (function() {
   //
   // Variables
   //
-  var playlist = null,
-      playlistID = null,
-      playlistIndex = null,
-      curSection = null,
+  var playlist,
+      playlistID,
+      playlistIndex,
+      curSection,
       curSongInfo,
       curSong,
-      isPlaying =  false,
+      isPlaying = false,
       dragging_position = false,
       dragging_percent,
       curPage,
@@ -38,7 +38,7 @@ var mp = (function() {
   soundManager.url = '/swfs/soundmanager2_debug.swf';
   //soundManager.flashVersion = 9; // optional: shiny features (default = 8)
   soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
-  soundManager.debugMode = true;
+  soundManager.debugMode = false;
   //soundManager.useFastPolling = true;
   //soundManager.useHighPerformance = true;
   soundManager.useHTML5Audio = true;
@@ -89,9 +89,9 @@ var mp = (function() {
         $('#main-mid').addClass('loaded');
 
         // Render playlist
-        // playlist_template = Mustache.render(pl.playlist.html(),playlist);
-        // pl.playlist.html(playlist_template);
-        // pl.playlist.addClass('loaded');
+        playlist_template = Mustache.render(pl.playlist.html(),playlist);
+        pl.playlist.html(playlist_template);
+        pl.playlist.addClass('loaded');
 
         fn.log('playlist loaded: '+playlistID);
       }
@@ -103,13 +103,12 @@ var mp = (function() {
         delayStart = true;
       } else {
         // Load
-        fn.log('Playing... playlist', playlist);
         if (!playlist) this.load();
-        fn.log('After load... playlist', playlist);
+        fn.log('Playlist...', playlist);
 
         if (playlist && playlistIndex < playlist.songs.length) {
           // Load song
-          fn.log('playing song at index: '+playlistIndex);
+          fn.log('Song at index '+playlistIndex);
           curSongInfo = playlist.songs[playlistIndex];
           curSong = soundManager.createSound({
             id:curSongInfo.id,
