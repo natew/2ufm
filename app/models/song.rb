@@ -151,10 +151,12 @@ class Song < ActiveRecord::Base
           # Processed
           self.processed = true
 
+          # Parse artists and determine if original song
+          # Re-determines if its working or not
+          find_or_create_artists
+
           # Update info if we have processed this song
           if working?
-            # Parse artists and determine if original song
-            find_or_create_artists
 
             # Add to blog station, new station, artist and user stations
             add_to_stations
@@ -305,14 +307,21 @@ class Song < ActiveRecord::Base
   end
 
   def find_or_create_artists
-    original = true
-    parse_artists.each do |name,role|
-      original = false if role == :remixer or role == :mashup
-      match = Artist.where("name ILIKE (?)", name).first
-      match = Artist.create(name: name) unless match
-      self.authors.find_or_create_by_artist_id_and_role(match.id, role)
+    if working?
+      artists = parse_artists
+      if !artists.empty?
+        original = true
+        artists.each do |name,role|
+          original = false if role == :remixer or role == :mashup
+          match = Artist.where("name ILIKE (?)", name).first
+          match = Artist.create(name: name) unless match
+          self.authors.find_or_create_by_artist_id_and_role(match.id, role)
+        end
+        self.original_song = original
+      else
+        self.working = false
+      end
     end
-    self.original_song = original
   end
 
   def parse_artists
