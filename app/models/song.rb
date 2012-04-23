@@ -325,12 +325,16 @@ class Song < ActiveRecord::Base
   end
 
   def rescan_artists
-    find_or_create_artists
+    self.find_or_create_artists
     self.save
   end
 
   def delayed_rescan_artists
-    delay.rescan_artists
+    if Rails.application.config.delay_jobs
+      delay.rescan_artists
+    else
+      rescan_artists
+    end
   end
 
   def parse_artists
