@@ -156,7 +156,7 @@ $(function() {
   });
 
   function highlightSong() {
-    var windowOffset = $(window).scrollTop()+30,
+    var windowOffset = $(window).scrollTop()+40,
         cur = highlightedSong,
         i = 0;
 
@@ -165,6 +165,7 @@ $(function() {
     }
 
     highlightedSong = songSections.eq(i).addClass('highlight');
-    if (cur && cur.attr('id') != highlightedSong.attr('id')) cur.removeClass('highlight');
+    if (cur && cur.attr('id') != highlightedSong.attr('id'))
+      cur.removeClass('highlight');
   }
 });
