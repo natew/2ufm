@@ -106,7 +106,7 @@ $(function() {
       return data.name;
     },
     onSelect: function (data, $item) {
-      window.location = data.url;
+      window.location = '/'+data.url;
     }
   });
 
