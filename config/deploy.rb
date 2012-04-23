@@ -60,7 +60,8 @@ namespace :deploy do
   desc "Restart Application"
   task :restart, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
-    surun "#{dj_script} restart >> /dev/null"
+    surun "#{dj_script} stop >> /dev/null"
+    run "#{dj_script} start >> /dev/null"
   end
 
   task :symlink_attachments do

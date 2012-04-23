@@ -173,8 +173,12 @@ class Blog < ActiveRecord::Base
       if feed_updated_at
         # Already have feed, get new entries
         self.feed = Feedzirra::Feed.update(feed)
-        self.feed_updated_at = feed.last_modified
-        posts = feed.new_entries
+        if feed.is_a?(Fixnum)
+          logger.error "Error fetching feed"
+        else
+          self.feed_updated_at = feed.last_modified
+          posts = feed.new_entries
+        end
       else
         # Get feed and return entries
         logger.info "No feed yet, grabbing rss"
