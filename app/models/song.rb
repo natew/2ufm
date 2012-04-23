@@ -324,6 +324,15 @@ class Song < ActiveRecord::Base
     end
   end
 
+  def rescan_artists
+    find_or_create_artists
+    self.save
+  end
+
+  def delayed_rescan_artists
+    delay.rescan_artists
+  end
+
   def parse_artists
     puts "Parsing #{id}: #{artist_name} - #{name}"
     name_artists = artists_in_name unless name.blank?

@@ -42,7 +42,7 @@ module ApplicationHelper
 
     # Replace authors with links
     song.authors.each do |author|
-      title = highlight_artist(title, author.artist, author.role)
+      title = highlight_artist(title, author.artist, author.role) if author.artist
     end
 
     title.html_safe

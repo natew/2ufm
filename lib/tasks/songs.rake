@@ -46,8 +46,7 @@ namespace :songs do
   namespace :scan do
     task :artists => :environment do
       Song.all.each do |song|
-        song.find_or_create_artists
-        song.save
+        song.delayed_rescan_artists
       end
     end
 
