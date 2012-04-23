@@ -10,9 +10,11 @@
 <ul class="subnav">
   <li><%= link_to 'Newest', @artist %></li>
   <li><%= link_to 'Most popular', popular_artist_path(@artist) %></li>
-  <li><%= link_to 'Original songs', originals_artist_path(@artist) %></li>
-  <li><%= link_to "Remixes by #{@artist.name}", remixes_by_artist_path(@artist) %></li>
-  <li><%= link_to "Remixes of #{@artist.name}", remixes_of_artist_path(@artist) %></li>
+  <li><%= link_to 'Originals', originals_artist_path(@artist) %></li>
+  <li><%= link_to "Remixes by", remixes_by_artist_path(@artist) %></li>
+  <li><%= link_to "Remixes of", remixes_of_artist_path(@artist) %></li>
+  <li><%= link_to "Covers", remixes_of_artist_path(@artist) %></li>
+  <li><%= link_to "Mashups", remixes_of_artist_path(@artist) %></li>
 </ul>
 
 <div class="twothirds">

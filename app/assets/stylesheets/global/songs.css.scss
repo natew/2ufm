@@ -116,7 +116,8 @@ div.playlist {
           background: url(/images/artist-icons.png) no-repeat top left;
         }
 
-        .role-original:after {display:none;}
+        .role-original:after,
+        .role-mashup:after {display:none;}
         .role-remixer:after {background-position:0 -9px;}
         .role-producer:after {background-position:0 -18px;}
         .role-cover:after {background-position:0 -27px;}

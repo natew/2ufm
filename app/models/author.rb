@@ -1,5 +1,5 @@
 class Author < ActiveRecord::Base
-  ROLES = %w[original remixer featured producer]
+  ROLES = %w[original remixer featured producer cover mashup]
 
   belongs_to :song
   belongs_to :artist

@@ -44,6 +44,12 @@ namespace :songs do
   end
 
   namespace :scan do
+    task :artists => :environment do
+      Song.all.each do |song|
+        song.delay.find_or_create_artists
+      end
+    end
+
     task :similar => :environment do
       songs = Song.processed
       songs.each do |song|

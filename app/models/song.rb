@@ -154,7 +154,7 @@ class Song < ActiveRecord::Base
           # Update info if we have processed this song
           if working?
             # Parse artists and determine if original song
-            self.original_song = find_or_create_artists
+            find_or_create_artists
 
             # Add to blog station, new station, artist and user stations
             add_to_stations
@@ -305,25 +305,27 @@ class Song < ActiveRecord::Base
   end
 
   def find_or_create_artists
-    original_song = true
+    original = true
     parse_artists.each do |name,role|
-      original_song = false if role == :remixer
+      original = false if role == :remixer or role == :mashup
       match = Artist.where("name ILIKE (?)", name).first
       match = Artist.create(name: name) unless match
       self.authors.find_or_create_by_artist_id_and_role(match.id, role)
     end
-    original_song
+    self.original_song = original
   end
 
   def parse_artists
-    name_artists = artists_in_name
-    artist_artists = artists_in_artist
-    name_artists | artist_artists
+    puts "Parsing #{id}: #{artist_name} - #{name}"
+    name_artists = artists_in_name unless name.blank?
+    artist_artists = artists_in_artist unless name.blank?
+    merged = name_artists | artist_artists
+    merged ? merged : []
   end
 
   def artists_in_name
     # Strip unnecessary stuff and parse the song name
-    strip = /(extended|vip|original|club) mix|(extended|vip|radio) edit|radio bootleg/i
+    strip = /(extended|vip|original|club)|(extended|vip|radio) edit/i
     all_artists(name:name.gsub(strip,''))
   end
 
@@ -339,33 +341,61 @@ class Song < ActiveRecord::Base
     matched = []
 
     # Match their respective roles
-    featured = /(featuring |ft(\.?| )|feat(\.?| )|f\.){1}/i
+    featured = /(featuring |ft\. ?|feat\. ?|f\. ?|w\/){1}/i
     remixer  = / remix| rmx| edit| bootleg| mix/i
     producer = /(produced|prod\.?) by/i
-    #cover    = / cover/i
+    cover    = / cover/i
+    split    = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i # Splits "one, two & three"
+
+    # Detect parenthesis
+    parens = true if string =~ /\(/i
 
     # Find any non-original artists
-    if string =~ /#{featured}|#{remixer}|#{producer}/i
-      string.split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|
-        # Splits up "one, two, three & four"
-        split = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i
-
+    #   gsub() Strip everything up until "(" if there exists one
+    #   split() Split when multiple parenthesis groups exist
+    if string =~ /#{featured}|#{remixer}|#{producer}|#{cover}/i
+      string.gsub(/.*(?=\()/,'').split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|
         part.scan(/#{featured}#{split}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:featured] unless artist =~ featured or artist =~ /&|,/
-        end
-
-        part.scan(/#{split}#{remixer}/).flatten.compact.collect(&:strip).each do |artist|
-          matched.push [artist,:remixer] unless artist =~ remixer or artist =~ /&|,/
         end
 
         part.scan(/#{producer}#{split}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:producer] unless artist =~ producer or artist =~ /&|,/
         end
+
+        # We can only trust data within a parenthesis for suffix attributes
+        # IE: "Song Title Artist Name Remix", we can't determine "Artist Name"
+        # TODO: Discogs lookup for artist name in that case
+        if parens
+          part.scan(/#{split}#{remixer}/).flatten.compact.collect(&:strip).each do |artist|
+            artist = artist.gsub(/\'s.*/i,'') # Remove types of remixes eg: "Arists's Piano Remix"
+            matched.push [artist,:remixer] unless artist =~ remixer or artist =~ /&|,/
+          end
+
+          part.scan(/#{split}#{cover}/).flatten.compact.collect(&:strip).each do |artist|
+            matched.push [artist,:cover] unless artist =~ producer or artist =~ /&|,/
+          end
+        end
       end
     elsif artist
+      # TODO: Split and scan discogs here to determine whether the & is part of the artist name or just separating multiple artists
+
       # If artist, we can look for comma separated names
-      string.split(/, |& |vs\.? /i).each do |artist|
-        matched.push [artist, :original]
+      original = string.gsub(/#{featured}.*|\(.*/i,'')
+
+      # Mashups
+      mashup = /vs\.? |\+ /i
+      if !original.scan(mashup).empty?
+        vs_list = /, |& |#{mashup}/i
+        original.split(vs_list).each do |artist|
+          matched.push [artist.strip, :mashup]
+        end
+
+      # Original artists
+      else
+        original.split(/, |& /).each do |artist|
+          matched.push [artist.strip, :original]
+        end
       end
     else
       # If name, we can look for a badly formatted mp3
