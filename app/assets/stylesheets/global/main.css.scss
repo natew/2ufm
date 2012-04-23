@@ -337,6 +337,10 @@ header {
     .player-buttons a.prev {
       color: #fff;
     }
+
+    #player-progress-bar:hover #player-playlist {
+      display: block;
+    }
   }
 
   &.loaded.bottom {
@@ -425,10 +429,6 @@ header {
 
       &:hover {
         cursor: pointer;
-
-        #player-playlist {
-          display: block;
-        }
       }
 
       #player-goto {

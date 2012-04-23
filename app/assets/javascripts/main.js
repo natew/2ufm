@@ -138,7 +138,7 @@ $(function() {
         section = $(song.attr('href')),
         index   = song.data('index');
 
-    if (section.length) mp.playSection($section);
+    if (section.length) mp.playSection(section);
     else mp.playSong(index);
     playlistCurSong.removeClass('playing');
     playlistCurSong = $('.song-'+index).addClass('playing');
