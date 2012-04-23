@@ -10,7 +10,7 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    @artist  = Artist.find_by_slug(params[:id]) || not_found
+    @artist = Artist.find_by_slug(params[:id]) || not_found
 
     respond_to do |format|
       format.html

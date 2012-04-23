@@ -22,6 +22,10 @@ class Artist < ActiveRecord::Base
     slug
   end
 
+  def to_playlist_json
+    self.to_json(:only => [:id, :slug, :name])
+  end
+
   def get_info
     get_discogs_info
     get_wikipedia_info
