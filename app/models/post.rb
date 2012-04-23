@@ -44,6 +44,7 @@ class Post < ActiveRecord::Base
     parse.css('a').each do |link|
       if link['href'] =~ /\.mp3(\?(.*))?$/
         logger.info "Found song!"
+        #TODO Find or create by ID so we can rescan posts
         found_song = Song.create(
           :blog_id    => blog_id,
           :post_id    => id,

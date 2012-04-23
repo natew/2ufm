@@ -248,18 +248,6 @@ class Song < ActiveRecord::Base
   def add_to_stations
     if processed?
       add_to_blog_station
-      add_to_artists_stations
-    end
-  end
-
-  def add_to_artists_stations
-    authors.each do |author|
-      artist = Artist.find(author.artist_id)
-      if artist and artist.station
-        Broadcast.create(song_id:id,station_id:artist.station.id) unless artist.station.song_exists?(id)
-      else
-        logger.error "No artist or artist station"
-      end
     end
   end
 
