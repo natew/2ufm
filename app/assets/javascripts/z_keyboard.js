@@ -29,7 +29,9 @@ function keyDown(e) {
         break;
       // Enter
       case 13:
-        mp.playSection(highlightedSong);
+        if (mp.isPlaying()
+          && mp.getSection().attr('id') == highlightedSong.attr('id')) mp.toggle();
+        else mp.playSection(highlightedSong);
         break;
     }
   }

@@ -18,7 +18,7 @@ div.playlist {
     }
 
     &.highlight {
-      background: #f2f2f2;
+      background: $lightest-blue;
 
       .play-song {
         visibility: visible !important;
@@ -31,15 +31,10 @@ div.playlist {
       .song-info {
         p { width: 72%; }
       }
-
-      .song-controls li.broadcast span.count,
-      .song-controls li.broadcast a {
-        color: #777;
-      }
     }
 
     &.playing {
-      background: $lighter-blue;
+      background: $light-blue;
 
       .song-controls {
         .play-song {
@@ -230,7 +225,7 @@ div.playlist {
 
         a {
           font-size: 24px;
-          color: #ccc;
+          color: rgba(0,0,0,0.2);
           text-decoration: none;
           position: relative;
           z-index: 3;
@@ -253,7 +248,7 @@ div.playlist {
             height: 16px;
             padding: 0;
             margin: -2px 4px 0 0;
-            color: #999;
+            color: rgba(0,0,0,0.5);
           }
         }
       }
