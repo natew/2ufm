@@ -41,6 +41,16 @@ var page = {
         .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
     }
 
+    // Song heights
+    playlistOffset = $('.playlist:first').offset().top;
+    songSections = $('.playlist:first section');
+    songSections.each(function(index) {
+      songOffsets[index] = $(this).offset().top;
+    });
+
+    // Highlight first song
+    highlightSong();
+
     // Stats
     var $stats = $('#stats');
     if ($stats.length > 0) {
@@ -57,13 +67,6 @@ var page = {
 
       $.plot($stats, [data], options);
     }
-
-    // Song heights
-    playlistOffset = $('.playlist:first').offset().top;
-    songSections = $('.playlist:first section');
-    songSections.each(function(index) {
-      songOffsets[index] = $(this).offset().top;
-    })
   },
 
   error: function(xhr) {

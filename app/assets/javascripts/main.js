@@ -8,6 +8,20 @@ var w = $(window),
     tipsyClearTimeout,
     bar = $('#bar');
 
+function highlightSong() {
+  var windowOffset = w.scrollTop()+40,
+      cur = highlightedSong,
+      i = 0;
+
+  for (; i<songOffsets.length; i++) {
+    if (songOffsets[i] > windowOffset) break;
+  }
+
+  highlightedSong = songSections.eq(i).addClass('highlight');
+  if (cur && cur.attr('id') != highlightedSong.attr('id'))
+    cur.removeClass('highlight');
+}
+
 // Sets bar to fixed
 var setBarPosition = function() {
   if (w.scrollTop() > 44) bar.addClass('fixed');
@@ -153,25 +167,10 @@ $(function() {
   });
 
   // Window scroll highlights songs
-  highlightSong();
   w.scroll(function() {
     clearTimeout(highlightTimeout);
     highlightTimeout = setTimeout(highlightSong,25);
   });
-
-  function highlightSong() {
-    var windowOffset = w.scrollTop()+40,
-        cur = highlightedSong,
-        i = 0;
-
-    for (; i<songOffsets.length; i++) {
-      if (songOffsets[i] > windowOffset) break;
-    }
-
-    highlightedSong = songSections.eq(i).addClass('highlight');
-    if (cur && cur.attr('id') != highlightedSong.attr('id'))
-      cur.removeClass('highlight');
-  }
 
   // Hover also highlights songs
   $('.playlist section').hover(function() {
@@ -190,4 +189,7 @@ $(function() {
     clearTimeout(progressHoverTimeout);
     progressBar.removeClass('hover');
   });
+
+  // Dialog
+  $('#dialog').delay(3000).animate({'display':'none'},1000);
 });

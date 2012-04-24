@@ -15,7 +15,8 @@ a:hover { color: $link-hover; }
   padding: 40px 0;
 }
 
-.page-contain {
+.page-contain,
+#dialog {
   width: 980px;
   margin: 0 auto;
   position: relative;
@@ -578,8 +579,10 @@ header {
 /* NOTICES */
 
 #dialog {
+  position: fixed;
+  z-index: 1000;
   text-align: center;
-  background: #357a38;
+  background: #000;
   height: 36px;
   line-height: 2.9em;
   color: white;
@@ -672,10 +675,11 @@ ol.mp_list {
 
 #announce {
   display: block;
-  background: #f2f2f2;
-  color: #777;
+  background: $lighter-yellow;
+  color: rgba(0,0,0,0.6);
   font-size: 15px;
   padding: 10px 0 6px;
+  margin: 0 0 -5px 0;
   text-align: center;
   @include border-bottom-radius(5px);
 
