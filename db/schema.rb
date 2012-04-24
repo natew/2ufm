@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421193403) do
+ActiveRecord::Schema.define(:version => 20120424040023) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20120421193403) do
     t.integer  "station_id"
     t.integer  "song_id"
     t.datetime "created_at"
+    t.string   "parent"
   end
 
   add_index "broadcasts", ["song_id", "station_id"], :name => "index_broadcasts_on_song_id_and_station_id", :unique => true

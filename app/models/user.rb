@@ -15,17 +15,19 @@ class User < ActiveRecord::Base
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
-  has_one    :station, :dependent => :destroy
-  has_many   :activities, :dependent => :destroy
-  has_many   :follows
-  has_many   :stations, :through => :follows
-  has_many   :songs, :through => :stations, :extend => SongExtensions
+  has_one  :station, :dependent => :destroy
+  has_many :activities, :dependent => :destroy
+  has_many :follows
+  has_many :stations, :through => :follows
+  has_many :songs, :through => :stations, :extend => SongExtensions
 
   has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
   acts_as_url :username, :url_attribute => :slug
 
-  before_create :make_station
+  before_validation :make_station
+
+  validates :username, :presence => true
 
   def to_param
     slug

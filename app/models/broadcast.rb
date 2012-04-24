@@ -4,6 +4,27 @@ class Broadcast < ActiveRecord::Base
 
   validates :song_id, presence: true
   validates :station_id, presence: true
+  validates :parent, presence: true
 
   scope :excluding_stations, lambda { |ids| where(['station_id NOT IN (?)', ids]) if ids.any? }
+
+  before_validation :set_parent
+  before_save :update_song_rank
+
+  def update_song_rank
+    if song
+      song.set_rank
+      song.save
+    end
+  end
+
+  def set_parent
+    if station.user_id
+      self.parent = :user
+    elsif station.artist_id
+      self.parent = :artist
+    elsif station.blog_id
+      self.parent = :blog
+    end
+  end
 end

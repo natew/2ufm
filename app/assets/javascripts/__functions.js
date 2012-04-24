@@ -4,7 +4,10 @@ String.prototype.leftPad = function (l, c) { return new Array(l - this.length + 
 
 var fn = {
   log: function() {
-    if (DO_LOGGING) console.log(arguments.callee.caller.name.toString().leftPad(20), arguments);
+    if (DO_LOGGING)  {
+      var caller = arguments.callee.caller ? arguments.callee.caller.name.toString().leftPad(20) : ''.leftPad(20);
+      console.log(caller,arguments);
+    }
   },
 
   flatten: function(obj, includePrototype, into, prefix) {

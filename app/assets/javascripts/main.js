@@ -1,15 +1,17 @@
 // Variables
-var jwindow = $(window),
+var w = $(window),
     highlightedSong,
     highlightTimeout,
     songOffsets = [],
     playlistOffset,
-    songSections;
+    songSections,
+    tipsyClearTimeout,
+    bar = $('#bar');
 
 // Sets bar to fixed
 var setBarPosition = function() {
-  if ($(window).scrollTop() > 44) $('#bar').addClass('fixed');
-  else $('#bar').removeClass('fixed');
+  if (w.scrollTop() > 44) bar.addClass('fixed');
+  else bar.removeClass('fixed');
 }
 
 // Bind selectors to callbacks
@@ -83,7 +85,7 @@ $(function() {
 
   // Scroll music player
   setBarPosition();
-  jwindow.scroll(setBarPosition);
+  w.scroll(setBarPosition);
 
   // Bar buttons
   $('#bar-top').html('{').click(function(e) {
@@ -92,9 +94,13 @@ $(function() {
   });
 
   // Tooltips
-  jwindow.scroll(function(){ $('.tipsy').remove() }); // Fucking bugs
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
+  w.scroll(function(){
+    // Removes on scroll
+    clearTimeout(tipsyClearTimeout);
+    tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
+  });
 
   // Livesearch
   $('#query').marcoPolo({
@@ -111,7 +117,6 @@ $(function() {
   });
 
   // Dropdown menu
-
   $('#nav-username').click(function(e) {
     e.preventDefault();
     var nav = $(this).next('.nav-dropdown');
@@ -136,7 +141,8 @@ $(function() {
   });
 
   // Play from playlist
-  $('#player-playlist a').live('click',function() {
+  $('#player-playlist a').live('click',function(e) {
+    e.preventDefault();
     fn.log('playing from playlist');
     var song    = $(this),
         section = $(song.attr('href')),
@@ -144,19 +150,17 @@ $(function() {
 
     if (section.length) mp.playSection(section);
     else mp.playSong(index);
-    playlistCurSong.removeClass('playing');
-    playlistCurSong = $('.song-'+index).addClass('playing');
   });
 
   // Window scroll highlights songs
   highlightSong();
-  $(window).scroll(function() {
+  w.scroll(function() {
     clearTimeout(highlightTimeout);
-    highlightTimeout = setTimeout(highlightSong,50);
+    highlightTimeout = setTimeout(highlightSong,25);
   });
 
   function highlightSong() {
-    var windowOffset = $(window).scrollTop()+40,
+    var windowOffset = w.scrollTop()+40,
         cur = highlightedSong,
         i = 0;
 
@@ -168,4 +172,22 @@ $(function() {
     if (cur && cur.attr('id') != highlightedSong.attr('id'))
       cur.removeClass('highlight');
   }
+
+  // Hover also highlights songs
+  $('.playlist section').hover(function() {
+    highlightedSong.removeClass('highlight');
+    highlightedSong = $(this).addClass('highlight');
+  }, function() {
+    highlightSong();
+  });
+
+  // Playlist bar hover
+  var progressBar = $('#player-progress-bar'),
+      progressHoverTimeout;
+  progressBar.hover(function() {
+    progressHoverTimeout = setTimeout(function() { progressBar.addClass('hover'); }, 300);
+  }, function() {
+    clearTimeout(progressHoverTimeout);
+    progressBar.removeClass('hover');
+  });
 });

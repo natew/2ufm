@@ -37,7 +37,6 @@ namespace :songs do
   namespace :update do
     task :rank => :environment do
       Song.working.each do |song|
-        song.set_rank
         song.save
       end
     end

@@ -2,7 +2,8 @@ var mp = (function() {
   //
   // Variables
   //
-  var playlist,
+  var w = $(window),
+      playlist,
       playlistID,
       playlistIndex,
       curSection,
@@ -17,7 +18,6 @@ var mp = (function() {
       delayStart = false,
       volume = 100,
       playlist_template = '',
-      self = this,
       time = 0;
 
   // Elements
@@ -169,27 +169,35 @@ var mp = (function() {
     },
 
     next: function next() {
-      if (curSection) var next = curSection.next();
-      this.stop();
-      this.setCurSectionInactive();
-      if (next) {
-        curSection = next;
-        this.setCurSectionActive();
+      if (curSection) {
+        var next = curSection.next();
+        this.stop();
+        this.setCurSectionInactive();
+        if (next.length) {
+          curSection = next;
+          this.setCurSectionActive();
+          playlistIndex++;
+          this.play();
+        } else {
+          curSection = null;
+        }
       }
-      playlistIndex++;
-      this.play();
     },
 
     prev: function prev() {
-      if (curSection) prev = curSection.prev();
-      this.stop();
-      this.setCurSectionInactive();
-      if (prev) {
-        curSection = prev;
-        this.setCurSectionActive();
+      if (curSection) {
+        previous = curSection.prev();
+        this.stop();
+        this.setCurSectionInactive();
+        if (previous.length) {
+          curSection = previous;
+          this.setCurSectionActive();
+          playlistIndex--;
+          this.play();
+        } else {
+          curSection = null;
+        }
       }
-      playlistIndex--;
-      this.play();
     },
 
     refresh: function refresh() {
@@ -210,14 +218,12 @@ var mp = (function() {
     setCurSectionActive: function setCurSectionActive() {
       if (curSection) {
         curSection.addClass('playing');
-        curSection.find('.play-song').html('5');
       }
     },
 
     setCurSectionInactive: function setCurSectionInactive() {
       if (curSection) {
         curSection.removeClass('playing');
-        curSection.find('.play-song').html('4');
       }
     },
 
@@ -287,6 +293,7 @@ var mp = (function() {
       pl.bar.addClass('loaded');
       player.setCurSectionActive();
       player.refresh();
+      w.trigger('mp:play', [mp, curSongInfo]);
 
       // Scrobbling
       $.ajax({
@@ -371,6 +378,10 @@ var mp = (function() {
       }
     },
 
+    isOnPlayingPage: function() {
+      return (curPage == playingPage);
+    },
+
     playSong: function(index) {
       player.playSong(index);
     },
@@ -394,6 +405,10 @@ var mp = (function() {
 
     prev: function() {
       player.prev();
+    },
+
+    isPlaying: function() {
+      return isPlaying;
     },
 
     volumeToggle: function() {
@@ -427,4 +442,4 @@ var mp = (function() {
 
   };
 
-}());
+}(window, mp));

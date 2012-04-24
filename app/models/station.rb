@@ -1,8 +1,8 @@
 class Station < ActiveRecord::Base
   has_and_belongs_to_many :genres
   belongs_to :user
-  belongs_to :blog
   belongs_to :artist
+  belongs_to :blog
   has_many   :broadcasts, :dependent => :destroy
   has_many   :songs, :through => :broadcasts, :extend => SongExtensions
   has_many   :follows
@@ -15,6 +15,10 @@ class Station < ActiveRecord::Base
 
   # Whitelist mass-assignment attributes
   attr_accessible :title, :description
+
+  def user_broadcasts
+    broadcasts.where(:parent => 'user')
+  end
 
   def self.popular_station(opts={})
     p = Station.new(:id => 1)

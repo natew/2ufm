@@ -12,11 +12,12 @@ class Artist < ActiveRecord::Base
 
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
-  before_create :make_station, :get_info
+  before_validation :make_station, :get_info
 
   serialize :urls
 
   validates :name, presence: true, uniqueness: true, allow_blank: false
+  validates :station, presence: true
 
   def to_param
     slug
@@ -48,7 +49,7 @@ class Artist < ActiveRecord::Base
       # Artist not found!
       logger.info "Error!"
       logger.info e.message
-      logger.info e.backtrace
+      logger.info e.backtrace.join("\n")
     end
   end
 

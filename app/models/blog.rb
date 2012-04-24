@@ -8,7 +8,7 @@ class Blog < ActiveRecord::Base
 
   # Relationships
   has_one  :station, :dependent => :destroy
-  has_many :songs, :through => :station, :dependent => :destroy
+  has_many :songs, :dependent => :destroy
   has_many :posts, :dependent => :destroy
   has_and_belongs_to_many :genres
 
@@ -18,7 +18,7 @@ class Blog < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
-  before_create :make_station
+  before_validation :make_station
   after_create  :delayed_get_blog_info, :delayed_get_new_posts
 
   serialize :feed
@@ -26,6 +26,9 @@ class Blog < ActiveRecord::Base
   # Validations
   validates :url, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true
+  validates :station, presence: true
+
+  # Validations from steps from submitting
   validates_uniqueness_of :name, :url, :if => lambda { |o| o.current_step == "about" }
   validates_presence_of :name, :url, :if => lambda { |o| o.current_step == "about" }
 
@@ -179,9 +182,7 @@ class Blog < ActiveRecord::Base
         # Get feed and return entries
         logger.info "No feed yet, grabbing rss"
         self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-        if feed.is_a?(Fixnum)
-          logger.error "Error fetching feed #{feed}"
-        elsif feed
+        if feed
           logger.info "Found new entries"
           self.feed_updated_at = feed.last_modified
           posts = feed.entries

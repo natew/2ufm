@@ -9,14 +9,14 @@ class Song < ActiveRecord::Base
   include AttachmentHelper
 
   # Relationships
-  belongs_to  :blog
-  belongs_to  :post
-  has_many    :broadcasts, :dependent => :destroy
-  has_many    :stations, :through => :broadcasts
-  has_many    :users, :through => :stations
-  has_many    :authors
-  has_many    :artists, :through => :authors
-  has_many    :listens
+  belongs_to :blog
+  belongs_to :post
+  has_many   :broadcasts, :dependent => :destroy
+  has_many   :stations, :through => :broadcasts
+  has_many   :users, :through => :stations
+  has_many   :authors
+  has_many   :artists, :through => :authors
+  has_many   :listens
 
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['64x64#'], icon: ['32x32#'], tiny: ['24x24#'] }
@@ -42,8 +42,7 @@ class Song < ActiveRecord::Base
   acts_as_url :full_name, :url_attribute => :slug
 
   before_create  :get_real_url, :clean_url
-  after_create :delayed_scan_and_save
-  before_save :set_rank
+  after_create :delayed_scan_and_save, :set_rank
 
   # Whitelist mass-assignment attributes
   attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at
@@ -73,10 +72,14 @@ class Song < ActiveRecord::Base
     artists.where("authors.role = 'original'").joins(:authors)
   end
 
+  def user_broadcasts
+    broadcasts.where(:parent => 'user')
+  end
+
   # Ranking algorithm
   def set_rank
-    plays = Math.log([listens.count,2].max)
-    favs  = Math.log([broadcasts.count,2].max*100)
+    plays = Math.log([listens.count,1].max)
+    favs  = Math.log([user_broadcasts.count,1].max*10)
     time  = ((created_at || Time.now) - Time.new(2012))/100000
     self.rank = plays + favs + time
   end
@@ -157,8 +160,7 @@ class Song < ActiveRecord::Base
 
           # Update info if we have processed this song
           if working?
-
-            # Add to blog station, new station, artist and user stations
+            # Add to stations
             add_to_stations
 
             # Determine if we already have this song
@@ -167,7 +169,7 @@ class Song < ActiveRecord::Base
             self.slug = full_name.to_url
             logger.info "Processed and working!"
           else
-            logger.info "Processed (couldn't read information)"
+            logger.info "Processed (no information)"
           end
 
           # Save
@@ -248,12 +250,19 @@ class Song < ActiveRecord::Base
   def add_to_stations
     if processed?
       add_to_blog_station
+      add_to_artists_stations
+    end
+  end
+
+  def add_to_artists_stations
+    artists.each do |artist|
+      artist.station.create_broadcast(song_id:id)
     end
   end
 
   def add_to_blog_station
-    if blog and blog.station
-      Broadcast.create(song_id:id,station_id:blog.station.id) unless blog.station.song_exists?(id)
+    if blog
+      blog.station.create_broadcast(song_id:id)
     else
       logger.error "No Blog or Blog station"
     end
