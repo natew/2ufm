@@ -256,13 +256,13 @@ class Song < ActiveRecord::Base
 
   def add_to_artists_stations
     artists.each do |artist|
-      artist.station.create_broadcast(song_id:id)
+      artist.station.broadcasts.create(song_id:id)
     end
   end
 
   def add_to_blog_station
     if blog
-      blog.station.create_broadcast(song_id:id)
+      blog.station.broadcasts.create(song_id:id)
     else
       logger.error "No Blog or Blog station"
     end
