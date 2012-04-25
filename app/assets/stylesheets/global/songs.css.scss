@@ -18,7 +18,7 @@ div.playlist {
     }
 
     &.highlight {
-      background: $lightest-blue;
+      background: #f2f2f2;
 
       .play-song {
         visibility: visible !important;
@@ -34,7 +34,7 @@ div.playlist {
     }
 
     &.playing {
-      background: $light-blue;
+      background: $lighter-blue;
 
       .song-controls {
         .play-song {
