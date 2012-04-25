@@ -20,6 +20,7 @@ class Blog < ActiveRecord::Base
 
   before_validation :make_station
   after_create  :delayed_get_blog_info, :delayed_get_new_posts
+  before_create :set_screenshot
 
   serialize :feed
 
@@ -114,6 +115,11 @@ class Blog < ActiveRecord::Base
     else
       get_blog_info
     end
+  end
+
+  def set_screenshot
+    file = open "http://img.bitpixels.com/getthumbnail?code=61978&size=200&url=#{url}"
+    self.image = file
   end
 
   # Search Nokogiri::HTML for a title or meta description

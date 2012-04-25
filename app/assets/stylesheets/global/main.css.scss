@@ -28,6 +28,14 @@ a:hover { color: $link-hover; }
   }
 }
 
+footer {
+  span.credits {
+    font-size: 9px;
+    color: #ccc;
+    a {color: #ccc;}
+  }
+}
+
 /* HEADING AND TEXT STYLES */
 
 h2 { font-size: 21px; }

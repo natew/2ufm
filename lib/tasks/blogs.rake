@@ -31,6 +31,14 @@ namespace :blogs do
     end
   end
 
+  task :set_screenshots => :environment do
+    Blog.all.each do |blog|
+      puts "Getting screenshot for #{blog.name}"
+      blog.set_screenshot
+      blog.save
+    end
+  end
+
   namespace :update do
     task :all => :environment do
       Blog.all.each do |blog|
