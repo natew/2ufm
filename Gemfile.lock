@@ -136,6 +136,9 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    marginalia (1.0.0)
+      actionpack (>= 2.3, < 3.3)
+      activerecord (>= 2.3, < 3.3)
     mime-types (1.17.2)
     mongo (1.6.0)
       bson (= 1.6.0)
@@ -265,6 +268,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   loofah-activerecord
+  marginalia
   mongo_mapper
   nokogiri
   paperclip (~> 3.0)

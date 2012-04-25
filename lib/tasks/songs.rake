@@ -34,6 +34,12 @@ namespace :songs do
     end
   end
 
+  task :add_to_stations => :environment do
+    Song.all.each do |song|
+      song.add_to_stations
+    end
+  end
+
   namespace :update do
     task :rank => :environment do
       Song.working.each do |song|

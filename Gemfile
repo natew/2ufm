@@ -26,6 +26,7 @@ gem 'discogs-wrapper'
 gem 'taglib-ruby'
 gem 'whenever', :require => false
 gem 'bourbon'
+gem 'marginalia' # Adds nice info to SQL statements
 
 # Deploy
 gem 'capistrano'
