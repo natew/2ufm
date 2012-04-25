@@ -6,7 +6,7 @@ class MainController < ApplicationController
 
     if !user_signed_in?
       @new = Station.new_station(:limit => 12)
-      @featured = Blog.order('created_at asc').limit(6)
+      @featured = Blog.order('random()').limit(6)
     else
       @stations = current_user.stations
     end
