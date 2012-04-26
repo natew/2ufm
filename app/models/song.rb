@@ -79,18 +79,23 @@ class Song < ActiveRecord::Base
   def set_linked_title
     self.linked_title = full_name
 
-    keywords = /www\.\S*|\S*\.com|featuring |ft(\.| )|feat(\.| )|f\.| remix| rmx\.?| bootleg| mix|produced by|prod\.? by| cover/i
+    keywords = /www\.\S*|\S*\.com|featuring |ft(\.| )|feat(\.| )| remix| rmx\.?| bootleg| mix|produced by|prod\.?( by)?| cover/i
     self.linked_title.gsub!(keywords,' ')
-    self.linked_title.gsub!(/\s{2}/,' ')
+
+    whitespace = /\s{2,}/
+    self.linked_title.gsub!(whitespace,' ')
+    self.linked_title.gsub!(/ \)/,')')
 
     # Replace authors with links
     artists.for_linking.each do |artist|
       # Sorry, this is ugly
       self.linked_title.gsub!(
-        /#{artist.name}/,
-        '<a class="role role-'+artist.role+'" href="/artists/'+artist.slug+'">'+artist.name+'</a>'
+        /#{artist.name}(,|\s)/,
+        '<a class="role role-'+artist.role+'" href="/artists/'+artist.slug+'">'+artist.name+'</a> '
       )
     end
+
+    self.linked_title
   end
 
   # User broadcasts
