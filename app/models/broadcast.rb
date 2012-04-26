@@ -21,8 +21,10 @@ class Broadcast < ActiveRecord::Base
 
   # Update user_broadcasts_count on songs
   def update_counter_cache
-    self.song.user_broadcasts_count = song.user_broadcasts.count
-    self.song.save
+    if song
+      self.song.user_broadcasts_count = song.user_broadcasts.count
+      self.song.save
+    end
   end
 
   def set_parent
