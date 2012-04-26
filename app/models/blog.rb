@@ -177,7 +177,7 @@ class Blog < ActiveRecord::Base
   # Returns only new entries
   def get_new_rss_entries
     logger.info "Updating feed"
-    if feed_url
+    if feed_url and !feed.is_a?(Fixnum)
       # Check if weve ever fetched feed
       if feed_updated_at
         # Already have feed, get new entries
@@ -210,6 +210,9 @@ class Blog < ActiveRecord::Base
         logger.info "No posts"
         false
       end
+    else
+      logger.error "Feed broken"
+      false
     end
   end
 
