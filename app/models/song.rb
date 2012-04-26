@@ -90,8 +90,8 @@ class Song < ActiveRecord::Base
     artists.for_linking.each do |artist|
       # Sorry, this is ugly
       self.linked_title.gsub!(
-        /#{artist.name}(,|\s)/,
-        '<a class="role role-'+artist.role+'" href="/artists/'+artist.slug+'">'+artist.name+'</a> '
+        /#{artist.name}(\)|,|\s)/,
+        '<a class="role role-'+artist.role+'" href="/artists/'+artist.slug+'">'+artist.name+'</a>\1'
       )
     end
 
