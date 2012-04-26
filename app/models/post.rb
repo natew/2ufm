@@ -17,6 +17,7 @@ class Post < ActiveRecord::Base
   acts_as_url :title, :url_attribute => :slug
 
   before_create :get_image
+  before_save :set_excerpt
   after_create  :delayed_save_songs
 
   # Whitelist mass-assignment attributes
@@ -24,6 +25,15 @@ class Post < ActiveRecord::Base
 
   def to_param
     slug
+  end
+
+  def set_excerpt
+    begin
+      self.excerpt = Sanitize.clean(content).truncate(200)
+    rescue
+      logger.error "No excerpt"
+      self.excerpt = "No content"
+    end
   end
 
   def get_image

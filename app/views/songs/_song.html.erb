@@ -4,18 +4,18 @@
     <span><%= image_tag song.resolve_image(:small) %></span>
   </div>
   <div class="song-info">
-    <h4><%= title_with_artist_links(song) %></h4>
+    <h4><%= song.linked_title.html_safe %></h4>
     <div class="song-meta">
       <%- if song.reposted? -%>
         Posted by <%= link_to pluralize(song.shared_count,'blog'), song %>
         &nbsp;&middot;
       <% else %>
-        <%= link_to "#{truncate(song.blog_name)}".html_safe, blog_path(song.blog_slug) %> &nbsp;&middot;
+        <%= link_to "#{song.blog_name}".html_safe, blog_path(song.blog_slug) %> &nbsp;&middot;
       <%- end -%>
       <time><%= relative_time(song.published_at) %></time>
       <%= link_to 'j', song, :class => 'pictos permalink' %>
     </div>
-    <p><%= truncate(strip_tags(song.post_content), :length => 90) %></p>
+    <p><%= song.post_excerpt %></p>
     <ul class="song-links">
       <li class="right"><%= link_to 'Buy', '', :target => '_blank' %></li>
       <li class="right"><%= link_to 'Read Post'.html_safe, song.post_url, :target => '_blank' %></li>

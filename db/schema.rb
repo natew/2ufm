@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120424040023) do
+ActiveRecord::Schema.define(:version => 20120426045907) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20120424040023) do
     t.string   "image_file_name"
     t.string   "image_updated_at"
     t.datetime "published_at"
+    t.string   "excerpt"
   end
 
   create_table "socialite_facebook_identities", :force => true do |t|
@@ -187,17 +188,18 @@ ActiveRecord::Schema.define(:version => 20120424040023) do
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
-    t.boolean  "processed",        :default => false
-    t.integer  "broadcasts_count", :default => 0
+    t.boolean  "processed",             :default => false
     t.string   "file_file_name"
     t.string   "file_updated_at"
-    t.integer  "shared_count",     :default => 0
-    t.boolean  "working",          :default => false
+    t.integer  "shared_count",          :default => 0
+    t.boolean  "working",               :default => false
     t.datetime "published_at"
     t.string   "absolute_url"
     t.float    "rank"
     t.boolean  "original_song"
     t.integer  "failures"
+    t.integer  "user_broadcasts_count", :default => 0
+    t.text     "linked_title"
   end
 
   create_table "stations", :force => true do |t|

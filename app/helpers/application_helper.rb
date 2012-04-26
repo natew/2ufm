@@ -17,10 +17,15 @@ module ApplicationHelper
 
   # Song broadcast
   def broadcast_song(song)
-    has    = current_user.broadcasted_song?(song) if user_signed_in?
-    action = has ? "remove" : "add"
-    id     = has ? current_user.station.broadcasts.where(:song_id => song.shared_id).first.id : song.id
-    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.user_broadcasts.count }
+    if user_signed_in? and current_user.broadcasted_song?(song)
+      action = "remove"
+      id = current_user.station.broadcasts.where(:song_id => song.shared_id).first.id
+    else
+      action = "add"
+      id = song.id
+    end
+
+    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.user_broadcasts_count }
   end
 
   # Render artists for a song
@@ -30,26 +35,6 @@ module ApplicationHelper
       links.push link_to(model.name, model)
     end
     raw links.join(', ')
-  end
-
-  # Render a link with the artists highlighted by type
-  def title_with_artist_links(song)
-    title = song.full_name
-
-    # GSub bad stuff
-    keywords = /www\.\S*|\S*\.com|featuring |ft(\.| )|feat(\.| )|f\.| remix| rmx\.?| bootleg| mix|produced by|prod\.? by| cover/i
-    title = title.gsub(keywords,' ').gsub(/\s{2}/,' ')
-
-    # Replace authors with links
-    song.authors.each do |author|
-      title = highlight_artist(title, author.artist, author.role) if author.artist
-    end
-
-    title.html_safe
-  end
-
-  def highlight_artist(string, artist, role)
-    string.gsub(/#{artist.name}/,link_to(artist.name,artist,:class => "role role-#{role}"))
   end
 
   # Self explanitory

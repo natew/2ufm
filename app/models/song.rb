@@ -32,9 +32,11 @@ class Song < ActiveRecord::Base
   scope :working, where(processed: true, working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
+
+  # Scopes for playlist
   scope :group_shared_order_rank, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc')
   scope :group_shared_order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc')
-  scope :select_with_info, select('songs.*, posts.url as post_url, posts.content as post_content, blogs.name as blog_name, blogs.slug as blog_slug')
+  scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, blogs.name as blog_name, blogs.slug as blog_slug')
   scope :individual, select_with_info.with_blog_and_post.working
   scope :playlist_order_rank, group_shared_order_rank.select_with_info.with_blog_and_post.working
   scope :playlist_order_published, group_shared_order_published.select_with_info.with_blog_and_post.working
@@ -43,6 +45,7 @@ class Song < ActiveRecord::Base
 
   before_create  :get_real_url, :clean_url
   after_create :delayed_scan_and_save, :set_rank
+  before_save :set_linked_title
 
   # Whitelist mass-assignment attributes
   attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at
@@ -72,6 +75,25 @@ class Song < ActiveRecord::Base
     artists.where("authors.role = 'original'").joins(:authors)
   end
 
+  # Linked title
+  def set_linked_title
+    self.linked_title = full_name
+
+    keywords = /www\.\S*|\S*\.com|featuring |ft(\.| )|feat(\.| )|f\.| remix| rmx\.?| bootleg| mix|produced by|prod\.? by| cover/i
+    self.linked_title.gsub!(keywords,' ')
+    self.linked_title.gsub!(/\s{2}/,' ')
+
+    # Replace authors with links
+    artists.for_linking.each do |artist|
+      # Sorry, this is ugly
+      self.linked_title.gsub!(
+        /#{artist.name}/,
+        '<a class="role role-'+artist.role+'" href="/artists/'+artist.slug+'">'+artist.name+'</a>'
+      )
+    end
+  end
+
+  # User broadcasts
   def user_broadcasts
     broadcasts.where(:parent => 'user')
   end

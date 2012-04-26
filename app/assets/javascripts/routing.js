@@ -51,6 +51,21 @@ var page = {
     // Highlight first song
     highlightSong();
 
+    // Play from song
+    $('.song-link').click(function songClick(e) {
+      e.preventDefault();
+      var section = $(this).parent();
+      section.is('.playing') ? mp.pause() : mp.playSection(section);
+    });
+
+    // Hover also highlights songs
+    $('.playlist section').hover(function() {
+      highlightedSong.removeClass('highlight');
+      highlightedSong = $(this).addClass('highlight');
+    }, function() {
+      highlightSong();
+    });
+
     // Stats
     var $stats = $('#stats');
     if ($stats.length > 0) {

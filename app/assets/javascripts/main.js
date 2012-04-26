@@ -145,15 +145,6 @@ $(function() {
   mpClick('#player-prev', 'prev');
   mpClick('#player-volume', 'volumeToggle');
 
-  // Play from song
-  fn.log('binding song clicks');
-  $('.song-link').on('click',function songClick(e) {
-    e.preventDefault();
-    var section = $(this).parent();
-    fn.log(section);
-    section.is('.playing') ? mp.pause() : mp.playSection(section);
-  });
-
   // Play from playlist
   $('#player-playlist a').live('click',function(e) {
     e.preventDefault();
@@ -172,13 +163,7 @@ $(function() {
     highlightTimeout = setTimeout(highlightSong,25);
   });
 
-  // Hover also highlights songs
-  $('.playlist section').hover(function() {
-    highlightedSong.removeClass('highlight');
-    highlightedSong = $(this).addClass('highlight');
-  }, function() {
-    highlightSong();
-  });
+
 
   // Playlist bar hover
   var progressBar = $('#player-progress-bar'),
@@ -191,5 +176,9 @@ $(function() {
   });
 
   // Dialog
-  $('#dialog').delay(3000).animate({'display':'none'},1000);
+  setTimeout(function() {
+    $('#dialog').animate({opacity:'0'},500,function() {
+      $(this).hide();
+    });
+  },1000);
 });
