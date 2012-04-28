@@ -176,7 +176,7 @@ class Song < ActiveRecord::Base
           self.image        = get_album_art(tag)
 
           # Working if we have name or artist name at least
-          self.working = name != '(Not Found)' or artist_name != '(Not Found)'
+          self.working = name != '(Not Found)' and artist_name != '(Not Found)'
 
           # Processed
           self.processed = true

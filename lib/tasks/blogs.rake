@@ -43,12 +43,7 @@ namespace :blogs do
     task :all => :environment do
       Blog.all.each do |blog|
         puts "Updating #{blog.name}"
-        posts = blog.get_new_posts
-        if posts.nil?
-          puts "No new posts"
-        else
-          posts.each { |p| puts "Fetched #{p.title}" }
-        end
+        posts = blog.delayed_get_new_posts
       end
     end
 
