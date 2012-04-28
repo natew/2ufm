@@ -163,8 +163,6 @@ $(function() {
     highlightTimeout = setTimeout(highlightSong,25);
   });
 
-
-
   // Playlist bar hover
   var progressBar = $('#player-progress-bar'),
       progressHoverTimeout;

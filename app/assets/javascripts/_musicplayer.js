@@ -242,6 +242,7 @@ var mp = (function() {
         }
       } else {
         clearInterval(marqueeInterval);
+        pl.song.css('text-indent', '0px');
       }
     },
 
@@ -454,20 +455,24 @@ var mp = (function() {
       player.playSection(section);
     },
 
-    getSection: function() {
+    section: function() {
       return curSection;
     },
 
-    getPlaylist: function() {
+    playlist: function() {
       return playlist;
     },
 
-    getPlayingPage: function() {
+    playingPage: function() {
       return playingPage;
     },
 
-    getCurPage: function() {
+    curPage: function() {
+      return curPage;
+    },
 
+    curSong: function() {
+      return curSong;
     }
 
   };

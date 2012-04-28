@@ -38,8 +38,8 @@ footer {
 
 /* HEADING AND TEXT STYLES */
 
-h2 { font-size: 21px; }
-h3 { font-size: 17px; }
+h2 { font-size: 18px; }
+h3 { font-size: 16px; }
 h4 { font-size: 14px; }
 
 h2, h3, h4 {
@@ -93,7 +93,6 @@ h2 small { font-size: 55%; }
 
 /* Header */
 
-header, #bar { min-width: 980px; }
 body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
   width: 100%;
@@ -102,7 +101,7 @@ header {
   line-height: 1em;
 
   .page-contain {
-    width: 980px;
+    width: 940px;
   }
 
   h1 {
@@ -317,10 +316,10 @@ header {
 #bar {
   background: $bar-bg;
   position: absolute;
-  width: 980px;
+  width: 940px;
   left: 50%;
   top: 45px;
-  margin-left: -490px;
+  margin-left: -470px;
   z-index: 98;
   @include border-bottom-radius(5px);
 
@@ -419,7 +418,7 @@ header {
 
     #player-controls-after {
       float: left;
-      width: 68px;
+      width: 63px;
 
       a.volume {
         font-size: 20px;
@@ -432,7 +431,7 @@ header {
       float: left;
       margin: 4px 5px 0;
       height: 30px;
-      width: 518px;
+      width: 483px;
       position: relative;
       background: #555;
 
@@ -686,12 +685,12 @@ ol.mp_list {
 /* Titles */
 
 #announce {
-  display: block;
-  background: #f2f2f2;
+  display: none;
+  background: $lighter-blue;
   color: rgba(0,0,0,0.6);
   font-size: 14px;
   padding: 10px 0 6px;
-  margin: 0 0 -5px 0;
+  margin: 0 20px -5px;
   text-align: center;
   @include border-bottom-radius(5px);
 
@@ -701,18 +700,18 @@ ol.mp_list {
   }
 
   strong {
-    color: #444;
+    display: block;
+    font-size: 24px;
+    color: #000;
     margin: 0 10px 0 0;
-    float: left;
   }
 
   ol {
-    float: left;
     margin: 0;
     padding: 0;
 
     li {
-      float: left;
+      display: inline-block;
       margin: 0 20px;
     }
   }
