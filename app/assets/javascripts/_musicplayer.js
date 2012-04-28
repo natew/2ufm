@@ -18,7 +18,8 @@ var mp = (function() {
       delayStart = false,
       volume = 100,
       playlist_template = '',
-      time = 0;
+      time = 0,
+      marqueeInterval;
 
   // Elements
   var pl = {
@@ -29,6 +30,7 @@ var mp = (function() {
     handle: $('#player-progress-grabber'),
     player: $('#player'),
     song: $('#player-song'),
+    meta: $('#player-meta'),
     play: $('#player-play'),
     invite: $('#player-invite'),
     volume: $('#player-volume')
@@ -133,6 +135,9 @@ var mp = (function() {
 
           // Play
           curSong.play();
+
+          // For scrolling animation
+          this.marquee(true);
           return true;
         } else {
           curSection = null;
@@ -153,6 +158,7 @@ var mp = (function() {
     stop: function stop() {
       if (isPlaying) {
         curSong.stop();
+        this.marquee(false);
         soundManager.stopAll();
       }
     },
@@ -160,12 +166,8 @@ var mp = (function() {
     pause: function pause() {
       if (isPlaying) {
         curSong.pause();
+        this.marquee(false);
       }
-    },
-
-    toggle: function toggle() {
-      if (isPlaying) curSong.togglePause();
-      else this.play();
     },
 
     next: function next() {
@@ -212,6 +214,34 @@ var mp = (function() {
       } else {
         pl.player.removeClass('playing');
         pl.play.html('4');
+      }
+    },
+
+    marquee: function marquee(start) {
+      if (start) {
+        pl.song.removeClass('calculated');
+        var metaWidth   = (pl.meta.width()-28),
+            titleWidth  = pl.song.width(),
+            totalIndent = titleWidth-metaWidth,
+            curIndent   = 0,
+            comingBack  = false;
+        pl.song.addClass('calculated');
+
+        if (totalIndent > 0) {
+          marqueeInterval = setInterval(function() {
+            if (curIndent < totalIndent && !comingBack) {
+              curIndent++;
+              pl.song.css('text-indent', '-'+curIndent+'px');
+            } else {
+              comingBack = true;
+              curIndent--;
+              if (curIndent == 0) comingBack = false;
+              pl.song.css('text-indent', '-'+curIndent+'px');
+            }
+          },35);
+        }
+      } else {
+        clearInterval(marqueeInterval);
       }
     },
 
@@ -387,7 +417,8 @@ var mp = (function() {
     },
 
     toggle: function() {
-      var played = player.toggle();
+      if (isPlaying) player.pause();
+      else player.play();
       return isPlaying;
     },
 
@@ -420,7 +451,6 @@ var mp = (function() {
     },
 
     playSection: function(section) {
-      $('.playlist section:first-child').removeClass('show-play');
       player.playSection(section);
     },
 

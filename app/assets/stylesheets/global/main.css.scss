@@ -456,11 +456,8 @@ header {
         font-size: 15px;
         width: 100%;
         padding: 4px 8px 5px 24px;
-        float: left;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         position: relative;
+        overflow: hidden;
         z-index: 10;
         @include box-sizing(border-box);
 
@@ -468,6 +465,13 @@ header {
           color: #fff;
           text-decoration: none;
           width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          &.calculated {
+            display: block;
+          }
         }
       }
 

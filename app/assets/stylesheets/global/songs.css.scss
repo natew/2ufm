@@ -17,7 +17,8 @@ div.playlist {
       .play-song { visibility: visible !important; }
     }
 
-    &.highlight {
+    &.highlight,
+    &.highlight .song-controls {
       background: #f2f2f2;
 
       .play-song {
@@ -35,17 +36,6 @@ div.playlist {
 
     &.playing {
       background: $lighter-blue;
-
-      .song-controls {
-        .play-song {
-          background-position: -64px 0;
-          visibility: visible;
-        }
-
-        &:hover .play-song {
-          background-position: -64px -64px;
-        }
-      }
     }
 
     &.failed {
@@ -64,17 +54,23 @@ div.playlist {
       z-index: 2;
     }
 
+    $art-size: 64px;
     .song-art {
       position: relative;
       z-index: 1;
-      width: 64px;
-      height: 64px;
+      width: $art-size;
+      height: $art-size;
       margin: 0 0 0 -2+$song-pad;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .song-info {
       float: left;
-      margin: -64px 0 0 75px+$song-pad;
+      margin: -$art-size 0 0 $art-size+11px+$song-pad;
       width: 88%;
 
       h4 {
@@ -261,12 +257,6 @@ div.playlist {
 
   section {
     padding: 5px 0;
-
-    &:hover {
-      .song-controls {
-        background: $lighter-blue;
-      }
-    }
 
     .song-info {
       margin: 0;
