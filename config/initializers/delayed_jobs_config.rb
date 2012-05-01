@@ -5,7 +5,6 @@ Delayed::Worker.destroy_failed_jobs = true
 Delayed::Worker.max_attempts = 1
 Delayed::Worker.delay_jobs = !Rails.env.test?
 Delayed::Worker.logger = Rails.logger
-Delayed::Worker.logger.auto_flushing = 1
 
 module Delayed
   class Worker

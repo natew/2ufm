@@ -35,7 +35,7 @@ div.playlist {
     }
 
     &.playing {
-      background: $lighter-blue;
+      background: $light-blue;
     }
 
     &.failed {
@@ -58,8 +58,6 @@ div.playlist {
     .song-art {
       position: relative;
       z-index: 1;
-      width: $art-size;
-      height: $art-size;
       margin: 0 0 0 -2+$song-pad;
 
       img {

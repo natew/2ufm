@@ -22,8 +22,6 @@ class Blog < ActiveRecord::Base
   after_create  :delayed_get_blog_info, :delayed_get_new_posts
   before_create :set_screenshot
 
-  serialize :feed
-
   # Validations
   validates :url, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true
@@ -37,6 +35,9 @@ class Blog < ActiveRecord::Base
 
   # Whitelist mass-assignment attributes
   attr_accessible :name, :url, :description, :image, :feed_url
+
+  # Scopes
+  scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
 
   def to_param
     slug
@@ -148,10 +149,6 @@ class Blog < ActiveRecord::Base
     end
   end
 
-  def save_current_entries
-    save_posts(feed.entries)
-  end
-
   def save_posts(entries)
     if entries
       entries.each do |post|
@@ -173,45 +170,28 @@ class Blog < ActiveRecord::Base
     end
   end
 
-  # Either fetches feed or updates feed
   # Returns only new entries
   def get_new_rss_entries
-    logger.info "Updating feed"
-    if feed_url and !feed.is_a?(Fixnum)
-      # Check if weve ever fetched feed
-      if feed_updated_at
-        # Already have feed, get new entries
-        self.feed = Feedzirra::Feed.update(feed)
-        if !feed.is_a?(Fixnum)
+    if feed_url
+      logger.info "Updating feed"
+      posts = []
+      self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
+      if feed and !feed.is_a?(Fixnum)
+        if !feed_updated_at or (feed.last_modified > feed_updated_at)
           self.feed_updated_at = feed.last_modified
-          posts = feed.new_entries
-        else
-          return false
+          feed.entries.each do |entry|
+            break if entry.published < feed_updated_at
+            posts.push feed.entries
+          end
         end
       else
-        # Get feed and return entries
-        logger.info "No feed yet, grabbing rss"
-        self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-        if feed and !feed.is_a?(Fixnum)
-          logger.info "Found new entries"
-          self.feed_updated_at = feed.last_modified
-          posts = feed.entries
-        else
-          logger.error "No entries found"
-          return false
-        end
+        logger.error "Error fetching feed / no entries found #{feed}"
       end
 
       self.save
-
-      if !posts.blank?
-        posts
-      else
-        logger.info "No posts"
-        false
-      end
+      posts.empty? ? false : posts
     else
-      logger.error "Feed broken"
+      logger.error "No feed url"
       false
     end
   end

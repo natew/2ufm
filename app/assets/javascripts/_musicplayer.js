@@ -9,6 +9,7 @@ var mp = (function() {
       curSection,
       curSongInfo,
       curSong,
+      listenURL,
       isPlaying = false,
       dragging_position = false,
       dragging_percent,
@@ -85,8 +86,7 @@ var mp = (function() {
         playlistID = curSection.data('station');
         playlist   = $('#playlist-'+playlistID).data('playlist');
 
-        fn.log(playlist);
-        fn.log(pl);
+        fn.log(playlist, pl);
 
         $('#main-mid').addClass('loaded');
 
@@ -203,14 +203,14 @@ var mp = (function() {
     },
 
     refresh: function refresh() {
+      var icon  = isPlaying ? '\u25BA' : '\u25FC',
+          title = curSongInfo.artist + ' - ' + curSongInfo.name;
+
+      $('title').html(icon + ' ' + title);
       if (isPlaying) {
-        var title = curSongInfo.artist + ' - ' + curSongInfo.name;
         pl.player.addClass('playing');
         pl.song.html(title);
         pl.play.html('5');
-        // <title>
-        icon = isPlaying ? '\u25BA' : '\u25FC';
-        $('title').html(icon + ' ' + title);
       } else {
         pl.player.removeClass('playing');
         pl.play.html('4');
@@ -311,6 +311,10 @@ var mp = (function() {
       // fn.log(dragging_percent/100, duration, milliseconds);
       pl.position.attr('width',dragging_percent+'%');
       curSong.setPosition(milliseconds);
+    },
+
+    state: function() {
+      return [mp, curSongInfo];
     }
   };
 
@@ -324,7 +328,7 @@ var mp = (function() {
       pl.bar.addClass('loaded');
       player.setCurSectionActive();
       player.refresh();
-      w.trigger('mp:play', [mp, curSongInfo]);
+      w.trigger('mp:play', player.state());
 
       // Scrobbling
       $.ajax({
@@ -332,9 +336,14 @@ var mp = (function() {
         url: '/listens',
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function(data) {
-          pl.invite.attr('href','/l/'+data);
+          listenURL = '/l/'+data;
+          pl.invite.attr('href',listenURL);
           pl.invite.removeClass('disabled');
           fn.clipboard();
+
+          // Update popup
+          $('#share-facebook').attr('href', 'https://www.facebook.com/sharer.php?u=http://2u.fm'+encodeURI(listenURL));
+          $('#share-twitter').attr('href', 'https://twitter.com/share?url=http://2u.fm'+encodeURI(listenURL));
         },
         dataType: 'html'
       });
@@ -398,11 +407,9 @@ var mp = (function() {
 
     setPage: function(url) {
       curPage = url;
-      if (curPage && curPage == playingPage) {
-        fn.log('RETURNED!!!!!!!!!!!!');
+      if (isPlaying && curPage && curPage == playingPage) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
-        fn.log(curSongInfo.id,curSection);
         player.setCurSectionActive();
       } else {
         curSection = null;

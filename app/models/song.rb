@@ -33,13 +33,13 @@ class Song < ActiveRecord::Base
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
-  # Scopes for playlist
-  scope :group_shared_order_rank, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc')
-  scope :group_shared_order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc')
   scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, blogs.name as blog_name, blogs.slug as blog_slug')
   scope :individual, select_with_info.with_blog_and_post.working
-  scope :playlist_order_rank, group_shared_order_rank.select_with_info.with_blog_and_post.working
-  scope :playlist_order_published, group_shared_order_published.select_with_info.with_blog_and_post.working
+
+  # Scopes for playlist
+  scope :playlist_order_broadcasted, select('DISTINCT ON (broadcasts.created_at, songs.shared_id) songs.*').order('broadcasts.created_at desc').select_with_info.with_blog_and_post.working
+  scope :playlist_order_rank, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc').select_with_info.with_blog_and_post.working
+  scope :playlist_order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc').select_with_info.with_blog_and_post.working
 
   acts_as_url :full_name, :url_attribute => :slug
 
@@ -84,7 +84,7 @@ class Song < ActiveRecord::Base
 
     whitespace = /\s{2,}/
     self.linked_title.gsub!(whitespace,' ')
-    self.linked_title.gsub!(/ \)/,')')
+    self.linked_title = self.linked_title.squish
 
     # Replace authors with links
     artists.for_linking.each do |artist|

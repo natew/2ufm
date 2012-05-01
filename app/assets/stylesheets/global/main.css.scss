@@ -719,8 +719,8 @@ ol.mp_list {
 
 h2.title { color: #000; }
 .title {
-  padding: 0 20px;
-  margin: 0 0 20px;
+  padding: 0 25px;
+  margin: 0 0 25px;
   color: #999;
   position: relative;
 
@@ -790,7 +790,7 @@ h2.title { color: #000; }
     padding: 0;
     position: absolute;
     top: 0;
-    right: 10px;
+    right: 17px;
 
     ul { margin-top: 14px; }
     li {
@@ -889,6 +889,7 @@ h2.title { color: #000; }
 
 /* Image Covers */
 .cover-small {
+  position: relative;
   width: 64px;
   height: 64px;
 
@@ -900,6 +901,7 @@ h2.title { color: #000; }
 }
 
 .cover-medium {
+  position: relative;
   width: 128px;
   height: 128px;
 
@@ -922,7 +924,7 @@ h2.title { color: #000; }
   @include background-size(100% auto);
 }
 
-[class^="cover-"]:hover:before, [class*=" cover-"]:hover:before {
+a[class^="cover-"]:hover:before, a[class*=" cover-"]:hover:before {
   background-position: bottom left;
 }
 
@@ -936,6 +938,33 @@ h2.title { color: #000; }
 .hidden { display: none; }
 
 
+/* Debug */
+#debug {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 11px;
+  z-index:100000;
+}
+
+.debug_dump {display:none;}
+#debug_dump.visible {display:block;}
+#debug_dump {
+  display: none;
+  position: fixed;
+  border-top: 2px solid #ccc;
+  background: #fff;
+  color: #000;
+  padding: 10px;
+  bottom: 0;
+  left: 0;
+  font-size: 11px;
+  z-index: 1000000;
+  width: 100%;
+  height: 250px;
+  overflow: scroll;
+  white-space:pre;
+}
 
 /* Pictos Font
 * Copyright © 2010 Drew Wilson

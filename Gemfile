@@ -11,6 +11,7 @@ gem 'devise'
 gem 'nokogiri'
 gem 'chronic'
 gem 'delayed_job_active_record'
+gem 'delayed_job_admin'
 gem 'stringex', :git => 'git://github.com/rsl/stringex.git'
 gem 'curb'
 gem 'loofah-activerecord'
@@ -26,15 +27,13 @@ gem 'discogs-wrapper'
 gem 'taglib-ruby'
 gem 'whenever', :require => false
 gem 'bourbon'
-gem 'marginalia' # Adds nice info to SQL statements
-
-# Deploy
+gem 'marginalia' # Adds nice info to SQL statements, supposedly (not working yet)
+gem 'jquery-rails'
 gem 'capistrano'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
   gem 'sass-rails',   '~> 3.2.3'
   gem 'uglifier'
 end
@@ -43,16 +42,11 @@ group :development do
   gem 'foreman'
   gem 'taps'
   gem 'quiet_assets'
+  gem 'thin'
+
+  # To use debugger
+  # gem 'ruby-debug19', :require => 'ruby-debug'
 end
-
-# Javascript libs
-gem 'jquery-rails'
-
-# Use thin as the web server
-gem 'thin'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test do
   # Pretty printed test output

@@ -1,3 +1,4 @@
+# Array Helper
 class Array
   def to_playlist
     self.map do |s|
@@ -6,6 +7,7 @@ class Array
   end
 end
 
+# Application Helper
 module ApplicationHelper
   # Station follow
   def follow_station(station)

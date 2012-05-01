@@ -103,8 +103,8 @@
       <div id="player-invite-container"><a id="player-invite" class="tip-n control disabled" title="Send this song to a friend!">&laquo; Invite friends!</a></div>
 
       <div id="player-share">
-        <%= link_to 'Share on Facebook', '#', :class => 'facebook control tip-n', :title => 'Share on Facebook' %>
-        <%= link_to 'Share on Twitter', '#', :class => 'twitter control tip-n', :title => 'Share on Twitter' %>
+        <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>
+        <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
       </div>
     </div>
   </div>
@@ -133,6 +133,9 @@
       </footer>
     </div>
   </div>
+
+  <a id="debug" class="control" href="">Debug</a>
+  <div id="debug_dump"></div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>
 

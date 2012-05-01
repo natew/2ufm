@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def delayed_job_admin_authentication
+    user_signed_in? and current_user.admin?
+  end
+
   private
 
   def set_layout

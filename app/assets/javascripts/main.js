@@ -6,7 +6,8 @@ var w = $(window),
     playlistOffset,
     songSections,
     tipsyClearTimeout,
-    bar = $('#bar');
+    bar = $('#bar'),
+    debug = false;
 
 function highlightSong() {
   var windowOffset = w.scrollTop()+40,
@@ -173,10 +174,39 @@ $(function() {
     progressBar.removeClass('hover');
   });
 
+  // Popups
+  $('.popup').click(function(e){
+    e.preventDefault();
+    var link = $(this),
+        dimensions = link.data('dimensions').split(',');
+    window.open(link.attr('href'),link.attr('title'),'status=0,toolbar=0,location=0,height='+dimensions[0]+',width='+dimensions[1]);
+  })
+
   // Dialog
   setTimeout(function() {
     $('#dialog').animate({opacity:'0'},500,function() {
       $(this).hide();
     });
   },1000);
+
+
+  // Debug
+  $('div,li,section').hover(function() {
+    var d = $(this).children('.debug_dump');
+    if (d.length) {
+      $('#debug_dump').html(d.html());
+    }
+  });
+
+  $('#debug').click(function(e) {
+    e.preventDefault();
+    if (debug) {
+      $('#debug_dump').removeClass('visible');
+      debug = false;
+    }
+    else {
+      $('#debug_dump').addClass('visible');
+      debug = true;
+    }
+  })
 });

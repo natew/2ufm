@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 
   acts_as_url :username, :url_attribute => :slug
 
-  before_validation :make_station
+  before_create :make_station
 
   validates :username, :presence => true
 

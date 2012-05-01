@@ -1,10 +1,11 @@
 <% size ||= :medium %>
 <section>
-    <h3><%= link_to station.title, station %></h3>
-    <% if can? :manage, station %>
-    <span>
-      <%= link_to 'Edit', edit_station_path(station) %>
-      <%= link_to 'Destroy', station, confirm: 'Are you sure?', method: :delete %>
-    </span>
-    <% end %>
+  <h3><%= link_to station.title, station %></h3>
+  <% if can? :manage, station %>
+  <span>
+    <%= link_to 'Edit', edit_station_path(station) %>
+    <%= link_to 'Destroy', station, confirm: 'Are you sure?', method: :delete %>
+  </span>
+  <% end %>
+  <%= debug(song) %>
 </section>
