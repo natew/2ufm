@@ -44,8 +44,8 @@ class Song < ActiveRecord::Base
   acts_as_url :full_name, :url_attribute => :slug
 
   before_create  :get_real_url, :clean_url
-  after_create :delayed_scan_and_save, :set_rank
-  before_save :set_linked_title
+  after_create :delayed_scan_and_save
+  before_save :set_linked_title, :set_rank
 
   # Whitelist mass-assignment attributes
   attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at
