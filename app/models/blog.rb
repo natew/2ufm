@@ -175,20 +175,21 @@ class Blog < ActiveRecord::Base
     if feed_url
       logger.info "Updating feed"
       posts = []
-      self.feed = Feedzirra::Feed.fetch_and_parse(feed_url)
+      feed = Feedzirra::Feed.fetch_and_parse(feed_url)
       if feed and !feed.is_a?(Fixnum)
         if !feed_updated_at or (feed.last_modified > feed_updated_at)
           self.feed_updated_at = feed.last_modified
+          self.save
           feed.entries.each do |entry|
+            logger.info "Save post from #{entry.published}? #{entry.published < feed_updated_at}"
             break if entry.published < feed_updated_at
-            posts.push feed.entries
+            posts.push entry
           end
         end
       else
         logger.error "Error fetching feed / no entries found #{feed}"
       end
 
-      self.save
       posts.empty? ? false : posts
     else
       logger.error "No feed url"
