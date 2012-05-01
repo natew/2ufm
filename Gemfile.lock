@@ -247,6 +247,7 @@ DEPENDENCIES
   capistrano
   chronic
   curb
+  daemons
   delayed_job_active_record
   delayed_job_admin
   devise
