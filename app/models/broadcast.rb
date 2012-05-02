@@ -8,7 +8,7 @@ class Broadcast < ActiveRecord::Base
 
   scope :excluding_stations, lambda { |ids| where(['station_id NOT IN (?)', ids]) if ids.any? }
 
-  before_validation :set_parent
+  before_create :set_parent
   before_save :update_song_rank, :update_counter_cache
   after_destroy :update_counter_cache
 

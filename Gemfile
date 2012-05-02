@@ -56,6 +56,7 @@ group :development do
   gem 'quiet_assets'
   gem 'thin'
   gem 'marginalia' # Adds nice info to SQL statements, supposedly (not working yet)
+  gem 'sql-logging', :git => 'https://pnc@github.com/pnc/sql-logging.git', :branch => 'rails-3-2-fix'
 
 
   # To use debugger

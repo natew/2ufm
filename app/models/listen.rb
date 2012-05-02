@@ -8,8 +8,7 @@ class Listen < ActiveRecord::Base
 
   default_scope order('listens.created_at desc')
 
-  before_validation :anonymous_user
-  before_create :gen_shortcode
+  before_create :gen_shortcode, :anonymous_user
 
   def has_user?
     user_id == 0 ? false : true

@@ -12,7 +12,7 @@ class Artist < ActiveRecord::Base
 
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
-  before_validation :make_station, :get_info
+  before_create :make_station, :get_info
 
   serialize :urls
 

@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
 
   before_create :get_image, :get_content
   before_save :set_excerpt
-  after_create  :delayed_save_songs
+  after_create :delayed_save_songs
 
   # Whitelist mass-assignment attributes
   attr_accessible :title, :url, :blog_id, :author, :content, :published_at

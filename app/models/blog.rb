@@ -18,7 +18,7 @@ class Blog < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
-  before_validation :make_station
+  before_create :make_station
   after_create  :delayed_get_blog_info, :delayed_get_new_posts
   before_create :set_screenshot
 
