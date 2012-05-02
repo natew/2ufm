@@ -2,11 +2,11 @@ namespace :seed do
   task :blogs_stations => :environment do
     add_songs_to_blogs
   end
-  
+
   task :artists_stations => :environment do
     add_songs_to_artists
   end
-  
+
   task :broadcasts => :environment do
     # Randomly broadcast songs
     stations = Station.select(:id).order('random()').where(blog_id:nil,artist_id:nil).limit(500).map(&:id)
@@ -20,13 +20,13 @@ namespace :seed do
       end
     end
   end
-  
+
   task :reset_broadcasts => :environment do
     Broadcast.excluding_stations([Station.new_station.id]).destroy_all
     add_songs_to_blogs
     add_songs_to_artists
   end
-  
+
   task :follows => :environment do
     # Randomly follow stations
     stations = Station.order('random()').limit(500).map(&:id)
@@ -40,7 +40,7 @@ namespace :seed do
       end
     end
   end
-  
+
   task :users => :environment do
     # Create users
     i = 0
