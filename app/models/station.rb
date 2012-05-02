@@ -9,10 +9,6 @@ class Station < ActiveRecord::Base
   has_many   :artists, :through => :songs, :uniq => true
   has_many   :blogs, :through => :songs, :uniq => true
 
-  acts_as_url :title, :url_attribute => :slug, :sync_url => true
-
-  validates :title, presence: true
-
   # Whitelist mass-assignment attributes
   attr_accessible :title, :description
 

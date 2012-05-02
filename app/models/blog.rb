@@ -152,7 +152,7 @@ class Blog < ActiveRecord::Base
   def save_posts(entries)
     if entries
       entries.each do |post|
-        puts "Searching for songs in #{post.title}"
+        logger.info "Searching for songs in #{post.title}"
         # Search for song
         find_song_in(post.content) do
           logger.info "Creating post #{post.title}"
@@ -163,7 +163,7 @@ class Blog < ActiveRecord::Base
             :title => post.title,
             :author => post.author,
             :content => post.content,
-            :created_at => post.published
+            :published_at => post.published
           )
         end
       end
@@ -173,7 +173,7 @@ class Blog < ActiveRecord::Base
   # Returns only new entries
   def get_new_rss_entries
     if feed_url
-      logger.info "Updating feed"
+      logger.info "Updating feed for #{name}"
       posts = []
       feed = Feedzirra::Feed.fetch_and_parse(feed_url)
       if feed and !feed.is_a?(Fixnum)
@@ -212,8 +212,8 @@ class Blog < ActiveRecord::Base
         logger.error "URI does not match (#{URI(url).host} == #{URI(url).host})"
       end
     rescue Exception => e
-      puts e.message
-      puts e.backtrace.join("\n")
+      logger.info e.message
+      logger.info e.backtrace.join("\n")
     end
   end
 

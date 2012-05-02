@@ -1,4 +1,13 @@
 namespace :seed do
+  task :similar_songs => :environment do
+    b1 = Blog.create(url:'http://test.com', name:'Blog 1')
+    b2 = Blog.create(url:'http://test2.com', name:'Blog 2')
+    b3 = Blog.create(url:'http://test3.com', name:'Blog 3')
+
+    # b1.songs.create(url: 'http://soundcloud.com/the-clothes-hangar/two-door-cinema-club-eat-that-up-its-good-for-you')
+    # b2.songs.create(url: 'http://dl.soundowl.com/3bwd.mp3')
+  end
+
   task :blogs_stations => :environment do
     add_songs_to_blogs
   end

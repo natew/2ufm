@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
   # Slug
   acts_as_url :title, :url_attribute => :slug
 
-  before_create :get_image
+  before_create :get_image, :get_content
   before_save :set_excerpt
   after_create  :delayed_save_songs
 
@@ -48,23 +48,37 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def get_content
+    if !content
+      open(url) do |f|
+        self.content = f.read
+      end
+    else
+      content
+    end
+  end
+
   def save_songs
     logger.info "Saving songs from post #{title}"
-    parse = Nokogiri::HTML(content)
+    parse = Nokogiri::HTML(get_content)
     parse.css('a').each do |link|
-      if link['href'] =~ /\.mp3(\?(.*))?$/
+      if link['href'] =~ /soundcloud\.com\/.*\/|\.mp3(\?(.*))?$/
         logger.info "Found song!"
         #TODO Find or create by ID so we can rescan posts
-        found_song = Song.create(
-          :blog_id    => blog_id,
-          :post_id    => id,
-          :url        => link['href'],
-          :link_text  => link.content,
-          :published_at => created_at
-        )
+        found_song = create_song(link['href'],link.content)
         logger.info "Created song #{link.content}"
       end
     end
+  end
+
+  def create_song(url, text)
+    Song.create(
+      :blog_id    => blog_id,
+      :post_id    => id,
+      :url        => url,
+      :link_text  => text,
+      :published_at => created_at
+    )
   end
 
   def process_songs

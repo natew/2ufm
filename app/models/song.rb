@@ -144,9 +144,10 @@ class Song < ActiveRecord::Base
       begin
         total = nil
         prev  = 0
-        logger.info "Scanning #{url} ..."
+        file_url = absolute_url || url
+        logger.info "Scanning #{file_url} ..."
 
-        open(url,
+        open(file_url,
           :content_length_proc => lambda { |content_length|
             raise "Too Big" if (content_length > (1048576 * 40)) # 20 MB maximum song size
             total = content_length
@@ -268,9 +269,13 @@ class Song < ActiveRecord::Base
           absolute_url = link['href']
         end
       end
-      false
-    else
-      absolute_url = url
+    when /soundcloud\.com/
+      open(url) do |f|
+        html = f.read
+        slug = url.split('/').last
+        match = html.scan(/#{slug}.*{0,100}streamUrl.*\?stream_token=[A-Za-z0-9]{5}/)[0]
+        self.absolute_url = match.scan(/http:\/\/media.*/)[0] if match
+      end
     end
   end
 
@@ -305,11 +310,10 @@ class Song < ActiveRecord::Base
 
   def find_similar_songs
     if name and artist_name
-      containers  = /[\[\]\(\)\,\&\-\']/
-      tags        = /( (rmx|remix|mix)|(feat|ft)(\.| )|(featuring|produced by) |(original|vip|radio|vip|extended) (edit|rip|mix))+/i
+      containers  = /\(.*\)|\[.*\]/
       percents    = /(% ?){2,10}/
-      search_name = name.gsub(containers,'%').gsub(tags,'%').gsub(percents,'').strip
-      found       = Song.where("artist_name ILIKE (?) and name ILIKE(?) and id != ?", artist_name, search_name, id).oldest.first
+      search_name = name.gsub(containers,'%').gsub(percents,'').strip
+      found       = Song.where("name ILIKE(?) and id != ?", search_name, id).oldest.first
     end
 
     if found
@@ -319,7 +323,7 @@ class Song < ActiveRecord::Base
       self.save
 
       if found.shared_id.nil?
-        # This means this is the first "match", so lets update it
+        # This means this is the first time weve matched it, lets update the original
         found.shared_id = found.id
         found.shared_count = 2
         found.save
@@ -327,7 +331,7 @@ class Song < ActiveRecord::Base
         # Else we have more than one song already existing thats similar
         # So we need to update all similar songs' shared_counts+1
         existing_similar_songs = Song.where(shared_id:shared_id)
-        existing_similar_songs.update_all(shared_count:existing_similar_songs.count)
+        existing_similar_songs.update_all(shared_count:existing_similar_songs.size)
       end
     else
       self.shared_id = id
@@ -370,7 +374,7 @@ class Song < ActiveRecord::Base
   end
 
   def parse_artists
-    puts "Parsing #{id}: #{artist_name} - #{name}"
+    logger.info "Parsing artists in #{id}: #{full_name}"
     name_artists = artists_in_name unless name.blank?
     artist_artists = artists_in_artist unless name.blank?
     merged = name_artists | artist_artists
