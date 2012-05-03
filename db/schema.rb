@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120426045907) do
+ActiveRecord::Schema.define(:version => 20120503050927) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -45,16 +45,11 @@ ActiveRecord::Schema.define(:version => 20120426045907) do
   create_table "blogs", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.text     "feed"
     t.string   "url"
     t.string   "feed_url"
     t.datetime "feed_updated_at"
-    t.datetime "last_spidered"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cms"
-    t.string   "css_post"
-    t.string   "css_title"
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
@@ -166,8 +161,8 @@ ActiveRecord::Schema.define(:version => 20120426045907) do
   end
 
   create_table "songs", :force => true do |t|
-    t.string   "name"
-    t.string   "artist_name"
+    t.string   "name",                  :default => ""
+    t.string   "artist_name",           :default => ""
     t.string   "album_name"
     t.string   "genre"
     t.string   "album_artist"

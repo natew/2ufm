@@ -23,7 +23,8 @@ class Song < ActiveRecord::Base
   has_attachment :file
 
   # Validations
-  validates :url, presence: true, uniqueness: true
+  validates :url, :presence => true, :uniqueness => true
+  validate :unique_to_blog, :on => :create
 
   # Scopes
   scope :unprocessed, where(processed: false)
@@ -43,7 +44,7 @@ class Song < ActiveRecord::Base
 
   acts_as_url :full_name, :url_attribute => :slug
 
-  before_create  :get_real_url, :clean_url
+  before_create :get_real_url, :clean_url
   after_create :delayed_scan_and_save
   before_save :set_linked_title, :set_rank
 
@@ -169,15 +170,15 @@ class Song < ActiveRecord::Base
 
           # Tag
           tag               = file.id3v2_tag
-          self.name         = tag.title || link_info[0] || '(Not Found)'
-          self.artist_name  = tag.artist || link_info[1] || '(Not Found)'
+          self.name         = tag.title || link_info[0] || ''
+          self.artist_name  = tag.artist || link_info[1] || ''
           self.album_name   = tag.album
           self.track_number = tag.track.to_i
           self.genre        = tag.genre
           self.image        = get_album_art(tag)
 
           # Working if we have name or artist name at least
-          self.working = name != '(Not Found)' and artist_name != '(Not Found)'
+          self.working = !name.blank? and !artist_name.blank?
 
           # Processed
           self.processed = true
@@ -375,20 +376,24 @@ class Song < ActiveRecord::Base
 
   def parse_artists
     logger.info "Parsing artists in #{id}: #{full_name}"
-    name_artists = artists_in_name unless name.blank?
-    artist_artists = artists_in_artist unless name.blank?
+    name_artists = artists_in_name
+    artist_artists = artists_in_artist
     merged = name_artists | artist_artists
     merged ? merged : []
   end
 
   def artists_in_name
     # Strip unnecessary stuff and parse the song name
-    strip = /(extended|vip|original|club)|(extended|vip|radio) edit/i
-    all_artists(name:name.gsub(strip,''))
+    name = link_info[1] if name.blank?
+    name = name.gsub(/(extended|vip|original|club)|(extended|vip|radio) edit/i,'')
+    logger.info "Parsing artists in name: #{name}"
+    all_artists(name:name)
   end
 
   def artists_in_artist
     # Now parse the artist field
+    artist_name = link_info[0] if artist_name.blank?
+    logger.info "Parsing artists in artist: #{artist_name}"
     artist_artists = all_artists(artist:artist_name)
     !artist_artists.empty? ? artist_artists : [[artist_name, :original]]
   end
@@ -435,7 +440,9 @@ class Song < ActiveRecord::Base
           end
         end
       end
-    elsif artist
+    end
+
+    if artist
       # TODO: Split and scan discogs here to determine whether the & is part of the artist name or just separating multiple artists
 
       # If artist, we can look for comma separated names
@@ -471,5 +478,13 @@ class Song < ActiveRecord::Base
 
   def clean_url
     self.url = URI.escape(url)
+  end
+
+  private
+
+  def unique_to_blog
+    if Song.were('url = ? and blog_id = ? and id != ?', url, blog_id, id).count > 0
+      errors.add :url, "This song already exists"
+    end
   end
 end

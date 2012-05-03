@@ -18,18 +18,12 @@ class Blog < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
-  before_create :make_station
   after_create  :delayed_get_blog_info, :delayed_get_new_posts
-  before_create :set_screenshot
+  before_create :make_station, :set_screenshot
 
   # Validations
   validates :url, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true
-  validates :station, presence: true
-
-  # Validations from steps from submitting
-  validates_uniqueness_of :name, :url, :if => lambda { |o| o.current_step == "about" }
-  validates_presence_of :name, :url, :if => lambda { |o| o.current_step == "about" }
 
   attr_writer :current_step
 
@@ -179,12 +173,12 @@ class Blog < ActiveRecord::Base
       if feed and !feed.is_a?(Fixnum)
         if !feed_updated_at or (feed.last_modified > feed_updated_at)
           self.feed_updated_at = feed.last_modified
-          self.save
           feed.entries.each do |entry|
             logger.info "Save post from #{entry.published}? #{entry.published < feed_updated_at}"
             break if entry.published < feed_updated_at
             posts.push entry
           end
+          self.save
         end
       else
         logger.error "Error fetching feed / no entries found #{feed}"
