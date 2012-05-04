@@ -47,7 +47,7 @@ namespace :songs do
       end
     end
 
-    task :artists_and_titles do
+    task :artists_and_titles => :environment do
       Song.working.each do |song|
         song.rescan_artists
         song.set_linked_title

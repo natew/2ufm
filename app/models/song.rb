@@ -344,7 +344,7 @@ class Song < ActiveRecord::Base
       if !artists.empty?
         original = true
         artists.each do |name,role|
-          original = false if role == :remixer or role == :mashup
+          original = false if role == :remixer or role == :mashup or role == :cover
           match = Artist.where("name ILIKE (?)", name).first
           match = Artist.create(name: name) unless match
           self.authors.find_or_create_by_artist_id_and_role(match.id, role)
