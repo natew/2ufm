@@ -462,6 +462,8 @@ class Song < ActiveRecord::Base
           matched.push [artist.strip, :original]
         end
       end
+
+      matched.push [original.strip, :original] if matched.empty?
     else
       # If name, we can look for a badly formatted mp3
       # Such as "artist - song" inside the name
@@ -472,8 +474,12 @@ class Song < ActiveRecord::Base
   end
 
   def link_info
-    split = link_text.split(/\s*(-|—|–)\s*/)
-    split.size >= 3 ? [split[0], split[2]] : [nil,nil]
+    if link_text
+      split = link_text.split(/\s*(-|—|–)\s*/)
+      split.size >= 3 ? [split[0], split[2]] : [nil,nil]
+    else
+      ['','']
+    end
   end
 
   def clean_url
