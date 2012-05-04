@@ -16,8 +16,7 @@ class Post < ActiveRecord::Base
   # Slug
   acts_as_url :title, :url_attribute => :slug
 
-  before_create :get_image, :get_content
-  before_save :set_excerpt
+  before_create :get_image, :get_content, :set_excerpt
   after_create :delayed_save_songs
 
   # Whitelist mass-assignment attributes

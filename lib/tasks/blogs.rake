@@ -41,6 +41,7 @@ namespace :blogs do
 
   namespace :update do
     task :all => :environment do
+      puts "Updating blogs at #{Time.now.to_s(:long)}"
       Blog.all.each do |blog|
         puts "Updating #{blog.name}"
         blog.delayed_get_new_posts

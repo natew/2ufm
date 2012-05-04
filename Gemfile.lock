@@ -26,14 +26,6 @@ GIT
     texticle (2.0.3)
       activerecord (~> 3.0)
 
-GIT
-  remote: https://pnc@github.com/pnc/sql-logging.git
-  revision: 07bb10127177ec794c7b54bbe68aaa5af921737a
-  branch: rails-3-2-fix
-  specs:
-    sql-logging (3.0.6)
-      rails (> 3.0.0)
-
 GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
@@ -275,7 +267,6 @@ DEPENDENCIES
   rails (= 3.2.2)
   sanitize
   sass-rails (~> 3.2.3)
-  sql-logging!
   stringex!
   taglib-ruby
   taps

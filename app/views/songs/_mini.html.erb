@@ -3,13 +3,13 @@
   <div class="song-info">
     <h4><%= mini.linked_title.html_safe %></h4>
     <div class="song-meta">
+      <%= link_to 'j', mini, :class => 'pictos permalink' %>
       <%= link_to "#{truncate(mini.blog_name)}".html_safe, blog_path(mini.blog_slug) %> &nbsp;&middot;
       <%- if mini.reposted? -%>
         Posted by <%= link_to pluralize(mini.shared_count,'blog'), mini %>
         &nbsp;&middot;
       <%- end -%>
       <time><%= relative_time(mini.published_at) %></time>
-      <%= link_to 'j', mini, :class => 'pictos permalink' %>
     </div>
   </div>
   <ul class="song-controls">

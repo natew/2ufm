@@ -483,7 +483,7 @@ class Song < ActiveRecord::Base
   private
 
   def unique_to_blog
-    if Song.were('url = ? and blog_id = ? and id != ?', url, blog_id, id).count > 0
+    if Song.where('url = ? and blog_id = ? and id != ?', url, blog_id, id).count > 0
       errors.add :url, "This song already exists"
     end
   end

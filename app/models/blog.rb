@@ -149,7 +149,7 @@ class Blog < ActiveRecord::Base
         logger.info "Searching for songs in #{post.title}"
         # Search for song
         find_song_in(post.content) do
-          logger.info "Creating post #{post.title}"
+          logger.info "Found song, creating post #{post.title}"
           # Save posts to db
           Post.create(
             :url => post.url.to_s,
@@ -170,15 +170,18 @@ class Blog < ActiveRecord::Base
       logger.info "Updating feed for #{name}"
       posts = []
       feed = Feedzirra::Feed.fetch_and_parse(feed_url)
+
       if feed and !feed.is_a?(Fixnum)
-        if !feed_updated_at or (feed.last_modified > feed_updated_at)
-          self.feed_updated_at = feed.last_modified
+        if feed_updated_at.nil? or feed.last_modified > feed_updated_at
           feed.entries.each do |entry|
-            logger.info "Save post from #{entry.published}? #{entry.published < feed_updated_at}"
-            break if entry.published < feed_updated_at
+            older = !feed_updated_at.nil? and entry.published < feed_updated_at
+            logger.debug "Save post from #{entry.published}: #{older}"
+            break if older
             posts.push entry
           end
+          self.feed_updated_at = feed.last_modified
           self.save
+          logger.debug "Found #{posts.length} posts"
         end
       else
         logger.error "Error fetching feed / no entries found #{feed}"
