@@ -173,10 +173,10 @@ class Blog < ActiveRecord::Base
 
       if feed and !feed.is_a?(Fixnum)
         if feed_updated_at.nil? or feed.last_modified > feed_updated_at
+          logger.debug "Feed updated at: #{feed_updated_at}"
           feed.entries.each do |entry|
-            older = !feed_updated_at.nil? and entry.published < feed_updated_at
-            logger.debug "Save post from #{entry.published}: #{older}"
-            break if older
+            logger.debug "Break? #{entry.published}: #{entry.published < feed_updated_at}" unless feed_updated_at.nil?
+            break if !feed_updated_at.nil? and entry.published < feed_updated_at
             posts.push entry
           end
           self.feed_updated_at = feed.last_modified
@@ -215,7 +215,6 @@ class Blog < ActiveRecord::Base
   end
 
   def reset_feed
-    self.feed = nil
     self.feed_updated_at = nil
     self.save
   end

@@ -59,6 +59,12 @@ namespace :blogs do
     end
   end
 
+  task :reset_feeds => :environment do
+    Blog.all.each do |blog|
+      blog.reset_feed
+    end
+  end
+
   task :reset, [:blog] => :environment do |t,args|
     blog = Blog.find_by_slug(args.blog)
     blog.reset
