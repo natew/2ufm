@@ -46,6 +46,14 @@ namespace :songs do
         song.save
       end
     end
+
+    task :artists_and_titles do
+      Song.working.each do |song|
+        song.rescan_artists
+        song.set_linked_title
+        song.save
+      end
+    end
   end
 
   namespace :scan do

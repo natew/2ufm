@@ -82,9 +82,6 @@ class Song < ActiveRecord::Base
 
     keywords = /www\.\S*|\S*\.com|featuring |ft(\.| )|feat(\.| )| remix| rmx\.?| bootleg| mix|produced by|prod\.?( by)?| cover/i
     self.linked_title.gsub!(keywords,' ')
-
-    whitespace = /\s{2,}/
-    self.linked_title.gsub!(whitespace,' ')
     self.linked_title = self.linked_title.squish
 
     # Replace authors with links
@@ -95,8 +92,6 @@ class Song < ActiveRecord::Base
         '<a class="role role-'+artist.role+'" href="/artists/'+artist.slug+'">'+artist.name+'</a>\1'
       )
     end
-
-    self.linked_title
   end
 
   # User broadcasts
@@ -383,22 +378,24 @@ class Song < ActiveRecord::Base
   end
 
   def artists_in_name
+    parse_name = name
+    parse_name = link_info[1] if name.blank?
     # Strip unnecessary stuff and parse the song name
-    name = link_info[1] if name.blank?
-    name = name.gsub(/(extended|vip|original|club)|(extended|vip|radio) edit/i,'')
-    logger.info "Parsing artists in name: #{name}"
-    all_artists(name:name)
+    logger.debug "1 #{parse_name}, #{name}"
+    parse_name.gsub!(/(extended|vip|original|club)|(extended|vip|radio) edit/i,'')
+    logger.debug "3 #{parse_name}, #{name}"
+    all_artists(name:parse_name)
   end
 
   def artists_in_artist
     # Now parse the artist field
-    artist_name = link_info[0] if artist_name.blank?
-    logger.info "Parsing artists in artist: #{artist_name}"
-    artist_artists = all_artists(artist:artist_name)
-    !artist_artists.empty? ? artist_artists : [[artist_name, :original]]
+    parse_artist_name = artist_name
+    parse_artist_name = link_info[0] if parse_artist_name.blank?
+    all_artists(artist:parse_artist_name)
   end
 
   def all_artists(title)
+    logger.debug "All artists in #{title}"
     artist  = title[:artist].nil? ? false : true
     string  = title[:artist] || title[:name]
     matched = []
