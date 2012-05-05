@@ -229,7 +229,6 @@ class Song < ActiveRecord::Base
     path = open(file_url).path if !path
     # Waveform
     waveform = Waveform.new(path)
-    # waveform_path = File.join(Rails.root, 'tmp', 'images', 'song_waveform_'+id.to_s+'.png')
     waveform_path = Paperclip::Tempfile.new('song_waveform_'+id.to_s+'.png', Rails.root.join('tmp'))
     waveform.generate(waveform_path,
       method: :rms,

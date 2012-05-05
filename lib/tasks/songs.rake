@@ -68,6 +68,12 @@ namespace :songs do
       end
     end
 
+    task :all => :environment do
+      Song.working.each do |song|
+        song.delayed_scan_and_save
+      end
+    end
+
     task :unprocessed => :environment do
       songs = Song.where(processed: false)
       songs.each do |song|
