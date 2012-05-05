@@ -20,6 +20,7 @@ class Song < ActiveRecord::Base
 
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['64x64#'], icon: ['32x32#'], tiny: ['24x24#'] }
+  has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
   has_attachment :file
 
   # Validations
@@ -70,6 +71,10 @@ class Song < ActiveRecord::Base
 
   def full_name
     "#{artist_name} - #{name}"
+  end
+
+  def file_url
+    absolute_url || url
   end
 
   def original_artists
@@ -140,7 +145,6 @@ class Song < ActiveRecord::Base
       begin
         total = nil
         prev  = 0
-        file_url = absolute_url || url
         logger.info "Scanning #{file_url} ..."
 
         open(file_url,
@@ -184,6 +188,9 @@ class Song < ActiveRecord::Base
 
           # Update info if we have processed this song
           if working?
+            # Waveform
+            self.waveform = generate_waveform(song.path)
+
             # Add to stations
             add_to_stations
 
@@ -214,6 +221,37 @@ class Song < ActiveRecord::Base
       delay(:priority => 1).scan_and_save
     else
       scan_and_save
+    end
+  end
+
+  # Generate waveform
+  def generate_waveform(path=nil)
+    path = open(file_url).path if !path
+    # Waveform
+    waveform = Waveform.new(path)
+    # waveform_path = File.join(Rails.root, 'tmp', 'images', 'song_waveform_'+id.to_s+'.png')
+    waveform_path = Paperclip::Tempfile.new('song_waveform_'+id.to_s+'.png', Rails.root.join('tmp'))
+    waveform.generate(waveform_path,
+      method: :rms,
+      width: 1000,
+      height: 200,
+      background_color: :transparent,
+      color: '#000000',
+      force: true
+    )
+    waveform_path
+  end
+
+  def update_waveform
+    self.waveform = generate_waveform
+    self.save
+  end
+
+  def delayed_update_waveform
+    if Rails.application.config.delay_jobs
+      delay(:priority => 4).update_waveform
+    else
+      update_waveform
     end
   end
 

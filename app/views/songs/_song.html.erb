@@ -26,5 +26,6 @@
     <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
   <%= link_to '', song, :class => 'song-link control' %>
+  <%= image_tag song.waveform, :class => 'waveform' unless song.waveform.nil? %>
   <%= debug(song) %>
 </section>

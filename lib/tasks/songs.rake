@@ -7,18 +7,6 @@ namespace :songs do
     puts Song.where(processed:true).count
   end
 
-  task :save => :environment do
-    begin
-      Song.where(working:true).each do |song|
-        puts "Saving song #{song.id}"
-        song.save
-        puts "  rank = #{song.rank}"
-      end
-    rescue Exception => e
-      puts e.message
-    end
-  end
-
   task :fix_similar_count => :environment do
     Song.all.each do |song|
       #song.shared_count = Song.where(shared_id:id).count
@@ -41,9 +29,15 @@ namespace :songs do
   end
 
   namespace :update do
-    task :rank => :environment do
+    task :ranks => :environment do
       Song.working.each do |song|
         song.save
+      end
+    end
+
+    task :waveforms => :environment do
+      Song.working.each do |song|
+        song.delayed_update_waveform
       end
     end
 

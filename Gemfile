@@ -7,7 +7,7 @@ gem 'pg'
 # Assets
 gem 'bourbon'
 gem 'paperclip', '~> 3.0'
-gem 'aws-s3'
+gem 'aws-sdk'
 gem 'aws-ses'
 gem 'jquery-rails'
 
@@ -39,6 +39,11 @@ gem 'bson_ext'
 gem 'discogs-wrapper'
 gem 'taglib-ruby'
 # gem 'oauth2'
+
+# Waveforms
+gem 'oily_png'
+gem 'waveform'
+gem 'ffmpeg'
 
 # Deploy
 gem 'capistrano'
