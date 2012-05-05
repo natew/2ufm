@@ -70,6 +70,7 @@ namespace :deploy do
   task :symlink_tmp do
     run "rm -rf #{release_path}/tmp"
     run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
+    run "chmod 775 #{shared_path}/tmp"
   end
 
   task :clear_cache do
