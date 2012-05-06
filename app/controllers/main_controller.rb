@@ -6,7 +6,7 @@ class MainController < ApplicationController
 
     if !user_signed_in?
       @new = Station.new_station
-      @featured = Blog.select_for_shelf.order('random()').limit(6)
+      @featured = Station.blog_station.order('random()').limit(6)
     else
       @stations = current_user.stations
     end

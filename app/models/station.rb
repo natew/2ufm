@@ -9,6 +9,8 @@ class Station < ActiveRecord::Base
   has_many   :artists, :through => :songs, :uniq => true
   has_many   :blogs, :through => :songs, :uniq => true
 
+  scope :blog_station, where('blog_id is not NULL')
+
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title
 
@@ -26,6 +28,16 @@ class Station < ActiveRecord::Base
     p = Station.new(:id => 0, :title => 'Newest')
     p.songs = Song.playlist_order_published.limit(opts[:limit] || 12)
     p
+  end
+
+  def image
+    if !blog_id.nil?
+      blog.image
+    elsif !artist_id.nil?
+      artist.image
+    elsif !user_id.nil?
+      user.image
+    end
   end
 
   def to_playlist_json

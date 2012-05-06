@@ -1,5 +1,46 @@
 @import "mixins.css.scss";
 
+.stations {
+  margin: 0 0 0 20px;
+
+  section {
+    float: left;
+    width: 320px;
+    margin: 0 0 20px 0;
+
+    .cover-small {
+      float: left;
+      margin: 0 10px 0 0;
+    }
+
+    .info {
+      float: left;
+
+      h3 {
+        margin: 0 0 2px 0;
+
+        a {
+          text-decoration: none;
+          color: #444;
+          font-size: 13px;
+        }
+      }
+
+      strong {
+        font-size: 11px;
+        display: block;
+        margin: 0 0 -2px 0;
+      }
+
+      time {
+        display: block;
+        font-size: 11px;
+        color: #999;
+      }
+    }
+  }
+}
+
 .shelf {
   margin: 0 20px 20px;
 

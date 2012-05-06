@@ -1,11 +1,19 @@
 <% size ||= :medium %>
 <section>
-  <h3><%= link_to station.title, station %></h3>
-  <% if can? :manage, station %>
+  <div class="cover-small">
+    <%= image_tag station.image.url(:small) %>
+  </div>
+  <div class="info">
+    <h3><%= link_to station.title, station.blog %></h3>
+    <strong><%= pluralize number_with_delimiter(station.follows.count), 'follower' %> &middot; <%= pluralize number_with_delimiter(station.songs.count), 'song' %></strong>
+    <time>Last updated <%= station.broadcasts.count > 0 ? relative_time(station.broadcasts.order(:created_at).first.created_at) : 'never' %></time>
+  </div>
+
+  <%- if can? :manage, station -%>
   <span>
     <%= link_to 'Edit', edit_station_path(station) %>
     <%= link_to 'Destroy', station, confirm: 'Are you sure?', method: :delete %>
   </span>
-  <% end %>
-  <%= debug(song) %>
+  <%- end -%>
+  <%= debug(station) %>
 </section>

@@ -2,7 +2,7 @@
 
 
 /* Layout */
-
+html,body {min-height: 100%;}
 body {
   background: #fff;
   color: #666;
@@ -147,7 +147,7 @@ header {
       text-decoration: none;
       white-space: nowrap;
       margin: 5px 8px 0 0;
-      padding: 10px;
+      padding: 10px 10px 16px;
       position: relative;
       z-index: 1;
 
@@ -189,6 +189,7 @@ header {
       position: absolute;
       background: #fff;
       z-index: 0;
+      padding: 20px 10px;
       @include box-shadow(0 0 6px rgba(0,0,0,0.2));
       @include border-bottom-radius(4px);
 
@@ -658,7 +659,26 @@ header #second-nav {
       }
 
       #player-progress-position {
+        z-index: 4;
         @include border-right-radius(3px);
+      }
+
+      #player-progress-waveform {
+        display: none !important;
+      }
+
+      canvas {
+        top: 2px;
+        position: absolute;
+        opacity: 0.4;
+        width: 96%;
+        height: 15px;
+        position: absolute;
+        top: 2px;
+        left: 2%;
+        opacity: 0.3;
+        z-index: 2;
+        display: block !important;
       }
     }
   }

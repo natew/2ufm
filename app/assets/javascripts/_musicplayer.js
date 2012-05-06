@@ -39,11 +39,8 @@ var mp = (function() {
 
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
-  //soundManager.flashVersion = 9; // optional: shiny features (default = 8)
-  soundManager.useFlashBlock = false; // optionally, enable when you're ready to dive in
+  soundManager.useFlashBlock = false;
   soundManager.debugMode = false;
-  //soundManager.useFastPolling = true;
-  //soundManager.useHighPerformance = true;
   soundManager.useHTML5Audio = true;
   soundManager.preferFlash = false;
   soundManager.onready(function() {
@@ -462,7 +459,7 @@ var mp = (function() {
       player.playSection(section);
     },
 
-    section: function() {
+    curSection: function() {
       return curSection;
     },
 

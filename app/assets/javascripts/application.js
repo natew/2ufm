@@ -11,6 +11,7 @@
 //= require jquery.tipsy
 //= require jquery.flot.min
 //= require jquery.pjax
+//= require jquery.inverter
 //= require mustache
 //= require soundmanager2
 //= require ZeroClipboard

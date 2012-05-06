@@ -1,9 +1,7 @@
 <%- if !user_signed_in? -%>
-<div class="shelf">
+<div class="stations">
   <h2>Recommended Stations</h2>
-  <ul>
-    <%= render :partial => 'stations/shelf', :collection => @featured %>
-  </ul>
+  <%= render :partial => 'stations/station', :collection => @featured %>
 </div>
 <%- end -%>
 

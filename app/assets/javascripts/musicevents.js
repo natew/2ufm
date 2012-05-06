@@ -14,6 +14,11 @@ w.on({
     $('#player-artist-name').html(song.artist);
     $('#player-song-name').html(song.name);
 
+    // Update progress bar
+    var waveform = mp.curSection().children('.waveform').attr('src');
+    $('#player-progress-waveform, #player-progress-bar canvas').remove();
+    $('<img id="player-progress-waveform" src="'+waveform+'" />').appendTo('#player-progress-bar').inverter();
+
     // Scroll to song
     if (mp.isOnPlayingPage()) {
       var section    = $('#song-'+song.id),
