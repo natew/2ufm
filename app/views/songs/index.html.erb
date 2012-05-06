@@ -3,7 +3,7 @@
 </div>
 
 <div class="twothirds">
-  <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs } %>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
 </div>
 
 <div class="third">

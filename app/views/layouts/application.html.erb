@@ -71,12 +71,19 @@
           </div>
         </div>
       </div>
-      <div id="player-invite-container"><a id="player-invite" class="tip-n control disabled" title="Send this song to friends!">Share this!</a></div>
+      <div id="player-invite-container"><a id="player-invite" class="tip-n control disabled" title="Send this song to friends!" data-hover="Copy!" data-click="Copied!">Share!</a></div>
 
       <div id="player-share">
         <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>
         <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
       </div>
+    </div>
+
+    <div id="second-nav">
+      <%= link 'New', '/songs-new', :class => 'pictos-new' %>
+      <%= link 'Artists', '/artists', :class => 'pictos-artists' %>
+      <%= link 'Popular', '/songs', :class => 'pictos-popular' %>
+      <%= link 'Stations', '/blogs', :class => 'pictos-stations' %>
     </div>
 
     <div id="functions">

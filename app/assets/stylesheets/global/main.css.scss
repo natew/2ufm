@@ -110,7 +110,7 @@ header {
 
   h1 {
     position: absolute;
-    top: -7px;
+    top: -6px;
     left: 7px;
     margin: 0;
 
@@ -128,7 +128,7 @@ header {
 
   nav {
     float: left;
-    padding-left: 82px;
+    padding-left: 88px;
 
     &:hover {
       #station {
@@ -163,11 +163,11 @@ header {
         font-size: 14px;
         color: #000;
         position: relative;
-        padding-right: 16px;
+        padding-right: 9px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        width: 100px;
+        width: 105px;
         height: 17px;
 
         &:after {
@@ -227,7 +227,7 @@ header form {
   #query {
     border: none;
     padding: 5px 12px;
-    width: 200px;
+    width: 180px;
     margin: 0;
     color: #ddd;
     background: #fff;
@@ -343,6 +343,48 @@ header #functions {
   }
 }
 
+header #second-nav {
+  padding: 10px;
+  width: 150px;
+  float: left;
+  margin-left: 20px;
+
+  a {
+    font-size: 12px;
+    width: 50%;
+    float: left;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #999;
+    @include box-sizing(border-box);
+
+    &:hover,
+    &:hover:before {
+      color: #000;
+    }
+  }
+}
+
+[class^="pictos-"], [class*=" pictos-"] {
+  position: relative;
+}
+
+[class^="pictos-"]:before, [class*=" pictos-"]:before {
+  display: inline-block;
+  position: absolute;
+  left: -10px;
+  top: 5px;
+  font-size: 14px;
+  color: #999;
+  font-family: 'Pictos';
+}
+
+.pictos-new:before {content: "m";}
+.pictos-artists:before {content: "U";}
+.pictos-popular:before {content: "Y";}
+.pictos-stations:before {content: "f";}
+
 
 /* BAR */
 #bar {
@@ -393,22 +435,22 @@ header #functions {
 
   #player-invite-container {
     position: absolute;
-    bottom: 5px;
-    right: -72px;
+    top: 8px;
+    right: 8px;
   }
 
   #player-invite {
-    padding: 4px;
+    padding: 5px;
     font-weight: bold;
-    font-size: 11px;
-    width: 64px;
+    font-size: 12px;
+    width: 44px;
     display: block;
     text-align: center;
     text-decoration: none;
     background: #555;
     color: #fff;
-    @include border-radius(4px);
-    @include background-gradient(#3ab30a, #239708);
+    @include border-radius(5px);
+    @include background-gradient(#aaa, #888);
 
     &.disabled {
       display: none;
@@ -417,7 +459,7 @@ header #functions {
 }
 
 #player {
-  padding: 8px 0 4px;
+  padding: 8px 0 6px;
   white-space: nowrap;
 
   &.playing {
@@ -530,10 +572,10 @@ header #functions {
     float: left;
     width: 260px;
 
-    h2#player-meta {
+    #player-meta {
       margin: -5px 0 2px 0;
 
-      span {
+      #player-artist-name {
         color: #555;
         display: block;
         font-size: 11px;
@@ -542,16 +584,16 @@ header #functions {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 260px;
+        width: 200px;
       }
 
-      strong {
+      #player-song-name {
         display: block;
         font-size: 13px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 254px;
+        width: 200px;
       }
     }
 

@@ -37,22 +37,25 @@ var fn = {
   },
 
   clipboard: function() {
-    var invite = $('#player-invite');
+    var invite = $('#player-invite'),
+        text = invite.html(),
+        hover = invite.data('hover'),
+        click = invite.data('click');
+
     ZeroClipboard.setMoviePath('/swfs/ZeroClipboard.swf');
     var clip = new ZeroClipboard.Client();
     clip.setHandCursor(true);
     clip.glue('player-invite','player-invite-container');
     clip.setText(document.location.host+invite.attr('href'));
     clip.addEventListener('mouseOver', function (client) {
-      invite.trigger('mouseover').html('Copy link!');
+      invite.trigger('mouseover').html(hover);
     });
     clip.addEventListener('mouseOut', function (client) {
-      invite.trigger('mouseout').html('&laquo; Share this!');
+      invite.trigger('mouseout').html(text);
     });
     clip.addEventListener('complete', function(client, text) {
-      var html = invite.html();
-      invite.html('Copied!')
-      setTimeout(function() { invite.html(html); }, 2000);
+      invite.html(click);
+      setTimeout(function() { invite.html(text); }, 2000);
     });
   }
 };
