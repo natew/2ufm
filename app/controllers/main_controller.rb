@@ -5,7 +5,7 @@ class MainController < ApplicationController
     @artists = Artist.order('random()').limit(6)
 
     if !user_signed_in?
-      @new = Station.new_station(:limit => 12)
+      @new = Station.new_station
       @featured = Blog.select_for_shelf.order('random()').limit(6)
     else
       @stations = current_user.stations

@@ -39,9 +39,9 @@ class Song < ActiveRecord::Base
   scope :individual, select_with_info.with_blog_and_post.working
 
   # Scopes for playlist
-  scope :playlist_order_broadcasted, select('DISTINCT ON (broadcasts.created_at, songs.shared_id) songs.*').order('broadcasts.created_at desc').select_with_info.with_blog_and_post.working
-  scope :playlist_order_rank, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc').select_with_info.with_blog_and_post.working
-  scope :playlist_order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc').select_with_info.with_blog_and_post.working
+  scope :playlist_order_broadcasted, select('DISTINCT ON (broadcasts.created_at, songs.shared_id) songs.*').order('broadcasts.created_at desc').individual
+  scope :playlist_order_rank, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc').individual
+  scope :playlist_order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc').individual
 
   acts_as_url :full_name, :url_attribute => :slug
 
@@ -418,9 +418,7 @@ class Song < ActiveRecord::Base
     parse_name = name
     parse_name = link_info[1] if name.blank?
     # Strip unnecessary stuff and parse the song name
-    logger.debug "1 #{parse_name}, #{name}"
     parse_name.gsub!(/(extended|vip|original|club)|(extended|vip|radio) edit/i,'')
-    logger.debug "3 #{parse_name}, #{name}"
     all_artists(name:parse_name)
   end
 

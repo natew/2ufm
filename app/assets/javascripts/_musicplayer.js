@@ -210,10 +210,10 @@ var mp = (function() {
       if (isPlaying) {
         pl.player.addClass('playing');
         pl.song.html(title);
-        pl.play.html('5');
+        pl.play.html('<span>5</span>');
       } else {
         pl.player.removeClass('playing');
-        pl.play.html('4');
+        pl.play.html('<span>4</span>');
       }
     },
 

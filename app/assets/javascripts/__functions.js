@@ -47,7 +47,7 @@ var fn = {
       invite.trigger('mouseover').html('Copy link!');
     });
     clip.addEventListener('mouseOut', function (client) {
-      invite.trigger('mouseout').html('&laquo; Invite friends!');
+      invite.trigger('mouseout').html('&laquo; Share this!');
     });
     clip.addEventListener('complete', function(client, text) {
       var html = invite.html();

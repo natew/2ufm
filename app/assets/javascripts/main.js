@@ -10,7 +10,7 @@ var w = $(window),
     debug = false;
 
 function highlightSong() {
-  var windowOffset = w.scrollTop()+40,
+  var windowOffset = w.scrollTop()+70,
       cur = highlightedSong,
       i = 0;
 
@@ -21,12 +21,6 @@ function highlightSong() {
   highlightedSong = songSections.eq(i).addClass('highlight');
   if (cur && cur.attr('id') != highlightedSong.attr('id'))
     cur.removeClass('highlight');
-}
-
-// Sets bar to fixed
-var setBarPosition = function() {
-  if (w.scrollTop() > 44) bar.addClass('fixed');
-  else bar.removeClass('fixed');
 }
 
 // Bind selectors to callbacks
@@ -59,12 +53,11 @@ var urlParams = {},
       }
     })();
 
+$('img').on('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
 
 //
 // Document.ready
 //
-
-$('img').on('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
 
 $(function() {
   // Fire initial page load
@@ -97,10 +90,6 @@ $(function() {
     mp.playSection(section);
     $(window).scrollTop(section.offset().top-100);
   }
-
-  // Scroll music player
-  setBarPosition();
-  w.scroll(setBarPosition);
 
   // Bar buttons
   $('#bar-top').html('{').click(function(e) {

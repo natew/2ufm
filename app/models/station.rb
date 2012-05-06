@@ -10,21 +10,21 @@ class Station < ActiveRecord::Base
   has_many   :blogs, :through => :songs, :uniq => true
 
   # Whitelist mass-assignment attributes
-  attr_accessible :title, :description
+  attr_accessible :id, :description, :title
 
   def user_broadcasts
     broadcasts.where(:parent => 'user')
   end
 
   def self.popular_station(opts={})
-    p = Station.new(:id => 1)
-    p.songs = Song.playlist_order_rank.limit(opts[:limit] || 20)
+    p = Station.new(:id => 1, :title => 'Popular Today')
+    p.songs = Song.playlist_order_rank.limit(opts[:limit] || 12)
     p
   end
 
   def self.new_station(opts={})
-    p = Station.new(:id => 0)
-    p.songs = Song.playlist_order_published.limit(opts[:limit] || 20)
+    p = Station.new(:id => 0, :title => 'Newest')
+    p.songs = Song.playlist_order_published.limit(opts[:limit] || 12)
     p
   end
 

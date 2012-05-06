@@ -10,6 +10,10 @@ w.on({
     $('#player-playlist a').removeClass('playing');
     playlistItem.addClass('playing');
 
+    // Update player info
+    $('#player-artist-name').html(song.artist);
+    $('#player-song-name').html(song.name);
+
     // Scroll to song
     if (mp.isOnPlayingPage()) {
       var section    = $('#song-'+song.id),
@@ -18,9 +22,6 @@ w.on({
           windowTop  = w.scrollTop(),
           windowBot  = windowTop + w.height();
 
-      fn.log(section);
-      fn.log(sectionTop,windowTop);
-      fn.log(sectionBot,windowBot);
       if (sectionTop < (windowTop+60))
         $('html,body').animate({scrollTop:(sectionTop-60)},200);
       else if (sectionBot > windowBot)
