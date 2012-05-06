@@ -27,7 +27,7 @@
     <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
     <nav>
       <a id="station" href="#" class="control">
-        <small>Tuned into</small>
+        <small>Listening to</small>
         <strong>Popular Today</strong>
       </a>
       <ul>
@@ -55,18 +55,17 @@
               <div id="player-progress-grabber"></div>
               <div id="player-progress-position"></div>
               <div id="player-progress-loaded"></div>
-
-              <div id="player-playlist">
-                <ul class="songs">
-                  {{#songs}}
-                  <li>
-                    <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
-                      <span class="artist">{{artist}}</span> - <span class="name">{{name}}</span>
-                    </a>
-                  </li>
-                  {{/songs}}
-                </ul>
-              </div>
+            </div>
+            <div id="player-playlist">
+              <ul class="songs">
+                {{#songs}}
+                <li>
+                  <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
+                    <span class="artist">{{artist}}</span> - <span class="name">{{name}}</span>
+                  </a>
+                </li>
+                {{/songs}}
+              </ul>
             </div>
             <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
           </div>
@@ -131,7 +130,7 @@
     </div>
   </div>
 
-  <a id="debug" class="control" href="">Debug</a>
+  <a id="debug" class="control" href="">d</a>
   <div id="debug_dump"></div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>

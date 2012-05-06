@@ -154,7 +154,7 @@ $(function() {
   });
 
   // Playlist bar hover
-  var progressBar = $('#player-progress-bar'),
+  var progressBar = $('#player-bottom'),
       progressHoverTimeout;
   progressBar.hover(function() {
     progressHoverTimeout = setTimeout(function() { progressBar.addClass('hover'); }, 300);
