@@ -50,7 +50,6 @@
             <strong id="player-song-name">&nbsp;</strong>
           </h2>
           <div id="player-bottom">
-            <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
             <div id="player-progress-bar">
               <div id="player-progress-grabber"></div>
               <div id="player-progress-position"></div>
@@ -68,6 +67,7 @@
                 {{/songs}}
               </ul>
             </div>
+            <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
             <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
           </div>
         </div>
@@ -82,9 +82,9 @@
 
     <div id="second-nav">
       <%= link 'New', '/songs-new', :class => 'pictos-new' %>
-      <%= link 'Artists', '/artists', :class => 'pictos-artists' %>
       <%= link 'Popular', '/songs', :class => 'pictos-popular' %>
-      <%= link 'Stations', '/blogs', :class => 'pictos-stations' %>
+      <%= link 'Artists', '/artists', :class => 'pictos-artists' %>
+      <%= link 'Genres', '/blogs', :class => 'pictos-genres' %>
     </div>
 
     <div id="functions">
