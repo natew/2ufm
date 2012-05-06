@@ -116,6 +116,31 @@
   }
 }
 
+#body .third form {
+  label {
+    display: block;
+    width: 80%;
+    padding: 4px;
+    text-align: left;
+  }
+
+  .input-text, .input-password {
+    width: 100%;
+  }
+
+  .actions {
+    margin: 10px 0 0;
+    padding: 0;
+    background: none;
+    border: none;
+
+    .input-submit {
+      padding: 6px 30px;
+      float: right;
+    }
+  }
+}
+
 
 /* Buttons
 ------------------------------------------ */
