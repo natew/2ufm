@@ -104,11 +104,11 @@ header {
   left: 0;
   z-index: 100;
   line-height: 1em;
-  border: 1px solid #c8c8c8;
+  border: 1px solid #bbb;
   border-top: none;
   text-shadow: 0 1px 0 $header_shadow;
-  @include box-shadow(0 0 6px rgba(0,0,0,0.15));
-  @include background-gradient(#f2f2f2,#e1e1e1);
+  @include box-shadow(0 0 8px rgba(0,0,0,0.2));
+  @include background-gradient(#f9f9f9,#e1e1e1);
 
   h1 {
     position: absolute;
@@ -607,7 +607,7 @@ header #second-nav {
         z-index: 1;
         width: 0%;
         height: 11px;
-        max-width: 96%;
+        max-width: 97%;
         min-width: 1%;
         @include border-radius(8px);
       }
@@ -625,7 +625,7 @@ header #second-nav {
         top: 2px;
         position: absolute;
         opacity: 0.4;
-        width: 96%;
+        width: 97%;
         height: 15px;
         position: absolute;
         top: 2px;

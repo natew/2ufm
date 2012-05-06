@@ -309,6 +309,9 @@ div.playlist {
       top: 0;
       right: 0;
       padding: $song-pad 4px $song-pad 8px;
+
+      li a {font-size: 18px;}
+      li span.count {font-size: 12px;}
     }
   }
 }

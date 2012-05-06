@@ -16,9 +16,13 @@ w.on({
 
     // Update progress bar
     var waveform = mp.curSection().find('.waveform');
+    $('#player-progress-waveform, #player-progress-bar canvas').remove();
     if (waveform.length) {
-      $('#player-progress-waveform, #player-progress-bar canvas').remove();
-      $('<img id="player-progress-waveform" src="'+waveform.attr('src')+'" />').appendTo('#player-progress-bar').inverter();
+      try {
+        $('<img id="player-progress-waveform" src="'+waveform.attr('src')+'" />').appendTo('#player-progress-bar').inverter();
+      } catch(error) {
+        fn.log(error);
+      }
     }
 
     // Scroll to song
