@@ -6,7 +6,7 @@ html,body {min-height: 100%;}
 body {
   background: #fff;
   color: #666;
-  @include linear-gradient(top, $lighter-blue 0%, #fff 5%);
+  @include linear-gradient(top, #f2f2f2 0%, #fff 5%);
 }
 
 a { color: $link-color; }
