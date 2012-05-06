@@ -146,8 +146,8 @@ header {
       display: block;
       text-decoration: none;
       white-space: nowrap;
-      margin: 5px 5px 0 0;
-      padding: 10px 10px 16px;
+      margin: 7px 5px 0 0;
+      padding: 8px 10px 16px;
       position: relative;
       z-index: 1;
 
@@ -189,7 +189,7 @@ header {
       position: absolute;
       background: #fff;
       z-index: 0;
-      padding: 20px 10px;
+      padding: 10px;
       @include box-shadow(0 0 6px rgba(0,0,0,0.2));
       @include border-bottom-radius(4px);
 
@@ -462,58 +462,73 @@ header #second-nav {
 
   &.playing {
     #player-controls .play span {
-      left: 12px;
+      left: -2px;
       font-size: 37px;
+    }
+
+    #player-progress-bar {
+      @include box-shadow(inset 0 0 4px rgba(0,0,0,0.5));
     }
   }
 
   #player-controls {
-    margin: -4px 6px 0 0;
+    margin: -5px 6px -4px 0;
     width: 67px;
     float: left;
 
     a {
       position: relative;
       display: block;
-      color: #fff;
       float: left;
-      text-shadow: 0 1px 0 rgba(0,0,0,0.4);
-      @include linear-gradient(-100deg,#32ce48,#29b03c);
-      @include box-shadow(inset 0 4px 10px rgba(0,0,0,0.1));
+      overflow: hidden;
+      border: 1px solid #41a32e;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+      @include linear-gradient(-90deg,#70e334,#39911a);
+      @include box-shadow(inset 0 -6px 12px rgba(0,0,0,0.2));
       @include border-radius(50px);
 
       &:hover {
-        text-shadow: none;
-        @include box-shadow(inset 0 -4px 10px rgba(0,0,0,0.2));
-        @include linear-gradient(-100deg,#42ce48,#39b03c);
+        border: 1px solid #4ac124;
+        text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+        @include linear-gradient(-90deg,#67ef38,#4ac124);
+
+        span {
+          color: #fff;
+          -webkit-mask-image: none;
+        }
       }
 
       span {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         display: inline-block;
         position: absolute;
+        @include box-sizing(border-box);
       }
     }
 
+    /* play button */
     .play {
       font-size: 40px;
       width: 54px;
       height: 54px;
 
       span {
-        top: 24px;
-        left: 14px;
+        padding: 24px 0 0 14px;
       }
     }
 
     .next {
-      margin: 34px 0 0 -14px;
+      margin: 35px 0 0 -15px;
       font-size: 16px;
       width: 22px;
       height: 22px;
 
       span {
-        top: 6px;
-        left: 4px;
+        padding: 6px 0 0 4px;
       }
     }
   }
@@ -628,7 +643,7 @@ header #second-nav {
       height: 11px;
       width: 274px;
       position: relative;
-      @include box-shadow(inset 0 0 2px rgba(0,0,0,0.2));
+      @include box-shadow(inset 0 0 1px rgba(0,0,0,0.5));
       @include border-radius(16px);
 
       &:hover {
