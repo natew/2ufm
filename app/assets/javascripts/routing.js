@@ -1,18 +1,19 @@
-var curPage = window.location.pathname;
-
 // Functions relating to moving about pages
 // In order of occurence
 // enter -> load / error -> exit
 var page = {
 
-  start: function() {
+  start: function pageStart() {
     // Remove tooltips, show loading bar
     $('.tipsy').remove();
     $('#loading').addClass('hide');
   },
 
-  end: function(data) {
-    fn.log('_routing: page.load()');
+  end: function pageEnd(data) {
+    var curPage = window.location.pathname,
+        path = curPage.split('/');
+    fn.log(curPage);
+
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
 
@@ -66,21 +67,37 @@ var page = {
       highlightSong();
     });
 
+    // Nav toggle
+    if (curPage == '/') {
+      var navActive = $('.nav-container a.active'),
+          sectionActive = $('.nav-container .station-section.active');
+
+      $('.nav-container a').click(function(e) {
+        e.preventDefault();
+        navActive.removeClass('active');
+        navActive = $(this).addClass('active');
+        sectionActive.removeClass('active');
+        sectionActive = $($(this).attr('href')).addClass('active');
+      });
+    }
+
     // Stats
-    var $stats = $('#stats');
-    if ($stats.length > 0) {
-      var data = $stats.data('broadcasts');
+    if (path[1] == 'songs') {
+      var $stats = $('#stats');
+      if ($stats.length > 0) {
+        var data = $stats.data('broadcasts');
 
-      var options = {
-        xaxis: {
-          mode: "time",
-          minTickSize: [1, "day"],
-          min: data[0][0],
-          max: data[data.length-1][0]
+        var options = {
+          xaxis: {
+            mode: "time",
+            minTickSize: [1, "day"],
+            min: data[0][0],
+            max: data[data.length-1][0]
+          }
         }
-      }
 
-      $.plot($stats, [data], options);
+        $.plot($stats, [data], options);
+      }
     }
   },
 
