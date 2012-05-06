@@ -4,9 +4,8 @@
 /* Layout */
 html,body {min-height: 100%;}
 body {
-  background: #fff;
+  background: #fff url(/images/bg.png);
   color: #666;
-  @include linear-gradient(top, #f2f2f2 0%, #fff 5%);
 }
 
 a { color: $link-color; }
@@ -14,6 +13,7 @@ a:hover { color: $link-hover; }
 
 #main-mid {
   padding: 75px 0 40px;
+  background: url(/images/bg-repeat.png) repeat-y top center;
 }
 
 .page-contain,
@@ -39,7 +39,7 @@ footer {
 
 /* HEADING AND TEXT STYLES */
 
-h2 { font-size: 18px; }
+h2 { font-size: 20px; }
 h3 { font-size: 16px; }
 h4 { font-size: 14px; }
 
@@ -526,6 +526,7 @@ header #second-nav {
 
     #player-meta {
       margin: -5px 0 2px 0;
+      line-height: 1.4em;
 
       #player-artist-name {
         color: #555;
@@ -546,6 +547,7 @@ header #second-nav {
         overflow: hidden;
         text-overflow: ellipsis;
         width: 80%;
+        color: #000;
       }
     }
 
@@ -944,7 +946,7 @@ h2.title { color: #000; }
 
   nav {
     float: left;
-    margin: -2px 0 20px 10px;
+    margin: 0 0 20px 10px;
 
     a {
       font-size: 16px;
