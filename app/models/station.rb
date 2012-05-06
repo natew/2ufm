@@ -42,7 +42,7 @@ class Station < ActiveRecord::Base
 
   def to_playlist_json
     # TODO image from parent
-    self.to_json(:only => [:id, :slug, :name])
+    self.to_json(:only => [:id, :slug, :title])
   end
 
   def has_songs?

@@ -81,7 +81,7 @@ var mp = (function() {
         // Get playlist info
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
-        playlist   = $('#playlist-'+playlistID).data('playlist');
+        playlist = $('#playlist-'+playlistID).data('playlist');
 
         fn.log(playlist, pl);
 
@@ -91,6 +91,9 @@ var mp = (function() {
         playlist_template = Mustache.render(pl.playlist.html(),playlist);
         pl.playlist.html(playlist_template);
         pl.playlist.addClass('loaded');
+
+        // Update nav
+        $('#station strong').html(playlist.station.title);
 
         fn.log('playlist loaded: '+playlistID);
       }

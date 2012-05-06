@@ -108,7 +108,7 @@
     </div>
 
     <%= form_tag '/main/search', :method => 'get' do %>
-      <%= text_field_tag :query, '', :placeholder =>"Search #{@count[:blogs]} blogs, #{@count[:songs]} songs" %>
+      <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:blogs]} blogs, #{number_with_delimiter @count[:songs]} songs" %>
       <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
     <% end -%>
   </header>

@@ -6,7 +6,7 @@ html,body {min-height: 100%;}
 body {
   background: #fff;
   color: #666;
-  @include linear-gradient(top, #e8f5fc 0%, #fff 5%);
+  @include linear-gradient(top, $lighter-blue 0%, #fff 5%);
 }
 
 a { color: $link-color; }
@@ -227,7 +227,7 @@ header form {
 
   #query {
     border: none;
-    padding: 5px 12px;
+    padding: 5px 12px 5px 8px;
     width: 180px;
     margin: 0;
     color: #ddd;
@@ -251,7 +251,7 @@ header form {
     background: none;
     border: none;
     position: absolute;
-    right: 0;
+    right: 1px;
     top: 2px;
     font-size: 20px;
     color: #ccc;
@@ -272,7 +272,6 @@ header #functions {
     a {
       font-size: 11px;
       color: #555;
-      text-transform: uppercase;
       font-weight: bold;
       display: block;
       float: right;
@@ -284,7 +283,6 @@ header #functions {
 
       &:hover {
         color: #000;
-        background: #ebf5fa;
       }
 
       &#nav-username::before {
