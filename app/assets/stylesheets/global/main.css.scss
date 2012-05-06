@@ -99,9 +99,9 @@ $header_shadow: rgba(255,255,255,0.8);
 body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
   position: fixed;
-  width: 960px;
-  left: 50%;
-  margin-left: -480px;
+  width: 100%;
+  top: 0;
+  left: 0;
   z-index: 100;
   line-height: 1em;
   border: 1px solid #c8c8c8;
@@ -109,7 +109,6 @@ header {
   text-shadow: 0 1px 0 $header_shadow;
   @include box-shadow(0 0 6px rgba(0,0,0,0.15));
   @include background-gradient(#f2f2f2,#e1e1e1);
-  @include border-bottom-radius(8px);
 
   h1 {
     position: absolute;
@@ -523,7 +522,7 @@ header #second-nav {
 
   #player-main {
     float: left;
-    width: 330px;
+    width: 380px;
 
     #player-meta {
       margin: -5px 0 2px 0;
@@ -580,7 +579,7 @@ header #second-nav {
       margin: 2px 0 0;
       padding: 4px;
       height: 11px;
-      width: 274px;
+      width: 324px;
       position: relative;
       border-bottom: 1px solid $header-shadow;
       @include linear-gradient(bottom,#ddd,#ccc);

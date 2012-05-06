@@ -24,85 +24,87 @@
 
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %> wizard">
   <header>
-    <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
-    <nav>
-      <a id="station" href="#" class="control">
-        <small>Listening to</small>
-        <strong>Nothing, yet!</strong>
-      </a>
-      <ul>
-        <li><%= link 'New', '/songs-new', :id => 'nav-songs-new' %></li>
-        <li><%= link 'Popular', '/songs', :id => 'nav-songs' %></li>
-        <li><%= link 'Stations', '/blogs', :id => 'nav-blogs' %></li>
-        <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
-      </ul>
-    </nav>
+    <div class="page-contain">
+      <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
+      <nav>
+        <a id="station" href="#" class="control">
+          <small>Listening to</small>
+          <strong>Nothing, yet!</strong>
+        </a>
+        <ul>
+          <li><%= link 'New', '/songs-new', :id => 'nav-songs-new' %></li>
+          <li><%= link 'Popular', '/songs', :id => 'nav-songs' %></li>
+          <li><%= link 'Stations', '/blogs', :id => 'nav-blogs' %></li>
+          <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
+        </ul>
+      </nav>
 
-    <div id="bar">
-      <div id="player">
-        <div id="player-controls" class="player-buttons">
-          <%= link_to '<span>4</span>'.html_safe, '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
-          <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
-        </div>
-        <div id="player-main">
-          <h2 id="player-meta">
-            <span id="player-artist-name">&nbsp;</span>
-            <strong id="player-song-name">&nbsp;</strong>
-          </h2>
-          <div id="player-bottom">
-            <div id="player-progress-bar">
-              <div id="player-progress-grabber"></div>
-              <div id="player-progress-position"></div>
-              <div id="player-progress-loaded"></div>
-              <img id="player-progress-waveform" src="/images/transparent.png" />
+      <div id="bar">
+        <div id="player">
+          <div id="player-controls" class="player-buttons">
+            <%= link_to '<span>4</span>'.html_safe, '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
+            <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
+          </div>
+          <div id="player-main">
+            <h2 id="player-meta">
+              <span id="player-artist-name">&nbsp;</span>
+              <strong id="player-song-name">&nbsp;</strong>
+            </h2>
+            <div id="player-bottom">
+              <div id="player-progress-bar">
+                <div id="player-progress-grabber"></div>
+                <div id="player-progress-position"></div>
+                <div id="player-progress-loaded"></div>
+                <img id="player-progress-waveform" src="/images/transparent.png" />
+              </div>
+              <div id="player-playlist">
+                <ul class="songs">
+                  {{#songs}}
+                  <li>
+                    <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
+                      <span class="artist">{{artist}}</span> - <span class="name">{{name}}</span>
+                    </a>
+                  </li>
+                  {{/songs}}
+                </ul>
+              </div>
+              <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
+              <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
             </div>
-            <div id="player-playlist">
-              <ul class="songs">
-                {{#songs}}
-                <li>
-                  <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
-                    <span class="artist">{{artist}}</span> - <span class="name">{{name}}</span>
-                  </a>
-                </li>
-                {{/songs}}
-              </ul>
-            </div>
-            <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
-            <%= link_to 'k', '#', :class => 'add pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
           </div>
         </div>
-      </div>
-      <div id="player-invite-container"><a id="player-invite" class="tip-n control disabled" title="Send this song to friends!" data-hover="Copy!" data-click="Copied!">Share!</a></div>
+        <div id="player-invite-container"><a id="player-invite" class="tip-n control disabled" title="Send this song to friends!" data-hover="Copy!" data-click="Copied!">Share!</a></div>
 
-      <div id="player-share">
-        <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>
-        <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
-      </div>
-    </div>
-
-    <div id="second-nav">
-      <% if user_signed_in? %>
-      <span id="current_user" data-id="<%= current_user.id %>"></span>
-        <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'control pictos-user' %>
-        <div class="nav-dropdown">
-          <div id="nav-user">
-            <%= link_to "Home", '/home' %>
-            <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
-            <%= link_to "Account".html_safe, '/users/edit' %>
-            <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-          </div>
+        <div id="player-share">
+          <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>
+          <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
         </div>
-      <% else %>
-        <%= link 'Log in / Sign up', new_user_session_path, :class => 'pictos-key' %>
-      <% end %>
-      <%= link 'About Us', '/songs', :class => 'pictos-info secondary' %>
-      <%= link 'Help', '/songs', :class => 'pictos-help secondary' %>
-    </div>
+      </div>
 
-    <%= form_tag '/main/search', :method => 'get' do %>
-      <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:blogs]} blogs, #{number_with_delimiter @count[:songs]} songs, #{number_with_delimiter @count[:artists]} artists" %>
-      <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-    <% end -%>
+      <div id="second-nav">
+        <% if user_signed_in? %>
+        <span id="current_user" data-id="<%= current_user.id %>"></span>
+          <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'control pictos-user' %>
+          <div class="nav-dropdown">
+            <div id="nav-user">
+              <%= link_to "Home", '/home' %>
+              <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
+              <%= link_to "Account".html_safe, '/users/edit' %>
+              <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+            </div>
+          </div>
+        <% else %>
+          <%= link 'Log in / Sign up', new_user_session_path, :class => 'pictos-key' %>
+        <% end %>
+        <%= link 'About Us', '/songs', :class => 'pictos-info secondary' %>
+        <%= link 'Help', '/songs', :class => 'pictos-help secondary' %>
+      </div>
+
+      <%= form_tag '/main/search', :method => 'get' do %>
+        <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:blogs]} blogs, #{number_with_delimiter @count[:songs]} songs, #{number_with_delimiter @count[:artists]} artists" %>
+        <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+      <% end -%>
+    </div>
   </header>
 
   <div id="main-mid">
