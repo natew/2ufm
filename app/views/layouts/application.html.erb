@@ -81,34 +81,26 @@
     </div>
 
     <div id="second-nav">
-      <%= link 'New', '/songs-new', :class => 'pictos-new' %>
-      <%= link 'Popular', '/songs', :class => 'pictos-popular' %>
-      <%= link 'Artists', '/artists', :class => 'pictos-artists' %>
-      <%= link 'Genres', '/blogs', :class => 'pictos-genres' %>
-    </div>
-
-    <div id="functions">
-      <div class="nav">
-        <% if user_signed_in? %>
-          <span id="current_user" data-id="<%= current_user.id %>"></span>
-          <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'control' %>
-          <div class="nav-dropdown">
-            <div id="nav-user">
-              <%= link_to "Home", '/home' %>
-              <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
-              <%= link_to "Account".html_safe, '/users/edit' %>
-              <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-            </div>
+      <% if user_signed_in? %>
+      <span id="current_user" data-id="<%= current_user.id %>"></span>
+        <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'control pictos-user' %>
+        <div class="nav-dropdown">
+          <div id="nav-user">
+            <%= link_to "Home", '/home' %>
+            <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
+            <%= link_to "Account".html_safe, '/users/edit' %>
+            <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
           </div>
-        <% else %>
-          <%= link_to 'Login', new_user_session_path, :class => 'inline', 'data-target' => 'new_user' %>
-          <%= link_to 'Signup', new_user_registration_path, :class => 'inline', 'data-target' => 'new_user'  %>
-        <% end %>
-      </div>
+        </div>
+      <% else %>
+        <%= link 'Log in / Sign up', new_user_session_path, :class => 'pictos-key' %>
+      <% end %>
+      <%= link 'About Us', '/songs', :class => 'pictos-info secondary' %>
+      <%= link 'Help', '/songs', :class => 'pictos-help secondary' %>
     </div>
 
     <%= form_tag '/main/search', :method => 'get' do %>
-      <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:blogs]} blogs, #{number_with_delimiter @count[:songs]} songs" %>
+      <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:blogs]} blogs, #{number_with_delimiter @count[:songs]} songs, #{number_with_delimiter @count[:artists]} artists" %>
       <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
     <% end -%>
   </header>

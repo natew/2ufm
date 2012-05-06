@@ -94,6 +94,8 @@ h2 small { font-size: 55%; }
 
 /* Header */
 
+$header_shadow: rgba(255,255,255,0.8);
+
 body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
   position: fixed;
@@ -104,13 +106,14 @@ header {
   line-height: 1em;
   border: 1px solid #c8c8c8;
   border-top: none;
+  text-shadow: 0 1px 0 $header_shadow;
   @include box-shadow(0 0 6px rgba(0,0,0,0.15));
-  @include background-gradient(#fefefe,#eee);
+  @include background-gradient(#f2f2f2,#e1e1e1);
   @include border-bottom-radius(8px);
 
   h1 {
     position: absolute;
-    top: -6px;
+    top: -7px;
     left: 3px;
     margin: 0;
 
@@ -221,20 +224,21 @@ header {
 
 header form {
   position: absolute;
-  top: 7px;
+  top: 6px;
   right: 10px;
   z-index: 1000;
 
   #query {
     border: none;
     padding: 5px 12px 5px 8px;
-    width: 180px;
+    width: 250px;
     margin: 0;
     color: #ddd;
     background: #fff;
-    border: 1px solid #ccc;
     outline: none;
     font-size: 12px;
+    border: 1px solid #ccc;
+    @include box-shadow(0 1px 0 $header_shadow);
     @include border-radius(20px);
 
     &:hover {
@@ -260,91 +264,9 @@ header form {
   }
 }
 
-header #functions {
-  position: absolute;
-  top: 2px;
-  right: 230px;
-
-  .nav {
-    position: relative;
-    min-width: 140px;
-
-    a {
-      font-size: 11px;
-      color: #555;
-      font-weight: bold;
-      display: block;
-      float: right;
-      padding: 10px 7px;
-      text-align: right;
-      white-space: nowrap;
-      text-decoration: none;
-      @include border-radius(5px);
-
-      &:hover {
-        color: #000;
-      }
-
-      &#nav-username::before {
-        content: "U";
-        display: block;
-        font-family: 'Pictos';
-        float: left;
-        margin: 0 10px 0 -18px;
-        font-size: 20px;
-      }
-
-      &.inline {
-        width: auto;
-      }
-
-      abbr {
-        border-bottom: none;
-      }
-    }
-
-    .nav-dropdown {
-      position: absolute;
-      top: 44px;
-      right: 0;
-      width: 200px;
-      background: #333;
-      display: none;
-      padding: 0;
-      @include border-bottom-radius(5px);
-      @include box-shadow(0 2px 2px #111);
-
-      &.open {
-        display: block;
-      }
-
-      a {
-        display: block;
-        text-align: left;
-        width: 92%;
-        max-width: 100%;
-        padding: 10px 4%;
-        border-top: 1px solid #333;
-        color: #eee;
-        @include box-sizing(border-box);
-
-        &:hover {
-          background: #444;
-        }
-      }
-
-      img {
-        width: 24px;
-        margin: -5px 0;
-        float: right;
-      }
-    }
-  }
-}
-
 header #second-nav {
   position: absolute;
-  bottom: 9px;
+  bottom: 10px;
   right: 0;
   padding: 0;
   width: 310px;
@@ -355,12 +277,21 @@ header #second-nav {
     padding: 5px 22px 5px 10px;
     text-decoration: none;
     font-weight: bold;
-    color: #999;
+    color: #555;
     @include box-sizing(border-box);
+
 
     &:hover,
     &:hover:before {
       color: #000;
+    }
+
+    &.secondary {
+      color: #777;
+
+      &:hover {
+        color: #444;
+      }
     }
   }
 }
@@ -370,19 +301,21 @@ header #second-nav {
 }
 
 [class^="pictos-"]:before, [class*=" pictos-"]:before {
+  font-weight: normal;
   display: inline-block;
   position: absolute;
   left: -8px;
   top: 7px;
   font-size: 14px;
-  color: #999;
   font-family: 'Pictos';
 }
 
-.pictos-new:before {content: "m";}
-.pictos-artists:before {content: "U";}
-.pictos-popular:before {content: "Y";}
-.pictos-genres:before {content: "z";}
+.pictos-key:before {content: "K";}
+.pictos-info:before {content: "i";}
+.pictos-write:before {content: "W";}
+.pictos-gear:before {content: "y";}
+.pictos-help:before {content: "h";}
+.pictos-people:before {content: "g";}
 
 
 /* BAR */
@@ -395,9 +328,9 @@ header #second-nav {
       color: #fff;
     }
 
-    #player-progress-bar {
-      background: #1885c4;
-      @include box-shadow(inset 0 0 8px rgba(0,0,0,0.1));
+    #player #player-bottom #player-progress-bar {
+      @include linear-gradient(bottom,#1a98e0,#1885c4);
+      @include box-shadow(inset 0 0 8px rgba(0,0,0,0.4));
     }
 
     #player-bottom.hover #player-playlist {
@@ -447,6 +380,7 @@ header #second-nav {
     text-decoration: none;
     background: #555;
     color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
     @include border-radius(5px);
     @include background-gradient(#aaa, #888);
 
@@ -485,7 +419,7 @@ header #second-nav {
       color: #fff;
       text-shadow: 0 1px 1px rgba(0,0,0,0.3);
       @include linear-gradient(-90deg,#70e334,#39911a);
-      @include box-shadow(inset 0 -6px 12px rgba(0,0,0,0.2));
+      @include box-shadow(inset 0 -6px 12px rgba(0,0,0,0.2), 0 1px 0 $header_shadow);
       @include border-radius(50px);
 
       &:hover {
@@ -567,6 +501,7 @@ header #second-nav {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          text-shadow: none;
           float: none;
 
           &:hover,
@@ -643,6 +578,8 @@ header #second-nav {
       height: 11px;
       width: 274px;
       position: relative;
+      border-bottom: 1px solid $header-shadow;
+      @include linear-gradient(bottom,#ddd,#ccc);
       @include box-shadow(inset 0 0 1px rgba(0,0,0,0.5));
       @include border-radius(16px);
 

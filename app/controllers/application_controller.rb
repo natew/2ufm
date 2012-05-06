@@ -25,8 +25,9 @@ class ApplicationController < ActionController::Base
   def get_counts
     @count = {
       :blogs => Rails.cache.fetch(:blogs_count, :expires_in => 24.hours) { Blog.count },
-      :songs => Rails.cache.fetch(:songs_count, :expires_in => 30.minutes) { Song.count },
-      :users => Rails.cache.fetch(:users_count, :expires_in => 1.hour) { User.count }
+      :songs => Rails.cache.fetch(:songs_count, :expires_in => 30.minutes) { Song.working.count },
+      :users => Rails.cache.fetch(:users_count, :expires_in => 1.hour) { User.count },
+      :artists => Rails.cache.fetch(:artists_count, :expires_in => 1.hour) { Artist.count }
     }
   end
 
