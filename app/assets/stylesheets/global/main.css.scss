@@ -110,14 +110,14 @@ header {
 
   h1 {
     position: absolute;
-    top: -4px;
-    left: -9px;
+    top: -7px;
+    left: 7px;
     margin: 0;
 
     a {
       background: url(/images/2ufm.png) no-repeat top left;
-      width: 97px;
-      height: 80px;
+      width: 80px;
+      height: 72px;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
@@ -428,7 +428,7 @@ header #functions {
   }
 
   #player-controls {
-    margin: -3px 0 0;
+    margin: -4px -2px 0 0;
     width: 67px;
     float: left;
 
@@ -438,13 +438,14 @@ header #functions {
       color: #fff;
       float: left;
       text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+      @include linear-gradient(-100deg,#32ce48,#29b03c);
       @include box-shadow(inset 0 4px 10px rgba(0,0,0,0.1));
       @include border-radius(50px);
-      @include linear-gradient(10deg,#2695d5,#1574ab);
 
       &:hover {
         text-shadow: none;
-        @include box-shadow(inset 0 0 10px rgba(255,255,255,0.6));
+        @include box-shadow(inset 0 -4px 10px rgba(0,0,0,0.2));
+        @include linear-gradient(-100deg,#42ce48,#39b03c);
       }
 
       span {
@@ -469,7 +470,6 @@ header #functions {
       font-size: 16px;
       width: 22px;
       height: 22px;
-      @include linear-gradient(10deg,#ec3661,#c4143e);
 
       span {
         top: 6px;
@@ -531,12 +531,12 @@ header #functions {
     width: 260px;
 
     h2#player-meta {
-      margin: -5px 0 2px -4px;
+      margin: -5px 0 2px 0;
 
       span {
         color: #555;
         display: block;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: normal;
         margin: 0 0 -2px -5px;
         white-space: nowrap;
@@ -547,7 +547,7 @@ header #functions {
 
       strong {
         display: block;
-        font-size: 15px;
+        font-size: 13px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
