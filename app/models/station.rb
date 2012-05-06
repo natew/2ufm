@@ -40,9 +40,36 @@ class Station < ActiveRecord::Base
     end
   end
 
+  def to_api_json
+    self.to_json(:only => [:id, :slug, :title], :include => {
+      :songs => {
+        :only => [
+          :absolute_url,
+          :artist_name,
+          :blog_id,
+          :blog_name,
+          :id,
+          :name,
+          :rank,
+          :url,
+          :image
+        ]
+      }
+    })
+  end
+
   def to_playlist_json
-    # TODO image from parent
-    self.to_json(:only => [:id, :slug, :title])
+    self.to_json(:only => [:id, :slug, :title], :include => {
+      :songs => {
+        :only => [
+          :artist_name,
+          :id,
+          :name,
+          :url,
+          :image
+        ]
+      }
+    })
   end
 
   def has_songs?

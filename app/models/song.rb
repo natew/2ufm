@@ -60,6 +60,16 @@ class Song < ActiveRecord::Base
     shared_count > 0
   end
 
+  def as_json(options={})
+    {
+      :id => id,
+      :artist => artist_name,
+      :name => name,
+      :url => url,
+      :image => resolve_image(:small)
+    }
+  end
+
   def to_playlist
     { id: id, artist:artist_name, name:name, url:url, image:resolve_image(:small) }
   end

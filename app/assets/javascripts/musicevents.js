@@ -11,7 +11,7 @@ w.on({
     playlistItem.addClass('playing');
 
     // Update player info
-    $('#player-artist-name').html(song.artist);
+    $('#player-artist-name').html(song.artist_name);
     $('#player-song-name').html(song.name);
 
     // Update progress bar

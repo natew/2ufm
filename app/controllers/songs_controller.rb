@@ -4,6 +4,7 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json { render :json => @popular.to_playlist_json }
     end
   end
 

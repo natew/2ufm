@@ -93,7 +93,7 @@ var mp = (function() {
         pl.playlist.addClass('loaded');
 
         // Update nav
-        $('#station strong').html(playlist.station.title);
+        $('#station strong').html(playlist.title);
 
         fn.log('playlist loaded: '+playlistID);
       }
@@ -204,7 +204,7 @@ var mp = (function() {
 
     refresh: function refresh() {
       var icon  = isPlaying ? '\u25BA' : '\u25FC',
-          title = curSongInfo.artist + ' - ' + curSongInfo.name;
+          title = curSongInfo.artist_name + ' - ' + curSongInfo.name;
 
       $('title').html(icon + ' ' + title);
       if (isPlaying) {
