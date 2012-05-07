@@ -28,7 +28,6 @@ div.playlist {
     &.playing {
       background: #1a98e0;
       border-bottom: 2px solid #fff;
-      @include border-radius(8px);
 
       .song-info {
         h4, h4 a, p {
