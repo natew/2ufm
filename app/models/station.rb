@@ -59,18 +59,23 @@ class Station < ActiveRecord::Base
   end
 
   def to_playlist_json
-    self.to_json(:only => [:id, :slug, :title], :include => {
-      :songs => {
-        :only => [
-          :artist_name,
-          :id,
-          :name,
-          :url,
-          :image
-        ]
-      }
-    })
+    # TODO image from parent
+    self.to_json(:only => [:id, :slug, :title])
   end
+
+  # def to_playlist_json
+  #   self.to_json(:only => [:id, :slug, :title], :include => {
+  #     :songs => {
+  #       :only => [
+  #         :artist_name,
+  #         :id,
+  #         :name,
+  #         :url,
+  #         :image
+  #       ]
+  #     }
+  #   })
+  # end
 
   def has_songs?
     songs.size > 0

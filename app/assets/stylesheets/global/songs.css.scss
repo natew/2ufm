@@ -75,11 +75,10 @@ div.playlist {
     .waveform-wrap {
       display: none;
       position: absolute;
-      top: 36px;
-      right: 10px;
-      width: 100px;
-      height: 15px;
-      border: 1px solid #ccc;
+      bottom: 12px;
+      right: 136px;
+      width: 391px;
+      height: 23px;
       @include border-radius(4px);
 
       img {
@@ -88,7 +87,7 @@ div.playlist {
         position: absolute;
         top: 0;
         left: 0;
-        opacity: 0.2;
+        opacity: 0.1;
       }
     }
 
@@ -166,6 +165,7 @@ div.playlist {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        display: none;
       }
     }
 
