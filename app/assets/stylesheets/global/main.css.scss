@@ -13,7 +13,6 @@ a:hover { color: $link-hover; }
 
 #main-mid {
   padding: 75px 0 40px;
-  background: url(/images/bg-repeat.png) repeat-y top center;
 }
 
 .page-contain,
@@ -26,6 +25,7 @@ a:hover { color: $link-hover; }
     overflow: hidden;
     position: relative;
     padding: 15px 0;
+    background: #fff;
   }
 }
 
