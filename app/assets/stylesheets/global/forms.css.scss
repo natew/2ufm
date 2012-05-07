@@ -1,6 +1,6 @@
 @import "mixins.css.scss";
 
-#body form {
+form {
   .field_with_errors {
     color: red;
   }
@@ -53,7 +53,10 @@
   .input-text,
   .input-email,
   .input-password,
-  textarea {
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
     padding: 8px 4px;
     font-size: 12px;
     color: #666;

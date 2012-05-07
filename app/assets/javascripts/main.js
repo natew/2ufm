@@ -7,7 +7,9 @@ var w = $(window),
     songSections,
     tipsyClearTimeout,
     bar = $('#bar'),
-    debug = false;
+    debug = false,
+    loggedIn = $('#nav-username').length > 0,
+    modalShown = false;
 
 function highlightSong() {
   var windowOffset = w.scrollTop()+70,
@@ -161,6 +163,35 @@ $(function() {
   }, function() {
     clearTimeout(progressHoverTimeout);
     progressBar.removeClass('hover');
+  });
+
+  // Modal
+  function modal(selector) {
+    var modal = $('#modal'),
+        show = $('#overlay,#modal');
+    if (modalShown) {
+      show.removeClass('shown');
+      modalShown = false;
+    }
+    else {
+      modal.html($(selector).clone());
+      show.addClass('shown');
+      modalShown = true;
+    }
+  }
+
+  $('#overlay').click(function() {
+    modal();
+  })
+
+  $('body').click(function(e) {
+    if (!loggedIn && e.target.tagName == 'A') {
+      var el = $(e.target);
+      if (el.is('.broadcast-song')) {
+        modal('#new_user');
+        return false;
+      }
+    }
   });
 
   // Popups
