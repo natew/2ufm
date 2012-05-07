@@ -63,7 +63,7 @@ class Song < ActiveRecord::Base
   def as_json(options={})
     {
       :id => id,
-      :artist => artist_name,
+      :artist_name => artist_name,
       :name => name,
       :url => url,
       :image => resolve_image(:small)
