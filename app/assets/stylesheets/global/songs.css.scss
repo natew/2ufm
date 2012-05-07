@@ -1,6 +1,6 @@
 @import "mixins.css.scss";
 
-$song-pad: 12px;
+$song-pad: 14px;
 
 div.playlist {
   clear: both;
@@ -11,7 +11,7 @@ div.playlist {
     margin: 0;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid #eee;
+    border-bottom: 2px solid #eee;
 
     &.show-play {
       .play-song { visibility: visible !important; }
@@ -23,18 +23,38 @@ div.playlist {
       .play-song {
         visibility: visible !important;
       }
-
-      .song-links {
-        visibility: visible;
-      }
-
-      .song-info {
-        p { width: 72%; }
-      }
     }
 
     &.playing {
-      background: $lighter-blue;
+      background: #1a98e0;
+      border-bottom: 2px solid #fff;
+      @include border-radius(8px);
+
+      .song-info {
+        h4, h4 a, p {
+          color: #fff;
+        }
+
+        .song-meta, .song-meta a {
+          color: rgba(255,255,255,0.8);
+        }
+
+        p {
+          color: rgba(255,255,255,0.6);
+        }
+
+        .song-links a {
+          color: #fff;
+          text-shadow: 0 0 -1px rgba(0,0,0,0.4);
+          border: none;
+          background: rgba(255,255,255,0.3);
+        }
+      }
+
+      .song-controls a,
+      .song-controls .broadcast .count {
+        color: #fff;
+      }
     }
 
     &.failed {
@@ -119,7 +139,8 @@ div.playlist {
           content: "";
           width: 16px;
           height: 9px;
-          margin: 0 2px .15em 4px;
+          margin: 0 2px .05em 4px;
+          border: 1px solid #fff;
           background: url(/images/artist-icons.png) no-repeat top left;
         }
 
@@ -140,8 +161,9 @@ div.playlist {
 
       p {
         font-weight: normal;
-        color: #999;
+        color: #888;
         margin: 0;
+        width: 72%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -189,7 +211,6 @@ div.playlist {
       z-index: 3;
       right: $song-pad;
       clear: both;
-      visibility: hidden;
 
       li {
         list-style: none;
@@ -274,9 +295,10 @@ div.playlist {
 
   section {
     padding: 5px 0;
+    border-bottom: none;
 
     &.highlight .song-controls {
-      background: #f2f2f2;
+      background: $lightest-blue;
     }
 
     .song-info {
