@@ -5,7 +5,7 @@
 html,body {min-height: 100%;}
 body {
   color: #666;
-  @include background-image(url(/images/bg.png), linear-gradient($light-blue 0, $lightest-blue 20%));
+  @include linear-gradient($light-blue 0, $lightest-blue 20%);
 }
 
 a { color: $link-color; }
@@ -26,7 +26,6 @@ a:hover { color: $link-hover; }
     position: relative;
     padding: 20px 0;
     background: #fff;
-    @include box-shadow(0 0 10px rgba(0,0,0,0.1));
     @include border-bottom-radius(8px);
   }
 }
