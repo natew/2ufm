@@ -148,9 +148,9 @@ form {
 /* Buttons
 ------------------------------------------ */
 
-#body .signin,
-#body .button,
-#body .input-submit {
+.signin,
+.button,
+.input-submit {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
   color: #fff;
   font-size: 14px;
@@ -215,14 +215,14 @@ form {
   }
 }
 
-#body .button {
+.button {
   padding: 4px 12px;
   font-size: 14px;
   display: block;
   text-align: center;
 }
 
-#body .actions .input-submit {
+.actions .input-submit {
   font-weight: bold;
   padding: 8px 38px;
   margin-top: -2px;

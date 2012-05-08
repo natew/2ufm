@@ -9,7 +9,8 @@ var w = $(window),
     bar = $('#bar'),
     debug = false,
     loggedIn = $('#nav-username').length > 0,
-    modalShown = false;
+    modalShown = false,
+    navOpen;
 
 function highlightSong() {
   var windowOffset = w.scrollTop()+70,
@@ -122,14 +123,16 @@ $(function() {
     }
   });
 
-  // Dropdown menu
-  $('#nav-username').click(function(e) {
-    e.preventDefault();
-    var nav = $(this).next('.nav-dropdown');
-
-    if (nav.is('.open')) nav.removeClass('open');
-    else nav.addClass('open');
-  });
+  function navDropdown(show, nav) {
+    if (!nav) nav = $('.nav-dropdown:first');
+    if (show) {
+      nav.addClass('open');
+      navOpen = true;
+    } else {
+      nav.removeClass('open');
+      navOpen = false;
+    }
+  }
 
   // Player controls
   mpClick('#player-play', 'toggle');
@@ -152,7 +155,7 @@ $(function() {
   // Window scroll highlights songs
   w.scroll(function() {
     clearTimeout(highlightTimeout);
-    highlightTimeout = setTimeout(highlightSong,25);
+    highlightTimeout = setTimeout(highlightSong,20);
   });
 
   // Playlist bar hover
@@ -188,9 +191,25 @@ $(function() {
     if (!loggedIn && e.target.tagName == 'A') {
       var el = $(e.target);
       if (el.is('.broadcast-song')) {
-        modal('#new_user');
+        modal('#new-user');
         return false;
       }
+      else if (el.is('.modal')) {
+        modal(el.attr('href'));
+        return false;
+      }
+    }
+    else if (e.target.tagName == 'A') {
+      // Nav Dropdown
+      if (e.target.id == 'nav-username') {
+        e.preventDefault();
+        var nav = $(e.target).next('.nav-dropdown');
+        if (navOpen) navDropdown(false, nav);
+        else navDropdown(true, nav);
+      }
+    }
+    else if (navOpen) {
+      navDropdown(false);
     }
   });
 

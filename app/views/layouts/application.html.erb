@@ -87,14 +87,13 @@
           <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'control pictos-user' %>
           <div class="nav-dropdown">
             <div id="nav-user">
-              <%= link_to "Home", '/home' %>
               <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
               <%= link_to "Account".html_safe, '/users/edit' %>
               <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
             </div>
           </div>
         <% else %>
-          <%= link 'Log in / Sign up', new_user_session_path, :class => 'pictos-key' %>
+          <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
         <% end %>
         <%= link 'About Us', '/songs', :class => 'pictos-info secondary' %>
         <%= link 'Help', '/songs', :class => 'pictos-help secondary' %>
@@ -150,14 +149,15 @@
   <div id="modal"></div>
 
   <div class="hidden">
-    <div id="new_user">
-      <div class="half first">
-        <h4>Login</h4>
-        <%= render :partial => 'sessions/new_form' %>
-      </div>
-      <div class="half">
+    <div id="new-user">
+      <h3>Welcome to 2u.fm! <small>Sign up for a free account and start discovring new music!</small></h3>
+      <div id="user-signup">
         <h4>Signup</h4>
         <%= render :partial => 'registrations/new_form' %>
+      </div>
+      <div id="user-login">
+        <h4>Login</h4>
+        <%= render :partial => 'sessions/new_form' %>
       </div>
     </div>
   </div>

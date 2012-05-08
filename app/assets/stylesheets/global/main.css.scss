@@ -295,6 +295,44 @@ header #second-nav {
       }
     }
   }
+
+  /* Nav dropdown */
+  .nav-dropdown {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 200px;
+    background: #fff;
+    display: none;
+    padding: 0 0 4px 0;
+    z-index: 1;
+    @include border-bottom-radius(5px);
+    @include box-shadow(0 3px 6px rgba(0,0,0,0.4));
+
+    &.open {
+      display: block;
+    }
+
+    a {
+      color: #000;
+      display: block;
+      text-align: left;
+      width: 100%;
+      max-width: 100%;
+      padding: 10px 4%;
+      @include box-sizing(border-box);
+
+      &:hover {
+        background: $lightest-blue;
+      }
+    }
+
+    img {
+      width: 24px;
+      margin: -5px 0;
+      float: right;
+    }
+  }
 }
 
 [class^="pictos-"], [class*=" pictos-"] {
@@ -317,6 +355,7 @@ header #second-nav {
 .pictos-gear:before {content: "y";}
 .pictos-help:before {content: "h";}
 .pictos-people:before {content: "g";}
+.pictos-user:before {content: "U";}
 
 
 /* BAR */
@@ -1063,6 +1102,55 @@ a[class^="cover-"]:hover:before, a[class*=" cover-"]:hover:before {
 
 /* Modals */
 .hidden { display: none; }
+
+.welcome {
+  margin: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#new-user #user-login {
+  width: 260px;
+  padding: 10px 20px;
+  float: right;
+
+  label {
+    margin: 0;
+    padding: 0 0 4px 0;
+    float: none;
+    text-align: left;
+    display: block;
+  }
+
+  .clearfix input {
+
+  }
+
+  #user_remember_me {
+    float: left;
+  }
+
+  #remember-me {
+    display: block;
+    float: left;
+    margin: -5px 0 0 10px;
+    padding: 0;
+  }
+
+  .actions {
+    background: none;
+    padding: 10px;
+    margin-top: 10px;
+  }
+}
+
+#new-user #user-signup {
+  float: left;
+  width: 456px;
+  padding: 20px;
+  background: #f2f2f2;
+  @include border-radius(8px);
+}
 
 
 /* Debug */

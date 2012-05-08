@@ -149,7 +149,6 @@ div.playlist {
           width: 16px;
           height: 9px;
           margin: 0 2px .05em 4px;
-          border: 1px solid #fff;
           background: url(/images/artist-icons.png) no-repeat top left;
         }
 
@@ -183,11 +182,11 @@ div.playlist {
     .song-meta {
       font-size: 11px;
       margin: -3px 0 2px 0;
-      color: #888;
+      color: #aaa;
       position: relative;
 
       a {
-        color: #888;
+        color: #aaa;
 
         &:hover {
           color: #555;
@@ -235,7 +234,7 @@ div.playlist {
           padding: 0 0 0 3px;
 
           a {
-            color: rgba(0,0,0,0.3);
+            color: #bbb;
             text-shadow: 0 1px -1px #fff;
             padding: 1px 4px;
             text-decoration: none;
@@ -266,7 +265,7 @@ div.playlist {
 
         a {
           font-size: 20px;
-          color: rgba(0,0,0,0.3);
+          color: #bbb;
           text-decoration: none;
           position: relative;
           z-index: 3;
@@ -289,7 +288,7 @@ div.playlist {
             height: 16px;
             padding: 0;
             margin: -2px 4px 0 0;
-            color: rgba(0,0,0,0.3);
+            color: #bbb;
           }
         }
       }
