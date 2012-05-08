@@ -22,41 +22,58 @@
 </div>
 <%- end -%>
 
-<div class="twothirds">
-  <%- if user_signed_in? -%>
-    <h2>Your Song Feed</h2>
-    <%- if @feed -%>
-      <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
-    <%- else -%>
-      <p><strong>Your feed is empty!  We've filled it up with today's most popular for now.</strong>  Follow some stations and you'll see their latest songs here.</p>
-      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
-    <%- end -%>
-  <%- else -%>
-    <h2>Popular Today</h2>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
-    <%= link_to 'Browse more songs', '/songs/fresh', :class => 'button right' %>
-  <%- end -%>
-</div>
 
-<div class="third">
+<div class="nav-container">
   <%- if user_signed_in? -%>
-  <section>
-    <h2>My Stations</h2>
-    <div class="list">
-      <%= render @stations %>
+    <div class="twothirds">
+      <h2>Welcome, <%= current_user.username %></h2>
+      <nav class="right">
+        <%=link_to 'My feed', '#my-feed', :class => 'control active' %>
+        <%=link_to 'Popular today', '#popular-today', :class => 'control' %>
+      </nav>
     </div>
+
+    <div id="my-feed" class="section twothirds active">
+      <%- if @feed -%>
+        <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
+      <%- else -%>
+        <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
+      <%- end -%>
+    </div>
+
+    <div id="popular-today" class="section twothirds">
+      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
+    </div>
+
   <%- else -%>
-    <section>
-     <h2>Just In</h2>
-     <%= render :partial => 'stations/playlist', :locals => { :station => @new, :songs => @new.songs, :no_pagination => true, :per => 8, :compact => true } %>
-    </section>
+
+    <div class="twothirds">
+      <h2>Popular Today</h2>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
+    </div>
+
   <%- end -%>
 
-  <section>
-   <h2>Featured Artists</h2>
-   <ul class="list">
-     <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
-   </ul>
-   <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
-  </section>
+  <div class="third">
+    <%- if user_signed_in? -%>
+    <section>
+      <h2>My Stations</h2>
+      <div class="list">
+        <%= render @stations %>
+      </div>
+    <%- else -%>
+      <section>
+       <h2>Just In</h2>
+       <%= render :partial => 'stations/playlist', :locals => { :station => @new, :songs => @new.songs, :no_pagination => true, :per => 8, :compact => true } %>
+      </section>
+    <%- end -%>
+
+    <section>
+     <h2>Featured Artists</h2>
+     <ul class="list">
+       <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
+     </ul>
+     <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
+    </section>
+  </div>
 </div>
