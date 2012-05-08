@@ -38,10 +38,9 @@ Fusefm::Application.routes.draw do
 
   root :to => 'main#index'
 
-  # For Path.js home
-  match "/home", :to => 'main#home'
-
   match "/search", :to => 'main#search'
   match "/loading", :to => 'main#loading'
+
+  match ':id', :to => 'users#show'
 
 end

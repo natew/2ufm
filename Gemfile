@@ -61,6 +61,7 @@ group :development do
   gem 'taps'
   gem 'quiet_assets'
   gem 'thin'
+  gem 'awesome_print'
   gem 'marginalia' # Adds nice info to SQL statements, supposedly (not working yet)
   # gem 'sql-logging', :git => 'https://pnc@github.com/pnc/sql-logging.git', :branch => 'rails-3-2-fix'
   # gem 'ruby-debug19', :require => 'ruby-debug'

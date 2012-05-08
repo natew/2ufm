@@ -68,18 +68,16 @@ var page = {
     });
 
     // Nav toggle
-    if (curPage == '/') {
-      var navActive = $('.nav-container a.active'),
-          sectionActive = $('.nav-container .station-section.active');
+    var navActive = $('.nav-container a.active'),
+        sectionActive = $('.nav-container div.active');
 
-      $('.nav-container a').click(function(e) {
-        e.preventDefault();
-        navActive.removeClass('active');
-        navActive = $(this).addClass('active');
-        sectionActive.removeClass('active');
-        sectionActive = $($(this).attr('href')).addClass('active');
-      });
-    }
+    $('.nav-container a').click(function(e) {
+      navActive.removeClass('active');
+      navActive = $(this).addClass('active');
+      sectionActive.removeClass('active');
+      sectionActive = $($(this).attr('href')).addClass('active');
+      return false;
+    });
 
     // Stats
     if (path[1] == 'songs') {

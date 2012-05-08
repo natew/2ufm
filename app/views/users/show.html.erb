@@ -1,13 +1,20 @@
-<div class="title">
-  <%= image_tag @user.avatar.url(:small), :class => 'icon' %>
-  <h2 class="icon"><%= @user.username %></h2>
+<div class="nav-container">
+  <div class="title">
+    <%= image_tag @user.avatar.url(:small), :class => 'icon' %>
+    <h2 class="icon"><%= @user.username %></h2>
 
-  <ul class="title-nav">
-    <li id="follow-<%= @user.station.id %>"><%= follow_station(@user.station) %></li>
-  </ul>
-</div>
+    <ul class="title-nav">
+      <li id="follow-<%= @user.station.id %>"><%= follow_station(@user.station) %></li>
+    </ul>
 
-  <div class="twothirds">
+    <nav>
+      <%= link_to 'Favorites', '#favorites', :class => 'active' %>
+      <%= link_to 'Listening History', '#listened' %>
+      <%= link_to 'Following', '#following' %>
+    </nav>
+  </div>
+
+  <div id="favorites" class="twothirds section active">
     <%- if @songs.empty? -%>
       <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
     <%- else -%>
@@ -15,9 +22,14 @@
     <%- end -%>
   </div>
 
-  <div class="third">
-    <h3>Recently Played</h3>
+  <div id="listened" class="twothirds section">
+    <h3>Listening History</h3>
     <ul class="list">
       <%= render :partial => 'play', :collection => @plays %>
     </ul>
   </div>
+
+  <div class="third">
+    <h2>Test</h2>
+  </div>
+</div>

@@ -19,8 +19,8 @@ div.playlist {
     }
 
     &.highlight {
-      border: 1px solid $lighter-blue;
-      @include background-gradient($lighter-blue,$lightest-blue);
+      border: 1px solid #eee;
+      @include background-gradient(#eee,#f9f9f9);
 
       .play-song {
         visibility: visible !important;
@@ -31,7 +31,7 @@ div.playlist {
       @include background-gradient($primary-light,$primary);
 
       &.highlight {
-        border-color: darken($primary,20%);
+        border-color: $primary;
       }
 
       .song-info {
@@ -87,7 +87,7 @@ div.playlist {
 
       img {
         width: 100%;
-        height: 113%;
+        height: 114%;
         position: absolute;
         top: -2px;
         left: 0;
@@ -124,7 +124,7 @@ div.playlist {
         padding: 0;
         margin: -2px 0 0;
         width: 460px-$song-pad;
-        color: #444;
+        color: #555;
 
         a {
           text-decoration: none;
