@@ -163,7 +163,7 @@ $(function() {
     }
 
     $('header h1 a').click(function() {
-      window.location = window.location;
+      window.location.reload();
       return false;
     });
   }
