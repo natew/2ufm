@@ -22,18 +22,17 @@
 </div>
 <%- end -%>
 
-
-<div class="nav-container">
-  <%- if user_signed_in? -%>
+<%- if user_signed_in? -%>
+  <div class="nav-container">
     <div class="twothirds">
       <h2>Welcome, <%= current_user.username %></h2>
       <nav class="right">
-        <%=link_to 'My feed', '#my-feed', :class => 'control active' %>
-        <%=link_to 'Popular today', '#popular-today', :class => 'control' %>
+        <%=link_to 'My feed', '#my-feed', :class => 'control' + (@feed ? ' active' : '') %>
+        <%=link_to 'Popular today', '#popular-today', :class => 'control' + (@feed ? '' : ' active') %>
       </nav>
     </div>
 
-    <div id="my-feed" class="section twothirds active">
+    <div id="my-feed" class="section twothirds<% if @feed %> active<% end %>">
       <%- if @feed -%>
         <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
       <%- else -%>
@@ -41,18 +40,15 @@
       <%- end -%>
     </div>
 
-    <div id="popular-today" class="section twothirds">
+    <div id="popular-today" class="section twothirds<% if !@feed %> active<% end %>">
       <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
     </div>
-
-  <%- else -%>
-
-    <div class="twothirds">
-      <h2>Popular Today</h2>
-      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
-    </div>
-
-  <%- end -%>
+<%- else -%>
+  <div class="twothirds">
+    <h2>Popular Today</h2>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
+  </div>
+<%- end -%>
 
   <div class="third">
     <%- if user_signed_in? -%>
@@ -77,3 +73,7 @@
     </section>
   </div>
 </div>
+
+<%- if user_signed_in? %>
+  </div>
+<%- end -%>

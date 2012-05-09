@@ -358,7 +358,6 @@ var mp = (function() {
 
     pause: function pause() {
       isPlaying = false;
-      player.setCurSectionInactive();
       player.refresh();
     },
 
