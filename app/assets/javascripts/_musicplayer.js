@@ -480,6 +480,10 @@ var mp = (function() {
 
     curSong: function() {
       return curSong;
+    },
+
+    curSongInfo: function() {
+      return curSongInfo;
     }
 
   };
