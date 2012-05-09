@@ -41,6 +41,5 @@ Fusefm::Application.routes.draw do
   match "/search", :to => 'main#search'
   match "/loading", :to => 'main#loading'
 
-  match ':id', :to => 'users#show'
-
+  match '/mac', :to => 'main#mac'
 end

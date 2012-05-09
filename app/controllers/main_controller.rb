@@ -33,6 +33,10 @@ class MainController < ApplicationController
     render :text => '<div id="loading"><h2>Loading</h2></div>'
   end
 
+  def mac
+    send_file File.join(Rails.root,'public','apps','2u.dmg')
+  end
+
   private
 
   # Search formatting

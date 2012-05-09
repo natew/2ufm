@@ -94,12 +94,6 @@ $(function() {
     $(window).scrollTop(section.offset().top-100);
   }
 
-  // Bar buttons
-  $('#bar-top').html('{').click(function(e) {
-    e.preventDefault();
-    $('html,body').animate({scrollTop:0}, 200);
-  });
-
   // Tooltips
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
@@ -166,6 +160,8 @@ $(function() {
       window.location.reload();
       return false;
     });
+
+    $('#get-app').remove();
   }
 
   // Play from playlist

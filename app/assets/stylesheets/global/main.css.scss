@@ -274,7 +274,7 @@ header #second-nav {
 
   a {
     font-size: 12px;
-    padding: 5px 22px 5px 10px;
+    padding: 5px 20px 5px 10px;
     text-decoration: none;
     font-weight: bold;
     color: #555;
@@ -355,6 +355,8 @@ header #second-nav {
 .pictos-help:before {content: "h";}
 .pictos-people:before {content: "g";}
 .pictos-user:before {content: "U";}
+.pictos-download:before {content: "~";}
+.pictos-down:before {content: "}";}
 
 
 /* BAR */
