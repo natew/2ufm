@@ -61,11 +61,15 @@ var mp = (function() {
   var player = {
     // Play a section
     playSection: function playSection(section) {
-      this.stop();
-      curSection = section;
       fn.log(curSection);
-      this.load();
-      this.play();
+      if (section.is('.playing')) {
+        this.toggle();
+      } else {
+        this.stop();
+        curSection = section;
+        this.load();
+        this.play();
+      }
     },
 
     // Load playlist
@@ -168,6 +172,11 @@ var mp = (function() {
         curSong.pause();
         this.marquee(false);
       }
+    },
+
+    toggle: function toggle() {
+      if (isPlaying) this.pause();
+      else this.play();
     },
 
     next: function next() {
@@ -424,8 +433,7 @@ var mp = (function() {
     },
 
     toggle: function() {
-      if (isPlaying) player.pause();
-      else player.play();
+      player.toggle();
       return isPlaying;
     },
 

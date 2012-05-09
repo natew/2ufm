@@ -30,6 +30,13 @@ var page = {
     var $doc = $(document);
     var $body = $doc.find('body:first');
 
+    // Play from song
+    $('.song-link').click(function songClick(e) {
+      e.preventDefault();
+      var section = $(this).parent();
+      mp.playSection(section);
+    });
+
     // Styling for inputs
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
 
@@ -52,13 +59,6 @@ var page = {
     // Highlight first song
     highlightSong();
 
-    // Play from song
-    $('.song-link').click(function songClick(e) {
-      e.preventDefault();
-      var section = $(this).parent();
-      section.is('.playing') ? mp.pause() : mp.playSection(section);
-    });
-
     // Hover also highlights songs
     $('.playlist section').hover(function() {
       highlightedSong.removeClass('highlight');
@@ -71,7 +71,7 @@ var page = {
     var navActive = $('.nav-container a.active'),
         sectionActive = $('.nav-container div.active');
 
-    $('.nav-container a').click(function(e) {
+    $('.nav-container nav a').click(function(e) {
       navActive.removeClass('active');
       navActive = $(this).addClass('active');
       sectionActive.removeClass('active');
