@@ -82,6 +82,13 @@
       </div>
 
       <div id="second-nav">
+        <%= link 'Help', '#help', :class => 'modal pictos-help secondary' %>
+        <div class="nav-container">
+          <%= link 'Get the App!', "/mac", :id => 'get-app', :class => 'nav-control pictos-down control' %>
+          <div class="nav-dropdown">
+            <%= link 'Download <span>for Mac 10.6</span>'.html_safe, "/mac", :class => 'control', :target => '_blank' %>
+          </div>
+        </div>
         <% if user_signed_in? %>
         <span id="current_user" data-id="<%= current_user.id %>"></span>
         <div class="nav-container">
@@ -97,13 +104,6 @@
         <% else %>
           <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
         <% end %>
-        <div class="nav-container">
-          <%= link 'Get the App!', "/mac", :id => 'get-app', :class => 'nav-control pictos-down control' %>
-          <div class="nav-dropdown">
-            <%= link 'Download <span>for Mac 10.6</span>'.html_safe, "/mac", :class => 'control', :target => '_blank' %>
-          </div>
-        </div>
-        <%= link 'Help', '#help', :class => 'modal pictos-help secondary' %>
       </div>
 
       <%= form_tag '/main/search', :method => 'get' do %>

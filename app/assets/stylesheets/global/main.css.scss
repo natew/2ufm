@@ -93,7 +93,7 @@ h2 small { font-size: 55%; }
 
 /* Header */
 
-$header_shadow: rgba(255,255,255,0.8);
+$header_shadow: rgba(255,255,255,0.2);
 
 body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
@@ -103,11 +103,10 @@ header {
   left: 0;
   z-index: 100;
   line-height: 1em;
-  border-top: 1px solid #f8f8f8;
-  border-bottom: 1px solid #999;
-  text-shadow: 0 1px 0 $header_shadow;
-  @include box-shadow(0 0 4px rgba(0,0,0,0.4));
-  @include background-image(url(/images/noise.png), linear-gradient(#eee 0, #eee 30%,#ccc 100%));
+  border-top: 1px solid #555;
+  border-bottom: 1px solid #000;
+  @include box-shadow(0 0 4px rgba(0,0,0,.5));
+  @include background-image(url(/images/noise-dark.png), linear-gradient(#444 20%,#252525 100%));
   background-position: bottom;
   background-repeat: repeat-x;
 
@@ -118,7 +117,7 @@ header {
     margin: 0;
 
     a {
-      background: url(/images/2ulogo-web.png) no-repeat top left;
+      background: url(/images/2ulogo-web-dark.png) no-repeat top left;
       width: 74px;
       height: 74px;
       overflow: hidden;
@@ -158,13 +157,13 @@ header {
         display: block;
         font-size: 11px;
         padding: 0 0 3px 0;
-        color: #777;
+        color: #ccc;
       }
 
       strong {
         display: block;
         font-size: 14px;
-        color: #000;
+        color: #fff;
         position: relative;
         padding-right: 9px;
         overflow: hidden;
@@ -234,10 +233,10 @@ header form {
     width: 240px;
     margin: 0;
     color: #ddd;
-    background: #fff;
+    background: #555;
     outline: none;
     font-size: 12px;
-    border: 1px solid #bbb;
+    border: 1px solid #222;
     @include box-shadow(0 1px 0 $header_shadow);
     @include border-radius(20px);
 
@@ -266,31 +265,38 @@ header form {
 
 header #second-nav {
   position: absolute;
-  bottom: 10px;
-  right: 0;
+  bottom: 5px;
+  right: 10px;
   padding: 0;
   width: 300px;
   text-align: right;
 
   a {
-    font-size: 12px;
-    padding: 5px 20px 5px 10px;
+    float: right;
+    font-size: 10px;
+    margin: 0 0 0 4px;
+    padding: 3px 7px 3px 20px;
     text-decoration: none;
     font-weight: bold;
-    color: #555;
+    color: #ccc;
+    text-shadow: none;
+    border: 1px solid #222;
+    @include border-radius(3px);
+    @include box-shadow(0 1px 0 $header-shadow);
     @include box-sizing(border-box);
 
 
     &:hover,
     &:hover:before {
-      color: #000;
+      color: #fff;
+      background: #444;
     }
 
     &.secondary {
-      color: #777;
+      color: #aaa;
 
       &:hover {
-        color: #444;
+        color: #fff;
       }
     }
   }
@@ -352,9 +358,9 @@ header #second-nav {
   font-weight: normal;
   display: inline-block;
   position: absolute;
-  left: -8px;
-  top: 7px;
-  font-size: 14px;
+  left: 5px;
+  top: 5px;
+  font-size: 12px;
   font-family: 'Pictos';
 }
 
@@ -477,15 +483,14 @@ header #second-nav {
       display: block;
       float: left;
       overflow: hidden;
-      border: 1px solid #666;
+      border: 1px solid #222;
       color: #fff;
       text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-      @include linear-gradient(-90deg,#aaa,#666);
-      @include box-shadow(inset 0 -6px 12px rgba(0,0,0,0.2), 0 1px 0 $header_shadow);
+      @include linear-gradient(-90deg,#666,#333);
+      @include box-shadow(inset 0 -6px 12px rgba(0,0,0,0.5), 0 1px 0 $header_shadow);
       @include border-radius(50px);
 
       &:hover {
-        border: 1px solid #4ac124;
         text-shadow: 0 1px 1px rgba(0,0,0,0.5);
         @include linear-gradient(-90deg,#67ef38,#4ac124);
 
@@ -583,11 +588,11 @@ header #second-nav {
     width: 380px;
 
     #player-meta {
-      margin: -5px 0 2px 0;
+      margin: -6px 0 2px 0;
       line-height: 1.4em;
 
       #player-artist-name {
-        color: #555;
+        color: #aaa;
         display: block;
         font-size: 11px;
         font-weight: normal;
@@ -605,7 +610,7 @@ header #second-nav {
         overflow: hidden;
         text-overflow: ellipsis;
         width: 80%;
-        color: #000;
+        color: #fff;
       }
     }
 
@@ -621,7 +626,8 @@ header #second-nav {
       display: block;
       float: left;
       font-size: 14px;
-      color: #999;
+      color: #444;
+      text-shadow: 0 1px 0 $header-shadow;
       padding: 5px;
 
       &:hover {
@@ -646,8 +652,7 @@ header #second-nav {
       width: 324px;
       position: relative;
       border-bottom: 1px solid $header-shadow;
-      @include linear-gradient(bottom,#ccc,#bbb);
-      @include box-shadow(inset 0 0 1px rgba(0,0,0,0.5));
+      background: #444;
       @include border-radius(16px);
 
       &:hover {
