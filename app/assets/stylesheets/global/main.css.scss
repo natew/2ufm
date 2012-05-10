@@ -106,7 +106,7 @@ header {
   border-top: 1px solid #555;
   border-bottom: 1px solid #000;
   @include box-shadow(0 0 4px rgba(0,0,0,.5));
-  @include background-image(url(/images/noise-dark.png), linear-gradient(#444 20%,#252525 100%));
+  @include background-image(url(/images/noise-dark.png), linear-gradient(#555 20%,#2e2e2e 100%));
   background-position: bottom;
   background-repeat: repeat-x;
 
@@ -448,7 +448,7 @@ header #second-nav {
     background: #555;
     color: #fff;
     text-shadow: 0 1px 0 rgba(0,0,0,0.3);
-    border: 1px solid #39911a;
+    border: 1px solid #333;
     @include border-radius(5px);
     @include background-gradient(#70e334,#39911a);
 
