@@ -165,9 +165,10 @@ $(function() {
         scrollPage++;
         fn.log(scrollPage, loading_scroll);
         $.ajax({
-          url: window.location.href + '?page=' + scrollPage,
+          url: window.location.href,
           type: 'get',
-          data: 'id='+$('.twothirds .playlist:visible:first').attr('id').split('-')[1],
+          data: 'id='+$('.twothirds .playlist:visible:first').attr('id').split('-')[1]
+                + '&page=' + scrollPage,
           headers: {
             Accept: "text/page; charset=utf-8",
             "Content-Type": "text/page; charset=utf-8"

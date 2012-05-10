@@ -1,6 +1,7 @@
 <%- station       ||= Station.new
 		id              = station.id || 0
 		per           ||= 12
+    songs         ||= station.songs.playlist_order_broadcasted
     songs           = songs.page(params[:page]).per(per)
     compact       ||= false -%>
 <div id="playlist-<%= id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= station.to_playlist_json %>, &quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
