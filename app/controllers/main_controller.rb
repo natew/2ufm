@@ -12,7 +12,8 @@ class MainController < ApplicationController
     @stations[:users] = Station.blog_station.order('random()*random()').limit(4)
 
     if !user_signed_in?
-      @new = Station.new_station
+      @new = Station.newest
+      @new_songs = Song.newest
     else
       @stations = current_user.stations
     end

@@ -46,7 +46,7 @@
 <%- else -%>
   <div class="twothirds">
     <h2>Popular Today</h2>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs } %>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
   </div>
 <%- end -%>
 
@@ -60,7 +60,7 @@
     <%- else -%>
       <section>
        <h2>Just In</h2>
-       <%= render :partial => 'stations/playlist', :locals => { :station => @new, :songs => @new.songs, :per => 8, :compact => true } %>
+       <%= render :partial => 'stations/playlist', :locals => { :station => @newe, :songs => @new_songs, :per => 8, :compact => true } %>
       </section>
     <%- end -%>
 

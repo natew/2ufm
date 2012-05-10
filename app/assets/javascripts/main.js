@@ -219,28 +219,33 @@ $(function() {
   })
 
   $('body').click(function(e) {
-    if (!loggedIn && e.target.tagName == 'A') {
-      var el = $(e.target);
-      if (el.is('.broadcast-song')) {
-        modal('#new-user');
-        return false;
-      }
-      else if (el.is('.modal')) {
-        modal(el.attr('href'));
-        return false;
-      }
-    }
-    else if (e.target.tagName == 'A') {
-      // Nav Dropdown
-      if (e.target.id == 'nav-username') {
+    if (e.target.tagName == 'A') {
+      if (e.target.className.match(/nav-control/)) {
+        // Nav Dropdown
         e.preventDefault();
         var nav = $(e.target).next('.nav-dropdown');
         if (navOpen) navDropdown(false, nav);
         else navDropdown(true, nav);
       }
+      else {
+        navDropdown(false);
+        if (!loggedIn && e.target.className.match(/broadcast-song/)) {
+          // Not logged in modal
+          modal('#new-user');
+          return false;
+        }
+        else if (e.target.className.match(/modal/)) {
+          // Modals
+          modal(e.target.getAttribute('href'));
+          return false;
+        }
+      }
     }
-    else if (navOpen) {
-      navDropdown(false);
+    // Not <a>
+    else {
+      if (navOpen) {
+        navDropdown(false);
+      }
     }
   });
 

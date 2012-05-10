@@ -1,5 +1,9 @@
 @import "mixins.css.scss";
 
+/* Modals */
+
+.hidden { display: none; }
+
 #modal {
   top: -500px;
   position: fixed;
@@ -25,6 +29,25 @@
   .half {
     width: 45%;
   }
+
+  h3 {
+    font-size: 22px;
+    margin: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+
+    small {
+      font-size: 80%;
+    }
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 14px;
+  }
 }
 
 #overlay {
@@ -48,4 +71,70 @@
 * html #modal {
    position: absolute;
    top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+
+
+#new-user #user-login {
+  width: 250px;
+  padding: 20px;
+  float: right;
+
+  input[type="text"],
+  input[type="password"] {
+    width: 95%;
+  }
+
+  label {
+    margin: 0;
+    padding: 0 0 4px 0;
+    float: none;
+    text-align: left;
+    display: block;
+  }
+
+  #user_remember_me {
+    float: right;
+    margin: 12px 104px 0 0;
+  }
+
+  #remember-me {
+    display: block;
+    float: right;
+    margin: -18px 60px 0 10px;
+    padding: 0;
+  }
+
+  .actions {
+    background: none;
+    padding: 0;
+    margin-top: -38px;
+    float: right;
+    text-align: right;
+    border: none;
+
+    p {
+      float: none;
+      margin: 45px -20px 0 0;
+    }
+
+    input {
+      float: right;
+    }
+  }
+}
+
+#new-user #user-signup {
+  float: left;
+  width: 452px;
+  padding: 20px;
+  background: $lightest-blue;
+  border: 2px solid $light-blue;
+  @include border-radius(8px);
+
+  .actions {
+    background: none;
+    padding-top: 0;
+    border: none;
+  }
 }

@@ -84,7 +84,8 @@
       <div id="second-nav">
         <% if user_signed_in? %>
         <span id="current_user" data-id="<%= current_user.id %>"></span>
-          <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'control pictos-user' %>
+        <div class="nav-container">
+          <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'nav-control control pictos-user' %>
           <div class="nav-dropdown">
             <div id="nav-user">
               <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
@@ -92,11 +93,17 @@
               <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
             </div>
           </div>
+        </div>
         <% else %>
           <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
         <% end %>
-        <%= link 'Get the App!', "/mac", :id => 'get-app', :class => 'pictos-down control', :target => '_blank' %>
-        <%= link 'Help', '/songs', :class => 'pictos-help secondary' %>
+        <div class="nav-container">
+          <%= link 'Get the App!', "/mac", :id => 'get-app', :class => 'nav-control pictos-down control' %>
+          <div class="nav-dropdown">
+            <%= link 'Download <span>for Mac 10.6</span>'.html_safe, "/mac", :class => 'control', :target => '_blank' %>
+          </div>
+        </div>
+        <%= link 'Help', '#help', :class => 'modal pictos-help secondary' %>
       </div>
 
       <%= form_tag '/main/search', :method => 'get' do %>
@@ -150,7 +157,7 @@
 
   <div class="hidden">
     <div id="new-user">
-      <h3>Welcome to 2u.fm! <small>Sign up for a free account and start discovring new music!</small></h3>
+      <h3>Welcome to 2u.fm! <small>Sign up for a free account and always have the best music!</small></h3>
       <div id="user-signup">
         <h4>Signup</h4>
         <%= render :partial => 'registrations/new_form' %>
@@ -160,6 +167,19 @@
         <%= render :partial => 'sessions/new_form' %>
       </div>
     </div>
+  </div>
+
+  <div id="help">
+    <h3>Help</h3>
+    <p>Welcome to 2u.fm!  We are collectors of the latest and greatest music from all around the web.  We find new music and sort it all out so you can sit back and enjoy.  Check out our <strong><%= link_to 'popular', '/popular' %></strong>, <strong><%= link_to 'genre', '/genres' %></strong>, and <strong><%= link_to 'artist', '/artists' %></strong> stations to get a start.
+    </p>
+
+    <h4>Keyboard Shortcuts</h4>
+    <dl>
+      <dt>Space</dt><dd>Pause / Play</dd>
+      <dt>Enter</dt><dd>Play highlighted song</dd>
+      <dt>Arrow keys</dt><dd>Next / Prev</dd>
+    </dl>
   </div>
 </body>
 </html>
