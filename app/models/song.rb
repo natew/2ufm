@@ -60,6 +60,14 @@ class Song < ActiveRecord::Base
     shared_count > 0
   end
 
+  def self.popular
+    playlist_order_rank
+  end
+
+  def self.newest
+    playlist_order_published
+  end
+
   def as_json(options={})
     {
       :id => id,

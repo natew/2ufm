@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :set_pagination_vars, :get_counts
+  before_filter :do_page_request, :set_pagination_vars, :get_counts
   layout :set_layout
 
   def not_found
@@ -13,6 +13,26 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def do_page_request
+    logger.debug 'ACCEPT: ' + request.headers['HTTP_ACCEPT']
+    if request.headers['HTTP_ACCEPT'] =~ /text\/page/i
+      id = params[:id]
+      if id == '0'
+        @p_station = Station.newest
+        @p_songs = Song.newest
+      elsif id == '1'
+        @p_station = Station.popular
+        @p_songs = Song.popular
+      else
+        @p_station = Station.find_by_id(id)
+        @p_songs = @p_station.songs
+      end
+
+      render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs }
+      return
+    end
+  end
 
   def set_layout
     if request.headers['X-PJAX']

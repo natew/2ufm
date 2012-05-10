@@ -1,6 +1,7 @@
 class SongsController < ApplicationController
   def index
-    @popular = Station.popular_station
+    @popular = Station.popular
+    @popular_songs = Song.popular
 
     respond_to do |format|
       format.html
@@ -33,7 +34,8 @@ class SongsController < ApplicationController
   end
 
   def fresh
-    @station = Station.new_station
+    @station = Station.newest
+    @songs = Song.newest
 
     respond_to do |format|
       format.html

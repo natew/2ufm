@@ -10,7 +10,10 @@ var w = $(window),
     debug = false,
     loggedIn = $('#nav-username').length > 0,
     modalShown = false,
-    navOpen;
+    navOpen,
+    loading_scroll = false,
+    doneScrolling = false,
+    scrollPage = 1;
 
 function highlightSong() {
   var windowOffset = w.scrollTop()+70,
@@ -80,8 +83,14 @@ $(function() {
 
   // Hash tag to denote time in songs
   if (window.location.hash) {
-    var time = window.location.hash.split(':');
-    mp.playSection($('.playlist section:first'), time[0]*60 + time[1]);
+    var hash = window.location.hash.split('-');
+    if (hash[0] == 'song') {
+      // TODO time
+      mp.playSection($('.playlist section:first'), time[0]*60 + time[1]);
+    }
+    else if (hash[0] == 'page') {
+      // TODO pagination with hash
+    }
   }
 
   // Listen sharing
@@ -96,11 +105,6 @@ $(function() {
   // Tooltips
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
-  w.scroll(function(){
-    // Removes on scroll
-    clearTimeout(tipsyClearTimeout);
-    tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
-  });
 
   // Livesearch
   $('#query').marcoPolo({
@@ -145,11 +149,45 @@ $(function() {
     else mp.playSong(index);
   });
 
-  // Window scroll highlights songs
   w.scroll(function() {
+    // Window scroll highlights songs
     clearTimeout(highlightTimeout);
     highlightTimeout = setTimeout(highlightSong,20);
+
+    // Removes on scroll
+    clearTimeout(tipsyClearTimeout);
+    tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
+
+    //Infinite scrolling
+    if (!loading_scroll && !doneScrolling) {
+      if (nearBottom()) {
+        loading_scroll = true;
+        scrollPage++;
+        fn.log(scrollPage, loading_scroll);
+        $.ajax({
+          url: window.location.href + '?page=' + scrollPage,
+          type: 'get',
+          data: 'id='+$('.twothirds .playlist:visible:first').attr('id').split('-')[1],
+          headers: {
+            Accept: "text/page; charset=utf-8",
+            "Content-Type": "text/page; charset=utf-8"
+          },
+          success: function(data) {
+            loading_scroll = false;
+            window.location.hash = 'page-'+scrollPage;
+            $('.twothirds .playlist:last').after(data);
+          },
+          error: function() {
+            doneScrolling = true;
+          }
+        })
+      }
+    }
   });
+
+  function nearBottom() {
+    return w.scrollTop() >= ($(document).height() - $(window).height() - 100);
+  }
 
   // Playlist bar hover
   var progressBar = $('#player-bottom'),

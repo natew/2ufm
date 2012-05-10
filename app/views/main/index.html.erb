@@ -41,12 +41,12 @@
     </div>
 
     <div id="popular-today" class="section twothirds<% if !@feed %> active<% end %>">
-      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
     </div>
 <%- else -%>
   <div class="twothirds">
     <h2>Popular Today</h2>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs, :no_pagination => true } %>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular.songs } %>
   </div>
 <%- end -%>
 
@@ -60,7 +60,7 @@
     <%- else -%>
       <section>
        <h2>Just In</h2>
-       <%= render :partial => 'stations/playlist', :locals => { :station => @new, :songs => @new.songs, :no_pagination => true, :per => 8, :compact => true } %>
+       <%= render :partial => 'stations/playlist', :locals => { :station => @new, :songs => @new.songs, :per => 8, :compact => true } %>
       </section>
     <%- end -%>
 

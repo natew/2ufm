@@ -79,6 +79,10 @@ var page = {
       return false;
     });
 
+    // Reset page
+    scrollPage = 1;
+    doneScrolling = false;
+
     // Stats
     if (path[1] == 'songs') {
       var $stats = $('#stats');
