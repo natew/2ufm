@@ -21,14 +21,19 @@ function highlightSong() {
       cur = highlightedSong;
 
   for (var page = totalPages-1; page>0; page--) {
-    if (songOffsets[page][0] < windowOffset) break;
+    fn.log(songOffsets[page-1][songOffsets[page-1].length-1], windowOffset)
+    if (page >= 1 && songOffsets[page-1][songOffsets[page-1].length-1] < windowOffset) {
+      fn.log('breaking at page', page, songOffsets[page][0], windowOffset);
+      break;
+    }
   }
 
   for (var i = 0; i<songOffsets[page].length; i++) {
-    if (songOffsets[page][i] > windowOffset) break;
+    if (songOffsets[page][i] > windowOffset) {
+      // fn.log('breaking at song',i,songOffsets[page][i], windowOffset);
+      break;
+    }
   }
-
-  fn.log(page,i);
 
   highlightedSong = songSections[page].eq(i).addClass('highlight');
   if (cur && cur.attr('id') != highlightedSong.attr('id'))
@@ -51,13 +56,11 @@ function resetOffsets() {
 
 // Calculates offsets given sections
 function addOffsets(sections) {
-  fn.log(songOffsets);
   var page = totalPages;
   fn.log('adding offsets from page', page);
   songSections[page] = sections;
   songOffsets[page] = new Array(sections.length);
   sections.each(function(index) {
-    fn.log(this,index);
     songOffsets[page][index] = $(this).offset().top;
   });
   totalPages++;
@@ -184,7 +187,7 @@ $(function() {
   w.scroll(function() {
     // Window scroll highlights songs
     clearTimeout(highlightTimeout);
-    highlightTimeout = setTimeout(highlightSong,20);
+    highlightTimeout = setTimeout(highlightSong,50);
 
     // Removes on scroll
     clearTimeout(tipsyClearTimeout);
