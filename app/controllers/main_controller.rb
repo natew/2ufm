@@ -35,7 +35,7 @@ class MainController < ApplicationController
   end
 
   def mac
-    send_file File.join(Rails.root,'public','apps','2u.dmg')
+    send_file File.join(Rails.root,'public','apps','2u.zip')
   end
 
   private
