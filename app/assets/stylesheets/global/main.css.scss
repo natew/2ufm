@@ -93,7 +93,7 @@ h2 small { font-size: 55%; }
 
 /* Header */
 
-$header_shadow: rgba(255,255,255,0.2);
+$header_shadow: rgba(255,255,255,0.15);
 
 body.signed_in header #functions .nav a { padding: 11px 11px 11px 30px; }
 header {
@@ -137,6 +137,10 @@ header {
         background: #fff;
         @include box-shadow(0 -1px 2px rgba(0,0,0,0.2));
         @include border-top-radius(4px);
+
+        small, strong {
+          color: #000;
+        }
       }
 
       ul {
@@ -157,7 +161,7 @@ header {
         display: block;
         font-size: 11px;
         padding: 0 0 3px 0;
-        color: #ccc;
+        color: #aaa;
       }
 
       strong {
@@ -233,10 +237,10 @@ header form {
     width: 240px;
     margin: 0;
     color: #ddd;
-    background: #555;
     outline: none;
     font-size: 12px;
-    border: 1px solid #222;
+    border: 1px solid #353535;
+    @include linear-gradient(#353535,#444);
     @include box-shadow(0 1px 0 $header_shadow);
     @include border-radius(20px);
 
@@ -254,19 +258,20 @@ header form {
     background: none;
     border: none;
     position: absolute;
-    right: 1px;
-    top: 2px;
-    font-size: 20px;
-    color: #ccc;
+    right: 0;
+    top: -1px;
+    font-size: 18px;
+    color: #888;
+    width: 38px;
 
-    &:hover { color: #666; }
+    &:hover { color: #fff; }
   }
 }
 
 header #second-nav {
   position: absolute;
-  bottom: 5px;
-  right: 10px;
+  bottom: 6px;
+  right: 20px;
   padding: 0;
   width: 300px;
   text-align: right;
@@ -274,17 +279,19 @@ header #second-nav {
   a {
     float: right;
     font-size: 10px;
-    margin: 0 0 0 4px;
+    margin: 0 0 0 5px;
     padding: 3px 7px 3px 20px;
     text-decoration: none;
     font-weight: bold;
-    color: #ccc;
+    color: #aaa;
     text-shadow: none;
-    border: 1px solid #222;
+    background: #353535;
+    border: 1px solid #252525;
     @include border-radius(3px);
+    @include linear-gradient(#444,#333);
     @include box-shadow(0 1px 0 $header-shadow);
     @include box-sizing(border-box);
-
+    @include transition(all .2s linear);
 
     &:hover,
     &:hover:before {
@@ -294,6 +301,7 @@ header #second-nav {
 
     &.secondary {
       color: #aaa;
+      font-weight: normal;
 
       &:hover {
         color: #fff;
@@ -483,9 +491,8 @@ header #second-nav {
       display: block;
       float: left;
       overflow: hidden;
-      border: 1px solid #222;
+      border: 1px solid #333;
       color: #fff;
-      text-shadow: 0 1px 1px rgba(0,0,0,0.3);
       @include linear-gradient(-90deg,#666,#333);
       @include box-shadow(inset 0 -6px 12px rgba(0,0,0,0.5), 0 1px 0 $header_shadow);
       @include border-radius(50px);
@@ -516,6 +523,7 @@ header #second-nav {
       font-size: 40px;
       width: 54px;
       height: 54px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
 
       span {
         padding: 24px 0 0 14px;
@@ -626,7 +634,7 @@ header #second-nav {
       display: block;
       float: left;
       font-size: 14px;
-      color: #444;
+      color: #333;
       text-shadow: 0 1px 0 $header-shadow;
       padding: 5px;
 
@@ -646,13 +654,14 @@ header #second-nav {
 
     #player-progress-bar {
       float: left;
-      margin: 2px 0 0;
+      margin: 1px 0 0;
       padding: 4px;
       height: 11px;
       width: 324px;
       position: relative;
+      border-top: 1px solid #252525;
       border-bottom: 1px solid $header-shadow;
-      background: #444;
+      @include linear-gradient(#353535,#3e3e3e);
       @include border-radius(16px);
 
       &:hover {
