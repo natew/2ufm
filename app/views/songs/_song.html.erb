@@ -1,5 +1,5 @@
 <%- station_id ||= -1 %>
-<section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>">
+<section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
   <div class="song-art cover-small">
     <%= image_tag song.resolve_image(:small) %>
   </div>

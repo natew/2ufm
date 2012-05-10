@@ -249,7 +249,8 @@ header form {
     }
 
     &:focus {
-      border-color: #777;
+      border-color: #fff;
+      background: #fff;
       color: #444;
     }
   }
@@ -498,8 +499,9 @@ header #second-nav {
       @include border-radius(50px);
 
       &:hover {
+        border-color: $primary;
         text-shadow: 0 1px 1px rgba(0,0,0,0.5);
-        @include linear-gradient(-90deg,#67ef38,#4ac124);
+        @include linear-gradient(-90deg,$primary-light,$primary);
 
         span {
           color: #fff;

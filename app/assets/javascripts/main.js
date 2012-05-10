@@ -4,7 +4,7 @@ var w = $(window),
     highlightTimeout,
     songOffsets = [],
     playlistOffset,
-    songSections,
+    songSections = [],
     tipsyClearTimeout,
     bar = $('#bar'),
     debug = false,
@@ -13,18 +13,24 @@ var w = $(window),
     navOpen,
     loading_scroll = false,
     doneScrolling = false,
-    scrollPage = 1;
+    scrollPage = 1,
+    totalPages = 0;
 
 function highlightSong() {
   var windowOffset = w.scrollTop()+70,
-      cur = highlightedSong,
-      i = 0;
+      cur = highlightedSong;
 
-  for (; i<songOffsets.length; i++) {
-    if (songOffsets[i] > windowOffset) break;
+  for (var page = totalPages-1; page>0; page--) {
+    if (songOffsets[page][0] < windowOffset) break;
   }
 
-  highlightedSong = songSections.eq(i).addClass('highlight');
+  for (var i = 0; i<songOffsets[page].length; i++) {
+    if (songOffsets[page][i] > windowOffset) break;
+  }
+
+  fn.log(page,i);
+
+  highlightedSong = songSections[page].eq(i).addClass('highlight');
   if (cur && cur.attr('id') != highlightedSong.attr('id'))
     cur.removeClass('highlight');
 }
@@ -36,6 +42,25 @@ var mpClick = function(selector,callback) {
     fn.log(fn);
     mp[callback].call();
   });
+}
+
+function resetOffsets() {
+  totalPages = 0;
+  songOffsets = [];
+}
+
+// Calculates offsets given sections
+function addOffsets(sections) {
+  fn.log(songOffsets);
+  var page = totalPages;
+  fn.log('adding offsets from page', page);
+  songSections[page] = sections;
+  songOffsets[page] = new Array(sections.length);
+  sections.each(function(index) {
+    fn.log(this,index);
+    songOffsets[page][index] = $(this).offset().top;
+  });
+  totalPages++;
 }
 
 // Read URL parameters
@@ -137,6 +162,13 @@ $(function() {
   mpClick('#player-prev', 'prev');
   mpClick('#player-volume', 'volumeToggle');
 
+  // Play from song
+  $('.song-link').live('click', function songClick(e) {
+    e.preventDefault();
+    var section = $(this).parent();
+    mp.playSection(section);
+  });
+
   // Play from playlist
   $('#player-playlist a').live('click',function(e) {
     e.preventDefault();
@@ -161,14 +193,13 @@ $(function() {
     //Infinite scrolling
     if (!loading_scroll && !doneScrolling) {
       if (nearBottom()) {
+        var id = $('.twothirds .playlist:visible:first').attr('id').split('-')[1];
         loading_scroll = true;
         scrollPage++;
-        fn.log(scrollPage, loading_scroll);
         $.ajax({
           url: window.location.href,
           type: 'get',
-          data: 'id='+$('.twothirds .playlist:visible:first').attr('id').split('-')[1]
-                + '&page=' + scrollPage,
+          data: 'id='+id+'&page='+scrollPage,
           headers: {
             Accept: "text/page; charset=utf-8",
             "Content-Type": "text/page; charset=utf-8"
@@ -177,6 +208,7 @@ $(function() {
             loading_scroll = false;
             window.location.hash = 'page-'+scrollPage;
             $('.twothirds .playlist:last').after(data);
+            addOffsets($('#playlist-'+id+'-'+scrollPage+' section'));
           },
           error: function() {
             doneScrolling = true;
@@ -186,6 +218,7 @@ $(function() {
     }
   });
 
+  // Determines if window is near bottom
   function nearBottom() {
     return w.scrollTop() >= ($(document).height() - $(window).height() - 100);
   }

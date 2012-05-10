@@ -30,13 +30,6 @@ var page = {
     var $doc = $(document);
     var $body = $doc.find('body:first');
 
-    // Play from song
-    $('.song-link').click(function songClick(e) {
-      e.preventDefault();
-      var section = $(this).parent();
-      mp.playSection(section);
-    });
-
     // Styling for inputs
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
 
@@ -51,10 +44,9 @@ var page = {
 
     // Song heights
     playlistOffset = $('.playlist:first').offset().top;
-    songSections = $('.playlist:first section');
-    songSections.each(function(index) {
-      songOffsets[index] = $(this).offset().top;
-    });
+    songSections[0] = $('.playlist:first section');
+    resetOffsets();
+    addOffsets($('.playlist:first section'));
 
     // Highlight first song
     highlightSong();

@@ -85,21 +85,24 @@ var mp = (function() {
         // Get playlist info
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
-        playlist = $('#playlist-'+playlistID).data('playlist');
+        fn.log('checking to load', playlistID, playlist);
 
-        fn.log(playlist, pl);
+        if (typeof playlist === 'undefined' || playlist.id != playlistID) {
+          playlist = $('#playlist-'+playlistID).data('playlist');
+          fn.log('loading',playlist);
 
-        $('#main-mid').addClass('loaded');
+          $('#main-mid').addClass('loaded');
 
-        // Render playlist
-        playlist_template = Mustache.render(pl.playlist.html(),playlist);
-        pl.playlist.html(playlist_template);
-        pl.playlist.addClass('loaded');
+          // Render playlist
+          playlist_template = Mustache.render(pl.playlist.html(),playlist);
+          pl.playlist.html(playlist_template);
+          pl.playlist.addClass('loaded');
 
-        // Update nav
-        $('#station strong').html(playlist.title);
+          // Update nav
+          $('#station strong').html(playlist.title);
 
-        fn.log('playlist loaded: '+playlistID);
+          fn.log('playlist loaded: '+playlistID);
+        }
       }
     },
 
