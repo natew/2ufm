@@ -6,8 +6,8 @@ class MainController < ApplicationController
     @artists = Artist.order('random()').limit(6)
 
     @stations = {}
-    @stations[:featured] = Station.blog_station.order('random()').limit(4)
-    @stations[:trending] = Station.blog_station.order('random() desc').limit(4)
+    @stations[:featured] = Station.blog_station.order('broadcasts_count desc').limit(4)
+    @stations[:trending] = Station.blog_station.order('follows_count desc').limit(4)
     @stations[:artists] = Station.blog_station.order('random() asc').limit(4)
     @stations[:users] = Station.blog_station.order('random()*random()').limit(4)
 

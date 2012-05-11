@@ -1,15 +1,25 @@
 <div class="title">
-  <%= image_tag @station.image.url(:small), :class => 'icon' %>
-  <h2 class="icon"><%= @station.name %> Radio <small><%= @station.description || "Listening to the latest songs from the #{@station.name} station." %></small></h2>
+  <div class="image cover-small">
+    <%= image_tag(@station.image.url(:original)) %>
+  </div>
+
+  <h2><%= @station.title %> <small><%= @station.description %></small></h2>
+  <p><%= render :partial => 'stations/stats', :locals => { :station => @station } %></p>
+
+  <ul class="title-nav">
+    <li id="follow-<%= @station.id %>"><%= follow_station(@station) %></li>
+  </ul>
 </div>
 
 <div class="twothirds">
-  <%= form_for @station, :html => { :method => :put } do |f| %>
-  <%= render :partial => 'playlist', :locals => { :songs => @songs, :station => @station } %>
-  <%= submit_tag 'Update Station Songs' %>
-  <% end %>
-
-  <%= paginate @songs %>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
 </div>
 
-<%= render 'side' %>
+<div class="third">
+  <%- if @artists -%>
+  <h3>Artists on this station</h3>
+  <ul class="list">
+    <%= render :partial => 'artists/artist', :collection => @artists %>
+  </ul>
+  <%- end -%>
+</div>

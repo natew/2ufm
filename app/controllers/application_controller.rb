@@ -25,12 +25,17 @@ class ApplicationController < ActionController::Base
         @p_station = Station.popular
         @p_songs = Song.popular
       else
-        @p_station = Station.find_by_id(id)
-        @p_songs = @p_station.songs
+        @p_station = Station.find_by_slug(id)
+        @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
-      render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs }
-      return
+      logger.debug @p_songs.length
+
+      if @p_songs.length > 0
+        return render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs }
+      else
+        head 204
+      end
     end
   end
 

@@ -19,6 +19,7 @@ class Artist < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true, allow_blank: false
   validates :station, presence: true
+  validates_with SlugValidator
 
   scope :for_linking, joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role')
 

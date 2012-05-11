@@ -10,6 +10,9 @@ Fusefm::Application.routes.draw do
 
   resources :genres, :only => [:show]
 
+  # Stations
+  match "/stations/:id", :to => redirect("/%{id}")
+
   resources :blogs,
             :users,
             :stations
@@ -42,4 +45,7 @@ Fusefm::Application.routes.draw do
   match "/loading", :to => 'main#loading'
 
   match '/mac', :to => 'main#mac'
+
+  # Root level stations access
+  match "/:id", :to => 'stations#show'
 end

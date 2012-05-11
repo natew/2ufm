@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   before_create :make_station
 
   validates :username, :presence => true
+  validates_with SlugValidator
 
   def to_param
     slug

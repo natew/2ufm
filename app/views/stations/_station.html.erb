@@ -4,16 +4,10 @@
     <%= image_tag station.image.url(:small) %>
   </div>
   <div class="info">
-    <h3><%= link_to station.title, station.blog %></h3>
-    <strong><%= pluralize number_with_delimiter(station.follows.count), 'follower' %> &middot; <%= pluralize number_with_delimiter(station.songs.count), 'song' %></strong>
-    <time>Last updated <%= station.broadcasts.count > 0 ? relative_time(station.broadcasts.order(:created_at).first.created_at) : 'never' %></time>
+    <h3><%= link_to station.title, station %></h3>
+    <%= render :partial => 'stations/stats', :locals => { :station => station } %>
+    <time>Updated <%= relative_time(station.updated_at) %></time>
   </div>
-
-  <%- if can? :manage, station -%>
-  <span>
-    <%= link_to 'Edit', edit_station_path(station) %>
-    <%= link_to 'Destroy', station, confirm: 'Are you sure?', method: :delete %>
-  </span>
-  <%- end -%>
+  <%= link_to station.title, station, :class => 'station-link' %>
   <%= debug(station) %>
 </section>

@@ -24,6 +24,7 @@ class Blog < ActiveRecord::Base
   # Validations
   validates :url, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true
+  validates_with SlugValidator
 
   attr_writer :current_step
 

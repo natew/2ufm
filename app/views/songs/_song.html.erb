@@ -10,7 +10,7 @@
         Posted by <%= link_to pluralize(song.shared_count,'blog'), song %>
         &nbsp;&middot;
       <% else %>
-        <%= link_to "#{song.blog_name}".html_safe, blog_path(song.blog_slug) %> &nbsp;&middot;
+        <%= link_to "#{song.station_title}".html_safe, station_path(song.station_slug) %> &nbsp;&middot;
       <%- end -%>
       <time><%= relative_time(song.published_at) %></time>
 

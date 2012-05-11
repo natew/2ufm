@@ -14,6 +14,16 @@ class Station < ActiveRecord::Base
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title
 
+  # Slug
+  acts_as_url :title, :url_attribute => :slug
+
+  # Validations
+  validates_with SlugValidator
+
+  def to_param
+    slug
+  end
+
   def user_broadcasts
     broadcasts.where(:parent => 'user')
   end
@@ -27,13 +37,11 @@ class Station < ActiveRecord::Base
   end
 
   def image
-    if !blog_id.nil?
-      blog.image
-    elsif !artist_id.nil?
-      artist.image
-    elsif !user_id.nil?
-      user.image
-    end
+    get_parent.image
+  end
+
+  def description
+    get_parent.description
   end
 
   def to_api_json
@@ -79,5 +87,17 @@ class Station < ActiveRecord::Base
 
   def song_exists?(song_id)
     Broadcast.where('song_id = ? and station_id = ?', song_id, id).exists?
+  end
+
+  private
+
+  def get_parent
+    if !blog_id.nil?
+      blog
+    elsif !artist_id.nil?
+      artist
+    elsif !user_id.nil?
+      user
+    end
   end
 end

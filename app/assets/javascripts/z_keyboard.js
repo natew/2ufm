@@ -6,34 +6,39 @@ function disableCommand(e) {
 }
 
 function keyDown(e) {
+  if (e.target.is('input,textarea,button')) {
+    return;
+  }
+
   if (e.metaKey || e.ctrlKey) {
     commandPressed = true;
-  } else {
-    fn.log('Key pressed ', e.which);
-    switch(e.keyCode) {
-      // Left
-      case 37:
-        mp.prev();
-        e.preventDefault();
-        break;
-      // Right
-      case 39:
-        mp.next();
-        e.preventDefault();
-        break;
-      // Space
-      case 32:
-        if (mp.isPlaying()) mp.toggle();
-        else mp.playSection(highlightedSong);
-        e.preventDefault();
-        break;
-      // Enter
-      case 13:
-        if (mp.isPlaying()
-          && mp.getSection().attr('id') == highlightedSong.attr('id')) mp.toggle();
-        else mp.playSection(highlightedSong);
-        break;
-    }
+    return;
+  }
+
+  fn.log('Key pressed ', e.which);
+  switch(e.keyCode) {
+    // Left
+    case 37:
+      mp.prev();
+      e.preventDefault();
+      break;
+    // Right
+    case 39:
+      mp.next();
+      e.preventDefault();
+      break;
+    // Space
+    case 32:
+      if (mp.isPlaying()) mp.toggle();
+      else mp.playSection(highlightedSong);
+      e.preventDefault();
+      break;
+    // Enter
+    case 13:
+      if (mp.isPlaying()
+        && mp.getSection().attr('id') == highlightedSong.attr('id')) mp.toggle();
+      else mp.playSection(highlightedSong);
+      break;
   }
 }
 

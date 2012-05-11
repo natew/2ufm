@@ -21,7 +21,6 @@ function highlightSong() {
       cur = highlightedSong;
 
   for (var page = totalPages-1; page>0; page--) {
-    fn.log(songOffsets[page-1][songOffsets[page-1].length-1], windowOffset)
     if (page >= 1 && songOffsets[page-1][songOffsets[page-1].length-1] < windowOffset) {
       fn.log('breaking at page', page, songOffsets[page][0], windowOffset);
       break;
