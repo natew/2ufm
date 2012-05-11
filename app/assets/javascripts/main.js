@@ -171,6 +171,14 @@ $(function() {
     mp.playSection(section);
   });
 
+  // Hover song
+  $('.playlist section').on('hover', function() {
+    highlightedSong.removeClass('highlight');
+    highlightedSong = $(this).addClass('highlight');
+  }, function() {
+    highlightSong();
+  });
+
   // Play from playlist
   $('#player-playlist a').live('click',function(e) {
     e.preventDefault();
@@ -331,7 +339,7 @@ $(function() {
   }
 
   // Debug
-  $('div,li,section').hover(function() {
+  $('div,li,section').on('hover', function() {
     var d = $(this).children('.debug_dump');
     if (d.length) {
       $('#debug_dump').html(d.html());

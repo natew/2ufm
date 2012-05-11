@@ -51,14 +51,6 @@ var page = {
     // Highlight first song
     highlightSong();
 
-    // Hover also highlights songs
-    $('.playlist section').hover(function() {
-      highlightedSong.removeClass('highlight');
-      highlightedSong = $(this).addClass('highlight');
-    }, function() {
-      highlightSong();
-    });
-
     // Nav toggle
     var navActive = $('.nav-container a.active'),
         sectionActive = $('.nav-container div.active');
