@@ -66,6 +66,7 @@ var mp = (function() {
         this.toggle();
       } else {
         this.stop();
+        this.setCurSectionInactive();
         curSection = section;
         this.load();
         this.play();
