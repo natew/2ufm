@@ -338,22 +338,14 @@ class Song < ActiveRecord::Base
   end
 
   def add_to_artists_stations
-    begin
-      artists.each do |artist|
-        artist.station.broadcasts.create(song_id:id)
-      end
-    rescue ActiveRecord::RecordNotUnique => e
-      logger.error 'Already broadcasted'
+    artists.each do |artist|
+      artist.station.broadcasts.create(song_id:id)
     end
   end
 
   def add_to_blog_station
     if blog
-      begin
-        blog.station.broadcasts.create(song_id:id)
-      rescue ActiveRecord::RecordNotUnique
-        logger.error 'Already broadcasted'
-      end
+      blog.station.broadcasts.create(song_id:id)
     else
       logger.error "No Blog or Blog station"
     end
