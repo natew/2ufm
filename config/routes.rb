@@ -1,4 +1,7 @@
 Fusefm::Application.routes.draw do
+  # Redirects
+  match "/stations/:id", :to => redirect("/%{id}")
+
   devise_for :users, :controllers => {
     :registrations => 'registrations',
     :sessions => 'sessions'
@@ -9,14 +12,9 @@ Fusefm::Application.routes.draw do
   match "/activity", :to => "main#activity"
 
   resources :genres, :only => [:show]
-
-  # Stations
-  match "/stations/:id", :to => redirect("/%{id}")
-
-  resources :blogs,
-            :users,
-            :stations
-
+  resources :blogs
+  resources :users
+  resources :stations, :only => [:show]
   resources :follows, :only => [:create, :destroy]
   resources :broadcasts, :only => [:create, :destroy]
 
