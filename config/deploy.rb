@@ -74,5 +74,6 @@ namespace :deploy do
 
   task :clear_cache do
     run_rake "tmp:cache:clear"
+    run "rm -r #{shared_path}/tmp/*"
   end
 end

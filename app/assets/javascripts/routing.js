@@ -6,7 +6,7 @@ var page = {
   start: function pageStart() {
     // Remove tooltips, show loading bar
     $('.tipsy').remove();
-    $('#loading').addClass('hide');
+    $('#loading').removeClass('hide');
   },
 
   end: function pageEnd(data) {
@@ -17,7 +17,7 @@ var page = {
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
 
-    $('#loading').removeClass('hide');
+    $('#loading').addClass('hide');
 
     // Set page in music player
     mp.setPage(curPage);
@@ -89,7 +89,6 @@ var page = {
   },
 
   error: function(xhr) {
-    $('#loading').addClass('hide');
     $('#body').addClass('error').html('<h2>'+xhr.status+'</h2>'+'<div id="error">'+xhr.responseText+'</h2>');
   }
 }

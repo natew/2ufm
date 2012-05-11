@@ -44,3 +44,8 @@ $lighter-yellow: #fcfbec;
   background-image: -o-linear-gradient(top, $start, $stop);
   background-image: linear-gradient(top, $start, $stop);
 }
+
+@-webkit-keyframes rotation {
+    50% { -webkit-transform: rotate(180deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}

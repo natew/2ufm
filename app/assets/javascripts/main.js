@@ -348,7 +348,7 @@ $(function() {
   }
 
   // Debug
-  $('div,li,section').on('hover', function() {
+  $('div,li,section').live('hover', function() {
     var d = $(this).children('.debug_dump');
     if (d.length) {
       $('#debug_dump').html(d.html());

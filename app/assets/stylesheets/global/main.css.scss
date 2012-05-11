@@ -83,6 +83,27 @@ h2 small { font-size: 55%; }
   border-left: none;
 }
 
+#loading {
+  position: absolute;
+  top: 7px;
+  right: 302px;
+  font-size: 28px;
+  text-shadow: none;
+  color: #999;
+  width: 23px;
+  height: 17px;
+  line-height: 15px;
+  text-indent: -1px;
+  padding: 4px 0 0 0;
+  opacity: 1;
+  @include transition(opacity .5s linear);
+  @include animation(rotation 1.3s infinite linear);
+
+  &.hide {
+    opacity: 0;
+  }
+}
+
 
 /* Header */
 
@@ -267,7 +288,7 @@ header #second-nav {
   bottom: 6px;
   right: 20px;
   padding: 0;
-  width: 300px;
+  width: 260px;
   text-align: right;
 
   a {
@@ -375,6 +396,7 @@ header #second-nav {
 .pictos-user:before {content: "U";}
 .pictos-download:before {content: "~";}
 .pictos-down:before {content: "}";}
+.pictos-refresh:before {content: "1";}
 
 
 /* BAR */
@@ -391,6 +413,15 @@ header #second-nav {
     $add-hover: darken($add-color, 20%);
     #player-bottom .add {
       color: $add-color;
+
+      &:hover {
+        color: $add-hover;
+      }
+    }
+
+    #player-bottom .volume {
+      color: #999;
+      text-shadow: none;
 
       &:hover {
         color: $add-hover;
@@ -436,7 +467,7 @@ header #second-nav {
   #player-invite-container {
     position: absolute;
     top: 5px;
-    right: 3px;
+    right: 34px;
   }
 
   #player-invite {
@@ -492,7 +523,6 @@ header #second-nav {
       @include border-radius(50px);
 
       &:hover {
-        border-color: $primary;
         text-shadow: 0 1px 1px rgba(0,0,0,0.5);
         @include linear-gradient(-90deg,$primary-light,$primary);
 
@@ -647,6 +677,7 @@ header #second-nav {
     }
 
     #player-progress-bar {
+      overflow: hidden;
       float: left;
       margin: 1px 0 0;
       padding: 4px;
