@@ -6,7 +6,7 @@ function disableCommand(e) {
 }
 
 function keyDown(e) {
-  if (e.target.is('input,textarea,button')) {
+  if (e.target.tagName.match(/input|textarea|button/i)) {
     return;
   }
 

@@ -16,6 +16,15 @@ var w = $(window),
     scrollPage = 1,
     totalPages = 0;
 
+function bindSongHover(sections) {
+  sections.hover(function() {
+    highlightedSong.removeClass('highlight');
+    highlightedSong = $(this).addClass('highlight');
+  }, function() {
+    highlightSong();
+  });
+}
+
 function highlightSong() {
   var windowOffset = w.scrollTop()+70,
       cur = highlightedSong;
@@ -63,6 +72,7 @@ function addOffsets(sections) {
     songOffsets[page][index] = $(this).offset().top;
   });
   totalPages++;
+  bindSongHover(sections);
 }
 
 // Read URL parameters
@@ -171,14 +181,6 @@ $(function() {
     mp.playSection(section);
   });
 
-  // Hover song
-  $('.playlist section').on('hover', function() {
-    highlightedSong.removeClass('highlight');
-    highlightedSong = $(this).addClass('highlight');
-  }, function() {
-    highlightSong();
-  });
-
   // Play from playlist
   $('#player-playlist a').live('click',function(e) {
     e.preventDefault();
@@ -200,7 +202,7 @@ $(function() {
     clearTimeout(tipsyClearTimeout);
     tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
 
-    //Infinite scrolling
+    // Infinite scrolling
     if (!loading_scroll && !doneScrolling) {
       if (nearBottom()) {
         var id = $('.twothirds .playlist:visible:first').attr('id').split('-')[1];

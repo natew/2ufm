@@ -49,6 +49,7 @@ var page = {
     addOffsets($('.playlist:first section'));
 
     // Highlight first song
+    bindSongHover($('.playlist section'));
     highlightSong();
 
     // Nav toggle
