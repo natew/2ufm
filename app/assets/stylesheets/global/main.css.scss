@@ -669,6 +669,14 @@ header #second-nav {
         cursor: pointer;
       }
 
+      #player-progress-inner-wrap {
+        position: absolute;
+        top: 0;
+        left: 8px;
+        width: 95%;
+        z-index: 1;
+      }
+
       #player-progress-grabber {
         position: absolute;
         top: 0;
@@ -681,17 +689,17 @@ header #second-nav {
       #player-progress-loaded {
         position: absolute;
         top: 4px;
-        z-index: 1;
+        left: 0;
         width: 0%;
         height: 11px;
-        max-width: 97%;
-        min-width: 1%;
         @include border-radius(8px);
       }
 
       #player-progress-position {
+        top: 6px;
+        height: 8px;
         z-index: 4;
-        @include border-right-radius(3px);
+        @include border-right-radius(4px);
       }
 
       #player-progress-waveform {
@@ -699,13 +707,11 @@ header #second-nav {
       }
 
       canvas {
-        top: 2px;
-        position: absolute;
         opacity: 0.4;
         width: 97%;
-        height: 15px;
+        height: 24px;
         position: absolute;
-        top: 2px;
+        top: -2px;
         left: 2%;
         opacity: 0.3;
         z-index: 2;
