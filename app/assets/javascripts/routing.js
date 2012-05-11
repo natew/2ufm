@@ -6,7 +6,7 @@ var page = {
   start: function pageStart() {
     // Remove tooltips, show loading bar
     $('.tipsy').remove();
-    $('#loading').removeClass('hide');
+    $('#loading').addClass('rotate');
   },
 
   end: function pageEnd(data) {
@@ -17,7 +17,7 @@ var page = {
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
 
-    $('#loading').addClass('hide');
+    $('#loading').removeClass('rotate');
 
     // Set page in music player
     mp.setPage(curPage);

@@ -339,7 +339,7 @@ $(function() {
       macgap.growl.notify({title: info.artist_name + " - " + info.name, content: 'Now playing'});
     }
 
-    $('header h1 a').click(function() {
+    $('#loading').addClass('visible').click(function() {
       window.location.reload();
       return false;
     });
