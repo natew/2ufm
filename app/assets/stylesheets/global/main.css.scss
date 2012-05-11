@@ -747,8 +747,8 @@ header #second-nav {
 
 /* Footer */
 footer {
-  background: #000;
-  color: #fff;
+  color: #ddd;
+  background: #222;
   padding: 10px 0;
 
   .page-contain div {
@@ -756,9 +756,17 @@ footer {
     float: left;
   }
 
+  h4 {
+    color: #fff;
+    text-transform: uppercase;
+  }
+
   a {
     display: block;
     padding: 2px 0;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
   }
 
   #footer-about {
