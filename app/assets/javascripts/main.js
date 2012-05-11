@@ -11,8 +11,8 @@ var w = $(window),
     loggedIn = $('#nav-username').length > 0,
     modalShown = false,
     navOpen,
-    loading_scroll = false,
-    doneScrolling = false,
+    loadingPage = false,
+    morePages = true,
     scrollPage = 1,
     totalPages = 0;
 
@@ -73,6 +73,46 @@ function addOffsets(sections) {
   });
   totalPages++;
   bindSongHover(sections);
+}
+
+function nextPage(link) {
+  var link = $(link).html('Loading').addClass('loading');
+  // Infinite scrolling
+  if (morePages) {
+    var id = $('.playlist:first').attr('id').split('-')[1];
+    loadingPage = true;
+    scrollPage++;
+    $.ajax({
+      url: window.location.href,
+      type: 'get',
+      data: 'id='+id+'&page='+scrollPage,
+      headers: {
+        Accept: "text/page; charset=utf-8",
+        "Content-Type": "text/page; charset=utf-8"
+      },
+      success: function(data) {
+        link.remove();
+        loadingPage = false;
+        window.location.hash = 'page-'+scrollPage;
+        $('.twothirds .playlist:last').after(data);
+        addOffsets($('#playlist-'+id+'-'+scrollPage+' section'));
+      },
+      error: function() {
+        morePages = false;
+      }
+    })
+  }
+}
+
+function navDropdown(show, nav) {
+  if (!nav) nav = $('.nav-dropdown:first');
+  if (show) {
+    nav.addClass('open');
+    navOpen = true;
+  } else {
+    nav.removeClass('open');
+    navOpen = false;
+  }
 }
 
 // Read URL parameters
@@ -157,16 +197,10 @@ $(function() {
     }
   });
 
-  function navDropdown(show, nav) {
-    if (!nav) nav = $('.nav-dropdown:first');
-    if (show) {
-      nav.addClass('open');
-      navOpen = true;
-    } else {
-      nav.removeClass('open');
-      navOpen = false;
-    }
-  }
+  // Page load
+  $('#next-page').live('click',function(e) {
+    nextPage(this);
+  })
 
   // Player controls
   mpClick('#player-play', 'toggle');
@@ -201,33 +235,6 @@ $(function() {
     // Removes on scroll
     clearTimeout(tipsyClearTimeout);
     tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
-
-    // Infinite scrolling
-    if (!loading_scroll && !doneScrolling) {
-      if (nearBottom()) {
-        var id = $('.twothirds .playlist:visible:first').attr('id').split('-')[1];
-        loading_scroll = true;
-        scrollPage++;
-        $.ajax({
-          url: window.location.href,
-          type: 'get',
-          data: 'id='+id+'&page='+scrollPage,
-          headers: {
-            Accept: "text/page; charset=utf-8",
-            "Content-Type": "text/page; charset=utf-8"
-          },
-          success: function(data) {
-            loading_scroll = false;
-            window.location.hash = 'page-'+scrollPage;
-            $('.twothirds .playlist:last').after(data);
-            addOffsets($('#playlist-'+id+'-'+scrollPage+' section'));
-          },
-          error: function() {
-            doneScrolling = true;
-          }
-        })
-      }
-    }
   });
 
   // Determines if window is near bottom

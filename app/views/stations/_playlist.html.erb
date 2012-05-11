@@ -9,3 +9,4 @@
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
   <%= render :partial => (compact ? 'songs/mini' : 'songs/song'), :collection => songs, :locals => { :station_id => id, :page => page } unless songs.nil? %>
 </div>
+<%= link_to 'Next Page', '#page-2', :id => 'next-page', :class => 'control' unless compact %>

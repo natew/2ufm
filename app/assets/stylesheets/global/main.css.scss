@@ -12,7 +12,7 @@ a { color: $link-color; }
 a:hover { color: $link-hover; }
 
 #main-mid {
-  padding: 70px 0 40px;
+  padding: 70px 0 0;
 }
 
 .page-contain,
@@ -28,13 +28,6 @@ a:hover { color: $link-hover; }
   }
 }
 
-footer {
-  span.credits {
-    font-size: 9px;
-    color: #ccc;
-    a {color: #ccc;}
-  }
-}
 
 /* HEADING AND TEXT STYLES */
 
@@ -709,9 +702,9 @@ header #second-nav {
       canvas {
         opacity: 0.4;
         width: 97%;
-        height: 24px;
+        height: 27px;
         position: absolute;
-        top: -2px;
+        top: -4px;
         left: 2%;
         opacity: 0.3;
         z-index: 2;
@@ -720,6 +713,46 @@ header #second-nav {
     }
   }
 }
+
+/* Footer */
+footer {
+  background: #000;
+  color: #fff;
+  padding: 10px 0;
+
+  .page-contain div {
+    padding: 10px;
+    float: left;
+  }
+
+  a {
+    display: block;
+    padding: 2px 0;
+  }
+
+  #footer-about {
+    width: 300px;
+  }
+
+  #footer-info {
+    width: 100px;
+  }
+
+  #footer-connect {
+    width: 150px;
+  }
+
+  #footer-like {
+    width: 200px;
+  }
+
+  span.credits {
+    font-size: 9px;
+    color: #ccc;
+    a {color: #ccc;}
+  }
+}
+
 
 
 /* NOTICES */
