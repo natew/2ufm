@@ -29,6 +29,7 @@ role :db,  domain, :primary => true # This is where Rails migrations will run
 
 after :deploy, 'deploy:symlink_attachments'
 after :deploy, 'deploy:symlink_tmp'
+after :deploy, 'deploy:restart'
 
 # Run rake tasks
 def run_rake(task, options={}, &block)
@@ -47,8 +48,7 @@ end
 
 namespace :deploy do
   task :start, :roles => :app do
-    run "touch #{current_release}/tmp/restart.txt"
-    run "#{dj_script} start"
+    surun "touch #{current_release}/tmp/restart.txt && #{dj_script} start"
   end
 
   task :stop, :roles => :app do
@@ -57,8 +57,7 @@ namespace :deploy do
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    run "touch #{current_release}/tmp/restart.txt"
-    surun "#{dj_script} restart >> /dev/null"
+    surun "touch #{current_release}/tmp/restart.txt && #{dj_script} restart >> /dev/null"
   end
 
   task :symlink_attachments do

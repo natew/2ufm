@@ -1,13 +1,9 @@
-<div class="title">
-  <h2><%= @song.full_name %></h2>
-  <p>Artists: <%= links @song.artists %></p>
-</div>
-
 <div class="whole">
   <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false } %>
 </div>
 
 <div class="twothirds">
+  <h2>Artists: <%= links @song.artists %></h2>
   <h2>Comments</h2>
   <ul class="list">
   <%- for artist in @song.artists -%>

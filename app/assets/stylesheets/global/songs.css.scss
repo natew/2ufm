@@ -167,6 +167,7 @@ div.playlist {
         position: relative;
         padding: 0;
         margin: -3px 0 2px;
+        width: 460px-$song-pad;
         color: $link-color;
 
         a {
@@ -335,6 +336,13 @@ div.playlist {
         }
       }
     }
+  }
+}
+
+.whole .playlist {
+  section .song-info h4 {
+    width: 800px-$song-pad;
+    font-size: 27px;
   }
 }
 
