@@ -42,27 +42,34 @@ var page = {
         .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
     }
 
-    // Song heights
-    playlistOffset = $('.playlist:first').offset().top;
-    songSections[0] = $('.playlist:first section');
-    resetOffsets();
-    addOffsets($('.playlist:first section'));
+    // Playlist functions
+    var playlist = $('.playlist:first');
+    if (playlist.length) {
+      // Song heights
+      var sections = playlist.children('section');
+      playlistOffset = playlist.offset().top;
+      songSections[0] = sections;
+      resetOffsets();
+      addOffsets(sections);
 
-    // Highlight first song
-    bindSongHover($('.playlist section'));
-    highlightSong();
+      // Highlight first song
+      bindSongHover($('.playlist section'));
+      highlightSong();
+    }
 
     // Nav toggle
     var navActive = $('.nav-container a.active'),
         sectionActive = $('.nav-container div.active');
 
-    $('.nav-container nav a').click(function(e) {
-      navActive.removeClass('active');
-      navActive = $(this).addClass('active');
-      sectionActive.removeClass('active');
-      sectionActive = $($(this).attr('href')).addClass('active');
-      return false;
-    });
+    if (navActive.length) {
+      $('.nav-container nav a').click(function(e) {
+        navActive.removeClass('active');
+        navActive = $(this).addClass('active');
+        sectionActive.removeClass('active');
+        sectionActive = $($(this).attr('href')).addClass('active');
+        return false;
+      });
+    }
 
     // Reset page
     scrollPage = 1;
