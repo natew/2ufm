@@ -1,38 +1,32 @@
 <div class="title">
-  <h2 class="icon">
-    <%= @original.full_name %>
-    <small>Artists: <%= links @original.artists %></small>
-  </h2>
+  <h2><%= @song.full_name %></h2>
+  <p>Artists: <%= links @song.artists %></p>
+</div>
+
+<div class="whole">
+  <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false } %>
 </div>
 
 <div class="twothirds">
-  <%= render :partial => 'stations/playlist', :locals => { :songs => @songs, :no_pagination => true } %>
+  <h2>Comments</h2>
+  <ul class="list">
+  <%- for artist in @song.artists -%>
+  <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes of #{artist.name}".html_safe, artist, :class => 'image' %></li>
+  <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes by #{artist.name}".html_safe, artist, :class => 'image' %></li>
+  <%- end -%>
+  </ul>
+</div>
 
-  <div class="third">
-    <h4>Remixes</h4>
-    <ul class="list">
-    <%- for artist in @original.artists -%>
-    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes of #{artist.name}".html_safe, artist, :class => 'image' %></li>
-    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes by #{artist.name}".html_safe, artist, :class => 'image' %></li>
-    <%- end -%>
-    </ul>
+<div class="third">
+  <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
+  <div class="shelf">
+    <%= render :partial => 'stations/shelf', :collection => @blogs %>
   </div>
 
-  <div class="third">
-    <h4>Broadcasts this week</h4>
-    <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
-  </div>
+  <h3>Broadcasts this week</h3>
+  <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
 
-  <div class="third">
-    <h4>Re-posted by <%= pluralize @original.users.size, 'person' %></h4>
-    <div class="list">
-    </div>
-  </div>
-
-  <div class="third">
-    <h4>Posted on <%= pluralize @blogs.size, 'blog' %></h4>
-    <div class="shelf">
-      <%= render :partial => 'stations/shelf', :collection => @blogs %>
-    </div>
+  <h3>Re-posted by <%= pluralize @song.users.size, 'person' %></h3>
+  <div class="list">
   </div>
 </div>

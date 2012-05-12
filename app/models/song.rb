@@ -30,11 +30,11 @@ class Song < ActiveRecord::Base
   # Scopes
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
-  scope :with_blog_station_and_post, joins(:post).joins('left join stations on stations.blog_id = songs.blog_id')
   scope :working, where(processed: true, working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
+  scope :with_blog_station_and_post, joins(:post).joins('left join stations on stations.blog_id = songs.blog_id')
   scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug')
   scope :individual, select_with_info.with_blog_station_and_post.working
 
