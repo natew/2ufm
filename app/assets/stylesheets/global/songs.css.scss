@@ -8,7 +8,6 @@ $song-pad: 10px;
 
 #next-page {
   display: block;
-  background: #ddd;
   color: #777;
   font-size: 14px;
   text-align: center;
@@ -17,7 +16,6 @@ $song-pad: 10px;
   text-decoration: none;
   font-weight: bold;
   text-transform: uppercase;
-  @include border-radius(8px);
 
   &:hover {
     background: #ccc;
@@ -48,7 +46,6 @@ div.playlist {
     &.highlight {
       border-bottom: 3px solid $light-blue;
       @include linear-gradient($lightest-blue 40%,$light-blue 100%);
-      @include box-shadow(0 0 3px rgba(0,0,0,0.3));
 
       .play-song {
         visibility: visible !important;
@@ -136,9 +133,9 @@ div.playlist {
 
       img {
         width: 99.5%;
-        height: 200%;
+        height: 255%;
         position: absolute;
-        top: 0;
+        top: -8px;
         left: 2px;
         opacity: 0.5;
       }
