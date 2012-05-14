@@ -15,9 +15,9 @@
       <time><%= relative_time(song.published_at) %></time>
 
       <ul class="song-links">
-        <li class="right"><%= link_to 'Buy', '', :target => '_blank' %></li>
-        <li class="right"><%= link_to 'Read &raquo;'.html_safe, song.post_url, :target => '_blank' %></li>
-        <li class="right"><%= link_to 'j'.html_safe, song, :class => 'pictos' %></li>
+        <li class="right"><%= link_to '$', '', :target => '_blank' %></li>
+        <li class="right"><%= link_to 'A'.html_safe, song.post_url, :class => 'pictos', :target => '_blank' %></li>
+        <li class="right"><%= link_to 'i'.html_safe, song, :class => 'pictos' %></li>
       </ul>
     </div>
     <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>

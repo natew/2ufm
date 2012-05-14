@@ -35,11 +35,10 @@ div.playlist {
   margin: 0 0 18px;
 
   section {
-    padding: $song-pad 2px;
-    margin: 0;
+    padding: $song-pad 2px -3px+$song-pad;
+    border-bottom: 3px solid #fff;
     position: relative;
     overflow: hidden;
-    border: 1px solid #fff;
     @include border-radius(8px);
 
     &.show-play {
@@ -47,7 +46,9 @@ div.playlist {
     }
 
     &.highlight {
-      background: $lightest-blue;
+      border-bottom: 3px solid $light-blue;
+      @include linear-gradient($lightest-blue 40%,$light-blue 100%);
+      @include box-shadow(0 0 3px rgba(0,0,0,0.3));
 
       .play-song {
         visibility: visible !important;
@@ -73,6 +74,8 @@ div.playlist {
     }
 
     &.playing {
+      border-bottom: 3px solid $primary;
+      @include box-shadow(0 0 3px rgba(0,0,0,0.3));
       @include background-gradient($primary-light,$primary);
 
       &.highlight {
@@ -123,19 +126,21 @@ div.playlist {
 
     .waveform-wrap {
       position: relative;
-      margin: -6px 0 0;
+      margin: 0;
       width: 100%;
-      height: 32px;
+      height: 26px;
       overflow: hidden;
-      @include border-radius(4px);
+      background: #eee;
+      @include box-shadow(inset 0 0 8px #ccc);
+      @include border-radius(6px);
 
       img {
-        width: 100%;
-        height: 300%;
+        width: 99.5%;
+        height: 200%;
         position: absolute;
-        top: -50%;
-        left: 0;
-        opacity: 0.25;
+        top: 0;
+        left: 2px;
+        opacity: 0.5;
       }
     }
 
