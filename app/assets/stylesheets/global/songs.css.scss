@@ -34,7 +34,6 @@ div.playlist {
 
   section {
     padding: $song-pad 0 -3px+$song-pad;
-    margin-bottom: 6px;
     position: relative;
     overflow: hidden;
     @include border-radius(8px);
@@ -69,6 +68,10 @@ div.playlist {
 
       .song-meta, .song-meta a {
         color: $song-hover-text;
+      }
+
+      .waveform-wrap:before {
+        @include linear-gradient(bottom, rgba($light-blue,0) 20%, rgba(darken($lightest-blue,3%),1) 100%);
       }
     }
 
@@ -129,6 +132,18 @@ div.playlist {
       overflow: hidden;
       @include border-radius(6px);
 
+      &:before {
+        display: block;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 20px;
+        z-index: 10;
+        @include linear-gradient(bottom, rgba(255,255,255,0) 20%, rgba(255,255,255,1) 100%);
+      }
+
       img {
         width: 99.5%;
         height: 255%;
@@ -159,7 +174,7 @@ div.playlist {
       @include box-sizing(border-box);
 
       h4 {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 1.3em;
         border: none;
         display: block;
@@ -168,7 +183,7 @@ div.playlist {
         padding: 0;
         margin: -3px 0 2px;
         width: 460px-$song-pad;
-        color: #333;
+        color: $link-color;
 
         a {
           text-decoration: none;
@@ -177,7 +192,7 @@ div.playlist {
         .role {
           margin: 0 -2px;
           padding: 0 2px;
-          color: #000;
+          color: darken($link-color,10%);
           @include border-radius(3px);
 
           &:hover {
@@ -226,11 +241,13 @@ div.playlist {
     .song-meta {
       font-size: 11px;
       margin: -3px 0 1px 0;
-      color: #aaa;
+      color: #999;
       position: relative;
 
       a {
-        color: #aaa;
+        color: #999;
+        text-decoration: none;
+        font-weight: bold;
 
         &:hover {
           color: #555;
