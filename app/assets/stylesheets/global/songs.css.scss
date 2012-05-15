@@ -1,7 +1,5 @@
 @import "mixins.css.scss";
 
-$song-pad: 10px;
-
 #stats {
   margin: 0 0 30px 0;
 }
@@ -28,13 +26,15 @@ $song-pad: 10px;
   }
 }
 
+$song-pad: 14px;
+
 div.playlist {
   clear: both;
   margin: 0 0 18px;
 
   section {
-    padding: $song-pad 2px -3px+$song-pad;
-    border-bottom: 3px solid #fff;
+    padding: $song-pad 0 -3px+$song-pad;
+    margin-bottom: 6px;
     position: relative;
     overflow: hidden;
     @include border-radius(8px);
@@ -44,7 +44,6 @@ div.playlist {
     }
 
     &.highlight {
-      border-bottom: 3px solid $light-blue;
       @include linear-gradient($lightest-blue 40%,$light-blue 100%);
 
       .play-song {
@@ -53,6 +52,9 @@ div.playlist {
 
       $song-hover-text: #666;
       .song-info {
+        .song-links {
+          display: block;
+        }
 
         p, .song-links a {
           color: $song-hover-text;
@@ -71,8 +73,6 @@ div.playlist {
     }
 
     &.playing {
-      border-bottom: 3px solid $primary;
-      @include box-shadow(0 0 3px rgba(0,0,0,0.3));
       @include background-gradient($primary-light,$primary);
 
       &.highlight {
@@ -159,7 +159,7 @@ div.playlist {
       @include box-sizing(border-box);
 
       h4 {
-        font-size: 16px;
+        font-size: 18px;
         line-height: 1.3em;
         border: none;
         display: block;
@@ -168,7 +168,7 @@ div.playlist {
         padding: 0;
         margin: -3px 0 2px;
         width: 460px-$song-pad;
-        color: $link-color;
+        color: #333;
 
         a {
           text-decoration: none;
@@ -177,6 +177,7 @@ div.playlist {
         .role {
           margin: 0 -2px;
           padding: 0 2px;
+          color: #000;
           @include border-radius(3px);
 
           &:hover {
@@ -256,6 +257,7 @@ div.playlist {
     }
 
     .song-links {
+      display: none;
       position: absolute;
       top: 2px;
       right: 0;

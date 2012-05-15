@@ -227,6 +227,7 @@ $(function() {
     else mp.playSong(index);
   });
 
+  // Page scroll functions
   w.scroll(function() {
     // Window scroll highlights songs
     clearTimeout(highlightTimeout);
