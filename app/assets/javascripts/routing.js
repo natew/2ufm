@@ -53,7 +53,6 @@ var page = {
       addOffsets(sections);
 
       // Highlight first song
-      bindSongHover($('.playlist section'));
       highlightSong();
     }
 

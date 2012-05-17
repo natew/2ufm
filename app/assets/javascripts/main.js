@@ -14,18 +14,12 @@ var w = $(window),
     loadingPage = false,
     morePages = true,
     scrollPage = 1,
-    totalPages = 0;
-
-function bindSongHover(sections) {
-  sections.hover(function() {
-    highlightedSong.removeClass('highlight');
-    highlightedSong = $(this).addClass('highlight');
-  }, function() {
-    highlightSong();
-  });
-}
+    totalPages = 0,
+    enableScrollHighlight = true;
 
 function highlightSong() {
+  if (!enableScrollHighlight) return;
+
   var windowOffset = w.scrollTop()+70,
       cur = highlightedSong;
 
@@ -72,7 +66,6 @@ function addOffsets(sections) {
     songOffsets[page][index] = $(this).offset().top;
   });
   totalPages++;
-  bindSongHover(sections);
 }
 
 function nextPage(link) {
@@ -227,10 +220,22 @@ $(function() {
     else mp.playSong(index);
   });
 
+  // Song highlighting
+  $('.playlist').live('mousemove', function(e) {
+    enableScrollHighlight = false;
+    var target = e.target;
+    if (target === this) return;
+    while (!target.match(/section/i)) target = target.parentNode;
+    highlightedSong.removeClass('highlight');
+    highlightedSong = $(target).addClass('highlight');
+  }).live('mouseout', function() {
+    enableScrollHighlight = true;
+  });
+
   w.scroll(function() {
     // Window scroll highlights songs
     clearTimeout(highlightTimeout);
-    highlightTimeout = setTimeout(highlightSong,50);
+    highlightTimeout = setTimeout(highlightSong(),50);
 
     // Removes on scroll
     clearTimeout(tipsyClearTimeout);
