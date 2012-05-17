@@ -68,7 +68,7 @@ function addOffsets(sections) {
   totalPages++;
 }
 
-function nextPage(link) {
+function nextPage(link, callback) {
   var link = $(link).html('Loading').addClass('loading');
   // Infinite scrolling
   if (morePages) {
@@ -88,7 +88,9 @@ function nextPage(link) {
         loadingPage = false;
         window.location.hash = 'page-'+scrollPage;
         $('.twothirds .playlist:last').after(data);
-        addOffsets($('#playlist-'+id+'-'+scrollPage+' section'));
+        var playlist = '#playlist-'+id+'-'+scrollPage;
+        addOffsets($(playlist+' section'));
+        if (callback) callback.call($(playlist));
       },
       error: function() {
         morePages = false;
