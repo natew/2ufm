@@ -232,6 +232,7 @@ $(function() {
     enableScrollHighlight = true;
   });
 
+  // Page scroll functions
   w.scroll(function() {
     // Window scroll highlights songs
     clearTimeout(highlightTimeout);
