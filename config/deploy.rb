@@ -27,9 +27,9 @@ role :web, domain
 role :app, domain
 role :db,  domain, :primary => true # This is where Rails migrations will run
 
-after :deploy, 'deploy:symlink_attachments'
-after :deploy, 'deploy:symlink_tmp'
-after :deploy, 'deploy:restart'
+after 'deploy:update', 'deploy:symlink_attachments'
+after 'deploy:update', 'deploy:symlink_tmp'
+after 'deploy:update', 'deploy:restart'
 
 # Run rake tasks
 def run_rake(task, options={}, &block)

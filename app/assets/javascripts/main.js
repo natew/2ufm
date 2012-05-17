@@ -225,7 +225,7 @@ $(function() {
     enableScrollHighlight = false;
     var target = e.target;
     if (target === this) return;
-    while (!target.match(/section/i)) target = target.parentNode;
+    while (target.tagName != 'SECTION') target = target.parentNode;
     highlightedSong.removeClass('highlight');
     highlightedSong = $(target).addClass('highlight');
   }).live('mouseout', function() {
