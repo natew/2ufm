@@ -47,14 +47,14 @@ header {
 
   h1 {
     position: absolute;
-    top: 4px;
+    top: 6px;
     left: -8px;
     margin: 0;
 
     a {
-      background: rgba(0,0,0,0.1) url(/images/2ulogo-web-dark.png) no-repeat 20px 9px;
-      width: 82px;
-      height: 53px;
+      background: rgba(0,0,0,0.1) url(/images/2ulogo-web-dark.png) no-repeat 18px 8px;
+      width: 86px;
+      height: 49px;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
@@ -71,13 +71,13 @@ header {
   nav {
     position: absolute;
     top: 26px;
-    left: 94px;
+    left: 100px;
 
     a {
       font-size: 29px;
       color: #fff;
       float: left;
-      margin-right: 24px;
+      margin-right: 20px;
       text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
 
       &:hover {
@@ -220,6 +220,8 @@ header #second-nav {
 .pictos-refresh:before {content: "1";}
 .pictos-heart:before {content: "k";}
 .pictos-music:before {content: "m";}
+.pictos-add:before {content: "+";}
+.pictos-share:before {content: "R";}
 
 
 /* BAR */
@@ -292,8 +294,8 @@ header #second-nav {
 
   #player-invite-container {
     position: absolute;
-    top: 5px;
-    right: 34px;
+    top: 6px;
+    right: 0;
   }
 
   #player-invite {
@@ -323,8 +325,8 @@ header #second-nav {
   &.playing {
     #player-controls .play span {
       left: -2px;
-      top: 1px;
-      font-size: 46px;
+      top: -1px;
+      font-size: 39px;
     }
 
     #player-progress-bar {
@@ -369,12 +371,12 @@ header #second-nav {
 
     /* play button */
     .play {
-      font-size: 49px;
+      font-size: 41px;
       width: 56px;
       height: 56px;
 
       span {
-        padding: 26px 0 0 12px;
+        padding: 26px 0 0 15px;
       }
     }
 
@@ -452,7 +454,7 @@ header #second-nav {
       font-size: 16px;
       color: #fff;
       visibility: hidden;
-      margin: 8px 0 -10px 0;
+      margin: 9px 0 -10px 0;
       text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
       line-height: 1.4em;
 
@@ -477,7 +479,7 @@ header #second-nav {
   #player-bottom {
     clear: both;
     position: absolute;
-    bottom: 6px;
+    bottom: 7px;
     width: 100%;
     height: 18px;
 

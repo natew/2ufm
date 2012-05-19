@@ -37,6 +37,7 @@
             <%= link_to '<span>4</span>'.html_safe, '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
             <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
           </div>
+
           <div id="player-main">
             <div id="player-meta">
               <span id="player-artist-name">&nbsp;</span> -
@@ -67,9 +68,12 @@
               <%= link_to 'k', '#', :class => 'add broadcast-song pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
               </div>
             </div>
+
+            <div id="player-invite-container">
+              <a id="player-invite" class="tip-n control disabled" title="Send this song to friends!" data-hover="Copy!" data-click="Copied!">Share!</a>
+            </div>
           </div>
         </div>
-        <div id="player-invite-container"><a id="player-invite" class="tip-n control disabled" title="Send this song to friends!" data-hover="Copy!" data-click="Copied!">Share!</a></div>
 
         <div id="player-share">
           <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>

@@ -3,15 +3,21 @@
   <div class="song-art cover-medium">
     <%= image_tag song.resolve_image(:medium) %>
   </div>
-  <h4><%= song.linked_title.html_safe %></h4>
+  <h4>
+    <%= song.linked_title.html_safe %>
+    <span><%= song_time(song.length) %></span>
+  </h4>
   <time>
     <%= relative_time(song.published_at) %>
-    <span><%= song_time(song.length) %></span>
   </time>
   <ul class="song-controls">
     <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
   <%= link_to '', song, :class => 'song-link control' %>
-  <%= link_to 'i', song, :class => 'song-button control' %>
+  <nav>
+    <%= link_to '100', song, :class => 'pictos-heart control' %>
+    <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-add control no-text' %>
+    <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-share control no-text' %>
+  </nav>
   <%= debug(song) %>
 </section>
