@@ -29,9 +29,10 @@
 }
 
 $cover-pad: 8px;
+$cover-margin: 12px;
 
 .playlist-cover {
-  margin-right: -8px;
+  margin-right: $cover-margin;
 
   section {
     position: relative;
@@ -39,7 +40,7 @@ $cover-pad: 8px;
     width: 200px;
     height: 200px;
     float: left;
-    margin: 0 8px 8px 0;
+    margin: 0 $cover-margin $cover-margin 0;
 
     &:hover {
       h4 {
@@ -129,7 +130,7 @@ $cover-pad: 8px;
       z-index: 2;
       line-height: 1.3em;
       color: #fff;
-      font-size: 12px;
+      font-size: 14px;
       margin: 0;
       @include box-sizing(border-box);
       @include linear-gradient(bottom, transparent, rgba(0,0,0,0.8));
