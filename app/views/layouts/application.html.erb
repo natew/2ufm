@@ -70,8 +70,10 @@
                   {{/songs}}
                 </ul>
               </div>
+              <div id="player-alt-controls">
               <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
               <%= link_to 'k', '#', :class => 'add broadcast-song pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
+              </div>
             </div>
           </div>
         </div>
@@ -131,6 +133,30 @@
       <%- elsif alert -%>
       <div id="dialog" class="alert"><%= alert %></div>
       <%- end -%>
+
+      <div id="sidebar">
+        <section>
+          <h1>Browse</h1>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+        </section>
+        <section>
+          <h1>Browse</h1>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+        </section>
+        <section>
+          <h1>Browse</h1>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link_to 'Link', '', :class => 'pictos-key' %>
+        </section>
+      </div>
 
       <div id="body">
         <%= yield %>

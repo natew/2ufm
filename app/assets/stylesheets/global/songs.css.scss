@@ -36,14 +36,14 @@ div.playlist {
     padding: $song-pad 0 -3px+$song-pad;
     position: relative;
     overflow: hidden;
-    @include border-radius(8px);
+    border: 1px solid #fff;
 
     &.show-play {
       .play-song { visibility: visible !important; }
     }
 
     &.highlight {
-      @include linear-gradient($lightest-blue 40%,$light-blue 100%);
+      background: #eee;
 
       .play-song {
         visibility: visible !important;
@@ -76,30 +76,11 @@ div.playlist {
     }
 
     &.playing {
-      @include background-gradient($primary-light,$primary);
+      background: #eee;
+      border: 1px solid #ddd;
 
       &.highlight {
         border-color: $primary;
-      }
-
-      .song-info {
-        h4, h4 a, p {
-          color: #fff;
-        }
-
-        .song-meta, .song-meta a {
-          color: rgba(255,255,255,0.8);
-        }
-
-        p {
-          color: rgba(255,255,255,0.6);
-        }
-
-        .song-links a {
-          color: rgba(255,255,255,0.8);
-          border: none;
-          text-shadow: none;
-        }
       }
 
       .song-controls a,
