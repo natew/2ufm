@@ -188,13 +188,20 @@ var mp = (function() {
         var next = curSection.next();
         this.stop();
         this.setCurSectionInactive();
+
+        // if next, keep playing
         if (next.length) {
           curSection = next;
           this.setCurSectionActive();
           playlistIndex++;
           this.play();
-        } else {
+          return true;
+        }
+        // reached end of playlist
+        else {
           curSection = null;
+          w.trigger('mp:playlist_end', player.state());
+          return false;
         }
       }
     },
@@ -450,7 +457,7 @@ var mp = (function() {
     },
 
     next: function() {
-      player.next();
+      return player.next();
     },
 
     prev: function() {

@@ -3,7 +3,7 @@ var w = $(window),
 
 // Callbacks
 w.on({
-  'mp:play': function mpPlay(event, mp, song, another) {
+  'mp:play': function mpPlay(event, mp, song) {
     var playlistItem = $('#player-playlist .song-'+song.id),
         w = $(window);
 
@@ -38,5 +38,9 @@ w.on({
       else if (sectionBot > windowBot)
         $('html,body').animate({scrollTop:(sectionTop-60)},200);
     }
+  },
+
+  'mp:playlist_end': function playlistEnd(event, mp, song) {
+    console.log('next');
   }
 });

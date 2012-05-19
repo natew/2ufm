@@ -14,18 +14,12 @@ var w = $(window),
     loadingPage = false,
     morePages = true,
     scrollPage = 1,
-    totalPages = 0;
-
-function bindSongHover(sections) {
-  sections.hover(function() {
-    highlightedSong.removeClass('highlight');
-    highlightedSong = $(this).addClass('highlight');
-  }, function() {
-    highlightSong();
-  });
-}
+    totalPages = 0,
+    enableScrollHighlight = true;
 
 function highlightSong() {
+  if (!enableScrollHighlight) return;
+
   var windowOffset = w.scrollTop()+70,
       cur = highlightedSong;
 
@@ -72,10 +66,9 @@ function addOffsets(sections) {
     songOffsets[page][index] = $(this).offset().top;
   });
   totalPages++;
-  bindSongHover(sections);
 }
 
-function nextPage(link) {
+function nextPage(link, callback) {
   var link = $(link).html('Loading').addClass('loading');
   // Infinite scrolling
   if (morePages) {
@@ -95,7 +88,9 @@ function nextPage(link) {
         loadingPage = false;
         window.location.hash = 'page-'+scrollPage;
         $('.twothirds .playlist:last').after(data);
-        addOffsets($('#playlist-'+id+'-'+scrollPage+' section'));
+        var playlist = '#playlist-'+id+'-'+scrollPage;
+        addOffsets($(playlist+' section'));
+        if (callback) callback.call($(playlist));
       },
       error: function() {
         morePages = false;
@@ -227,11 +222,23 @@ $(function() {
     else mp.playSong(index);
   });
 
+  // Song highlighting
+  $('.playlist').live('mousemove', function(e) {
+    enableScrollHighlight = false;
+    var target = e.target;
+    if (target === this) return;
+    while (target.tagName != 'SECTION') target = target.parentNode;
+    highlightedSong.removeClass('highlight');
+    highlightedSong = $(target).addClass('highlight');
+  }).live('mouseout', function() {
+    enableScrollHighlight = true;
+  });
+
   // Page scroll functions
   w.scroll(function() {
     // Window scroll highlights songs
     clearTimeout(highlightTimeout);
-    highlightTimeout = setTimeout(highlightSong,50);
+    highlightTimeout = setTimeout(highlightSong(),50);
 
     // Removes on scroll
     clearTimeout(tipsyClearTimeout);
