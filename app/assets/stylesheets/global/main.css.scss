@@ -1,9 +1,9 @@
 @import "mixins.css.scss";
 
 
-$header-height: 70px;
+$header-height: 66px;
 $header-shadow: rgba(255,255,255,0.15);
-$header-color: #2790ce;
+$header-color: #528eb7;
 $header-color-light: lighten($header-color, 10%);
 
 $width: 865px;
@@ -23,56 +23,14 @@ body {
 a { color: $link-color; }
 a:hover { color: $link-hover; }
 
-#main-mid {
-  padding: 70px 0 0;
-}
-
-.page-contain, #dialog {
-  overflow: hidden;
-
-  #sidebar {
-    position: fixed;
-    z-index: 50;
-    top: $header-height;
-    bottom: 0;
-    width: $sidebar-width;
-    background: #fff;
-    border-right: 1px solid #ddd;
-    padding: 10px;
-    @include box-sizing(border-box);
-
-    section {
-      margin: 0 0 10px 0;
-
-      h1 {
-        font-size: 11px;
-        text-transform: uppercase;
-        color: #999;
-        padding: 0 0 4px 0;
-        margin: 0;
-      }
-
-      a {
-        display: block;
-        text-decoration: none;
-        color: #555;
-        padding: 2px 0 2px 20px;
-      }
-    }
-  }
-
-  #body {
-    min-width: $width;
-    overflow: hidden;
-    position: relative;
-    padding: 20px 0 20px $sidebar-width;
-  }
-}
+#main-mid { padding: $header-height 0 0; }
+.page-contain, #dialog { overflow: hidden; }
 
 
 
 /* Header */
 header {
+  min-width: $width;
   position: fixed;
   width: 100%;
   top: 0;
@@ -89,105 +47,98 @@ header {
 
   h1 {
     position: absolute;
-    top: -3px;
-    left: 0;
+    top: 4px;
+    left: -8px;
     margin: 0;
 
     a {
-      background: url(/images/2ulogo-web-dark.png) no-repeat top left;
-      width: 74px;
-      height: 74px;
+      background: rgba(0,0,0,0.1) url(/images/2ulogo-web-dark.png) no-repeat 20px 9px;
+      width: 82px;
+      height: 53px;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
+      border: 1px solid darken($header-color,10%);
+      @include border-radius(8px);
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 0 $header-shadow);
 
-      &:hover { color: #fff; }
+      &:hover {
+        background-color: rgba(255,255,255,0.1);
+      }
     }
   }
 
   nav {
-    float: left;
-    padding-left: 73px;
+    position: absolute;
+    top: 26px;
+    left: 94px;
 
-    &:hover {
-      #station {
-        background: #fff;
-        @include box-shadow(0 -1px 2px rgba(0,0,0,0.2));
-        @include border-top-radius(4px);
+    a {
+      font-size: 29px;
+      color: #fff;
+      float: left;
+      margin-right: 24px;
+      text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
 
-        small, strong {
-          color: #000;
-        }
-      }
-
-      ul {
-        display: block;
-      }
-    }
-
-    #station {
-      display: block;
-      text-decoration: none;
-      white-space: nowrap;
-      margin: 8px 5px 0 0;
-      padding: 8px 10px 6px;
-      position: relative;
-      z-index: 1;
-
-      small {
-        display: block;
-        font-size: 11px;
-        padding: 0 0 3px 0;
-        color: rgba(255,255,255,0.8);
-      }
-
-      strong {
-        display: block;
-        font-size: 14px;
+      &:hover {
         color: #fff;
-        position: relative;
-        padding-right: 9px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 90px;
-        height: 17px;
-      }
-    }
-
-    ul {
-      display: none;
-      position: absolute;
-      background: #fff;
-      z-index: 0;
-      padding: 10px;
-      @include box-shadow(0 0 6px rgba(0,0,0,0.2));
-      @include border-bottom-radius(4px);
-
-      li {
-
-        &.active {
-          a { background: #ebf5fa; color: #000; }
-        }
-
-        a {
-          display: block;
-          padding: 8px;
-          width: 150px;
-          color: #000;
-          float: left;
-          text-decoration: none;
-          font-weight: bold;
-          font-size: 14px;
-
-          &:hover {
-            background: #ebf5fa;
-            color: #000;
-          }
-        }
       }
     }
   }
+}
+
+#sidebar {
+  position: fixed;
+  z-index: 50;
+  top: $header-height;
+  bottom: 0;
+  width: $sidebar-width;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  @include box-sizing(border-box);
+
+  section {
+    margin: 0;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    @include box-sizing(border-box);
+
+    &#friends {
+      min-height: 400px;
+      position: absolute;
+      bottom: 0;
+      border-top: 1px solid #ddd;
+    }
+
+    h1 {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #999;
+      padding: 0 0 4px 0;
+      margin: 0;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: #555;
+      padding: 4px 0 4px 24px;
+      font-size: 14px;
+      @include border-radius(3px);
+
+      &:hover {
+        background: #f2f2f2;
+      }
+    }
+  }
+}
+
+#body {
+  min-width: $width;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0 20px $sidebar-width;
 }
 
 input:-moz-placeholder,
@@ -197,13 +148,13 @@ input::-webkit-input-placeholder {
 
 header form {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 18px;
+  right: 20px;
   z-index: 1000;
 
   #query {
     border: none;
-    padding: 4px 12px 4px 8px;
+    padding: 3px 12px 3px 8px;
     width: 240px;
     margin: 0;
     color: rgba(255,255,255,0.8);
@@ -239,92 +190,7 @@ header form {
 }
 
 header #second-nav {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  padding: 0;
-  width: 280px;
-  text-align: right;
-
-  a {
-    float: right;
-    font-size: 11px;
-    margin: 0 0 0 5px;
-    padding: 3px 6px 3px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    color: rgba(255,255,255,0.9);
-    text-shadow: none;
-    border: 1px solid darken($header-color,10%);
-    @include border-radius(3px);
-    @include linear-gradient($header-color-light,$header-color);
-    @include box-shadow(0 1px 0 $header-shadow);
-    @include box-sizing(border-box);
-    @include transition(all .2s linear);
-
-    &:hover,
-    &:hover:before {
-      color: #fff;
-      @include linear-gradient(lighten($header-color-light,10%),lighten($header-color,10%));
-    }
-
-    &.secondary {
-      color: #aaa;
-      font-weight: normal;
-
-      &:hover {
-        color: #fff;
-      }
-    }
-  }
-
-  /* Nav dropdown */
-  .nav-container {
-    position: relative;
-    display: inline;
-  }
-
-  .nav-dropdown {
-    position: absolute;
-    top: 26px;
-    left: -60px;
-    width: 200px;
-    background: #fff;
-    display: none;
-    padding: 0 0 4px 0;
-    z-index: 1;
-    @include border-bottom-radius(5px);
-    @include box-shadow(0 1px 6px rgba(0,0,0,0.4));
-
-    &.open {
-      display: block;
-    }
-
-    a {
-      color: #000;
-      display: block;
-      text-align: left;
-      width: 100%;
-      max-width: 100%;
-      padding: 10px 4%;
-      @include box-sizing(border-box);
-
-      &:hover {
-        background: $lightest-blue;
-      }
-
-      span {
-        color: #999;
-        font-size: 11px;
-      }
-    }
-
-    img {
-      width: 24px;
-      margin: -5px 0;
-      float: right;
-    }
-  }
+  display: none;
 }
 
 [class^="pictos-"], [class*=" pictos-"] {
@@ -346,11 +212,14 @@ header #second-nav {
 .pictos-write:before {content: "W";}
 .pictos-gear:before {content: "y";}
 .pictos-help:before {content: "h";}
-.pictos-people:before {content: "g";}
 .pictos-user:before {content: "U";}
+.pictos-users:before {content: "g";}
 .pictos-download:before {content: "~";}
+.pictos-up:before {content: "{";}
 .pictos-down:before {content: "}";}
 .pictos-refresh:before {content: "1";}
+.pictos-heart:before {content: "k";}
+.pictos-music:before {content: "m";}
 
 
 /* BAR */
@@ -367,7 +236,11 @@ header #second-nav {
       color: #fff;
     }
 
-    $add-color: #ec3661;
+    #player #player-main #player-meta {
+      visibility: visible;
+    }
+
+    $add-color: #fff;
     $add-hover: darken($add-color, 20%);
     #player-bottom .add {
       color: $add-color;
@@ -378,7 +251,7 @@ header #second-nav {
     }
 
     #player-bottom .volume {
-      color: #999;
+      color: rgba(255,255,255,0.9);
       text-shadow: none;
 
       &:hover {
@@ -450,7 +323,8 @@ header #second-nav {
   &.playing {
     #player-controls .play span {
       left: -2px;
-      font-size: 37px;
+      top: 1px;
+      font-size: 46px;
     }
 
     #player-progress-bar {
@@ -459,8 +333,8 @@ header #second-nav {
   }
 
   #player-controls {
-    margin: -5px 6px -4px 10px;
-    width: 67px;
+    margin: -6px 6px -4px 20px;
+    width: 70px;
     float: left;
 
     a {
@@ -496,16 +370,16 @@ header #second-nav {
     /* play button */
     .play {
       font-size: 49px;
-      width: 58px;
-      height: 58px;
+      width: 56px;
+      height: 56px;
 
       span {
-        padding: 27px 0 0 13px;
+        padding: 26px 0 0 12px;
       }
     }
 
     .next {
-      margin: 39px 0 0 -18px;
+      margin: 35px 0 0 -14px;
       font-size: 16px;
       width: 22px;
       height: 22px;
@@ -568,20 +442,21 @@ header #second-nav {
   #player-main {
     position: absolute;
     top: 0;
-    left: 80px;
-    right: 262px;
-    padding: 0 10px;
+    left: 95px;
+    right: 300px;
+    height: 100%;
 
     #player-meta {
-      margin: 4px 0 -10px 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 16px;
+      color: #fff;
+      visibility: hidden;
+      margin: 8px 0 -10px 0;
+      text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
       line-height: 1.4em;
-      height: -20+$header-height;
 
       #player-artist-name {
-        color: #fff;
-        display: block;
-        font-size: 12px;
-        font-weight: normal;
         margin: 0 0 -2px 0;
         white-space: nowrap;
         overflow: hidden;
@@ -590,13 +465,10 @@ header #second-nav {
       }
 
       #player-song-name {
-        display: block;
-        font-size: 13px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         width: 80%;
-        color: #fff;
       }
     }
 
@@ -604,8 +476,10 @@ header #second-nav {
 
   #player-bottom {
     clear: both;
-    position: relative;
-    padding: 4px;
+    position: absolute;
+    bottom: 6px;
+    width: 100%;
+    height: 18px;
 
     #player-alt-controls {
       position: absolute;
@@ -657,7 +531,7 @@ header #second-nav {
         position: absolute;
         top: 0;
         left: 4px;
-        width: 96%;
+        right: 4px;
         z-index: 1;
       }
 
@@ -672,18 +546,18 @@ header #second-nav {
       #player-progress-position,
       #player-progress-loaded {
         position: absolute;
-        top: 2px;
+        top: 6px;
         left: 0;
         width: 0%;
-        height: 11px;
+        height: 4px;
         @include border-radius(8px);
       }
 
       #player-progress-position {
         top: 3px;
-        height: 9px;
+        height: 10px;
         z-index: 4;
-        @include border-right-radius(4px);
+        @include border-right-radius(5px);
       }
 
       #player-progress-waveform {

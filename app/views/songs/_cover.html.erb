@@ -3,16 +3,15 @@
   <div class="song-art cover-medium">
     <%= image_tag song.resolve_image(:medium) %>
   </div>
-  <div class="song-info">
-    <h4><%= song.linked_title.html_safe %></h4>
-    <time><%= relative_time(song.published_at) %></time>
-  </div>
-  <div class="song-waveform">
-    <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
-  </div>
+  <h4><%= song.linked_title.html_safe %></h4>
+  <time>
+    <%= relative_time(song.published_at) %>
+    <span><%= song_time(song.length) %></span>
+  </time>
   <ul class="song-controls">
     <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
   <%= link_to '', song, :class => 'song-link control' %>
+  <%= link_to 'i', song, :class => 'song-button control' %>
   <%= debug(song) %>
 </section>

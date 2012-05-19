@@ -27,16 +27,8 @@
     <div class="page-contain">
       <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
       <nav>
-        <a id="station" href="#" class="control">
-          <small>Listening to</small>
-          <strong>Nothing, yet!</strong>
-        </a>
-        <ul>
-          <li><%= link 'New', '/songs-new', :id => 'nav-songs-new' %></li>
-          <li><%= link 'Popular', '/songs', :id => 'nav-songs' %></li>
-          <li><%= link 'Stations', '/blogs', :id => 'nav-blogs' %></li>
-          <li><%= link 'Artists', '/artists', :id => 'nav-artists' %></li>
-        </ul>
+        <%= link_to 'U', '#new_user', :class => 'modal pictos' %>
+        <%= link_to 'm', '#new_user', :class => 'modal pictos' %>
       </nav>
 
       <div id="bar">
@@ -47,8 +39,8 @@
           </div>
           <div id="player-main">
             <div id="player-meta">
-              <span id="player-artist-name">&nbsp;</span>
-              <strong id="player-song-name">&nbsp;</strong>
+              <span id="player-artist-name">&nbsp;</span> -
+              <span id="player-song-name">&nbsp;</span>
             </div>
             <div id="player-bottom">
               <div id="player-progress-bar">
@@ -137,24 +129,24 @@
       <div id="sidebar">
         <section>
           <h1>Browse</h1>
-          <%= link 'New', '/songs-new', :id => 'nav-songs-new' %>
-          <%= link 'Popular', '/songs', :id => 'nav-songs' %>
-          <%= link 'Stations', '/blogs', :id => 'nav-blogs' %>
-          <%= link 'Artists', '/artists', :id => 'nav-artists' %>
+          <%= link 'New', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-up' %>
+          <%= link 'Popular', '/songs',   :id => 'nav-songs'     , :class => 'pictos-heart' %>
+          <%= link 'Stations', '/blogs',  :id => 'nav-blogs'     , :class => 'pictos-music' %>
+          <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
         </section>
         <section>
-          <h1>Browse</h1>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <h1>My Stations</h1>
+          <%= link_to 'Link', '', :class => '' %>
+          <%= link_to 'Link', '', :class => '' %>
+          <%= link_to 'Link', '', :class => '' %>
+          <%= link_to 'Link', '', :class => '' %>
         </section>
-        <section>
-          <h1>Browse</h1>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
+        <section id="friends">
+          <h1>Online Friends</h1>
+          <%= link_to 'Link', '', :class => '' %>
+          <%= link_to 'Link', '', :class => '' %>
+          <%= link_to 'Link', '', :class => '' %>
+          <%= link_to 'Link', '', :class => '' %>
         </section>
       </div>
 

@@ -61,7 +61,7 @@ module ApplicationHelper
       if (return_date > 1.minute.ago)
         "just now"
       elsif (return_date > 2.weeks.ago)
-        time_ago_in_words(return_date).gsub(/about/,'')
+        time_ago_in_words(return_date).gsub(/about/,'') + ' ago'
       else
         year = return_date.year != Time.now.year ? ', %Y' : ''
         return_date.strftime("%b #{return_date.day.ordinalize}#{year}")
@@ -69,6 +69,11 @@ module ApplicationHelper
     rescue
       'pending'
     end
+  end
+
+  # Returns time for songs
+  def song_time(seconds)
+    Time.at(seconds).gmtime.strftime('%R:%S').gsub(/00\:/,'')
   end
 
   # Determines if a link is "active" and wraps in ".active" if so
