@@ -5,14 +5,19 @@ $header-height: 70px;
 $header-shadow: rgba(255,255,255,0.15);
 $header-color: #c2362b;
 $header-color-light: lighten($header-color, 8%);
+
+$width: 780px;
 $sidebar-width: 200px;
+
+body, button, input, select, textarea {
+  font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #bbb;
+  }
 
 /* Layout */
 html,body {min-height: 100%;}
 body {
   color: #666;
   background: #fff;
-  -webkit-font-smoothing: antialiased;
 }
 
 a { color: $link-color; }
@@ -25,10 +30,11 @@ a:hover { color: $link-hover; }
 .page-contain,
 #dialog {
   position: relative;
-  min-width: 980+$sidebar-width;
+  min-width: $width+$sidebar-width;
 
   #sidebar {
     position: fixed;
+    z-index: 50;
     top: $header-height;
     bottom: 0;
     width: $sidebar-width;
@@ -58,7 +64,7 @@ a:hover { color: $link-hover; }
   }
 
   #body {
-    min-width: 980px;
+    min-width: $width;
     overflow: hidden;
     position: relative;
     padding: 20px 0 20px $sidebar-width;
@@ -96,15 +102,9 @@ h2 small { font-size: 55%; }
 .fourth, .half,
 .whole, .section {
   float: left;
-  margin-left: 20px;
+  margin: 0 20px;
   position: relative;
 }
-
-.third     { width: 300px; }
-.twothirds { width: 620px; }
-.fourth    { width: 220px; }
-.half      { width: 460px; }
-.whole     { width: 940px; }
 
 .third, .twothirds, .fourth, .half, .whole {
   .third, .twothirds, .fourth, .half, .whole {
@@ -784,7 +784,7 @@ header #second-nav {
 footer {
   color: #ddd;
   background: #222;
-  padding: 10px 0;
+  padding: 10px 0 10px 10+$sidebar-width;
 
   .page-contain div {
     padding: 10px;
@@ -1216,8 +1216,8 @@ h2.title { color: #000; }
 
 .cover-medium {
   position: relative;
-  width: 128px;
-  height: 128px;
+  width: 256px;
+  height: 256px;
 
   &:before,
   img,
@@ -1234,7 +1234,6 @@ h2.title { color: #000; }
   background: url(/images/cover.png);
   width: 100%;
   height: 100%;
-  @include box-shadow(0 0 3px rgba(0,0,0,0.6));
   @include background-size(100% auto);
 }
 

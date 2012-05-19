@@ -28,9 +28,87 @@
   }
 }
 
+.playlist-cover {
+  section {
+    position: relative;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin: 0 8px 8px 0;
+
+    &:hover {
+      .song-info {
+        padding-top: 100px;
+      }
+    }
+
+    .song-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+    }
+
+    .song-art, img {
+      width: 100%; height: 100%;
+    }
+
+    .song-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 4px;
+      padding-top: 30px;
+      color: #fff;
+      z-index: 2;
+      @include linear-gradient(transparent, rgba(0,0,0,0.75));
+      @include border-bottom-radius(5px);
+
+      h4, a {
+        line-height: 1.3em;
+        color: #fff;
+        text-decoration: none;
+        font-size: 12px;
+        margin: 0;
+      }
+
+      time {
+        position: absolute;
+        display: none;
+      }
+    }
+
+    .song-waveform {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      z-index: 0;
+
+      img {
+        position: absolute;
+        left: 0;
+        bottom: -20px;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .song-controls {
+
+    }
+  }
+}
+
+
+
 $song-pad: 14px;
 
-div.playlist {
+.playlist-song {
   clear: both;
   margin: 0 0 18px;
 
@@ -341,14 +419,14 @@ div.playlist {
   }
 }
 
-.whole .playlist {
+.whole .playlist-song {
   section .song-info h4 {
     width: 800px-$song-pad;
     font-size: 27px;
   }
 }
 
-.third .playlist {
+.third .playlist-song {
   border: none;
 
   section {

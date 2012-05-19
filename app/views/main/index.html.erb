@@ -44,34 +44,11 @@
       <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
     </div>
 <%- else -%>
-  <div class="twothirds">
+  <div class="whole">
     <h2>Popular Today</h2>
     <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
   </div>
 <%- end -%>
-
-  <div class="third">
-    <%- if user_signed_in? -%>
-    <section>
-      <h2>My Stations</h2>
-      <div class="list">
-        <%= render @stations %>
-      </div>
-    <%- else -%>
-      <section>
-       <h2>Just In</h2>
-       <%= render :partial => 'stations/playlist', :locals => { :station => @newe, :songs => @new_songs, :per => 8, :compact => true } %>
-      </section>
-    <%- end -%>
-
-    <section>
-     <h2>Featured Artists</h2>
-     <ul class="list">
-       <%= render :partial => 'artists/artist', :collection => @artists unless @artists.nil? %>
-     </ul>
-     <%= link_to 'Browse more artists', '/artists', :class => 'button' %>
-    </section>
-  </div>
 </div>
 
 <%- if user_signed_in? %>
