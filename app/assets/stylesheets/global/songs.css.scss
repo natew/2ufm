@@ -41,7 +41,7 @@
 
     &:hover {
       .song-info {
-        padding-top: 128px;
+        padding-bottom: 128px;
       }
     }
 
@@ -59,15 +59,17 @@
     }
 
     .song-info {
+      width: 100%;
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       padding: 8px;
-      padding-top: 60px;
+      padding-bottom: 60px;
       color: #fff;
       z-index: 2;
-      @include linear-gradient(transparent, rgba(0,0,0,0.8));
-      @include border-bottom-radius($cover-medium-border);
+      @include box-sizing(border-box);
+      @include linear-gradient(bottom, transparent, rgba(0,0,0,0.8));
+      @include border-top-radius($cover-medium-border);
 
       h4, a {
         line-height: 1.3em;
@@ -87,16 +89,18 @@
       position: absolute;
       bottom: 0;
       left: 0;
+      height: 30px;
       width: 100%;
-      height: 50px;
       z-index: 0;
+      @include linear-gradient(top, rgba(255,255,255,0), rgba(255,255,255,0.5));
+      @include border-bottom-radius($cover-medium-border);
 
       img {
         position: absolute;
-        left: 0;
-        bottom: -20px;
-        width: 100%;
-        height: auto;
+        left: 6px;
+        bottom: -25px;
+        width: 192px;
+        height: 50px;
       }
     }
 
