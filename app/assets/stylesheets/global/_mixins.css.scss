@@ -22,6 +22,8 @@ $playing: #666;
 $light-yellow: #ffd;
 $lighter-yellow: #fcfbec;
 
+$cover-medium-border: 10px;
+
 
 @mixin dim($percent) {
   background: rgba(0,0,0,$percent/100);

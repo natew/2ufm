@@ -1219,14 +1219,14 @@ h2.title { color: #000; }
   width: 256px;
   height: 256px;
 
-  &:before,
   img,
   strong {
-    @include border-radius(5px);
+    @include border-radius($cover-medium-border);
   }
 }
 
-[class^="cover-"]:before, [class*=" cover-"]:before {
+[class^="cover-"]:before,
+[class*=" cover-"]:before {
   content: '';
   display: block;
   position: absolute;
@@ -1237,7 +1237,10 @@ h2.title { color: #000; }
   @include background-size(100% auto);
 }
 
-a[class^="cover-"]:hover:before, a[class*=" cover-"]:hover:before {
+a[class^="cover-"]:hover:before,
+a[class*=" cover-"]:hover:before,
+.playing [class^="cover-"]:before,
+.playing [class*=" cover-"]:before {
   background-position: bottom left;
 }
 

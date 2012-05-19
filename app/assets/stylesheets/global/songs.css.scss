@@ -39,7 +39,7 @@
 
     &:hover {
       .song-info {
-        padding-top: 100px;
+        padding-top: 128px;
       }
     }
 
@@ -60,12 +60,12 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      padding: 4px;
-      padding-top: 30px;
+      padding: 8px;
+      padding-top: 60px;
       color: #fff;
       z-index: 2;
-      @include linear-gradient(transparent, rgba(0,0,0,0.75));
-      @include border-bottom-radius(5px);
+      @include linear-gradient(transparent, rgba(0,0,0,0.8));
+      @include border-bottom-radius($cover-medium-border);
 
       h4, a {
         line-height: 1.3em;
