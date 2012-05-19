@@ -83,39 +83,39 @@
           <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>
           <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
         </div>
-      </div>
 
-      <div id="loading" class="pictos hide">0</div>
+        <div id="loading" class="pictos hide">0</div>
 
-      <div id="second-nav">
-        <%= link 'Help', '#help', :class => 'modal pictos-help secondary' %>
-        <div class="nav-container">
-          <%= link 'Get the App!', "/mac", :id => 'get-app', :class => 'nav-control pictos-down control' %>
-          <div class="nav-dropdown">
-            <%= link 'Download <span>for Mac 10.6</span>'.html_safe, "/mac", :class => 'control', :target => '_blank' %>
-          </div>
-        </div>
-        <% if user_signed_in? %>
-        <span id="current_user" data-id="<%= current_user.id %>"></span>
-        <div class="nav-container">
-          <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'nav-control control pictos-user' %>
-          <div class="nav-dropdown">
-            <div id="nav-user">
-              <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
-              <%= link_to "Account".html_safe, '/users/edit' %>
-              <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+        <div id="second-nav">
+          <%= link 'Help', '#help', :class => 'modal pictos-help secondary' %>
+          <div class="nav-container">
+            <%= link 'Get the App!', "/mac", :id => 'get-app', :class => 'nav-control pictos-down control' %>
+            <div class="nav-dropdown">
+              <%= link 'Download <span>for Mac 10.6</span>'.html_safe, "/mac", :class => 'control', :target => '_blank' %>
             </div>
           </div>
+          <% if user_signed_in? %>
+          <span id="current_user" data-id="<%= current_user.id %>"></span>
+          <div class="nav-container">
+            <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'nav-control control pictos-user' %>
+            <div class="nav-dropdown">
+              <div id="nav-user">
+                <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
+                <%= link_to "Account".html_safe, '/users/edit' %>
+                <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+              </div>
+            </div>
+          </div>
+          <% else %>
+            <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
+          <% end %>
         </div>
-        <% else %>
-          <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
-        <% end %>
-      </div>
 
-      <%= form_tag '/main/search', :method => 'get' do %>
-        <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:songs]} songs by #{number_with_delimiter @count[:artists]} artists" %>
-        <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-      <% end -%>
+        <%= form_tag '/main/search', :method => 'get' do %>
+          <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:songs]} songs by #{number_with_delimiter @count[:artists]} artists" %>
+          <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+        <% end -%>
+      </div>
     </div>
   </header>
 
@@ -137,10 +137,10 @@
       <div id="sidebar">
         <section>
           <h1>Browse</h1>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
-          <%= link_to 'Link', '', :class => 'pictos-key' %>
+          <%= link 'New', '/songs-new', :id => 'nav-songs-new' %>
+          <%= link 'Popular', '/songs', :id => 'nav-songs' %>
+          <%= link 'Stations', '/blogs', :id => 'nav-blogs' %>
+          <%= link 'Artists', '/artists', :id => 'nav-artists' %>
         </section>
         <section>
           <h1>Browse</h1>
