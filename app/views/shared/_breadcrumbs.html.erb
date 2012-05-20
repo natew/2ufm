@@ -7,3 +7,9 @@
     <%= link_to title, @primary if action_name == 'show' %>
   </div>
 <% end %>
+
+<% if !user_signed_in? %>
+  <form id="begin">
+    <input id="what-i-like" type="text" name="what_i_like" placeholder="What do you want to listen to?" alt="Just type any artists, genres, or songs you like" />
+  </form>
+<% end %>

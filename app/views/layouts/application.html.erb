@@ -85,7 +85,7 @@
         <div id="second-nav">
           <%= link 'Help', '#help', :class => 'modal pictos-help secondary' %>
           <div class="nav-container">
-            <%= link 'Get the App!', "/mac", :id => 'get-app', :class => 'nav-control pictos-down control' %>
+
             <div class="nav-dropdown">
               <%= link 'Download <span>for Mac 10.6</span>'.html_safe, "/mac", :class => 'control', :target => '_blank' %>
             </div>
@@ -131,6 +131,10 @@
       <%- end -%>
 
       <div id="sidebar">
+        <a href="/mac" class="announce mac-only control pictos-down">
+          Get the app for mac!
+        </a>
+
         <section>
           <h1>My Stations</h1>
           <%= link 'Now Playing', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-music' %>
@@ -154,8 +158,9 @@
 
       <div id="body">
         <%= render :partial => 'shared/breadcrumbs' %>
-
-        <%= yield %>
+        <div class="contain">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </div>

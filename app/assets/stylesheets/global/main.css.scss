@@ -6,7 +6,7 @@ $header-shadow: rgba(255,255,255,0.15);
 $header-color: #528eb7;
 $header-color-light: lighten($header-color, 10%);
 
-$width: 900px;
+$width: 880px;
 $sidebar-width: 190px;
 
 body, button, input, select, textarea {
@@ -36,7 +36,7 @@ h4 { font-size: 14px; }
 h2, h3, h4 {
   line-height: 1em;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
   color: #000;
 
   small {
@@ -98,7 +98,7 @@ header {
 
     a {
       font-size: 26px;
-      color: #fff;
+      color: lighten($header-color,35%);
       float: left;
       margin-right: 18px;
       text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
@@ -165,10 +165,10 @@ header {
 
   #breadcrumbs {
     display: block;
-    padding: 4px 20px;
+    padding: 4px 20px 0;
     margin: -20px 0 20px 0;
     font-size: 11px;
-    @include background-gradient(#fff,#eee);
+    @include background-gradient(#fff,#f2f2f2);
 
     a {
       font-weight: bold;
@@ -187,11 +187,11 @@ header {
   }
 }
 
-input:-moz-placeholder {
+#query:-moz-placeholder {
   color: rgba(255,255,255,0.8);
 }
 
-input::-webkit-input-placeholder {
+#query::-webkit-input-placeholder {
   color: rgba(255,255,255,0.8);
 }
 
@@ -292,22 +292,11 @@ header #second-nav {
       visibility: visible;
     }
 
-    $add-color: #fff;
-    $add-hover: darken($add-color, 20%);
-    #player-bottom .add {
-      color: $add-color;
+    #player-bottom a.control {
+      color: lighten($header-color,25%);
 
       &:hover {
-        color: $add-hover;
-      }
-    }
-
-    #player-bottom .volume {
-      color: rgba(255,255,255,0.9);
-      text-shadow: none;
-
-      &:hover {
-        color: $add-hover;
+        color: #fff;
       }
     }
 
@@ -777,6 +766,43 @@ ol.mp_list {
 
 
 /* Titles */
+$announce-bg: #feffe5;
+$announce-color: #555;
+
+.announce {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: $announce-bg;
+  color: $announce-color;
+  border-top: 1px solid #ddd;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 6px;
+  padding-left: 25px;
+  margin: 0;
+  text-decoration: none;
+  @include box-sizing(border-box);
+
+  &.maconly {
+    display: none;
+  }
+
+  &.ismac {
+    display: block;
+  }
+
+  &:hover {
+    background: darken($announce-bg,4%);
+    color: $announce-color;
+  }
+
+  &:before {
+    color: #666;
+    font-size: 14px;
+    margin: 2px 0 0 3px;
+  }
+}
 
 #announce {
   display: none;
@@ -844,7 +870,7 @@ h2.title { color: #000; }
 
   h2 {
     color: $title;
-    font-size: 32px;
+    font-size: 27px;
     background: none;
     margin: 0;
     padding: 0;
@@ -1036,9 +1062,25 @@ h2 small { font-size: 55%; }
 .third, .twothirds,
 .fourth, .half,
 .whole, .section {
-  float: left;
   margin: 0 20px;
   position: relative;
+}
+
+.contain {
+  position: relative;
+}
+
+.twothirds {
+  margin-right: 200px;
+}
+
+.third {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+
+  h2 {font-size: 16px; margin-top: 5px;}
 }
 
 .third, .twothirds, .fourth, .half, .whole {
@@ -1185,26 +1227,20 @@ a[class*=" cover-"]:hover:before,
   white-space:pre;
 }
 
-/* Pictos Font
-* Copyright © 2010 Drew Wilson
-* http://www.drewwilson.com  -  http://pictos.drewwilson.com
-*
-* The fonts included in this stylesheet are subject to the End User License you purchased
-* from Drew Wilson. The fonts are protected under domestic and international trademark and
-* copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
-* distributing this font software.
-*
-* This font is NOT free. It is illegal to use this font without paying for a license.
-*/
-@font-face {
-    font-family: 'Pictos';
-    src: url('/fonts/pictos-web.eot');
-    src: local('☺'), url('/fonts/pictos-web.woff') format('woff'), url('/fonts/pictos-web.ttf') format('truetype'), url('/fonts/pictos-web.svg#webfontIyfZbseF') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
-.pictos, .button span {
-    font-family: 'Pictos';
-    text-decoration: none;
+#begin {
+  background: #f2f2f2;
+  padding: 12px 20px;
+  margin: -20px 0 20px 0;
+
+  #what-i-like {
+    padding: 6px 12px;
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid #ddd;
+    color: #000;
+    @include border-radius(50px);
+    @include box-shadow(none);
+    @include box-sizing(border-box);
+  }
 }

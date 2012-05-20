@@ -148,6 +148,11 @@ $(function() {
     timeout: 6000
   });
 
+  // Mac app download
+  if (navigator.appVersion.indexOf("Mac")!=-1) {
+    $('#sidebar .announce').addClass('ismac');
+  }
+
   // Disabled links modal windows
   $('a.disabled').on('click', function(e) {
     e.preventDefault();

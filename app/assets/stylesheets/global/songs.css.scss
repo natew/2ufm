@@ -32,7 +32,7 @@ $cover-pad: 8px;
 $cover-margin: 12px;
 
 .playlist-cover {
-  margin-right: $cover-margin;
+  margin-right: -$cover-margin;
 
   section {
     position: relative;
