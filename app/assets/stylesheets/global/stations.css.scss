@@ -30,19 +30,20 @@
     .cover {
       float: left;
       margin: 0 8px 0 0;
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
 
       img { width: 100%; height: 100%; }
     }
 
     .info {
       position: absolute;
-      left: 64px;
+      left: 60px;
 
       h3 {
-        margin: 4px 0 2px 0;
+        margin: 1px 0 -1px 0;
         font-size: 14px;
+        line-height: 18px;
 
         a {
           text-decoration: none;

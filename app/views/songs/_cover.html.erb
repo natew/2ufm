@@ -5,7 +5,13 @@
   </div>
   <h4>
     <%= song.linked_title.html_safe %>
-    <span><%= song_time(song.length) %></span>
+    <span>
+      <%- if song.reposted? -%>
+        Posted by <%= link_to pluralize(song.shared_count,'blog'), song %>
+      <% else %>
+        <%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %>
+      <%- end -%>
+    </span>
   </h4>
   <time>
     <%= relative_time(song.published_at) %>
