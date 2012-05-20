@@ -1,23 +1,19 @@
 <%- if !user_signed_in? -%>
-<div class="stations nav-container">
-  <h2>Stations</h2>
-  <nav>
-    <%=link_to 'Featured', '#stations-featured', :class => 'control active' %>
-    <%=link_to 'Trending', '#stations-trending', :class => 'control' %>
-    <%=link_to 'Artists', '#stations-artists', :class => 'control' %>
-    <%=link_to 'Users', '#stations-users', :class => 'control' %>
-  </nav>
-  <div id="stations-featured" class="station-section active">
-    <%= render :partial => 'stations/station', :collection => @stations[:featured] %>
+<div class="half">
+  <div class="stations">
+    <h2>Popular Stations</h2>
+    <div id="stations-featured">
+      <%= render :partial => 'stations/station', :collection => @stations[:featured] %>
+    </div>
   </div>
-  <div id="stations-trending" class="station-section">
-    <%= render :partial => 'stations/station', :collection => @stations[:trending] %>
-  </div>
-  <div id="stations-artists" class="station-section">
-    <%= render :partial => 'stations/station', :collection => @stations[:artists] %>
-  </div>
-  <div id="stations-users" class="station-section">
-    <%= render :partial => 'stations/station', :collection => @stations[:users] %>
+</div>
+
+<div class="half">
+  <div class="stations">
+    <h2>Featured Artists</h2>
+    <div id="stations-featured">
+      <%= render :partial => 'stations/station', :collection => @stations[:artists] %>
+    </div>
   </div>
 </div>
 <%- end -%>

@@ -1,22 +1,18 @@
 @import "mixins.css.scss";
 
 .stations {
-  margin: 0 12px 0 20px;
+  margin: 0 12px 20px 0;
+
+  $section-pad: 0;
 
   section {
     float: left;
-    width: 22.6%;
-    padding: 6px;
-    margin: 0 8px 25px 0;
+    width: 47.8%;
+    padding: $section-pad;
+    margin: 0 8px 20px 0;
     position: relative;
     overflow: hidden;
     white-space: nowrap;
-    @include linear-gradient(#f9f9f9,#f2f2f2);
-    @include border-radius(5px);
-
-    &:hover {
-      @include linear-gradient(#eee,#ddd);
-    }
 
     .station-link {
       position: absolute;
@@ -31,19 +27,19 @@
     .cover {
       float: left;
       margin: 0 8px 0 0;
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
 
       img { width: 100%; height: 100%; }
     }
 
     .info {
       position: absolute;
-      left: 60px;
+      left: $section-pad + 46px;
 
       h3 {
-        margin: 1px 0 -1px 0;
-        font-size: 14px;
+        margin: 1px 0 -3px 0;
+        font-size: 12px;
         line-height: 18px;
 
         a {

@@ -7,9 +7,7 @@ class MainController < ApplicationController
 
     @stations = {}
     @stations[:featured] = Station.blog_station.order('broadcasts_count desc').limit(4)
-    @stations[:trending] = Station.blog_station.order('follows_count desc').limit(4)
-    @stations[:artists] = Station.blog_station.order('random() asc').limit(4)
-    @stations[:users] = Station.blog_station.order('random()*random()').limit(4)
+    @stations[:artists] = Station.artist_station.order('random() asc').limit(4)
 
     if !user_signed_in?
       @new = Station.newest

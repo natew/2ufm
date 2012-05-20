@@ -332,8 +332,8 @@ $(function() {
         suggestions = $('#suggestions').html() + ",",
         sugLen = suggestions.length,
         input = $('#tags input:first'),
-        delay = 60,
-        btwnDelay = 500,
+        delay = 55,
+        btwnDelay = 600,
         at = [];
 
     e.preventDefault();

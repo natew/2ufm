@@ -1107,7 +1107,8 @@ $nav-arrow-size: 5px;
 
   nav {
     float: left;
-    margin: 0 0 0 10px;
+    margin: 2px 0 0 4px;
+    line-height: 1.4em;
     overflow: hidden;
 
     &.right {
@@ -1151,12 +1152,22 @@ h2 small { font-size: 55%; }
 .third, .twothirds,
 .fourth, .half,
 .whole, .section {
-  margin: 0 20px;
+  padding: 0 20px;
   position: relative;
+  @include box-sizing(border-box);
 }
 
 .contain {
   position: relative;
+}
+
+.whole {
+  clear: both;
+}
+
+.half {
+  width: 50%;
+  float: left;
 }
 
 .twothirds {
