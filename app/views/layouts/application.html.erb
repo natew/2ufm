@@ -132,18 +132,16 @@
 
       <div id="sidebar">
         <section>
-          <h1>Browse</h1>
+          <h1>My Stations</h1>
+          <%= link 'Now Playing', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-music' %>
           <%= link 'New', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-up' %>
           <%= link 'Popular', '/songs',   :id => 'nav-songs'     , :class => 'pictos-heart' %>
-          <%= link 'Stations', '/blogs',  :id => 'nav-blogs'     , :class => 'pictos-music' %>
-          <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
         </section>
         <section>
-          <h1>My Stations</h1>
-          <%= link_to 'Link', '', :class => '' %>
-          <%= link_to 'Link', '', :class => '' %>
-          <%= link_to 'Link', '', :class => '' %>
-          <%= link_to 'Link', '', :class => '' %>
+          <h1>Browse</h1>
+          <%= link 'Stations', '/blogs',  :id => 'nav-blogs'     , :class => 'pictos-music' %>
+          <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
+          <%= link 'Genres', '/artists', :id => 'nav-artists'   , :class => 'pictos-list' %>
         </section>
         <section id="friends">
           <h1>Online Friends</h1>

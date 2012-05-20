@@ -7,7 +7,7 @@ $header-color: #528eb7;
 $header-color-light: lighten($header-color, 10%);
 
 $width: 900px;
-$sidebar-width: 200px;
+$sidebar-width: 190px;
 
 body, button, input, select, textarea {
   font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #bbb;
@@ -75,8 +75,8 @@ header {
     margin: 0;
 
     a {
-      background: rgba(0,0,0,0.1) url(/images/2ulogo-web-dark.png) no-repeat 18px 8px;
-      width: 86px;
+      background: rgba(0,0,0,0.1) url(/images/2ulogo-web-dark.png) no-repeat 20px 8px;
+      width: 88px;
       height: 49px;
       overflow: hidden;
       text-indent: -3000em;
@@ -93,14 +93,14 @@ header {
 
   nav {
     position: absolute;
-    top: 26px;
-    left: 100px;
+    top: 27px;
+    left: 102px;
 
     a {
-      font-size: 29px;
+      font-size: 26px;
       color: #fff;
       float: left;
-      margin-right: 20px;
+      margin-right: 18px;
       text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
 
       &:hover {
@@ -164,9 +164,12 @@ header {
   padding: 20px 0 20px $sidebar-width;
 }
 
-input:-moz-placeholder,
+input:-moz-placeholder {
+  color: rgba(255,255,255,0.8);
+}
+
 input::-webkit-input-placeholder {
-  color: red;
+  color: rgba(255,255,255,0.8);
 }
 
 header form {
@@ -177,14 +180,14 @@ header form {
 
   #query {
     border: none;
-    padding: 3px 12px 3px 8px;
-    width: 240px;
+    padding: 3px 30px 3px 8px;
+    width: 220px;
     margin: 0;
-    color: rgba(255,255,255,0.8);
+    color: #fff;
     outline: none;
     font-size: 11px;
     border: 1px solid darken($header-color,20%);
-    @include linear-gradient(darken($header-color,10%),$header-color);
+    @include linear-gradient(darken($header-color,5%),$header-color);
     @include box-shadow(0 1px 0 $header-shadow);
     @include border-radius(20px);
 
@@ -201,9 +204,9 @@ header form {
     background: none;
     border: none;
     position: absolute;
-    right: 0;
+    right: 1px;
     top: -1px;
-    font-size: 18px;
+    font-size: 20px;
     color: rgba(255,255,255,0.7);
     text-shadow: none;
     width: 38px;
@@ -245,13 +248,14 @@ header #second-nav {
 .pictos-music:before {content: "m";}
 .pictos-add:before {content: "+";}
 .pictos-share:before {content: "R";}
+.pictos-list:before {content: "l";}
 
 
 /* BAR */
 #bar {
   position: fixed;
   top: 1px;
-  left: 199px;
+  left: -1+$sidebar-width;
   right: 0;
   z-index: 0;
   border-left: 1px solid $header-color-light;
@@ -370,10 +374,11 @@ header #second-nav {
       color: #fff;
       border: 1px solid darken($header-color,10%);
       @include border-radius(50px);
-      @include linear-gradient(lighten($header-color-light,10%),$header-color);
+      @include linear-gradient(lighten($header-color-light,10%),darken($header-color,10%));
       @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 0 $header-shadow);
 
       &:hover {
+        @include linear-gradient(lighten($header-color-light,20%),$header-color);
 
         span {
           color: #fff;
