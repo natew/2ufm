@@ -1,12 +1,11 @@
 <% size ||= :medium %>
 <section>
-  <div class="cover-small">
+  <div class="cover-small cover">
     <%= image_tag station.image.url(:small) %>
   </div>
   <div class="info">
     <h3><%= link_to station.title, '/'+station.slug %></h3>
     <%= render :partial => 'stations/stats', :locals => { :station => station } %>
-    <time>Updated <%= relative_time(station.last_broadcasted_at) %></time>
   </div>
   <%= link_to station.title, '/'+station.slug, :class => 'station-link' %>
   <%= debug(station) %>

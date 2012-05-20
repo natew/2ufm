@@ -30,6 +30,10 @@
 
 $cover-pad: 8px;
 $cover-margin: 12px;
+$cover-border-radius: 10px;
+$cover-border-inner-radius: -4+$cover-border-radius;
+$playing-color: #618bff;
+$hover-color: #ccc;
 
 .playlist-cover {
   margin-right: -$cover-margin;
@@ -39,16 +43,40 @@ $cover-margin: 12px;
     overflow: hidden;
     width: 200px;
     height: 200px;
+    border: 4px solid #fff;
     float: left;
-    margin: 0 $cover-margin $cover-margin 0;
+    margin: 0 -8+$cover-margin -8+$cover-margin 0;
+    @include border-radius($cover-border-radius);
 
-    &:hover {
+    &.playing {
+      border-color: $playing-color;
+
       h4 {
-        padding-bottom: 128px;
+        padding-bottom: 0;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        @include border-radius($cover-border-inner-radius);
       }
 
       nav {
-        opacity: 1;
+        border-color: $playing-color;
+        background: $playing-color;
+      }
+    }
+
+    &:hover {
+      border-color: $hover-color;
+
+      h4 {
+        padding-bottom: 0;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        @include border-radius($cover-border-inner-radius);
+      }
+
+      nav {
+        border-color: $hover-color;
+        background: $hover-color;
       }
     }
 
@@ -63,13 +91,14 @@ $cover-margin: 12px;
 
     .song-art, img {
       width: 100%; height: 100%;
+      @include border-radius($cover-border-radius);
     }
 
     $nav-border-radius: 20px;
     nav {
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: -2px;
+      right: -2px;
       z-index: 10;
       border: 2px solid #fff;
       background: #fff;
@@ -133,8 +162,8 @@ $cover-margin: 12px;
       font-size: 14px;
       margin: 0;
       @include box-sizing(border-box);
-      @include linear-gradient(bottom, transparent, rgba(0,0,0,0.8));
-      @include border-top-radius($cover-medium-border);
+      @include linear-gradient(bottom, transparent, rgba(0,0,0,0.6));
+      @include border-top-radius($cover-border-inner-radius);
 
       span {
         font-size: 9px;
@@ -155,17 +184,13 @@ $cover-margin: 12px;
       padding-bottom: $cover-pad;
       padding-top: 20px;
       @include linear-gradient(top, transparent, rgba(0,0,0,0.8));
-      @include border-bottom-radius($cover-medium-border);
+      @include border-bottom-radius($cover-border-inner-radius);
 
       span {
         position: absolute;
         bottom: $cover-pad;
         right: $cover-pad;
       }
-    }
-
-    .song-controls {
-
     }
   }
 }
