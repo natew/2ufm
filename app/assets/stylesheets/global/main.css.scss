@@ -6,6 +6,8 @@ $header-shadow: rgba(255,255,255,0.15);
 $header-color: #528eb7;
 $header-color-light: lighten($header-color, 10%);
 
+$invite-color: #4cae27;
+
 $width: 880px;
 $sidebar-width: 180px;
 
@@ -342,8 +344,6 @@ header #second-nav {
     right: 0;
   }
 
-  $invite-color: #4cae27;
-
   #player-invite {
     padding: 5px;
     font-weight: bold;
@@ -352,7 +352,6 @@ header #second-nav {
     display: block;
     text-align: center;
     text-decoration: none;
-    background: #555;
     color: #fff;
     text-shadow: 0 1px 0 rgba(0,0,0,0.3);
     border: 1px solid darken($invite-color,10%);
@@ -796,6 +795,7 @@ $announce-color: #555;
   @include box-sizing(border-box);
 
   &.primary {
+    display: block;
     position: relative;
     border-top: none;
     padding: 14px 10px;
@@ -1321,34 +1321,53 @@ a[class*=" cover-"]:hover:before {
   margin: -20px 0 20px 0;
   position: relative;
 
-  #what-i-like {
-    padding: 6px 12px;
+  #suggestions {
+    display: none;
+  }
+
+  #tags {
+    display: none;
+    background: #fff;
+    margin: 0;
+    padding: 3px 12px 2px;
     font-size: 14px;
     width: 100%;
     border: 1px solid #ddd;
-    color: #000;
+    color: #999;
+    cursor: text;
     @include border-radius(50px);
     @include box-shadow(none);
     @include box-sizing(border-box);
+
+    &.focus {
+      color: #000;
+    }
+
+    &.tagit {
+      display: block;
+    }
   }
 
   #create-station {
     position: absolute;
-    right: 19px;
-    top: 13px;
+    right: 25px;
+    top: 17px;
     padding: 3px 10px;
-    color: #999;
+    color: #888;
+    font-weight: bold;
     text-shadow: none;
     font-size: 12px;
     border: 1px solid #ddd;
     @include border-radius(20px);
-    @include linear-gradient(#fff,#eee);
+    @include box-shadow(inset 0 1px 0 #fff);
+    @include background-gradient(#eee,#ddd);
 
     &:hover {
-      color: #666;
-      background-position: 0 0;
-      border-color: #ccc;
-      @include linear-gradient(#eee,#ddd);
+      color: #fff;
+      border-color: darken($invite-color,10%);
+      @include border-radius(20px);
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
+      @include background-gradient(lighten($invite-color,10%),$invite-color);
     }
   }
 
@@ -1359,4 +1378,63 @@ a[class*=" cover-"]:hover:before {
     color: #aaa;
     font-size: 17px;
   }
+}
+
+/* Tagit */
+ul.tagit.focus span.tagit-placeholder,
+ul.tagit.hasTags span.tagit-placeholder {
+  display:none;
+}
+
+ul.tagit span.tagit-placeholder {
+  position: absolute;
+  z-index: 0;
+}
+
+ul.tagit li {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+  white-space: nowrap;
+}
+ul.tagit li.tagit-choice {
+  padding: .2em 20px .2em .5em;
+  position: relative;
+  line-height: inherit;
+}
+ul.tagit li.tagit-new {
+  padding: .25em 4px .25em 0;
+}
+
+ul.tagit li.tagit-choice a.tagit-label {
+  cursor: pointer;
+  text-decoration: none;
+}
+ul.tagit li.tagit-choice .tagit-close {
+  color: #ccc;
+  cursor: pointer;
+  position: absolute;
+  right: .1em;
+  top: 50%;
+  margin-top: -8px;
+}
+
+/* used for some custom themes that don't need image icons */
+ul.tagit li.tagit-choice .tagit-close .text-icon {
+    display: none;
+}
+
+ul.tagit li.tagit-choice input {
+    display: block;
+    float: left;
+    margin: 2px 5px 2px 0;
+}
+ul.tagit input[type="text"] {
+    width: inherit;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: inherit;
+    outline: none;
+    @include box-sizing(border-box);
 }

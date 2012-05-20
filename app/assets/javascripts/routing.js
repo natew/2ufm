@@ -24,11 +24,17 @@ var page = {
 
     // Scroll to top if we are going to new page
     if ($('body').scrollTop() > 0)
-      $('html,body').animate({scrollTop:0}, 200);
+      fn.scrollToTop();
 
     // Run loaded functions
     var $doc = $(document);
     var $body = $doc.find('body:first');
+
+    // Begin tagging
+    $('#tags').tagit({
+      allowSpaces: true,
+      placeholderText: 'What would you like to listen to?'
+    });
 
     // Styling for inputs
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });

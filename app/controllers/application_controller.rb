@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :do_page_request, :set_pagination_vars, :get_counts
+  before_filter :get_suggestions, :do_page_request, :set_pagination_vars, :get_counts
   layout :set_layout
 
   def not_found
@@ -45,6 +45,10 @@ class ApplicationController < ActionController::Base
     else
       'application'
     end
+  end
+
+  def get_suggestions
+    @suggestions = Artist.order('random() desc').limit(3).map(&:name).join(', ')
   end
 
   def get_counts

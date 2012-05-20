@@ -326,6 +326,33 @@ $(function() {
     }
   });
 
+  $('#tour-button').click(function(e) {
+    var suggestions = $('#suggestions').html() + ",",
+        len = suggestions.length,
+        input = $('#tags input:first'),
+        delay = 100,
+        at = [];
+
+    e.preventDefault();
+    fn.scrollToTop();
+
+    input.focus();
+    for(var i = 0; i < len; i++) {
+      doInput(i);
+    }
+
+    function doInput(i) {
+      setTimeout(function() {
+        var character = suggestions.charAt(i);
+        if (character === ',') {
+          input.trigger(jQuery.Event('keydown', {which: 188}));
+        } else {
+          input.val(input.val() + character);
+        }
+      }, delay*(i+1),i);
+    }
+  })
+
   // Popups
   $('.popup').click(function(e){
     e.preventDefault();

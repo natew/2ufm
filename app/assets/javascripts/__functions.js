@@ -29,6 +29,10 @@ var fn = {
     return into;
   },
 
+  scrollToTop: function() {
+    $('html,body').animate({scrollTop:0}, 200);
+  },
+
   jQuerize: function(object) {
     for (var key in object) {
       object[key] = $(object[key]);

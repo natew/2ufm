@@ -25,7 +25,7 @@
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %> wizard">
   <header>
     <div class="page-contain">
-      <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
+      <h1><%= link_to '2u.fm', '/', :title => '2u.fm, find and share music' %> </h1>
       <nav>
         <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
         <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" %>
@@ -107,7 +107,7 @@
       <%- end -%>
 
       <div id="sidebar">
-        <a class="announce primary" href="/tour">
+        <a id="tour-button" class="announce primary control" href="/tour">
           The easiest way to find &amp; share music with friends.
         </a>
 

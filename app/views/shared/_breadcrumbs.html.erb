@@ -9,9 +9,9 @@
 <% end %>
 
 <% if !user_signed_in? %>
-  <form id="begin">
-    <a href="#" class="control close pictos">D</a>
-    <input id="what-i-like" type="text" name="what_i_like" placeholder="What do you like to listen to?" alt="Just type any artists, genres, or songs you like" />
-    <input id="create-station" type="submit" value="Create Station" />
-  </form>
+  <div id="begin">
+    <ul id="tags"></ul>
+    <div id="suggestions"><%= @suggestions %></div>
+    <button id="create-station">Create Station</button>
+  </div>
 <% end %>
