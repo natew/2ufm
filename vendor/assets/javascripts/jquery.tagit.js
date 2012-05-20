@@ -353,7 +353,7 @@
             }
             // Animate the removal.
             if (animate) {
-                tag.fadeOut('fast').animate({width: '0'},50, function(){
+                tag.animate({width: '0'},50, function(){
                     tag.remove();
                 }).dequeue();
             } else {

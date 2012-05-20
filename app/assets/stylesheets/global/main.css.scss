@@ -1431,6 +1431,7 @@ ul.tagit li.tagit-choice input {
 }
 ul.tagit input[type="text"] {
     width: inherit;
+    min-width: 300px;
     border: none;
     margin: 0;
     padding: 0;

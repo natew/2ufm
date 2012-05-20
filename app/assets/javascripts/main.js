@@ -327,29 +327,48 @@ $(function() {
   });
 
   $('#tour-button').click(function(e) {
-    var suggestions = $('#suggestions').html() + ",",
-        len = suggestions.length,
+    var initial = "Type artists & genres separated by commas...",
+        inLen = initial.length,
+        suggestions = $('#suggestions').html() + ",",
+        sugLen = suggestions.length,
         input = $('#tags input:first'),
-        delay = 100,
+        delay = 60,
+        btwnDelay = 500,
         at = [];
 
     e.preventDefault();
     fn.scrollToTop();
 
     input.focus();
-    for(var i = 0; i < len; i++) {
-      doInput(i);
+    for (var i = 0; i < inLen; i++) {
+      doInput(initial, i, 0);
     }
 
-    function doInput(i) {
+    setTimeout(function() {
+      input.val('');
+    }, delay*inLen+btwnDelay);
+
+    for (var i = 0; i < sugLen; i++) {
+      doInput(suggestions, i, delay*inLen+btwnDelay);
+    }
+
+    function doInput(text, i, beginDelay) {
       setTimeout(function() {
-        var character = suggestions.charAt(i);
+        var character = text.charAt(i);
         if (character === ',') {
           input.trigger(jQuery.Event('keydown', {which: 188}));
         } else {
           input.val(input.val() + character);
         }
-      }, delay*(i+1),i);
+      }, beginDelay+delay*(i+1));
+    }
+
+    function deleteInput(i, beginDelay) {
+      setTimeout(function() {
+        var val = input.val(),
+            len = val.length;
+        input.val(val.substr(0,len-1));
+      }, beginDelay+delay*(i+1));
     }
   })
 
