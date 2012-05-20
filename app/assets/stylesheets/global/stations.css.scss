@@ -11,7 +11,8 @@
     position: relative;
     overflow: hidden;
     white-space: nowrap;
-    @include border-radius(8px);
+    @include linear-gradient(#fff,#f2f2f2);
+    @include border-radius(5px);
 
     &:hover {
       background: #f2f2f2;

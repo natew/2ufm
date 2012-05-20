@@ -1,6 +1,6 @@
 <%- if !user_signed_in? -%>
 <div class="stations nav-container">
-  <h2>Browse Stations</h2>
+  <h2>Stations</h2>
   <nav>
     <%=link_to 'Featured', '#stations-featured', :class => 'control active' %>
     <%=link_to 'Trending', '#stations-trending', :class => 'control' %>
@@ -45,7 +45,7 @@
     </div>
 <%- else -%>
   <div class="whole">
-    <h2>Popular Today</h2>
+    <h2>Popular Songs</h2>
     <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
   </div>
 <%- end -%>
