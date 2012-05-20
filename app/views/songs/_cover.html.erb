@@ -21,8 +21,7 @@
   </ul>
   <%= link_to '', song, :class => 'song-link control' %>
   <nav>
-    <%= link_to '100', song, :class => 'pictos-heart control' %>
-    <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-add control no-text' %>
+    <span class="broadcast"><%= broadcast_song(song) %></span>
     <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-share control no-text' %>
   </nav>
   <%= debug(song) %>

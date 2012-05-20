@@ -27,8 +27,9 @@
     <div class="page-contain">
       <h1><%= link_to '2u.fm', '/', :class => 'tip-n', :title => 'Go Home!' %> </h1>
       <nav>
-        <%= link_to 'U', '#new_user', :class => 'modal pictos nav-user' %>
-        <%= link_to 'm', '#new_user', :class => 'modal pictos nav-music' %>
+        <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
+        <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" %>
+        <%= link_to 'm', '#nav-music', :class => 'pictos nav' %>
       </nav>
 
       <div id="bar">
@@ -81,31 +82,6 @@
         </div>
 
         <div id="loading" class="pictos hide">0</div>
-
-        <div id="second-nav">
-          <%= link 'Help', '#help', :class => 'modal pictos-help secondary' %>
-          <div class="nav-container">
-
-            <div class="nav-dropdown">
-              <%= link 'Download <span>for Mac 10.6</span>'.html_safe, "/mac", :class => 'control', :target => '_blank' %>
-            </div>
-          </div>
-          <% if user_signed_in? %>
-          <span id="current_user" data-id="<%= current_user.id %>"></span>
-          <div class="nav-container">
-            <%= link_to "#{current_user.username}".html_safe, edit_user_registration_path, :id => 'nav-username', :class => 'nav-control control pictos-user' %>
-            <div class="nav-dropdown">
-              <div id="nav-user">
-                <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
-                <%= link_to "Account".html_safe, '/users/edit' %>
-                <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-              </div>
-            </div>
-          </div>
-          <% else %>
-            <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
-          <% end %>
-        </div>
 
         <%= form_tag '/main/search', :method => 'get' do %>
           <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:songs]} songs by #{number_with_delimiter @count[:artists]} artists" %>
@@ -212,12 +188,32 @@
     s.parentNode.insertBefore(g,s)}(document,'script'));
   </script> -->
 
+  <!-- Menu items -->
+  <div id="nav-user" class="nav-menu">
+    <% if user_signed_in? %>
+      <span id="current_user" data-id="<%= current_user.id %>"></span>
+      <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
+      <%= link_to "Account".html_safe, '/users/edit' %>
+      <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+    <% else %>
+      <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
+    <% end %>
+  </div>
+
+  <div id="nav-music" class="nav-menu">
+    <h4>Recently Played</h4>
+    <%= link_to 'Music station' %>
+    <%= link_to 'Music station' %>
+    <%= link_to 'Music station' %>
+    <%= link_to 'Music station' %>
+  </div>
+
   <!-- Modals -->
   <div id="overlay"></div>
   <div id="modal"></div>
 
   <div class="hidden">
-    <div id="new-user">
+    <div id="modal-user">
       <h3>Welcome to 2u.fm! <small>Sign up for a free account and always have the best music!</small></h3>
       <div id="user-signup">
         <h4>Signup</h4>

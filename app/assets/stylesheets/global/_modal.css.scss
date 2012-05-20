@@ -10,7 +10,6 @@
   left: 50%;
   margin-left: -400px;
   width: 800px;
-  height: 450px;
   background-color: #fff;
   color: #444;
   padding: 12px;
@@ -74,9 +73,12 @@
 }
 
 
+#modal-user h4 {
+  font-size: 15px;
+}
 
-#new-user #user-login {
-  width: 250px;
+#modal-user #user-login {
+  width: 260px;
   padding: 20px;
   float: right;
 
@@ -121,10 +123,15 @@
     input {
       float: right;
     }
+
+    a {
+      font-size: 11px;
+      text-decoration: none;
+    }
   }
 }
 
-#new-user #user-signup {
+#modal-user #user-signup {
   float: left;
   width: 452px;
   padding: 20px;
@@ -135,6 +142,7 @@
   .actions {
     background: none;
     padding-top: 0;
+    padding-bottom: 0;
     border: none;
   }
 }

@@ -57,15 +57,14 @@ form {
   input[type="text"],
   input[type="password"],
   input[type="email"] {
-    padding: 8px 4px;
+    padding: 5px 4px;
     font-size: 12px;
     color: #666;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.2);
     width: 260px;
     float: left;
     outline: none;
     @include border-radius(6px);
-    @include box-shadow(inset 0px 1px 3px #ccc);
     @include transition(all linear 0.2s);
 
     &:focus {
