@@ -9,6 +9,13 @@ end
 
 # Application Helper
 module ApplicationHelper
+  # Gets title of an object
+  def get_title(object)
+    return object.title if object.respond_to?('title')
+    return object.username if object.class.name == 'User'
+    return object.full_name if object.class.name == 'Song'
+  end
+
   # Station follow
   def follow_station(station)
     has    = current_user.following_station?(station.id) if user_signed_in?

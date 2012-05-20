@@ -162,6 +162,29 @@ header {
   overflow: hidden;
   position: relative;
   padding: 20px 0 20px $sidebar-width;
+
+  #breadcrumbs {
+    display: block;
+    padding: 4px 20px;
+    margin: -20px 0 20px 0;
+    font-size: 11px;
+    @include background-gradient(#fff,#eee);
+
+    a {
+      font-weight: bold;
+      color: #999;
+      text-decoration: none;
+      float: left;
+
+      &.after:after {
+        display: inline-block;
+        padding: 0 4px;
+        margin: -2px 0 0;
+        font-size: 10px;
+        content: ">";
+      }
+    }
+  }
 }
 
 input:-moz-placeholder {

@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def show
     @plays = Listen.select('listens.created_at, listens.url, songs.name, songs.slug, users.username, users.slug').joins(:song,:user).where(:user_id => @user.id).limit(12)
     @songs = @user.station.songs.playlist_order_broadcasted.page(params[:page]).per(12)
+    @primary = @user
 
     respond_to do |format|
       format.html
