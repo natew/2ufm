@@ -11,15 +11,17 @@
   </ul>
 </div>
 
-<div class="twothirds">
-  <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
-</div>
+<div class="contain">
+  <div class="twothirds">
+    <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
+  </div>
 
-<div class="third">
-  <%- if @artists -%>
-  <h3>Artists on this station</h3>
-  <ul class="list">
-    <%= render :partial => 'artists/artist', :collection => @artists %>
-  </ul>
-  <%- end -%>
+  <div class="third">
+    <%- if @artists -%>
+    <h3>Artists on this station</h3>
+    <ul class="list">
+      <%= render :partial => 'artists/artist', :collection => @artists %>
+    </ul>
+    <%- end -%>
+  </div>
 </div>

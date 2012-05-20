@@ -2,27 +2,29 @@
   <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false, :style => 'song' } %>
 </div>
 
-<div class="twothirds">
-  <h2>Artists: <%= links @song.artists %></h2>
-  <h2>Comments</h2>
-  <ul class="list">
-  <%- for artist in @song.artists -%>
-  <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes of #{artist.name}".html_safe, artist, :class => 'image' %></li>
-  <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes by #{artist.name}".html_safe, artist, :class => 'image' %></li>
-  <%- end -%>
-  </ul>
-</div>
-
-<div class="third">
-  <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
-  <div class="shelf">
-    <%= render :partial => 'stations/shelf', :collection => @blogs %>
+<div class="contain">
+  <div class="twothirds">
+    <h2>Artists: <%= links @song.artists %></h2>
+    <h2>Comments</h2>
+    <ul class="list">
+    <%- for artist in @song.artists -%>
+    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes of #{artist.name}".html_safe, artist, :class => 'image' %></li>
+    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes by #{artist.name}".html_safe, artist, :class => 'image' %></li>
+    <%- end -%>
+    </ul>
   </div>
 
-  <h3>Broadcasts this week</h3>
-  <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
+  <div class="third">
+    <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
+    <div class="shelf">
+      <%= render :partial => 'stations/shelf', :collection => @blogs %>
+    </div>
 
-  <h3>Re-posted by <%= pluralize @song.users.size, 'person' %></h3>
-  <div class="list">
+    <h3>Broadcasts this week</h3>
+    <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
+
+    <h3>Re-posted by <%= pluralize @song.users.size, 'person' %></h3>
+    <div class="list">
+    </div>
   </div>
 </div>
