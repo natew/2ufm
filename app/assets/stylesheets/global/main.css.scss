@@ -739,7 +739,7 @@ ol.mp_list {
   padding: 0;
 
   section, li {
-    padding: 8px 0 0 10px;
+    padding: 8px 0 0 0;
     margin: 0;
     border: none;
     height: auto;
@@ -1241,6 +1241,7 @@ a[class*=" cover-"]:hover:before {
   background: #f2f2f2;
   padding: 12px 20px;
   margin: -20px 0 20px 0;
+  position: relative;
 
   #what-i-like {
     padding: 6px 12px;
@@ -1251,5 +1252,33 @@ a[class*=" cover-"]:hover:before {
     @include border-radius(50px);
     @include box-shadow(none);
     @include box-sizing(border-box);
+  }
+
+  #create-station {
+    position: absolute;
+    right: 19px;
+    top: 13px;
+    padding: 3px 10px;
+    color: #999;
+    text-shadow: none;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    @include border-radius(20px);
+    @include linear-gradient(#fff,#eee);
+
+    &:hover {
+      color: #666;
+      background-position: 0 0;
+      border-color: #ccc;
+      @include linear-gradient(#eee,#ddd);
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: -16px;
+    right: 20px;
+    color: #aaa;
+    font-size: 17px;
   }
 }
