@@ -28,7 +28,7 @@
       <h1><%= link_to '2u.fm', '/', :title => '2u.fm, find and share music' %> </h1>
       <nav>
         <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
-        <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" %>
+        <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
         <%= link_to 'm', '#nav-music', :class => 'pictos nav' %>
       </nav>
 
