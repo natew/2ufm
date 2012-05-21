@@ -14,7 +14,7 @@ class Station < ActiveRecord::Base
   scope :user_station, where('stations.user_id is not NULL')
 
   # Whitelist mass-assignment attributes
-  attr_accessible :id, :description, :title
+  attr_accessible :id, :description, :title, :slug
 
   # Slug
   acts_as_url :title, :url_attribute => :slug
@@ -31,11 +31,11 @@ class Station < ActiveRecord::Base
   end
 
   def self.popular(opts={})
-    p = Station.new(:id => 1, :title => 'Popular Today')
+    p = Station.new(:id => 1, :title => 'Popular Today', :slug => 'songs')
   end
 
   def self.newest(opts={})
-    p = Station.new(:id => 0, :title => 'Newest')
+    p = Station.new(:id => 0, :title => 'Newest', :slug => 'songs-new')
   end
 
   def image

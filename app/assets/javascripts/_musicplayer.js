@@ -100,7 +100,10 @@ var mp = (function() {
           pl.playlist.addClass('loaded');
 
           // Update nav
-          $('#station strong').html(playlist.title);
+          fn.log(playlist)
+          $('#nav-now-playing')
+            .attr('title',playlist.station.title)
+            .attr('href',playlist.station.slug);
 
           fn.log('playlist loaded: '+playlistID);
         }
@@ -410,7 +413,7 @@ var mp = (function() {
 
     onload: function onload(success) {
       if (!success) {
-        curSection.addClass('failed');
+        if (curSection) curSection.addClass('failed');
         if (curPage == playingPage) player.next();
         $.post('songs/'+curSongInfo.id, { failing: 'true' });
       }

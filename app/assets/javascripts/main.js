@@ -307,15 +307,19 @@ $(function() {
         // Close any dropdowns
         navDropdown(false);
 
-        // Not logged in modal
-        if (!loggedIn && el.is('broadcast-song')) {
-          modal('#new-user');
-          return false;
+        // Not logged in
+        if (!loggedIn) {
+          if (el.is('.restricted')) {
+            modal('#modal-user');
+            return false;
+          }
         }
-        // Modals
-        else if (el.is('.modal')) {
-          modal(e.target.getAttribute('href'));
-          return false;
+        else {
+          // Modals
+          if (el.is('.modal')) {
+            modal(e.target.getAttribute('href'));
+            return false;
+          }
         }
       }
     }

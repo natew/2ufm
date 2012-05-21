@@ -105,10 +105,14 @@
         </a>
 
         <section>
-          <h1>My Stations</h1>
-          <%= link 'Now Playing', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-music' %>
+          <h1>Stations</h1>
+          <%= link 'Now Playing', '/songs-new', :id => 'nav-now-playing', :class => 'pictos-music tip', :title => 'Nothing, yet' %>
+          <%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %>
           <%= link 'New', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-up' %>
           <%= link 'Popular', '/songs',   :id => 'nav-songs'     , :class => 'pictos-heart' %>
+          <div id="station-drop">
+            Drag stations here
+          </div>
         </section>
         <section>
           <h1>Browse</h1>
