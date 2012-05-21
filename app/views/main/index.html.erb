@@ -20,7 +20,7 @@
 
 <%- if user_signed_in? -%>
   <div class="nav-container">
-    <div class="twothirds">
+    <div class="whole">
       <h2>Welcome, <%= current_user.username %></h2>
       <nav class="right">
         <%=link_to 'My feed', '#my-feed', :class => 'control' + (@feed ? ' active' : '') %>
