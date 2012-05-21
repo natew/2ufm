@@ -87,7 +87,7 @@ function nextPage(link, callback) {
         link.remove();
         loadingPage = false;
         window.location.hash = 'page-'+scrollPage;
-        $('.twothirds .playlist:last').after(data);
+        $('.playlist:last').after(data);
         var playlist = '#playlist-'+id+'-'+scrollPage;
         addOffsets($(playlist+' section'));
         if (callback) callback.call($(playlist));
@@ -333,7 +333,7 @@ $(function() {
         sugLen = suggestions.length,
         input = $('#tags input:first'),
         delay = 55,
-        btwnDelay = 600,
+        btwnDelay = 1500,
         at = [];
 
     e.preventDefault();

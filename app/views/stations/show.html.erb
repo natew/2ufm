@@ -12,8 +12,10 @@
 </div>
 
 <div class="contain">
-  <div class="twothirds">
-    <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
+  <div class="twothirds-wrap">
+    <div class="twothirds">
+      <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
+    </div>
   </div>
 
   <div class="third">

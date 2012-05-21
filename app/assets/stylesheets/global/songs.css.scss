@@ -159,10 +159,11 @@ $hover-color: #ccc;
       z-index: 2;
       line-height: 1.3em;
       color: #fff;
-      font-size: 14px;
+      font-size: 16px;
       margin: 0;
+      text-shadow: 0 1px 0 rgba(0,0,0,.6);
       @include box-sizing(border-box);
-      @include linear-gradient(bottom, transparent, rgba(0,0,0,0.6));
+      @include linear-gradient(bottom, transparent 0%, rgba(0,0,0,0.7) 80%);
       @include border-top-radius($cover-border-inner-radius);
 
       span {

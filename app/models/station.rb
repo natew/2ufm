@@ -43,7 +43,8 @@ class Station < ActiveRecord::Base
   end
 
   def description
-    get_parent.description
+    parent = get_parent
+    parent.description if parent.respond_to?('description')
   end
 
   def to_api_json
