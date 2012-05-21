@@ -28,6 +28,37 @@
   }
 }
 
+.role {
+  margin: 0 -2px;
+  padding: 0 2px;
+  color: darken($link-color,10%);
+  @include border-radius(3px);
+
+  &:hover {
+    background: $primary;
+    color: #fff;
+  }
+}
+
+.role:after,
+.role-featured:before {
+  display: inline-block;
+  content: "";
+  width: 16px;
+  height: 9px;
+  margin: 0 2px .05em 4px;
+  background: url(/images/artist-icons.png) no-repeat top left;
+}
+
+.role-original:after,
+.role-mashup:after {display:none;}
+.role-remixer:after {background-position:0 -9px;}
+.role-producer:after {background-position:0 -18px;}
+.role-cover:after {background-position:0 -27px;}
+
+.role-featured:after { display: none; }
+.role-featured:before { background-position:0 -36px; margin-right: 4px; margin-left: 2px; }
+
 $cover-pad: 8px;
 $cover-margin: 12px;
 $cover-border-radius: 10px;
@@ -335,37 +366,6 @@ $song-pad: 14px;
         a {
           text-decoration: none;
         }
-
-        .role {
-          margin: 0 -2px;
-          padding: 0 2px;
-          color: darken($link-color,10%);
-          @include border-radius(3px);
-
-          &:hover {
-            background: $primary;
-            color: #fff;
-          }
-        }
-
-        .role:after,
-        .role-featured:before {
-          display: inline-block;
-          content: "";
-          width: 16px;
-          height: 9px;
-          margin: 0 2px .05em 4px;
-          background: url(/images/artist-icons.png) no-repeat top left;
-        }
-
-        .role-original:after,
-        .role-mashup:after {display:none;}
-        .role-remixer:after {background-position:0 -9px;}
-        .role-producer:after {background-position:0 -18px;}
-        .role-cover:after {background-position:0 -27px;}
-
-        .role-featured:after { display: none; }
-        .role-featured:before { background-position:0 -36px; margin-right: 4px; margin-left: 2px; }
       }
 
       a {

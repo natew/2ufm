@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     slug
   end
 
+  def image
+    avatar
+  end
+
   def admin?
     role == 'admin'
   end
