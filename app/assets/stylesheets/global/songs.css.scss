@@ -215,8 +215,6 @@ $song-pad: 14px;
     }
 
     &.highlight {
-      background: #eee;
-
       .play-song {
         visibility: visible !important;
       }
@@ -240,10 +238,6 @@ $song-pad: 14px;
 
       .song-meta, .song-meta a {
         color: $song-hover-text;
-      }
-
-      .waveform-wrap:before {
-        @include linear-gradient(bottom, rgba($light-blue,0) 20%, rgba(darken($lightest-blue,3%),1) 100%);
       }
     }
 

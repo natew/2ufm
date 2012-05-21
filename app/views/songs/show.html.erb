@@ -3,27 +3,27 @@
 </div>
 
 <div class="contain">
-  <div class="twothirds">
-    <h2>Artists: <%= links @song.artists %></h2>
-    <h2>Comments</h2>
-    <ul class="list">
-    <%- for artist in @song.artists -%>
-    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes of #{artist.name}".html_safe, artist, :class => 'image' %></li>
-    <li><%= link_to "#{image_tag(artist.image.url(:small))}Remixes by #{artist.name}".html_safe, artist, :class => 'image' %></li>
-    <%- end -%>
-    </ul>
+  <div class="twothirds-wrap">
+    <div class="twothirds">
+      <h2>Comments</h2>
+    </div>
   </div>
 
   <div class="third">
     <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
-    <div class="shelf">
-      <%= render :partial => 'stations/shelf', :collection => @blogs %>
+    <div class="stations">
+      <%= render :partial => 'stations/station', :collection => @blogs %>
+    </div>
+
+    <h3>Artists</h3>
+    <div class="list">
+      <%= render :partial => 'artists/artist', :collection => @song.artists %>
     </div>
 
     <h3>Broadcasts this week</h3>
-    <div id="stats" style="width:300px;height:250px;" data-broadcasts="<%= @stats %>"></div>
+    <div id="stats" style="width:100%;height:200px;" data-broadcasts="<%= @stats %>"></div>
 
-    <h3>Re-posted by <%= pluralize @song.users.size, 'person' %></h3>
+    <h3>Reposted by <%= pluralize @song.users.size, 'person' %></h3>
     <div class="list">
     </div>
   </div>

@@ -10,6 +10,7 @@ $invite-color: #4cae27;
 
 $width: 880px;
 $sidebar-width: 180px;
+$third-width: 200px;
 
 body, button, input, select, textarea {
   font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #bbb;
@@ -734,11 +735,11 @@ ol.mp_list {
 
 /* Lists */
 .list {
-  margin: -15px 0 20px 0;
+  margin: -15px 0 25px 0;
   padding: 0;
 
   section, li {
-    padding: 8px 0 0 0;
+    padding: 4px 0;
     margin: 0;
     border: none;
     height: auto;
@@ -756,8 +757,12 @@ ol.mp_list {
 
     h4 {
       margin: 0;
-      display: inline;
+      display: inline-block;
       line-height: 16px;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: -50 + $third-width;
 
       a { text-decoration: none; }
     }
@@ -1173,16 +1178,16 @@ h2 small { font-size: 55%; }
 .twothirds-wrap {
   width: 100%;
   float: left;
-  margin-right: -201px;
+  margin-right: -$third-width - 1;
 }
 
 .twothirds {
-  margin-right: 201px;
+  margin-right: 1 + $third-width;
 }
 
 .third {
   float: left;
-  width: 200px;
+  width: $third-width;
   padding-left: 0;
 
   h2 {font-size: 16px; margin-top: 5px;}

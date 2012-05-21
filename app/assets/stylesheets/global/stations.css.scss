@@ -1,5 +1,12 @@
 @import "mixins.css.scss";
 
+.third .stations {
+  section {
+    float: none;
+    width: auto;
+  }
+}
+
 .stations {
   margin: 0 0 20px 0;
 

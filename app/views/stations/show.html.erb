@@ -21,9 +21,9 @@
   <div class="third">
     <%- if @artists -%>
     <h3>Artists on this station</h3>
-    <ul class="list">
+    <div class="list">
       <%= render :partial => 'artists/artist', :collection => @artists %>
-    </ul>
+    </div>
     <%- end -%>
   </div>
 </div>

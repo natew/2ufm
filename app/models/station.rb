@@ -9,9 +9,9 @@ class Station < ActiveRecord::Base
   has_many   :artists, :through => :songs, :uniq => true
   has_many   :blogs, :through => :songs, :uniq => true
 
-  scope :blog_station, where('blog_id is not NULL')
-  scope :artist_station, where('artist_id is not NULL')
-  scope :user_station, where('user_id is not NULL')
+  scope :blog_station, where('stations.blog_id is not NULL')
+  scope :artist_station, where('stations.artist_id is not NULL')
+  scope :user_station, where('stations.user_id is not NULL')
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title
