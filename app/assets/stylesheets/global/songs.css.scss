@@ -226,11 +226,16 @@ $hover-color: #ccc;
     }
 
     .below-song {
+      width: 100%;
       position: absolute;
-      bottom: -40px;
+      bottom: -28px;
+      color: #666;
 
       strong {
         font-size: 12px;
+        width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       time {

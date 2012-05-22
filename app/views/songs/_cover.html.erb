@@ -6,12 +6,8 @@
 
   <h4><%= song.linked_title.html_safe %></h4>
 
-  <ul class="song-controls">
-    <li class="broadcast"><%= broadcast_song(song) %></li>
-  </ul>
-
   <%= link_to '', song, :class => 'song-link control' %>
-  <%= link_to '<span>4</span>'.html_safe, 'play-song add control' %>
+  <%= link_to '<span>4</span>'.html_safe, '', 'play-song add control' %>
 
   <nav>
     <span class="broadcast"><%= broadcast_song(song) %></span>
