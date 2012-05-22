@@ -236,7 +236,8 @@ $hover-color: #ccc;
 
   .below-song {
     position: relative;
-    padding: $cover-pad;
+    margin: $cover-pad;
+    margin-bottom: 0;
     color: #666;
 
     strong {
