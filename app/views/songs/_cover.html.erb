@@ -1,18 +1,20 @@
 <% song, song_counter = cover, cover_counter %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
-  <div class="song-art">
-    <%= image_tag song.resolve_image(:medium) %>
+  <div class="song-cover">
+    <div class="song-art">
+      <%= image_tag song.resolve_image(:medium) %>
+    </div>
+
+    <h4><%= song.linked_title.html_safe %></h4>
+
+    <%= link_to '', song, :class => 'song-link control' %>
+    <%= link_to '<span>4</span>'.html_safe, '', :class => 'play-song add control pictos' %>
+
+    <nav>
+      <span class="broadcast"><%= broadcast_song(song) %></span>
+      <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-share control no-text' %>
+    </nav>
   </div>
-
-  <h4><%= song.linked_title.html_safe %></h4>
-
-  <%= link_to '', song, :class => 'song-link control' %>
-  <%= link_to '<span>4</span>'.html_safe, '', :class => 'play-song add control pictos' %>
-
-  <nav>
-    <span class="broadcast"><%= broadcast_song(song) %></span>
-    <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-share control no-text' %>
-  </nav>
 
   <div class="below-song">
     <strong>
