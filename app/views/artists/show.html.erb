@@ -1,7 +1,9 @@
 <div class="nav-container">
   <div class="title">
-    <%= image_tag @artist.image.url(:small), :class => 'icon' %>
-    <h2 class="icon"><%= @artist.name %> <small><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></small></h2>
+    <div class="image cover-small">
+      <%= image_tag(@artist.image.url(:small)) %>
+    </div>
+    <h2><%= @artist.name %></h2>
 
     <ul class="title-nav">
       <li id="follow-<%= @artist.station.id %>"><%= follow_station(@artist.station) %></li>
@@ -11,21 +13,23 @@
       <%= link_to 'Newest', @artist %>
       <%= link_to 'Most popular', popular_artist_path(@artist) %>
       <%= link_to 'Originals', originals_artist_path(@artist) %>
-      <%= link_to "Remixes by", remixes_by_artist_path(@artist) %>
-      <%= link_to "Remixes of", remixes_of_artist_path(@artist) %>
+      <%= link_to "Remixes", remixes_by_artist_path(@artist) %>
       <%= link_to "Covers", remixes_of_artist_path(@artist) %>
       <%= link_to "Mashups", remixes_of_artist_path(@artist) %>
     </nav>
   </div>
 
-  <div class="twothirds">
-    <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station } %>
+  <div class="twothirds-wrap">
+    <div class="twothirds">
+      <p><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></p>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station } %>
+    </div>
   </div>
 
   <div class="third">
-    <h3>Blogs</h3>
-    <ul class="shelf">
-      <%= render :partial => 'stations/shelf', :collection => @artist.station.blogs %>
-    </ul>
+    <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
+    <div class="stations">
+      <%= render :partial => 'stations/station', :collection => @blogs %>
+    </div>
   </div>
 </div>

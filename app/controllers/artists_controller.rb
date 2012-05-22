@@ -11,6 +11,8 @@ class ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find_by_slug(params[:id]) || not_found
+    @blogs = @artist.stations.blog_station
+    @primary = @artist
 
     respond_to do |format|
       format.html

@@ -91,7 +91,11 @@ $hover-color: #ccc;
 
       nav {
         border-color: $hover-color;
-        background: $hover-color;
+        background: #fff;
+
+        a {
+          color: #222;
+        }
       }
     }
 
@@ -128,22 +132,21 @@ $hover-color: #ccc;
     $nav-border-radius: 20px;
     nav {
       position: absolute;
-      bottom: -2px;
-      right: -2px;
+      bottom: -3px;
+      right: -3px;
       z-index: 10;
-      border: 2px solid #fff;
+      border: 3px solid #fff;
       background: #fff;
-      @include border-radius($nav-border-radius);
-      @include border-bottom-right-radius(0);
+      @include border-radius(20px);
+      @include linear-gradient(#eee,#ccc);
 
       a {
-        padding: 1px 5px;
+        padding: 2px 10px 3px;
         text-decoration: none;
-        color: #666;
+        color: #888;
         float: left;
         font-weight: bold;
-        font-size: 12px;
-        @include linear-gradient(#eee,#ccc);
+        font-size: 16px;
 
         &:hover {
           color: #333;
@@ -155,26 +158,24 @@ $hover-color: #ccc;
         margin-left: -2px;
       }
 
-      a.pictos-add:before {
-        font-size: 16px;
-        margin-top: -2px;
-      }
-
       a.pictos-share {
         @include border-right-radius($nav-border-radius);
 
         &:before {
-          font-size: 18px;
-          margin-top: -3px;
+          font-size: 22px;
+          margin-top: -2px;
         }
       }
 
       a.pictos-heart {
-        padding-left: 20px;
+        font-size: 18px;
+        padding: 1px 10px 4px 32px;
         @include border-left-radius($nav-border-radius);
 
         &:before {
-          top: 3px;
+          font-size: 18px;
+          top: 2px;
+          left: 11px;
         }
       }
     }

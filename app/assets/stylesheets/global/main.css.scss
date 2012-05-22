@@ -10,7 +10,7 @@ $invite-color: #4cae27;
 
 $width: 880px;
 $sidebar-width: 180px;
-$third-width: 200px;
+$third-width: 210px;
 
 body, button, input, select, textarea {
   font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #bbb;
@@ -701,25 +701,26 @@ footer {
   padding: 10px 0 10px 10+$sidebar-width;
 
   .page-contain div {
-    padding: 10px;
+    padding: 20px;
     float: left;
   }
 
   h4 {
-    color: #777;
+    color: #333;
     text-transform: uppercase;
   }
 
   a {
     display: block;
     padding: 2px 0;
-    color: #000;
     font-weight: bold;
     text-decoration: none;
   }
 
   #footer-about {
     width: 300px;
+
+    span {font-size: 10px;}
   }
 
   #footer-info {
@@ -731,7 +732,7 @@ footer {
   }
 
   #footer-like {
-    width: 200px;
+    width: 180px;
   }
 
   span.credits {
@@ -961,7 +962,7 @@ h2.title { color: #000; }
   h2, p {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 60%;
+    width: 60%;
   }
 
   h2 {
@@ -1172,12 +1173,9 @@ $nav-arrow-size: 5px;
 }
 
 .nav-container {
-  h2 {
-    float: left;
-  }
-
   .title nav {
-    margin: 10px 0 0;
+    margin: 10px 0 0 -10px;
+    width: 60%;
   }
 
   nav {

@@ -1,10 +1,9 @@
 <% if controller_name != 'main' %>
-  <% separate = 'after' if action_name == 'show'
-     title = get_title(@primary) %>
+  <% separate = 'after' if action_name == 'show' %>
   <div id="breadcrumbs">
     <%= link_to 'Home', '/', :class => 'after' %>
     <%= link_to controller_name.capitalize, '/'+controller_name, :class => separate %>
-    <%= link_to title, @primary if action_name == 'show' %>
+    <%= link_to @primary.get_title, @primary if action_name == 'show' %>
   </div>
 <% end %>
 

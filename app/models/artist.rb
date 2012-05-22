@@ -5,6 +5,8 @@ include PaperclipExtensions
 
 class Artist < ActiveRecord::Base
   has_one    :station, :dependent => :destroy
+  has_many   :broadcasts, :through => :songs
+  has_many   :stations, :through => :broadcasts
   has_many   :authors
   has_many   :songs, :through => :authors, :extend => SongExtensions
 
@@ -34,6 +36,10 @@ class Artist < ActiveRecord::Base
   def get_info
     get_discogs_info
     get_wikipedia_info
+  end
+
+  def get_title
+    name
   end
 
   def get_discogs_info
