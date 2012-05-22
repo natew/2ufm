@@ -7,10 +7,14 @@
   }
 }
 
+$section-pad: 8px;
+
 .stations {
   margin: 0 0 20px 0;
 
-  $section-pad: 8px;
+  div {
+    margin-top: -4px;
+  }
 
   section {
     float: left;

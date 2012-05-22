@@ -144,6 +144,9 @@ header {
     padding: 10px 10px 0;
     display: block;
     width: 100%;
+    background: #fff;
+    position: relative;
+    z-index: 1;
     @include box-sizing(border-box);
 
     &#friends {
@@ -171,36 +174,43 @@ header {
         background: #f2f2f2;
       }
     }
+  }
 
-    .bottom {
-      position: absolute;
-      bottom: 40px;
-      left: 0;
-      padding: 0 10px;
-      width: 100%;
+  .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    padding: 0 10px;
+    width: 100%;
+    @include box-sizing(border-box);
+
+    .announce {
+      margin: 0 -10px;
+    }
+
+    .add.facebook,
+    .add.twitter {
+      width: 49%;
+      float: left;
+      padding: 2px 6px;
+      margin: 0 0 10px 0;
+      color: #fff;
+      text-align: center;
+      font-size: 11px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #23487E;
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2));
+      @include linear-gradient(#3865A4,#23487E);
+      @include border-radius(5px);
       @include box-sizing(border-box);
+    }
 
-      .add.facebook,
-      .add.twitter {
-        width: 49%;
-        float: left;
-        padding: 2px 6px;
-        color: #fff;
-        text-align: center;
-        font-size: 11px;
-        font-weight: bold;
-        border: 1px solid #23487E;
-        @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2));
-        @include linear-gradient(#3865A4,#23487E);
-        @include border-radius(5px);
-        @include box-sizing(border-box);
-      }
-
-      .add.twitter {
-        float: right;
-        border: 1px solid #7DC1C4;
-        @include linear-gradient(#9AE4E8,#7DC1C4);
-      }
+    .add.twitter {
+      float: right;
+      border: 1px solid #7DC1C4;
+      @include linear-gradient(#9AE4E8,#7DC1C4);
     }
   }
 
@@ -837,9 +847,6 @@ $announce-bg: #feffe5;
 $announce-color: #555;
 
 .announce {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
   z-index: 1000;
   background: $announce-bg;
   color: $announce-color;
