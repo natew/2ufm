@@ -79,22 +79,6 @@ $hover-color: #ccc;
     margin: 0 -8+$cover-margin -8+$cover-margin 0;
     @include border-radius($cover-border-radius);
 
-    &.playing {
-      border-color: $playing-color;
-
-      h4 {
-        padding-bottom: 0;
-        height: 100%;
-        background: rgba(0,0,0,0.6);
-        @include border-radius($cover-border-inner-radius);
-      }
-
-      nav {
-        border-color: $playing-color;
-        background: $playing-color;
-      }
-    }
-
     &:hover {
       border-color: $hover-color;
 
@@ -108,6 +92,22 @@ $hover-color: #ccc;
       nav {
         border-color: $hover-color;
         background: $hover-color;
+      }
+    }
+
+    &.playing {
+      border-color: $playing-color;
+
+      h4 {
+        padding-bottom: 0;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        @include border-radius($cover-border-inner-radius);
+      }
+
+      nav {
+        border-color: $playing-color;
+        background: $playing-color;
       }
     }
 

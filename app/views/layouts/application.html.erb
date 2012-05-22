@@ -119,6 +119,7 @@
           <%= link 'Stations', '/blogs',  :id => 'nav-blogs'     , :class => 'pictos-music' %>
           <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
           <%= link 'Genres', '/artists', :id => 'nav-artists'   , :class => 'pictos-list' %>
+          <%= link 'Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>
         </section>
         <section id="friends">
           <h1>Online Friends</h1>
@@ -126,6 +127,11 @@
           <%= link_to 'Link', '', :class => '' %>
           <%= link_to 'Link', '', :class => '' %>
           <%= link_to 'Link', '', :class => '' %>
+
+          <div class="bottom">
+            <%= link_to 'Facebook', '', :class => 'add facebook' %>
+            <%= link_to 'Twitter', '', :class => 'add twitter' %>
+          </div>
         </section>
 
         <a href="/mac" class="announce mac-only control pictos-down">
@@ -140,6 +146,7 @@
         </div>
       </div>
     </div>
+    <div id="push"></div>
   </div>
 
   <footer class="clearfix">

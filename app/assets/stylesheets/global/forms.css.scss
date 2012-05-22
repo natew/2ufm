@@ -213,17 +213,19 @@ button {
   }
 
   span {
-    margin: -6px 0 -6px -3px;
+    display: inline-block;
+    margin: 0 0 0 -4px;
     padding-right: 10px;
-    font-size: 19px;
+    font-size: 20px;
   }
 }
 
 .button {
-  padding: 4px 12px;
-  font-size: 14px;
+  padding: 8px 16px;
+  font-size: 19px;
   display: block;
   text-align: center;
+  @include border-radius(8px !important);
 }
 
 .actions .input-submit {

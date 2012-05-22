@@ -14,7 +14,7 @@ Fusefm::Application.routes.draw do
   resources :genres, :only => [:show]
   resources :blogs
   resources :users
-  resources :stations, :only => [:show]
+  resources :stations, :only => [:show, :index]
   resources :follows, :only => [:create, :destroy]
   resources :broadcasts, :only => [:create, :destroy]
 

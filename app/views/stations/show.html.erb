@@ -3,8 +3,9 @@
     <%= image_tag(@station.image.url(:original)) %>
   </div>
 
-  <h2><%= @station.title %> <small><%= @station.description %></small></h2>
-  <p><%= render :partial => 'stations/stats', :locals => { :station => @station } %></p>
+  <h2><%= @station.title %></h2>
+  <p><%= @station.description %></p>
+  <span class="stats">Updated <%= relative_time @station.last_broadcasted_at %> &middot; <%= pluralize number_with_delimiter(@station.songs.count), 'song' %></span>
 
   <ul class="title-nav">
     <li id="follow-<%= @station.id %>"><%= follow_station(@station) %></li>
