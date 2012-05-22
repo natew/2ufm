@@ -71,7 +71,6 @@ $hover-color: #ccc;
 
   section {
     position: relative;
-    overflow: hidden;
     width: 200px;
     height: 200px;
     border: 4px solid #fff;
@@ -209,17 +208,21 @@ $hover-color: #ccc;
 
     .play-song {
       position: absolute;
-      bottom: 0;
-      left: 0;
+      bottom: -2px;
+      left: -2px;
       border: 3px solid #fff;
-      width: 35px;
-      height: 35px;
+      width: 32px;
+      height: 32px;
+      color: #fff;
+      border-color: darken($invite-color,10%);
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
+      @include background-gradient(lighten($invite-color,10%),$invite-color);
       @include border-radius(20px);
 
       span {
         position: absolute;
-        top: 4px;
-        left: 4px;
+        top: 8px;
+        left: 8px;
         font-size: 18px;
         color: #fff;
       }
@@ -236,6 +239,11 @@ $hover-color: #ccc;
         width: 70%;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        a {
+          color: #666;
+          text-decoration: none;
+        }
       }
 
       time {
