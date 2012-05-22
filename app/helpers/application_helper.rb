@@ -54,6 +54,19 @@ module ApplicationHelper
     raw h(strip_tags(text))
   end
 
+  def abbreviated_number(number)
+    case number
+    when 0...1000
+      number
+    when 1000...1000000
+      (number / 1000.00).round(1).to_s + 'k'
+    when 1000000...1000000000
+      (number / 1000000.00).round(1).to_s + 'm'
+    else
+      number_with_delimiter number
+    end
+  end
+
   # Returns time_ago_in_words within two weeks, otherwise formatted date
   def relative_time(date)
     begin

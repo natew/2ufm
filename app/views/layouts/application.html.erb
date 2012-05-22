@@ -84,7 +84,7 @@
         <div id="loading" class="pictos hide">0</div>
 
         <%= form_tag '/main/search', :method => 'get' do %>
-          <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:songs]} songs by #{number_with_delimiter @count[:artists]} artists" %>
+          <%= text_field_tag :query, '', :placeholder =>"Search #{abbreviated_number @count[:songs]} songs by #{abbreviated_number @count[:artists]} artists" %>
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
         <% end -%>
       </div>
