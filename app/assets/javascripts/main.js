@@ -219,7 +219,7 @@ $(function() {
   mpClick('#player-volume', 'volumeToggle');
 
   // Play from song
-  $('.song-link').live('click', function songClick(e) {
+  $('.play-song').live('click', function songClick(e) {
     e.preventDefault();
     var section = $(this).parent();
     mp.playSection(section);
