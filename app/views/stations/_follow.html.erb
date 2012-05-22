@@ -4,4 +4,4 @@
     change_class = changed ? 'first-hover' : ''
 %>
   <div class="count"><%= pluralize count, 'Follower' %></div>
-  <%= link_to "<span>#{icon}</span>#{label}".html_safe, path, class: "follow-station button #{action} control #{change_class}", remote: true, method: method unless on_own_profile? %>
+  <%= link_to "<span>#{icon}</span>#{label}".html_safe, path, class: "follow-station button #{action} control #{change_class} restricted", remote: true, method: method unless on_own_profile? %>

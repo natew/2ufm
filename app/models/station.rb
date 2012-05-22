@@ -26,6 +26,10 @@ class Station < ActiveRecord::Base
     slug
   end
 
+  def get_title
+    title
+  end
+
   def user_broadcasts
     broadcasts.where(:parent => 'user')
   end

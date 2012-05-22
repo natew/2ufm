@@ -84,7 +84,7 @@
         <div id="loading" class="pictos hide">0</div>
 
         <%= form_tag '/main/search', :method => 'get' do %>
-          <%= text_field_tag :query, '', :placeholder =>"Search #{number_with_delimiter @count[:songs]} songs by #{number_with_delimiter @count[:artists]} artists" %>
+          <%= text_field_tag :query, '', :placeholder =>"Search #{abbreviated_number @count[:songs]} songs by #{abbreviated_number @count[:artists]} artists" %>
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
         <% end -%>
       </div>
@@ -119,6 +119,7 @@
           <%= link 'Stations', '/blogs',  :id => 'nav-blogs'     , :class => 'pictos-music' %>
           <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
           <%= link 'Genres', '/artists', :id => 'nav-artists'   , :class => 'pictos-list' %>
+          <%= link 'Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>
         </section>
         <section id="friends">
           <h1>Online Friends</h1>
@@ -128,9 +129,16 @@
           <%= link_to 'Link', '', :class => '' %>
         </section>
 
-        <a href="/mac" class="announce mac-only control pictos-down">
-          Get the app for mac!
-        </a>
+        <div class="bottom">
+          <div class="bottom-buttons">
+            <%= link_to 'Facebook', '', :class => 'add facebook' %>
+            <%= link_to 'Twitter', '', :class => 'add twitter' %>
+          </div>
+
+          <a href="/mac" class="announce mac-only control pictos-down">
+            Get the app for mac!
+          </a>
+        </div>
       </div>
 
       <div id="body">
@@ -140,13 +148,14 @@
         </div>
       </div>
     </div>
+    <div id="push"></div>
   </div>
 
   <footer class="clearfix">
     <div class="page-contain">
       <div id="footer-about">
         <h4>What is 2u.fm?</h4>
-        <p><strong>2u.fm</strong> is a place to discover new music and share it with your friends.  We find music from all over the web, filter it and sort it and let you discover it how you please.  Follow artists, genres, music blogs, or other users and we do the rest.</p>
+        <p><strong>2u.fm</strong> is the best place to find new music to share with friends.  We gather music from all over the web and sort it all out so you can discover the best of it.  Follow anything you like -- artists, genres, blogs, or other users.  We do the rest.</p>
 
         <span>&copy; 2012 Verite LLC.  All rights reserved.</span>
       </div>
@@ -167,7 +176,7 @@
       </div>
 
       <div id="footer-like">
-        Like us
+        <h4>More</h4>
       </div>
     </div>
   </footer>

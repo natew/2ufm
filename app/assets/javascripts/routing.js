@@ -33,7 +33,7 @@ var page = {
     // Begin tagging
     $('#tags').tagit({
       allowSpaces: true,
-      placeholderText: 'What would you like to listen to?'
+      placeholderText: 'What do you want to listen to?'
     });
 
     // Styling for inputs

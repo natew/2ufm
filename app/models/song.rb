@@ -56,6 +56,10 @@ class Song < ActiveRecord::Base
     slug
   end
 
+  def get_title
+    full_name
+  end
+
   def reposted?
     shared_count > 0
   end

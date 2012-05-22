@@ -3,21 +3,21 @@
 
 $header-height: 66px;
 $header-shadow: rgba(255,255,255,0.15);
-$header-color: #4d89cd;
+$header-color: #5189d5;
 $header-color-light: lighten($header-color, 10%);
 
 $invite-color: #4cae27;
 
 $width: 880px;
 $sidebar-width: 180px;
-$third-width: 200px;
+$third-width: 210px;
 
 body, button, input, select, textarea {
   font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #bbb;
-  }
+}
 
 /* Layout */
-html,body {min-height: 100%;}
+html,body {height: 100%;}
 body {
   color: #666;
   background: #fff;
@@ -26,7 +26,18 @@ body {
 a { color: $link-color; }
 a:hover { color: $link-hover; }
 
-#main-mid { padding: $header-height 0 0; }
+#main-mid {
+  padding: $header-height 0 0;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -20em;
+}
+
+#push {
+  height: 20em;
+}
+
 .page-contain, #dialog { overflow: hidden; }
 
 
@@ -67,7 +78,7 @@ header {
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   border-top: 1px solid lighten($header-color,20%);
   border-bottom: 1px solid darken($header-color,20%);
-  @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
+  @include box-shadow(0 2px 1px rgba(0,0,0,0.2));
   @include background-image(url(/images/noise.png), linear-gradient($header-color-light 20%,$header-color 100%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -130,9 +141,12 @@ header {
 
   section {
     margin: 0;
-    padding: 10px 10px 0;
+    padding: 10px 0 0;
     display: block;
     width: 100%;
+    background: #fff;
+    position: relative;
+    z-index: 1;
     @include box-sizing(border-box);
 
     &#friends {
@@ -144,7 +158,7 @@ header {
       font-size: 11px;
       text-transform: uppercase;
       color: #999;
-      padding: 0 0 4px 0;
+      padding: 0 10px 4px;
       margin: 0;
     }
 
@@ -152,13 +166,54 @@ header {
       display: block;
       text-decoration: none;
       color: #555;
-      padding: 4px 0 4px 24px;
+      padding: 4px 10px 4px 32px;
       font-size: 13px;
-      @include border-radius(3px);
 
       &:hover {
         background: #f2f2f2;
       }
+
+      &:before {
+        left: 14px;
+      }
+    }
+  }
+
+  .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    padding: 0 10px;
+    width: 100%;
+    @include box-sizing(border-box);
+
+    .announce {
+      margin: 0 -10px;
+    }
+
+    .add.facebook,
+    .add.twitter {
+      width: 49%;
+      float: left;
+      padding: 2px 6px;
+      margin: 0 0 8px 0;
+      color: #fff;
+      text-align: center;
+      font-size: 11px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #23487E;
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2));
+      @include linear-gradient(#3865A4,#23487E);
+      @include border-radius(5px);
+      @include box-sizing(border-box);
+    }
+
+    .add.twitter {
+      float: right;
+      border: 1px solid #7DC1C4;
+      @include linear-gradient(#9AE4E8,#7DC1C4);
     }
   }
 
@@ -166,7 +221,7 @@ header {
     border: 2px dashed #eee;
     color: #999;
     padding: 10px;
-    margin: 10px 0 0;
+    margin: 10px 10px 0;
     text-align: center;
     font-size: 11px;
     @include border-radius(8px);
@@ -225,7 +280,7 @@ header form {
     color: #fff;
     outline: none;
     font-size: 11px;
-    border: 1px solid darken($header-color,20%);
+    border: 1px solid darken($header-color,15%);
     @include linear-gradient(darken($header-color,5%),$header-color);
     @include box-shadow(0 1px 0 $header-shadow);
     @include border-radius(20px);
@@ -401,7 +456,7 @@ header #second-nav {
       color: #fff;
       border: 1px solid darken($header-color,10%);
       @include border-radius(50px);
-      @include linear-gradient(lighten($header-color-light,10%),darken($header-color,5%));
+      @include linear-gradient(lighten($header-color-light,12%),darken($header-color,5%));
       @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 0 $header-shadow);
 
       &:hover {
@@ -558,7 +613,7 @@ header #second-nav {
       padding: 5px;
 
       &:hover {
-        color: #666;
+        color: rgba(255,255,255,0.8);
       }
     }
 
@@ -643,30 +698,32 @@ header #second-nav {
 
 /* Footer */
 footer {
-  color: #ddd;
-  background: #222;
+  background: #eee;
+  color: #777;
+  height: 20em;
   padding: 10px 0 10px 10+$sidebar-width;
 
   .page-contain div {
-    padding: 10px;
+    padding: 20px;
     float: left;
   }
 
   h4 {
-    color: #fff;
+    color: #333;
     text-transform: uppercase;
   }
 
   a {
     display: block;
     padding: 2px 0;
-    color: #fff;
     font-weight: bold;
     text-decoration: none;
   }
 
   #footer-about {
     width: 300px;
+
+    span {font-size: 10px;}
   }
 
   #footer-info {
@@ -678,7 +735,7 @@ footer {
   }
 
   #footer-like {
-    width: 200px;
+    width: 180px;
   }
 
   span.credits {
@@ -794,9 +851,6 @@ $announce-bg: #feffe5;
 $announce-color: #555;
 
 .announce {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
   z-index: 1000;
   background: $announce-bg;
   color: $announce-color;
@@ -908,13 +962,19 @@ h2.title { color: #000; }
     }
   }
 
+  h2, p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 60%;
+  }
+
   h2 {
     color: $title;
     font-size: 27px;
     background: none;
-    margin: 0;
+    margin: 0 0 -3px 0;
     padding: 0;
-    display: inline;
+    display: inline-block;
 
     &.icon {
       clear: none;
@@ -926,12 +986,17 @@ h2.title { color: #000; }
 
   h3 {
     font-size: 24px;
+    margin: 0 0 2px 0;
   }
 
   p {
-    font-size: 15px;
-    line-height: 1em;
+    font-size: 14px;
     margin: 0;
+  }
+
+  span.stats {
+    font-size: 11px;
+    font-weight: bold;
   }
 
   small {
@@ -946,7 +1011,7 @@ h2.title { color: #000; }
   }
 
   .title-nav {
-    margin: 0;
+    margin: 8px 0 0;
     padding: 0;
     position: absolute;
     top: 0;
@@ -961,8 +1026,8 @@ h2.title { color: #000; }
 
       div.count {
         float: left;
-        padding: 7px 20px;
-        font-size: 18px;
+        padding: 12px 20px;
+        font-size: 16px;
       }
     }
   }
@@ -974,7 +1039,6 @@ h2.title { color: #000; }
   margin: 0 0 20px 0;
   background: #eee;
   padding: 0 20px;
-  @include border-radius(5px);
 
   li {
     float: left;
@@ -1112,12 +1176,9 @@ $nav-arrow-size: 5px;
 }
 
 .nav-container {
-  h2 {
-    float: left;
-  }
-
   .title nav {
-    margin: 10px 0 0;
+    margin: 10px 0 0 -10px;
+    width: 60%;
   }
 
   nav {
@@ -1278,6 +1339,17 @@ h2 small { font-size: 55%; }
   img,
   strong {
     @include border-radius(4px);
+  }
+}
+
+.cover-128 {
+  position: relative;
+  width: 128px;
+  height: 128px;
+
+  img,
+  strong {
+    @include border-radius($cover-medium-border);
   }
 }
 

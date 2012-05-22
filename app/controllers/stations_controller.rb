@@ -1,7 +1,7 @@
 class StationsController < ApplicationController
 
   def index
-    @stations = Station.order('created_at desc').page(params[:page]).per(9)
+    @stations = Station.order('created_at desc').page(params[:page]).per(12)
 
     respond_to do |format|
       format.html
