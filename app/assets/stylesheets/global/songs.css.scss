@@ -71,7 +71,7 @@ $hover-color: #ccc;
 
   section {
     float: left;
-    margin: 0 -8+$cover-margin 32+$cover-margin 0;
+    margin: 0 -8+$cover-margin $cover-margin 0;
   }
 
   .song-cover {
@@ -80,6 +80,7 @@ $hover-color: #ccc;
     height: 200px;
     border: 4px solid #fff;
     @include border-radius($cover-border-radius);
+    @include border-bottom-left-radius(20px);
 
     &:hover {
       border-color: $hover-color;
@@ -211,8 +212,8 @@ $hover-color: #ccc;
 
     .play-song {
       position: absolute;
-      bottom: 0;
-      left: 0;
+      bottom: -3px;
+      left: -3px;
       z-index: 5;
       border: 3px solid #fff;
       width: 32px;
@@ -231,30 +232,30 @@ $hover-color: #ccc;
         color: #fff;
       }
     }
+  }
 
-    .below-song {
-      position: relative;
-      padding: $cover-pad;
-      color: #666;
+  .below-song {
+    position: relative;
+    padding: $cover-pad;
+    color: #666;
 
-      strong {
-        font-size: 12px;
-        width: 70%;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    strong {
+      font-size: 12px;
+      width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
-        a {
-          color: #666;
-          text-decoration: none;
-        }
+      a {
+        color: #666;
+        text-decoration: none;
       }
+    }
 
-      time {
-        position: absolute;
-        font-size: 9px;
-        bottom: 0;
-        right: 0;
-      }
+    time {
+      position: absolute;
+      font-size: 9px;
+      bottom: 0;
+      right: 0;
     }
   }
 }
