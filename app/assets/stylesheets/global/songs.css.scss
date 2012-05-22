@@ -213,7 +213,7 @@ $hover-color: #ccc;
       left: 0;
       border: 3px solid #fff;
       width: 35px;
-      height: 35px
+      height: 35px;
       @include border-radius(20px);
 
       span {
