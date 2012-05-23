@@ -9,6 +9,14 @@
 
 $section-pad: 8px;
 
+.half .stations {
+  section {
+    float: left;
+    width: 44.5%;
+    margin: 0 4px 2px -4px;
+  }
+}
+
 .stations {
   margin: 0 0 20px 0;
 
@@ -17,10 +25,7 @@ $section-pad: 8px;
   }
 
   section {
-    float: left;
-    width: 44.5%;
     padding: $section-pad;
-    margin: 0 4px 2px -4px;
     position: relative;
     overflow: hidden;
     white-space: nowrap;

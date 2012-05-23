@@ -5,9 +5,18 @@ class MainController < ApplicationController
     @feed    = current_user if user_signed_in? and !current_user.songs.empty?
     @artists = Artist.order('random()').limit(6)
 
+    @catchphrases = [
+      'Take the work out of finding new music',
+      'We\'re like your new hipster music friend',
+      'The best new music found today',
+      'Find awesome new music, before your friends',
+      'It\'s too hard to keep up with new music',
+      'Want to find new music without the hassle?'
+    ]
+
     @stations = {}
-    @stations[:featured] = Station.blog_station.order('broadcasts_count desc').limit(4)
-    @stations[:artists] = Station.artist_station.order('random() asc').limit(4)
+    @stations[:featured] = Station.blog_station.order('broadcasts_count desc').limit(8)
+    @stations[:artists] = Station.artist_station.order('random() asc').limit(8)
 
     if !user_signed_in?
       @new = Station.newest

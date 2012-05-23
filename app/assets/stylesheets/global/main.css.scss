@@ -6,7 +6,7 @@ $header-shadow: rgba(255,255,255,0.15);
 $header-color: $primary;
 $header-color-light: lighten($header-color, 15%);
 
-$width: 662px;
+$width: 872px;
 $sidebar-width: 180px;
 $third-width: 210px;
 
@@ -761,6 +761,15 @@ footer {
 
 
 /* Titles */
+.intro {
+  text-align: center;
+  height: 200px;
+
+  h2 {
+    font-size: 28px;
+  }
+}
+
 $announce-bg: #feffe5;
 $announce-color: #555;
 
@@ -1197,6 +1206,7 @@ h2 small { font-size: 55%; }
   float: left;
   width: $third-width;
   padding-left: 0;
+  padding-top: 35px;
 
   h2 {font-size: 16px; margin-top: 5px;}
 }

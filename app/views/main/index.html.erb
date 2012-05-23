@@ -1,14 +1,48 @@
-<%- if !user_signed_in? -%>
-<div class="half">
+<%- if user_signed_in? -%>
+<div class="nav-container">
+  <h2>Welcome, <%= current_user.username %></h2>
+  <nav class="right">
+    <%=link_to 'My feed', '#my-feed', :class => 'control' + (@feed ? ' active' : '') %>
+    <%=link_to 'Popular today', '#popular-today', :class => 'control' + (@feed ? '' : ' active') %>
+  </nav>
+
+  <div class="twothirds-wrap">
+    <div class="twothirds">
+      <div id="my-feed" class="section <% if @feed %> active<% end %>">
+        <%- if @feed -%>
+          <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
+        <%- else -%>
+          <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
+        <%- end -%>
+      </div>
+
+      <div id="popular-today" class="section <% if !@feed %> active<% end %>">
+        <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
+      </div>
+    </div>
+  </div>
+</div>
+<%- else -%>
+<div class="whole intro">
+  <h2><%= @catchphrases[rand(0..(@catchphrases.length-1))] %></h2>
+</div>
+
+<div class="twothirds-wrap">
+  <div class="twothirds">
+    <h2>Popular Songs</h2>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
+  </div>
+</div>
+<%- end -%>
+
+<div class="third">
   <div class="stations">
     <h2>Popular Stations</h2>
     <div id="stations-featured">
       <%= render :partial => 'stations/station', :collection => @stations[:featured] %>
     </div>
   </div>
-</div>
 
-<div class="half">
   <div class="stations">
     <h2>Featured Artists</h2>
     <div id="stations-featured">
@@ -16,37 +50,3 @@
     </div>
   </div>
 </div>
-<%- end -%>
-
-<%- if user_signed_in? -%>
-  <div class="nav-container">
-    <div class="whole">
-      <h2>Welcome, <%= current_user.username %></h2>
-      <nav class="right">
-        <%=link_to 'My feed', '#my-feed', :class => 'control' + (@feed ? ' active' : '') %>
-        <%=link_to 'Popular today', '#popular-today', :class => 'control' + (@feed ? '' : ' active') %>
-      </nav>
-    </div>
-
-    <div id="my-feed" class="section whole<% if @feed %> active<% end %>">
-      <%- if @feed -%>
-        <%= render :partial => 'stations/playlist', :locals => { :station => @feed } %>
-      <%- else -%>
-        <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
-      <%- end -%>
-    </div>
-
-    <div id="popular-today" class="section whole<% if !@feed %> active<% end %>">
-      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
-    </div>
-<%- else -%>
-  <div class="whole">
-    <h2>Popular Songs</h2>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
-  </div>
-<%- end -%>
-</div>
-
-<%- if user_signed_in? %>
-  </div>
-<%- end -%>
