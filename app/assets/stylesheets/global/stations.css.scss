@@ -18,7 +18,7 @@ $section-pad: 8px;
 
   section {
     float: left;
-    width: 46%;
+    width: 44.5%;
     padding: $section-pad;
     margin: 0 4px 2px -4px;
     position: relative;
@@ -42,7 +42,7 @@ $section-pad: 8px;
 
     .cover {
       float: left;
-      margin: 0 8px 0 0;
+      margin: -1px 8px 0 0;
       width: 32px;
       height: 32px;
 
@@ -50,13 +50,16 @@ $section-pad: 8px;
     }
 
     .info {
+      width: 70%;
       position: absolute;
-      left: $section-pad + 44px;
+      left: $section-pad + 40px;
 
       h3 {
-        margin: 1px 0 -3px 0;
-        font-size: 12px;
+        margin: 1px 0 -1px 0;
+        font-size: 14px;
         line-height: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         a {
           text-decoration: none;

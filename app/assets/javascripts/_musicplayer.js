@@ -26,7 +26,6 @@ var mp = (function() {
   // Elements
   var pl = {
     bar: $('#bar'),
-    playlist: $('#player-playlist'),
     loaded: $('#player-progress-loaded'),
     position: $('#player-progress-position'),
     handle: $('#player-progress-grabber'),
@@ -77,36 +76,22 @@ var mp = (function() {
     // Load playlist
     load: function load() {
       if (!curSection) curSection = $('.playlist section:first,.playlist tbody tr:first');
-      if (curSection) {
-        fn.log('loading playlist');
-
-        // Remember this page
-        playingPage = curPage;
-        $('#player-goto').attr('href',playingPage).removeClass('disabled');
-
+      if (curSection.length) {
         // Get playlist info
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
-        fn.log('checking to load', playlistID, playlist);
 
+        // Checking to see if first time loaded, or if loading new playlist
         if (typeof playlist === 'undefined' || playlist.id != playlistID) {
+          // Remember this page
+          playingPage = curPage;
+
+          // Get new playlist
           playlist = $('#playlist-'+playlistID).data('playlist');
-          fn.log('loading',playlist);
 
-          $('#main-mid').addClass('loaded');
-
-          // Render playlist
-          playlist_template = Mustache.render(pl.playlist.html(),playlist);
-          pl.playlist.html(playlist_template);
-          pl.playlist.addClass('loaded');
-
-          // Update nav
-          fn.log(playlist)
-          $('#nav-now-playing')
-            .attr('title',playlist.station.title)
-            .attr('href',playlist.station.slug);
-
-          fn.log('playlist loaded: '+playlistID);
+          // Callback
+          w.trigger('mp:load', player.state());
+          fn.log('loaded',playlist,playlistID);
         }
       }
     },

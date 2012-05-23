@@ -46,7 +46,7 @@ h3 { font-size: 16px; }
 h4 { font-size: 14px; }
 
 h2, h3, h4 {
-  line-height: 1em;
+  line-height: 1.4em;
   padding: 0;
   margin: 0 0 15px 0;
   color: #000;
@@ -112,16 +112,23 @@ header {
 
     a {
       font-size: 26px;
-      color: lighten($header-color,35%);
+      color: lighten($header-color,40%);
+      padding: 4px;
+      margin: -4px;
       float: left;
-      margin-right: 14px;
+      margin-right: 10px;
 
       &:hover {
         color: #fff;
       }
 
-      &.nav-music {
-        margin-top: -1px;
+      &#nav-music {
+        margin-top: -5px;
+      }
+
+      &.disabled {
+        color: $header-color;
+        cursor: default;
       }
     }
   }
@@ -911,7 +918,7 @@ h2.title { color: #000; }
     color: $title;
     font-size: 27px;
     background: none;
-    margin: 0 0 -3px 0;
+    margin: -2px 0 -10px 0;
     padding: 0;
     display: inline-block;
 

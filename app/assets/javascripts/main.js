@@ -299,7 +299,7 @@ $(function() {
       var el = $(e.target);
 
       // Nav Dropdown
-      if (el.is('.nav')) {
+      if (el.is('.nav:not(.disabled)')) {
         navDropdown($(e.target));
         return false;
       }

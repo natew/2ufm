@@ -3,6 +3,23 @@ var w = $(window),
 
 // Callbacks
 w.on({
+  'mp:load': function mpLoad(event, mp, song) {
+    var playlist = mp.playlist();
+
+    // Update player loaded UI
+    $('#main-mid').addClass('loaded');
+    $('#nav-music').removeClass('disabled');
+
+    // Update now playing button in sidebar nav
+    $('#nav-now-playing')
+      .attr('title',playlist.station.title)
+      .attr('href',playlist.station.slug);
+
+      // Render playlist
+      playlist_template = Mustache.render($('#player-playlist').html(),playlist);
+      $('#player-playlist').html(playlist_template).addClass('loaded');
+  },
+
   'mp:play': function mpPlay(event, mp, song) {
     var playlistItem = $('#player-playlist .song-'+song.id),
         w = $(window);
