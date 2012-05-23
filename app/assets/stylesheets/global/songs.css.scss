@@ -60,7 +60,7 @@
 .role-featured:before { background-position:0 -36px; margin-right: 4px; margin-left: 2px; }
 
 $cover-pad: 8px;
-$cover-margin: 12px;
+$cover-margin: 10px;
 $cover-border-radius: 12px;
 $cover-border-inner-radius: -4+$cover-border-radius;
 $playing-color: #618bff;
@@ -72,6 +72,49 @@ $hover-color: #ccc;
   section {
     float: left;
     margin: 0 -8+$cover-margin $cover-margin 0;
+
+    &:hover .song-cover {
+      border-color: $hover-color;
+
+      h4 {
+        padding-bottom: 0;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        @include border-radius($cover-border-inner-radius);
+      }
+
+      nav, .play-song {
+        border-color: $hover-color;
+
+        a {
+          color: #222;
+        }
+      }
+    }
+
+    &.playing .song-cover {
+      border-color: $playing-color;
+
+      h4 {
+        padding-bottom: 0;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        @include border-radius($cover-border-inner-radius);
+      }
+
+      nav, .play-song {
+        border-color: $playing-color;
+      }
+
+      .play-song {
+        @include linear-gradient(lighten($playing-color,10%),$playing-color);
+
+         &:before {
+          content: "5";
+          left: 8px;
+        }
+      }
+    }
   }
 
   .song-cover {
@@ -82,41 +125,7 @@ $hover-color: #ccc;
     @include border-radius($cover-border-radius);
     @include border-bottom-left-radius(20px);
 
-    &:hover {
-      border-color: $hover-color;
-
-      h4 {
-        padding-bottom: 0;
-        height: 100%;
-        background: rgba(0,0,0,0.6);
-        @include border-radius($cover-border-inner-radius);
-      }
-
-      nav {
-        border-color: $hover-color;
-
-        a {
-          color: #222;
-        }
-      }
-    }
-
-    &.playing {
-      border-color: $playing-color;
-
-      h4 {
-        padding-bottom: 0;
-        height: 100%;
-        background: rgba(0,0,0,0.6);
-        @include border-radius($cover-border-inner-radius);
-      }
-
-      nav {
-        border-color: $playing-color;
-      }
-    }
-
-    .song-link {
+    .song-wrap {
       position: absolute;
       top: 0;
       left: 0;
@@ -199,8 +208,9 @@ $hover-color: #ccc;
       @include linear-gradient(bottom, transparent 0%, rgba(0,0,0,0.7) 80%);
       @include border-top-radius($cover-border-inner-radius);
 
-      span {
-        font-size: 9px;
+      small {
+        color: #fff;
+        font-size: 14px;
         display: block;
       }
 
@@ -212,23 +222,24 @@ $hover-color: #ccc;
 
     .play-song {
       position: absolute;
-      bottom: -3px;
-      left: -3px;
+      bottom: -4px;
+      left: -4px;
       z-index: 5;
       border: 3px solid #fff;
-      width: 32px;
-      height: 32px;
+      width: 38px;
+      height: 38px;
       color: #fff;
-      border-color: darken($invite-color,10%);
       @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
       @include background-gradient(lighten($invite-color,10%),$invite-color);
-      @include border-radius(20px);
+      @include border-radius(40px);
 
-      span {
+      &:before {
+        content: "4";
+        display: inline-block;
         position: absolute;
-        top: 8px;
-        left: 9px;
-        font-size: 21px;
+        top: 12px;
+        left: 10px;
+        font-size: 27px;
         color: #fff;
       }
     }
@@ -236,8 +247,7 @@ $hover-color: #ccc;
 
   .below-song {
     position: relative;
-    margin: $cover-pad;
-    margin-bottom: 0;
+    margin: 2px $cover-pad 0;
     color: #666;
 
     strong {

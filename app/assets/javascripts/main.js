@@ -219,9 +219,9 @@ $(function() {
   mpClick('#player-volume', 'volumeToggle');
 
   // Play from song
-  $('.play-song').live('click', function songClick(e) {
+  $('.song-link').live('click', function songClick(e) {
     e.preventDefault();
-    var section = $(this).parent();
+    var section = $(this.getAttribute('href'));
     mp.playSection(section);
   });
 
