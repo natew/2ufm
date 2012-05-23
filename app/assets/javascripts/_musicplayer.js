@@ -177,6 +177,7 @@ var mp = (function() {
     pause: function pause() {
       if (isPlaying) {
         curSong.pause();
+        curSection.addClass('paused');
         this.marquee(false);
       }
     },
@@ -271,13 +272,13 @@ var mp = (function() {
 
     setCurSectionActive: function setCurSectionActive() {
       if (curSection) {
-        curSection.addClass('playing');
+        curSection.removeClass('paused').addClass('playing');
       }
     },
 
     setCurSectionInactive: function setCurSectionInactive() {
       if (curSection) {
-        curSection.removeClass('playing');
+        curSection.removeClass('playing paused');
       }
     },
 

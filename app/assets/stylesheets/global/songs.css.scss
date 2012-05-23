@@ -79,7 +79,7 @@ $hover-color: #ccc;
       h4 {
         padding-bottom: 0;
         height: 100%;
-        background: rgba(0,0,0,0.6);
+        background: rgba(0,0,0,0.7);
         @include border-radius($cover-border-inner-radius);
       }
 
@@ -103,16 +103,23 @@ $hover-color: #ccc;
       }
 
       nav, .play-song {
+        a {
+          color: #fff;
+        }
         border-color: $playing-color;
+        @include linear-gradient(lighten($playing-color,10%),$playing-color);
       }
 
-      .play-song {
-        @include linear-gradient(lighten($playing-color,10%),$playing-color);
+      .play-song:before {
+        content: "5";
+        left: 8px;
+      }
+    }
 
-         &:before {
-          content: "5";
-          left: 8px;
-        }
+    &.paused .song-cover {
+      .play-song:before {
+        left: 10px;
+        content: "4" !important;
       }
     }
   }
@@ -142,8 +149,8 @@ $hover-color: #ccc;
     $nav-border-radius: 20px;
     nav {
       position: absolute;
-      bottom: -3px;
-      right: -3px;
+      bottom: -4px;
+      right: -4px;
       z-index: 10;
       border: 3px solid #fff;
       background: #fff;
