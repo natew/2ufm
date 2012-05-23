@@ -22,11 +22,25 @@ class MainController < ApplicationController
   end
 
   def search
-    songs   = Song.search_by_name(params[:q]).limit(5) | Song.search_by_artist_name(params[:q]).limit(5)
-    artists = Artist.search_by_name(params[:q]).limit(5)
-    blogs   = Blog.search_by_name(params[:q]).limit(5)
+    songs = search_ready(
+      :title => 'Songs',
+      :items => Song.search_by_name(params[:q]).limit(5) | Song.search_by_artist_name(params[:q]).limit(5),
+      :json => { :only => ['full_name', 'slug'], :methods => 'full_name' }
+    )
 
-    render :text => "[#{search_ready('Songs',songs,true)}#{search_ready('Artists',artists)}#{search_ready('Blogs',blogs)[0..-2]}]"
+    artists = search_ready(
+      :title => 'Artists',
+      :items => Artist.search_by_name(params[:q]).limit(5),
+      :json => { :only => ['name', 'slug'] }
+    )
+
+    stations = search_ready(
+      :title => 'Stations',
+      :items => Station.search_by_title(params[:q]).limit(5),
+      :json => {:only => ['title', 'slug'] }
+    )
+
+    render :text => "[#{songs}#{artists}#{stations[0..-2]}]"
   end
 
   def loading
@@ -40,14 +54,13 @@ class MainController < ApplicationController
   private
 
   # Search formatting
-  def search_ready(type,records,song=false)
-    only   = song ? {only: ['full_name','slug'], methods: 'full_name'} : {only: ['name','slug']}
-    header = "{\"name\":\"#{type}\",\"header\":\"true\"},"
+  def search_ready(options)
+    header = "{\"name\":\"#{options[:title]}\",\"header\":\"true\"},"
 
-    if records.length > 0
-      result = records.to_json(only)
-        .gsub(/slug\":\"/,"url\":\"#{type.downcase}/")
-        .gsub(/full_name/,'name')
+    if options[:items].length > 0
+      result = options[:items].to_json(options[:json])
+        .gsub(/slug\":\"/,"url\":\"#{options[:title].downcase}/")
+        .gsub(/full_name|title/,'name')
         .insert(1, header)
       puts result
       result[1,result.length-2] + ','

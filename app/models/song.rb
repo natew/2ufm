@@ -72,15 +72,15 @@ class Song < ActiveRecord::Base
     playlist_order_published
   end
 
-  def as_json(options={})
-    {
-      :id => id,
-      :artist_name => artist_name,
-      :name => name,
-      :url => url,
-      :image => resolve_image(:small)
-    }
-  end
+  # def as_json(options={})
+  #   {
+  #     :id => id,
+  #     :artist_name => artist_name,
+  #     :name => name,
+  #     :url => url,
+  #     :image => resolve_image(:small)
+  #   }
+  # end
 
   def to_playlist
     { id: id, artist_name:artist_name, name:name, url:url, image:resolve_image(:small) }
@@ -88,7 +88,7 @@ class Song < ActiveRecord::Base
 
   def resolve_image(*type)
     type = type[0] || :original
-    image? ? image(type) : post.image(type)
+    image ? image(type) : post.image?(type)
   end
 
   def full_name

@@ -712,38 +712,6 @@ footer {
   }
 }
 
-/* Ordered list for display results. */
-ol.mp_list {
-  background-color: #555;
-  overflow: hidden;
-  position: absolute;
-  width: 268px;
-  top: 17px;
-  z-index: 99999;
-  padding: 0;
-  left: -20px;
-
-  li {
-    color: #ddd;
-    padding: 4px 15px 5px;
-    list-style: none;
-
-    &.mp_selectable { cursor: pointer; }
-    &.mp_highlighted {
-      background: #111;
-      color: #fff;
-    }
-
-    &.header {
-      font-weight: bold;
-      font-size: 14px;
-      border-bottom: 1px solid #666;
-      padding: 10px 15px;
-      color: #fff;
-    }
-  }
-}
-
 
 
 /* Lists */
@@ -1062,13 +1030,13 @@ $nav-pad: 15px;
 $nav-item-pad: 4px;
 $nav-arrow-size: 5px;
 
-.nav-menu {
+.nav-menu, .mp_list {
   display: none;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 10000;
-  padding: $nav-pad 0;
+  padding: 0 0 $nav-pad 0;
   background: rgba(0,0,0,0.8);
   max-width: 280px;
   @include border-radius(5px);
@@ -1091,15 +1059,15 @@ $nav-arrow-size: 5px;
     border-bottom: $nav-arrow-size solid black;
   }
 
-  h4 {
+  h4, .header {
     text-transform: uppercase;
     color: rgba(255,255,255,0.8);
     font-size: 10px;
-    margin: 0 0 $nav-item-pad*2 0;
+    margin: $nav-item-pad*3 0;
     padding: 0 $nav-pad;
   }
 
-  a {
+  li, a {
     color: #fff;
     display: block;
     padding: $nav-item-pad $nav-pad;
@@ -1118,10 +1086,29 @@ $nav-arrow-size: 5px;
       padding-left: -5+$nav-pad;
       padding-top: 4px;
     }
+  }
 
-    &:hover {
-      @include linear-gradient($header-color-light,$header-color);
-    }
+  li.mp_selectable { cursor: pointer; }
+
+  li.mp_highlighted,
+  a:hover {
+    @include linear-gradient($header-color-light,$header-color);
+  }
+}
+
+/* Ordered list for display results. */
+ol.mp_list {
+  line-height: 1.4em;
+  position: absolute;
+  width: 100%;
+  top: 25px;
+  z-index: 99999;
+  left: 0;
+  padding-top: 0;
+
+  li {
+    list-style: none;
+    margin: 0;
   }
 }
 
