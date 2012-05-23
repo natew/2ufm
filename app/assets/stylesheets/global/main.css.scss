@@ -3,7 +3,7 @@
 
 $header-height: 66px;
 $header-shadow: rgba(255,255,255,0.15);
-$header-color: #3a79cf;
+$header-color: $primary;
 $header-color-light: lighten($header-color, 15%);
 
 $width: 662px;
@@ -77,7 +77,7 @@ header {
   border-top: 1px solid lighten($header-color,20%);
   border-bottom: 1px solid darken($header-color,20%);
   @include box-shadow(0 2px 1px rgba(0,0,0,0.2));
-  @include background-image(url(/images/noise.png), linear-gradient($header-color-light 20%,$header-color 100%));
+  @include background-image(url(/images/noise.png), linear-gradient($header-color-light 10%,$header-color 100%));
   @include box-sizing(border-box);
   background-position: bottom;
   background-repeat: repeat-x;
