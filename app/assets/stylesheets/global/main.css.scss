@@ -1204,7 +1204,8 @@ h2 small { font-size: 55%; }
 
 .third {
   float: left;
-  width: $third-width;
+  width: 10 + $third-width;
+  margin-left: -10px;
   padding-left: 0;
   padding-top: 35px;
 
