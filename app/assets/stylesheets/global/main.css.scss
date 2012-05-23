@@ -370,10 +370,6 @@ header #second-nav {
         color: #fff;
       }
     }
-
-    #player-bottom.hover #player-playlist {
-      /* display: block; */
-    }
   }
 
   #player-share {
@@ -488,55 +484,6 @@ header #second-nav {
 
       span {
         padding: 6px 0 0 4px;
-      }
-    }
-  }
-
-  /* PLAYLIST */
-  #player-playlist {
-    display: none;
-    position: absolute;
-    top: -6px;
-    left: -14px;
-    z-index: -1;
-    padding: 15px;
-    padding-top: 8px;
-    width: 98.5%;
-    display: none;
-    overflow: hidden;
-
-    .songs {
-      padding: 33px 3px 3px;
-      margin: 0;
-      overflow: hidden;
-      list-style: none;
-      background: #fff;
-      @include border-radius(8px);
-      @include box-shadow(0 0 6px rgba(0,0,0,0.4));
-
-      li {
-
-        a {
-          display: block;
-          color: #444;
-          padding: 7px 8px;
-          border-bottom: 1px dotted #ddd;
-          font-size: 12px;
-          text-decoration: none;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          text-shadow: none;
-          float: none;
-
-          &:hover,
-          &.playing {
-            background: #2695d5;
-            font-weight: bold;
-            color: #fff;
-            border-bottom: 1px solid #fff;
-          }
-        }
       }
     }
   }
@@ -1116,7 +1063,8 @@ $nav-arrow-size: 5px;
   z-index: 10000;
   padding: $nav-pad 0;
   background: rgba(0,0,0,0.8);
-  @include border-radius(3px);
+  max-width: 280px;
+  @include border-radius(5px);
 
   &.open {
     display: block;
@@ -1150,6 +1098,9 @@ $nav-arrow-size: 5px;
     padding: $nav-item-pad $nav-pad;
     font-size: 12px;
     text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &[class*="pictos-"] {
       padding-left: 18+$nav-pad;

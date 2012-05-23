@@ -29,7 +29,7 @@
       <nav>
         <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
         <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
-        <%= link_to 'm', '#nav-music', :class => 'pictos nav' %>
+        <%= link_to 'm', '#player-playlist', :class => 'pictos nav' %>
       </nav>
 
       <div id="bar">
@@ -52,17 +52,6 @@
                   <div id="player-progress-loaded"></div>
                 </div>
                 <img id="player-progress-waveform" src="/images/transparent.png" />
-              </div>
-              <div id="player-playlist">
-                <ul class="songs">
-                  {{#songs}}
-                  <li>
-                    <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
-                      <span class="artist">{{artist_name}}</span> - <span class="name">{{name}}</span>
-                    </a>
-                  </li>
-                  {{/songs}}
-                </ul>
               </div>
               <div id="player-alt-controls">
               <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
@@ -184,8 +173,6 @@
   <a id="debug" class="control" href="">d</a>
   <div id="debug_dump"></div>
 
-  <%= javascript_include_tag "application", :debug => Rails.env.development? %>
-
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID
   <script>
     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
@@ -206,12 +193,13 @@
     <% end %>
   </div>
 
-  <div id="nav-music" class="nav-menu">
-    <h4>Recently Played</h4>
-    <%= link_to 'Music station' %>
-    <%= link_to 'Music station' %>
-    <%= link_to 'Music station' %>
-    <%= link_to 'Music station' %>
+  <div id="player-playlist" class="nav-menu">
+    <h4>{{station.title}}</h4>
+    {{#songs}}
+      <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">
+        <span class="artist">{{artist_name}}</span> - <span class="name">{{name}}</span>
+      </a>
+    {{/songs}}
   </div>
 
   <!-- Modals -->
@@ -244,5 +232,8 @@
       </dl>
     </div>
   </div>
+
+  <%= javascript_include_tag "application", :debug => Rails.env.development? %>
+
 </body>
 </html>
