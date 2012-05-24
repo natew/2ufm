@@ -61,8 +61,9 @@
 
 $cover-pad: 8px;
 $cover-margin: 10px;
-$cover-border-radius: 12px;
-$cover-border-inner-radius: -4+$cover-border-radius;
+$cover-border-radius: 10px;
+$cover-border-inner-radius: -4 + $cover-border-radius;
+$cover-border-inner: 2px;
 $playing-color: #618bff;
 $hover-color: #ccc;
 
@@ -149,10 +150,10 @@ $hover-color: #ccc;
     $nav-border-radius: 20px;
     nav {
       position: absolute;
-      bottom: -4px;
-      right: -4px;
+      bottom: -1 - $cover-border-inner;
+      right: -1 - $cover-border-inner;
       z-index: 10;
-      border: 3px solid #fff;
+      border: $cover-border-inner solid #fff;
       background: #fff;
       @include border-radius(20px);
       @include linear-gradient(#eee,#ccc);
@@ -229,10 +230,10 @@ $hover-color: #ccc;
 
     .play-song {
       position: absolute;
-      bottom: -4px;
-      left: -4px;
+      bottom: -1 - $cover-border-inner;
+      left: -1 - $cover-border-inner;
       z-index: 5;
-      border: 3px solid #fff;
+      border: $cover-border-inner solid #fff;
       width: 38px;
       height: 38px;
       color: #fff;

@@ -99,9 +99,11 @@
           <%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %>
           <%= link 'New', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-up' %>
           <%= link 'Popular', '/songs',   :id => 'nav-songs'     , :class => 'pictos-heart' %>
-          <div id="station-drop">
-            Drag stations here
-          </div>
+          <% if user_signed_in? %>
+            <div id="station-drop">
+              Drag stations here
+            </div>
+          <% end %>
         </section>
         <section>
           <h1>Browse</h1>
@@ -110,13 +112,13 @@
           <%= link 'Genres', '/artists', :id => 'nav-artists'   , :class => 'pictos-list' %>
           <%= link 'Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>
         </section>
-        <section id="friends">
+        <!-- <section id="friends">
           <h1>Online Friends</h1>
           <%= link_to 'Link', '', :class => '' %>
           <%= link_to 'Link', '', :class => '' %>
           <%= link_to 'Link', '', :class => '' %>
           <%= link_to 'Link', '', :class => '' %>
-        </section>
+        </section> -->
 
         <div class="bottom">
           <div class="bottom-buttons">
