@@ -264,17 +264,15 @@ $hover-color: #ccc;
 
     strong {
       font-size: 12px;
-      width: 70%;
-      overflow: hidden;
-      text-overflow: ellipsis;
 
       a {
         color: #666;
         text-decoration: none;
         display: block;
-        width: 75%;
+        width: 68%;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 

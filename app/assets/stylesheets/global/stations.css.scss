@@ -25,11 +25,11 @@ $section-pad: 8px;
   }
 
   section {
+    margin: 0 -$section-pad;
     padding: $section-pad;
     position: relative;
     overflow: hidden;
     white-space: nowrap;
-    @include border-radius(8px);
 
     &:hover {
       background: #f2f2f2;
