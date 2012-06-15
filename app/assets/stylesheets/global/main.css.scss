@@ -3,7 +3,7 @@
 
 $header-height: 66px;
 $header-shadow: rgba(255,255,255,0.15);
-$header-color: #2f323c;
+$header-color: #2f323a;
 $header-color-light: lighten($header-color, 12%);
 
 $width: 872px;
@@ -169,7 +169,7 @@ header {
       display: block;
       text-decoration: none;
       color: #555;
-      padding: 6px 10px 6px 32px;
+      padding: 4px 10px 5px 32px;
       font-size: 12px;
 
       &:hover {

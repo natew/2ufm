@@ -73,7 +73,7 @@ $hover-color: #ccc;
 
   section {
     float: left;
-    margin: 0 -8+$cover-margin 8+$cover-margin 0;
+    margin: 0 -8+$cover-margin 4+$cover-margin 0;
 
     &:hover .song-cover {
       border-color: $hover-color;
@@ -217,7 +217,7 @@ $hover-color: #ccc;
       margin: 0;
       text-shadow: 0 1px 0 rgba(0,0,0,.6);
       @include box-sizing(border-box);
-      @include linear-gradient(bottom, transparent 0%, rgba(0,0,0,0.7) 80%);
+      @include linear-gradient(bottom, transparent 0%, rgba(0,0,0,0.4) 80%);
       @include border-top-radius($cover-border-inner-radius);
 
       small {
