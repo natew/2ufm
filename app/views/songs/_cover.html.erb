@@ -22,7 +22,7 @@
   <div class="below-song">
     <strong>
       <%- if song.reposted? -%>
-        By <%= link_to pluralize(song.shared_count,'blog'), song %>
+        <%= link_to 'By ' + pluralize(song.shared_count,'blog'), song %>
       <% else %>
         <%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %>
       <%- end -%>
