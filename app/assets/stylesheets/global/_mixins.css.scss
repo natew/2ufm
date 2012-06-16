@@ -2,12 +2,28 @@
 
 /*  Colors  */
 
+$body-bg: #333;
+$body-dark: darken($body-bg,10%);
+$body-light: lighten($body-bg,10%);
+
+$header-height: 62px;
+$header-shadow: rgba(255,255,255,0.15);
+$header-color: #3e4962;
+$header-color-light: lighten($header-color, 14%);
+
+$width: 892px;
+$sidebar-width: 180px;
+$third-width: 210px;
+
+$heading-color: lighten($body-bg,50%);
+$heading-light-color: lighten($body-bg,60%);
+
 $primary: #1a98e0;
 $primary-light: lighten($primary,10%);
 
 $title: #000;
 $border: #555;
-$link-color: #0c4e92;
+$link-color: #c35439;
 $link-hover: #198dd0;
 
 $bar-bg: #444;

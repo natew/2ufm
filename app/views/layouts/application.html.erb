@@ -94,10 +94,20 @@
         </a>
 
         <section>
-          <h1>Stations</h1>
+          <h1>Listening to</h1>
           <%= link 'Now Playing', '/songs-new', :id => 'nav-now-playing', :class => 'pictos-music tip', :title => 'Nothing, yet' %>
           <%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %>
-          <%= link 'New', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-up' %>
+          <% if user_signed_in? %>
+            <div id="station-drop">
+              Drag stations here
+            </div>
+          <% end %>
+        </section>
+
+        <section>
+          <h1>Stations</h1>
+          <%= link 'Browse', '/stations',  :id => 'nav-stations'     , :class => 'pictos-list' %>
+          <%= link 'Newest', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-up' %>
           <%= link 'Popular', '/songs',   :id => 'nav-songs'     , :class => 'pictos-heart' %>
           <% if user_signed_in? %>
             <div id="station-drop">
@@ -105,27 +115,15 @@
             </div>
           <% end %>
         </section>
+
         <section>
-          <h1>Browse</h1>
-          <%= link 'Stations', '/blogs',  :id => 'nav-blogs'     , :class => 'pictos-music' %>
+          <h1>Discover</h1>
           <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
           <%= link 'Genres', '/artists', :id => 'nav-artists'   , :class => 'pictos-list' %>
-          <%= link 'Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>
+          <%= link 'Top Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>
         </section>
-        <!-- <section id="friends">
-          <h1>Online Friends</h1>
-          <%= link_to 'Link', '', :class => '' %>
-          <%= link_to 'Link', '', :class => '' %>
-          <%= link_to 'Link', '', :class => '' %>
-          <%= link_to 'Link', '', :class => '' %>
-        </section> -->
 
         <div class="bottom">
-          <div class="bottom-buttons">
-            <%= link_to 'Facebook', '', :class => 'add facebook' %>
-            <%= link_to 'Twitter', '', :class => 'add twitter' %>
-          </div>
-
           <a href="/mac" class="announce mac-only control pictos-down">
             Get the app for mac!
           </a>

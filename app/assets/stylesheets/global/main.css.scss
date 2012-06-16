@@ -1,15 +1,5 @@
 @import "mixins.css.scss";
 
-
-$header-height: 62px;
-$header-shadow: rgba(255,255,255,0.15);
-$header-color: #2f323c;
-$header-color-light: lighten($header-color, 14%);
-
-$width: 872px;
-$sidebar-width: 180px;
-$third-width: 210px;
-
 body, button, input, select, textarea {
   font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #bbb;
 }
@@ -18,7 +8,7 @@ body, button, input, select, textarea {
 html,body {height: 100%;}
 body {
   color: #666;
-  background: #fff;
+  background: $body-bg;
 }
 
 a { color: $link-color; }
@@ -62,7 +52,7 @@ h2, h3, h4 {
 }
 
 #body h2, #body h3 {
-  color: #666;
+  color: $heading-color;
 }
 
 #body .third h2 {
@@ -81,7 +71,7 @@ header {
   z-index: 100;
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
-  @include box-shadow(0 2px 1px rgba(0,0,0,0.35));
+  @include box-shadow(0 2px 2px rgba(0,0,0,0.25));
   @include background-image(url(/images/noise-dark.png), linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -132,14 +122,17 @@ header {
   }
 }
 
+$sidebar-bg: darken($body-bg,5%);
+
 #sidebar {
   position: fixed;
   z-index: 50;
   top: $header-height;
   bottom: 0;
+  padding-top: 8px;
   width: $sidebar-width;
-  background: #fff;
-  border-right: 1px solid #ddd;
+  background: $sidebar-bg;
+  border-right: 1px solid darken($sidebar-bg,5%);
   @include box-sizing(border-box);
 
   section {
@@ -147,7 +140,6 @@ header {
     padding: 10px 0;
     display: block;
     width: 100%;
-    background: #fff;
     position: relative;
     z-index: 1;
     @include box-sizing(border-box);
@@ -158,22 +150,21 @@ header {
     }
 
     h1 {
-      font-size: 11px;
-      text-transform: uppercase;
-      color: #999;
-      padding: 0 10px;
+      font-size: 14px;
+      color: $heading-color;
+      padding: 4px 10px;
       margin: 0;
     }
 
     a {
       display: block;
       text-decoration: none;
-      color: #555;
-      padding: 6px 10px 6px 32px;
+      color: #eee;
+      padding: 4px 10px 5px 32px;
       font-size: 12px;
 
       &:hover {
-        background: #f2f2f2;
+        background: #333;
       }
 
       &:before {
@@ -427,7 +418,7 @@ header #second-nav {
 
 #player {
   border-left: 1px solid rgba($header-color-light,0.7);
-  padding-top: 6px;
+  padding-top: 7px;
   white-space: nowrap;
   height: $header-height;
   @include box-sizing(border-box);
@@ -649,8 +640,8 @@ header #second-nav {
 
 /* Footer */
 footer {
-  background: #eee;
-  color: #777;
+  background: darken($body-bg,25%);
+  color: lighten($body-bg,15%);
   height: 20em;
   padding: 10px 0 10px 10+$sidebar-width;
 
@@ -660,7 +651,7 @@ footer {
   }
 
   h4 {
-    color: #333;
+    color: lighten($body-bg,85%);
     text-transform: uppercase;
   }
 
@@ -1371,10 +1362,11 @@ a[class*=" cover-"]:hover:before {
 
 
 #begin {
+  display: none;
   padding: 12px 20px;
   margin: -20px 0 20px 0;
   position: relative;
-  @include background-gradient(#fff,#f2f2f2);
+  @include background-gradient(rgba(255,255,255,0.1),transparent);
 
   #suggestions {
     display: none;
