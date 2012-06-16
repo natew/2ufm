@@ -66,7 +66,7 @@ $cover-margin: 8px;
 $cover-border-width: 2px;
 $cover-border-radius: 10px;
 $cover-border-inner-radius: 8px;
-$cover-border-color: darken($body-bg,2%);
+$cover-border-color: darken($body-bg,5%);
 $cover-border-color-hover: $body-dark;
 
 .playlist-cover {
@@ -78,6 +78,7 @@ $cover-border-color-hover: $body-dark;
 
     &:hover .song-cover {
       border-color: $cover-border-color-hover;
+      @include box-shadow(0 0 12px rgba(0,0,0,0.4));
 
       h4 {
         background: rgba(0,0,0,0.7);
@@ -124,8 +125,8 @@ $cover-border-color-hover: $body-dark;
     position: relative;
     width: 200px;
     height: 200px;
-    border: $cover-border-width solid $body-dark;
-    @include box-shadow(0 0 10px rgba(0,0,0,0.2));
+    border: $cover-border-width solid $cover-border-color;
+    @include box-shadow(0 0 6px rgba(0,0,0,0.2));
     @include border-radius($cover-border-radius);
 
     .song-wrap {
@@ -144,7 +145,7 @@ $cover-border-color-hover: $body-dark;
     img {
       width: 100%;
       height: 100%;
-      @include border-radius($cover-border-inner-radius);
+      @include border-radius($cover-border-inner-radius - 1);
     }
 
     nav {
@@ -205,7 +206,7 @@ $cover-border-color-hover: $body-dark;
       z-index: 2;
       line-height: 1.4em;
       color: #fff;
-      font-size: 15px;
+      font-size: 14px;
       margin: 0;
       text-shadow: 0 1px 1px rgba(0,0,0,.6);
       @include box-sizing(border-box);
@@ -226,16 +227,18 @@ $cover-border-color-hover: $body-dark;
     }
   }
 
+  $below-song-color: darken($heading-color,20%);
+
   .below-song {
     position: relative;
-    margin: 2px $cover-pad 0;
-    color: $heading-color;
+    margin: 0 $cover-pad 0;
+    color: $below-song-color;
 
     strong {
-      font-size: 12px;
+      font-size: 11px;
 
       a {
-        color: $heading-color;
+        color: $below-song-color;
         text-decoration: none;
         display: block;
         width: 68%;

@@ -71,7 +71,7 @@ header {
   z-index: 100;
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
-  @include box-shadow(0 2px 2px rgba(0,0,0,0.25));
+  border-bottom: 1px solid darken($body-bg,10%);
   @include background-image(url(/images/noise-dark.png), linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -131,8 +131,9 @@ $sidebar-bg: darken($body-bg,5%);
   bottom: 0;
   padding-top: 6px;
   width: $sidebar-width;
-  background: $sidebar-bg;
-  border-right: 1px solid darken($sidebar-bg,5%);
+  background-color: $sidebar-bg;
+  background-image: url(/images/noise-dark.png);
+  border-right: 1px solid darken($sidebar-bg,3%);
   @include box-sizing(border-box);
 
   section {
@@ -350,7 +351,7 @@ header #second-nav {
   right: 0;
   z-index: 0;
   min-width: -$sidebar-width + $width + 172;
-  height: $header-height;
+  height: $header-height - 1;
   border-left: 1px solid rgba($header-color,0.7);
 
   &.loaded {
@@ -420,7 +421,7 @@ header #second-nav {
   border-left: 1px solid rgba($header-color-light,0.7);
   padding-top: 7px;
   white-space: nowrap;
-  height: $header-height;
+  height: $header-height - 1;
   @include box-sizing(border-box);
 
   &.playing {
