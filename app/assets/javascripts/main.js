@@ -1,11 +1,8 @@
 // Variables
 var w = $(window),
-    highlightedSong,
-    highlightTimeout,
     songOffsets = [],
-    playlistOffset,
-    songSections = [],
     tipsyClearTimeout,
+    infiniteScrollTimeout,
     bar = $('#bar'),
     debug = false,
     loggedIn = $('body.signed_in').length > 0,
@@ -15,32 +12,7 @@ var w = $(window),
     morePages = true,
     scrollPage = 1,
     totalPages = 0,
-    enableScrollHighlight = true;
-
-function highlightSong() {
-  if (!enableScrollHighlight) return;
-
-  var windowOffset = w.scrollTop()+70,
-      cur = highlightedSong;
-
-  for (var page = totalPages-1; page>0; page--) {
-    if (page >= 1 && songOffsets[page-1][songOffsets[page-1].length-1] < windowOffset) {
-      fn.log('breaking at page', page, songOffsets[page][0], windowOffset);
-      break;
-    }
-  }
-
-  for (var i = 0; i<songOffsets[page].length; i++) {
-    if (songOffsets[page][i] > windowOffset) {
-      // fn.log('breaking at song',i,songOffsets[page][i], windowOffset);
-      break;
-    }
-  }
-
-  highlightedSong = songSections[page].eq(i).addClass('highlight');
-  if (cur && cur.attr('id') != highlightedSong.attr('id'))
-    cur.removeClass('highlight');
-}
+    enableInfiniteScroll = true;
 
 // Bind selectors to callbacks
 var mpClick = function(selector,callback) {
@@ -51,21 +23,21 @@ var mpClick = function(selector,callback) {
   });
 }
 
-function resetOffsets() {
-  totalPages = 0;
-  songOffsets = [];
-}
+function updatePageURL(page) {
+  var url = window.location.href.replace(/#.*/,''),
+      page = 'page=' + page,
+      page_regex = /page=[0-9]+/,
+      hash = window.location.hash;
 
-// Calculates offsets given sections
-function addOffsets(sections) {
-  var page = totalPages;
-  fn.log('adding offsets from page', page);
-  songSections[page] = sections;
-  songOffsets[page] = new Array(sections.length);
-  sections.each(function(index) {
-    songOffsets[page][index] = $(this).offset().top;
-  });
-  totalPages++;
+  // Replace old page
+  if (url.match(page_regex)) {
+    url.replace(page_regex, page);
+  } else {
+    url += url.match(/\?/) ? '&' + page : '?' + page;
+  }
+
+  url += hash;
+  window.history.pushState('',document.title,url);
 }
 
 function nextPage(link, callback) {
@@ -86,10 +58,9 @@ function nextPage(link, callback) {
       success: function(data) {
         link.remove();
         loadingPage = false;
-        window.location.hash = 'page-'+scrollPage;
+        updatePageURL(scrollPage);
         $('.playlist:last').after(data);
         var playlist = '#playlist-'+id+'-'+scrollPage;
-        addOffsets($(playlist+' section'));
         if (callback) callback.call($(playlist));
       },
       error: function() {
@@ -237,32 +208,24 @@ $(function() {
     else mp.playSong(index);
   });
 
-  // Song highlighting
-  $('.playlist').live('mousemove', function(e) {
-    enableScrollHighlight = false;
-    var target = e.target;
-    if (target === this) return;
-    while (target.tagName != 'SECTION') target = target.parentNode;
-    highlightedSong.removeClass('highlight');
-    highlightedSong = $(target).addClass('highlight');
-  }).live('mouseout', function() {
-    enableScrollHighlight = true;
-  });
-
   // Page scroll functions
   w.scroll(function() {
-    // Window scroll highlights songs
-    clearTimeout(highlightTimeout);
-    highlightTimeout = setTimeout(highlightSong(),50);
-
     // Removes on scroll
     clearTimeout(tipsyClearTimeout);
     tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
+
+    // Automatic page loading
+    if (!loadingPage) {
+      clearTimeout(infiniteScrollTimeout);
+      infiniteScrollTimeout = setTimeout(function() {
+        if (nearBottom()) $('#next-page').click();
+      });
+    }
   });
 
   // Determines if window is near bottom
   function nearBottom() {
-    return w.scrollTop() >= ($(document).height() - $(window).height() - 100);
+    return w.scrollTop() >= ($(document).height() - $(window).height() - 200);
   }
 
   // Playlist bar hover

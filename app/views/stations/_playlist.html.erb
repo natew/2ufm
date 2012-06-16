@@ -1,15 +1,16 @@
 <%- station       ||= Station.new
 		id              = station.id || 0
-		per           ||= 12
+		per           ||= 20
     songs         ||= station.songs.playlist_order_broadcasted
     songs           = songs.page(params[:page]).per(per)
     style         ||= 'cover'
     page            = params[:page] ? params[:page] : 0
-    paginate        = (paginate == false || style == 'mini') ? false : true  -%>
+    paginate        = (paginate == false || style == 'mini') ? false : true
+-%>
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page } unless songs.nil? %>
 </div>
 
-<%= link_to 'Load more', '#page-2', :id => 'next-page', :class => 'control' if paginate %>
+<%= link_to 'Load more', '/page-2', :id => 'next-page', :class => 'control' if paginate %>

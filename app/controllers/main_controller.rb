@@ -14,10 +14,6 @@ class MainController < ApplicationController
       'Want to find new music without the hassle?'
     ]
 
-    @stations = {}
-    @stations[:featured] = Station.blog_station.order('broadcasts_count desc').limit(8)
-    @stations[:artists] = Station.artist_station.order('random() asc').limit(8)
-
     if !user_signed_in?
       @new = Station.newest
       @new_songs = Song.newest

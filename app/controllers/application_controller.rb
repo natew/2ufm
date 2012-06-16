@@ -29,8 +29,6 @@ class ApplicationController < ActionController::Base
         @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
-      logger.debug @p_songs.length
-
       if @p_songs.length > 0
         return render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs }
       else

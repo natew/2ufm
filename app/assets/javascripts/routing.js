@@ -48,20 +48,6 @@ var page = {
         .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
     }
 
-    // Playlist functions
-    var playlist = $('.playlist:first');
-    if (playlist.length) {
-      // Song heights
-      var sections = playlist.children('section');
-      playlistOffset = playlist.offset().top;
-      songSections[0] = sections;
-      resetOffsets();
-      addOffsets(sections);
-
-      // Highlight first song
-      highlightSong();
-    }
-
     // Nav toggle
     var navActive = $('.nav-container a.active'),
         sectionActive = $('.nav-container div.active');
