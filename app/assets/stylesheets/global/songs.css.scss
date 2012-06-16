@@ -6,8 +6,8 @@
 
 #next-page {
   display: block;
-  color: #777;
-  background: #eee;
+  color: #fff;
+  background: lighten($body-bg,4%);
   font-size: 14px;
   text-align: center;
   margin: 30px 0;
@@ -18,8 +18,7 @@
   @include border-radius(8px);
 
   &:hover {
-    background: #ccc;
-    color: #444;
+    background: lighten($body-bg,6%);
   }
 
   &.loading {
@@ -60,13 +59,15 @@
 .role-featured:before { background-position:0 -36px; margin-right: 4px; margin-left: 2px; }
 
 $playing-color: #618bff;
+
 $cover-pad: 10px;
 $cover-margin: 8px;
+
+$cover-border-width: 2px;
 $cover-border-radius: 10px;
-$cover-border-inner-radius: -4 + $cover-border-radius;
-$cover-border-inner: 2px;
+$cover-border-inner-radius: 8px;
 $cover-border-color: darken($body-bg,2%);
-$cover-border-color-hover: $body-light;
+$cover-border-color-hover: $body-dark;
 
 .playlist-cover {
   margin-right: -$cover-margin;
@@ -84,10 +85,6 @@ $cover-border-color-hover: $body-light;
 
       nav, .play-song {
         border-color: $cover-border-color-hover;
-
-        a {
-          color: #222;
-        }
       }
     }
 
@@ -127,7 +124,8 @@ $cover-border-color-hover: $body-light;
     position: relative;
     width: 200px;
     height: 200px;
-    border: 2px solid $cover-border-color;
+    border: $cover-border-width solid $body-dark;
+    @include box-shadow(0 0 10px rgba(0,0,0,0.2));
     @include border-radius($cover-border-radius);
 
     .song-wrap {
@@ -137,28 +135,27 @@ $cover-border-color-hover: $body-light;
       width: 100%;
       height: 100%;
       z-index: 4;
-      opacity: 0.5;
+      opacity: 0.3;
       background: url(/images/cover.png) no-repeat -2px -4px;
       @include box-sizing(border-box);
-      @include border-radius($cover-border-radius - 3);
+      @include border-radius($cover-border-inner-radius);
     }
 
-    .song-art, img {
+    img {
       width: 100%;
       height: 100%;
-      @include border-radius($cover-border-radius - 3);
+      @include border-radius($cover-border-inner-radius);
     }
 
-    $nav-border-radius: 20px;
     nav {
       position: absolute;
-      bottom: -1 - $cover-border-inner;
-      right: -1 - $cover-border-inner;
+      bottom: -$cover-border-width;
+      right: -$cover-border-width;
       z-index: 10;
-      border: 1px solid $body-dark;
+      border: 2px solid $body-dark;
       background: #fff;
       @include border-radius(4px);
-      @include linear-gradient($body-light,$body-dark);
+      @include linear-gradient($body-bg, $body-dark);
 
       a {
         padding: 1px 6px 1px;
@@ -168,7 +165,7 @@ $cover-border-color-hover: $body-light;
         font-weight: bold;
 
         &:hover {
-          color: #333;
+          color: #fff;
         }
       }
 
@@ -178,8 +175,6 @@ $cover-border-color-hover: $body-light;
       }
 
       a.pictos-share {
-        @include border-right-radius($nav-border-radius);
-
         &:before {
           font-size: 20px;
           margin-top: -2px;
@@ -215,12 +210,11 @@ $cover-border-color-hover: $body-light;
       margin: 0;
       text-shadow: 0 1px 1px rgba(0,0,0,.6);
       @include box-sizing(border-box);
-      @include border-radius($cover-border-inner-radius);
+      @include border-radius($cover-border-inner-radius * .8);
 
       small {
-        color: #fff;
+        color: #ddd;
         font-size: 12px;
-        opacity: 0.9;
         display: block;
         font-weight: bold;
       }

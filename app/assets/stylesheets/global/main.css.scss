@@ -129,7 +129,7 @@ $sidebar-bg: darken($body-bg,5%);
   z-index: 50;
   top: $header-height;
   bottom: 0;
-  padding-top: 8px;
+  padding-top: 6px;
   width: $sidebar-width;
   background: $sidebar-bg;
   border-right: 1px solid darken($sidebar-bg,5%);
@@ -160,7 +160,7 @@ $sidebar-bg: darken($body-bg,5%);
       display: block;
       text-decoration: none;
       color: #eee;
-      padding: 4px 10px 5px 32px;
+      padding: 4px 10px 5px 36px;
       font-size: 12px;
 
       &:hover {
@@ -169,8 +169,8 @@ $sidebar-bg: darken($body-bg,5%);
 
       &:before {
         left: 14px;
-        top: 24%;
-        font-size: 13px;
+        top: 18%;
+        font-size: 14px;
         color: #999;
       }
     }
@@ -233,10 +233,10 @@ $sidebar-bg: darken($body-bg,5%);
 
   #breadcrumbs {
     display: block;
-    padding: 6px 20px 0;
-    margin: -20px 0 16px 0;
+    padding: 7px 20px;
+    margin: -20px 0 12px 0;
     font-size: 11px;
-    background: #f2f2f2;
+    background: darken($body-bg,3%);
 
     a {
       font-weight: bold;
@@ -277,7 +277,7 @@ header form {
     color: #fff;
     outline: none;
     font-size: 11px;
-    border: 1px solid darken($header-color,15%);
+    border: 1px solid darken($header-color,10%);
     @include linear-gradient($header-color,lighten($header-color,5%));
     @include box-shadow(0 1px 0 $header-shadow);
     @include border-radius(20px);
