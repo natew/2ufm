@@ -67,7 +67,7 @@ $cover-border-width: 2px;
 $cover-border-radius: 10px;
 $cover-border-inner-radius: 8px;
 $cover-border-color: darken($body-bg,5%);
-$cover-border-color-hover: #ccc;
+$cover-border-color-hover: #aaa;
 
 .playlist-cover {
   margin-right: -$cover-margin;
@@ -87,10 +87,15 @@ $cover-border-color-hover: #ccc;
       nav, .play-song {
         border-color: $cover-border-color-hover;
       }
+
+      .play-song {
+        display: block;
+      }
     }
 
     &.playing .song-cover {
       border-color: $playing-color;
+      @include box-shadow(0 0 12px rgba(0,0,0,0.6));
 
       h4 {
         padding-bottom: 0;
@@ -107,15 +112,19 @@ $cover-border-color-hover: #ccc;
         @include linear-gradient(lighten($playing-color,10%),$playing-color);
       }
 
-      .play-song:before {
-        content: "5";
-        left: 8px;
+      .play-song {
+        display: block;
+
+        &:before {
+          content: "5";
+          left: 13px;
+        }
       }
     }
 
     &.paused .song-cover {
       .play-song:before {
-        left: 10px;
+        left: 16px;
         content: "4" !important;
       }
     }
@@ -148,41 +157,78 @@ $cover-border-color-hover: #ccc;
       @include border-radius($cover-border-inner-radius - 1);
     }
 
+    $play-song-size: 63px;
+
+    .play-song {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -($play-song-size/2) 0 0 0 -($play-song-size/2);
+      z-index: 5;
+      border: 2px solid $cover-border-color-hover;
+      width: $play-song-size;
+      height: $play-song-size;
+      color: #fff;
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
+      @include background-gradient($body-light, $body-dark);
+      @include border-radius($play-song-size);
+      @include box-sizing(border-box);
+
+      &:before {
+        content: "4";
+        display: inline-block;
+        position: absolute;
+        top: 23px;
+        left: 16px;
+        font-size: 40px;
+        color: #fff;
+      }
+    }
+
     nav {
       position: absolute;
       bottom: -$cover-border-width;
-      right: -$cover-border-width;
+      left: -$cover-border-width;
       z-index: 10;
       border: 2px solid $body-dark;
       background: #fff;
       @include border-radius(6px);
       @include linear-gradient($body-bg, $body-dark);
 
+      &.right {
+        left: auto;
+        right: -$cover-border-width;
+      }
+
       a {
-        padding: 1px 6px 1px;
+        padding: 1px 6px 3px 22px;
         text-decoration: none;
         color: #bbb;
         float: left;
         font-weight: bold;
+        font-size: 11px;
 
         &:hover {
           color: #fff;
         }
+
+        &:before {
+          font-size: 14px;
+          top: 2px;
+          left: 6px;
+        }
       }
 
       a.no-text {
+        padding: 1px 6px 1px;
         width: 18px;
         margin-left: -2px;
-
-        &:before {
-          font-size: 20px;
-          margin-top: -2px;
-        }
       }
 
       a.pictos-heart {
         font-size: 18px;
-        padding: 1px 10px 3px 28px;
+        padding: 1px 8px 3px 28px;
 
         &:before {
           font-size: 18px;

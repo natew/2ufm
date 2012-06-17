@@ -238,11 +238,11 @@ $sidebar-bg: lighten($body-bg,3%);
     padding: 7px 20px;
     margin: -20px 0 12px 0;
     font-size: 11px;
-    background: darken($body-bg,3%);
+    background: lighten($body-bg,3%);
 
     a {
       font-weight: bold;
-      color: #999;
+      color: $heading-color;
       text-decoration: none;
       float: left;
 

@@ -11,11 +11,15 @@
     </h4>
 
     <%= link_to '', "#song-#{song.id}", :class => 'song-link song-wrap control' %>
+    <%= link_to ''.html_safe, "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
 
     <nav>
       <span class="broadcast"><%= broadcast_song(song) %></span>
-      <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-share control no-text' %>
-      <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-cart control no-text' %>
+    </nav>
+
+    <nav class="right">
+      <%= link_to 'Info'.html_safe, song, :class => 'pictos-info' %>
+      <%= link_to 'Buy'.html_safe, song, :class => 'pictos-cart' %>
     </nav>
   </div>
 
