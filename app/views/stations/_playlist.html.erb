@@ -1,6 +1,6 @@
 <%- station       ||= Station.new
 		id              = station.id || 0
-		per           ||= 20
+		per           ||= 24
     songs         ||= station.songs.playlist_order_broadcasted
     songs           = songs.page(params[:page]).per(per)
     style         ||= 'cover'
