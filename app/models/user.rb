@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     slug
   end
 
+  def get_title
+    username
+  end
+
   def image
     avatar
   end

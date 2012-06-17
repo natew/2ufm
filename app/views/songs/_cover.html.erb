@@ -6,7 +6,7 @@
     </div>
 
     <h4>
-      <%= song.name %>
+      <span><%= song.name %></span>
       <small><%= song.artist_name %></small>
     </h4>
 
@@ -15,6 +15,7 @@
     <nav>
       <span class="broadcast"><%= broadcast_song(song) %></span>
       <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-share control no-text' %>
+      <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-cart control no-text' %>
     </nav>
   </div>
 

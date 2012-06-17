@@ -97,11 +97,6 @@
           <h1>Listening to</h1>
           <%= link 'Now Playing', '/songs-new', :id => 'nav-now-playing', :class => 'pictos-music tip', :title => 'Nothing, yet' %>
           <%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %>
-          <% if user_signed_in? %>
-            <div id="station-drop">
-              Drag stations here
-            </div>
-          <% end %>
         </section>
 
         <section>

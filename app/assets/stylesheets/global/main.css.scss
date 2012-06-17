@@ -72,6 +72,7 @@ header {
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   border-bottom: 1px solid darken($body-bg,10%);
+  @include box-shadow(0 1px 1px rgba(0,0,0,0.2));
   @include background-image(url(/images/noise-dark.png), linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -151,7 +152,7 @@ $sidebar-bg: darken($body-bg,5%);
     }
 
     h1 {
-      font-size: 14px;
+      font-size: 12px;
       color: $heading-color;
       padding: 4px 10px;
       margin: 0;
@@ -161,7 +162,7 @@ $sidebar-bg: darken($body-bg,5%);
       display: block;
       text-decoration: none;
       color: #eee;
-      padding: 4px 10px 5px 36px;
+      padding: 3px 10px 4px 36px;
       font-size: 12px;
 
       &:hover {
@@ -216,7 +217,7 @@ $sidebar-bg: darken($body-bg,5%);
   }
 
   #station-drop {
-    border: 2px dashed #eee;
+    border: 2px dashed $body-bg;
     color: #999;
     padding: 10px;
     margin: 10px 10px 0;
@@ -341,6 +342,7 @@ header #second-nav {
 .pictos-add:before {content: "+";}
 .pictos-share:before {content: "R";}
 .pictos-list:before {content: "l";}
+.pictos-cart:before {content: "$";}
 
 
 /* BAR */
@@ -767,14 +769,13 @@ footer {
   }
 }
 
-$announce-bg: #feffe5;
-$announce-color: #555;
+$announce-bg: $body-dark;
+$announce-color: $heading-color;
 
 .announce {
   z-index: 1000;
   background: $announce-bg;
   color: $announce-color;
-  border-top: 1px solid #ddd;
   font-size: 12px;
   font-weight: bold;
   padding: 6px;
@@ -1131,7 +1132,9 @@ ol.mp_list {
     overflow: hidden;
 
     &.right {
-      float: right;
+      position: absolute;
+      top: 0;
+      right: 20px;
     }
 
     a {
@@ -1140,12 +1143,12 @@ ol.mp_list {
       float: left;
       padding: 0 10px;
       margin-left: -1px;
-      border-left: 1px solid #ddd;
+      border-left: 1px solid lighten($body-bg,5%);
       color: #999;
 
       &.active {
         font-weight: bold;
-        color: $link-color;
+        color: #fff;
       }
 
       &:hover {
@@ -1158,6 +1161,7 @@ ol.mp_list {
   .section {
     clear: both;
     display: none;
+    padding: 0;
 
     &.active {
       display: block;
