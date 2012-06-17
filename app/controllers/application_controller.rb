@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       end
 
       if @p_songs.length > 0
-        return render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs }
+        return render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs, :partial => true }
       else
         head 204
       end

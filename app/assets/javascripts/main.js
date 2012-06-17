@@ -10,7 +10,7 @@ var w = $(window),
     navOpen,
     loadingPage = false,
     morePages = true,
-    scrollPage = 1,
+    scrollPage = getPage(),
     totalPages = 0,
     enableInfiniteScroll = true;
 
@@ -23,6 +23,12 @@ var mpClick = function(selector,callback) {
   });
 }
 
+// Reads URL parameters for ?page=X and returns X
+function getPage() {
+  var page = window.location.search.match(/page=([0-9]+)/);
+  return page ? parseInt(page[1],10) : 1;
+}
+
 function updatePageURL(page) {
   var url = window.location.href.replace(/#.*/,''),
       page = 'page=' + page,
@@ -31,7 +37,7 @@ function updatePageURL(page) {
 
   // Replace old page
   if (url.match(page_regex)) {
-    url.replace(page_regex, page);
+    url = url.replace(page_regex, page);
   } else {
     url += url.match(/\?/) ? '&' + page : '?' + page;
   }
@@ -50,7 +56,7 @@ function nextPage(link, callback) {
     $.ajax({
       url: window.location.href,
       type: 'get',
-      data: 'id='+id+'&page='+scrollPage,
+      data: 'id=' + id + '&page=' + scrollPage,
       headers: {
         Accept: "text/page; charset=utf-8",
         "Content-Type": "text/page; charset=utf-8"

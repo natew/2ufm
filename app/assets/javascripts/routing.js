@@ -63,7 +63,7 @@ var page = {
     }
 
     // Reset page
-    scrollPage = 1;
+    scrollPage = getPage();
     doneScrolling = false;
 
     // Stats
