@@ -2,8 +2,11 @@ class MainController < ApplicationController
   def index
     @popular = Station.popular
     @popular_songs = Song.popular
-    @feed    = current_user if user_signed_in? and !current_user.songs.empty?
     @artists = Artist.order('random()').limit(6)
+
+    if user_signed_in? and !current_user.following_songs.empty?
+      @has_songs = true
+    end
 
     @catchphrases = [
       'Take the work out of finding new music',

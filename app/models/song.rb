@@ -27,21 +27,37 @@ class Song < ActiveRecord::Base
   validates :url, :presence => true, :uniqueness => true
   validate :unique_to_blog, :on => :create
 
-  # Scopes
+  # Basic Scopes
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
   scope :working, where(processed: true, working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
-  scope :with_blog_station_and_post, joins(:post).joins('left join stations on stations.blog_id = songs.blog_id')
+  # Joins
+  scope :with_blog_station, joins('inner join stations on stations.blog_id = songs.blog_id')
+  scope :with_post, joins(:post)
+  scope :with_blog_station_and_post, with_blog_station.with_post
+
+  # Data to select
   scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug')
   scope :individual, select_with_info.with_blog_station_and_post.working
+  scope :user, select_with_info.with_post.working
+
+  # Orders
+  scope :order_broadcasted, select('DISTINCT ON (broadcasts.created_at, songs.shared_id) songs.*').order('broadcasts.created_at desc')
+  scope :order_ranked, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc')
+  scope :order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc')
 
   # Scopes for playlist
-  scope :playlist_order_broadcasted, select('DISTINCT ON (broadcasts.created_at, songs.shared_id) songs.*').order('broadcasts.created_at desc').individual
-  scope :playlist_order_rank, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc').individual
-  scope :playlist_order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc').individual
+  scope :playlist_order_broadcasted, order_broadcasted.individual
+  scope :playlist_order_rank, order_ranked.individual
+  scope :playlist_order_published, order_published.individual
+
+  # Scopes for users
+  scope :user_order_broadcasted, order_broadcasted.user
+  scope :user_order_rank, order_ranked.user
+  scope :user_order_published, order_published.user
 
   acts_as_url :full_name, :url_attribute => :slug
 

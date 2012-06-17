@@ -35,7 +35,15 @@ class User < ActiveRecord::Base
   end
 
   def get_title
+    title
+  end
+
+  def title
     username
+  end
+
+  def following_songs
+    songs.user_order_broadcasted
   end
 
   def image
