@@ -1331,6 +1331,7 @@ h2 small { font-size: 55%; }
   width: 100%;
   height: 100%;
   @include background-size(100% auto);
+  @include border-radius($cover-medium-border);
 }
 
 a[class^="cover-"]:hover:before,
