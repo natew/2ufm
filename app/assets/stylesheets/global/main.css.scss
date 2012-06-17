@@ -72,7 +72,7 @@ header {
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   border-bottom: 1px solid darken($body-bg,10%);
-  @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.1));
   @include background-image(url(/images/noise-dark.png), linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -123,7 +123,7 @@ header {
   }
 }
 
-$sidebar-bg: lighten($body-bg,5%);
+$sidebar-bg: lighten($body-bg,3%);
 
 #sidebar {
   position: fixed;
@@ -348,12 +348,12 @@ header #second-nav {
 /* BAR */
 #bar {
   position: fixed;
-  top: 1px;
+  top: 0;
   left: -1+$sidebar-width;
   right: 0;
   z-index: 0;
   min-width: -$sidebar-width + $width + 172;
-  height: $header-height - 1;
+  height: $header-height;
   border-left: 1px solid rgba($header-color,0.7);
 
   &.loaded {
@@ -423,7 +423,7 @@ header #second-nav {
   border-left: 1px solid rgba($header-color-light,0.7);
   padding-top: 7px;
   white-space: nowrap;
-  height: $header-height - 1;
+  height: $header-height;
   @include box-sizing(border-box);
 
   &.playing {

@@ -1,11 +1,11 @@
 <%- partial       ||= false
     station       ||= Station.new
 		id              = station.id || 0
+    page            = params[:page] ? params[:page].to_i : 1
 		per           ||= 24
     songs         ||= station.songs.playlist_order_broadcasted
-    songs           = partial ? songs.page(params[:page]).per(per) : songs.page(1).per(params[:page].to_i * per)
+    songs           = partial ? songs.page(page).per(per) : songs.page(1).per(page * per)
     style         ||= 'cover'
-    page            = params[:page] ? params[:page] : 0
     paginate        = (paginate == false || style == 'mini') ? false : true
 -%>
 
