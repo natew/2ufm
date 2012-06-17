@@ -97,15 +97,15 @@ header {
   nav {
     position: absolute;
     top: 27px;
-    left: 96px;
+    left: 97px;
 
     a {
-      font-size: 26px;
+      font-size: 22px;
       color: lighten($header-color,45%);
       padding: 4px;
       margin: -4px;
       float: left;
-      margin-right: 12px;
+      margin-right: 10px;
 
       &:hover {
         color: #fff;
@@ -274,7 +274,7 @@ header form {
   #query {
     border: none;
     padding: 3px 30px 3px 8px;
-    width: 200px;
+    width: 180px;
     margin: 0;
     color: #fff;
     outline: none;
@@ -500,7 +500,7 @@ header #second-nav {
     position: absolute;
     top: 0;
     left: 95px;
-    right: 270px;
+    right: 250px;
     height: 100%;
 
     #player-meta {
