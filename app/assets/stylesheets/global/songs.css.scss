@@ -95,7 +95,7 @@ $cover-border-color-hover: $body-dark;
       h4 {
         padding-bottom: 0;
         height: 100%;
-        background: rgba(0,0,0,0.6);
+        @include linear-gradient(bottom, transparent 0%, rgba(0,0,0,0.4) 80%);
         @include border-radius($cover-border-inner-radius);
       }
 

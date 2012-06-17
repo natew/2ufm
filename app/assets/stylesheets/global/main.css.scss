@@ -123,7 +123,7 @@ header {
   }
 }
 
-$sidebar-bg: darken($body-bg,5%);
+$sidebar-bg: lighten($body-bg,5%);
 
 #sidebar {
   position: fixed;
@@ -134,7 +134,6 @@ $sidebar-bg: darken($body-bg,5%);
   width: $sidebar-width;
   background-color: $sidebar-bg;
   background-image: url(/images/noise-dark.png);
-  border-right: 1px solid darken($sidebar-bg,3%);
   @include box-sizing(border-box);
 
   section {
@@ -232,6 +231,7 @@ $sidebar-bg: darken($body-bg,5%);
   overflow: hidden;
   position: relative;
   padding: 20px 0 20px $sidebar-width;
+  @include background-image(url(/images/noise-dark.png), linear-gradient(darken($body-bg,5%) 0%, $body-bg 20%));
 
   #breadcrumbs {
     display: block;
