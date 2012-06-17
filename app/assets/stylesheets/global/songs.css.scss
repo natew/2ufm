@@ -67,7 +67,7 @@ $cover-border-width: 2px;
 $cover-border-radius: 10px;
 $cover-border-inner-radius: 8px;
 $cover-border-color: darken($body-bg,5%);
-$cover-border-color-hover: $body-dark;
+$cover-border-color-hover: #ccc;
 
 .playlist-cover {
   margin-right: -$cover-margin;
@@ -155,13 +155,13 @@ $cover-border-color-hover: $body-dark;
       z-index: 10;
       border: 2px solid $body-dark;
       background: #fff;
-      @include border-radius(4px);
+      @include border-radius(6px);
       @include linear-gradient($body-bg, $body-dark);
 
       a {
         padding: 1px 6px 1px;
         text-decoration: none;
-        color: #aaa;
+        color: #bbb;
         float: left;
         font-weight: bold;
 
