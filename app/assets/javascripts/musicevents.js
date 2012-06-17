@@ -12,7 +12,7 @@ w.on({
 
     // Update now playing button in sidebar nav
     $('#nav-now-playing')
-      .attr('title',playlist.station.title)
+      .html(playlist.station.title)
       .attr('href',playlist.station.slug);
 
       // Render playlist
