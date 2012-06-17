@@ -503,8 +503,8 @@ header #second-nav {
       overflow: hidden;
       color: #fff;
       visibility: hidden;
-      margin: 4px 0 -10px 0;
-      line-height: 18px;
+      margin: 3px 0 -10px 0;
+      line-height: 16px;
       margin-right: 60px;
 
       span {
@@ -514,7 +514,7 @@ header #second-nav {
 
       #player-artist-name {
         color: lighten($header-color-light,30%);
-        font-size: 11px;
+        font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

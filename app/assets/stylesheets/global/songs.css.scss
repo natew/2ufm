@@ -161,7 +161,7 @@ $cover-border-color-hover: $body-dark;
       a {
         padding: 1px 6px 1px;
         text-decoration: none;
-        color: $link-color;
+        color: #aaa;
         float: left;
         font-weight: bold;
 
@@ -227,7 +227,7 @@ $cover-border-color-hover: $body-dark;
     }
   }
 
-  $below-song-color: darken($heading-color,20%);
+  $below-song-color: darken($heading-color,25%);
 
   .below-song {
     position: relative;
