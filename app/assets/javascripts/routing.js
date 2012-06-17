@@ -53,7 +53,7 @@ var page = {
         sectionActive = $('.nav-container div.active');
 
     if (navActive.length) {
-      $('.nav-container nav a').click(function(e) {
+      $('nav.nav-menu a').click(function(e) {
         navActive.removeClass('active');
         navActive = $(this).addClass('active');
         sectionActive.removeClass('active');

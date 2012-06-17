@@ -9,7 +9,7 @@
       <li id="follow-<%= @artist.station.id %>"><%= follow_station(@artist.station) %></li>
     </ul>
 
-    <nav>
+    <nav class="nav-menu">
       <%= link_to 'Newest', @artist %>
       <%= link_to 'Most popular', popular_artist_path(@artist) %>
       <%= link_to 'Originals', originals_artist_path(@artist) %>

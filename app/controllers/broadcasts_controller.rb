@@ -15,7 +15,7 @@ class BroadcastsController < ApplicationController
     @broadcast = Broadcast.find(params[:id])
     @song      = @broadcast.song
     @broadcast.destroy
-    @locals     = { :action => 'add', :id => @song.id, :count => @song.user_broadcasts_count-1 }
+    @locals     = { :action => 'add', :id => @song.id, :count => @song.user_broadcasts_count }
 
     respond_to do |format|
       format.js { render :partial => 'broadcast' }

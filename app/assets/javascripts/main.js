@@ -156,11 +156,6 @@ $(function() {
     $('#sidebar .announce').addClass('ismac');
   }
 
-  // Disabled links modal windows
-  $('a.disabled').on('click', function(e) {
-    e.preventDefault();
-  });
-
   // Hash tag to denote time in songs
   if (window.location.hash) {
     var hash = window.location.hash.split('-');

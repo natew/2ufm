@@ -33,6 +33,10 @@ $lightest-blue: #e8f5fc;
 $lighter-blue: darken($lightest-blue,5%);
 $light-blue: darken($lightest-blue,10%);
 
+$green: #239708;
+$light-green: lighten($green,6%);
+$dark-green: darken($green,6%);
+
 $light-grey: #f6f6f6;
 
 $playing: #666;

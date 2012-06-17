@@ -7,7 +7,7 @@
       <li id="follow-<%= @user.station.id %>"><%= follow_station(@user.station) %></li>
     </ul>
 
-    <nav>
+    <nav class="nav-menu">
       <%= link_to 'Favorites', '#favorites', :class => 'active' %>
       <%= link_to 'Listening History', '#listened' %>
       <%= link_to 'Following', '#following' %>

@@ -197,7 +197,7 @@ button {
 
   &.remove,
   &.remove.first-hover {
-    @include background-gradient(#3ab30a, #239708);
+    @include background-gradient($light-green, $green);
     border-color: #239708;
   }
 

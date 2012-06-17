@@ -195,7 +195,7 @@ $cover-border-color-hover: #aaa;
       border: 2px solid $body-dark;
       background: #fff;
       @include border-radius(6px);
-      @include linear-gradient($body-bg, $body-dark);
+      @include linear-gradient($body-light, $body-dark);
 
       &.right {
         top: auto;
@@ -232,6 +232,14 @@ $cover-border-color-hover: #aaa;
       a.pictos-heart {
         font-size: 18px;
         padding: 1px 8px 3px 28px;
+
+        &.remove {
+          color: #fff;
+          border: 2px solid $dark-green;
+          margin: -2px;
+          @include linear-gradient($light-green, $green);
+          @include border-radius(4px);
+        }
 
         &:before {
           font-size: 18px;
