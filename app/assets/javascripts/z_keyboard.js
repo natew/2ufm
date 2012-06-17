@@ -39,6 +39,10 @@ function keyDown(e) {
         && mp.getSection().attr('id') == highlightedSong.attr('id')) mp.toggle();
       else mp.playSection(highlightedSong);
       break;
+    // Esc
+    case 27:
+      modal();
+      break;
   }
 }
 

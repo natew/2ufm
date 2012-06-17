@@ -91,6 +91,22 @@ function navDropdown(nav) {
   navOpen = false;
 }
 
+// Modal
+function modal(selector) {
+  var modal = $('#modal'),
+      show = $('#overlay,#modal');
+
+  if (modalShown) {
+    show.removeClass('shown');
+    modalShown = false;
+  }
+  else {
+    modal.html($(selector).clone());
+    show.addClass('shown');
+    modalShown = true;
+  }
+}
+
 // Read URL parameters
 var urlParams = {},
     updateParams = (function () {
@@ -179,7 +195,7 @@ $(function() {
   });
 
   // Page load
-  $('#next-page').live('click',function(e) {
+  $('.next-page').live('click',function(e) {
     nextPage(this);
   })
 
@@ -218,7 +234,7 @@ $(function() {
     if (!loadingPage) {
       clearTimeout(infiniteScrollTimeout);
       infiniteScrollTimeout = setTimeout(function() {
-        if (nearBottom()) $('#next-page').click();
+        if (nearBottom()) $('.next-page:visible').click();
       });
     }
   });
@@ -237,21 +253,6 @@ $(function() {
     clearTimeout(progressHoverTimeout);
     progressBar.removeClass('hover');
   });
-
-  // Modal
-  function modal(selector) {
-    var modal = $('#modal'),
-        show = $('#overlay,#modal');
-    if (modalShown) {
-      show.removeClass('shown');
-      modalShown = false;
-    }
-    else {
-      modal.html($(selector).clone());
-      show.addClass('shown');
-      modalShown = true;
-    }
-  }
 
   $('#overlay').click(function() {
     modal();

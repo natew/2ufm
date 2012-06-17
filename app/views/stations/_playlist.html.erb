@@ -13,4 +13,4 @@
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page } unless songs.nil? %>
 </div>
 
-<%= link_to 'Load more', '/page-2', :id => 'next-page', :class => 'control' if paginate %>
+<%= link_to 'Load more', '/page-2', :class => 'next-page control' if paginate %>
