@@ -302,62 +302,19 @@ $cover-border-color-hover: #aaa;
 }
 
 
-
-$song-pad: 14px;
-
 .playlist-song {
   clear: both;
   margin: 0 0 18px;
 
   section {
-    padding: $song-pad 0 -3px+$song-pad;
     position: relative;
     overflow: hidden;
-    border: 1px solid #fff;
 
     &.show-play {
       .play-song { visibility: visible !important; }
     }
 
-    &.highlight {
-      .play-song {
-        visibility: visible !important;
-      }
-
-      $song-hover-text: #666;
-      .song-info {
-        .song-links {
-          display: block;
-        }
-
-        p, .song-links a {
-          color: $song-hover-text;
-        }
-      }
-
-      .song-controls li.broadcast {
-        a, .count {
-          color: $song-hover-text;
-        }
-      }
-
-      .song-meta, .song-meta a {
-        color: $song-hover-text;
-      }
-    }
-
     &.playing {
-      background: #eee;
-      border: 1px solid #ddd;
-
-      &.highlight {
-        border-color: $primary;
-      }
-
-      .song-controls a,
-      .song-controls .broadcast .count {
-        color: #fff;
-      }
     }
 
     &.failed {
@@ -366,21 +323,11 @@ $song-pad: 14px;
       &:hover { cursor: default; }
     }
 
-    a.song-link {
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 2;
-    }
-
     .waveform-wrap {
       position: relative;
       margin: 0;
       width: 100%;
-      height: 26px;
+      height: 106px;
       overflow: hidden;
       @include border-radius(6px);
 
@@ -393,7 +340,6 @@ $song-pad: 14px;
         width: 100%;
         height: 20px;
         z-index: 10;
-        @include linear-gradient(bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
       }
 
       img {
@@ -406,11 +352,13 @@ $song-pad: 14px;
       }
     }
 
-    $art-size: 64px;
+    $art-size: 256px;
+
     .song-art {
       position: relative;
       z-index: 1;
-      margin: 0 0 0 -2+$song-pad;
+      margin: 0 20px 0 0;
+      float: left;
 
       img {
         width: 100%;
@@ -420,24 +368,34 @@ $song-pad: 14px;
 
     .song-info {
       float: left;
-      margin: -$art-size 0 0 $art-size+11px+$song-pad;
+      margin: -$art-size 0 0 $art-size+11px;
       width: 86%;
-      padding: 0 $song-pad 0 0;
+      padding: 0;
       @include box-sizing(border-box);
 
-      h4 {
-        font-size: 16px;
+      h1 {
+        margin: 0;
         line-height: 1.3em;
-        border: none;
-        display: block;
-        background: none;
-        position: relative;
-        padding: 0;
-        margin: -3px 0 2px;
-        width: 460px-$song-pad;
-        color: $link-color;
+        width: 460px;
+        font-size: 22px;
+
+        small {
+          font-size: 14px;
+          border: none;
+          display: block;
+          background: none;
+          position: relative;
+          margin: -.3em 0;
+          font-weight: normal;
+
+          a {
+            color: $heading-color-dark;
+          }
+
+        }
 
         a {
+          color: #fff;
           text-decoration: none;
         }
       }
@@ -538,8 +496,8 @@ $song-pad: 14px;
 
     .song-controls {
       position: absolute;
-      top: $song-pad - 2px;
-      right: $song-pad;
+      top: 0;
+      right: 0;
       margin: -2px 0 0;
 
       li {
@@ -575,55 +533,6 @@ $song-pad: 14px;
           }
         }
       }
-    }
-  }
-}
-
-.whole .playlist-song {
-  section .song-info h4 {
-    width: 800px-$song-pad;
-    font-size: 27px;
-  }
-}
-
-.third .playlist-song {
-  border: none;
-
-  section {
-    padding: 5px 0;
-
-    .song-info {
-      margin: 0;
-      padding: 4px;
-      width: auto;
-      float: none;
-
-      h4 {
-        font-size: 11px;
-        width: 84%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-
-    .song-meta {
-      font-size: 10px !important;
-      margin: -3px 0 -7px 2px;
-
-      a.permalink {
-        margin: 0 0 0 -4px;
-      }
-    }
-
-    .song-controls {
-      z-index: 3;
-      top: 0;
-      right: 0;
-      padding: $song-pad 4px $song-pad 8px;
-
-      li a {font-size: 18px;}
-      li span.count {font-size: 12px;}
     }
   }
 }

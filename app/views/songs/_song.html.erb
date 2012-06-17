@@ -1,31 +1,34 @@
 <%- station_id ||= -1 %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
-  <div class="song-art cover-small">
-    <%= image_tag song.resolve_image(:small) %>
+
+  <div class="song-art cover-medium">
+    <%= image_tag song.resolve_image(:medium) %>
   </div>
+
   <div class="song-info">
-    <h4><%= song.linked_title.html_safe %></h4>
+    <h1>
+      <small><%= author_links song.authors %></small>
+      <strong><%= link_to song.name %></strong>
+    </h1>
+
     <div class="song-meta">
       <%- if song.reposted? -%>
-        Posted by <%= link_to pluralize(song.shared_count,'blog'), song %>
-        &nbsp;&middot;
+        <span>Posted by <%= link_to pluralize(song.shared_count,'blog'), song %></span>
       <% else %>
-        <%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %> &nbsp;&middot;
+        <span><%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %></span>
       <%- end -%>
-      <time><%= relative_time(song.published_at) %></time>
 
-      <ul class="song-links">
-        <li class="right"><%= link_to '$', '', :target => '_blank' %></li>
-        <li class="right"><%= link_to 'A'.html_safe, song.post_url, :class => 'pictos', :target => '_blank' %></li>
-        <li class="right"><%= link_to 'i'.html_safe, song, :class => 'pictos' %></li>
-      </ul>
+      <time><%= relative_time(song.published_at) %></time>
     </div>
+
     <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
+
     <p><%= song.post_excerpt %></p>
   </div>
+
   <ul class="song-controls">
     <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
-  <%= link_to '', song, :class => 'song-link control' %>
+
   <%= debug(song) %>
 </section>

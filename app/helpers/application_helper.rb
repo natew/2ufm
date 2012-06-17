@@ -39,6 +39,17 @@ module ApplicationHelper
     raw links.join(', ')
   end
 
+  # Render artists for a song
+  def author_links(authors)
+    list = []
+    authors = authors.joins(:artist)
+    authors.each do |author|
+      link = link_to(author.artist.name, author.artist)
+      author.role == 'original' ? list.unshift(link) : list.push(link)
+    end
+    raw list.join(', ')
+  end
+
   # Self explanitory
   def on_own_profile?
     user_signed_in? and controller.controller_name == 'users' and params[:id] == current_user.slug
