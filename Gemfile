@@ -22,6 +22,9 @@ gem 'anemone'
 gem 'mongo_mapper'
 gem 'feedzirra', :git => 'git://github.com/NateW/feedzirra.git'
 
+# APIs
+gem 'soundcloud', :git => 'git://github.com/andrejj/soundcloud-ruby.git'
+
 # Jobs
 gem 'daemons'
 gem 'delayed_job_active_record'

@@ -38,6 +38,10 @@ class Blog < ActiveRecord::Base
     slug
   end
 
+  def get_title
+    name
+  end
+
   # Uses Anemone to crawl a website
   #     http://anemone.rubyforge.org/
   #     http://anemone.rubyforge.org/doc/index.html
@@ -68,6 +72,19 @@ class Blog < ActiveRecord::Base
       delay(:priority => 3).crawl
     else
       crawl
+    end
+  end
+
+  def crawl_page(url)
+    begin
+      Anemone.crawl(fetch_url(url)) do |anemone|
+        anemone.focus_crawl { |page| nil }
+        anemone.on_every_page do |page|
+          puts page
+          save_page(page)
+        end
+      end
+    rescue
     end
   end
 
@@ -282,6 +299,7 @@ class Blog < ActiveRecord::Base
   end
 
   def fetch_url(url)
+    final_uri = url
     open(url) do |h|
       final_uri = h.base_uri
     end
@@ -294,6 +312,14 @@ class Blog < ActiveRecord::Base
       logger.debug "Checking link #{link['href']}"
       if link['href'] =~ /\.mp3(\?(.*))?$/
         logger.info "Found song! #{link['href']}"
+        yield html
+        break
+      end
+    end
+
+    html.css('iframe').each do |iframe|
+      if iframe['src'] =~ /soundcloud\.com.*tracks/
+        logger.info "Found soundcloud iframe! #{iframe['src']}"
         yield html
         break
       end

@@ -65,7 +65,13 @@ class Post < ActiveRecord::Base
         logger.info "Found song!"
         #TODO Find or create by ID so we can rescan posts
         found_song = create_song(link['href'],link.content)
-        logger.info "Created song #{link.content}"
+      end
+    end
+
+    parse.css('iframe').each do |iframe|
+      if iframe['src'] =~ /soundcloud\.com.*tracks/
+        logger.info "Found soundcloud iframe!"
+        found_song = create_song(iframe['src'], '')
       end
     end
   end

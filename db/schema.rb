@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511042141) do
+ActiveRecord::Schema.define(:version => 20120618035641) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(:version => 20120511042141) do
     t.integer  "shared_count",          :default => 0
     t.boolean  "working",               :default => false
     t.datetime "published_at"
-    t.string   "absolute_url"
+    t.text     "absolute_url"
     t.float    "rank"
     t.boolean  "original_song"
     t.integer  "failures"

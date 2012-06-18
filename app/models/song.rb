@@ -4,6 +4,7 @@ require 'open-uri'
 require 'net/http'
 require 'taglib'
 require 'tempfile'
+require 'soundcloud'
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
@@ -187,7 +188,7 @@ class Song < ActiveRecord::Base
 
         open(file_url,
           :content_length_proc => lambda { |content_length|
-            raise "Too Big" if (content_length > (1048576 * 40)) # 20 MB maximum song size
+            raise "Too Big" if (content_length > (1048576 * 40)) # 40 MB maximum song size
             total = content_length
           },
           :progress_proc => lambda { |at|
@@ -337,15 +338,32 @@ class Song < ActiveRecord::Base
       page = Nokogiri::HTML(open(url))
       links = page.css('a.hoverf').each do |link|
         if link['href'] =~ /tracker\.hulkshare/
-          absolute_url = link['href']
+          self.absolute_url = link['href']
         end
       end
     when /soundcloud\.com/
-      open(url) do |f|
-        html = f.read
-        slug = url.split('/').last
-        match = html.scan(/#{slug}.*{0,100}streamUrl.*\?stream_token=[A-Za-z0-9]{5}/)[0]
-        self.absolute_url = match.scan(/http:\/\/media.*/)[0] if match
+      begin
+        # find track id
+        track_id = url.scan(/tracks(%.*F|\/)([0-9]+)/)[0][1]
+
+        # init soundcloud
+        client = Soundcloud.new(:client_id => soundcloud_key)
+
+        # get track url
+        logger.info track_id
+        logger.info '/tracks/' + track_id
+        track = client.get('/tracks/' + track_id)
+        curl_redirect = `curl -I "#{track.stream_url}?client_id=#{soundcloud_key}"`
+        logger.info curl_redirect
+        final_url = curl_redirect.match(/Location: (.*)\r/)[1]
+
+        # set url
+        self.absolute_url = final_url
+        logger.info "Got soundcloud url: #{self.absolute_url}"
+      rescue Exception => e
+        logger.error "Soundcloud error"
+        logger.error e.message
+        logger.error e.backtrace.join("\n")
       end
     end
   end
@@ -549,6 +567,10 @@ class Song < ActiveRecord::Base
   end
 
   private
+
+  def soundcloud_key
+    '35ececaff5ccc122375738961cd6d1dc'
+  end
 
   def unique_to_blog
     if Song.where('url = ? and blog_id = ? and id != ?', url, blog_id, id).count > 0
