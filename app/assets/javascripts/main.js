@@ -141,6 +141,10 @@ $('img').on('error', function(){ $(this).attr('src','/images/default_medium.jpg'
 //
 
 $(function() {
+  // Fade in effect
+  $('#overlay').removeClass('shown');
+  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
+
   // Fire initial page load
   page.start();
   page.end();

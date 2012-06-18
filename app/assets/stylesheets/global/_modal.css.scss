@@ -18,7 +18,7 @@
   font-weight: normal;
   @include border-bottom-radius(8px);
   @include box-shadow(0 0 15px rgba(0,0,0,0.8));
-  @include transition(top linear 1s);
+  @include transition(top linear .2s);
 
   &.shown {
     opacity: 1;
@@ -59,7 +59,11 @@
 	top: 0;
 	background-color: #000;
   pointer-events: none;
-  @include transition(opacity linear 1s);
+  @include transition(opacity linear .1s);
+}
+
+#overlay.slow-fade {
+  @include transition(opacity linear .3s);
 }
 
 #overlay.shown {
