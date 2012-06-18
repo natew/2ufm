@@ -1,12 +1,16 @@
-<% size ||= :medium %>
 <section>
-  <div class="cover-small cover">
-    <%= image_tag station.image.url(:small) %>
+  <div class="cover">
+    <div class="art">
+      <%= image_tag station.image.url(:medium) %>
+    </div>
+
+    <h4><%= link_to station.title, '/'+station.slug %></h4>
+
+    <%= link_to '', '/'+station.slug, :class => 'wrap' %>
+
+    <nav>
+      <%= render :partial => 'stations/stats', :locals => { :station => station } %>
+    </nav>
   </div>
-  <div class="info">
-    <h3><%= link_to station.title, '/'+station.slug %></h3>
-    <%= render :partial => 'stations/stats', :locals => { :station => station } %>
-  </div>
-  <%= link_to station.title, '/'+station.slug, :class => 'station-link' %>
   <%= debug(station) %>
 </section>

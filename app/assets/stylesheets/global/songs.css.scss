@@ -76,7 +76,7 @@ $cover-border-color-hover: #aaa;
     float: left;
     margin: 0 $cover-margin 6+$cover-margin 0;
 
-    &:hover .song-cover {
+    &:hover .cover {
       border-color: $cover-border-color-hover;
       @include box-shadow(0 0 12px rgba(0,0,0,0.4));
 
@@ -93,7 +93,7 @@ $cover-border-color-hover: #aaa;
       }
     }
 
-    &.playing .song-cover {
+    &.playing .cover {
       border-color: $playing-color;
       @include box-shadow(0 0 12px rgba(0,0,0,0.6));
 
@@ -122,7 +122,7 @@ $cover-border-color-hover: #aaa;
       }
     }
 
-    &.paused .song-cover {
+    &.paused .cover {
       .play-song:before {
         left: 16px;
         content: "4" !important;
@@ -130,7 +130,7 @@ $cover-border-color-hover: #aaa;
     }
   }
 
-  .song-cover {
+  .cover {
     position: relative;
     width: 200px;
     height: 200px;
@@ -138,7 +138,7 @@ $cover-border-color-hover: #aaa;
     @include box-shadow(0 0 6px rgba(0,0,0,0.2));
     @include border-radius($cover-border-radius);
 
-    .song-wrap {
+    .wrap {
       position: absolute;
       top: 0;
       left: 0;
@@ -284,7 +284,7 @@ $cover-border-color-hover: #aaa;
 
   $below-song-color: darken($heading-color,25%);
 
-  .below-song {
+  .below-cover {
     position: relative;
     margin: 0 $cover-pad 0;
     color: $below-song-color;

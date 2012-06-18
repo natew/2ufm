@@ -9,9 +9,15 @@ class Station < ActiveRecord::Base
   has_many   :artists, :through => :songs, :uniq => true
   has_many   :blogs, :through => :songs, :uniq => true
 
-  scope :blog_station, where('stations.blog_id is not NULL')
-  scope :artist_station, where('stations.artist_id is not NULL')
-  scope :user_station, where('stations.user_id is not NULL')
+  # Parent scrops
+  has_blog = 'stations.blog_id is not NULL'
+  has_artist = 'stations.artist_id is not NULL'
+  has_user = 'stations.user_id is not NULL'
+
+  scope :has_parent, where([has_blog, has_artist, has_user].join(' OR '))
+  scope :blog_station, where(has_blog)
+  scope :artist_station, where(has_artist)
+  scope :user_station, where(has_user)
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug

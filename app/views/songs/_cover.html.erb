@@ -1,7 +1,7 @@
 <% song, song_counter = cover, cover_counter %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
-  <div class="song-cover">
-    <div class="song-art">
+  <div class="cover">
+    <div class="art">
       <%= image_tag song.resolve_image(:medium) %>
     </div>
 
@@ -10,7 +10,7 @@
       <small><%= song.artist_name %></small>
     </h4>
 
-    <%= link_to '', "#song-#{song.id}", :class => 'song-link song-wrap control' %>
+    <%= link_to '', "#song-#{song.id}", :class => 'song-link wrap control' %>
     <%= link_to ''.html_safe, "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
 
     <nav>
@@ -23,7 +23,7 @@
     </nav>
   </div>
 
-  <div class="below-song">
+  <div class="below-cover">
     <strong>
       <%- if song.reposted? -%>
         <%= link_to 'By ' + pluralize(song.shared_count,'blog'), song %>

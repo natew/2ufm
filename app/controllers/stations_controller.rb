@@ -1,7 +1,9 @@
 class StationsController < ApplicationController
 
   def index
-    @stations = Station.order('created_at desc').page(params[:page]).per(12)
+    @featured_stations = Station.has_parent.order('created_at desc').limit(4)
+    @other_stations = Station.has_parent.order('random() desc').limit(4)
+    @top_stations = Station.has_parent.order('random()').limit(4)
 
     respond_to do |format|
       format.html

@@ -1,12 +1,19 @@
-<div class="title">
-  <h2>Stations</h2>
-  <p>Browse stations and subscribe to their stations</p>
-</div>
-
 <div class="whole">
-  <div id="stations">
-    <%= render @stations %>
+  <h2>Featured Stations</h2>
+
+  <div class="playlist-cover">
+    <%= render @featured_stations %>
   </div>
 
-  <%= paginate @stations %>
+  <h2>Another Section</h2>
+
+  <div class="playlist-cover">
+    <%= render @top_stations %>
+  </div>
+
+  <h2>Lots of Stations</h2>
+
+  <div class="playlist-cover">
+    <%= render @other_stations %>
+  </div>
 </div>
