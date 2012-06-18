@@ -361,6 +361,7 @@ class Song < ActiveRecord::Base
         self.absolute_url = final_url
         logger.info "Got soundcloud url: #{self.absolute_url}"
       rescue Exception => e
+        # soundcloud error
         logger.error "Soundcloud error"
         logger.error e.message
         logger.error e.backtrace.join("\n")
