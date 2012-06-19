@@ -1,15 +1,13 @@
 <section>
   <div class="cover">
-    <div class="art">
-      <%= image_tag station.image.url(:medium) %>
-    </div>
+    <div class="art" style="background-image:url('<%= station.image.url(:original) %>');"></div>
 
     <h4><%= link_to station.title, '/'+station.slug %></h4>
 
     <%= link_to '', '/'+station.slug, :class => 'wrap' %>
 
     <nav>
-      <%= render :partial => 'stations/stats', :locals => { :station => station } %>
+      <span><%= render :partial => 'stations/stats', :locals => { :station => station } %></span>
     </nav>
   </div>
   <%= debug(station) %>

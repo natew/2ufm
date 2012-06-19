@@ -127,9 +127,10 @@ $cover-border-color-hover: #fff;
   }
 
   .cover {
+    overflow: hidden;
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border: $cover-border-width solid $cover-border-color;
     @include box-shadow(0 0 6px rgba(0,0,0,0.2));
     @include border-radius($cover-border-radius);
@@ -147,7 +148,7 @@ $cover-border-color-hover: #fff;
       @include border-radius($cover-border-inner-radius - 2);
     }
 
-    img {
+    .art {
       width: 100%;
       height: 100%;
       @include border-radius($cover-border-inner-radius - 1);
@@ -184,23 +185,27 @@ $cover-border-color-hover: #fff;
 
     nav {
       position: absolute;
-      bottom: 1px;
-      left: 1px;
+      bottom: 2px;
+      left: 2px;
       z-index: 10;
       margin: 0;
       border: 1px solid $body-dark;
-      background: #fff;
       @include border-radius(6px);
-      @include linear-gradient($body-bg, $body-dark);
+      @include linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8));
 
       &.right {
         top: auto;
         left: auto;
-        right: 1px;
+        right: 2px;
       }
 
-      a {
-        padding: 0 6px 2px 22px;
+      a[class*="pictos-"] {
+        padding-left: 22px;
+        padding-right: 4px;
+      }
+
+      a, span {
+        padding: 0 2px 0;
         text-decoration: none;
         color: #bbb;
         float: left;

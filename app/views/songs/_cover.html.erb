@@ -1,9 +1,7 @@
 <% song, song_counter = cover, cover_counter %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
   <div class="cover">
-    <div class="art">
-      <%= image_tag song.resolve_image(:medium) %>
-    </div>
+    <div class="art" style="background-image:url('<%= song.resolve_image(:medium) %>');"></div>
 
     <h4>
       <span><%= song.name %></span>
