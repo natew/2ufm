@@ -190,7 +190,6 @@ $cover-border-color-hover: #fff;
       left: 2px;
       z-index: 10;
       margin: 0;
-      border: 1px solid $body-dark;
       @include border-radius(6px);
       @include linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8));
 
@@ -201,12 +200,12 @@ $cover-border-color-hover: #fff;
       }
 
       a[class*="pictos-"] {
-        padding-left: 22px;
-        padding-right: 4px;
+        padding-left: 20px;
+        padding-right: 6px;
       }
 
       a, span {
-        padding: 0 2px 0;
+        padding: 0 2px;
         text-decoration: none;
         color: #bbb;
         float: left;
@@ -220,7 +219,7 @@ $cover-border-color-hover: #fff;
 
         &:before {
           font-size: 12px;
-          top: 2px;
+          top: 1px;
           left: 5px;
         }
       }
@@ -265,9 +264,9 @@ $cover-border-color-hover: #fff;
       color: #fff;
       font-size: 14px;
       margin: 0;
-      text-shadow: 0 1px 1px rgba(0,0,0,.6);
+      text-shadow: 0 1px 2px #000;
       @include box-sizing(border-box);
-      @include linear-gradient(bottom, transparent 0%, rgba(0,0,0,0.6) 80%);
+      @include linear-gradient(bottom, transparent 0%, rgba(0,0,0,0.5) 80%);
       @include border-radius($cover-border-inner-radius * .8);
 
       small {
