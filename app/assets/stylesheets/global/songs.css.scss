@@ -60,6 +60,7 @@
 
 $playing-color: #618bff;
 
+$cover-size: 180px;
 $cover-pad: 10px;
 $cover-margin: 8px;
 
@@ -129,8 +130,8 @@ $cover-border-color-hover: #fff;
   .cover {
     overflow: hidden;
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: $cover-size;
+    height: $cover-size;
     border: $cover-border-width solid $cover-border-color;
     @include box-shadow(0 0 6px rgba(0,0,0,0.2));
     @include border-radius($cover-border-radius);
@@ -287,8 +288,10 @@ $cover-border-color-hover: #fff;
 
   .below-cover {
     position: relative;
-    margin: 0 $cover-border-radius - 2 0;
+    padding: 0 $cover-border-radius - 2 0;
     color: $below-song-color;
+    width: $cover-size;
+    @include box-sizing(border-box);
 
     strong {
       font-size: 11px;
