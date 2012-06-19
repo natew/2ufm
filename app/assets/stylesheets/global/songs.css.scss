@@ -148,7 +148,7 @@ $cover-border-color-hover: #fff;
       @include border-radius($cover-border-inner-radius - 2);
     }
 
-    .art {
+    .art, img {
       width: 100%;
       height: 100%;
       @include border-radius($cover-border-inner-radius - 1);
