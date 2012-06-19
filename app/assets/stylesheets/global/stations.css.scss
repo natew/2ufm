@@ -17,9 +17,33 @@ $section-pad: 8px;
   }
 }
 
+.stations-contain {
+  height: 98px;
+  overflow: hidden;
+}
+
 .stations {
+  section:hover .cover {
+    border-color: $primary;
+  }
+
   .cover {
     height: 90px;
+    border-color: $primary;
+
+    .wrap {
+      opacity: 1;
+      border: 1px solid rgba(0,0,0,0.3);
+      background: none;
+      @include box-shadow(inset 0 0 20px rgba(0,0,0,0.4));
+    }
+
+    h4 {
+    }
+
+    nav {
+      display: none;
+    }
 
     img {
       height: auto;

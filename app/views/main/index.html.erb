@@ -32,7 +32,7 @@
         <%= link_to 'Artists', '#stations-artists', :class => 'control' %>
         <%= link_to 'Genres', '#stations-blogs', :class => 'control' %>
       </nav>
-      <div class="contain">
+      <div class="contain stations-contain">
         <div id="stations-featured" class="playlist-cover stations section active">
           <%= render :partial => 'stations/station', :collection => @stations[:featured] %>
         </div>
