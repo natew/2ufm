@@ -204,7 +204,7 @@ $cover-border-color-hover: $primary;
       margin: 0;
       text-shadow: 0 1px 5px #000;
       @include box-sizing(border-box);
-      @include linear-gradient(bottom, transparent 0%, rgba(255,255,255,0.3) 70%);
+      @include linear-gradient(bottom, transparent 0%, rgba($body-bg,0.8) 70%);
       @include border-radius($cover-border-inner-radius);
 
       small {
