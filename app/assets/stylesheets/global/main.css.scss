@@ -237,7 +237,7 @@ $sidebar-bg: lighten($body-bg,3%);
   overflow: hidden;
   position: relative;
   padding: 20px 0 20px $sidebar-width;
-  @include background-image(url(/images/noise-dark.png), linear-gradient(darken($body-bg,5%) 0%, $body-bg 20%));
+  @include background-image(url(/images/noise-dark.png), linear-gradient($body-bg 80%, darken($body-bg,5%) 100%));
 
   #breadcrumbs {
     display: block;
