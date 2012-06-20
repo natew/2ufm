@@ -65,8 +65,8 @@ $cover-pad: 10px;
 $cover-margin: 8px;
 
 $cover-border-width: 2px;
-$cover-border-radius: 0;
-$cover-border-inner-radius: 0;
+$cover-border-radius: 10px;
+$cover-border-inner-radius: 8px;
 $cover-border-color: darken($body-bg,5%);
 $cover-border-color-hover: $primary;
 
@@ -150,13 +150,13 @@ $cover-border-color-hover: $primary;
       border: 1px solid #000;
       background: url(/images/cover.png) no-repeat -1px 0;
       @include box-sizing(border-box);
-      @include border-radius($cover-border-inner-radius - 2);
+      @include border-radius($cover-border-inner-radius);
     }
 
     .art, img {
       width: 100%;
       height: 100%;
-      @include border-radius($cover-border-inner-radius - 1);
+      @include border-radius($cover-border-radius);
     }
 
     $play-song-size: 63px;
@@ -197,7 +197,7 @@ $cover-border-color-hover: $primary;
       z-index: 10;
       margin: 0;
       @include linear-gradient(transparent 0%, rgba(0,0,0,0.3) 100%);
-      @include border-bottom-left-radius($cover-border-inner-radius);
+      @include border-bottom-radius($cover-border-inner-radius);
 
       span.right {
         position: absolute;
@@ -257,7 +257,7 @@ $cover-border-color-hover: $primary;
       left: 0;
       padding: $cover-pad;
       padding-top: $cover-pad - 4;
-      height: 100%;
+      padding-bottom: 40px;
       color: #fff;
       z-index: 2;
       line-height: 1.35em;
@@ -267,9 +267,8 @@ $cover-border-color-hover: $primary;
       margin: 0;
       text-shadow: 0 1px 5px #000;
       @include box-sizing(border-box);
-      @include linear-gradient(bottom, transparent 0%, rgba($body-bg,0.8) 100%);
-      @include border-radius($cover-border-inner-radius * .8);
-      background-color: rgba(0,0,0,0.2);
+      @include linear-gradient(bottom, transparent 0%, rgba($body-bg,0.8) 70%);
+      @include border-radius($cover-border-inner-radius);
 
       small {
         color: #ddd;
