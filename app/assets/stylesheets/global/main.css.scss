@@ -57,14 +57,6 @@ h2, h3, h4 {
   }
 }
 
-#body h2, #body h3 {
-  color: $heading-color;
-}
-
-#body .third h2 {
-  font-size: 14px;
-}
-
 
 /* Header */
 header {
@@ -78,7 +70,7 @@ header {
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   border-bottom: 1px solid darken($body-bg,10%);
-  @include box-shadow(0 2px 0 rgba(0,0,0,0.1));
+  @include box-shadow(0 3px 0 rgba(0,0,0,0.15));
   @include background-image(url(/images/noise-dark.png), linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -129,7 +121,7 @@ header {
   }
 }
 
-$sidebar-bg: lighten($body-bg,3%);
+$sidebar-bg: lighten($body-bg,6%);
 
 #sidebar {
   position: fixed;
@@ -239,6 +231,9 @@ $sidebar-bg: lighten($body-bg,3%);
   position: relative;
   padding: 20px 0 20px $sidebar-width;
   @include background-image(url(/images/noise-dark.png), linear-gradient($body-bg 80%, darken($body-bg,5%) 100%));
+
+  h2, h3 { color: $heading-color; }
+  .third h2 { font-size: 14px; }
 
   #breadcrumbs {
     display: block;
@@ -1155,6 +1150,7 @@ ol.mp_list {
     overflow: hidden;
     background: rgba(0,0,0,0.2);
     padding: 6px 0;
+    @include border-radius(6px);
 
     &.inline {
       margin-top: -2px;
