@@ -105,7 +105,7 @@ class Song < ActiveRecord::Base
 
   def resolve_image(*type)
     type = type[0] || :original
-    image(type).to_s =~ /default/ ? post.image?(type) : image(type)
+    image(type).to_s =~ /default/ ? post.image(type) : image(type)
   end
 
   def full_name
