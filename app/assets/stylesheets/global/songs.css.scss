@@ -62,9 +62,9 @@ $playing-color: #618bff;
 
 $cover-size: 180px;
 $cover-pad: 10px;
-$cover-margin: 10px;
+$cover-margin: 8px;
 
-$cover-border-width: 1px;
+$cover-border-width: 2px;
 $cover-border-radius: 0;
 $cover-border-inner-radius: 0;
 $cover-border-color: darken($body-bg,5%);
@@ -82,7 +82,7 @@ $cover-border-color-hover: $primary;
       @include box-shadow(0 0 12px rgba(0,0,0,0.4));
 
       h4 {
-        background: rgba(0,0,0,0.7);
+        background-color: transparent;
       }
 
       nav {
@@ -199,7 +199,7 @@ $cover-border-color-hover: $primary;
       right: $nav-distance;
       z-index: 10;
       margin: 0;
-      @include linear-gradient(transparent 50%, rgba(0,0,0,0.6) 100%);
+      @include linear-gradient(transparent 0%, rgba(0,0,0,0.3) 100%);
       @include border-bottom-left-radius($cover-border-inner-radius);
 
       span.right {
@@ -220,8 +220,7 @@ $cover-border-color-hover: $primary;
         text-decoration: none;
         color: rgba(255,255,255,0.8);
         float: left;
-        font-weight: bold;
-        font-size: 11px;
+        font-size: 18px;
         border: none;
 
         &:hover {
@@ -235,14 +234,7 @@ $cover-border-color-hover: $primary;
         }
       }
 
-      a.no-text {
-        padding: 1px 6px 1px;
-        width: 18px;
-        margin-left: -2px;
-      }
-
       a.pictos-heart {
-        font-size: 18px;
         padding: 1px 8px 3px 28px;
 
         &.remove {
@@ -273,13 +265,14 @@ $cover-border-color-hover: $primary;
       z-index: 2;
       line-height: 1.35em;
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: normal;
       margin: 0;
-      text-shadow: 0 1px 2px #000;
+      text-shadow: 0 1px 5px #000;
       @include box-sizing(border-box);
       @include linear-gradient(bottom, transparent 0%, rgba($body-bg,0.8) 100%);
       @include border-radius($cover-border-inner-radius * .8);
+      background-color: rgba(0,0,0,0.2);
 
       small {
         color: #ddd;

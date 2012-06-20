@@ -12,13 +12,10 @@
 
     <%= link_to '', "#song-#{song.id}", :class => 'song-link wrap control' %>
     <%= link_to ''.html_safe, "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
+    <%= link_to '&nbsp;'.html_safe, song, :class => 'pictos-info no-text' %>
 
     <nav>
       <span class="broadcast"><%= broadcast_song(song) %></span>
-      <span class="right">
-        <%= link_to 'Info'.html_safe, song, :class => 'pictos-info' %>
-        <%= link_to 'Buy'.html_safe, song, :class => 'pictos-cart' %>
-      </span>
     </nav>
   </div>
 
