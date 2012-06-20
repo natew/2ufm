@@ -15,11 +15,10 @@
 
     <nav>
       <span class="broadcast"><%= broadcast_song(song) %></span>
-    </nav>
-
-    <nav class="right">
-      <%= link_to 'Info'.html_safe, song, :class => 'pictos-info' %>
-      <%= link_to 'Buy'.html_safe, song, :class => 'pictos-cart' %>
+      <span class="right">
+        <%= link_to 'Info'.html_safe, song, :class => 'pictos-info' %>
+        <%= link_to 'Buy'.html_safe, song, :class => 'pictos-cart' %>
+      </span>
     </nav>
   </div>
 

@@ -7,7 +7,8 @@
   }
 }
 
-$station-height: 100px;
+$station-margin: 4.4%;
+$station-height: 120px;
 $section-pad: 8px;
 
 .half .stations {
@@ -24,27 +25,36 @@ $section-pad: 8px;
 }
 
 .stations {
-  section:hover .cover {
-    border-color: $primary;
-  }
+  margin-right: -$station-margin;
 
-  .cover {
-    height: $station-height;
+  section {
+    margin-right: $station-margin;
 
-    .wrap {
-      border: 1px solid rgba(0,0,0,1);
-      @include box-shadow(inset 0 0 20px rgba($body-bg,0.4));
+    &:hover .cover {
+      border-color: $primary;
     }
 
-    h4 {
-    }
+    .cover {
+      height: $station-height;
+      width: $station-height;
+      border-color: $body-bg;
 
-    nav {
-      display: none;
-    }
+      .wrap {
+        @include box-shadow(inset 0 0 20px rgba($body-bg,0.4));
+      }
 
-    img {
-      height: auto;
+      h4 {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      nav {
+        display: none;
+      }
+
+      img {
+        height: auto;
+      }
     }
   }
 }

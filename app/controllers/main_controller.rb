@@ -5,10 +5,9 @@ class MainController < ApplicationController
     @artists = Artist.order('random()').limit(6)
 
     @stations = {}
-    @stations[:featured] = Station.blog_station.order('broadcasts_count desc').limit(6)
-    @stations[:trending] = Station.blog_station.order('follows_count desc').limit(6)
-    @stations[:artists] = Station.blog_station.order('random() asc').limit(6)
-    @stations[:users] = Station.blog_station.order('random()*random()').limit(6)
+    @stations[:featured] = Station.blog_station.order('broadcasts_count desc').limit(12)
+    @stations[:trending] = Station.blog_station.order('follows_count desc').limit(12)
+    @stations[:artists] = Station.blog_station.order('random() asc').limit(12)
 
     if user_signed_in? and !current_user.following_songs.empty?
       @has_songs = true

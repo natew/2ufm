@@ -85,6 +85,12 @@ $cover-border-color-hover: $primary;
         background: rgba(0,0,0,0.7);
       }
 
+      nav {
+        a {
+          color: #fff;
+        }
+      }
+
       .play-song {
         display: block;
       }
@@ -143,7 +149,7 @@ $cover-border-color-hover: $primary;
       width: 100%;
       height: 100%;
       z-index: 4;
-      opacity: .5;
+      opacity: .4;
       border: 1px solid #000;
       background: url(/images/cover.png) no-repeat -1px 0;
       @include box-sizing(border-box);
@@ -190,15 +196,16 @@ $cover-border-color-hover: $primary;
       position: absolute;
       bottom: $nav-distance;
       left: $nav-distance;
+      right: $nav-distance;
       z-index: 10;
       margin: 0;
-      background: rgba(0,0,0,0.8);
+      @include linear-gradient(transparent 50%, rgba(0,0,0,0.6) 100%);
       @include border-bottom-left-radius($cover-border-inner-radius);
 
-      &.right {
-        top: auto;
-        left: auto;
-        right: $nav-distance;
+      span.right {
+        position: absolute;
+        bottom: 0;
+        right: 0;
         @include border-bottom-left-radius(0);
         @include border-bottom-right-radius($cover-border-inner-radius);
       }
@@ -211,7 +218,7 @@ $cover-border-color-hover: $primary;
       a, span {
         padding: 0 2px;
         text-decoration: none;
-        color: #bbb;
+        color: rgba(255,255,255,0.8);
         float: left;
         font-weight: bold;
         font-size: 11px;
