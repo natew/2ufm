@@ -178,7 +178,7 @@
   </script> -->
 
   <!-- Menu items -->
-  <div id="nav-user" class="nav-menu">
+  <div id="nav-user" class="pop-menu">
     <% if user_signed_in? %>
       <span id="current_user" data-id="<%= current_user.id %>"></span>
       <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
@@ -189,7 +189,7 @@
     <% end %>
   </div>
 
-  <div id="player-playlist" class="nav-menu">
+  <div id="player-playlist" class="pop-menu">
     <h4>{{station.title}}</h4>
     {{#songs}}
       <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{id}}">

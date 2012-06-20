@@ -77,10 +77,10 @@ function nextPage(link, callback) {
 }
 
 function navDropdown(nav) {
-  if (nav) {
+  if (nav && nav.length) {
     var dropdown = $(nav.attr('href')),
-        top = nav.offset().top + nav.height() + 20,
-        left = Math.round(nav.offset().left + (nav.width() / 2) - (dropdown.width()/2));
+        top = nav.offset().top - $('body').scrollTop() + nav.height() + 20,
+        left = Math.round(nav.offset().left + (nav.width()/2) - (dropdown.width()/2)) + 3;
 
     // If the nav is not already open
     if (!(navOpen && navOpen[0] == dropdown[0])) {

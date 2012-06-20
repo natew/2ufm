@@ -107,10 +107,8 @@ $cover-border-color-hover: $primary;
         @include border-radius($cover-border-inner-radius);
       }
 
-      nav, .play-song {
-        a {
-          color: #fff;
-        }
+      .play-song {
+        a { color: #fff; }
         border-color: $playing-color;
         @include linear-gradient(lighten($playing-color,10%),$playing-color);
       }
@@ -120,14 +118,14 @@ $cover-border-color-hover: $primary;
 
         &:before {
           content: "5";
-          left: 13px;
+          left: 14px;
         }
       }
     }
 
     &.paused .cover {
       .play-song:before {
-        left: 16px;
+        left: 18px;
         content: "4" !important;
       }
     }
@@ -139,7 +137,6 @@ $cover-border-color-hover: $primary;
     width: $cover-size;
     height: $cover-size;
     border: $cover-border-width solid $cover-border-color;
-    @include box-shadow(0 0 6px rgba(0,0,0,0.2));
     @include border-radius($cover-border-radius);
 
     .wrap {
@@ -185,7 +182,7 @@ $cover-border-color-hover: $primary;
         position: absolute;
         top: 25px;
         left: 18px;
-        font-size: 40px;
+        font-size: 42px;
         color: #fff;
       }
     }
