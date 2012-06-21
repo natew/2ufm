@@ -79,6 +79,11 @@ $cover-border-color-hover: $primary;
       border-color: $cover-border-color-hover;
       @include box-shadow(0 0 12px rgba(0,0,0,0.4));
 
+      .wrap {
+        opacity: 0.6;
+        border-color: #000;
+      }
+
       h4 {
         background-color: transparent;
       }
@@ -144,8 +149,8 @@ $cover-border-color-hover: $primary;
       width: 100%;
       height: 100%;
       z-index: 4;
-      opacity: 0.2;
-      border: 1px solid #000;
+      opacity: 0.3;
+      border: 2px solid $body-dark;
       background: url(/images/cover.png) no-repeat -1px 0;
       @include box-sizing(border-box);
       @include border-radius($cover-border-inner-radius);
@@ -192,9 +197,10 @@ $cover-border-color-hover: $primary;
       bottom: $nav-distance;
       left: $nav-distance;
       right: $nav-distance;
+      padding-top: 40px;
       z-index: 10;
       margin: 0;
-      @include linear-gradient(transparent 0%, rgba(0,0,0,0.3) 100%);
+      @include linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%);
       @include border-bottom-radius($cover-border-inner-radius);
 
       span.right {
@@ -211,7 +217,7 @@ $cover-border-color-hover: $primary;
       }
 
       a, span {
-        padding: 0 2px;
+        padding: 2px;
         text-decoration: none;
         color: rgba(255,255,255,0.8);
         float: left;
@@ -230,7 +236,7 @@ $cover-border-color-hover: $primary;
       }
 
       a.pictos-heart {
-        padding: 1px 8px 3px 28px;
+        padding: 1px 8px 2px 25px;
 
         &.remove {
           color: #fff;
@@ -243,14 +249,22 @@ $cover-border-color-hover: $primary;
         &:before {
           font-size: 18px;
           top: 2px;
-          left: 8px;
+          left: 4px;
+        }
+      }
+
+      a.pictos-info {
+        margin: 0 -3px -3px 0;
+
+        &:before {
+          font-size: 22px;
         }
       }
     }
 
     h4 {
       width: 100%;
-      height: 100%;
+      min-height: 100%;
       position: absolute;
       top: 0;
       left: 0;
@@ -265,9 +279,9 @@ $cover-border-color-hover: $primary;
       margin: 0;
       text-shadow: 0 1px 5px #000;
       @include box-sizing(border-box);
-      @include linear-gradient(bottom, transparent 0%, rgba($body-bg,0.8) 70%);
+      @include linear-gradient(bottom, rgba($body-bg,0.2) 0%, rgba($body-bg,0.8) 80%);
       @include border-radius($cover-border-inner-radius);
-      background-color: rgba(0,0,0,0.1);
+      background-color: rgba($body-bg,0.3);
 
       small {
         color: #ddd;
