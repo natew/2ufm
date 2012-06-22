@@ -9,7 +9,7 @@ $header-color-light: lighten($header-color, 10%);
 
 $browse-height: 120px;
 
-$body-bg: #393939;
+$body-bg: #fff;
 $body-dark: darken($body-bg,10%);
 $body-light: lighten($body-bg,10%);
 
@@ -17,7 +17,7 @@ $width: 608px;
 $sidebar-width: 88px;
 $third-width: 210px;
 
-$heading-color: lighten($body-bg,60%);
+$heading-color: #999;
 $heading-color-light: lighten($body-bg,70%);
 $heading-color-dark: lighten($body-bg, 50%);
 
