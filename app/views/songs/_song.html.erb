@@ -12,20 +12,20 @@
       <span class="name"><%= link_to song.name, song %></span>
     </h1>
 
+    <p><%= song.post_excerpt %></p>
+
     <div class="song-meta">
-      <%- if song.reposted? -%>
-        <span><%= link_to pluralize(song.shared_count,'blog'), song %></span>
-      <% else %>
-        <span><%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %></span>
+      <% if song.reposted? %><span><%= link_to pluralize(song.shared_count,'blog'), song %></span>
+      <% else %><span><%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %></span>
       <%- end -%>
 
       <time><%= relative_time(song.published_at) %></time>
     </div>
 
-    <%= link_to ''.html_safe, "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
-    <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
-
-    <p><%= song.post_excerpt %></p>
+    <div class="song-player">
+      <%= link_to '', "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
+      <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
+    </div>
   </div>
 
   <ul class="song-controls">
