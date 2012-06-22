@@ -73,7 +73,7 @@
         <div id="loading" class="pictos hide">0</div>
 
         <%= form_tag '/main/search', :method => 'get' do %>
-          <%= text_field_tag :query, '', :placeholder =>"Search songs, artists and stations" %>
+          <%= text_field_tag :query, '', :placeholder =>"Search songs, artists & stations" %>
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
         <% end -%>
       </div>

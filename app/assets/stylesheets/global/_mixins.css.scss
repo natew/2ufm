@@ -13,11 +13,12 @@ $body-bg: #fff;
 $body-dark: darken($body-bg,10%);
 $body-light: lighten($body-bg,10%);
 
-$width: 608px;
+$width: 508px;
 $sidebar-width: 88px;
 $third-width: 210px;
+$query-width: 170px;
 
-$heading-color: #999;
+$heading-color: #666;
 $heading-color-light: lighten($heading-color,20%);
 $heading-color-dark: darken($heading-color, 20%);
 

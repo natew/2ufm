@@ -22,6 +22,7 @@
       <time><%= relative_time(song.published_at) %></time>
     </div>
 
+    <%= link_to ''.html_safe, "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
     <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
 
     <p><%= song.post_excerpt %></p>

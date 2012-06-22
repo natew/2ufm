@@ -19,6 +19,10 @@ $section-pad: 8px;
   }
 }
 
+#stations {
+  display: none;
+}
+
 .stations-contain {
   height: $station-height + 8;
   overflow: hidden;

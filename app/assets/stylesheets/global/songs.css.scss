@@ -344,6 +344,31 @@ $song-pad-left: 25px;
       &:hover { cursor: default; }
     }
 
+    .play-song {
+      display: inline-block;
+      position: absolute;
+      bottom: 50px;
+      left: $song-pad-left;
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      color: #fff;
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
+      @include linear-gradient($light-green, $green);
+      @include border-radius(100px);
+      @include box-sizing(border-box);
+
+      &:before {
+        content: "4";
+        display: inline-block;
+        position: absolute;
+        top: 10px;
+        left: 8px;
+        font-size: 27px;
+        color: #fff;
+      }
+    }
+
     .waveform-wrap {
       position: relative;
       margin: 10px 0 0;
@@ -377,7 +402,7 @@ $song-pad-left: 25px;
 
     .song-art {
       position: absolute;
-      top: 2px;
+      top: 5px;
       left: -20px;
       z-index: 1;
       border: 4px solid #fff;
@@ -433,20 +458,13 @@ $song-pad-left: 25px;
         }
       }
 
-      a {
-        position: relative;
-        z-index: 3;
-      }
-
       p {
         font-weight: normal;
         color: #888;
         margin: 0;
-        width: 72%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        display: none;
       }
     }
 
@@ -478,51 +496,9 @@ $song-pad-left: 25px;
       }
     }
 
-    .song-links {
-      display: none;
-      position: absolute;
-      top: 2px;
-      right: 0;
-      margin: 0;
-      padding: 0;
-
-      li {
-        list-style: none;
-        float: left;
-        font-size: 11px;
-        font-weight: bold;
-
-        a {
-          color: #999;
-        }
-
-        &.right {
-          float: right;
-          padding: 0 0 0 3px;
-
-          a {
-            color: #bbb;
-            text-shadow: 0 1px -1px #fff;
-            padding: 1px 4px;
-            text-decoration: none;
-            line-height: 1.5em;
-            @include border-radius(3px);
-
-            &:hover {
-              background: url(/images/fade.png) repeat-x top left;
-            }
-          }
-        }
-      }
-
-      a {
-        float: left;
-      }
-    }
-
     .song-controls {
       position: absolute;
-      top: 8px;
+      top: 14px;
       left: -92px;
       margin: 0;
 

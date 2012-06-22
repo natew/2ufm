@@ -128,11 +128,11 @@ header {
   bottom: 0;
   padding-top: 6px;
   width: $sidebar-width;
-  @include linear-gradient(left, #fff 80%, #f2f2f2 100%);
+  @include linear-gradient(left, #f2f2f2 95%, #d9d9d9 100%);
   @include box-sizing(border-box);
 
   section {
-    margin: 0 0 10px 0;
+    margin: 0 0 10px -1px;
     padding: 10px;
     display: block;
     width: 100%;
@@ -173,9 +173,9 @@ header {
       }
 
       &:before {
-        left: 20px;
+        left: 22px;
         top: 14px;
-        font-size: 32px;
+        font-size: 28px;
         font-weight: normal;
         color: #aaa;
       }
@@ -282,7 +282,7 @@ header form {
   #query {
     border: none;
     padding: 3px 30px 3px 8px;
-    width: 180px;
+    width: $query-width;
     margin: 0;
     color: #fff;
     outline: none;
@@ -365,7 +365,7 @@ header #second-nav {
   left: 160px;
   right: 0;
   z-index: 0;
-  min-width: -160 + $width + 172;
+  min-width: $width + 12;
   height: $header-height;
 
   &.loaded {
@@ -513,7 +513,7 @@ header #second-nav {
     position: absolute;
     top: 0;
     left: 95px;
-    right: 250px;
+    right: $query-width + 70;
     height: 100%;
 
     #player-meta {
@@ -1151,12 +1151,10 @@ ol.mp_list {
 
   nav.nav-menu {
     display: inline-block;
-    margin: 0 0 0 14px;
+    margin: 0 0 0 18px;
     line-height: 1.4em;
     overflow: hidden;
-    background: rgba(0,0,0,0.2);
-    padding: 6px 0;
-    @include border-radius(6px);
+    padding: 3px 0;
 
     &.inline {
       margin-top: -2px;
@@ -1169,13 +1167,13 @@ ol.mp_list {
     }
 
     a {
-      font-size: 13px;
+      font-size: 12px;
       text-decoration: none;
       float: left;
-      padding: 0 12px;
+      padding: 0 10px;
       margin-left: -1px;
-      border-left: 1px solid rgba(255,255,255,0.1);
-      color: #999;
+      border-left: 1px solid #ddd;
+      color: #666;
 
       &:first-child {
         border: none;
@@ -1183,11 +1181,11 @@ ol.mp_list {
 
       &.active {
         font-weight: bold;
-        color: #fff;
+        color: #000;
       }
 
       &:hover {
-        color: #fff;
+        color: $link-hover;
       }
     }
   }
