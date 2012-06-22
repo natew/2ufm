@@ -1,14 +1,15 @@
-<%- station_id ||= -1 %>
+<%- station_id ||= -1
+    art = :tiny %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
 
-  <div class="song-art cover-medium">
-    <%= image_tag song.resolve_image(:medium) %>
+  <div class="song-art cover-<%= art %>">
+    <%= image_tag song.resolve_image(art) %>
   </div>
 
   <div class="song-info">
     <h1>
-      <small><%= author_links song.authors %></small>
-      <strong><%= link_to song.name %></strong>
+      <span class="author"><%= author_links song.authors %></span>
+      <span class="name"><%= link_to song.name %></span>
     </h1>
 
     <div class="song-meta">

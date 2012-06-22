@@ -18,8 +18,8 @@ $sidebar-width: 88px;
 $third-width: 210px;
 
 $heading-color: #999;
-$heading-color-light: lighten($body-bg,70%);
-$heading-color-dark: lighten($body-bg, 50%);
+$heading-color-light: lighten($heading-color,20%);
+$heading-color-dark: darken($heading-color, 20%);
 
 $primary: #1a98e0;
 $primary-light: lighten($primary,10%);

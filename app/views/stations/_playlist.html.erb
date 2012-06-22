@@ -5,7 +5,7 @@
 		per           ||= 24
     songs         ||= station.songs.playlist_order_broadcasted
     songs           = partial ? songs.page(page).per(per) : songs.page(1).per(page * per)
-    style         ||= 'cover'
+    style         ||= 'song'
     paginate        = (paginate == false || style == 'mini') ? false : true
 -%>
 
