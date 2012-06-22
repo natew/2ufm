@@ -5,7 +5,7 @@
 $header-color: #3a7ac0;
 $header-height: 64px;
 $header-shadow: rgba(255,255,255,0.15);
-$header-color-light: lighten($header-color, 15%);
+$header-color-light: lighten($header-color, 10%);
 
 $browse-height: 120px;
 
@@ -14,7 +14,7 @@ $body-dark: darken($body-bg,10%);
 $body-light: lighten($body-bg,10%);
 
 $width: 608px;
-$sidebar-width: 170px;
+$sidebar-width: 88px;
 $third-width: 210px;
 
 $heading-color: lighten($body-bg,60%);

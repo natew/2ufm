@@ -94,14 +94,13 @@
         </a>
 
         <section>
-          <h1>Listening to</h1>
-          <%= link 'Nothing, yet', '/songs-new', :id => 'nav-now-playing', :class => 'pictos-music tip' %>
+          <h1>Playing</h1>
+          <%= link 'Nothing', '/songs-new', :id => 'nav-now-playing', :class => 'pictos-music tip' %>
         </section>
 
         <section>
           <h1>Songs</h1>
           <% if user_signed_in? %><%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %><% end %>
-          <%= link 'Trending', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-up' %>
           <%= link 'Popular', '/songs',   :id => 'nav-songs'     , :class => 'pictos-heart' %>
           <%= link 'New', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-clock' %>
         </section>
