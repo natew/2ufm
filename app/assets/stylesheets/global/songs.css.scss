@@ -318,6 +318,8 @@ $cover-border-color-hover: $primary;
   }
 }
 
+$song-pad-left: 25px;
+
 
 .playlist-song {
   clear: both;
@@ -326,6 +328,7 @@ $cover-border-color-hover: $primary;
   padding: 0;
 
   section {
+    margin: -4px 0 10px;
     position: relative;
 
     &.show-play {
@@ -370,12 +373,12 @@ $cover-border-color-hover: $primary;
       }
     }
 
-    $art-size: 24px;
+    $art-size: 32px;
 
     .song-art {
       position: absolute;
-      top: 0;
-      left: -17px;
+      top: 2px;
+      left: -20px;
       z-index: 1;
       border: 4px solid #fff;
       @include border-radius(20px);
@@ -390,7 +393,7 @@ $cover-border-color-hover: $primary;
     .song-info {
       float: left;
       margin: 0 0 10px 0;
-      padding: 0 0 0 20px;
+      padding: 0 0 0 $song-pad-left;
       width: 100%;
       @include box-sizing(border-box);
 
@@ -401,17 +404,11 @@ $cover-border-color-hover: $primary;
         font-size: 22px;
 
         span {
-          font-size: 14px;
-          border: none;
           display: block;
-          background: none;
-          position: relative;
-          color: $heading-color-dark;
 
           &.artist {
-            font-size: 13px;
+            font-size: 14px;
             margin: 0;
-            text-transform: uppercase;
             font-weight: normal;
 
             a {
@@ -454,10 +451,13 @@ $cover-border-color-hover: $primary;
     }
 
     .song-meta {
-      font-size: 12px;
-      margin: 4px 0;
+      position: absolute;
+      bottom: 10px;
+      left: $song-pad-left;
+      right: 0;
+      font-size: 11px;
+      margin: 0;
       color: #aaa;
-      position: relative;
 
       a {
         color: #aaa;
@@ -466,24 +466,6 @@ $cover-border-color-hover: $primary;
 
         &:hover {
           color: #555;
-        }
-      }
-
-      a.permalink {
-        font-size: 11px;
-        vertical-align: middle;
-        margin: -.4em 0 0 6px;
-        display: inline-block;
-        height: 16px;
-        width: 16px;
-        color: #aaa;
-        line-height: 1.6em;
-        text-align: center;
-        @include border-radius(8px);
-
-        &:hover {
-          background: #ccc;
-          color: #fff;
         }
       }
 
@@ -540,8 +522,8 @@ $cover-border-color-hover: $primary;
 
     .song-controls {
       position: absolute;
-      top: 6px;
-      left: -90px;
+      top: 8px;
+      left: -92px;
       margin: 0;
 
       li {
@@ -552,12 +534,13 @@ $cover-border-color-hover: $primary;
           text-align: right;
 
           a {
-            font-size: 14px;
+            font-size: 12px;
+            font-weight: bold;
             color: #bbb;
             text-decoration: none;
             position: relative;
             z-index: 3;
-            padding: 26px 0 0;
+            padding: 24px 0 0;
             text-align: center;
             display: block;
             width: 32px;
