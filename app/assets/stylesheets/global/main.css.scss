@@ -243,14 +243,14 @@ header {
 
   #breadcrumbs {
     display: block;
-    padding: 6px 20px;
-    margin: -20px 0 18px 0;
+    padding: 6px 20px 5px;
+    margin: -20px 0 20px 0;
     font-size: 11px;
-    background: rgba(0,0,0,0.2);
+    background: #f2f2f2;
 
     a {
       font-weight: bold;
-      color: $heading-color-dark;
+      color: #777;
       text-decoration: none;
       float: left;
 
@@ -1241,13 +1241,6 @@ h2 small { font-size: 55%; }
   float: left;
   width: $third-width;
   padding-left: 0;
-
-  h2 {font-size: 16px; margin-top: 5px;}
-  h3 {
-    font-size: 12px;
-    text-transform: uppercase;
-    color: darken($heading-color-dark,20%) !important;
-  }
 }
 
 .third, .twothirds, .fourth, .half, .whole {
