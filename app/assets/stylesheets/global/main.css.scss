@@ -121,8 +121,6 @@ header {
   }
 }
 
-$sidebar-bg: lighten($body-bg,6%);
-
 #sidebar {
   position: fixed;
   z-index: 50;
@@ -130,7 +128,7 @@ $sidebar-bg: lighten($body-bg,6%);
   bottom: 0;
   padding-top: 6px;
   width: $sidebar-width;
-  background-color: $sidebar-bg;
+  @include linear-gradient(left, #fff 80%, #f2f2f2 100%);
   @include box-sizing(border-box);
 
   section {
@@ -150,7 +148,7 @@ $sidebar-bg: lighten($body-bg,6%);
     h1 {
       font-size: 12px;
       text-transform: uppercase;
-      color: #eee;
+      color: #777;
       padding: 4px 0;
       margin: 0;
       text-align: center;
@@ -159,10 +157,10 @@ $sidebar-bg: lighten($body-bg,6%);
     a {
       display: block;
       text-decoration: none;
-      color: #999;
+      color: #aaa;
       font-size: 11px;
-      padding: 45px 4px 4px;
-      margin: 0 4px 4px 0;
+      padding: 40px 4px 4px;
+      margin: 0 4px 0 0;
       width: 60px;
       float: left;
       text-align: center;
@@ -170,8 +168,8 @@ $sidebar-bg: lighten($body-bg,6%);
       overflow: hidden;
       text-overflow: ellipsis;
 
-      &:hover {
-        background: rgba(255,255,255,0.1);
+      &:hover, &:hover:before {
+        color: #000;
       }
 
       &:before {
@@ -179,7 +177,7 @@ $sidebar-bg: lighten($body-bg,6%);
         top: 14px;
         font-size: 32px;
         font-weight: normal;
-        color: #999;
+        color: #aaa;
       }
     }
   }

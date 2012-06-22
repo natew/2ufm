@@ -25,10 +25,8 @@ $section-pad: 8px;
 }
 
 .stations {
-  margin-right: -$station-margin;
 
   section {
-    margin-right: $station-margin;
 
     &:hover .cover {
       border-color: $primary;
