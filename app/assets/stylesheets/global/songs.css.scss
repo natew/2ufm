@@ -328,7 +328,7 @@ $song-pad-left: 25px;
   padding: 0;
 
   section {
-    margin: -4px 0 10px;
+    margin: -4px 0 0;
     position: relative;
 
     &.show-play {
@@ -452,12 +452,12 @@ $song-pad-left: 25px;
 
     .song-meta {
       position: absolute;
-      bottom: 10px;
-      left: $song-pad-left;
+      top: 0;
       right: 0;
       font-size: 11px;
       margin: 0;
       color: #aaa;
+      text-align: right;
 
       a {
         color: #aaa;
@@ -470,11 +470,11 @@ $song-pad-left: 25px;
       }
 
       span {
-        float: left;
+        display: block;
       }
 
       time {
-        float: right;
+        display: block;
       }
     }
 

@@ -14,9 +14,9 @@
 
     <div class="song-meta">
       <%- if song.reposted? -%>
-        <span>Found on <%= link_to pluralize(song.shared_count,'blog'), song %></span>
+        <span><%= link_to pluralize(song.shared_count,'blog'), song %></span>
       <% else %>
-        <span>Found on <%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %></span>
+        <span><%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %></span>
       <%- end -%>
 
       <time><%= relative_time(song.published_at) %></time>
