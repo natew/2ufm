@@ -1,10 +1,6 @@
 <%- station_id ||= -1
-    art = :icon %>
+    art = :small %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
-
-  <div class="song-art cover-<%= art %>">
-    <%= image_tag song.resolve_image(art) %>
-  </div>
 
   <div class="song-info">
     <h1>
@@ -25,6 +21,9 @@
     <div class="song-player">
       <%= link_to '', "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
       <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
+      <div class="song-art cover-<%= art %>">
+        <%= image_tag song.resolve_image(art) %>
+      </div>
     </div>
   </div>
 

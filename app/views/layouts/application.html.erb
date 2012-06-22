@@ -93,21 +93,21 @@
           The best way to find &amp; share music with friends &raquo;
         </a>
 
+        <% if user_signed_in? %>
         <section>
-          <h1>Station</h1>
-          <%= link 'Nothing', '/songs-new', :id => 'nav-now-playing', :class => 'pictos-music tip' %>
+          <h1>Me</h1>
+          <%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %>
         </section>
+        <% end %>
 
         <section>
           <h1>Songs</h1>
-          <% if user_signed_in? %><%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %><% end %>
           <%= link 'Popular', '/songs',   :id => 'nav-songs'     , :class => 'pictos-heart' %>
           <%= link 'New', '/songs-new',   :id => 'nav-songs-new' , :class => 'pictos-clock' %>
         </section>
 
         <section>
-          <h1>Stations</h1>
-          <%= link 'Browse', '/stations',  :id => 'nav-stations'     , :class => 'pictos-list' %>
+          <h1>Browse</h1>
           <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
           <%= link 'Blogs', '/artists', :id => 'nav-artists'   , :class => 'pictos-newspaper' %>
           <%= link 'Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>

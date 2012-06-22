@@ -323,15 +323,18 @@ $song-pad-left: 25px;
 
 .playlist-song {
   clear: both;
-  margin: 0 0 20px 50px;
+  margin: 0 0 20px 10px;
   border-left: 2px solid #ddd;
   padding: 0;
 
   section {
-    margin: 0 0 15px;
+    margin: 0 0 10px;
     position: relative;
 
     &.playing {
+      .song-player .waveform-wrap img {
+        opacity: 0.65;
+      }
     }
 
     &.failed {
@@ -342,9 +345,11 @@ $song-pad-left: 25px;
 
     .song-controls {
       position: absolute;
-      top: 12px;
-      left: -93px;
+      top: 0;
+      left: -16px;
       margin: 0;
+      padding: 4px 0;
+      background: #fff;
 
       li {
         float: right;
@@ -377,23 +382,6 @@ $song-pad-left: 25px;
             }
           }
         }
-      }
-    }
-
-    $art-size: 32px;
-
-    .song-art {
-      position: absolute;
-      top: 4px;
-      left: -20px;
-      z-index: 1;
-      border: 4px solid #fff;
-      @include border-radius(20px);
-
-      img {
-        width: 100%;
-        height: 100%;
-        @include border-radius(20px);
       }
     }
 
@@ -441,7 +429,7 @@ $song-pad-left: 25px;
 
       p {
         color: #888;
-        margin: 0;
+        margin: 0 0 10px 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -476,26 +464,29 @@ $song-pad-left: 25px;
       }
     }
 
-    $song-player-height: 60px;
+    $song-player-height: 50px;
+    $play-button-size: 45px;
 
     .song-player {
       margin: 5px 0 0;
+      padding: 0 0 10px 0;
       position: relative;
       height: $song-player-height;
+      border-bottom: 1px solid #f2f2f2;
 
       .play-song {
         display: inline-block;
         position: absolute;
-        top: 5px;
+        top: 2px;
         left: 0;
         z-index: 5;
-        width: $song-player-height - 15;
-        height: $song-player-height - 15;
+        width: $play-button-size;
+        height: $play-button-size;
         color: #fff;
         border: 2px solid $green;
         @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
         @include linear-gradient($light-green, $green);
-        @include border-radius($song-player-height);
+        @include border-radius($play-button-size);
         @include box-sizing(border-box);
 
         &:before {
@@ -503,7 +494,7 @@ $song-pad-left: 25px;
           display: inline-block;
           position: absolute;
           top: 13px;
-          left: 10px;
+          left: 9px;
           font-size: 33px;
           color: #fff;
           text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
@@ -512,11 +503,10 @@ $song-pad-left: 25px;
 
       .waveform-wrap {
         position: absolute;
-        left: $song-player-height - 10;
-        right: 0;
+        left: $song-player-height;
+        right: 60px;
         top: 0;
         height: $song-player-height;
-        overflow: hidden;
         @include border-radius(6px);
 
         &:before {
@@ -532,11 +522,25 @@ $song-pad-left: 25px;
 
         img {
           width: 100%;
-          height: 150%;
+          height: 140%;
           position: absolute;
-          top: -25%;
+          top: -20%;
           left: 2px;
           opacity: 0.5;
+        }
+      }
+
+      .song-art {
+        position: absolute;
+        top: 0;
+        width: 48px;
+        height: 48px;
+        right: 0;
+        z-index: 1;
+
+        img {
+          width: 100%;
+          height: 100%;
         }
       }
     }
