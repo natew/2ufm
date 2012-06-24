@@ -11,7 +11,7 @@
 
   <div class="third">
     <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
-    <div class="stations">
+    <div class="stations list">
       <%= render :partial => 'stations/station', :collection => @blogs %>
     </div>
 

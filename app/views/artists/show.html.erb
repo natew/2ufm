@@ -21,14 +21,16 @@
 
   <div class="twothirds-wrap">
     <div class="twothirds">
-      <p><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></p>
       <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station } %>
     </div>
   </div>
 
   <div class="third">
+    <p><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></p>
+
+
     <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
-    <div class="stations">
+    <div class="stations list">
       <%= render :partial => 'stations/station', :collection => @blogs %>
     </div>
   </div>

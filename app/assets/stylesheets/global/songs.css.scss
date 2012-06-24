@@ -483,9 +483,9 @@ $song-pad-left: 25px;
         width: $play-button-size;
         height: $play-button-size;
         color: #fff;
-        border: 2px solid $green;
+        border: 2px solid $orange;
         @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
-        @include linear-gradient($light-green, $green);
+        @include linear-gradient($light-orange, $orange);
         @include border-radius($play-button-size);
         @include box-sizing(border-box);
 

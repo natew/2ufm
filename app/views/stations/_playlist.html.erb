@@ -1,12 +1,13 @@
 <%- partial       ||= false
     station       ||= Station.new
 		id              = station.id || 0
-    page            = params[:page] ? params[:page].to_i : 1
-		per           ||= 24
+    page            = (params[:page] || 1).to_i
+    per             = 18
     songs         ||= station.songs.playlist_order_broadcasted
-    songs           = partial ? songs.page(page).per(per) : songs.page(1).per(page * per)
+    songs           = songs.limit_full(page) unless partial
     style         ||= 'song'
     paginate        = (paginate == false || style == 'mini') ? false : true
+    has_more        = songs.length == ( partial ? per : (page*per) )
 -%>
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %>"
@@ -14,4 +15,4 @@
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page } unless songs.nil? %>
 </div>
 
-<%= link_to 'Load more', '/page-2', :class => 'next-page control' if paginate %>
+<%= link_to 'Load more', '/page-2', :class => 'next-page control' if paginate and has_more %>

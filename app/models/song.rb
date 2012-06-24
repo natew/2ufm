@@ -60,6 +60,10 @@ class Song < ActiveRecord::Base
   scope :user_order_rank, order_ranked.user
   scope :user_order_published, order_published.user
 
+  # Scopes for pagination
+  scope :limit_page, lambda { |page| page(page).per(18) }
+  scope :limit_full, lambda { |page| limit(page * 18) }
+
   acts_as_url :full_name, :url_attribute => :slug
 
   before_create :get_real_url, :clean_url
@@ -88,16 +92,6 @@ class Song < ActiveRecord::Base
   def self.newest
     playlist_order_published
   end
-
-  # def as_json(options={})
-  #   {
-  #     :id => id,
-  #     :artist_name => artist_name,
-  #     :name => name,
-  #     :url => url,
-  #     :image => resolve_image(:small)
-  #   }
-  # end
 
   def to_playlist
     { id: id, artist_name:artist_name, name:name, url:url, image:resolve_image(:small) }

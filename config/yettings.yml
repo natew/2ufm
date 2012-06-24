@@ -1,0 +1,2 @@
+defaults: &defaults
+  songs_per_page: 20

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120618035641) do
+ActiveRecord::Schema.define(:version => 20120624021532) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -199,6 +199,9 @@ ActiveRecord::Schema.define(:version => 20120618035641) do
     t.datetime "waveform_updated_at"
   end
 
+  add_index "songs", ["processed", "working", "rank", "shared_id"], :name => "index_songs_on_processed_and_working_and_rank_and_shared_id"
+  add_index "songs", ["shared_id"], :name => "index_songs_on_shared_id"
+
   create_table "stations", :force => true do |t|
     t.string   "title"
     t.integer  "artist_id"
@@ -207,9 +210,9 @@ ActiveRecord::Schema.define(:version => 20120618035641) do
     t.integer  "follows_count",       :default => 0
     t.string   "slug"
     t.integer  "broadcasts_count",    :default => 0
-    t.datetime "created_at",          :default => '2012-05-11 02:20:18'
-    t.datetime "updated_at",          :default => '2012-05-11 02:20:18'
-    t.datetime "last_broadcasted_at", :default => '2012-05-11 04:11:48'
+    t.datetime "created_at",          :default => '2012-05-11 03:38:08'
+    t.datetime "updated_at",          :default => '2012-05-11 03:38:08'
+    t.datetime "last_broadcasted_at", :default => '2012-05-11 04:13:11'
   end
 
   create_table "stations_songs", :id => false, :force => true do |t|

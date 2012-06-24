@@ -7,3 +7,5 @@ public/assets/*
 vendor/psds/*
 .DS_Store
 public/attachments
+vendor/attachmentdumps/*
+vendor/dbdumps/*

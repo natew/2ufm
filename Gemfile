@@ -3,6 +3,7 @@ source 'http://gems.github.com'
 
 gem 'rails', '3.2.2'
 gem 'pg'
+gem 'yettings'
 
 # Assets
 gem 'bourbon'
@@ -41,7 +42,6 @@ gem 'texticle', :git => 'git://github.com/texticle/texticle.git', :require => 't
 gem 'bson_ext'
 gem 'discogs-wrapper'
 gem 'taglib-ruby'
-# gem 'oauth2'
 
 # Waveforms
 gem 'oily_png'

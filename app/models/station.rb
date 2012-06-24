@@ -18,6 +18,7 @@ class Station < ActiveRecord::Base
   scope :blog_station, where(has_blog)
   scope :artist_station, where(has_artist)
   scope :user_station, where(has_user)
+  scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug
@@ -27,6 +28,7 @@ class Station < ActiveRecord::Base
 
   # Validations
   validates_with SlugValidator
+  validates :slug, :uniqueness => true
 
   def to_param
     slug

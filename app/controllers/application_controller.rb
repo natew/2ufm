@@ -71,8 +71,10 @@ class ApplicationController < ActionController::Base
         @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
-      if @p_songs.length > 0
-        return render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs, :partial => true }
+      @p_songs = @p_songs.limit_page(params[:page])
+
+      if @p_songs.count > 0
+        render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs, :partial => true }
       else
         head 204
       end
@@ -93,9 +95,9 @@ class ApplicationController < ActionController::Base
 
   def get_counts
     @count = {
-      :blogs => Rails.cache.fetch(:blogs_count, :expires_in => 24.hours) { Blog.count },
-      :songs => Rails.cache.fetch(:songs_count, :expires_in => 30.minutes) { Song.working.count },
-      :users => Rails.cache.fetch(:users_count, :expires_in => 1.hour) { User.count },
+      :blogs   => Rails.cache.fetch(:blogs_count,   :expires_in => 24.hours) { Blog.count },
+      :songs   => Rails.cache.fetch(:songs_count,   :expires_in => 30.minutes) { Song.working.count },
+      :users   => Rails.cache.fetch(:users_count,   :expires_in => 1.hour) { User.count },
       :artists => Rails.cache.fetch(:artists_count, :expires_in => 1.hour) { Artist.count }
     }
   end

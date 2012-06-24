@@ -1,14 +1,5 @@
 <section>
-  <div class="cover">
-    <div class="art" style="background-image:url('<%= station.image.url(:medium) %>');"></div>
-
-    <h4><%= link_to station.title, '/'+station.slug %></h4>
-
-    <%= link_to '', '/'+station.slug, :class => 'wrap' %>
-
-    <nav>
-      <span><%= render :partial => 'stations/stats', :locals => { :station => station } %></span>
-    </nav>
-  </div>
+  <%= link_to image_tag(station.image.url(:small)), station, :class => 'image' %>
+  <div><h4><%= link_to station.title, '/'+station.slug %></h4></div>
   <%= debug(station) %>
 </section>
