@@ -27,6 +27,8 @@ role :web, domain
 role :app, domain
 role :db,  domain, :primary => true # This is where Rails migrations will run
 
+after 'deploy:migrations', 'deploy:symlink_attachments'
+after 'deploy:migrations', 'deploy:symlink_tmp'
 after 'deploy:update', 'deploy:symlink_attachments'
 after 'deploy:update', 'deploy:symlink_tmp'
 
