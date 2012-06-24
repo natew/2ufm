@@ -81,7 +81,7 @@ function navDropdown(nav, pad) {
     var padding = pad ? pad : 20,
         target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
         dropdown = $(target).removeClass('hidden'),
-        top = nav.offset().top - $('body').scrollTop() + nav.height() + pad,
+        top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
         left = Math.round(nav.offset().left + (nav.width()/2) - (dropdown.width()/2));
 
     // If the nav is not already open
