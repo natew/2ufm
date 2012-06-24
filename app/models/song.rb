@@ -9,6 +9,8 @@ require 'soundcloud'
 class Song < ActiveRecord::Base
   include AttachmentHelper
 
+  SOURCES = %w[direct soundcloud hulkshare]
+
   # Relationships
   belongs_to :blog
   belongs_to :post
@@ -76,7 +78,7 @@ class Song < ActiveRecord::Base
   scope :limit_page, lambda { |page| page(page).per(18) }
   scope :limit_full, lambda { |page, per| limit(page * per) }
 
-  before_create :get_real_url, :clean_url
+  before_create :set_source, :get_real_url, :clean_url
   after_create :delayed_scan_and_save
   before_save :set_linked_title, :set_rank
 
@@ -204,6 +206,15 @@ class Song < ActiveRecord::Base
         }) do |song|
           logger.info "Getting song information"
           file = TagLib::MPEG::File.new(song.path)
+          tag = file.id3v2_tag
+
+          # Soundcloud info
+          if source == 'soundcloud' and soundcloud_id
+            client = Soundcloud.new(:client_id => soundcloud_key)
+            track = client.get("/tracks/#{soundcloud_id}")
+            tag.title = track.title
+            tag.genre = track.genres
+          end
 
           # Properties
           props        = file.audio_properties
@@ -211,7 +222,6 @@ class Song < ActiveRecord::Base
           self.length  = props.length.to_f
 
           # Tag
-          tag               = file.id3v2_tag
           self.name         = tag.title || link_info[0] || ''
           self.artist_name  = tag.artist || link_info[1] || ''
           self.album_name   = tag.album
@@ -335,35 +345,55 @@ class Song < ActiveRecord::Base
     tmp << data
   end
 
-  # Rules for filesharing sites
-  def get_real_url
+  def set_source
     case url
     when /hulkshare\.com/
+      self.source = 'hulkshare'
+    when /soundcloud\.com/
+      self.source = 'soundcloud'
+    end
+  end
+
+  # Rules for filesharing sites
+  def get_real_url
+    case source
+
+    when 'hulkshare'
       page = Nokogiri::HTML(open(url))
       links = page.css('a.hoverf').each do |link|
         if link['href'] =~ /tracker\.hulkshare/
           self.absolute_url = link['href']
         end
       end
-    when /soundcloud\.com/
-      begin
-        # find track id
-        track_id = url.scan(/tracks(%.*F|\/)([0-9]+)/)[0][1]
 
+    when 'soundcloud'
+      begin
         # init soundcloud
         client = Soundcloud.new(:client_id => soundcloud_key)
 
-        # get track url
-        logger.info track_id
-        logger.info '/tracks/' + track_id
-        track = client.get('/tracks/' + track_id)
-        curl_redirect = `curl -I "#{track.stream_url}?client_id=#{soundcloud_key}"`
-        logger.info curl_redirect
-        final_url = curl_redirect.match(/Location: (.*)\r/)[1]
+        # find track id
+        begin
+          track_id = url.scan(/tracks(%.*F|\/)([0-9]+)/)[0][1]
+        rescue
+          track_id = client.get('/resolve', :url => url).id
+        end
 
-        # set url
-        self.absolute_url = final_url
-        logger.info "Got soundcloud url: #{self.absolute_url}"
+        if track_id
+          self.soundcloud_id = track_id
+
+          # get track url
+          logger.info "Found track ID #{track_id}"
+          track = client.get('/tracks/' + track_id.to_s)
+          curl_redirect = `curl -I "#{track.stream_url}?client_id=#{soundcloud_key}"`
+          logger.info "Curl redirect headers\n #{curl_redirect}"
+          final_url = curl_redirect.match(/Location: (.*)\r/)[1]
+
+          # set url
+          self.absolute_url = final_url
+          logger.info "Got soundcloud url: #{self.absolute_url}"
+        else
+          logger.error "Could not get soundcloud track ID"
+        end
       rescue Exception => e
         # soundcloud error
         logger.error "Soundcloud error"
@@ -371,6 +401,9 @@ class Song < ActiveRecord::Base
         logger.error e.backtrace.join("\n")
       end
     end
+
+    # Return url
+    absolute_url
   end
 
   def add_to_stations
