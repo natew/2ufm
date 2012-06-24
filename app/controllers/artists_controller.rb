@@ -44,7 +44,7 @@ class ArtistsController < ApplicationController
   end
 
   def features
-    render_type @artist.station.songs.features
+    render_type @artist.station.songs.featuring
   end
 
   def productions

@@ -305,11 +305,11 @@ $cover-border-color-hover: $primary;
 }
 
 $song-pad-left: 25px;
-
+$song-playing-bg: #eee;
 
 .playlist-song {
   clear: both;
-  margin: 0 0 20px 10px;
+  margin: -10px 0 20px 10px;
   border-left: 2px solid #ddd;
   padding: 0;
 
@@ -318,6 +318,14 @@ $song-pad-left: 25px;
     position: relative;
 
     &.playing {
+      background: $song-playing-bg;
+
+      .song-controls {
+        background: $song-playing-bg;
+        border-left: 2px solid #ddd;
+        &:before {background: $song-playing-bg; border-left:2px solid #ddd;}
+      }
+
       .song-player .waveform-wrap img {
         opacity: 0.65;
       }
@@ -331,11 +339,22 @@ $song-pad-left: 25px;
 
     .song-controls {
       position: absolute;
-      top: 0;
+      top: 10px;
       left: -16px;
       margin: 0;
       padding: 4px 0;
       background: #fff;
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -10px;
+        left: -2px;
+        width:20px;
+        height: 10px;
+        background: #fff;
+      }
 
       li {
         float: right;
@@ -373,15 +392,14 @@ $song-pad-left: 25px;
 
     .song-info {
       float: left;
-      margin: 0 0 10px 0;
-      padding: 0 0 0 $song-pad-left;
+      margin: 0;
+      padding: 10px 10px 0 $song-pad-left;
       width: 100%;
       @include box-sizing(border-box);
 
       h1 {
         margin: 0 0 4px 0;
         width: 460px;
-        font-size: 22px;
 
         span {
           display: block;
@@ -392,13 +410,13 @@ $song-pad-left: 25px;
             font-weight: normal;
 
             a {
-              color: #888;
+              color: #666;
             }
           }
 
           &.name {
-            font-size: 16px;
-            margin: 0 0 -2px 0;
+            font-size: 18px;
+            margin: 0;
 
             a {
               color: #333;
@@ -421,13 +439,12 @@ $song-pad-left: 25px;
           position: absolute;
           top: 0;
           left: 0;
-          right: 100px;
-          color: #888;
+          right: 70px;
+          color: #999;
           margin: 0 0 10px 0;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          width: 90%;
         }
 
         span {
@@ -446,8 +463,8 @@ $song-pad-left: 25px;
 
     .song-meta {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 10px;
+      right: 10px;
       font-size: 11px;
       margin: 0;
       color: #aaa;
