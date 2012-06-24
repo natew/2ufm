@@ -212,8 +212,9 @@ class Song < ActiveRecord::Base
           if source == 'soundcloud' and soundcloud_id
             client = Soundcloud.new(:client_id => soundcloud_key)
             track = client.get("/tracks/#{soundcloud_id}")
-            tag.title = track.title
-            tag.genre = track.genres
+            tag.title = track.title || tag.title
+            tag.genre = track.genres || tag.genre
+            tag.artist_name ||= track.user
           end
 
           # Properties
