@@ -1,11 +1,13 @@
 # Application Helper
 module ApplicationHelper
   # Station follow
-  def follow_station(station)
-    has    = current_user.following_station?(station.id) if user_signed_in?
-    action = has ? "remove" : "add"
-    id     = has ? current_user.follows.where(:station_id => station.id).first.id : station.id
-    render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => station.follows.size, :changed => false }
+  def follow_station(station, type='large')
+    station = Station.find(station.to_i) if station.kind_of?(String)
+    id      = station.id
+    has     = current_user.following_station?(id) if user_signed_in?
+    action  = has ? "remove" : "add"
+    follow  = has ? current_user.follows.where(:station_id => id).first.id : id
+    render :partial => "stations/follow", :locals => { :action => action, :id => follow, :count => station.follows.size, :changed => false, :type => type }
   end
 
   # Song broadcast

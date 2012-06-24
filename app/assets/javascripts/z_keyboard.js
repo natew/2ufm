@@ -41,7 +41,7 @@ function keyDown(e) {
       break;
     // Esc
     case 27:
-      modal();
+      modal(false);
       break;
   }
 }

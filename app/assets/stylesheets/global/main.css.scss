@@ -1127,6 +1127,24 @@ $nav-arrow-size: 5px;
     margin-right: 4px;
   }
 
+  .count {display: none;}
+  .follow-station {
+    padding: 0;
+    background: none;
+    margin: 0;
+    border: none;
+    color: #fff;
+
+    span {
+      display: inline !important;
+      color: #fff;
+      padding: 0;
+      margin: 0;
+      display: inline;
+      font-size: 12px;
+    }
+  }
+
   li.mp_selectable { cursor: pointer; }
 
   li.mp_highlighted,

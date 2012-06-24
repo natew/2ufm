@@ -11,7 +11,9 @@ var page = {
 
   end: function pageEnd(data) {
     var curPage = window.location.pathname,
-        path = curPage.split('/');
+        path = curPage.split('/'),
+        tipTimer;
+
     fn.log(curPage);
 
     // Update google analytics
@@ -29,6 +31,22 @@ var page = {
     // Run loaded functions
     var $doc = $(document);
     var $body = $doc.find('body:first');
+
+    // Tooltips
+    $('.tooltip').hover(function() {
+      clearInterval(tipTimer);
+      navDropdown($(this), 6);
+    }, function() {
+      var tip = $(this),
+          target = $(this).attr('data-target');
+
+      tipTimer = setInterval(function() {
+        if (!tip.is(':hover') && !$(target).is(':hover')) {
+          clearInterval(tipTimer);
+          navDropdown(false);
+        }
+      }, 50);
+    })
 
     // Begin tagging
     $('#tags').tagit({

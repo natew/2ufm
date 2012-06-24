@@ -1,5 +1,6 @@
 <%- station_id ||= -1
-    art = :small %>
+    art = :small
+    follow_id = 'station-follow-' + song.id.to_s %>
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
 
   <div class="song-info">
@@ -14,9 +15,13 @@
     </div>
 
     <div class="song-meta">
-      <% if song.reposted? %><span><%= link_to pluralize(song.shared_count,'blog'), song %></span>
-      <% else %><span><%= link_to "#{song.station_title}".html_safe, '/'+song.station_slug %></span>
-      <%- end -%>
+      <span>
+        <%= follow_station(song.station_id, 'small') %>
+        <%= link_to '2', song.station_id, :class => 'tooltip pictos', 'data-target' => '#' + follow_id %>
+        <%= link_to song.station_title, '/'+song.station_slug %>
+        <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
+        <div id="<%= follow_id %>" class="hidden pop-menu">Following</div>
+      </span>
 
       <time><%= relative_time(song.published_at) %></time>
     </div>

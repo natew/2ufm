@@ -76,11 +76,13 @@ function nextPage(link, callback) {
   }
 }
 
-function navDropdown(nav) {
+function navDropdown(nav, pad) {
   if (nav && nav.length) {
-    var dropdown = $(nav.attr('href')),
-        top = nav.offset().top - $('body').scrollTop() + nav.height() + 20,
-        left = Math.round(nav.offset().left + (nav.width()/2) - (dropdown.width()/2)) + 3;
+    var padding = pad ? pad : 20,
+        target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
+        dropdown = $(target).removeClass('hidden'),
+        top = nav.offset().top - $('body').scrollTop() + nav.height() + pad,
+        left = Math.round(nav.offset().left + (nav.width()/2) - (dropdown.width()/2));
 
     // If the nav is not already open
     if (!(navOpen && navOpen[0] == dropdown[0])) {
@@ -93,7 +95,7 @@ function navDropdown(nav) {
     }
   }
 
-  if (navOpen) navOpen.removeClass('open');
+  if (navOpen) navOpen.removeClass('open').addClass('hidden');
   navOpen = false;
 }
 
@@ -102,7 +104,7 @@ function modal(selector) {
   var modal = $('#modal'),
       show = $('#overlay,#modal');
 
-  if (modalShown) {
+  if (modalShown || selector === false) {
     show.removeClass('shown');
     modalShown = false;
   }
@@ -246,7 +248,7 @@ $(function() {
 
   // Determines if window is near bottom
   function nearBottom() {
-    return w.scrollTop() >= ($(document).height() - $(window).height() - 200);
+    return w.scrollTop() >= ($(document).height() - $(window).height() - 500);
   }
 
   // Playlist bar hover
@@ -259,10 +261,10 @@ $(function() {
     progressBar.removeClass('hover');
   });
 
-  $('#overlay').click(function() {
-    modal();
-  })
+  // Close modal
+  $('#overlay').click(function() { modal(false); });
 
+  // Click binding
   $('body').click(function(e) {
     if (e.target.tagName == 'A') {
       var el = $(e.target);
@@ -343,7 +345,7 @@ $(function() {
         input.val(val.substr(0,len-1));
       }, beginDelay+delay*(i+1));
     }
-  })
+  });
 
   // Popups
   $('.popup').click(function(e){
@@ -351,7 +353,7 @@ $(function() {
     var link = $(this),
         dimensions = link.data('dimensions').split(',');
     window.open(link.attr('href'),link.attr('title'),'status=0,toolbar=0,location=0,height='+dimensions[0]+',width='+dimensions[1]);
-  })
+  });
 
   // Dialog
   setTimeout(function() {
