@@ -126,9 +126,10 @@ header {
   z-index: 50;
   top: $header-height;
   bottom: 0;
+  right: 0;
   padding-top: 6px;
   width: $sidebar-width;
-  @include linear-gradient(left, #f2f2f2 95%, #d9d9d9 100%);
+  @include linear-gradient(right, #f2f2f2 95%, #d9d9d9 100%);
   @include box-sizing(border-box);
 
   section {
@@ -236,7 +237,7 @@ header {
   min-width: $width;
   overflow: hidden;
   position: relative;
-  padding: 20px 0 20px $sidebar-width;
+  padding: 20px $sidebar-width 20px 0;
   @include background-image(linear-gradient($body-bg 80%, darken($body-bg,5%) 100%));
 
   h2, h3 { color: $heading-color; }
@@ -663,7 +664,7 @@ footer {
   background: darken($body-bg,25%);
   color: lighten($body-bg,15%);
   height: 20em;
-  padding: 10px 0 10px 10+$sidebar-width;
+  padding: 10px $sidebar-width+10 10px 10px;
 
   .page-contain div {
     padding: 20px;
