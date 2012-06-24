@@ -3,13 +3,11 @@
 </div>
 
 <div class="contain">
-  <div class="twothirds-wrap">
-    <div class="twothirds">
-      <h2>Comments</h2>
-    </div>
+  <div class="half">
+    <h2>Comments</h2>
   </div>
 
-  <div class="third">
+  <div class="half">
     <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
     <div class="stations list">
       <%= render :partial => 'stations/station', :collection => @blogs %>
@@ -21,10 +19,9 @@
     </div>
 
     <h3>Broadcasts this week</h3>
-    <div id="stats" style="width:100%;height:200px;" data-broadcasts="<%= @stats %>"></div>
+    <div id="stats" style="width:100%;height:180px;" data-broadcasts="<%= @stats %>"></div>
 
-    <h3>Reposted by <%= pluralize @song.users.size, 'person' %></h3>
-    <div class="list">
-    </div>
+    <h3>Similar Songs</h3>
+    <%= render :partial => 'stations/playlist', :locals => { :songs => @similar_songs, :paginate => false, :per => 8 } %>
   </div>
 </div>

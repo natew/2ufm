@@ -78,6 +78,8 @@ var page = {
             minTickSize: [1, "day"],
             min: data[0][0],
             max: data[data.length-1][0]
+          },
+          yaxis: {
           }
         }
 

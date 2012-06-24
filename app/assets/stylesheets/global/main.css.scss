@@ -759,7 +759,6 @@ footer {
       font-size: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: -50 + $third-width;
 
       a { text-decoration: none; }
     }
@@ -771,6 +770,14 @@ footer {
       height: 3.5em;
       overflow: hidden;
     }
+  }
+}
+
+.half .list {
+  section {
+    float: left;
+    display: inline-block;
+    margin-right: 20px;
   }
 }
 

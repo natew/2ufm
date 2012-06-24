@@ -45,6 +45,7 @@ class Song < ActiveRecord::Base
   scope :originals, with_authors.where('"authors"."role" = \'original\'')
 
   # Joins
+  scope :without_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id"')
   scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id"')
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
@@ -73,7 +74,7 @@ class Song < ActiveRecord::Base
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(18) }
-  scope :limit_full, lambda { |page| limit(page * 18) }
+  scope :limit_full, lambda { |page, per| limit(page * per) }
 
   acts_as_url :full_name, :url_attribute => :slug
 
