@@ -4,9 +4,8 @@
       ['+','Follow', :post, follow_path(id)] :
       ['2','Following', :delete, follow_path(id) ]
     change_class = changed ? 'first-hover' : ''
-    class_name = type == 'small' ? "follow-station-small" : "follow-station #{action} button"
-    label = "<span>#{icon}</span> #{text}" if type == 'large'
-    text = label if type == 'large'
+    class_name = type == 'small' ? "follow-station-small pictos" : "follow-station #{action} button"
+    label = type == 'large' ? "<span>#{icon}</span> #{text}" : "#{icon}"
 -%>
   <%= link_to "#{label}".html_safe, path, class: "#{class_name} control #{change_class} restricted", remote: true, method: method unless on_own_profile? %>
   <% if type == 'large' %><div class="count"><%= pluralize count, 'Follower' %></div><% end %>

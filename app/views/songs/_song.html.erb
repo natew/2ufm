@@ -17,7 +17,6 @@
     <div class="song-meta">
       <span>
         <%= follow_station(song.station_id, 'small') %>
-        <%= link_to '2', song.station_id, :class => 'tooltip pictos', 'data-target' => '#' + follow_id %>
         <%= link_to song.station_title, '/'+song.station_slug %>
         <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
         <div id="<%= follow_id %>" class="hidden pop-menu">Following</div>
