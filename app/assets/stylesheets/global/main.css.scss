@@ -132,7 +132,7 @@ header {
   @include box-sizing(border-box);
 
   section {
-    margin: 0 0 10px -1px;
+    margin-left: -1px;
     padding: 10px;
     display: block;
     width: 100%;
@@ -149,7 +149,7 @@ header {
       font-size: 11px;
       text-transform: uppercase;
       color: #777;
-      padding: 4px 0;
+      padding: 4px 0 0;
       margin: 0;
       text-align: center;
     }
@@ -159,8 +159,8 @@ header {
       text-decoration: none;
       color: #aaa;
       font-size: 11px;
-      padding: 38px 4px 6px;
-      margin: 0 0 4px 0;
+      padding: 36px 4px 2px;
+      margin: 0;
       width: 60px;
       float: left;
       text-align: center;
@@ -173,9 +173,9 @@ header {
       }
 
       &:before {
-        left: 22px;
+        left: 24px;
         top: 14px;
-        font-size: 28px;
+        font-size: 22px;
         font-weight: normal;
         color: #aaa;
       }

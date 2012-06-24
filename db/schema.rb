@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120624021532) do
+ActiveRecord::Schema.define(:version => 20120624034355) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -32,6 +32,12 @@ ActiveRecord::Schema.define(:version => 20120624021532) do
     t.string   "image_file_name"
     t.string   "image_updated_at"
     t.text     "urls"
+    t.boolean  "has_remixes",      :default => false
+    t.boolean  "has_mashups",      :default => false
+    t.boolean  "has_covers",       :default => false
+    t.boolean  "has_originals",    :default => false
+    t.boolean  "has_productions",  :default => false
+    t.boolean  "has_features",     :default => false
   end
 
   create_table "authors", :force => true do |t|

@@ -6,20 +6,15 @@
     <%= f.text_field :username %>
   </div>
 
-  <div class="clearfix sep">
+  <div class="clearfix">
     <%= f.label :email %>
     <%= f.email_field :email %>
-    <span class="help">We will only use email address to verify your account</span>
+    <span class="help">No spam, ever! See our privacy policy</span>
   </div>
 
   <div class="clearfix">
     <%= f.label :password %>
     <%= f.password_field :password %>
-  </div>
-
-  <div class="clearfix">
-    <%= f.label :password_confirmation, "Confirm Password" %>
-    <%= f.password_field :password_confirmation %>
   </div>
 
   <div class="actions clearfix">

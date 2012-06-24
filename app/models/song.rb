@@ -35,22 +35,33 @@ class Song < ActiveRecord::Base
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
+  # Basic types
+  scope :with_authors, joins(:authors)
+  scope :remixes, with_authors.where('"authors"."role" = \'remixer\'')
+  scope :mashups, with_authors.where('"authors"."role" = \'mashup\'')
+  scope :covers, with_authors.where('"authors"."role" = \'cover\'')
+  scope :featuring, with_authors.where('"authors"."role" = \'featured\'')
+  scope :productions, with_authors.where('"authors"."role" = \'producer\'')
+  scope :originals, with_authors.where('"authors"."role" = \'original\'')
+
   # Joins
-  scope :with_blog_station, joins('inner join stations on stations.blog_id = songs.blog_id')
+  scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id"')
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
 
   # Data to select
-  scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug')
+  scope :select_with_info, select('posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug')
   scope :individual, select_with_info.with_blog_station_and_post.working
   scope :user, select_with_info.with_post.working
 
   # Orders
-  scope :order_broadcasted, select('DISTINCT ON (broadcasts.created_at, songs.shared_id) songs.*').order('broadcasts.created_at desc')
-  scope :order_ranked, select('DISTINCT ON (songs.rank, songs.shared_id) songs.*').order('songs.rank desc')
-  scope :order_published, select('DISTINCT ON (songs.published_at, songs.shared_id) songs.*').order('songs.published_at desc')
+  scope :order_broadcasted_by_type, select('DISTINCT ON ("broadcasts"."created_at", "songs"."shared_id") songs.*').order('broadcasts.created_at desc')
+  scope :order_broadcasted, select('DISTINCT ON ("broadcasts"."created_at", "songs"."shared_id") songs.*').order('broadcasts.created_at desc')
+  scope :order_ranked, select('DISTINCT ON (songs.rank, "songs"."shared_id") "songs".*').order('songs."rank" desc')
+  scope :order_published, select('DISTINCT ON ("songs"."published_at", "songs"."shared_id") songs.*').order('songs.published_at desc')
 
   # Scopes for playlist
+  scope :playlist_order_broadcasted_by_type, order_broadcasted_by_type.individual
   scope :playlist_order_broadcasted, order_broadcasted.individual
   scope :playlist_order_rank, order_ranked.individual
   scope :playlist_order_published, order_published.individual
@@ -480,7 +491,8 @@ class Song < ActiveRecord::Base
 
     # Match their respective roles
     featured = /(featuring |ft\. ?|feat\. ?|f\. ?|w\/){1}/i
-    remixer  = / remix| rmx| edit| bootleg| mix/i
+    remixer  = / remix| rmx| edit| bootleg| mix| remake/i
+    mashup  = / mashup| mash-up/i
     producer = /(produced|prod\.?) by/i
     cover    = / cover/i
     split    = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i # Splits "one, two & three"
@@ -507,11 +519,15 @@ class Song < ActiveRecord::Base
         if parens
           part.scan(/#{split}#{remixer}/).flatten.compact.collect(&:strip).each do |artist|
             artist = artist.gsub(/\'s.*/i,'') # Remove types of remixes eg: "Arists's Piano Remix"
-            matched.push [artist,:remixer] unless artist =~ remixer or artist =~ /&|,/
+            matched.push [artist, :remixer] unless artist =~ remixer or artist =~ /&|,/
           end
 
           part.scan(/#{split}#{cover}/).flatten.compact.collect(&:strip).each do |artist|
-            matched.push [artist,:cover] unless artist =~ producer or artist =~ /&|,/
+            matched.push [artist, :cover] unless artist =~ producer or artist =~ /&|,/
+          end
+
+          part.scan(/#{split}#{mashup}/).flatten.compact.collect(&:strip).each do |artist|
+            matched.push [artist, :mashup] unless artist =~ producer or artist =~ /&|,/
           end
         end
       end

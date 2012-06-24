@@ -33,13 +33,13 @@ class Artist < ActiveRecord::Base
     self.to_json(:only => [:id, :slug, :name])
   end
 
+  def get_title
+    name
+  end
+
   def get_info
     get_discogs_info
     get_wikipedia_info
-  end
-
-  def get_title
-    name
   end
 
   def get_discogs_info

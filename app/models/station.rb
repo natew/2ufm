@@ -15,6 +15,7 @@ class Station < ActiveRecord::Base
   has_user = 'stations.user_id is not NULL'
 
   scope :has_parent, where([has_blog, has_artist, has_user].join(' OR '))
+  scope :distinct, select('DISTINCT ON (stations.blog_id) stations.*')
   scope :blog_station, where(has_blog)
   scope :artist_station, where(has_artist)
   scope :user_station, where(has_user)

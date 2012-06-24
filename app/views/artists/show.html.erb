@@ -12,24 +12,29 @@
     <nav class="nav-menu">
       <%= link_to 'Newest', @artist %>
       <%= link_to 'Most popular', popular_artist_path(@artist) %>
-      <%= link_to 'Originals', originals_artist_path(@artist) %>
-      <%= link_to "Remixes", remixes_by_artist_path(@artist) %>
-      <%= link_to "Covers", remixes_of_artist_path(@artist) %>
-      <%= link_to "Mashups", remixes_of_artist_path(@artist) %>
+      <%= link_to 'Originals', originals_artist_path(@artist) if @artist.has_originals? %>
+      <%= link_to "Remixes", remixes_artist_path(@artist) if @artist.has_remixes? %>
+      <%= link_to "Mashups", mashups_artist_path(@artist) if @artist.has_mashups? %>
+      <%= link_to "Covers", covers_artist_path(@artist) if @artist.has_covers? %>
+      <%= link_to "Productions", productions_artist_path(@artist) if @artist.has_productions? %>
+      <%= link_to "Featuring", features_artist_path(@artist) if @artist.has_features? %>
     </nav>
   </div>
 
   <div class="twothirds-wrap">
     <div class="twothirds">
-      <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station } %>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs } %>
     </div>
   </div>
 
   <div class="third">
-    <p><%= @artist.about || "Listening to the latest songs by #{@artist.name}." %></p>
+    <%- if @artist.about %>
+      <h3>About <%= @artist.name %></h3>
+      <p><%= @artist.about %></p>
+    <%- end -%>
 
 
-    <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
+    <h3>Posted on <%= pluralize @blogs.length, 'blog' %></h3>
     <div class="stations list">
       <%= render :partial => 'stations/station', :collection => @blogs %>
     </div>

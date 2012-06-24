@@ -27,10 +27,13 @@ Fusefm::Application.routes.draw do
 
   resources :artists, :only => [:index, :show] do
     member do
-      get 'remixes_of'
-      get 'remixes_by'
+      get 'remixes'
       get 'originals'
       get 'popular'
+      get 'mashups'
+      get 'covers'
+      get 'productions'
+      get 'features'
     end
   end
 
