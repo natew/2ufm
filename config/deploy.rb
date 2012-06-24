@@ -1,6 +1,9 @@
 # Bundler
 require "bundler/capistrano"
 
+# Pretty colors
+require 'capistrano_colors'
+
 # Assets
 load 'deploy/assets'
 
