@@ -1,10 +1,12 @@
-<% icon, text, method, path = (action == 'add') ?
-    ['+','Follow', :post, follow_path(id)] :
-    ['2','Following', :delete, follow_path(id) ]
+<%- type ||= 'large'
+    icon, text, method, path =
+      (action == 'add') ?
+      ['+','Follow', :post, follow_path(id)] :
+      ['2','Following', :delete, follow_path(id) ]
     change_class = changed ? 'first-hover' : ''
-    class_name = type ? "follow-station-small" : "follow-station #{action} #{button}"
+    class_name = type == 'small' ? "follow-station-small" : "follow-station #{action} button"
     label = "<span>#{icon}</span> #{text}" if type == 'large'
     text = label if type == 'large'
-%>
+-%>
   <%= link_to "#{label}".html_safe, path, class: "#{class_name} control #{change_class} restricted", remote: true, method: method unless on_own_profile? %>
   <% if type == 'large' %><div class="count"><%= pluralize count, 'Follower' %></div><% end %>

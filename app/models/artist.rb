@@ -10,7 +10,7 @@ class Artist < ActiveRecord::Base
   has_many   :authors
   has_many   :songs, :through => :authors, :extend => SongExtensions
 
-  acts_as_url :name, :url_attribute => :slug
+  acts_as_url :name, :url_attribute => :slug, :allow_duplicates => false
 
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 

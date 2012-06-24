@@ -25,7 +25,7 @@ class Station < ActiveRecord::Base
   attr_accessible :id, :description, :title, :slug
 
   # Slug
-  acts_as_url :title, :url_attribute => :slug
+  acts_as_url :title, :url_attribute => :slug, :allow_duplicates => false
 
   # Validations
   validates_with SlugValidator

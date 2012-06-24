@@ -14,7 +14,7 @@ class Post < ActiveRecord::Base
   validates :url, presence: true, uniqueness: true
 
   # Slug
-  acts_as_url :title, :url_attribute => :slug
+  acts_as_url :title, :url_attribute => :slug, :allow_duplicates => false
 
   before_create :get_image, :get_content, :set_excerpt
   after_create :delayed_save_songs

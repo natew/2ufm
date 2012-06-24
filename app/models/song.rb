@@ -76,8 +76,6 @@ class Song < ActiveRecord::Base
   scope :limit_page, lambda { |page| page(page).per(18) }
   scope :limit_full, lambda { |page, per| limit(page * per) }
 
-  acts_as_url :full_name, :url_attribute => :slug
-
   before_create :get_real_url, :clean_url
   after_create :delayed_scan_and_save
   before_save :set_linked_title, :set_rank

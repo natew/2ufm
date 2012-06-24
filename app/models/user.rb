@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
-  acts_as_url :username, :url_attribute => :slug
+  acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
 
   before_create :make_station
 

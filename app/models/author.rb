@@ -1,12 +1,12 @@
 class Author < ActiveRecord::Base
   ROLES = %w[original remixer featured producer cover mashup]
   ROLES_TO_POSSESIVE = {
-    'original' => 'originals',
-    'remixer' => 'remixes',
-    'featured' => 'features',
-    'producer' => 'productions',
-    'cover' => 'covers',
-    'mashup' => 'mashups'
+    :original => 'originals',
+    :remixer  => 'remixes',
+    :featured => 'features',
+    :producer => 'productions',
+    :cover    => 'covers',
+    :mashup   => 'mashups'
   }
 
   belongs_to :song
