@@ -20,7 +20,7 @@ set :repository,  "ssh://nwienert@199.36.105.18/var/git/#{application}.git"
 set :deploy_to, "/var/www/#{application}.fm/web"
 set :scm, :git
 set :branch, 'master'
-set :scm_verbose, true
+set :scm_verbose, false
 set :rails_env, "production"
 set :keep_releases, 3
 set :dj_workers, 4

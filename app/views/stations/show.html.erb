@@ -13,6 +13,7 @@
 </div>
 
 <div class="contain">
+  <%- if @station.songs.count > 0 -%>
   <div class="twothirds-wrap">
     <div class="twothirds">
       <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
@@ -27,4 +28,9 @@
     </div>
     <%- end -%>
   </div>
+  <%- else -%>
+  <div class="whole">
+    <h2>No songs on this station, yet!</h2>
+  </div>
+  <%- end -%>
 </div>

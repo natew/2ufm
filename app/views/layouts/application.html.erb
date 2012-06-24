@@ -95,7 +95,7 @@
 
         <% if user_signed_in? %>
         <section>
-          <%= link 'My Station', '/songs-new', :id => 'nav-my-station', :class => 'pictos-user restricted' %>
+          <%= link 'My Station', '/' + current_user.station.slug, :id => 'nav-my-station', :class => 'pictos-user restricted' %>
         </section>
         <% end %>
 
@@ -110,11 +110,6 @@
           <%= link 'Artists', '/artists', :id => 'nav-artists'   , :class => 'pictos-users' %>
           <%= link 'Blogs', '/artists', :id => 'nav-artists'   , :class => 'pictos-newspaper' %>
           <%= link 'Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>
-          <% if user_signed_in? %>
-            <div id="station-drop">
-              Drag stations here
-            </div>
-          <% end %>
         </section>
 
         <div class="bottom">
@@ -131,38 +126,7 @@
         </div>
       </div>
     </div>
-    <div id="push"></div>
   </div>
-
-  <footer class="clearfix">
-    <div class="page-contain">
-      <div id="footer-about">
-        <h4>What is 2u.fm?</h4>
-        <p><strong>2u.fm</strong> is the best place to find new music to share with friends.  We gather music from all over the web and sort it all out so you can discover the best of it.  Follow anything you like -- artists, genres, blogs, or other users.  We do the rest.</p>
-
-        <span>&copy; 2012 Verite LLC.  All rights reserved.</span>
-      </div>
-
-      <div id="footer-info">
-        <h4>Info</h4>
-        <a href="#">Team</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Legal</a>
-      </div>
-
-      <div id="footer-connect">
-        <h4>Connect</h4>
-        <a href="">Twitter</a>
-        <a href="">Facebook</a>
-        <a href="">Email</a>
-      </div>
-
-      <div id="footer-like">
-        <h4>More</h4>
-      </div>
-    </div>
-  </footer>
 
   <a id="debug" class="control" href="">d</a>
   <div id="debug_dump"></div>

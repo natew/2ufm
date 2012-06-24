@@ -248,7 +248,7 @@ $(function() {
 
   // Determines if window is near bottom
   function nearBottom() {
-    return w.scrollTop() >= ($(document).height() - $(window).height() - 500);
+    return w.scrollTop() >= ($(document).height() - $(window).height() - 400);
   }
 
   // Playlist bar hover

@@ -166,6 +166,7 @@ button {
 
   &:hover {
     background-position: 0 -25px;
+    color: #fff;
   }
 
   &.abs-right {
@@ -199,6 +200,8 @@ button {
   &.remove.first-hover {
     @include background-gradient($light-green, $green);
     border-color: #239708;
+    border-width: 2px;
+    margin: 0;
   }
 
   &.add {
