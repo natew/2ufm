@@ -35,7 +35,7 @@ module ApplicationHelper
     list = []
     authors = authors.joins(:artist)
     authors.each do |author|
-      link = link_to(author.artist.name, author.artist)
+      link = link_to(author.artist.name, author.artist, :class => 'role role-' + author.role)
       author.role == 'original' ? list.unshift(link) : list.push(link)
     end
     raw list.join(', ')

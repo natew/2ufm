@@ -57,7 +57,7 @@ class Song < ActiveRecord::Base
   # Orders
   scope :order_broadcasted_by_type, select('DISTINCT ON ("broadcasts"."created_at", "songs"."shared_id") songs.*').order('broadcasts.created_at desc')
   scope :order_broadcasted, select('DISTINCT ON ("broadcasts"."created_at", "songs"."shared_id") songs.*').order('broadcasts.created_at desc')
-  scope :order_ranked, select('DISTINCT ON (songs.rank, "songs"."shared_id") "songs".*').order('songs."rank" desc')
+  scope :order_ranked, select('DISTINCT ON ("songs"."rank", "songs"."shared_id") songs.*').order('songs."rank" desc')
   scope :order_published, select('DISTINCT ON ("songs"."published_at", "songs"."shared_id") songs.*').order('songs.published_at desc')
 
   # Scopes for playlist

@@ -8,7 +8,10 @@
       <span class="name"><%= link_to song.name, song %></span>
     </h1>
 
-    <p><%= song.post_excerpt %></p>
+    <div class="post-info">
+      <p><%= song.post_excerpt %></p>
+      <span><%= link_to 'Read post', song.post_url, :target => '_blank' %></span>
+    </div>
 
     <div class="song-meta">
       <% if song.reposted? %><span><%= link_to pluralize(song.shared_count,'blog'), song %></span>

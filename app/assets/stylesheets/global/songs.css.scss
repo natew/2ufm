@@ -27,25 +27,12 @@
   }
 }
 
-.role {
-  margin: 0 -2px;
-  padding: 0 2px;
-  color: darken($link-color,10%);
-  @include border-radius(3px);
-
-  &:hover {
-    background: $primary;
-    color: #fff;
-  }
-}
-
-.role:after,
-.role-featured:before {
+.role:after {
   display: inline-block;
   content: "";
   width: 16px;
   height: 9px;
-  margin: 0 2px .05em 4px;
+  margin: 0 2px .1em 4px;
   background: url(/images/artist-icons.png) no-repeat top left;
 }
 
@@ -55,8 +42,7 @@
 .role-producer:after {background-position:0 -18px;}
 .role-cover:after {background-position:0 -27px;}
 
-.role-featured:after { display: none; }
-.role-featured:before { background-position:0 -36px; margin-right: 4px; margin-left: 2px; }
+.role-featured:after { background-position:0 -36px; margin-right: 4px; margin-left: 2px; }
 
 $playing-color: #618bff;
 
@@ -427,12 +413,34 @@ $song-pad-left: 25px;
         }
       }
 
-      p {
-        color: #888;
-        margin: 0 0 10px 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      .post-info {
+        height: 2em;
+        position: relative;
+
+        p {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 100px;
+          color: #888;
+          margin: 0 0 10px 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 90%;
+        }
+
+        span {
+          position: absolute;
+          top: 0;
+          right: 0;
+
+          a {
+            color: #666;
+            text-decoration: none;
+            font-weight: bold;
+          }
+        }
       }
     }
 
