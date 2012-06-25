@@ -23,264 +23,6 @@
 
 $playing-color: #618bff;
 
-$cover-size: 180px;
-$cover-pad: 10px;
-$cover-margin: 6px;
-
-$cover-border-radius: 10px;
-$cover-border-inner-radius: 8px;
-$cover-border-color-hover: $primary;
-
-.playlist-cover {
-  margin-right: -$cover-margin;
-
-  section {
-    float: left;
-    margin: 0 $cover-margin 6+$cover-margin 0;
-
-    &:hover .cover {
-      border-color: $cover-border-color-hover;
-      @include box-shadow(0 0 12px rgba(0,0,0,0.4));
-
-      .wrap {
-        opacity: 0.6;
-        border-color: #000;
-      }
-
-      h4 {
-        background-color: transparent;
-      }
-
-      nav {
-        a {
-          color: #fff;
-        }
-      }
-
-      .play-song {
-        display: block;
-      }
-    }
-
-    &.playing .cover {
-      border-color: $playing-color;
-      @include box-shadow(0 0 12px rgba(0,0,0,0.6));
-
-      h4 {
-        padding-bottom: 0;
-        height: 100%;
-        background-color: none;
-      }
-
-      .play-song {
-        a { color: #fff; }
-        border-color: $playing-color;
-        @include linear-gradient(lighten($playing-color,10%),$playing-color);
-      }
-
-      .play-song {
-        display: block;
-
-        &:before {
-          content: "5";
-          left: 14px;
-        }
-      }
-    }
-
-    &.paused .cover {
-      .play-song:before {
-        left: 18px;
-        content: "4" !important;
-      }
-    }
-  }
-
-  .cover {
-    overflow: hidden;
-    position: relative;
-    width: $cover-size;
-    height: $cover-size;
-    border: 3px solid darken($body-bg,3%);
-
-    .wrap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 4;
-      opacity: 0.3;
-      @include box-sizing(border-box);
-    }
-
-    .art, img {
-      width: 100%;
-      height: 100%;
-    }
-
-    $play-song-size: 63px;
-
-    .play-song {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin: -($play-song-size/2) 0 0 0 -($play-song-size/2);
-      z-index: 5;
-      width: $play-song-size;
-      height: $play-song-size;
-      color: #fff;
-      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3), 0 0 6px rgba(0,0,0,0.5));
-      @include background-gradient($body-light, $body-dark);
-      @include border-radius($play-song-size);
-      @include box-sizing(border-box);
-
-      &:before {
-        content: "4";
-        display: inline-block;
-        position: absolute;
-        top: 25px;
-        left: 18px;
-        font-size: 42px;
-        color: #fff;
-      }
-    }
-
-    $nav-distance: 1px;
-
-    nav {
-      position: absolute;
-      bottom: $nav-distance;
-      left: $nav-distance;
-      right: $nav-distance;
-      padding-top: 40px;
-      z-index: 10;
-      margin: 0;
-      @include linear-gradient(transparent 0%, rgba(0,0,0,0.7) 100%);
-
-      span.right {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-      }
-
-      a[class*="pictos-"] {
-        padding-left: 20px;
-        padding-right: 6px;
-      }
-
-      a, span {
-        padding: 2px;
-        text-decoration: none;
-        color: rgba(255,255,255,0.8);
-        float: left;
-        font-size: 18px;
-        border: none;
-
-        &:hover {
-          color: #fff;
-        }
-
-        &:before {
-          font-size: 12px;
-          top: 1px;
-          left: 5px;
-        }
-      }
-
-      a.pictos-heart {
-        padding: 1px 8px 2px 25px;
-
-        &.remove {
-          color: #fff;
-          border: 2px solid $dark-green;
-          margin: -2px;
-          @include linear-gradient($light-green, $green);
-          @include border-radius(4px);
-        }
-
-        &:before {
-          font-size: 18px;
-          top: 2px;
-          left: 4px;
-        }
-      }
-
-      a.pictos-info {
-        margin: 0 -3px -3px 0;
-
-        &:before {
-          font-size: 22px;
-        }
-      }
-    }
-
-    h4 {
-      width: 100%;
-      min-height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      padding: $cover-pad;
-      padding-top: $cover-pad - 4;
-      color: #fff;
-      z-index: 2;
-      line-height: 1.3em;
-      color: #fff;
-      font-size: 15px;
-      font-weight: bold;
-      margin: 0;
-      text-shadow: 0 1px 5px #000;
-      @include box-sizing(border-box);
-      background-color: rgba(#000,0.5);
-
-      small {
-        color: #ddd;
-        font-size: 12px;
-        display: block;
-        font-weight: bold;
-      }
-
-      a {
-        color: #fff;
-        text-decoration: none;
-      }
-    }
-  }
-
-  $below-song-color: darken($heading-color,25%);
-
-  .below-cover {
-    position: relative;
-    padding: 0 $cover-border-radius - 2 0;
-    color: $below-song-color;
-    width: $cover-size;
-    @include box-sizing(border-box);
-
-    strong {
-      font-size: 11px;
-
-      a {
-        color: $below-song-color;
-        text-decoration: none;
-        display: block;
-        width: 64%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-
-    time {
-      position: absolute;
-      font-size: 9px;
-      bottom: 0;
-      right: 0;
-    }
-  }
-}
-
 $song-pad-left: 22px;
 $song-playing-bg: #eee;
 
@@ -295,16 +37,33 @@ $song-playing-bg: #eee;
     position: relative;
 
     &.playing {
-      background: $song-playing-bg;
+      border-left: 2px solid $orange;
+      margin-left: -2px;
 
-      .song-controls {
-        background: $song-playing-bg;
-        border-left: 2px solid #ddd;
-        &:before {background: $song-playing-bg; border-left:2px solid #ddd;}
+      .song-controls li.broadcast a {
+        color: $orange;
       }
 
-      .song-player .waveform-wrap img {
-        opacity: 0.65;
+      .song-player {
+
+        .play-song {
+          border-color: $orange;
+          @include linear-gradient($light-orange, $orange);
+
+          &:before {
+            content: "5";
+            left: 7px;
+          }
+
+          &:hover {
+            border-color: $light-orange;
+            @include linear-gradient(lighten($light-orange,10%),$light-orange);
+          }
+        }
+
+        .waveform-wrap img {
+          opacity: 0.7;
+        }
       }
     }
 
@@ -319,19 +78,8 @@ $song-playing-bg: #eee;
       top: 10px;
       left: -16px;
       margin: 0;
-      padding: 4px 0;
+      padding: 4px 0 0;
       background: #fff;
-
-      &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: -10px;
-        left: -2px;
-        width:20px;
-        height: 10px;
-        background: #fff;
-      }
 
       li {
         float: right;
@@ -428,6 +176,7 @@ $song-playing-bg: #eee;
           position: absolute;
           top: 0;
           right: 0;
+          font-size: 11px;
 
           a {
             color: #666;
@@ -452,7 +201,7 @@ $song-playing-bg: #eee;
       }
 
       a {
-        color: #aaa;
+        color: #888;
         text-decoration: none;
         font-weight: bold;
         display: inline-block;
@@ -494,9 +243,9 @@ $song-playing-bg: #eee;
         width: $play-button-size;
         height: $play-button-size;
         color: #fff;
-        border: 2px solid $orange;
+        border: 2px solid #aaa;
         @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
-        @include linear-gradient($light-orange, $orange);
+        @include linear-gradient(#ccc, #aaa);
         @include border-radius($play-button-size);
         @include box-sizing(border-box);
 
@@ -504,11 +253,16 @@ $song-playing-bg: #eee;
           content: "4";
           display: inline-block;
           position: absolute;
-          top: 13px;
+          top: 14px;
           left: 9px;
           font-size: 33px;
           color: #fff;
           text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+        }
+
+        &:hover {
+          border-color: #bbb;
+          @include linear-gradient(#ddd, #bbb);
         }
       }
 
@@ -537,13 +291,13 @@ $song-playing-bg: #eee;
           position: absolute;
           top: -20%;
           left: 2px;
-          opacity: 0.5;
+          opacity: 0.4;
         }
       }
 
       .song-art {
         position: absolute;
-        top: 0;
+        top: 1px;
         width: 48px;
         height: 48px;
         right: 0;
