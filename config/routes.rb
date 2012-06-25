@@ -17,6 +17,7 @@ Fusefm::Application.routes.draw do
   resources :stations, :only => [:show, :index]
   resources :follows, :only => [:create, :destroy]
   resources :broadcasts, :only => [:create, :destroy]
+  resources :comments, :only => [:create, :destroy]
 
   resources :listens, :only => [:create, :show]
   match "/l/:id", :to => "listens#show"

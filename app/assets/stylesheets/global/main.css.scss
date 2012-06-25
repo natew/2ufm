@@ -34,7 +34,6 @@ h2, h3, h4 {
   line-height: 1.4em;
   padding: 0;
   margin: 0 0 15px 0;
-  font-weight: normal;
 
   &.inline {
     display: inline-block;
@@ -124,11 +123,10 @@ header {
   right: 0;
   padding-top: 6px;
   width: $sidebar-width;
-  @include linear-gradient(right, #f2f2f2 95%, #d9d9d9 100%);
+  background: #f2f2f2;
   @include box-sizing(border-box);
 
   section {
-    margin-left: -1px;
     padding: 10px;
     display: block;
     width: 100%;

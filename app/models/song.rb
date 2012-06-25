@@ -21,6 +21,9 @@ class Song < ActiveRecord::Base
   has_many   :artists, :through => :authors
   has_many   :listens
 
+  # Comments
+  acts_as_commentable
+
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }

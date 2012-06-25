@@ -31,17 +31,6 @@ w.on({
     $('#player-artist-name').html(song.artist_name);
     $('#player-song-name').html(song.name);
 
-    // Update progress bar
-    var waveform = mp.curSection().find('.waveform');
-    $('#player-progress-waveform, #player-progress-bar canvas').remove();
-    if (waveform.length) {
-      try {
-        $('<img id="player-progress-waveform" src="'+waveform.attr('src')+'" />').appendTo('#player-progress-bar').inverter();
-      } catch(error) {
-        fn.log(error);
-      }
-    }
-
     // Scroll to song
     if (mp.isOnPlayingPage()) {
       var section    = $('#song-'+song.id),

@@ -66,11 +66,17 @@ GEM
     activesupport (3.2.2)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    acts_as_commentable_with_threading (1.1.2)
+      activerecord (>= 3.0)
+      activesupport (~> 3.0)
+      awesome_nested_set (>= 2.0)
     anemone (0.7.2)
       nokogiri (>= 1.3.0)
       robotex (>= 1.0.0)
     ansi (1.4.2)
     arel (3.0.2)
+    awesome_nested_set (2.1.3)
+      activerecord (>= 3.0.0)
     awesome_print (1.0.2)
     aws-sdk (1.5.4)
       httparty (~> 0.7)
@@ -268,6 +274,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_commentable_with_threading
   anemone
   awesome_print
   aws-sdk

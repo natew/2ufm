@@ -1,0 +1,5 @@
+<h3>Add Comment</h3>
+<%= form_for :comment, :html => { :multipart => true, :id => 'new-comment' } do |f| %>
+  <%= f.text_area :comment, :class => 'comment-text' %>
+  <%= f.submit 'Post comment', :class => 'right' %>
+<% end %>

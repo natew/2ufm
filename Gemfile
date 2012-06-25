@@ -16,6 +16,9 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'cancan'
 
+# Comments
+gem 'acts_as_commentable_with_threading'
+
 # Crawling and parsing
 gem 'nokogiri'
 gem 'chronic'
@@ -36,10 +39,16 @@ gem 'stringex', :git => 'git://github.com/rsl/stringex.git'
 gem 'curb'
 gem 'loofah-activerecord'
 gem 'sanitize'
-gem 'kaminari'
 gem 'hashie'
-gem 'texticle', :git => 'git://github.com/texticle/texticle.git', :require => 'texticle/rails'
 gem 'bson_ext'
+
+# Pagination
+gem 'kaminari'
+
+# Search
+gem 'texticle', :git => 'git://github.com/texticle/texticle.git', :require => 'texticle/rails'
+
+# Songs
 gem 'discogs-wrapper'
 gem 'taglib-ruby'
 
