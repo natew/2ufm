@@ -36,7 +36,7 @@ class Song < ActiveRecord::Base
   # Basic Scopes
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
-  scope :working, where(processed: true, working: true, soundcloud_id: nil)
+  scope :working, where(processed: true, working: true).where('soundcloud_id IS NULL')
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
