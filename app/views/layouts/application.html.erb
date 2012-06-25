@@ -20,9 +20,15 @@
 
   <%= stylesheet_link_tag "application", :debug => Rails.env.development? %>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
+  <script>
+    var _gaq=[['_setAccount','UA-32843361-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))
+  </script>
 </head>
 
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>">
+
   <header>
     <div class="page-contain">
       <h1><%= link_to '2u.fm', '/', :title => '2u.fm, find and share music' %> </h1>
@@ -130,14 +136,6 @@
 
   <a id="debug" class="control" href="">d</a>
   <div id="debug_dump"></div>
-
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID
-  <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script> -->
 
   <!-- Menu items -->
   <div id="nav-user" class="pop-menu">
