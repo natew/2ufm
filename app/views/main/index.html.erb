@@ -23,27 +23,6 @@
 <%- else -%>
 
   <div class="whole">
-
-    <div id="stations" class="nav-container">
-      <h2 class="inline">Browse stations</h2>
-      <nav class="nav-menu inline">
-        <%= link_to 'Featured', '#stations-featured', :class => 'control active' %>
-        <%= link_to 'Trending', '#stations-trending', :class => 'control' %>
-        <%= link_to 'Artists', '#stations-artists', :class => 'control' %>
-      </nav>
-      <div class="contain stations-contain">
-        <div id="stations-featured" class="playlist-cover stations section active">
-          <%= render :partial => 'stations/station', :collection => @stations[:featured] %>
-        </div>
-        <div id="stations-trending" class="playlist-cover stations section">
-          <%= render :partial => 'stations/station', :collection => @stations[:trending] %>
-        </div>
-        <div id="stations-artists" class="playlist-cover stations section">
-          <%= render :partial => 'stations/station', :collection => @stations[:artists] %>
-        </div>
-      </div>
-    </div>
-
     <h2>Popular today</h2>
     <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
   </div>

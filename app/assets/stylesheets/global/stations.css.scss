@@ -11,13 +11,15 @@ $station-margin: 4%;
 $station-height: 120px;
 $section-pad: 8px;
 
-#stations {
-  display: none;
-}
-
 .stations-contain {
-  height: $station-height + 8;
+  height: 90px;
   overflow: hidden;
+
+  .stations section {
+    float: left;
+    width: 200px;
+    margin: 7px 0 -6px;
+  }
 }
 
 .stations {

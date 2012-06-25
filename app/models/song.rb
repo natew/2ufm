@@ -30,13 +30,13 @@ class Song < ActiveRecord::Base
   has_attachment :file
 
   # Validations
-  validates :url, :presence => true, :uniqueness => true
+  validates :url, :presence => true
   validate :unique_to_blog, :on => :create
 
   # Basic Scopes
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
-  scope :working, where(processed: true, working: true)
+  scope :working, where(processed: true, working: true, soundcloud_id: nil)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
