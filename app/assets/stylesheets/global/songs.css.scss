@@ -448,13 +448,18 @@ $song-playing-bg: #eee;
       text-align: right;
 
       .follow-station-small {
-        font-size: 13px;
+        font-size: 12px;
       }
 
       a {
         color: #aaa;
         text-decoration: none;
         font-weight: bold;
+        display: inline-block;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &:hover {
           color: #555;
