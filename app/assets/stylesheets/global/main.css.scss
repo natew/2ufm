@@ -93,12 +93,12 @@ header {
     left: 94px;
 
     a {
-      font-size: 22px;
+      font-size: 26px;
       color: rgba(255,255,255,0.8);
       padding: 4px;
       margin: -4px;
       float: left;
-      margin-right: 11px;
+      margin-right: 13px;
 
       &:hover {
         color: #fff !important;
@@ -463,7 +463,7 @@ header #second-nav {
       @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.45));
 
       &:hover {
-        @include linear-gradient(lighten($header-color-light,20%),$header-color);
+        @include linear-gradient(lighten($button-bg,22%), lighten($button-bg,12%));
 
         span {
           color: #fff;
@@ -495,7 +495,7 @@ header #second-nav {
     }
 
     .next {
-      margin: 31px 0 0 -15px;
+      margin: 33px 0 0 -15px;
       font-size: 16px;
       width: 24px;
       height: 24px;
@@ -640,13 +640,12 @@ header #second-nav {
       }
 
       canvas {
-        opacity: 0.4;
-        width: 97%;
+        width: 98%;
         height: 27px;
         position: absolute;
-        top: -4px;
-        left: 2%;
-        opacity: 0.3;
+        top: -6px;
+        left: 1.8%;
+        opacity: 0.25;
         z-index: 2;
         display: block !important;
       }
@@ -1050,6 +1049,7 @@ $nav-arrow-size: 5px;
   background: rgba(0,0,0,0.8);
   max-width: 280px;
   @include border-radius(5px);
+  font-weight: bold;
 
   &.open {
     display: block;
