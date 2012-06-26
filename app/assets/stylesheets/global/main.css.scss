@@ -12,7 +12,7 @@ body {
 }
 
 a { color: $link-color; }
-a:hover { color: $link-hover !important; }
+a:hover { color: $link-hover; }
 
 #main-mid {
   padding: $header-height 0 0;
@@ -26,8 +26,8 @@ a:hover { color: $link-hover !important; }
 
 /* HEADING AND TEXT STYLES */
 
-h2 { font-size: 18px; }
-h3 { font-size: 16px; }
+h2 { font-size: 12px; text-transform:uppercase; }
+h3 { font-size: 14px; }
 h4 { font-size: 14px; }
 
 h2, h3, h4 {
@@ -63,7 +63,7 @@ header {
   z-index: 100;
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
-  border-bottom: 1px solid darken($header-color,15%);
+  border-bottom: 2px solid darken($header-color,7%);
   @include background-image(linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -120,14 +120,15 @@ header {
   top: $header-height;
   bottom: 0;
   left: 0;
+  border-right: 2px solid #ddd;
   padding-top: 6px;
   width: $sidebar-width;
-  background: #f2f2f2;
-  @include linear-gradient(right, #f2f2f2 95%, #eee 100%);
+  @include linear-gradient(left, #eee 93%, #f2f2f2 100%);
   @include box-sizing(border-box);
 
   section {
     padding: 10px;
+    margin-left: -1px;
     display: block;
     width: 100%;
     position: relative;
@@ -140,9 +141,9 @@ header {
     }
 
     h1 {
-      font-size: 11px;
+      font-size: 12px;
       text-transform: uppercase;
-      color: #777;
+      color: #999;
       padding: 4px 0 0;
       margin: 0;
       text-align: center;
@@ -151,10 +152,10 @@ header {
     a {
       display: block;
       text-decoration: none;
-      color: #aaa;
-      font-size: 11px;
-      padding: 36px 4px 2px;
-      margin: 0;
+      color: #777;
+      font-size: 12px;
+      padding: 38px 4px 2px;
+      margin: 0 0 4px 0;
       width: 60px;
       float: left;
       text-align: center;
@@ -167,11 +168,11 @@ header {
       }
 
       &:before {
-        left: 24px;
-        top: 14px;
-        font-size: 22px;
+        left: 21px;
+        top: 13px;
+        font-size: 30px;
         font-weight: normal;
-        color: #aaa;
+        color: #777;
       }
     }
   }
@@ -181,6 +182,7 @@ header {
   min-width: $width;
   overflow: hidden;
   position: relative;
+  background: $body-bg;
   padding: 20px 0 20px $sidebar-width;
 
   h2, h3 { color: $heading-color; }

@@ -28,21 +28,20 @@ $song-playing-bg: #eee;
 
 .playlist-song {
   clear: both;
-  margin: 0 0 20px;
+  margin: -5px 0 20px;
 
   section {
-    margin: 0 0 10px 0;
-    padding: 10px;
+    margin: 0 -5px;
+    padding: 12px 10px;
     position: relative;
-    border-bottom: 1px solid #eee;
 
-    &:hover {
-      .song-controls li.hover-show a {
-        display: block;
-      }
+    &:nth-child(2n+1) {
+      background: #f2f2f2;
     }
 
     &.playing {
+      background: #fffcd8;
+
       .song-player {
 
         .play-song {
@@ -50,8 +49,9 @@ $song-playing-bg: #eee;
           @include linear-gradient($light-orange, $orange);
 
           &:before {
+            color: #fff;
             content: "5";
-            left: 7px;
+            left: 8px;
           }
 
           &:hover {
@@ -66,26 +66,52 @@ $song-playing-bg: #eee;
       }
     }
 
+    &.paused {
+      .song-player .play-song:before {
+        content: "4";
+        left: 10px;
+      }
+    }
+
     &.failed {
-      background: #f2f2f2;
-      .cover { background: red; }
-      &:hover { cursor: default; }
+      background: #ddd;
+
+      .song-meta, h1 {
+        z-index: 101;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.1);
+      }
     }
 
     h1 {
-      margin: 0 0 4px 0;
+      margin: -3px 0 4px 0;
       width: 72%;
+      position: relative;
 
       span {
         display: block;
 
         &.artist {
           font-size: 14px;
-          margin: 0;
+          margin: 0 0 1px 0;
           font-weight: normal;
 
           a {
-            color: #666;
+            color: #777;
+
+            &:hover {
+              color: $link-hover;
+            }
           }
         }
 
@@ -94,7 +120,11 @@ $song-playing-bg: #eee;
           margin: 0;
 
           a {
-            color: #333;
+            color: #444;
+
+            &:hover {
+              color: $link-hover;
+            }
           }
         }
 
@@ -112,7 +142,7 @@ $song-playing-bg: #eee;
       right: 10px;
       font-size: 12px;
       margin: 0;
-      color: #aaa;
+      color: #999;
       text-align: right;
 
       .follow-station-small {
@@ -120,7 +150,7 @@ $song-playing-bg: #eee;
       }
 
       a {
-        color: #888;
+        color: #aaa;
         text-decoration: none;
         font-weight: bold;
         display: inline-block;
@@ -145,9 +175,8 @@ $song-playing-bg: #eee;
     }
 
     .song-controls {
-      margin: 0 -10px -10px;
-      padding: 0 10px 10px;
-      @include linear-gradient(#fff, #f2f2f2);
+      margin: 0;
+      padding: 0;
 
       li {
         float: left;
@@ -158,6 +187,11 @@ $song-playing-bg: #eee;
 
           a {
             margin: 0 0 0 15px;
+            font-size: 12px;
+
+            &:before {
+              font-size: 12px;
+            }
           }
         }
 
@@ -169,34 +203,26 @@ $song-playing-bg: #eee;
 
         &.broadcast a {
           display: block;
+          color: #777;
         }
 
         a {
-          font-size: 12px;
           text-decoration: none;
-          position: relative;
           font-weight: bold;
+          position: relative;
           z-index: 3;
           font-size: 14px;
-          color: #666;
+          color: #aaa;
           margin: 0 15px 0 0;
 
           &:before {
             position: relative;
             display: inline-block;
-            padding: 1px 4px 0;
-            margin: 0 6px 0 0;
-            vertical-align: top;
-            line-height: 1.3em;
+            margin: -3px 6px -2px 0;
+            vertical-align: middle;
             top: auto;
             left: auto;
-            font-size: 15px;
-            color: #888;
-            text-shadow: 0 -1px 0 #fff;
-            border: 1px solid #ccc;
-            @include box-shadow(inset 0 1px 0 #fff);
-            @include linear-gradient(#f2f2f2,#ddd);
-            @include border-radius(20px);
+            font-size: 14px;
           }
 
           &:hover { color: #cb0000; }
@@ -212,8 +238,7 @@ $song-playing-bg: #eee;
     $play-button-size: 45px;
 
     .song-player {
-      margin: 10px 0 0;
-      padding: 0 0 10px 0;
+      margin: 10px 0 5px;
       position: relative;
       height: $song-player-height;
 
@@ -225,10 +250,9 @@ $song-playing-bg: #eee;
         z-index: 5;
         width: $play-button-size;
         height: $play-button-size;
-        color: #fff;
-        border: 2px solid #aaa;
-        @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
-        @include linear-gradient(#ccc, #aaa);
+        border: 2px solid #333;
+        @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.4));
+        @include linear-gradient(#666, #444);
         @include border-radius($play-button-size);
         @include box-sizing(border-box);
 
@@ -236,16 +260,20 @@ $song-playing-bg: #eee;
           content: "4";
           display: inline-block;
           position: absolute;
-          top: 14px;
-          left: 9px;
-          font-size: 33px;
-          color: #fff;
-          text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+          top: 13px;
+          left: 10px;
+          font-size: 31px;
+          color: #ddd;
+          text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
         }
 
         &:hover {
-          border-color: #bbb;
-          @include linear-gradient(#ddd, #bbb);
+          border-color: #555;
+          @include linear-gradient(#888, #666);
+
+          &:before {
+            color: #fff;
+          }
         }
       }
 
