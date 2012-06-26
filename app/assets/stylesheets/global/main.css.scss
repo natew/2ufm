@@ -76,7 +76,7 @@ header {
 
   h1 {
     position: absolute;
-    top: 3px;
+    top: 1px;
     left: -5px;
     margin: 0;
 
@@ -128,7 +128,7 @@ $navbar-bg: #fefefe;
   left: 0;
   right: 0;
   border-right: 1px solid #d8d8d8;
-  background: #f2f2f2;
+  @include box-shadow(0 1px 1px rgba(0,0,0,0.9));
   @include linear-gradient($navbar-bg 0%, darken($navbar-bg, 4%) 90%, darken($navbar-bg, 10%) 100%);
   @include box-sizing(border-box);
 
@@ -148,6 +148,7 @@ $navbar-bg: #fefefe;
     }
 
     a {
+      position: relative;
       display: inline-block;
       text-decoration: none;
       color: #888;
@@ -231,7 +232,7 @@ $navbar-bg: #fefefe;
 
 header form {
   position: absolute;
-  top: 17px;
+  top: 15px;
   right: 20px;
   z-index: 1000;
 
@@ -409,7 +410,7 @@ header #second-nav {
   }
 
   #player-controls {
-    margin: -4px 6px -4px 16px;
+    margin: -4px 6px -4px 4px;
     width: 80px;
     float: left;
 
@@ -419,13 +420,10 @@ header #second-nav {
       float: left;
       overflow: hidden;
       color: $button-color;
-      border: 1px solid $button-border-color;
-      @include border-radius(50px);
-      @include linear-gradient(lighten($button-bg,18%), lighten($button-bg,8%));
-      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.45));
 
       &:hover {
-        @include linear-gradient(lighten($button-bg,22%), lighten($button-bg,12%));
+        color: #fff;
+        @include box-shadow(0 0 4px rgba(0,0,0,0));
 
         span {
           color: #fff;
@@ -439,8 +437,7 @@ header #second-nav {
         width: 100%;
         height: 100%;
         display: inline-block;
-        position: absolute;
-        text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+        text-shadow: 0 -1px 0 rgba(0,0,0,1);
         @include box-sizing(border-box);
       }
     }
@@ -457,7 +454,7 @@ header #second-nav {
     }
 
     .next {
-      margin: 31px 0 0 -15px;
+      margin: 15px 0 0 -3px;
       font-size: 16px;
       width: 24px;
       height: 24px;
@@ -512,7 +509,7 @@ header #second-nav {
   #player-bottom {
     clear: both;
     position: absolute;
-    bottom: 5px;
+    bottom: 3px;
     width: 100%;
     height: 18px;
 
