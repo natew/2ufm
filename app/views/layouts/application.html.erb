@@ -103,10 +103,6 @@
       <%- end -%>
 
       <div id="navbar">
-        <a id="tour-button" class="announce primary control" href="/tour">
-          The best way to find &amp; share music with friends &raquo;
-        </a>
-
         <% if user_signed_in? %>
         <section>
           <%= link 'My Station', '/' + current_user.station.slug, :id => 'nav-my-station', :class => 'pictos-user restricted' %>
@@ -125,12 +121,6 @@
           <%= link 'Blogs', '/artists', :id => 'nav-artists'   , :class => 'pictos-newspaper' %>
           <%= link 'Users', '/users', :id => 'nav-users'   , :class => 'pictos-user' %>
         </section>
-
-        <div class="bottom">
-          <a href="/mac" class="announce mac-only control pictos-down">
-            Get the app for mac!
-          </a>
-        </div>
       </div>
 
       <div id="body">

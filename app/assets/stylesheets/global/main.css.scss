@@ -15,7 +15,7 @@ a { color: $link-color; }
 a:hover { color: $link-hover !important; }
 
 #main-mid {
-  padding: $header-height + 30 0 0;
+  padding: $header-height 0 0;
   min-height: 100%;
   height: auto !important;
   height: 100%;
@@ -118,18 +118,20 @@ header {
   position: fixed;
   z-index: 50;
   top: $header-height;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  padding: 0 20px;
-  background: #eee;
+  padding-top: 6px;
+  width: $sidebar-width;
+  background: #f2f2f2;
+  @include linear-gradient(right, #f2f2f2 95%, #eee 100%);
   @include box-sizing(border-box);
 
   section {
-    display: inline;
+    padding: 10px;
+    display: block;
+    width: 100%;
     position: relative;
     z-index: 1;
-    margin: 0;
-    padding: 0;
     @include box-sizing(border-box);
 
     &#friends {
@@ -138,7 +140,6 @@ header {
     }
 
     h1 {
-      display: none;
       font-size: 11px;
       text-transform: uppercase;
       color: #777;
@@ -148,83 +149,31 @@ header {
     }
 
     a {
-      float: left;
       display: block;
       text-decoration: none;
-      color: #555;
-      font-size: 13px;
-      padding: 6px;
-      margin: 0 10px 0 0;
+      color: #aaa;
+      font-size: 11px;
+      padding: 36px 4px 2px;
+      margin: 0;
+      width: 60px;
+      float: left;
+      text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-weight: bold;
 
       &:hover, &:hover:before {
         color: #000 !important;
       }
 
       &:before {
-        position: relative;
-        display: inline-block;
-        left: auto;
-        top: auto;
-        margin: -1px 5px 0 0;
-        font-size: 17px;
+        left: 24px;
+        top: 14px;
+        font-size: 22px;
         font-weight: normal;
         color: #aaa;
-        text-shadow: none;
       }
     }
-  }
-
-  .bottom {
-    display: none;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 0;
-    padding: 0 10px;
-    width: 100%;
-    @include box-sizing(border-box);
-
-    .announce {
-      margin: 0 -10px;
-    }
-
-    .add.facebook,
-    .add.twitter {
-      width: 49%;
-      float: left;
-      padding: 2px 6px;
-      margin: 0 0 8px 0;
-      color: #fff;
-      text-align: center;
-      font-size: 11px;
-      text-decoration: none;
-      font-weight: bold;
-      border: 1px solid #23487E;
-      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2));
-      @include linear-gradient(#3865A4,#23487E);
-      @include border-radius(5px);
-      @include box-sizing(border-box);
-    }
-
-    .add.twitter {
-      float: right;
-      border: 1px solid #7DC1C4;
-      @include linear-gradient(#9AE4E8,#7DC1C4);
-    }
-  }
-
-  #station-drop {
-    border: 2px dashed $body-bg;
-    color: #999;
-    padding: 10px;
-    margin: 10px 10px 0;
-    text-align: center;
-    font-size: 11px;
-    @include border-radius(8px);
   }
 }
 
@@ -232,7 +181,7 @@ header {
   min-width: $width;
   overflow: hidden;
   position: relative;
-  padding: 20px 0;
+  padding: 20px 0 20px $sidebar-width;
 
   h2, h3 { color: $heading-color; }
   .third h2 { font-size: 14px; }
