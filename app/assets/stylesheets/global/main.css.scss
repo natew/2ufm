@@ -120,7 +120,7 @@ header {
   z-index: 50;
   top: $header-height;
   bottom: 0;
-  right: 0;
+  left: 0;
   padding-top: 6px;
   width: $sidebar-width;
   background: #f2f2f2;
@@ -231,7 +231,7 @@ header {
   min-width: $width;
   overflow: hidden;
   position: relative;
-  padding: 20px $sidebar-width 20px 0;
+  padding: 20px 0 20px $sidebar-width;
 
   h2, h3 { color: $heading-color; }
   .third h2 { font-size: 14px; }
@@ -649,55 +649,6 @@ header #second-nav {
         display: block !important;
       }
     }
-  }
-}
-
-/* Footer */
-footer {
-  background: darken($body-bg,25%);
-  color: lighten($body-bg,15%);
-  height: 20em;
-  padding: 10px $sidebar-width+10 10px 10px;
-
-  .page-contain div {
-    padding: 20px;
-    float: left;
-  }
-
-  h4 {
-    color: lighten($body-bg,85%);
-    text-transform: uppercase;
-  }
-
-  a {
-    display: block;
-    padding: 2px 0;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  #footer-about {
-    width: 300px;
-
-    span {font-size: 10px;}
-  }
-
-  #footer-info {
-    width: 100px;
-  }
-
-  #footer-connect {
-    width: 150px;
-  }
-
-  #footer-like {
-    width: 180px;
-  }
-
-  span.credits {
-    font-size: 9px;
-    color: #ccc;
-    a {color: #ccc;}
   }
 }
 

@@ -155,36 +155,6 @@ $song-playing-bg: #eee;
           text-decoration: none;
         }
       }
-
-      .post-info {
-        height: 2em;
-        position: relative;
-
-        p {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 70px;
-          color: #999;
-          margin: 0 0 10px 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        span {
-          position: absolute;
-          top: 0;
-          right: 0;
-          font-size: 11px;
-
-          a {
-            color: #666;
-            text-decoration: none;
-            font-weight: bold;
-          }
-        }
-      }
     }
 
     .song-meta {
