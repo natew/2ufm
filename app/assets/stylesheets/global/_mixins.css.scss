@@ -2,11 +2,14 @@
 
 /*  Colors  */
 
-$header-color: #b04b2e;
+$header-color: #444;
 $header-color-light: lighten($header-color, 10%);
 $header-height: 64px;
 $header-shadow: rgba(255,255,255,0.15);
 
+$button-bg: lighten($header-color,10%);
+$button-border-color: darken($button-bg,7%);
+$button-color: #fff;
 
 $browse-height: 120px;
 
@@ -17,7 +20,7 @@ $body-light: lighten($body-bg,10%);
 $width: 508px;
 $sidebar-width: 88px;
 $third-width: 210px;
-$query-width: 170px;
+$query-width: 160px;
 
 $heading-color: #717171;
 $heading-color-light: lighten($heading-color,20%);

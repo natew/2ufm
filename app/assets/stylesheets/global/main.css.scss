@@ -121,10 +121,10 @@ header {
   top: $header-height;
   bottom: 0;
   left: 0;
-  border-right: 2px solid #d8d8d8;
+  border-right: 1px solid #d8d8d8;
   padding-top: 6px;
   width: $sidebar-width;
-  background: #e8e8e8;
+  background: #f2f2f2;
   @include box-sizing(border-box);
 
   section {
@@ -183,7 +183,7 @@ header {
   min-width: $width;
   overflow: hidden;
   position: relative;
-  background: $body-bg;
+  background: #fff;
   padding: 20px 0 20px $sidebar-width;
 
   h2, h3 { color: $heading-color; }
@@ -399,10 +399,6 @@ header #second-nav {
       font-size: 39px;
     }
   }
-
-  $button-bg: $header-color;
-  $button-border-color: darken($button-bg,7%);
-  $button-color: #fff;
 
   #player-controls {
     margin: -5px 6px -4px 16px;
