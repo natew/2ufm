@@ -15,7 +15,7 @@ a { color: $link-color; }
 a:hover { color: $link-hover; }
 
 #main-mid {
-  padding: $header-height + 50 0 0;
+  padding: $header-height + 40 0 0;
   min-height: 100%;
   height: auto !important;
   height: 100%;
@@ -127,13 +127,16 @@ $navbar-bg: #fefefe;
   top: $header-height;
   left: 0;
   right: 0;
+  padding-left: 20px;
   border-right: 1px solid #d8d8d8;
-  @include box-shadow(0 1px 1px rgba(0,0,0,0.9));
+  @include box-shadow(0 1px 2px rgba(0,0,0,0.3));
   @include linear-gradient($navbar-bg 0%, darken($navbar-bg, 4%) 90%, darken($navbar-bg, 10%) 100%);
   @include box-sizing(border-box);
 
   section {
-    display: inline;
+    display: block;
+    float: left:
+    margin: 0 40px 0 0;
     position: relative;
     z-index: 1;
 
@@ -153,18 +156,19 @@ $navbar-bg: #fefefe;
       text-decoration: none;
       color: #888;
       font-size: 13px;
-      padding: 10px 15px;
+      padding: 8px 15px;
+      font-weight: bold;
       float: left;
 
       &.active {
         color: #666;
-        @include box-shadow(inset 0 -4px 4px rgba(0,0,0,0.2));
+        @include box-shadow(inset 0 -4px 8px rgba(0,0,0,0.2));
         @include linear-gradient($navbar-bg, #ccc);
       }
 
       &:hover {
         color: #777;
-        @include box-shadow(inset 0 -4px 4px rgba(0,0,0,0.1));
+        @include box-shadow(inset 0 -4px 8px rgba(0,0,0,0.1));
         @include linear-gradient($navbar-bg, #ddd);
       }
 

@@ -103,12 +103,6 @@
       <%- end -%>
 
       <div id="navbar">
-        <% if user_signed_in? %>
-        <section>
-          <%= link 'My Station', '/' + current_user.station.slug, :id => 'nav-my-station' %>
-        </section>
-        <% end %>
-
         <section>
           <h1>Songs</h1>
           <%= link 'Popular', '/songs',   :id => 'nav-songs' %>
@@ -120,6 +114,15 @@
           <%= link 'Artists', '/artists', :id => 'nav-artists' %>
           <%= link 'Blogs', '/blogs',     :id => 'nav-blogs' %>
           <%= link 'Users', '/users',     :id => 'nav-users' %>
+        </section>
+
+        <section class="right">
+          <% if user_signed_in? %>
+          <%= link 'My Station', '/' + current_user.station.slug, :id => 'nav-my-station' %>
+          <% else %>
+          <%= link 'Log in', '/login', :class => 'restricted'  %>
+          <%= link 'Sign up', '/', :class => 'restricted' %>
+          <% end %>
         </section>
       </div>
 
