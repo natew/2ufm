@@ -15,7 +15,7 @@ a { color: $link-color; }
 a:hover { color: $link-hover; }
 
 #main-mid {
-  padding: $header-height 0 0;
+  padding: $header-height + 50 0 0;
   min-height: 100%;
   height: auto !important;
   height: 100%;
@@ -52,6 +52,8 @@ h2, h3, h4 {
   }
 }
 
+$header-border-color: darken($header-color,10%);
+
 
 /* Header */
 header {
@@ -64,7 +66,9 @@ header {
   z-index: 100;
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
-  border-bottom: 2px solid darken($header-color,7%);
+  border-bottom: 1px solid $header-border-color;
+  border-top: 1px solid $header-border-color;
+  @include box-shadow(inset 0 1px 0 $header-shadow);
   @include background-image(linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -115,33 +119,25 @@ header {
   }
 }
 
+$navbar-bg: #fefefe;
+
 #navbar {
   position: fixed;
   z-index: 50;
   top: $header-height;
-  bottom: 0;
   left: 0;
+  right: 0;
   border-right: 1px solid #d8d8d8;
-  padding-top: 6px;
-  width: $sidebar-width;
   background: #f2f2f2;
   @include box-sizing(border-box);
 
   section {
-    padding: 10px;
-    margin-left: -1px;
-    display: block;
-    width: 100%;
+    display: inline;
     position: relative;
     z-index: 1;
-    @include box-sizing(border-box);
-
-    &#friends {
-      margin-top: 30px;
-      border-top: 1px solid #ddd;
-    }
 
     h1 {
+      display: none;
       font-size: 12px;
       text-transform: uppercase;
       color: #999;
@@ -151,29 +147,38 @@ header {
     }
 
     a {
-      display: block;
+      display: inline-block;
       text-decoration: none;
-      color: #777;
-      font-size: 12px;
-      padding: 38px 4px 2px;
-      margin: 0 0 4px 0;
-      width: 60px;
+      color: #888;
+      font-size: 14px;
+      padding: 8px 14px;
       float: left;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
 
-      &:hover, &:hover:before {
-        color: #000 !important;
+      &.active {
+        color: #666;
+        @include box-shadow(0 -4px 4px rgba(0,0,0,0.2));
+        @include linear-gradient($navbar-bg, #ccc);
+      }
+
+      &:hover {
+        color: #777;
+        @include box-shadow(0 -4px 4px rgba(0,0,0,0.1));
+        @include linear-gradient($navbar-bg, #ddd);
+      }
+
+      &:before, &:after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 1px;
+        height: 100%;
+        @include linear-gradient($navbar-bg, #ccc);
       }
 
       &:before {
-        left: 21px;
-        top: 13px;
-        font-size: 30px;
-        font-weight: normal;
-        color: #777;
+        left: 0;
+        right: auto;
+        @include linear-gradient($navbar-bg, #fff);
       }
     }
   }
@@ -184,7 +189,7 @@ header {
   overflow: hidden;
   position: relative;
   background: #fff;
-  padding: 20px 0 20px $sidebar-width;
+  padding: 20px 0;
 
   h2, h3 { color: $heading-color; }
   .third h2 { font-size: 14px; }
