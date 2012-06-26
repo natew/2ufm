@@ -28,8 +28,8 @@ $primary-light: lighten($primary,10%);
 
 $title: #000;
 $border: #555;
-$link-color: lighten($header-color,15%);
-$link-hover: #e3503c;
+$link-color: #333;
+$link-hover: $header-color;
 
 $bar-bg: #444;
 

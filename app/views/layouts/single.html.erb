@@ -1,4 +1,4 @@
 <%= render :partial => 'shared/breadcrumbs' %>
-<div class="contain">
+<div class="contain controller-<%= controller.controller_name %> action-<%= controller.action_name %>">
   <%= yield %>
 </div>

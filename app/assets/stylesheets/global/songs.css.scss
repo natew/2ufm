@@ -26,13 +26,23 @@ $playing-color: #618bff;
 $song-pad-left: 22px;
 $song-playing-bg: #eee;
 
+.controller-songs.action-show {
+  .playlist-song {
+    margin: -10px 0 15px;
+
+    section:nth-child(2n+1) {
+      background: none;
+    }
+  }
+}
+
 .playlist-song {
   clear: both;
-  margin: -5px 0 20px;
+  margin: 0 0 20px;
 
   section {
-    margin: 0 -5px;
-    padding: 12px 10px;
+    margin: 0 -20px;
+    padding: 12px 20px;
     position: relative;
 
     &:nth-child(2n+1) {
