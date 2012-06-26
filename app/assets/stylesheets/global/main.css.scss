@@ -76,7 +76,7 @@ header {
 
   h1 {
     position: absolute;
-    top: 6px;
+    top: 3px;
     left: -5px;
     margin: 0;
 
@@ -92,16 +92,16 @@ header {
 
   nav {
     position: absolute;
-    top: 27px;
+    top: 24px;
     left: 94px;
 
     a {
-      font-size: 26px;
+      font-size: 22px;
       color: rgba(255,255,255,0.8);
       padding: 4px;
       margin: -4px;
       float: left;
-      margin-right: 13px;
+      margin-right: 10px;
 
       &:hover {
         color: #fff !important;
@@ -129,6 +129,7 @@ $navbar-bg: #fefefe;
   right: 0;
   border-right: 1px solid #d8d8d8;
   background: #f2f2f2;
+  @include linear-gradient($navbar-bg 0%, darken($navbar-bg, 4%) 90%, darken($navbar-bg, 10%) 100%);
   @include box-sizing(border-box);
 
   section {
@@ -150,23 +151,25 @@ $navbar-bg: #fefefe;
       display: inline-block;
       text-decoration: none;
       color: #888;
-      font-size: 14px;
-      padding: 8px 14px;
+      font-size: 13px;
+      padding: 10px 15px;
       float: left;
 
       &.active {
         color: #666;
-        @include box-shadow(0 -4px 4px rgba(0,0,0,0.2));
+        @include box-shadow(inset 0 -4px 4px rgba(0,0,0,0.2));
         @include linear-gradient($navbar-bg, #ccc);
       }
 
       &:hover {
         color: #777;
-        @include box-shadow(0 -4px 4px rgba(0,0,0,0.1));
+        @include box-shadow(inset 0 -4px 4px rgba(0,0,0,0.1));
         @include linear-gradient($navbar-bg, #ddd);
       }
 
       &:before, &:after {
+        content: "";
+        display: block;
         position: absolute;
         right: 0;
         bottom: 0;
@@ -406,7 +409,7 @@ header #second-nav {
   }
 
   #player-controls {
-    margin: -5px 6px -4px 16px;
+    margin: -4px 6px -4px 16px;
     width: 80px;
     float: left;
 
@@ -445,16 +448,16 @@ header #second-nav {
     /* play button */
     .play {
       font-size: 40px;
-      width: 56px;
-      height: 56px;
+      width: 50px;
+      height: 50px;
 
       span {
-        padding: 25px 0 0 15px;
+        padding: 22px 0 0 12px;
       }
     }
 
     .next {
-      margin: 33px 0 0 -15px;
+      margin: 31px 0 0 -15px;
       font-size: 16px;
       width: 24px;
       height: 24px;
@@ -550,7 +553,7 @@ header #second-nav {
       overflow: hidden;
       margin: 0;
       padding: 4px;
-      height: 6px;
+      height: 3px;
       border: 1px solid darken($header-color,10%);
       @include linear-gradient(darken($header-color,6%),$header-color);
       @include box-shadow(0 1px 0 $header-shadow);
@@ -582,7 +585,7 @@ header #second-nav {
         top: 0;
         left: 0;
         width: 0%;
-        height: 12px;
+        height: 9px;
         background: rgba(0,0,0,0.1);
         @include border-radius(12px);
       }
