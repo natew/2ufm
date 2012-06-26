@@ -15,7 +15,7 @@ a { color: $link-color; }
 a:hover { color: $link-hover !important; }
 
 #main-mid {
-  padding: $header-height 0 0;
+  padding: $header-height + 30 0 0;
   min-height: 100%;
   height: auto !important;
   height: 100%;
@@ -26,9 +26,9 @@ a:hover { color: $link-hover !important; }
 
 /* HEADING AND TEXT STYLES */
 
-h2 { font-size: 14px; }
-h3 { font-size: 13px; }
-h4 { font-size: 12px; }
+h2 { font-size: 18px; }
+h3 { font-size: 16px; }
+h4 { font-size: 14px; }
 
 h2, h3, h4 {
   line-height: 1.4em;
@@ -63,8 +63,7 @@ header {
   z-index: 100;
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
-  border-bottom: 1px solid darken($header-color,10%);
-  @include box-shadow(0 3px 0 rgba(0,0,0,0.15));
+  border-bottom: 1px solid darken($header-color,15%);
   @include background-image(linear-gradient($header-color-light 0%,$header-color 90%));
   @include box-sizing(border-box);
   background-position: bottom;
@@ -115,24 +114,22 @@ header {
   }
 }
 
-#sidebar {
+#navbar {
   position: fixed;
   z-index: 50;
   top: $header-height;
-  bottom: 0;
   left: 0;
-  padding-top: 6px;
-  width: $sidebar-width;
-  background: #f2f2f2;
-  @include linear-gradient(right, #f2f2f2 95%, #eee 100%);
+  width: 100%;
+  padding: 0 20px;
+  background: #eee;
   @include box-sizing(border-box);
 
   section {
-    padding: 10px;
-    display: block;
-    width: 100%;
+    display: inline;
     position: relative;
     z-index: 1;
+    margin: 0;
+    padding: 0;
     @include box-sizing(border-box);
 
     &#friends {
@@ -141,6 +138,7 @@ header {
     }
 
     h1 {
+      display: none;
       font-size: 11px;
       text-transform: uppercase;
       color: #777;
@@ -150,29 +148,32 @@ header {
     }
 
     a {
+      float: left;
       display: block;
       text-decoration: none;
-      color: #aaa;
-      font-size: 11px;
-      padding: 36px 4px 2px;
-      margin: 0;
-      width: 60px;
-      float: left;
-      text-align: center;
+      color: #555;
+      font-size: 13px;
+      padding: 6px;
+      margin: 0 10px 0 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-weight: bold;
 
       &:hover, &:hover:before {
         color: #000 !important;
       }
 
       &:before {
-        left: 24px;
-        top: 14px;
-        font-size: 22px;
+        position: relative;
+        display: inline-block;
+        left: auto;
+        top: auto;
+        margin: -1px 5px 0 0;
+        font-size: 17px;
         font-weight: normal;
         color: #aaa;
+        text-shadow: none;
       }
     }
   }
@@ -231,7 +232,7 @@ header {
   min-width: $width;
   overflow: hidden;
   position: relative;
-  padding: 20px 0 20px $sidebar-width;
+  padding: 20px 0;
 
   h2, h3 { color: $heading-color; }
   .third h2 { font-size: 14px; }
@@ -351,7 +352,13 @@ header #second-nav {
 .pictos-cart:before {content: "$";}
 .pictos-newspaper:before {content: "N";}
 .pictos-eye:before {content: "E";}
+.pictos-comment:before {content: "w";}
+.pictos-comments:before {content: "q";}
+.pictos-shuffle:before {content: ";";}
+.pictos-repeat:before {content: "r";}
+.pictos-link:before {content: "j";}
 .pictos-clock:before {content: "t";}
+.pictos-cart:before {content: "$";}
 
 
 /* BAR */

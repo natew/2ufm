@@ -1,36 +1,36 @@
 <%- station_id ||= -1
     art = :small
-    follow_id = 'station-follow-' + song.id.to_s %>
+    follow_id = 'station-follow-' + song.id.to_s -%>
+
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
+  <h1>
+    <span class="artist"><%= author_links song.authors %></span>
+    <span class="name"><%= link_to song.name, song %></span>
+  </h1>
 
-  <div class="song-info">
-    <h1>
-      <span class="artist"><%= author_links song.authors %></span>
-      <span class="name"><%= link_to song.name, song %></span>
-    </h1>
+  <div class="song-meta">
+    <span>
+      <%= follow_station(song.station_id, 'small') %>
+      <%= link_to song.station_title, '/'+song.station_slug %>
+      <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
+      <div id="<%= follow_id %>" class="hidden pop-menu">Following</div>
+    </span>
 
-    <div class="song-meta">
-      <span>
-        <%= follow_station(song.station_id, 'small') %>
-        <%= link_to song.station_title, '/'+song.station_slug %>
-        <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
-        <div id="<%= follow_id %>" class="hidden pop-menu">Following</div>
-      </span>
+    <time><%= relative_time(song.published_at) %><% if song.source == 'soundcloud' %> <strong>s</strong><% end %></time>
+  </div>
 
-      <time><%= relative_time(song.published_at) %><% if song.source == 'soundcloud' %> <strong>s</strong><% end %></time>
-    </div>
-
-    <div class="song-player">
-      <%= link_to '', "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
-      <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
-      <div class="song-art cover-<%= art %>">
-        <%= image_tag song.resolve_image(art) %>
-      </div>
+  <div class="song-player">
+    <%= link_to '', "#song-#{song.id}", :class => 'song-link play-song add control pictos' %>
+    <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
+    <div class="song-art cover-<%= art %>">
+      <%= image_tag song.resolve_image(art) %>
     </div>
   </div>
 
   <ul class="song-controls">
     <li class="broadcast"><%= broadcast_song(song) %></li>
+    <li><%= link_to "0", '', :class => 'pictos-comment' %></li>
+    <li class="right"><%= link_to "Buy", '', :class => 'pictos-cart' %></li>
   </ul>
 
   <%= debug(song) %>
