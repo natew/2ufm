@@ -136,9 +136,12 @@ $navbar-bg: #fefefe;
   section {
     display: block;
     float: left;
-    margin: 0 40px 0 0;
     position: relative;
     z-index: 1;
+
+    &.right {
+      float: right;
+    }
 
     h1 {
       display: none;
@@ -157,7 +160,6 @@ $navbar-bg: #fefefe;
       color: #888;
       font-size: 13px;
       padding: 8px 15px;
-      font-weight: bold;
       float: left;
 
       &.active {
