@@ -40,10 +40,6 @@
   <header>
     <div class="page-contain">
       <h1><%= link_to '2u.fm', '/', :title => '2u.fm, find and share music' %> </h1>
-      <nav>
-        <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
-        <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
-      </nav>
 
       <div id="bar">
         <div id="player">
@@ -118,10 +114,12 @@
 
         <section class="right">
           <% if user_signed_in? %>
-          <%= link 'My Station', '/' + current_user.station.slug, :id => 'nav-my-station' %>
+            <%= link 'My Station', '/' + current_user.station.slug, :id => 'nav-my-station' %>
+            <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
+            <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
           <% else %>
-          <%= link 'Log in', '/login', :class => 'restricted'  %>
-          <%= link 'Sign up', '/', :class => 'restricted' %>
+            <%= link 'Log in', '/login', :class => 'restricted'  %>
+            <%= link 'Sign up', '/', :class => 'restricted' %>
           <% end %>
         </section>
       </div>

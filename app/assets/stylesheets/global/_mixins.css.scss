@@ -2,11 +2,21 @@
 
 /*  Colors  */
 
-$header-color: #2d4472;
+$header-color: #444;
 $header-light: lighten($header-color, 10%);
-$header-dark: darken($header-color, 10%);
+$header-dark: darken($header-color, 5%);
 $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
+
+$body-bg: #353535;
+$body-dark: darken($body-bg,2.5%);
+$body-light: lighten($body-bg,2.5%);
+$body-darker: darken($body-bg,5%);
+$body-lighter: lighten($body-bg,5%);
+
+$gutter-color: #3a57a7;
+$gutter-dark: darken($gutter-color, 5%);
+$gutter-width: 60px;
 
 $button-bg: lighten($header-color,10%);
 $button-border-color: darken($button-bg,7%);
@@ -14,19 +24,11 @@ $button-color: #fff;
 
 $browse-height: 120px;
 
-$body-bg: #fff;
-$body-dark: darken($body-bg,10%);
-$body-light: lighten($body-bg,10%);
-
-$gutter-color: #4f76c1;
-$gutter-dark: darken($gutter-color, 10%);
-$gutter-width: 70px;
-
 $width: 508px;
 $third-width: 210px;
 $query-width: 160px;
 
-$heading-color: #717171;
+$heading-color: #eee;
 $heading-color-light: lighten($heading-color,20%);
 $heading-color-dark: darken($heading-color, 20%);
 

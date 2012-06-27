@@ -23,15 +23,11 @@
 }
 
 @font-face {
-    font-family: 'District';
-    src: url('/fonts/distth__-webfont.eot');
-    src: url('/fonts/distth__-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/distth__-webfont.woff') format('woff'),
-         url('/fonts/distth__-webfont.ttf') format('truetype'),
-         url('/fonts/distth__-webfont.svg#DistrictRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+  font-family: "Stratum";
+  src: url("/fonts/Stratum1WebBold.eot");
+  src: local("☺"),
+    url("/fonts/Stratum1WebBold.woff") format("woff");
+  }
 
 
 /* HTML5 Boilerplate
