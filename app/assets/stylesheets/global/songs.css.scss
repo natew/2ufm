@@ -107,7 +107,8 @@ $song-playing-bg: #eee;
         z-index: 101;
       }
 
-      &:before {
+      &:after {
+        border: none;
         content: "";
         display: block;
         position: absolute;

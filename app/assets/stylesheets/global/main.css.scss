@@ -19,6 +19,7 @@ a:hover { color: $link-hover; }
   min-height: 100%;
   height: auto !important;
   height: 100%;
+  position: relative;
 }
 
 .page-contain, #dialog { overflow: hidden; }
@@ -461,7 +462,7 @@ header #second-nav {
     #player-controls .play span {
       left: -3px;
       top: 0;
-      font-size: 39px;
+      font-size: 31px;
     }
   }
 
@@ -497,7 +498,7 @@ header #second-nav {
 
     /* play button */
     .play {
-      font-size: 40px;
+      font-size: 33px;
       width: 50px;
       height: 50px;
 
@@ -528,9 +529,8 @@ header #second-nav {
     #player-meta {
       text-overflow: ellipsis;
       overflow: hidden;
-      color: #fff;
       visibility: hidden;
-      margin: 2px 0 0;
+      margin: 3px 0 0;
       line-height: 18px;
       margin-right: 60px;
 
@@ -540,7 +540,7 @@ header #second-nav {
       }
 
       #player-artist-name {
-        color: lighten($header-light,30%);
+        color: #bbb;
         font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
@@ -554,6 +554,7 @@ header #second-nav {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: #eee;
       }
     }
 
@@ -601,9 +602,9 @@ header #second-nav {
       left: 0;
       right: 71px;
       overflow: hidden;
-      margin: 0;
+      margin: 2px 0 0;
       padding: 4px;
-      height: 3px;
+      height: 0;
       border: 1px solid darken($header-color,10%);
       @include linear-gradient(darken($header-color,6%),$header-color);
       @include box-shadow(0 1px 0 $header-shadow);
@@ -635,7 +636,7 @@ header #second-nav {
         top: 0;
         left: 0;
         width: 0%;
-        height: 9px;
+        height: 6px;
         background: rgba(0,0,0,0.1);
         @include border-radius(12px);
       }
