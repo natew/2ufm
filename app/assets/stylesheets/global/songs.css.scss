@@ -131,9 +131,10 @@ $song-playing-bg: #eee;
     }
 
     h1 {
-      margin: -3px 0 4px 0;
+      margin: -3px 0 4px 60px;
       width: 72%;
       position: relative;
+      z-index: 10;
 
       span {
         display: block;
@@ -176,11 +177,12 @@ $song-playing-bg: #eee;
     .song-meta {
       position: absolute;
       top: 15px;
-      right: 15px;
+      right: 85px;
       font-size: 12px;
       margin: 0;
       color: #999;
       text-align: right;
+      z-index: 11;
 
       .follow-station-small {
         font-size: 12px;
@@ -269,6 +271,11 @@ $song-playing-bg: #eee;
       margin: 10px 0 5px;
       position: relative;
       height: $song-player-height;
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+      z-index: 0;
 
       .play-song {
         display: inline-block;
@@ -329,7 +336,7 @@ $song-playing-bg: #eee;
           position: absolute;
           top: -20%;
           left: 2px;
-          opacity: 0.4;
+          opacity: 0.1;
         }
       }
 
