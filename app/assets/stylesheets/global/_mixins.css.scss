@@ -2,9 +2,10 @@
 
 /*  Colors  */
 
-$header-color: #4574ab;
-$header-color-light: lighten($header-color, 10%);
-$header-height: 56px;
+$header-color: #353535;
+$header-light: lighten($header-color, 10%);
+$header-dark: darken($header-color, 10%);
+$header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
 
 $button-bg: lighten($header-color,10%);
@@ -16,6 +17,10 @@ $browse-height: 120px;
 $body-bg: #fff;
 $body-dark: darken($body-bg,10%);
 $body-light: lighten($body-bg,10%);
+
+$gutter-color: #557ece;
+$gutter-dark: darken($gutter-color, 10%);
+$gutter-width: 70px;
 
 $width: 508px;
 $third-width: 210px;

@@ -43,7 +43,6 @@
       <nav>
         <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
         <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
-        <%= link_to 'm', '#player-playlist', :class => 'pictos nav disabled', :id => 'nav-music' %>
       </nav>
 
       <div id="bar">
@@ -68,8 +67,9 @@
                 <img id="player-progress-waveform" src="/images/transparent.png" />
               </div>
               <div id="player-alt-controls">
-              <%= link_to '>', '#', :class => 'volume pictos control', :id => 'player-volume', :title => 'Volume on/off' %>
-              <%= link_to 'k', '#', :class => 'add broadcast-song pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
+                <%= link_to 'm', '#player-playlist', :class => 'pictos nav control tip-n', :id => 'nav-music', :title => 'Current Playlist' %>
+                <%= link_to '>', '#', :class => 'volume pictos control tip-n', :id => 'player-volume', :title => 'Volume toggle' %>
+                <%= link_to 'k', '#', :class => 'add broadcast-song pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
               </div>
             </div>
 
@@ -104,13 +104,13 @@
 
       <div id="navbar">
         <section>
-          <h1>Songs</h1>
+          <h1>Songs:</h1>
           <%= link 'Popular', '/songs',   :id => 'nav-songs' %>
           <%= link 'New', '/songs-new',   :id => 'nav-songs-new' %>
         </section>
 
-        <section>
-          <h1>Browse</h1>
+        <section class="middle">
+          <h1>Browse:</h1>
           <%= link 'Artists', '/artists', :id => 'nav-artists' %>
           <%= link 'Blogs', '/blogs',     :id => 'nav-blogs' %>
           <%= link 'Users', '/users',     :id => 'nav-users' %>
