@@ -157,12 +157,12 @@ button {
   font-size: 14px;
   text-decoration: none;
   padding: 4px 16px;
-  border: 1px solid #0064cd;
   float: left;
   margin: 2px 4px 10px 0;
   font-weight: bold;
+  border: 2px solid $primary-dark;
   @include border-radius(4px);
-  @include background-gradient(#049cdb, #0064cd);
+  @include background-gradient($primary, $primary-dark);
 
   &:hover {
     background-position: 0 -25px;
@@ -209,7 +209,6 @@ button {
     text-shadow: 0 1px 0 rgba(0,0,0,0.1);
     border-width: 2px;
     border-color: $green;
-    margin: 0;
     @include border-radius(20px);
     @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2));
     @include background-gradient($light-green,$green);
@@ -218,14 +217,15 @@ button {
 
   span {
     display: inline-block;
-    margin: 0 0 0 -4px;
-    padding-right: 10px;
+    margin: 0 0 -4px -4px;
+    padding-right: 3px;
     font-size: 20px;
   }
 }
 
 .button {
   padding: 8px 16px;
+  margin: 0;
   font-size: 19px;
   display: block;
   text-align: center;

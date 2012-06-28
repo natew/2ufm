@@ -4,29 +4,29 @@
   </div>
 
   <h2><%= @station.title %></h2>
-  <p><%= @station.description %></p>
-  <span class="stats">Updated <%= relative_time @station.last_broadcasted_at %> &middot; <%= pluralize number_with_delimiter(@station.songs.count), 'song' %></span>
+  <p>Updated <%= relative_time @station.last_broadcasted_at %> &middot; <%= pluralize number_with_delimiter(@station.songs.count), 'song' %></p>
 
   <ul class="title-nav">
     <li id="follow-<%= @station.id %>"><%= follow_station(@station) %></li>
+    <li><%= link_to "Share", '', :class => 'button'  %></li>
   </ul>
 </div>
 
 <div class="contain">
   <%- if @station.songs.count > 0 -%>
-  <div class="twothirds-wrap">
-    <div class="twothirds">
-      <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
-    </div>
-  </div>
-
-  <div class="third">
+  <div class="whole">
     <%- if @artists -%>
-    <h3>Artists on this station</h3>
-    <div class="list">
-      <%= render :partial => 'artists/artist', :collection => @artists %>
+    <div class="horizontal-list">
+      <h3>Artists on this station</h3>
+      <div class="list">
+        <%= render :partial => 'artists/artist', :collection => @artists %>
+      </div>
     </div>
     <%- end -%>
+
+    <p><%= @station.description %></p>
+
+    <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
   </div>
   <%- else -%>
   <div class="whole">
