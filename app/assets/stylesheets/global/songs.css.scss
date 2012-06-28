@@ -76,8 +76,8 @@ $song-playing-bg: #eee;
       .song-player {
 
         .play-song {
-          border-color: $orange;
-          @include linear-gradient($light-orange, $orange);
+          border-color: $header-color;
+          @include linear-gradient($header-light, $header-color);
 
           &:before {
             color: #fff;
@@ -86,8 +86,8 @@ $song-playing-bg: #eee;
           }
 
           &:hover {
-            border-color: $light-orange;
-            @include linear-gradient(lighten($light-orange,10%),$light-orange);
+            border-color: $header-light;
+            @include linear-gradient(lighten($header-light,10%),$header-light);
           }
         }
 
