@@ -8,9 +8,10 @@
     style         ||= 'song'
     paginate        = (paginate == false || style == 'mini') ? false : true
     has_more        = songs.length == ( partial ? per : (page*per) )
+    classname     ||= ''
 -%>
 
-<div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %>"
+<div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page } unless songs.nil? %>
 </div>

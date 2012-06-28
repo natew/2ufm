@@ -54,6 +54,9 @@
               <span id="player-artist-name">&nbsp;</span>
             </div>
             <div id="player-bottom">
+              <div id="player-pre-controls">
+                <%= link_to 'm', '#player-playlist', :class => 'pictos nav control tip-n', :id => 'nav-music', :title => 'Current Playlist' %>
+              </div>
               <div id="player-progress-bar">
                 <div id="player-progress-grabber"></div>
                 <div id="player-progress-inner-wrap">
@@ -62,8 +65,7 @@
                 </div>
                 <img id="player-progress-waveform" src="/images/transparent.png" />
               </div>
-              <div id="player-alt-controls">
-                <%= link_to 'm', '#player-playlist', :class => 'pictos nav control tip-n', :id => 'nav-music', :title => 'Current Playlist' %>
+              <div id="player-post-controls">
                 <%= link_to '>', '#', :class => 'volume pictos control tip-n', :id => 'player-volume', :title => 'Volume toggle' %>
                 <%= link_to 'k', '#', :class => 'add broadcast-song pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
               </div>
@@ -83,7 +85,7 @@
         <div id="loading" class="pictos hide">0</div>
 
         <%= form_tag '/main/search', :method => 'get' do %>
-          <%= text_field_tag :query, '', :placeholder =>"Search songs, artists & stations" %>
+          <%= text_field_tag :query, '', :placeholder =>"Find songs, artists & stations" %>
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
         <% end -%>
       </div>

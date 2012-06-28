@@ -1,44 +1,48 @@
 @import 'bourbon';
 
-/*  Colors  */
-
+/*  header  */
 $header-color: #444;
 $header-light: lighten($header-color, 10%);
 $header-dark: darken($header-color, 5%);
 $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
 
+/* body */
 $body-bg: #353535;
 $body-dark: darken($body-bg,2.5%);
 $body-light: lighten($body-bg,2.5%);
 $body-darker: darken($body-bg,5%);
 $body-lighter: lighten($body-bg,5%);
 
+/* gutter */
 $gutter-color: #3a57a7;
 $gutter-dark: darken($gutter-color, 5%);
 $gutter-width: 70px;
 
-$button-bg: lighten($header-color,10%);
-$button-border-color: darken($button-bg,7%);
-$button-color: #fff;
+/* links */
+$link-color: lighten($gutter-color, 20%);
+$link-hover: lighten($link-color, 10%);
+
+/* layout widths */
+$width: 690px;
+$third-width: 300px;
+$query-width: 150px;
 
 $browse-height: 120px;
-
-$width: 508px;
-$third-width: 210px;
-$query-width: 160px;
 
 $heading-color: #eee;
 $heading-color-light: lighten($heading-color,20%);
 $heading-color-dark: darken($heading-color, 20%);
+
+$button-bg: lighten($header-color,10%);
+$button-border-color: darken($button-bg,7%);
+$button-color: #fff;
 
 $primary: #1a98e0;
 $primary-light: lighten($primary,10%);
 
 $title: #000;
 $border: #555;
-$link-color: #333;
-$link-hover: $header-color;
 
 $bar-bg: #444;
 
