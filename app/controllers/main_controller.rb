@@ -9,11 +9,11 @@ class MainController < ApplicationController
     end
 
     @catchphrases = [
-      'We take the work out of finding new music',
-      'We\'re that friend who always the best music',
-      'We find the best new music from <em>today</em>',
-      'Find awesome new music, before your friends',
-      'We take the hard out of finding great new music',
+      'We take the work out of finding new music.',
+      'We\'re that friend who always the best music.',
+      'We find the best new music from <em>today</em>.',
+      'Find awesome new music, before your friends.',
+      'We make it easy to find great new music.',
       'Follow your favorite artists &amp; friends.  Thats it.'
     ]
 

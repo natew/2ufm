@@ -320,6 +320,7 @@ $song-playing-bg: #eee;
       }
 
       .waveform-wrap {
+        display: none;
         position: absolute;
         left: $song-player-height;
         right: 60px;
