@@ -267,7 +267,7 @@ $navbar-heading: lighten($navbar-bg, 35%);
   .third h2 { font-size: 14px; }
 
   #breadcrumbs {
-    display: block;
+    display: none;
     padding: 5px 20px;
     margin: -20px 0 20px 0;
     font-size: 11px;
@@ -744,6 +744,39 @@ header #second-nav {
       margin-bottom: 0;
       height: 3.5em;
       overflow: hidden;
+    }
+  }
+}
+
+.horizontal-list {
+  margin: -20px -20px 20px;
+  padding: 4px 20px;
+  background: rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.2);
+  border-left: none;
+  border-right: none;
+
+  h3 {
+    float: left;
+    margin: 0 20px 0 0;
+    padding: 4px 0;
+    font-size: 13px;
+    font-weight: bold;
+    width: 160px;
+    text-align: right;
+  }
+
+  .list {
+    float: left;
+    margin: -2px 0 0;
+
+    section {
+      padding: 0;
+      float: left;
+
+      img {
+        margin-top: 2px;
+      }
     }
   }
 }

@@ -1,23 +1,25 @@
 <div class="whole">
   <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false, :style => 'song' } %>
-</div>
 
-<div class="contain">
-  <div class="twothirds-wrap">
-    <div class="twothirds">
-      <h2>Comments</h2>
-      <%= render :partial => 'comments/new_form' %>
-
-      <h3>Similar Songs</h3>
-      <%= render :partial => 'stations/playlist', :locals => { :songs => @similar_songs, :paginate => false, :per => 8, :classname => 'similar-songs' } %>
-    </div>
-  </div>
-
-  <div class="third">
+  <div class="horizontal-list">
     <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
     <div class="stations list">
       <%= render :partial => 'stations/station', :collection => @blogs %>
     </div>
+  </div>
+</div>
+
+<div class="contain">
+  <div class="whole">
+    <h2>Comments</h2>
+    <%= render :partial => 'comments/new_form' %>
+
+    <h3>Similar Songs</h3>
+    <%= render :partial => 'stations/playlist', :locals => { :songs => @similar_songs, :paginate => false, :per => 8, :classname => 'similar-songs' } %>
+  </div>
+
+  <div class="third hidden">
+
 
     <h3>Artists</h3>
     <div class="list">

@@ -21,22 +21,7 @@
     </nav>
   </div>
 
-  <div class="twothirds-wrap">
-    <div class="twothirds">
-      <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs } %>
-    </div>
-  </div>
-
-  <div class="third">
-    <%- if @artist.about %>
-      <h3>About <%= @artist.name %></h3>
-      <p><%= @artist.about %></p>
-    <%- end -%>
-
-
-    <h3>Posted on <%= pluralize @blogs.length, 'blog' %></h3>
-    <div class="stations list">
-      <%= render :partial => 'stations/station', :collection => @blogs %>
-    </div>
+  <div class="whole">
+    <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs } %>
   </div>
 </div>

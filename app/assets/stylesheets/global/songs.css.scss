@@ -365,8 +365,7 @@ $song-playing-bg: #eee;
 
 .controller-songs.action-show {
   .whole .playlist-song {
-    margin: -20px 0 20px;
-    border-bottom: 2px solid rgba(0,0,0,0.2);
+    margin: -10px 0 20px;
 
     section:nth-child(2n+1) {
       background: none;
@@ -374,6 +373,11 @@ $song-playing-bg: #eee;
 
     section {
       padding-bottom: 20px;
+
+
+      &:after {
+        display: none;
+      }
 
       h1 span {
         &.artist {
@@ -390,7 +394,7 @@ $song-playing-bg: #eee;
 }
 
 .similar-songs {
-  opacity: 0.6;
+  opacity: 0.8;
 
   &:hover, &.playing {
     opacity: 1;
