@@ -32,7 +32,7 @@ $song-playing-bg: #eee;
 
   section {
     margin: 0 -20px;
-    padding: 15px 20px;
+    padding: 15px;
     position: relative;
 
     &:nth-child(2n+1) {
@@ -237,7 +237,7 @@ $song-playing-bg: #eee;
           position: absolute;
           z-index: 3;
           font-size: 22px;
-          color: lighten($gutter-color, 40%);
+          color: lighten($gutter-color, 60%);
           top: 0;
           bottom: 0;
           left: 0;
@@ -248,15 +248,15 @@ $song-playing-bg: #eee;
 
           &:before {
             top: auto;
-            top: 39px;
+            top: 40px;
             right: 5px;
-            font-size: 17px;
+            font-size: 18px;
             color: lighten($gutter-color, 15%);
           }
 
           &:hover {
             color: #fff;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
 
             &:before {
               color: #fff;

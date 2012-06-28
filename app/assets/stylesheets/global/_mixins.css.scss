@@ -8,21 +8,21 @@ $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
 
 /*  navbar  */
-$navbar-bg: #333;
+$navbar-bg: darken($header-dark,4%);
 $navbar-dark: darken($navbar-bg,5%);
-$navbar-link: lighten($navbar-bg, 50%);
+$navbar-link: lighten($navbar-bg, 55%);
 $navbar-heading: lighten($navbar-bg, 35%);
 
 /* body */
-$body-bg: #353535;
+$body-bg: #3b3b3b;
 $body-dark: darken($body-bg,2.5%);
 $body-light: lighten($body-bg,2.5%);
 $body-darker: darken($body-bg,5%);
 $body-lighter: lighten($body-bg,5%);
 
 /* gutter */
-$gutter-color: #111;
-$gutter-dark: darken($gutter-color, 10%);
+$gutter-color: #202020;
+$gutter-dark: darken($gutter-color, 2%);
 $gutter-width: 40px;
 
 /* links */

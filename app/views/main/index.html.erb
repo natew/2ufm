@@ -23,21 +23,21 @@
 <%- else -%>
 
   <section class="whole welcome">
-    <h1><%= @catchphrases[Random.rand(0..4)] %></h1>
+    <h1><%= @catchphrases[Random.rand(0..4)].html_safe %></h1>
 
     <div class="third">
       <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
-      <p>We find songs from all of the net &amp; sort them into stations.</p>
+      <p>We find songs from all over the net.</p>
     </div>
 
     <div class="third">
       <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
-      <p>Follow artists, blogs &amp; friends to get all their new music.</p>
+      <p>You follow artists, blogs &amp; friends.</p>
     </div>
 
     <div class="third">
       <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
-      <p><strong>Enjoy!</strong> Add favorites &amp; share your favorite songs with friends.</p>
+      <p>Add favorites &amp; share with friends!</p>
     </div>
   </section>
 

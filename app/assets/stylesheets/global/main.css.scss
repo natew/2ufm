@@ -20,7 +20,7 @@ body {
     right: 0;
     bottom: 0;
     z-index: 0;
-    @include linear-gradient($body-bg, darken($body-bg, 8%));
+    @include linear-gradient(lighten($body-bg,6%) 0%, $body-bg 20%, $body-bg 20%, darken($body-bg, 10%) 100%);
   }
 }
 
@@ -254,7 +254,6 @@ header {
     width: $gutter-width;
     background: $gutter-color;
     border-right: 2px solid $gutter-dark;
-    @include linear-gradient(left, $gutter-dark, $gutter-color);
     @include box-sizing(border-box);
   }
 
@@ -799,7 +798,8 @@ header #second-nav {
 }
 
 .welcome {
-  margin: -10px 0 20px 0;
+  padding: 25px 0 0 !important;
+  margin: -35px 0 10px 0;
 
   h1 {
     color: #fff;
