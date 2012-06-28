@@ -16,12 +16,12 @@ $body-lighter: lighten($body-bg,5%);
 
 /* gutter */
 $gutter-color: #3a57a7;
-$gutter-dark: darken($gutter-color, 5%);
-$gutter-width: 70px;
+$gutter-dark: darken($gutter-color, 10%);
+$gutter-width: 40px;
 
 /* links */
-$link-color: lighten($gutter-color, 20%);
-$link-hover: lighten($link-color, 10%);
+$link-color: #ccc;
+$link-hover: #fff;
 
 /* layout widths */
 $width: 690px;
