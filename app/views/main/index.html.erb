@@ -22,6 +22,25 @@
 
 <%- else -%>
 
+  <section class="whole welcome">
+    <h1><%= @catchphrases[Random.rand(0..4)] %></h1>
+
+    <div class="third">
+      <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
+      <p>We find songs from all of the net &amp; sort them into stations.</p>
+    </div>
+
+    <div class="third">
+      <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
+      <p>Follow artists, blogs &amp; friends to get all their new music.</p>
+    </div>
+
+    <div class="third">
+      <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
+      <p><strong>Enjoy!</strong> Add favorites &amp; share your favorite songs with friends.</p>
+    </div>
+  </section>
+
   <div class="whole">
     <h2>Popular today</h2>
     <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>

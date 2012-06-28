@@ -131,11 +131,6 @@ header {
   }
 }
 
-$navbar-bg: darken($header-dark,3%);
-$navbar-dark: darken($navbar-bg,5%);
-$navbar-link: lighten($navbar-bg, 50%);
-$navbar-heading: lighten($navbar-bg, 35%);
-
 #navbar {
   min-width: $width + 68;
   float: left;
@@ -800,6 +795,32 @@ header #second-nav {
 
   h2 {
     font-size: 28px;
+  }
+}
+
+.welcome {
+  margin: -10px 0 20px 0;
+
+  h1 {
+    color: #fff;
+    text-align: center;
+  }
+
+  .third {
+    float: left;
+    width: 33.3%;
+    text-align: center;
+  }
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+
+  p {
+    color: #ddd;
+    font-weight: bold;
+    text-align: center;
   }
 }
 

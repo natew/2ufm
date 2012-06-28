@@ -9,12 +9,12 @@ class MainController < ApplicationController
     end
 
     @catchphrases = [
-      'Take the work out of finding new music',
-      'We\'re like your new hipster music friend',
-      'The best new music found today',
+      'We take the work out of finding new music',
+      'We\'re like that friend that always has good music',
+      'We find the best new music from <em>today</em>',
       'Find awesome new music, before your friends',
-      'It\'s too hard to keep up with new music',
-      'Want to find new music without the hassle?'
+      'We take the hard out of finding great new music',
+      'Follow your favorite artists &amp; friends.  Thats it.'
     ]
 
     if !user_signed_in?

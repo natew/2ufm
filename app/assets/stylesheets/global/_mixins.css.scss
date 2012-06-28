@@ -1,11 +1,17 @@
 @import 'bourbon';
 
 /*  header  */
-$header-color: #444;
+$header-color: #3a57a7;
 $header-light: lighten($header-color, 10%);
 $header-dark: darken($header-color, 5%);
 $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
+
+/*  navbar  */
+$navbar-bg: #333;
+$navbar-dark: darken($navbar-bg,5%);
+$navbar-link: lighten($navbar-bg, 50%);
+$navbar-heading: lighten($navbar-bg, 35%);
 
 /* body */
 $body-bg: #353535;
@@ -15,7 +21,7 @@ $body-darker: darken($body-bg,5%);
 $body-lighter: lighten($body-bg,5%);
 
 /* gutter */
-$gutter-color: #3a57a7;
+$gutter-color: #111;
 $gutter-dark: darken($gutter-color, 10%);
 $gutter-width: 40px;
 

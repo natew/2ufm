@@ -7,5 +7,6 @@
     class_name = type == 'small' ? "follow-station-small pictos tip" : "follow-station #{action} button"
     label = type == 'large' ? "<span>#{icon}</span> #{text}" : "#{icon}"
 -%>
+
   <%= link_to "#{label}".html_safe, path, class: "#{class_name} control #{change_class} restricted", title: "#{text}", remote: true, method: method unless on_own_profile? %>
   <% if type == 'large' %><div class="count"><%= pluralize count, 'Follower' %></div><% end %>
