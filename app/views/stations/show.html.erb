@@ -14,19 +14,21 @@
 
 <div class="contain">
   <%- if @station.songs.count > 0 -%>
-  <div class="whole">
+  <div class="twothirds-wrap">
+    <div class="twothirds">
+      <p><%= @station.description %></p>
+
+      <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
+    </div>
+  </div>
+
+  <div class="third">
     <%- if @artists -%>
-    <div class="horizontal-list">
-      <h3>Artists on this station</h3>
-      <div class="list">
-        <%= render :partial => 'artists/artist', :collection => @artists %>
-      </div>
+    <h3>Artists on this station</h3>
+    <div class="list">
+      <%= render :partial => 'artists/artist', :collection => @artists %>
     </div>
     <%- end -%>
-
-    <p><%= @station.description %></p>
-
-    <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
   </div>
   <%- else -%>
   <div class="whole">

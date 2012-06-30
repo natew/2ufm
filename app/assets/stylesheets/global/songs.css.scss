@@ -41,7 +41,8 @@ $song-playing-bg: #eee;
     }
 
     &:hover {
-      background: rgba(0,0,0,0.1);
+      @include linear-gradient(left, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0) 100%);
+      background-color: transparent;
 
       .song-controls li {
         a, a:before {
@@ -173,12 +174,13 @@ $song-playing-bg: #eee;
     .song-meta {
       position: absolute;
       top: 15px;
-      right: 85px;
+      right: 80px;
       font-size: 12px;
       margin: 0;
       color: #999;
       text-align: right;
       z-index: 11;
+      line-height: 1.5em;
 
       .follow-station-small {
         font-size: 12px;
@@ -189,7 +191,7 @@ $song-playing-bg: #eee;
         text-decoration: none;
         font-weight: bold;
         display: inline-block;
-        max-width: 120px;
+        max-width: 100px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -368,7 +370,13 @@ $song-playing-bg: #eee;
 
 .twothirds .playlist-song {
   section {
-    margin-right: 0;
+    .song-meta {
+      right: 20px;
+    }
+
+    .song-art {
+      display: none;
+    }
   }
 }
 
