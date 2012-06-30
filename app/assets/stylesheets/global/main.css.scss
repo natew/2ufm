@@ -139,7 +139,7 @@ header {
   left: 0;
   right: 0;
   padding-left: 20px;
-  @include box-shadow(0 0 8px rgba(0,0,0,.7));
+  @include box-shadow(0 0 6px rgba(0,0,0,1));
   @include background-gradient($navbar-bg, $navbar-dark);
   @include box-sizing(border-box);
 
@@ -216,13 +216,13 @@ header {
         bottom: 0;
         width: 1px;
         height: 100%;
-        @include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.1));
+        @include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3));
       }
 
       &:before {
         left: 0;
         right: auto;
-        @include linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1));
+        @include linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.06));
       }
 
       &:nth-child(2):before {
@@ -391,24 +391,6 @@ header #second-nav {
   min-width: $width;
   height: $header-height;
 
-  &.loaded {
-    .player-buttons a.next {
-      color: #fff;
-    }
-
-    #player #player-main #player-meta {
-      visibility: visible;
-    }
-
-    #player-bottom a.control {
-      color: lighten($header-color,25%);
-
-      &:hover {
-        color: #fff;
-      }
-    }
-  }
-
   #player-share {
     display: none;
     float: left;
@@ -463,15 +445,21 @@ header #second-nav {
 
   &.playing {
     #player-controls {
-      span {
-        color: #fff;
-      }
-
       .play span {
         left: -3px;
         top: 0;
         font-size: 31px;
       }
+    }
+  }
+
+  &.loaded {
+    #player-main #player-meta {
+      visibility: visible;
+    }
+
+    #player-controls span {
+      color: #fff;
     }
   }
 

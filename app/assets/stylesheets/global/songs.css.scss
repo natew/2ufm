@@ -84,6 +84,7 @@ $song-playing-bg: #eee;
             color: #fff;
             content: "5";
             left: 8px;
+            top: 14px;
           }
 
           &:hover {
@@ -106,8 +107,6 @@ $song-playing-bg: #eee;
     }
 
     &.failed {
-      background: #ddd;
-
       .song-meta, h1 {
         z-index: 101;
       }
@@ -122,7 +121,8 @@ $song-playing-bg: #eee;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.1);
+        background: rgba($body-bg,0.8);
+        visibility: visible;
       }
     }
 

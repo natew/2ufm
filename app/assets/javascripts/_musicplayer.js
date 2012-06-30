@@ -25,7 +25,6 @@ var mp = (function() {
 
   // Elements
   var pl = {
-    bar: $('#bar'),
     loaded: $('#player-progress-loaded'),
     position: $('#player-progress-position'),
     handle: $('#player-progress-grabber'),
@@ -335,7 +334,7 @@ var mp = (function() {
   var events = {
     play: function play() {
       isPlaying = true;
-      pl.bar.addClass('loaded');
+      pl.player.addClass('loaded');
       player.setCurSectionActive();
       player.refresh();
       w.trigger('mp:play', player.state());
