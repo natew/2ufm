@@ -1,15 +1,18 @@
-<div class="whole">
-  <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false, :style => 'song' } %>
+<div class="whole primary">
+  <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false, :style => 'song', :cover => :medium } %>
 
   <div class="horizontal-list">
-    <h3>Posted on <%= pluralize @blogs.size, 'blog' %></h3>
-    <div class="stations list">
-      <%= render :partial => 'stations/station', :collection => @blogs %>
-    </div>
+    <span class="pictos-play">1,210 plays</span>
   </div>
 </div>
 
 <div class="contain">
+  <div class="third">
+    <div class="stations list">
+      <%= render :partial => 'stations/station', :collection => @blogs %>
+    </div>
+  </div>
+
   <div class="whole">
     <h2>Comments</h2>
     <%= render :partial => 'comments/new_form' %>

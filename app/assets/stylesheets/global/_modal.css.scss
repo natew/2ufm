@@ -8,8 +8,8 @@
   top: -500px;
   position: fixed;
   left: 50%;
-  margin-left: -400px;
-  width: 800px;
+  margin-left: -380px;
+  width: 760px;
   background-color: #fff;
   color: #444;
   padding: 20px;
@@ -19,10 +19,11 @@
   @include border-bottom-radius(8px);
   @include box-shadow(0 0 15px rgba(0,0,0,0.8));
   @include transition(top linear .2s);
+  @include box-sizing(border-box);
 
   &.shown {
     opacity: 1;
-    top: 66px;
+    top: 86px;
   }
 
   .half {
@@ -76,77 +77,97 @@
    top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
 }
 
+#modal-user {
+  h4 {
+    font-size: 15px;
+  }
 
-#modal-user h4 {
-  font-size: 15px;
-}
-
-#modal-user #user-login {
-  width: 260px;
-  padding: 20px;
-  float: right;
-
+  .input-text,
+  .input-email,
+  .input-password,
+  textarea,
   input[type="text"],
-  input[type="password"] {
-    width: 95%;
+  input[type="password"],
+  input[type="email"] {
+    background: #fff;
+    color: #666;
+    border: 1px solid rgba(0,0,0,0.2);
+
+    &:focus {
+      border-color: #049adb;
+      @include box-shadow(0px 0px 8px #80cced);
+    }
   }
 
-  label {
-    margin: 0;
-    padding: 0 0 4px 0;
-    float: none;
-    text-align: left;
-    display: block;
-  }
-
-  #user_remember_me {
+  #user-login {
+    width: 250px;
+    padding: 0 20px;
     float: right;
-    margin: 12px 104px 0 0;
-  }
 
-  #remember-me {
-    display: block;
-    float: right;
-    margin: -18px 60px 0 10px;
-    padding: 0;
-  }
+    input[type="text"],
+    input[type="password"] {
+      width: 95%;
+    }
 
-  .actions {
-    background: none;
-    padding: 0;
-    margin-top: -38px;
-    float: right;
-    text-align: right;
-    border: none;
-
-    p {
+    label {
+      width: auto;
+      margin: 0;
+      padding: 0 0 4px 0;
       float: none;
-      margin: 45px -20px 0 0;
+      text-align: left;
+      display: block;
     }
 
-    input {
+    #user_remember_me {
       float: right;
+      margin: 12px 104px 0 0;
     }
 
-    a {
-      font-size: 11px;
-      text-decoration: none;
+    #remember-me {
+      display: block;
+      float: right;
+      margin: -17px 125px 0 10px;
+      padding: 0;
+    }
+
+    .actions {
+      background: none;
+      padding: 0;
+      margin-top: -38px;
+      float: right;
+      text-align: right;
+      border: none;
+
+      p {
+        float: none;
+        margin: 45px -20px 0 0;
+      }
+
+      input {
+        float: right;
+      }
+
+      a {
+        font-size: 11px;
+        text-decoration: none;
+        color: #666;
+      }
     }
   }
-}
 
-#modal-user #user-signup {
-  float: left;
-  width: 452px;
-  padding: 20px;
-  background: $lightest-blue;
-  border: 2px solid $light-blue;
-  @include border-radius(8px);
+  #user-signup {
+    float: left;
+    width: 380px;
+    padding: 20px;
+    background: $lightest-blue;
+    border: 2px solid $light-blue;
+    @include border-radius(8px);
 
-  .actions {
-    background: none;
-    padding-top: 0;
-    padding-bottom: 0;
-    border: none;
+    .actions {
+      background: none;
+      padding-top: 0;
+      padding-bottom: 0;
+      border: none;
+    }
   }
 }

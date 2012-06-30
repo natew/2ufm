@@ -65,14 +65,14 @@ $section-pad: 8px;
 
   ul {
     padding: 0;
-    margin-left: -30px;
+    margin-left: -20px;
     margin-bottom: 6px;
   }
 
   li {
     list-style: none;
     float: left;
-    margin: 0 0 0 33px;
+    margin: 0 0 0 20px;
     position: relative;
 
     a {
@@ -106,7 +106,7 @@ $section-pad: 8px;
 }
 
 .shelf.grid {
-  margin-left: -6px;
+  margin-left: 0;
 
   li {
     margin-bottom: 20px;

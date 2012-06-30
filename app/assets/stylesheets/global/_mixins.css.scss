@@ -1,27 +1,27 @@
 @import 'bourbon';
 
 /*  header  */
-$header-color: #327389;
-$header-light: lighten($header-color, 12%);
+$header-color: #3478b3;
+$header-light: lighten($header-color, 15%);
 $header-dark: darken($header-color, 5%);
 $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
 
 /*  navbar  */
-$navbar-bg: darken($header-dark,3%);
+$navbar-bg: #444;
 $navbar-dark: darken($navbar-bg,6%);
 $navbar-link: lighten($navbar-bg, 55%);
 $navbar-heading: lighten($navbar-bg, 35%);
 
 /* body */
-$body-bg: #3b3b3b;
+$body-bg: #424242;
 $body-dark: darken($body-bg,2.5%);
 $body-light: lighten($body-bg,2.5%);
 $body-darker: darken($body-bg,5%);
 $body-lighter: lighten($body-bg,5%);
 
 /* gutter */
-$gutter-color: #202020;
+$gutter-color: #2b2b2b;
 $gutter-dark: darken($gutter-color, 2%);
 $gutter-width: 40px;
 
@@ -36,7 +36,7 @@ $query-width: 150px;
 
 $browse-height: 120px;
 
-$heading-color: #eee;
+$heading-color: #fff;
 $heading-color-light: lighten($heading-color,20%);
 $heading-color-dark: darken($heading-color, 20%);
 
@@ -87,15 +87,8 @@ $invite-color: #3c6eae;
 }
 
 @mixin background-gradient($start: #fff, $stop: #000) {
-  background-color: $stop;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from($start), to($stop));
-  background-image: -moz-linear-gradient(top, $start, $stop);
-  background-image: -ms-linear-gradient(top, $start, $stop);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start), color-stop(100%, $stop));
-  background-image: -webkit-linear-gradient(top, $start, $stop);
-  background-image: -o-linear-gradient(top, $start, $stop);
-  background-image: linear-gradient(top, $start, $stop);
+  @include linear-gradient($start, $stop);
+  background-color: none;
 }
 
 @-webkit-keyframes rotation {

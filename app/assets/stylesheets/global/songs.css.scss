@@ -36,7 +36,8 @@ $song-playing-bg: #eee;
     position: relative;
 
     &:nth-child(2n+1) {
-      background: rgba(255,255,255,0.03);
+      @include linear-gradient(left, rgba(255,255,255,0.03) 80%, rgba(0,0,0,0) 100%);
+      background-color: transparent;
     }
 
     &:hover {
@@ -371,41 +372,32 @@ $song-playing-bg: #eee;
   }
 }
 
-.controller-songs.action-show {
-  .whole .playlist-song {
-    margin: -10px 0 20px;
+.primary .playlist-song {
+  margin: -10px 0 20px;
 
-    section:nth-child(2n+1) {
-      background: none;
-    }
-
-    section {
-      padding-bottom: 20px;
-
-
-      &:after {
-        display: none;
-      }
-
-      h1 span {
-        &.artist {
-          font-size: 15px;
-          margin: 0 0 3px 0;
-        }
-
-        &.name {
-          font-size: 18px;
-        }
-      }
-    }
+  section:nth-child(2n+1) {
+    background: none;
   }
-}
 
-.similar-songs {
-  opacity: 0.8;
+  section {
+    padding-bottom: 20px;
 
-  &:hover, &.playing {
-    opacity: 1;
+    &:after {
+      display: none;
+    }
+
+    h1 span {
+      line-height: 1.4em;
+
+      &.artist {
+        font-size: 16px;
+        margin: 0 0 4px 0;
+      }
+
+      &.name {
+        font-size: 24px;
+      }
+    }
   }
 }
 
