@@ -258,7 +258,7 @@ $(function() {
       clearTimeout(infiniteScrollTimeout);
       infiniteScrollTimeout = setTimeout(function() {
         if (nearBottom()) $('.next-page:visible').click();
-      });
+      }, 20);
     }
   });
 

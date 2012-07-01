@@ -1,11 +1,10 @@
 <%- if user_signed_in? -%>
 
   <div class="whole nav-container">
-    <h2 class="inline">Welcome, <%= current_user.username %></h2>
-    <nav class="nav-menu">
+    <h2 class="nav-menu">
       <%=link_to 'My feed', '#my-feed', :class => 'control' + (@has_songs ? ' active' : '') %>
       <%=link_to 'Popular today', '#popular-today', :class => 'control' + (@has_songs ? '' : ' active') %>
-    </nav>
+    </h2>
 
     <div id="my-feed" class="section <% if @has_songs %> active<% end %>">
       <%- if @has_songs -%>

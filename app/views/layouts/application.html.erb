@@ -116,7 +116,7 @@
 
         <section class="right">
           <% if user_signed_in? %>
-            <%= link 'My Station', '/' + current_user.station.slug, :id => 'nav-my-station' %>
+            <%= link 'My Profile', '/' + current_user.station.slug, :id => 'nav-my-station' %>
             <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
             <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
           <% else %>
@@ -139,7 +139,6 @@
   <div id="nav-user" class="pop-menu">
     <% if user_signed_in? %>
       <span id="current_user" data-id="<%= current_user.id %>"></span>
-      <%= link_to "#{image_tag(current_user.avatar.url(:small))} My Station".html_safe, current_user %>
       <%= link_to "Account", '/users/edit' %>
       <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
     <% else %>

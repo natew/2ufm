@@ -1,2 +1,2 @@
 $('.tipsy').remove();
-$('#follow-<%= @station.id %>').html("<%= escape_javascript(render :partial => 'stations/follow', :locals => @locals) %>")
+$('.follow-<%= @station.id %>').html("<%= escape_javascript(render :partial => 'stations/follow', :locals => @locals) %>")

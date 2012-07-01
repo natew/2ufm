@@ -129,7 +129,7 @@ $song-playing-bg: #eee;
 
     h1 {
       margin: -3px 0 4px 60px;
-      width: 55%;
+      width: 60%;
       position: relative;
       z-index: 10;
 
@@ -182,9 +182,29 @@ $song-playing-bg: #eee;
       z-index: 11;
       line-height: 1.5em;
 
-      .follow-station-small {
-        font-size: 12px;
+      div {
+        display: inline-block;
       }
+
+      .follow-station {
+        display: inline;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: -1px 0 0;
+        box-shadow: none;
+
+        span {
+          font-size: 14px;
+          margin: 0;
+          padding-right: 3px;
+          color: #999;
+        }
+
+        strong {display: none;}
+      }
+
+      .count {display:none;}
 
       a {
         color: #aaa;
@@ -196,17 +216,14 @@ $song-playing-bg: #eee;
         overflow: hidden;
         text-overflow: ellipsis;
 
-        &:hover {
-          color: #555;
+        &:hover, &:hover span {
+          color: #fff;
         }
-      }
-
-      span {
-        display: block;
       }
 
       time {
         display: block;
+        white-space: nowrap;
         font-size: 11px;
       }
     }
@@ -368,6 +385,10 @@ $song-playing-bg: #eee;
 
 .twothirds .playlist-song {
   section {
+    h1 {
+      width: 52%;
+    }
+
     .song-meta {
       right: 20px;
     }

@@ -9,12 +9,11 @@
   </h1>
 
   <div class="song-meta">
-    <span>
-      <%= follow_station(song.station_id, 'small') %>
+    <div>
+      <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id) %></span>
       <%= link_to song.station_title, '/'+song.station_slug %>
       <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
-      <div id="<%= follow_id %>" class="hidden pop-menu">Following</div>
-    </span>
+    </div>
 
     <time><%= relative_time(song.published_at) %><% if song.source == 'soundcloud' %> <strong>s</strong><% end %></time>
   </div>

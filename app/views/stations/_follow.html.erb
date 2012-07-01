@@ -1,13 +1,13 @@
 <%- type ||= 'large'
-    icon, text, method, path =
+    icon, text, tip, method, path =
       (action == 'add') ?
-      ['+','Follow', :post, follow_path(id)] :
-      ['2','Following', :delete, follow_path(id) ]
+      ['+','Follow', 'Follow station', :post, follow_path(id)] :
+      ['2','Following', 'Unfollow station', :delete, follow_path(id) ]
     change_class = changed ? 'first-hover' : ''
-    disable = 'disabled' if on_own_profile?
-    class_name = type == 'small' ? "follow-station-small pictos tip #{disable}" : "follow-station #{action} button #{disable}"
-    label = type == 'large' ? "<span>#{icon}</span> #{text}" : "#{icon}"
+    disable = 'disabled' if user_signed_in? and id == current_user.station.id
+    class_name = "follow-station #{action} #{disable} #{change_class} button restricted control tip"
+    label = "<span>#{icon}</span> <strong>#{text}</strong>"
 -%>
 
-  <%= link_to "#{label}".html_safe, path, class: "#{class_name} control #{change_class} restricted", title: "#{text}", remote: true, method: method %>
-  <% if type == 'large' %><div class="count"><%= pluralize count, 'Follower' %></div><% end %>
+  <%= link_to label.html_safe, path, class: class_name, title: "#{tip}", remote: true, method: method %>
+  <div class="count"><%= pluralize count, 'Follower' %></div>

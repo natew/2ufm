@@ -4,5 +4,5 @@
     <%= image_tag(blog.image.url(:original)) %>
   </a>
   <p><%= blog.description %></p>
-  <div id="follow-<%= blog.station.id %>" class="follow"><%= follow_station(blog.station) %></div>
+  <div class="follow-<%= blog.station.id %>" class="follow"><%= follow_station(blog.station) %></div>
 </section>

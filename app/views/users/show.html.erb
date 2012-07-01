@@ -4,7 +4,7 @@
     <h2 class="icon"><%= @user.username %></h2>
 
     <ul class="title-nav">
-      <li id="follow-<%= @user.station.id %>"><%= follow_station(@user.station) %></li>
+      <li class="follow-<%= @user.station.id %>"><%= follow_station(@user.station) %></li>
     </ul>
 
     <nav class="nav-menu">
@@ -14,18 +14,20 @@
     </nav>
   </div>
 
-  <div id="favorites" class="whole section active">
-    <%- if @songs.empty? -%>
-      <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
-    <%- else -%>
-      <%= render :partial => 'stations/playlist', :locals => { :station => @user.station, :songs => @songs } %>
-    <%- end -%>
-  </div>
+  <div class="whole">
+    <div id="favorites" class="section active">
+      <%- if @songs.empty? -%>
+        <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
+      <%- else -%>
+        <%= render :partial => 'stations/playlist', :locals => { :station => @user.station, :songs => @songs } %>
+      <%- end -%>
+    </div>
 
-  <div id="listened" class="whole section">
-    <h3>Listening History</h3>
-    <ul class="list">
-      <%= render :partial => 'play', :collection => @plays %>
-    </ul>
+    <div id="listened" class="section">
+      <h3>Listening History</h3>
+      <ul class="list">
+        <%= render :partial => 'play', :collection => @plays %>
+      </ul>
+    </div>
   </div>
 </div>

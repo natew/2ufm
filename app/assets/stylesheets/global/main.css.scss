@@ -132,7 +132,7 @@ header {
 }
 
 #navbar {
-  min-width: $width + 68;
+  min-width: $width + 40;
   float: left;
   position: fixed;
   z-index: 150;
@@ -264,13 +264,12 @@ header {
   .third h2 { font-size: 14px; }
 
   #breadcrumbs {
-    padding: 5px 20px;
-    margin: -20px 0 20px 0;
+    padding: 8px 20px 0;
+    margin: -20px 0 15px 0;
     font-size: 11px;
-    @include background-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0));
 
     a {
-      color: #777;
+      color: #888;
       text-decoration: none;
       float: left;
 
@@ -344,6 +343,12 @@ header #second-nav {
   display: none;
 }
 
+.pictos, .button span, .playlist .follow-station {
+  font-family: 'Pictos';
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+
 [class*="pictos-"] {
   position: relative;
 }
@@ -356,6 +361,7 @@ header #second-nav {
   top: 5px;
   font-size: 12px;
   font-family: 'Pictos';
+  -webkit-font-smoothing: antialiased;
 }
 
 .pictos-key:before {content: "K";}
@@ -387,7 +393,6 @@ header #second-nav {
 .pictos-clock:before {content: "t";}
 .pictos-cart:before {content: "$";}
 
-
 /* BAR */
 #bar {
   position: fixed;
@@ -395,7 +400,7 @@ header #second-nav {
   left: 80px;
   right: 0;
   z-index: 0;
-  min-width: $width;
+  min-width: $width - 40;
   height: $header-height;
 
   #player-share {
@@ -915,7 +920,7 @@ $announce-color: $heading-color;
 h2.title { color: #000; }
 .title {
   padding: 0 20px;
-  margin: 0 0 25px;
+  margin: 0 0 20px;
   color: #999;
   position: relative;
 
@@ -1168,14 +1173,14 @@ ol.mp_list {
 }
 
 .nav-container {
-  .title nav.nav-menu {
+  .title .nav-menu {
     margin: 4px 0 0 -8px;
     width: 60%;
   }
 
-  nav.nav-menu {
+  .nav-menu {
     display: inline-block;
-    margin: 0 0 0 18px;
+    margin: 0;
     line-height: 1.4em;
     overflow: hidden;
     padding: 3px 0;
@@ -1191,12 +1196,11 @@ ol.mp_list {
     }
 
     a {
-      font-size: 14px;
       text-decoration: none;
       float: left;
-      padding: 0 10px;
+      padding: 0 15px;
       margin-left: -1px;
-      border-left: 1px solid $body-lighter;
+      border-left: 1px solid rgba(255,255,255,0.15);
       color: #ccc;
 
       &:first-child {
@@ -1212,6 +1216,16 @@ ol.mp_list {
         color: $link-hover;
       }
     }
+  }
+
+  nav.nav-menu {
+    a {
+      font-size: 14px;
+    }
+  }
+
+  h2.nav-menu {
+    margin-bottom: 10px;
   }
 
   .section {
@@ -1546,4 +1560,23 @@ ul.tagit input[type="text"] {
     background-color: inherit;
     outline: none;
     @include box-sizing(border-box);
+}
+
+/* Pictos Font
+* Copyright © 2010 Drew Wilson
+* http://www.drewwilson.com  -  http://pictos.drewwilson.com
+*
+* The fonts included in this stylesheet are subject to the End User License you purchased
+* from Drew Wilson. The fonts are protected under domestic and international trademark and
+* copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+* distributing this font software.
+*
+* This font is NOT free. It is illegal to use this font without paying for a license.
+*/
+@font-face {
+    font-family: 'Pictos';
+    src: url('/fonts/pictos-web.eot');
+    src: local('☺'), url('/fonts/pictos-web.woff') format('woff'), url('/fonts/pictos-web.ttf') format('truetype'), url('/fonts/pictos-web.svg#webfontIyfZbseF') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
