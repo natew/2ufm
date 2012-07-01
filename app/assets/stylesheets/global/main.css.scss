@@ -193,6 +193,8 @@ header {
       font-size: 13px;
       padding: 7px 12px;
       float: left;
+      @include transition(all .1s linear);
+
 
       &.active {
         color: #fff;
@@ -309,8 +311,10 @@ header form {
     @include linear-gradient($header-color,lighten($header-color,5%));
     @include box-shadow(0 1px 0 $header-shadow);
     @include border-radius(20px);
+    @include transition(all .1s linear);
 
     &:hover {
+      @include linear-gradient(lighten($header-color,5%),lighten($header-color,10%));
       color: #444;
     }
 
@@ -460,8 +464,26 @@ header #second-nav {
       visibility: visible;
     }
 
-    #player-controls span {
-      color: #fff;
+    #player-controls a {
+      span {
+        color: lighten($header-color, 45%);
+      }
+
+      &:hover {
+        span {
+          color: #fff;
+          text-shadow: 0 0 2px rgba(0,0,0,0.8);
+        }
+      }
+    }
+
+    #player-bottom a.control {
+      pointer-events: auto;
+      color: lighten($header-light,5%);
+
+      &:hover {
+        color: #fff;
+      }
     }
   }
 
@@ -478,13 +500,6 @@ header #second-nav {
       color: $header-color;
       text-shadow: none;
 
-      &:hover {
-        span {
-          color: #fff;
-          text-shadow: 0 0 2px rgba(0,0,0,0.8);
-        }
-      }
-
       span {
         top: 0;
         left: 0;
@@ -492,6 +507,7 @@ header #second-nav {
         height: 100%;
         display: inline-block;
         @include box-sizing(border-box);
+        @include transition(all .1s linear);
       }
     }
 
@@ -522,7 +538,7 @@ header #second-nav {
     position: absolute;
     top: 0;
     left: 90px;
-    right: $query-width + 70;
+    right: $query-width + 75;
     height: 100%;
 
     #player-meta {
@@ -583,12 +599,13 @@ header #second-nav {
       display: block;
       float: left;
       font-size: 16px;
-      color: $header-light;
-      text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+      color: $header-color;
       padding: 4px 5px;
+      pointer-events: none;
+      @include transition(all .1s linear);
 
       &:hover {
-        color: #fff !important;
+        color: $header-color;
       }
     }
 

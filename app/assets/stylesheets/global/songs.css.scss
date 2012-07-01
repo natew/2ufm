@@ -266,10 +266,8 @@ $song-playing-bg: #eee;
             }
           }
 
-          &.remove {
-            color: #239708;
-            &:hover { color: #970808;}
-          }
+          &.remove, &.remove:before { color: #dceb05; }
+          &.remove:hover, &.remove:hover:before { color: #fa0e10; }
         }
       }
     }
