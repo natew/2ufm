@@ -285,27 +285,34 @@ $(function() {
     if (e.target.tagName == 'A') {
       var el = $(e.target);
 
-      // Nav Dropdown
-      if (el.is('.nav:not(.disabled)')) {
-        navDropdown($(e.target));
+      // Disabled
+      if (el.is('.disabled')) {
+        e.preventDefault();
         return false;
       }
       else {
-        // Close any dropdowns
-        navDropdown(false);
-
-        // Not logged in
-        if (!loggedIn) {
-          if (el.is('.restricted')) {
-            modal('#modal-user');
-            return false;
-          }
+        // Nav Dropdown
+        if (el.is('.nav')) {
+          navDropdown($(e.target));
+          return false;
         }
         else {
-          // Modals
-          if (el.is('.modal')) {
-            modal(e.target.getAttribute('href'));
-            return false;
+          // Close any dropdowns
+          navDropdown(false);
+
+          // Not logged in
+          if (!loggedIn) {
+            if (el.is('.restricted')) {
+              modal('#modal-user');
+              return false;
+            }
+          }
+          else {
+            // Modals
+            if (el.is('.modal')) {
+              modal(e.target.getAttribute('href'));
+              return false;
+            }
           }
         }
       }

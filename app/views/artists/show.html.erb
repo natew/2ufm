@@ -9,9 +9,10 @@
       <li id="follow-<%= @artist.station.id %>"><%= follow_station(@artist.station) %></li>
     </ul>
 
+    <%- if @artist.song_count > 2 -%>
     <nav class="nav-menu">
       <%= link_to 'Newest', @artist %>
-      <%= link_to 'Most popular', popular_artist_path(@artist) if @artist.song_count > 5 %>
+      <%= link_to 'Most popular', popular_artist_path(@artist) if @artist.song_count > 9 %>
       <%= link_to 'Originals', originals_artist_path(@artist) if @artist.has_originals? %>
       <%= link_to "Remixes", remixes_artist_path(@artist) if @artist.has_remixes? %>
       <%= link_to "Mashups", mashups_artist_path(@artist) if @artist.has_mashups? %>
@@ -19,6 +20,9 @@
       <%= link_to "Productions", productions_artist_path(@artist) if @artist.has_productions? %>
       <%= link_to "Featuring", features_artist_path(@artist) if @artist.has_features? %>
     </nav>
+    <%- else -%>
+      <p>Listening to <%= @artist.name %></p>
+    <%- end -%>
   </div>
 
   <div class="whole">

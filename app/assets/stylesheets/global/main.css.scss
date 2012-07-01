@@ -1199,7 +1199,6 @@ ol.mp_list {
   .section {
     clear: both;
     display: none;
-    padding: 0;
 
     &.active {
       display: block;
@@ -1216,6 +1215,10 @@ h2 small { font-size: 55%; }
   padding: 0 20px;
   position: relative;
   @include box-sizing(border-box);
+}
+
+.section {
+  padding: 0;
 }
 
 .contain {

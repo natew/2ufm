@@ -40,26 +40,29 @@ var fn = {
     return object;
   },
 
-  clipboard: function() {
-    var invite = $('#player-invite'),
-        text = invite.html(),
-        hover = invite.data('hover'),
-        click = invite.data('click');
+  clipboard: function(target) {
+    var el    = $('#' + target),
+        text  = el.html(),
+        hover = el.data('hover'),
+        click = el.data('click'),
+        wait  = false;
 
     ZeroClipboard.setMoviePath('/swfs/ZeroClipboard.swf');
     var clip = new ZeroClipboard.Client();
     clip.setHandCursor(true);
-    clip.glue('player-invite','player-invite-container');
-    clip.setText(document.location.host+invite.attr('href'));
+    clip.glue(target, el.parent().attr('id'));
+    clip.setText(document.location.host + el.attr('href'));
     clip.addEventListener('mouseOver', function (client) {
-      invite.trigger('mouseover').html(hover);
+      el.trigger('mouseover').html(hover);
     });
     clip.addEventListener('mouseOut', function (client) {
-      invite.trigger('mouseout').html(text);
+      if (!wait) el.trigger('mouseout').html(text);
     });
-    clip.addEventListener('complete', function(client, text) {
-      invite.html(click);
-      setTimeout(function() { invite.html(text); }, 2000);
+    clip.addEventListener('complete', function(client, clip) {
+      el.html(click);
+      $('.tipsy').remove();
+      wait = true;
+      setTimeout(function() { el.html(text); wait = false; }, 2000);
     });
   }
 };

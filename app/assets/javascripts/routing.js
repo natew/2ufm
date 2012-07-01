@@ -35,6 +35,12 @@ var page = {
     // Nav highlight
     setNavActive(curPage);
 
+    // Clipboard items
+    var citems = $('.clipboard');
+    if (citems.length) {
+      citems.each(function() { fn.clipboard($(this).attr('id')); });
+    }
+
     // Tooltips
     $('.tooltip').hover(function() {
       clearInterval(tipTimer);

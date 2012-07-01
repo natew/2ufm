@@ -348,7 +348,7 @@ var mp = (function() {
           listenURL = '/l/'+data;
           pl.invite.attr('href',listenURL);
           pl.invite.removeClass('disabled');
-          fn.clipboard();
+          fn.clipboard('player-invite');
 
           // Update popup
           $('#share-facebook').attr('href', 'https://www.facebook.com/sharer.php?u=http://2u.fm'+encodeURI(listenURL));

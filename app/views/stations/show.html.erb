@@ -8,7 +8,7 @@
 
   <ul class="title-nav">
     <li id="follow-<%= @station.id %>"><%= follow_station(@station) %></li>
-    <li><%= link_to "Share", '', :class => 'button'  %></li>
+    <li><%= link_to "Share", '/' + @station.slug, :id => 'share-station', :class => 'button clipboard tip', :title => 'Copy link to clipboard', 'data-hover' => 'Copy', 'data-click' => 'Got it!'  %></li>
   </ul>
 </div>
 
@@ -16,8 +16,6 @@
   <%- if @station.songs.count > 0 -%>
   <div class="twothirds-wrap">
     <div class="twothirds">
-      <p><%= @station.description %></p>
-
       <%= render :partial => 'stations/playlist', :locals => { :station => @station } %>
     </div>
   </div>

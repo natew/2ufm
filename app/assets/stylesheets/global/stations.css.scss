@@ -1,12 +1,5 @@
 @import "mixins.css.scss";
 
-.third .stations {
-  section {
-    float: none;
-    width: auto;
-  }
-}
-
 $station-margin: 4%;
 $station-height: 120px;
 $section-pad: 8px;
@@ -134,4 +127,8 @@ $section-pad: 8px;
       }
     }
   }
+}
+
+#share-station {
+  width: 58px;
 }

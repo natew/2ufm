@@ -101,12 +101,16 @@
 
   #user-login {
     width: 250px;
-    padding: 0 20px;
+    padding: 10px 20px;
     float: right;
 
     input[type="text"],
     input[type="password"] {
       width: 95%;
+    }
+
+    #label-login {
+      display: none;
     }
 
     label {

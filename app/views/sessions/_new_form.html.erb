@@ -1,6 +1,6 @@
 <%= form_for(:user, :url => new_user_session_path) do |f| %>
   <div class="clearfix">
-    <%= f.label 'Username or email', :for => :login %>
+    <%= f.label 'Username or email', :for => :login, :id => 'label-login' %>
     <%= f.text_field :login %>
   </div>
 
