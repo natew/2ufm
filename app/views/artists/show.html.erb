@@ -11,7 +11,7 @@
 
     <nav class="nav-menu">
       <%= link_to 'Newest', @artist %>
-      <%= link_to 'Most popular', popular_artist_path(@artist) %>
+      <%= link_to 'Most popular', popular_artist_path(@artist) if @artist.song_count > 5 %>
       <%= link_to 'Originals', originals_artist_path(@artist) if @artist.has_originals? %>
       <%= link_to "Remixes", remixes_artist_path(@artist) if @artist.has_remixes? %>
       <%= link_to "Mashups", mashups_artist_path(@artist) if @artist.has_mashups? %>

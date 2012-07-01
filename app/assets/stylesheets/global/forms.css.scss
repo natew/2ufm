@@ -141,7 +141,6 @@ button {
   @include background-gradient($primary, $primary-dark);
 
   &:hover {
-    background-position: 0 -25px;
     color: #fff;
   }
 

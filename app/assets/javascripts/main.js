@@ -3,7 +3,6 @@ var w = $(window),
     songOffsets = [],
     tipsyClearTimeout,
     infiniteScrollTimeout,
-    bar = $('#bar'),
     debug = false,
     loggedIn = $('body.signed_in').length > 0,
     modalShown = false,
@@ -12,7 +11,9 @@ var w = $(window),
     morePages = true,
     scrollPage = getPage(),
     totalPages = 0,
-    enableInfiniteScroll = true;
+    enableInfiniteScroll = true,
+    navItems = getNavItems(),
+    navActive;
 
 // Bind selectors to callbacks
 var mpClick = function(selector,callback) {
@@ -21,6 +22,21 @@ var mpClick = function(selector,callback) {
     fn.log(fn);
     mp[callback].call();
   });
+}
+
+function getNavItems() {
+  var items = {};
+  $('#navbar a').each(function() {
+    var t = $(this);
+    items[t.attr('href').substring(1)] = t;
+  });
+  return items;
+}
+
+function setNavActive(page) {
+  if (navActive) navActive.removeClass('active');
+  var newNavActive = navItems[page.split('/')[1]];
+  if (newNavActive) navActive = newNavActive.addClass('active');
 }
 
 // Reads URL parameters for ?page=X and returns X

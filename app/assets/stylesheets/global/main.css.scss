@@ -48,6 +48,7 @@ h2, h3, h4 {
   line-height: 1.4em;
   padding: 0;
   margin: 0 0 15px 0;
+  font-weight: normal;
 
   &.inline {
     display: inline-block;
@@ -165,6 +166,7 @@ header {
     &.right {
       float: right;
       margin-right: 20px;
+      width: 140px;
 
       a {
         float: right;
@@ -261,7 +263,7 @@ header {
 
   #breadcrumbs {
     padding: 5px 20px;
-    margin: -20px 0 10px 0;
+    margin: -20px 0 20px 0;
     font-size: 11px;
     @include background-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0));
 
@@ -894,14 +896,14 @@ $announce-color: $heading-color;
 
 h2.title { color: #000; }
 .title {
-  padding: 0 25px;
+  padding: 0 20px;
   margin: 0 0 25px;
   color: #999;
   position: relative;
 
   .image {
     float: left;
-    margin: 2px 15px 0 0;
+    margin: 0 15px 0 0;
 
     img {
       height: 64px;
@@ -931,9 +933,10 @@ h2.title { color: #000; }
 
   h2 {
     color: $title;
-    font-size: 22px;
+    font-size: 26px;
+    font-weight: normal;
     background: none;
-    margin: 0 0 -5px 0;
+    margin: -4px 0 -6px 0;
     padding: 0;
     display: inline-block;
 
@@ -1148,7 +1151,7 @@ ol.mp_list {
 
 .nav-container {
   .title nav.nav-menu {
-    margin: 10px 0 0 -10px;
+    margin: 4px 0 0 -8px;
     width: 60%;
   }
 
@@ -1170,7 +1173,7 @@ ol.mp_list {
     }
 
     a {
-      font-size: 12px;
+      font-size: 14px;
       text-decoration: none;
       float: left;
       padding: 0 10px;

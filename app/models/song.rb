@@ -472,12 +472,19 @@ class Song < ActiveRecord::Base
         original = true
         artists.each do |name,role|
           original = false if role == :remixer or role == :mashup or role == :cover
+
+          # Find or create artist
           match = Artist.where("name ILIKE (?)", name).first
           match = Artist.create(name: name) unless match
+
+          # Find or create author
           self.authors.find_or_create_by_artist_id_and_role(match.id, role)
         end
+
+        # Set if its an original song
         self.original_song = original
       else
+        # Not working if we don't have any artists
         self.working = false
       end
     end

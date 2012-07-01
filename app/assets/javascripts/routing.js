@@ -30,7 +30,10 @@ var page = {
 
     // Run loaded functions
     var $doc = $(document);
-    var $body = $doc.find('body:first');
+    var $body = $doc.children().children('body');
+
+    // Nav highlight
+    setNavActive(curPage);
 
     // Tooltips
     $('.tooltip').hover(function() {

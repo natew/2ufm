@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120628054046) do
+ActiveRecord::Schema.define(:version => 20120701005357) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20120628054046) do
     t.boolean  "has_originals",    :default => false
     t.boolean  "has_productions",  :default => false
     t.boolean  "has_features",     :default => false
+    t.integer  "song_count",       :default => 0
   end
 
   create_table "authors", :force => true do |t|
