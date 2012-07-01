@@ -6,10 +6,7 @@
   <h2><%= @station.title %></h2>
   <p>Updated <%= relative_time @station.last_broadcasted_at %> &middot; <%= pluralize number_with_delimiter(@station.songs.count), 'song' %></p>
 
-  <ul class="title-nav">
-    <li id="follow-<%= @station.id %>"><%= follow_station(@station) %></li>
-    <li><%= link_to "Share", '/' + @station.slug, :id => 'share-station', :class => 'button clipboard tip', :title => 'Copy link to clipboard', 'data-hover' => 'Copy', 'data-click' => 'Got it!'  %></li>
-  </ul>
+  <%= render :partial => 'shared/actions', :locals => { :station => @station } %>
 </div>
 
 <div class="contain">

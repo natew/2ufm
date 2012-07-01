@@ -15,7 +15,7 @@
       <%- end -%>
     </div>
 
-    <div id="popular-today" class="section <% if !@feed %> active<% end %>">
+    <div id="popular-today" class="section <% if !@has_songs %> active<% end %>">
       <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
     </div>
   </div>

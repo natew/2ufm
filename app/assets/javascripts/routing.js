@@ -4,7 +4,7 @@
 var page = {
 
   start: function pageStart() {
-    // Remove tooltips, show loading bar
+    $('.zeroClipboardDiv').remove();
     $('.tipsy').remove();
     $('#loading').addClass('rotate');
   },

@@ -327,6 +327,7 @@ header form {
   #search {
     background: none;
     border: none;
+    pointer-events: none;
     position: absolute;
     right: -3px;
     top: -2px;

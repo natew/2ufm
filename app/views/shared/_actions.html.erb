@@ -1,0 +1,9 @@
+<%-
+  share ||= true
+  blog  ||= false
+-%>
+<ul class="title-nav">
+  <li id="follow-<%= station.id %>"><%= follow_station(station) %></li>
+  <% if share %><li><%= link_to "Share", '/' + station.slug, :id => 'share-station', :class => 'button clipboard tip', :title => 'Copy link to clipboard', 'data-hover' => 'Copy', 'data-click' => 'Got it!'  %></li><% end %>
+  <% if blog %><li><%= link_to "&raquo;".html_safe, blog.url, :target => '_blank', :class => 'button' %></li><% end %>
+</ul>

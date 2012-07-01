@@ -5,9 +5,7 @@
     </div>
     <h2><%= @artist.name %></h2>
 
-    <ul class="title-nav">
-      <li id="follow-<%= @artist.station.id %>"><%= follow_station(@artist.station) %></li>
-    </ul>
+    <%= render :partial => 'shared/actions', :locals => { :station => @artist.station } %>
 
     <%- if @artist.song_count > 2 -%>
     <nav class="nav-menu">

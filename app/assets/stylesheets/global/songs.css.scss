@@ -36,7 +36,7 @@ $song-playing-bg: #eee;
     position: relative;
 
     &:nth-child(2n+1) {
-      @include linear-gradient(left, rgba(255,255,255,0.03) 80%, rgba(0,0,0,0) 100%);
+      @include linear-gradient(left, rgba(255,255,255,0.03) 80%, rgba(255,255,255,0) 95%);
       background-color: transparent;
     }
 
