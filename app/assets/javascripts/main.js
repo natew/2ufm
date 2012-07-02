@@ -15,122 +15,6 @@ var w = $(window),
     navItems = getNavItems(),
     navActive;
 
-// Bind selectors to callbacks
-var mpClick = function(selector,callback) {
-  $(selector).click(function(e) {
-    e.preventDefault();
-    fn.log(fn);
-    mp[callback].call();
-  });
-}
-
-function getNavItems() {
-  var items = {};
-  $('#navbar a').each(function() {
-    var t = $(this);
-    items[t.attr('href').substring(1)] = t;
-  });
-  return items;
-}
-
-function setNavActive(page) {
-  if (navActive) navActive.removeClass('active');
-  var newNavActive = navItems[page.split('/')[1]];
-  if (newNavActive) navActive = newNavActive.addClass('active');
-}
-
-// Reads URL parameters for ?page=X and returns X
-function getPage() {
-  var page = window.location.search.match(/page=([0-9]+)/);
-  return page ? parseInt(page[1],10) : 1;
-}
-
-function updatePageURL(page) {
-  var url = window.location.href.replace(/#.*/,''),
-      page = 'page=' + page,
-      page_regex = /page=[0-9]+/,
-      hash = window.location.hash;
-
-  // Replace old page
-  if (url.match(page_regex)) {
-    url = url.replace(page_regex, page);
-  } else {
-    url += url.match(/\?/) ? '&' + page : '?' + page;
-  }
-
-  url += hash;
-  window.history.pushState('',document.title,url);
-}
-
-function nextPage(link, callback) {
-  var link = $(link).html('Loading').addClass('loading');
-  // Infinite scrolling
-  if (morePages) {
-    var id = $('.playlist:first').attr('id').split('-')[1];
-    loadingPage = true;
-    scrollPage++;
-    $.ajax({
-      url: window.location.href,
-      type: 'get',
-      data: 'id=' + id + '&page=' + scrollPage,
-      headers: {
-        Accept: "text/page; charset=utf-8",
-        "Content-Type": "text/page; charset=utf-8"
-      },
-      success: function(data) {
-        link.remove();
-        loadingPage = false;
-        updatePageURL(scrollPage);
-        $('.playlist:last').after(data);
-        var playlist = '#playlist-'+id+'-'+scrollPage;
-        if (callback) callback.call($(playlist));
-      },
-      error: function() {
-        morePages = false;
-      }
-    })
-  }
-}
-
-function navDropdown(nav, pad) {
-  if (nav && nav.length) {
-    var padding = pad ? pad : 20,
-        target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
-        dropdown = $(target).removeClass('hidden'),
-        top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
-        left = Math.round(nav.offset().left + (nav.width()/2) - (dropdown.width()/2));
-
-    // If the nav is not already open
-    if (!(navOpen && navOpen[0] == dropdown[0])) {
-      navOpen = dropdown.css({
-        top: top,
-        left: left
-      }).addClass('open');
-
-      return true;
-    }
-  }
-
-  if (navOpen) navOpen.removeClass('open').addClass('hidden');
-  navOpen = false;
-}
-
-// Modal
-function modal(selector) {
-  var modal = $('#modal'),
-      show = $('#overlay,#modal');
-
-  if (modalShown || selector === false) {
-    show.removeClass('shown');
-    modalShown = false;
-  }
-  else {
-    modal.html($(selector).clone());
-    show.addClass('shown');
-    modalShown = true;
-  }
-}
-
 // Read URL parameters
 var urlParams = {},
     updateParams = (function () {
@@ -282,6 +166,8 @@ $(function() {
 
   // Click binding
   $('body').click(function(e) {
+    lastPosition = [e.pageX, e.pageY];
+
     if (e.target.tagName == 'A') {
       var el = $(e.target);
 
@@ -406,13 +292,6 @@ $(function() {
       var info = mp.curSongInfo();
       macgap.growl.notify({title: info.artist_name + " - " + info.name, content: 'Now playing'});
     }
-
-    $('#loading').addClass('visible').click(function() {
-      window.location.reload();
-      return false;
-    });
-
-    $('#get-app').remove();
   }
 
   // Debug
@@ -435,3 +314,119 @@ $(function() {
     }
   })
 });
+
+// Bind selectors to callbacks
+var mpClick = function(selector,callback) {
+  $(selector).click(function(e) {
+    e.preventDefault();
+    fn.log(fn);
+    mp[callback].call();
+  });
+}
+
+function getNavItems() {
+  var items = {};
+  $('#navbar a').each(function() {
+    var t = $(this);
+    items[t.attr('href').substring(1)] = t;
+  });
+  return items;
+}
+
+function setNavActive(page) {
+  if (navActive) navActive.removeClass('active');
+  var newNavActive = navItems[page.split('/')[1]];
+  if (newNavActive) navActive = newNavActive.addClass('active');
+}
+
+// Reads URL parameters for ?page=X and returns X
+function getPage() {
+  var page = window.location.search.match(/page=([0-9]+)/);
+  return page ? parseInt(page[1],10) : 1;
+}
+
+function updatePageURL(page) {
+  var url = window.location.href.replace(/#.*/,''),
+      page = 'page=' + page,
+      page_regex = /page=[0-9]+/,
+      hash = window.location.hash;
+
+  // Replace old page
+  if (url.match(page_regex)) {
+    url = url.replace(page_regex, page);
+  } else {
+    url += url.match(/\?/) ? '&' + page : '?' + page;
+  }
+
+  url += hash;
+  window.history.pushState('',document.title,url);
+}
+
+function nextPage(link, callback) {
+  var link = $(link).html('Loading').addClass('loading');
+  // Infinite scrolling
+  if (morePages) {
+    var id = $('.playlist:first').attr('id').split('-')[1];
+    loadingPage = true;
+    scrollPage++;
+    $.ajax({
+      url: window.location.href,
+      type: 'get',
+      data: 'id=' + id + '&page=' + scrollPage,
+      headers: {
+        Accept: "text/page; charset=utf-8",
+        "Content-Type": "text/page; charset=utf-8"
+      },
+      success: function(data) {
+        link.remove();
+        loadingPage = false;
+        updatePageURL(scrollPage);
+        $('.playlist:last').after(data);
+        var playlist = '#playlist-'+id+'-'+scrollPage;
+        if (callback) callback.call($(playlist));
+      },
+      error: function() {
+        morePages = false;
+      }
+    })
+  }
+}
+
+function navDropdown(nav, pad) {
+  if (nav && nav.length) {
+    var padding = pad ? pad : 20,
+        target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
+        dropdown = $(target).removeClass('hidden'),
+        top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
+        left = Math.round(nav.offset().left + (nav.width()/2) - (dropdown.width()/2));
+
+    // If the nav is not already open
+    if (!(navOpen && navOpen[0] == dropdown[0])) {
+      navOpen = dropdown.css({
+        top: top,
+        left: left
+      }).addClass('open');
+
+      return true;
+    }
+  }
+
+  if (navOpen) navOpen.removeClass('open').addClass('hidden');
+  navOpen = false;
+}
+
+// Modal
+function modal(selector) {
+  var modal = $('#modal'),
+      show = $('#overlay,#modal');
+
+  if (modalShown || selector === false) {
+    show.removeClass('shown');
+    modalShown = false;
+  }
+  else {
+    modal.html($(selector).clone());
+    show.addClass('shown');
+    modalShown = true;
+  }
+}

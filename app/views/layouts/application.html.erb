@@ -82,8 +82,6 @@
           <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
         </div>
 
-        <div id="loading" class="pictos hide">0</div>
-
         <%= form_tag '/main/search', :method => 'get' do %>
           <%= text_field_tag :query, '', :placeholder =>"Find songs, artists & stations" %>
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
@@ -184,6 +182,9 @@
       </dl>
     </div>
   </div>
+
+  <!-- Spinner -->
+  <div id="spinner" class="hidden"></div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>
 

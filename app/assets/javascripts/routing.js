@@ -6,7 +6,7 @@ var page = {
   start: function pageStart() {
     $('.zeroClipboardDiv').remove();
     $('.tipsy').remove();
-    $('#loading').addClass('rotate');
+    fn.attachSpinner();
   },
 
   end: function pageEnd(data) {
@@ -19,7 +19,7 @@ var page = {
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
 
-    $('#loading').removeClass('rotate');
+    fn.detachSpinner();
 
     // Set page in music player
     mp.setPage(curPage);
@@ -56,12 +56,6 @@ var page = {
         }
       }, 50);
     })
-
-    // Begin tagging
-    $('#tags').tagit({
-      allowSpaces: true,
-      placeholderText: 'What do you want to listen to?'
-    });
 
     // Styling for inputs
     $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });

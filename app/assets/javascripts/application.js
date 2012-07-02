@@ -12,9 +12,8 @@
 //= require jquery.flot.min
 //= require jquery.pjax
 //= require jquery.inverter
-//= require jquery.ui
-//= require jquery.tagit
 //= require mustache
 //= require soundmanager2
+//= require spin
 //= require ZeroClipboard
 //= require_tree .

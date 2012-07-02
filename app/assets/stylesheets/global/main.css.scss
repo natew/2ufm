@@ -1313,30 +1313,9 @@ $third-width: 220px;
   border-left: none;
 }
 
-#loading {
+#spinner {
   position: absolute;
-  top: 7px;
-  right: 280px;
-  font-size: 28px;
-  text-shadow: none;
-  color: #fff;
-  width: 23px;
-  height: 17px;
-  line-height: 15px;
-  text-indent: -1px;
-  padding: 4px 0 0 0;
-  opacity: 0;
-
-  &.visible {
-    opacity: .5;
-    cursor: pointer;
-  }
-
-  &.rotate {
-    opacity: 1;
-    @include transition(opacity .5s linear);
-    @include animation(rotation 1.3s infinite linear);
-  }
+  z-index: 1000;
 }
 
 
