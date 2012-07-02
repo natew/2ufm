@@ -188,6 +188,7 @@ button {
     border-color: #aaa;
     text-shadow: none;
     cursor: default;
+    pointer-events: none;
     @include background-gradient(#ccc, #aaa);
 
     span {

@@ -22,14 +22,15 @@ w.on({
 
   'mp:play': function mpPlay(event, mp, song) {
     var playlistItem = $('#player-playlist .song-'+song.id),
-        w = $(window);
+        w = $(window),
+        song_url = $('#song-' + song.id + ' .name a').attr('href');
 
     $('#player-playlist a').removeClass('playing');
     playlistItem.addClass('playing');
 
     // Update player info
     $('#player-artist-name').html(song.artist_name);
-    $('#player-song-name').html(song.name);
+    $('#player-song-name').html('<a href="' + song_url + '">' + song.name + '</a>');
 
     // Scroll to song
     if (mp.isOnPlayingPage()) {

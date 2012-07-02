@@ -20,8 +20,7 @@ var mp = (function() {
       delayStart = false,
       volume = 100,
       playlist_template = '',
-      time = 0,
-      marqueeInterval;
+      time = 0;
 
   // Elements
   var pl = {
@@ -133,7 +132,6 @@ var mp = (function() {
           curSong.play();
 
           // For scrolling animation
-          this.marquee(true);
           return true;
         } else {
           curSection = null;
@@ -154,7 +152,6 @@ var mp = (function() {
     stop: function stop() {
       if (isPlaying) {
         curSong.stop();
-        this.marquee(false);
         soundManager.stopAll();
       }
     },
@@ -163,7 +160,6 @@ var mp = (function() {
       if (isPlaying) {
         curSong.pause();
         curSection.addClass('paused');
-        this.marquee(false);
       }
     },
 
@@ -218,40 +214,10 @@ var mp = (function() {
       $('title').html(icon + ' ' + title);
       if (isPlaying) {
         pl.player.addClass('playing');
-        pl.song.html(title);
         pl.play.html('<span>5</span>');
       } else {
         pl.player.removeClass('playing');
         pl.play.html('<span>4</span>');
-      }
-    },
-
-    marquee: function marquee(start) {
-      if (start) {
-        pl.song.removeClass('calculated');
-        var metaWidth   = (pl.meta.width()-28),
-            titleWidth  = pl.song.width(),
-            totalIndent = titleWidth-metaWidth,
-            curIndent   = 0,
-            comingBack  = false;
-        pl.song.addClass('calculated');
-
-        if (totalIndent > 0) {
-          marqueeInterval = setInterval(function() {
-            if (curIndent < totalIndent && !comingBack) {
-              curIndent++;
-              pl.song.css('text-indent', '-'+curIndent+'px');
-            } else {
-              comingBack = true;
-              curIndent--;
-              if (curIndent == 0) comingBack = false;
-              pl.song.css('text-indent', '-'+curIndent+'px');
-            }
-          },35);
-        }
-      } else {
-        clearInterval(marqueeInterval);
-        pl.song.css('text-indent', '0px');
       }
     },
 

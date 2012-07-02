@@ -560,7 +560,7 @@ header #second-nav {
         text-align: center;
       }
 
-      #player-song-name {
+      #player-song-name a {
         margin-bottom: 1px;
         font-size: 13px;
         font-weight: bold;
@@ -568,6 +568,7 @@ header #second-nav {
         overflow: hidden;
         text-overflow: ellipsis;
         color: #fff;
+        text-decoration: none;
       }
 
       #player-artist-name {
@@ -1237,6 +1238,7 @@ ol.mp_list {
 
   h2.nav-menu {
     margin-bottom: 10px;
+    margin-left: -10px;
   }
 
   .section {
