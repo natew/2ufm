@@ -291,14 +291,14 @@ function getNavItems() {
   var items = {};
   $('#navbar a').each(function() {
     var t = $(this);
-    items[t.attr('href').substring(1)] = t;
+    items[t.attr('href')] = t;
   });
   return items;
 }
 
 function setNavActive(page) {
   if (navActive) navActive.removeClass('active');
-  var newNavActive = navItems[page.split('/')[1]];
+  var newNavActive = navItems[page];
   if (newNavActive) navActive = newNavActive.addClass('active');
 }
 

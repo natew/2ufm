@@ -173,11 +173,15 @@ header {
       }
     }
 
+    h1, a {
+      padding: 7px 12px 6px;
+    }
+
     h1 {
       font-size: 11px;
       text-transform: uppercase;
       color: $navbar-heading;
-      padding: 7px 12px 7px 0;
+      padding-left: 0;
       margin: 0;
       float: left;
       position: relative;
@@ -191,7 +195,6 @@ header {
       color: $navbar-link;
       font-weight: bold;
       font-size: 13px;
-      padding: 7px 12px;
       float: left;
       @include transition(all .1s linear);
 
