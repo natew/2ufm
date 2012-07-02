@@ -400,14 +400,14 @@ $song-playing-bg: #eee;
 }
 
 .primary .playlist-song {
-  margin: -10px 0 10px;
+  margin: -20px 0 0;
 
   section:nth-child(2n+1) {
     background: none;
   }
 
   section {
-    padding-bottom: 20px;
+    padding: 20px;
 
     &:after {
       display: none;
@@ -471,6 +471,26 @@ $song-playing-bg: #eee;
   }
 }
 
-.third .pagination {
-  display: none;
+#body .reviews {
+  margin-bottom: 10px;
+
+  section {
+    h3 {
+      margin: 0 0 6px 0;
+      color: #999;
+
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+    }
+
+    p {
+
+      a {
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
+  }
 }
