@@ -23,6 +23,13 @@ module ApplicationHelper
     render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.user_broadcasts_count }
   end
 
+  def seconds_to_time(seconds)
+    s = seconds % 60
+    m = seconds / 60
+    h = (m % 60).to_s + 'h ' if m > 60
+    "#{h}#{m}m #{s}s"
+  end
+
   # Render artists for a song
   def links(models)
     links = []

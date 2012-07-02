@@ -400,7 +400,7 @@ $song-playing-bg: #eee;
 }
 
 .primary .playlist-song {
-  margin: -10px 0 20px;
+  margin: -10px 0 10px;
 
   section:nth-child(2n+1) {
     background: none;
@@ -413,17 +413,49 @@ $song-playing-bg: #eee;
       display: none;
     }
 
-    h1 span {
-      line-height: 1.4em;
+    h1 {
+      width: 100%;
 
-      &.artist {
-        font-size: 16px;
-        margin: 0 0 4px 0;
+      span {
+        line-height: 1.4em;
+
+        &.artist {
+          font-size: 16px;
+          margin: 0 0 4px 0;
+        }
+
+        &.name {
+          font-size: 24px;
+
+          a {
+            pointer-events: none;
+            cursor: text;
+          }
+        }
+      }
+    }
+
+    .song-meta {
+      position: relative;
+      top: auto;
+      right: auto;
+      text-align: left;
+      padding-left: 60px;
+
+      div {
+        display: inline;
+
+        &.count { display: none; }
       }
 
-      &.name {
-        font-size: 24px;
+      time {
+        display: inline;
+        float: right;
       }
+    }
+
+    .song-art {
+      display: none;
     }
   }
 }

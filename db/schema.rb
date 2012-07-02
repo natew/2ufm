@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120701005357) do
+ActiveRecord::Schema.define(:version => 20120701235950) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20120701005357) do
     t.datetime "waveform_updated_at"
     t.string   "source",                :default => "direct"
     t.integer  "soundcloud_id"
+    t.integer  "play_count",            :default => 0
   end
 
   add_index "songs", ["processed", "working", "rank", "shared_id"], :name => "index_songs_on_processed_and_working_and_rank_and_shared_id"

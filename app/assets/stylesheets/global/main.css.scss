@@ -760,23 +760,34 @@ header #second-nav {
   }
 }
 
-.horizontal-list {
+#body .horizontal-list {
   margin: -10px -20px 20px;
-  padding: 4px 20px;
+  padding: 6px 20px;
   background: rgba(0,0,0,0.2);
   white-space: nowrap;
   overflow: hidden;
-  color: #fff;
+  color: #ccc;
   font-size: 11px;
   font-weight: bold;
 
   h3 {
-    margin: 0 20px 0 0;
+    margin: 0 10px 0 0;
     padding: 4px 0;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
-    width: 160px;
-    text-align: right;
+    padding-left: 60px;
+    float: left;
+    color: #aaa;
+    line-height: 1em;
+  }
+
+  span {
+    border-right: 1px solid rgba(255,255,255,0.1);
+    padding: 0 10px;
+
+    &:last-child {
+      border: none;
+    }
   }
 
   .list {

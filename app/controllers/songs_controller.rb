@@ -10,9 +10,13 @@ class SongsController < ApplicationController
   end
 
   def show
-    @song_playlist = Song.where(:slug => params[:id]).playlist_order_published || not_found
+    # Song and song playlist
+    search_type = params[:id].is_numeric? ? :id : :slug
+    @song_playlist = Song.where(search_type => params[:id]).playlist_order_published || not_found
     @song = @song_playlist.first
     @primary = @song
+
+    # Extra info
     @blogs = Station.join_songs_on_blog.where(:songs => {:shared_id => @song.shared_id})
     @stats = Broadcast.find_by_sql("SELECT date_part('day', created_at), count(*) from broadcasts where song_id=#{@song.shared_id} group by date_part('day', created_at) order by date_part('day', created_at);").map {|x| [((Time.now.day - x.date_part.to_i).days.ago.to_f*1000).round,x.count.to_i]}
 

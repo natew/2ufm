@@ -16,7 +16,7 @@ module Fusefm
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib/shared #{config.root}/lib/validators)
+    config.autoload_paths += %W(#{config.root}/lib/extensions/)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

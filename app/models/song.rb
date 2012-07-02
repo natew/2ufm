@@ -236,17 +236,18 @@ class Song < ActiveRecord::Base
           # Working if we have name or artist name at least
           self.working = !name.blank? and !artist_name.blank?
 
-          # Processed
-          self.processed = true
-
           # Parse artists and determine if original song
           # Re-determines if its working or not
           find_or_create_artists
 
           # Update info if we have processed this song
-          if working?
+          if working? and !processed?
+
             # Waveform
-            self.waveform = generate_waveform(song.path)
+            if waveform_file_name.nil?
+              logger.info "Generating waveform..."
+              self.waveform = generate_waveform(song.path)
+            end
 
             # Add to stations
             add_to_stations
@@ -254,7 +255,12 @@ class Song < ActiveRecord::Base
             # Determine if we already have this song
             find_similar_songs
 
+            # Slug
             self.slug = full_name.to_url
+
+            # Processed
+            self.processed = true
+
             logger.info "Processed and working!"
           else
             logger.info "Processed (no information)"
@@ -515,8 +521,8 @@ class Song < ActiveRecord::Base
     parse_name = name
     parse_name = link_info[1] if name.blank?
     # Strip unnecessary stuff and parse the song name
-    parse_name.gsub!(/(extended|vip|original|club)|(extended|vip|radio) edit/i,'')
-    all_artists(name:parse_name)
+    parse_name = parse_name.gsub(/(extended|vip|original|club)|(extended|vip|radio) edit/i, '')
+    all_artists(name: parse_name)
   end
 
   def artists_in_artist

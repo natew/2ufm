@@ -5,6 +5,8 @@ class Genre < ActiveRecord::Base
 
   acts_as_url :name, :url_attribute => :slug
 
+  validates :name, :presence => true
+
   def to_param
     slug
   end
