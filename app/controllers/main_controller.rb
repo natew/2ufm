@@ -3,10 +3,7 @@ class MainController < ApplicationController
     @popular = Station.popular
     @popular_songs = Song.popular
     @artists = Artist.order('random()').limit(6)
-
-    if user_signed_in? and !current_user.following_songs.empty?
-      @has_songs = true
-    end
+    @has_songs = true if user_signed_in? and !current_user.following_songs.empty?
 
     @catchphrases = [
       'We take the work out of finding new music.',
@@ -17,11 +14,11 @@ class MainController < ApplicationController
       'Follow your favorite artists &amp; friends.  Thats it.'
     ]
 
-    if !user_signed_in?
+    if user_signed_in?
+      @stations = current_user.stations
+    else
       @new = Station.newest
       @new_songs = Song.newest
-    else
-      @stations = current_user.stations
     end
 
     respond_to do |format|

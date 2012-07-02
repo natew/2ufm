@@ -166,10 +166,19 @@ $(function() {
 
   // Click binding
   $('body').click(function(e) {
+    var parent = e.target;
+
+    // Update last position (for loading spinner)
     lastPosition = [e.pageX, e.pageY];
 
-    if (e.target.tagName == 'A') {
-      var el = $(e.target);
+    // Find A tag
+    while (true) {
+      if (parent.tagName == 'A' || parent.tagName == 'BODY') break;
+      parent = parent.parentNode;
+    }
+
+    if (parent.tagName == 'A') {
+      var el = $(parent);
 
       // Disabled
       if (el.is('.disabled')) {
@@ -207,52 +216,6 @@ $(function() {
     // Not a link click
     else {
       navDropdown(false);
-    }
-  });
-
-  $('#tour-button').click(function(e) {
-    var initial = "Type artists & genres separated by commas...",
-        inLen = initial.length,
-        suggestions = $('#suggestions').html() + ",",
-        sugLen = suggestions.length,
-        input = $('#tags input:first'),
-        delay = 55,
-        btwnDelay = 1500,
-        at = [];
-
-    e.preventDefault();
-    fn.scrollToTop();
-
-    input.focus();
-    for (var i = 0; i < inLen; i++) {
-      doInput(initial, i, 0);
-    }
-
-    setTimeout(function() {
-      input.val('');
-    }, delay*inLen+btwnDelay);
-
-    for (var i = 0; i < sugLen; i++) {
-      doInput(suggestions, i, delay*inLen+btwnDelay);
-    }
-
-    function doInput(text, i, beginDelay) {
-      setTimeout(function() {
-        var character = text.charAt(i);
-        if (character === ',') {
-          input.trigger(jQuery.Event('keydown', {which: 188}));
-        } else {
-          input.val(input.val() + character);
-        }
-      }, beginDelay+delay*(i+1));
-    }
-
-    function deleteInput(i, beginDelay) {
-      setTimeout(function() {
-        var val = input.val(),
-            len = val.length;
-        input.val(val.substr(0,len-1));
-      }, beginDelay+delay*(i+1));
     }
   });
 
@@ -366,9 +329,13 @@ function nextPage(link, callback) {
   var link = $(link).html('Loading').addClass('loading');
   // Infinite scrolling
   if (morePages) {
-    var id = $('.playlist:first').attr('id').split('-')[1];
+    var curPlaylist = $('.playlist:visible:last'),
+        curPlaylistInfo = curPlaylist.attr('id').split('-'),
+        id = curPlaylistInfo[1]
+        page = curPlaylistInfo[2];
+
     loadingPage = true;
-    scrollPage++;
+    scrollPage = parseInt(page,10) + 1;
     $.ajax({
       url: window.location.href,
       type: 'get',
@@ -378,12 +345,12 @@ function nextPage(link, callback) {
         "Content-Type": "text/page; charset=utf-8"
       },
       success: function(data) {
+        var playlist = $('#playlist-' + id + '-' + scrollPage);
         link.remove();
         loadingPage = false;
         updatePageURL(scrollPage);
-        $('.playlist:last').after(data);
-        var playlist = '#playlist-'+id+'-'+scrollPage;
-        if (callback) callback.call($(playlist));
+        curPlaylist.after(data);
+        if (callback) callback.call(playlist);
       },
       error: function() {
         morePages = false;

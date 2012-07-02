@@ -43,6 +43,10 @@ class Station < ActiveRecord::Base
     broadcasts.where(:parent => 'user')
   end
 
+  def self.current_user_station
+    Station.new(id: 3, title:'My Station', slug:'my-station')
+  end
+
   def self.popular(opts={})
     p = Station.new(:id => 1, :title => 'Popular Today', :slug => 'songs')
   end

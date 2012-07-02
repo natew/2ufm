@@ -66,6 +66,9 @@ class ApplicationController < ActionController::Base
       elsif id == '1'
         @p_station = Station.popular
         @p_songs = Song.popular
+      elsif id == '3'
+        @p_station = Station.current_user_station
+        @p_songs = current_user.following_songs
       else
         @p_station = Station.find_by_slug(id)
         @p_songs = @p_station.songs.playlist_order_broadcasted
