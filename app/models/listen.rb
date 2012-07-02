@@ -10,6 +10,7 @@ class Listen < ActiveRecord::Base
 
   before_validation :anonymous_user, :on => :create
   before_create :gen_shortcode
+  after_create :update_song_play_count
 
   def has_user?
     user_id == 0 ? false : true
@@ -26,5 +27,9 @@ class Listen < ActiveRecord::Base
       self.shortcode = (0..5).map{ ('A'..'Z').to_a.concat((0..9).to_a)[rand(35)] }.join
       break unless Listen.find_by_shortcode(shortcode)
     end
+  end
+
+  def update_song_play_count
+    song.update_attribute(:play_count, song.play_count.next)
   end
 end

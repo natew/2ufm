@@ -264,6 +264,7 @@ header {
   .third h2 { font-size: 14px; }
 
   #breadcrumbs {
+    display: none;
     padding: 8px 20px 0;
     margin: -20px 0 15px 0;
     font-size: 11px;
@@ -775,7 +776,6 @@ header #second-nav {
     padding: 4px 0;
     font-size: 12px;
     font-weight: bold;
-    padding-left: 60px;
     float: left;
     color: #aaa;
     line-height: 1em;
