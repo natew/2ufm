@@ -119,7 +119,7 @@
             <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
           <% else %>
             <%= link 'Log in', '/login', :class => 'restricted'  %>
-            <%= link 'Sign up', '/', :class => 'restricted' %>
+            <%= link 'Sign up', '/signup', :class => 'restricted' %>
           <% end %>
         </section>
       </div>

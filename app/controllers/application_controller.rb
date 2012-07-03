@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   end
 
   def delayed_job_admin_authentication
-    true #user_signed_in? and current_user.admin?
+    is_admin?
+  end
+
+  def is_admin?
+    user_signed_in? and current_user.is_admin?
   end
 
   # def user_signed_in?

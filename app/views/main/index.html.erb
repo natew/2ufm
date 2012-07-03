@@ -52,11 +52,6 @@
 <%- end -%>
 
   <div class="third">
-    <%- if !user_signed_in? -%>
-    <h2>Welcome to 2u.fm!</h2>
-    <p>We give you control over the latest music from blogs all over the world. <strong><a href="">Learn More!</a></strong></p>
-    <%- end -%>
-
     <h2>Top Blogs</h2>
     <div class="stations">
       <%= render @blog_stations %>

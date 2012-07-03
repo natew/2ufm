@@ -39,6 +39,18 @@ class Station < ActiveRecord::Base
     title
   end
 
+  def type
+    if user_id
+      'user'
+    elsif blog_id
+      'blog'
+    elsif artist_id
+      'artist'
+    else
+      'none'
+    end
+  end
+
   def user_broadcasts
     broadcasts.where(:parent => 'user')
   end
@@ -86,20 +98,6 @@ class Station < ActiveRecord::Base
     # TODO image from parent
     self.to_json(:only => [:id, :slug, :title])
   end
-
-  # def to_playlist_json
-  #   self.to_json(:only => [:id, :slug, :title], :include => {
-  #     :songs => {
-  #       :only => [
-  #         :artist_name,
-  #         :id,
-  #         :name,
-  #         :url,
-  #         :image
-  #       ]
-  #     }
-  #   })
-  # end
 
   def has_songs?
     songs.size > 0

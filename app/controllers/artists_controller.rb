@@ -11,14 +11,6 @@ class ArtistsController < ApplicationController
     end
   end
 
-  def show
-    @songs = @artist.station.songs.playlist_order_broadcasted
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def popular
     @songs = @artist.station.songs.playlist_order_rank
 

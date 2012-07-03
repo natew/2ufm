@@ -1,18 +1,8 @@
 class BlogsController < ApplicationController
+  before_filter :is_admin?, :only => [:destroy]
 
   def index
     @blogs = Blog.order('created_at desc').page(params[:page]).per(9)
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def show
-    @blog    = Blog.find_by_slug(params[:id]) || not_found
-    @posts   = @blog.posts.order('created_at desc').limit(8)
-    @artists = @blog.station.artists.limit(20)
-    @primary = @blog
 
     respond_to do |format|
       format.html

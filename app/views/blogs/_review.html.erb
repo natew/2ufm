@@ -1,6 +1,6 @@
 <% if !review.post_excerpt.blank? %>
 <section>
-  <h3><%= link_to review.station_title, review.station_slug %> wrote</h3>
+  <h3><%= link_to review.station_title, '/'+review.station_slug %> wrote</h3>
   <p><%= review.post_excerpt %> <%= link_to 'Read more', review.post_url, :target => '_blank' %></p>
 </section>
 <% end %>

@@ -80,6 +80,47 @@ $station-image: 32px;
   }
 }
 
+.shelf {
+  margin: 0 20px 20px;
+
+  h3 {
+    position: relative;
+    z-index: 10;
+  }
+
+  ul {
+    padding: 0;
+    margin-left: -20px;
+    margin-bottom: 6px;
+  }
+
+  li {
+    list-style: none;
+    float: left;
+    margin: 0 20px 20px 0;
+    position: relative;
+
+    a {
+      text-decoration: none;
+      text-shadow: 0 1px 0 #000;
+      position: relative;
+      display: block;
+    }
+
+    strong {
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      padding: 4px 0;
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      @include dim(60);
+    }
+  }
+}
+
 #genres {
   padding: 0;
   margin: 0 0 30px -4px;

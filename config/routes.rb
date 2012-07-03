@@ -12,8 +12,8 @@ Fusefm::Application.routes.draw do
   match "/activity", :to => "main#activity"
 
   resources :genres, :only => [:show]
-  resources :blogs
-  resources :users
+  resources :blogs, :except => [:show]
+  resources :users, :except => [:show]
   resources :stations, :only => [:show, :index]
   resources :follows, :only => [:create, :destroy]
   resources :broadcasts, :only => [:create, :destroy]
