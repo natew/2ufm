@@ -1,108 +1,82 @@
 @import "mixins.css.scss";
 
-$station-margin: 4%;
-$station-height: 120px;
-$section-pad: 8px;
-
-.stations-contain {
-  height: 90px;
-  overflow: hidden;
-
-  .stations section {
-    float: left;
-    width: 200px;
-    margin: 7px 0 -6px;
-  }
-}
+$station-color: #353535;
+$station-dark: darken($station-color, 10%);
+$station-light: lighten($station-color, 10%);
+$station-pad: 8px;
+$station-image: 32px;
 
 .stations {
+  margin: 0 0 20px 0;
 
   section {
+    margin: 0;
+    padding: $station-pad;
+    position: relative;
 
-    &:hover .cover {
-      border-color: $primary;
+    &:nth-child(2n+1) {
+      background: rgba(255,255,255,0.03);
     }
 
-    .cover {
-      height: $station-height;
-      width: $station-height;
-      border-color: $body-bg;
+    &:hover {
+      background: rgba(0,0,0,0.1);
+    }
 
-      .wrap {
-        @include box-shadow(inset 0 0 20px rgba($body-bg,0.4));
+    .station-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+
+    .image {
+      margin: 0;
+      display: block;
+      width: $station-image;
+      height: $station-image;
+
+      img {
+        width: 100%;
+        height: 100%;
+        @include border-radius(0);
+      }
+    }
+
+    .station-info {
+      position: absolute;
+      top: $station-pad - 2;
+      left: $station-pad*2 + $station-image;
+      right: $station-pad;
+
+      * {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       h4 {
-        font-size: 14px;
+        font-size: 12px;
         font-weight: bold;
+        margin: 0;
+
+        a {
+          color: #ddd;
+          text-decoration: none;
+        }
       }
 
-      nav {
-        display: none;
-      }
-
-      img {
-        height: auto;
+      span {
+        font-size: 11px;
+        display: block;
+        color: #888;
       }
     }
-  }
-}
 
-.shelf {
-  margin: 0 20px 20px;
-
-  h3 {
-    position: relative;
-    z-index: 10;
-  }
-
-  ul {
-    padding: 0;
-    margin-left: -20px;
-    margin-bottom: 6px;
-  }
-
-  li {
-    list-style: none;
-    float: left;
-    margin: 0 0 0 20px;
-    position: relative;
-
-    a {
-      text-decoration: none;
-      text-shadow: 0 1px 0 #000;
-      position: relative;
-      display: block;
+    .station-follow {
+      display: none;
     }
-
-    strong {
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-      padding: 4px 0;
-      display: block;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      @include dim(60);
-    }
-  }
-}
-
-.third .shelf {
-  margin: 0 0 30px -20px;
-  padding: 0;
-  border: none;
-
-  h3 { margin: 0 0 20px 0; }
-  li { margin: 0 0 20px 30px; }
-}
-
-.shelf.grid {
-  margin-left: 0;
-
-  li {
-    margin-bottom: 20px;
   }
 }
 

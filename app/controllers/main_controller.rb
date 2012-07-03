@@ -1,9 +1,14 @@
 class MainController < ApplicationController
   def index
+    # Songs
     @popular = Station.popular
     @popular_songs = Song.popular
-    @artists = Artist.order('random()').limit(6)
     @has_songs = true if user_signed_in? and !current_user.following_songs.empty?
+
+    # Stations
+    @blog_stations = Station.blog_station.order('follows_count desc').limit(4)
+    @artist_stations = Station.artist_station.order('follows_count desc').limit(4)
+    @top_stations = Station.has_parent.order('follows_count desc').limit(4)
 
     @catchphrases = [
       'We take the work out of finding new music.',

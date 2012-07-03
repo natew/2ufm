@@ -1,48 +1,74 @@
 <%- if user_signed_in? -%>
 
-  <div class="whole nav-container">
-    <h2 class="nav-menu">
-      <%=link_to 'My feed', '#my-feed', :class => 'control' + (@has_songs ? ' active' : '') %>
-      <%=link_to 'Popular today', '#popular-today', :class => 'control' + (@has_songs ? '' : ' active') %>
-    </h2>
+  <div class="twothirds-wrap">
+    <div class="twothirds nav-container">
+      <h2 class="nav-menu">
+        <%=link_to 'My feed', '#my-feed', :class => 'control' + (@has_songs ? ' active' : '') %>
+        <%=link_to 'Todays top songs', '#popular-today', :class => 'control' + (@has_songs ? '' : ' active') %>
+      </h2>
 
-    <div id="my-feed" class="section <% if @has_songs %> active<% end %>">
-      <%- if @has_songs -%>
-        <%= render :partial => 'stations/playlist', :locals => { :station => Station.current_user_station, :songs => current_user.following_songs } %>
-      <%- else -%>
-        <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
-      <%- end -%>
-    </div>
+      <div id="my-feed" class="section <% if @has_songs %> active<% end %>">
+        <%- if @has_songs -%>
+          <%= render :partial => 'stations/playlist', :locals => { :station => Station.current_user_station, :songs => current_user.following_songs } %>
+        <%- else -%>
+          <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
+        <%- end -%>
+      </div>
 
-    <div id="popular-today" class="section <% if !@has_songs %> active<% end %>">
-      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
+      <div id="popular-today" class="section <% if !@has_songs %> active<% end %>">
+        <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
+      </div>
     </div>
   </div>
 
 <%- else -%>
 
-  <section class="whole welcome">
-    <h1><%= @catchphrases[Random.rand(0..4)].html_safe %></h1>
+  <div class="twothirds-wrap">
+    <section class="twothirds welcome">
+      <h1><%= @catchphrases[Random.rand(0..4)].html_safe %></h1>
 
-    <div class="third">
-      <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
-      <p>We find songs from all over the net.</p>
+      <div class="third">
+        <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
+        <p>We find songs from all over the net.</p>
+      </div>
+
+      <div class="third">
+        <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
+        <p>You follow artists, blogs &amp; friends.</p>
+      </div>
+
+      <div class="third">
+        <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
+        <p>Add favorites &amp; share with friends!</p>
+      </div>
+    </section>
+
+    <div class="twothirds">
+      <h2>Todays top songs</h2>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
     </div>
-
-    <div class="third">
-      <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
-      <p>You follow artists, blogs &amp; friends.</p>
-    </div>
-
-    <div class="third">
-      <%= image_tag '/images/octo_dj.png', :id => 'octo-dj' %>
-      <p>Add favorites &amp; share with friends!</p>
-    </div>
-  </section>
-
-  <div class="whole">
-    <h2>Popular today</h2>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
   </div>
 
 <%- end -%>
+
+  <div class="third">
+    <%- if !user_signed_in? -%>
+    <h2>Welcome to 2u.fm!</h2>
+    <p>We give you control over the latest music from blogs all over the world. <strong><a href="">Learn More!</a></strong></p>
+    <%- end -%>
+
+    <h2>Top Blogs</h2>
+    <div class="stations">
+      <%= render @blog_stations %>
+    </div>
+
+    <h2>Top Artists</h2>
+    <div class="stations">
+      <%= render @artist_stations %>
+    </div>
+
+    <h2>Top Stations</h2>
+    <div class="stations">
+      <%= render @top_stations %>
+    </div>
+  </div>

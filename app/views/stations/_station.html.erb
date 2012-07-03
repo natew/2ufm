@@ -1,5 +1,12 @@
 <section>
   <%= link_to image_tag(station.image.url(:small)), station, :class => 'image' %>
-  <div><h4><%= link_to station.title, '/'+station.slug %></h4></div>
+  <div class="station-info">
+    <h4><%= link_to station.title, '/'+station.slug %></h4>
+    <span><%= relative_time station.last_broadcasted_at %> &middot; <%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
+  </div>
+  <div class="station-follow">
+    <%= follow_station(station) %>
+  </div>
+  <%= link_to '', '/'+station.slug, :class => 'station-link' %>
   <%= debug(station) %>
 </section>

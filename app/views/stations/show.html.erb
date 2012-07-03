@@ -4,7 +4,7 @@
   </div>
 
   <h2><%= @station.title %></h2>
-  <p>Updated <%= relative_time @station.last_broadcasted_at %> &middot; <%= pluralize number_with_delimiter(@station.songs.count), 'song' %></p>
+  <p>Updated <%= relative_time @station.last_broadcasted_at %> &middot; <%= pluralize number_with_delimiter(@station.broadcasts_count), 'song' %></p>
 
   <%= render :partial => 'shared/actions', :locals => { :station => @station } %>
 </div>
