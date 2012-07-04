@@ -285,7 +285,7 @@ header {
     bottom: 0;
     width: $gutter-width;
     background: $gutter-color;
-    border-right: 2px solid $gutter-dark;
+    border-right: 1px solid $gutter-dark;
     @include box-sizing(border-box);
   }
 
@@ -293,6 +293,7 @@ header {
   .third h2 { font-size: 14px; margin-top: 2px; }
 
   #breadcrumbs {
+    display: none;
     padding: 8px 20px 0;
     margin: -20px 0 15px 0;
     font-size: 11px;
