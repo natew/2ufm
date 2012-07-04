@@ -19,7 +19,7 @@
 .role-producer:after {background-position:0 -18px;}
 .role-cover:after {background-position:0 -27px;}
 
-.role-featured:after { background-position:0 -36px; margin-right: 4px; margin-left: 2px; }
+.role-featured:after { background-position:0 -36px; margin: 0 4px 1px 4px; }
 
 $playing-color: #618bff;
 
@@ -31,18 +31,16 @@ $song-playing-bg: #eee;
   margin: 0;
 
   section {
-    margin: 0 -20px;
+    margin: 0 0 0 -20px;
     padding: 15px;
     position: relative;
 
     &:nth-child(2n+1) {
-      @include linear-gradient(left, rgba(255,255,255,0.03) 80%, rgba(255,255,255,0) 95%);
-      background-color: transparent;
+      background: rgba(255,255,255,0.03);
     }
 
     &:hover {
-      @include linear-gradient(left, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0) 100%);
-      background-color: transparent;
+      background: rgba(0,0,0,0.1);
 
       .song-controls li {
         a, a:before {
@@ -140,10 +138,9 @@ $song-playing-bg: #eee;
         &.artist {
           font-size: 13px;
           margin: 0;
-          font-weight: normal;
 
           a {
-            color: #ccc;
+            color: #bbb;
 
             &:hover {
               color: $link-hover;
@@ -388,7 +385,7 @@ $song-playing-bg: #eee;
 .twothirds .playlist-song {
   section {
     h1 {
-      width: 52%;
+      width: 57%;
     }
 
     .song-meta {
