@@ -36,6 +36,7 @@ $song-playing-bg: #eee;
     position: relative;
 
     &:nth-child(2n+1) {
+      background: rgba(0,0,0,0.05);
       .song-controls {
         background: rgba(0,0,0,0.05);
       }
@@ -69,13 +70,12 @@ $song-playing-bg: #eee;
       display: block;
       visibility: visible;
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
       height: 1px;
       z-index: 3;
-      @include linear-gradient(left, rgba(255,255,255,0.05) 80%, rgba($body-bg,0));
-      background-color: transparent;
+      background: rgba(255,255,255,0.05);
     }
 
     &.playing {
@@ -141,8 +141,7 @@ $song-playing-bg: #eee;
     }
 
     h1 {
-      margin: -4px 0 2px 60px;
-      width: 60%;
+      margin: -3px 206px 2px 60px;
       position: relative;
       z-index: 10;
       line-height: 1.1em;
@@ -155,7 +154,7 @@ $song-playing-bg: #eee;
           margin: 0;
 
           a {
-            color: #bbb;
+            color: #aaa;
 
             &:hover {
               color: $link-hover;
@@ -210,12 +209,21 @@ $song-playing-bg: #eee;
         padding: 0;
         margin: -1px 0 0;
         box-shadow: none;
+        text-shadow: none;
 
         span {
           font-size: 14px;
           margin: 0;
           padding-right: 3px;
           color: #999;
+        }
+
+        &.remove span {
+          color: $green;
+
+          &:hover {
+            color: $red;
+          }
         }
 
         strong {display: none;}
@@ -402,7 +410,7 @@ $song-playing-bg: #eee;
 .twothirds .playlist-song {
   section {
     h1 {
-      width: 57%;
+      margin-right: 140px;
     }
 
     .song-meta {
@@ -418,12 +426,17 @@ $song-playing-bg: #eee;
 .primary .playlist-song {
   margin: -20px 0 0;
 
-  section:nth-child(2n+1) {
-    background: none;
-  }
-
   section {
     padding: 20px;
+    display: none;
+
+    &:nth-child(2n+1) {
+      background: none;
+    }
+
+    &:first-child {
+      display: block;
+    }
 
     &:after {
       display: none;

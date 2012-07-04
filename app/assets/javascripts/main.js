@@ -322,7 +322,7 @@ function updatePageURL(page) {
   }
 
   url += hash;
-  window.history.pushState('',document.title,url);
+  window.history.replaceState('',document.title,url);
 }
 
 function nextPage(link, callback) {

@@ -7,12 +7,12 @@ body, button, input, select, textarea {
 /* Layout */
 html,body {height: 100%;}
 body {
-  color: #aaa;
+  color: #bbb;
   background: $body-bg;
   position: relative;
 }
 
-a { color: $link-color; }
+a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
 #main-mid {
