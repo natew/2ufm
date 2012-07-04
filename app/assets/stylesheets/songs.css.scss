@@ -65,19 +65,6 @@ $song-playing-bg: #eee;
       border: 1px solid $gutter-dark;
     }
 
-    &:after {
-      content: "";
-      display: block;
-      visibility: visible;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      z-index: 3;
-      background: rgba(255,255,255,0.05);
-    }
-
     &.playing {
       background: rgba(0,0,0,0.15);
 
@@ -141,7 +128,7 @@ $song-playing-bg: #eee;
     }
 
     h1 {
-      margin: -3px 206px 2px 60px;
+      margin: -2px 166px 0 55px;
       position: relative;
       z-index: 10;
       line-height: 1.1em;
@@ -151,7 +138,7 @@ $song-playing-bg: #eee;
 
         &.artist {
           font-size: 13px;
-          margin: 0;
+          margin: 0 40px 0 0;
 
           a {
             color: #aaa;
@@ -163,7 +150,7 @@ $song-playing-bg: #eee;
         }
 
         &.name {
-          font-size: 16px;
+          font-size: 15px;
           margin: 0;
 
           a {
@@ -196,8 +183,8 @@ $song-playing-bg: #eee;
 
       div {
         display: inline-block;
-        padding: 3px 6px;
-        margin: -3px -6px;
+        padding: 2px 6px;
+        margin: -2px -6px 0;
         background: rgba(0,0,0,0.15);
         @include border-radius(6px);
       }
@@ -307,8 +294,8 @@ $song-playing-bg: #eee;
             }
           }
 
-          &.remove, &.remove:before { color: #419f41; }
-          &.remove:hover, &.remove:hover:before { color: #bf0a0c; }
+          &.remove, &.remove:before { color: $green; }
+          &.remove:hover, &.remove:hover:before { color: $red; }
         }
       }
     }
@@ -410,7 +397,7 @@ $song-playing-bg: #eee;
 .twothirds .playlist-song {
   section {
     h1 {
-      margin-right: 140px;
+      margin-right: 80px;
     }
 
     .song-meta {
@@ -451,12 +438,12 @@ $song-playing-bg: #eee;
 
         &.artist {
           font-size: 16px;
-          margin: 0 0 4px 0;
+          margin: 0 0 2px 0;
         }
 
         &.name {
           font-size: 24px;
-          margin: 0 0 8px 0;
+          margin: 0 0 10px 0;
 
           a {
             pointer-events: none;
@@ -487,7 +474,7 @@ $song-playing-bg: #eee;
       padding-left: 0;
 
       div {
-        display: inline;
+        margin-left: 0;
 
         &.count { display: none; }
       }
