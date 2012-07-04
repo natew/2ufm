@@ -36,6 +36,9 @@ $song-playing-bg: #eee;
     position: relative;
 
     &:nth-child(2n+1) {
+      .song-controls {
+        background: rgba(0,0,0,0.05);
+      }
     }
 
     &:hover {
@@ -66,11 +69,11 @@ $song-playing-bg: #eee;
       display: block;
       visibility: visible;
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       right: 0;
       height: 1px;
-      z-index: 4;
+      z-index: 3;
       @include linear-gradient(left, rgba(255,255,255,0.05) 80%, rgba($body-bg,0));
       background-color: transparent;
     }
@@ -138,7 +141,7 @@ $song-playing-bg: #eee;
     }
 
     h1 {
-      margin: -4px 0 2px 55px;
+      margin: -4px 0 2px 60px;
       width: 60%;
       position: relative;
       z-index: 10;
@@ -244,7 +247,6 @@ $song-playing-bg: #eee;
     }
 
     .song-controls {
-      border-bottom: 1px solid $gutter-dark;
       top: 0;
       bottom: -1px;
       left: -$gutter-width;

@@ -285,7 +285,6 @@ header {
     bottom: 0;
     width: $gutter-width;
     background: $gutter-color;
-    border-right: 1px solid $gutter-dark;
     @include box-sizing(border-box);
   }
 
