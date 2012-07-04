@@ -321,7 +321,7 @@ $song-playing-bg: #eee;
         z-index: 5;
         width: $play-button-size;
         height: $play-button-size;
-        border: 2px solid #252525;
+        border: 2px solid #292929;
         @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.4));
         @include linear-gradient(#777, #555);
         @include border-radius($play-button-size);
@@ -334,8 +334,8 @@ $song-playing-bg: #eee;
           top: 12px;
           left: 12px;
           font-size: 23px;
-          color: #222;
-          text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+          color: #333;
+          text-shadow: 0 1px 0 rgba(255,255,255,0.2);
         }
 
         &:hover {
