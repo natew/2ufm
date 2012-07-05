@@ -36,7 +36,7 @@ var mp = (function() {
   };
 
   // Soundmanager
-  soundManager.url = '/swfs/soundmanager2_debug.swf';
+  // soundManager.url = '/swfs/soundmanager2_debug.swf';
   soundManager.useFlashBlock = false;
   soundManager.debugMode = false;
   soundManager.useHTML5Audio = true;
