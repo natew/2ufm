@@ -1,14 +1,14 @@
 @import 'bourbon';
 
 /*  header  */
-$header-color: #466287;
+$header-color: #3478b3;
 $header-light: lighten($header-color, 15%);
 $header-dark: darken($header-color, 5%);
 $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
 
 /*  navbar  */
-$navbar-bg: #393939;
+$navbar-bg: #3a3a3a;
 $navbar-dark: darken($navbar-bg,6%);
 $navbar-link: lighten($navbar-bg, 55%);
 $navbar-heading: lighten($navbar-bg, 35%);
