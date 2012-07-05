@@ -301,7 +301,7 @@ $song-playing-bg: #eee;
     }
 
     $song-player-height: 50px;
-    $play-button-size: 45px;
+    $play-button-size: 44px;
 
     .song-player {
       margin: 10px 0 5px;
@@ -321,9 +321,9 @@ $song-playing-bg: #eee;
         z-index: 5;
         width: $play-button-size;
         height: $play-button-size;
-        border: 2px solid #333;
+        border: 2px solid #292929;
         @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.4));
-        @include linear-gradient(#666, #444);
+        @include linear-gradient(#777, #555);
         @include border-radius($play-button-size);
         @include box-sizing(border-box);
 
@@ -331,11 +331,11 @@ $song-playing-bg: #eee;
           content: "4";
           display: inline-block;
           position: absolute;
-          top: 13px;
-          left: 10px;
-          font-size: 31px;
-          color: #ddd;
-          text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+          top: 12px;
+          left: 12px;
+          font-size: 23px;
+          color: #333;
+          text-shadow: 0 1px 0 rgba(255,255,255,0.2);
         }
 
         &:hover {
