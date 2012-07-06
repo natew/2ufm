@@ -12,8 +12,8 @@ class SongsController < ApplicationController
   def show
     # Song and song playlist
     search_type = params[:id].is_numeric? ? :id : :slug
-    @song_playlist = Song.where(search_type => params[:id]).playlist_order_published || not_found
-    @song = @song_playlist.first
+    @song = Song.where(search_type => params[:id]).first
+    @song_playlist = Song.where(:shared_id => @song.shared_id).playlist_order_published || not_found
     @primary = @song
 
     # Extra info

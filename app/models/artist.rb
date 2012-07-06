@@ -57,9 +57,7 @@ class Artist < ActiveRecord::Base
       end
     rescue Exception => e
       # Artist not found!
-      logger.info "Error!"
-      logger.info e.message
-      logger.info e.backtrace.join("\n")
+      logger.info "No discogs information found."
     end
   end
 
