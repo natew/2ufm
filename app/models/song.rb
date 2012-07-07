@@ -541,7 +541,7 @@ class Song < ActiveRecord::Base
     featured = /(featuring |ft\. ?|feat\. ?|f\. ?|w\/){1}/i
     remixer  = / remix| rmx| edit| bootleg| mix| remake/i
     mashup  = / mashup| mash-up/i
-    producer = /(produced|prod\.?) by/i
+    producer = /(produced by|prod\.? by)/i
     cover    = / cover/i
     split    = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i # Splits "one, two & three"
 
