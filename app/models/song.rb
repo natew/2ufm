@@ -50,7 +50,6 @@ class Song < ActiveRecord::Base
   scope :originals, with_authors.where('"authors"."role" = \'original\'')
 
   # Joins
-  scope :without_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id"')
   scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id"')
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
@@ -249,11 +248,11 @@ class Song < ActiveRecord::Base
               self.waveform = generate_waveform(song.path)
             end
 
-            # Add to stations
-            add_to_stations
-
             # Determine if we already have this song
             find_similar_songs
+
+            # Add to artist and blog stations
+            add_to_stations
 
             # Slug
             self.slug = full_name.to_url
@@ -338,6 +337,7 @@ class Song < ActiveRecord::Base
         write_tempfile(filename, cover.picture)
       end
     rescue Exception => e
+      logger.error "Could not process album art"
       logger.error e.message + "\n" + e.backtrace.join("\n")
     end
   end
@@ -417,21 +417,20 @@ class Song < ActiveRecord::Base
   end
 
   def add_to_stations
-    if processed?
-      add_to_blog_station
-      add_to_artists_stations
-    end
+    logger.info "Adding to stations"
+    add_to_blog_station
+    add_to_artists_stations
   end
 
   def add_to_artists_stations
     artists.each do |artist|
-      artist.station.broadcasts.create(song_id:id)
+      artist.station.broadcasts.create(song_id:shared_id)
     end
   end
 
   def add_to_blog_station
     if blog
-      blog.station.broadcasts.create(song_id:id)
+      blog.station.broadcasts.create(song_id:shared_id)
     else
       logger.error "No Blog or Blog station"
     end
@@ -477,7 +476,7 @@ class Song < ActiveRecord::Base
       if !artists.empty?
         original = true
         artists.each do |name,role|
-          original = false if role == :remixer or role == :mashup or role == :cover
+          original = [:remixer, :mashup, :cover].include? role
 
           # Find or create artist
           match = Artist.where("name ILIKE (?)", name).first

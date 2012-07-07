@@ -279,7 +279,7 @@ $(function() {
 });
 
 // Bind selectors to callbacks
-var mpClick = function(selector,callback) {
+function mpClick(selector, callback) {
   $(selector).click(function(e) {
     e.preventDefault();
     fn.log(fn);

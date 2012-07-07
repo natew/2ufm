@@ -65,46 +65,31 @@ $song-playing-bg: #eee;
       border: 1px solid $gutter-dark;
     }
 
-    &.playing {
+    &.active {
       background: rgba(0,0,0,0.15);
 
-      .song-controls {
-        background: rgba(0,0,0,0.15);
-        a {
-          color: #fff;
-        }
-      }
+      .song-controls { background: rgba(0,0,0,0.15); }
+      .waveform-wrap img { opacity: 0.4; }
+      .song-player .play-song {
+        border-color: $header-color;
+        @include linear-gradient($header-light, $header-color);
 
-      .song-player {
-
-        .play-song {
-          border-color: $header-color;
-          @include linear-gradient($header-light, $header-color);
-
-          &:before {
-            color: #fff;
-            content: "5";
-            left: 8px;
-            top: 14px;
-          }
-
-          &:hover {
-            border-color: $header-light;
-            @include linear-gradient(lighten($header-light,10%),$header-light);
-          }
-        }
-
-        .waveform-wrap img {
-          opacity: 0.4;
+        &:hover {
+          border-color: $header-light;
+          @include linear-gradient(lighten($header-light,10%),$header-light);
         }
       }
     }
 
-    &.paused {
-      .song-player .play-song:before {
-        content: "4";
-        left: 10px;
-      }
+    &.playing .song-player .play-song:before {
+      content: "5";
+      left: 11px;
+      top: 12px;
+      font-size: 22px;
+    }
+
+    &.paused .song-player .play-song:before {
+      content: "4";
     }
 
     &.failed {
@@ -195,13 +180,14 @@ $song-playing-bg: #eee;
         border: none;
         padding: 0;
         margin: -1px 0 0;
+        line-height: .9em;
         box-shadow: none;
         text-shadow: none;
 
         span {
-          font-size: 14px;
+          font-size: 13px;
           margin: 0;
-          padding-right: 3px;
+          padding-right: 4px;
           color: #999;
         }
 
@@ -339,12 +325,7 @@ $song-playing-bg: #eee;
         }
 
         &:hover {
-          border-color: #555;
-          @include linear-gradient(#888, #666);
-
-          &:before {
-            color: #fff;
-          }
+          @include linear-gradient(#999, #777);
         }
       }
 

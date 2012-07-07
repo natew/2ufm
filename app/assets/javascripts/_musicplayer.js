@@ -64,7 +64,6 @@ var mp = (function() {
         this.toggle();
       } else {
         this.stop();
-        this.setCurSectionInactive();
         curSection = section;
         this.load();
         this.play();
@@ -159,7 +158,6 @@ var mp = (function() {
     pause: function pause() {
       if (isPlaying) {
         curSong.pause();
-        curSection.addClass('paused');
       }
     },
 
@@ -172,12 +170,11 @@ var mp = (function() {
       if (curSection) {
         var next = curSection.next();
         this.stop();
-        this.setCurSectionInactive();
+        this.setCurSection('inactive');
 
         // if next, keep playing
         if (next.length) {
           curSection = next;
-          this.setCurSectionActive();
           playlistIndex++;
           this.play();
           return true;
@@ -195,10 +192,9 @@ var mp = (function() {
       if (curSection) {
         previous = curSection.prev();
         this.stop();
-        this.setCurSectionInactive();
+        this.setCurSection('inactive');
         if (previous.length) {
           curSection = previous;
-          this.setCurSectionActive();
           playlistIndex--;
           this.play();
         } else {
@@ -221,15 +217,17 @@ var mp = (function() {
       }
     },
 
-    setCurSectionActive: function setCurSectionActive() {
-      if (curSection) {
-        curSection.removeClass('paused').addClass('playing');
+    setCurSection: function setCurSection(status) {
+      var statuses = {
+        'playing':  ['paused', 'active playing'],
+        'paused':   ['playing', 'paused'],
+        'inactive': ['paused playing active', '']
       }
-    },
 
-    setCurSectionInactive: function setCurSectionInactive() {
+      fn.log('setting song ' + curSongInfo.name + ' to ' + status);
+
       if (curSection) {
-        curSection.removeClass('playing paused');
+        curSection.removeClass(statuses[status][0]).addClass(statuses[status][1]);
       }
     },
 
@@ -301,7 +299,7 @@ var mp = (function() {
     play: function play() {
       isPlaying = true;
       pl.player.addClass('loaded');
-      player.setCurSectionActive();
+      player.setCurSection('playing');
       player.refresh();
       w.trigger('mp:play', player.state());
 
@@ -326,24 +324,25 @@ var mp = (function() {
 
     stop: function stop() {
       isPlaying = false;
-      player.setCurSectionInactive();
+      player.setCurSection('inactive');
       curSection = null;
       player.refresh();
     },
 
     pause: function pause() {
       isPlaying = false;
+      player.setCurSection('paused');
       player.refresh();
     },
 
     resume: function resume() {
       isPlaying = true;
-      player.setCurSectionActive();
+      player.setCurSection('playing');
       player.refresh();
     },
 
     finish: function finish() {
-      player.setCurSectionInactive();
+      player.setCurSection('inactive');
       player.next();
     },
 
@@ -384,7 +383,7 @@ var mp = (function() {
       if (isPlaying && curPage && curPage == playingPage) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
-        player.setCurSectionActive();
+        player.setCurSection('playing');
       } else {
         curSection = null;
       }
