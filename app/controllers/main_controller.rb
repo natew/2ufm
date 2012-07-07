@@ -6,9 +6,9 @@ class MainController < ApplicationController
     @has_songs = true if user_signed_in? and !current_user.following_songs.empty?
 
     # Stations
-    @blog_stations = Station.blog_station.order('follows_count desc').limit(4)
-    @artist_stations = Station.artist_station.order('follows_count desc').limit(4)
-    @top_stations = Station.has_parent.order('follows_count desc').limit(4)
+    @blog_stations = Station.blog_station.order('follows_count desc').limit(5)
+    @artist_stations = Station.artist_station.order('follows_count desc').limit(5)
+    @top_stations = Station.has_parent.order('follows_count desc').limit(5)
 
     @catchphrases = [
       'We take the work out of finding new music.',
