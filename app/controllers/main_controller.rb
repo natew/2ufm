@@ -20,7 +20,8 @@ class MainController < ApplicationController
     ]
 
     if user_signed_in?
-      @stations = current_user.stations
+      @current_user_station = Station.current_user_station
+      @current_user_songs = current_user.following_songs
     else
       @new = Station.newest
       @new_songs = Song.newest

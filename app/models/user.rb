@@ -42,8 +42,38 @@ class User < ActiveRecord::Base
     username
   end
 
-  def following_songs
-    songs.user_order_broadcasted
+  def following_songs(offset=0, limit=18)
+    Song.find_by_sql(%Q{
+      WITH a as (
+          SELECT bb.song_id, MAX(bb.created_at) AS maxcreated
+          FROM follows aa
+          INNER JOIN broadcasts bb ON aa.station_id = bb.station_id
+          WHERE aa.user_id = #{id}
+          GROUP BY bb.song_id
+        )
+      SELECT
+        a.maxcreated,
+        b.*,
+        posts.url as post_url,
+        posts.excerpt as post_excerpt,
+        stations.title as station_title,
+        stations.slug as station_slug,
+        stations.id as station_id
+      FROM a
+        INNER JOIN
+          songs b ON a.song_id = b.id
+        INNER JOIN
+          posts on posts.id = b.post_id
+        INNER JOIN
+          stations on stations.blog_id = b.blog_id
+      WHERE b.processed = 't'
+        AND b.working = 't'
+        AND (b.soundcloud_id IS NULL)
+      ORDER BY
+        a.maxcreated DESC
+      OFFSET #{offset}
+      LIMIT #{limit}
+    })
   end
 
   def image

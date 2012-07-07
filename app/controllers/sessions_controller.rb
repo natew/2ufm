@@ -4,10 +4,4 @@ class SessionsController < Devise::SessionsController
       format.html { super }
     end
 	end
-
-	def create
-		super
-
-    redirect_to :back
-	end
 end

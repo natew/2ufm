@@ -9,7 +9,7 @@
 
       <div id="my-feed" class="section <% if @has_songs %> active<% end %>">
         <%- if @has_songs -%>
-          <%= render :partial => 'stations/playlist', :locals => { :station => Station.current_user_station, :songs => current_user.following_songs } %>
+          <%= render :partial => 'stations/playlist', :locals => { :station => @current_user_station, :songs => @current_user_songs, :partial => true } %>
         <%- else -%>
           <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
         <%- end -%>

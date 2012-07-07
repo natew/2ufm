@@ -45,6 +45,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def after_sign_in_path_for(user)
+    station_path(current_user.station)
+  end
+
   def logging_in
     # For example:
     # guest_comments = guest_user.comments.all
@@ -71,14 +75,15 @@ class ApplicationController < ActionController::Base
         @p_station = Station.popular
         @p_songs = Song.popular
       elsif id == '3'
+        dont_paginate = true
         @p_station = Station.current_user_station
-        @p_songs = current_user.following_songs
+        @p_songs = current_user.following_songs(params[:page].to_i * 18, 18)
       else
         @p_station = Station.find_by_slug(id)
         @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
-      @p_songs = @p_songs.limit_page(params[:page])
+      @p_songs = @p_songs.limit_page(params[:page]) unless dont_paginate
 
       if @p_songs.count > 0
         render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs, :partial => true }
@@ -111,7 +116,7 @@ class ApplicationController < ActionController::Base
 
   def set_pagination_vars
     @per = {
-      :station => 10
+      :station => 18
     }
   end
 
