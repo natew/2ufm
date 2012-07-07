@@ -9,12 +9,12 @@ gem 'yettings'
 gem 'bourbon'
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
-gem 'aws-ses'
 gem 'jquery-rails'
 
 # Users
 gem 'devise'
 gem 'cancan'
+gem 'aws-ses', '~> 0.4.4', :require => 'aws/ses'
 
 # Comments
 gem 'acts_as_commentable_with_threading'
@@ -46,7 +46,7 @@ gem 'bson_ext'
 gem 'kaminari'
 
 # Search
-gem 'texticle', :git => 'git://github.com/texticle/texticle.git', :require => 'texticle/rails'
+gem 'texticle', :git => 'git://github.com/NateW/texticle.git', :require => 'texticle/rails'
 
 # Songs
 gem 'discogs-wrapper'
@@ -68,6 +68,10 @@ group :assets do
   gem 'uglifier'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+end
+
 group :development do
   gem 'foreman'
   gem 'taps'
@@ -83,5 +87,8 @@ end
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem 'rspec'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'guard-rspec'
 end

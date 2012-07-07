@@ -283,6 +283,7 @@ header {
     top: 0;
     left: 0;
     bottom: 0;
+    z-index: 1;
     width: $gutter-width;
     background: $gutter-color;
     @include box-sizing(border-box);
@@ -292,9 +293,9 @@ header {
   .third h2 { font-size: 14px; margin-top: 2px; }
 
   #breadcrumbs {
-    display: none;
-    padding: 8px 20px 0;
-    margin: -20px 0 15px 0;
+    background: $body-dark;
+    padding: 8px 20px;
+    margin: -20px 0 20px 0;
     font-size: 11px;
 
     a {
@@ -1380,8 +1381,8 @@ $third-width: 220px;
 
 
 .image {
-  background: #000;
-  border: 2px solid lighten($body-bg,10%);
+  background: lighten($body-bg,20%);
+  border: 2px solid $gutter-color;
   padding: 1px;
   display: block;
 

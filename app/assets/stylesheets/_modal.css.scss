@@ -99,6 +99,14 @@
     }
   }
 
+  form {
+    #error_explanation {
+      ul {
+        color: #444;
+      }
+    }
+  }
+
   #user-login {
     width: 250px;
     padding: 10px 20px;

@@ -93,7 +93,7 @@ $(function() {
     selectable: ':not(.unselectable)',
     formatItem: function (data, $item) {
       if (data.selectable == 'false') $item.addClass('unselectable');
-      if (data.header == 'true') $item.addClass('unselectable').addClass('header');
+      if (data.header == 'true') $item.addClass('unselectable header');
       return data.name;
     },
     onSelect: function (data, $item) {

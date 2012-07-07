@@ -36,9 +36,9 @@ $song-playing-bg: #eee;
     position: relative;
 
     &:nth-child(2n+1) {
-      background: rgba(0,0,0,0.05);
+      background: rgba(0,0,0,0.08);
       .song-controls {
-        background: rgba(0,0,0,0.05);
+        background: rgba(0,0,0,0.08);
       }
     }
 
@@ -237,6 +237,7 @@ $song-playing-bg: #eee;
       position: absolute;
       margin: 0;
       padding: 0;
+      z-index: 2;
       text-align: right;
       @include box-sizing(border-box);
 
@@ -394,10 +395,11 @@ $song-playing-bg: #eee;
 }
 
 .primary .playlist-song {
-  margin: -20px 0 0;
+  margin: 0;
 
   section {
     padding: 20px;
+    padding-top: 0;
     padding-right: 0;
     display: none;
 

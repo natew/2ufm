@@ -37,6 +37,11 @@ class Artist < ActiveRecord::Base
     name
   end
 
+  # returns station slug
+  def url
+    station.slug
+  end
+
   def get_info
     get_discogs_info
     get_wikipedia_info

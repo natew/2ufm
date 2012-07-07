@@ -33,25 +33,30 @@ class MainController < ApplicationController
   end
 
   def search
+    query = params[:q]
+
     songs = search_ready(
       :title => 'Songs',
-      :items => Song.search_by_name(params[:q]).limit(5) | Song.search_by_artist_name(params[:q]).limit(5),
+      :items => Song.fuzzy_search_by_name(query).limit(5) | Song.fuzzy_search_by_artist_name(query).limit(5),
       :json => { :only => ['full_name', 'slug'], :methods => 'full_name' }
     )
 
     artists = search_ready(
       :title => 'Artists',
-      :items => Artist.search_by_name(params[:q]).limit(5),
-      :json => { :only => ['name', 'slug'] }
+      :items => Artist.fuzzy_search_by_name(query).limit(5),
+      :json => { :only => ['name', 'url'], :methods => 'url' }
     )
 
     stations = search_ready(
       :title => 'Stations',
-      :items => Station.search_by_title(params[:q]).limit(5),
+      :items => Station.fuzzy_search_by_title(query).limit(5),
       :json => {:only => ['title', 'slug'] }
     )
 
-    render :text => "[#{songs}#{artists}#{stations[0..-2]}]"
+    result = "[#{artists}#{stations}#{songs[0..-2]}]"
+    logger.info result
+
+    render :text => result
   end
 
   def loading
@@ -73,7 +78,6 @@ class MainController < ApplicationController
         .gsub(/slug\":\"/,"url\":\"#{options[:title].downcase}/")
         .gsub(/full_name|title/,'name')
         .insert(1, header)
-      puts result
       result[1,result.length-2] + ','
     else
       result = "#{header}{\"name\":\"No Results\",\"selectable\":\"false\"},"
