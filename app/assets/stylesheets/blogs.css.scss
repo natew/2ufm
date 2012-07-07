@@ -64,12 +64,3 @@
      }
    }
 }
-
-
-.image {
-  margin: 0 0 20px 0;
-
-  img {
-    @include border-radius(8px);
-  }
-}

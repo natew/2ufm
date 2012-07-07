@@ -363,6 +363,7 @@ header form {
     color: rgba(0,0,0,0.2);
     text-shadow: none;
     width: 38px;
+    box-shadow: none;
 
     &:hover { color: #fff; }
   }
@@ -1352,85 +1353,46 @@ $third-width: 220px;
 
 
 /* Image Covers */
-.cover-tiny {
+.cover-tiny img {
   position: relative;
   width: 24px;
   height: 24px;
-
-  &:before,
-  img,
-  strong {
-    @include border-radius(4px);
-  }
 }
 
-.cover-icon {
+.cover-icon img {
   position: relative;
   width: 32px;
   height: 32px;
-
-  &:before,
-  img,
-  strong {
-    @include border-radius(4px);
-  }
 }
 
-.cover-small {
+.cover-small img {
   position: relative;
   width: 64px;
   height: 64px;
-
-  &:before,
-  img,
-  strong {
-    @include border-radius(4px);
-  }
 }
 
-.cover-128 {
+.cover-128 img {
   position: relative;
   width: 128px;
   height: 128px;
-
-  img,
-  strong {
-    @include border-radius($cover-medium-border);
-  }
 }
 
-.cover-medium {
+.cover-medium img {
   position: relative;
   width: 256px;
   height: 256px;
-
-  img,
-  strong {
-    @include border-radius($cover-medium-border);
-  }
 }
 
-[class^="cover-"]:before,
-[class*=" cover-"]:before {
-  content: '';
+
+.image {
+  background: #000;
+  border: 2px solid lighten($body-bg,10%);
+  padding: 1px;
   display: block;
-  position: absolute;
-  z-index: 3;
-  background: url(/images/cover.png);
-  width: 100%;
-  height: 100%;
-  @include background-size(100% auto);
-  @include border-radius($cover-medium-border);
-}
 
-a[class^="cover-"]:hover:before,
-a[class*=" cover-"]:hover:before {
-  background-position: bottom left;
-}
+  img {
 
-[class^="cover-"] strong, span[class*=" cover-"] strong {
-  z-index: 2;
-  @include border-bottom-radius(0);
+  }
 }
 
 

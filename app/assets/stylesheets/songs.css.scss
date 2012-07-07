@@ -398,6 +398,7 @@ $song-playing-bg: #eee;
 
   section {
     padding: 20px;
+    padding-right: 0;
     display: none;
 
     &:nth-child(2n+1) {
