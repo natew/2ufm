@@ -294,7 +294,7 @@ header {
 
   #breadcrumbs {
     background: $body-dark;
-    padding: 8px 20px;
+    padding: 6px 20px;
     margin: -20px 0 20px 0;
     font-size: 11px;
 
@@ -302,6 +302,14 @@ header {
       color: #888;
       text-decoration: none;
       float: left;
+
+      &:hover {
+        color: #fff;
+
+        &.after:after {
+          color: #888;
+        }
+      }
 
       &.after:after {
         display: inline-block;
@@ -1365,6 +1373,12 @@ $third-width: 220px;
   position: relative;
   width: 64px;
   height: 64px;
+}
+
+.cover-96 img {
+  position: relative;
+  width: 96px;
+  height: 96px;
 }
 
 .cover-128 img {

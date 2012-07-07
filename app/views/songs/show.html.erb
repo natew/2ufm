@@ -3,7 +3,8 @@
 
   <section class="stats horizontal-list">
     <h3>Info:</h3>
-    <span>Posted on <%= pluralize @blogs.length, 'blog' %></span>
+    <span><%= relative_time @song.created_at %></span>
+    <span><%= pluralize @blogs.length, 'blog' %></span>
     <span><%= pluralize @song.play_count, 'play' %></span>
     <span><%= seconds_to_time @song.length %></span>
   </section>

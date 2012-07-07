@@ -17,14 +17,8 @@
     </div>
   </div>
 
-  <div class="third">
-    <%- if @artists -%>
-    <h3>Artists on this station</h3>
-    <div class="list">
-      <%= render :partial => 'artists/artist', :collection => @artists %>
-    </div>
-    <%- end -%>
-  </div>
+  <%= render :partial => 'sidebar' %>
+
   <%- else -%>
   <div class="whole">
     <h2>No songs on this station, yet!</h2>

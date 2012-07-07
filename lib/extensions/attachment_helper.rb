@@ -32,7 +32,7 @@ module AttachmentHelper
         options[:url]  ||= "/attachments/#{rails_env}/#{attachment_path}"
       end
 
-      options[:default_url] ||= '/images/default_:style.jpg'
+      options[:default_url] ||= '/images/default.png'
 
       # pass things off to paperclip.
       has_attached_file name, options

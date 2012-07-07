@@ -1,7 +1,11 @@
+<%-
+  cover_size ||= 128
+  image_size ||= :medium
+-%>
   <li>
-    <a class="cover-128" href="<%= url_for(shelf) %>">
+    <a class="cover-<%= cover_size %>" href="<%= url_for(shelf) %>">
       <strong><%= shelf.name %></strong>
-      <span><%= image_tag shelf.image.url(:medium) %></span>
+      <span><%= image_tag shelf.image.url(image_size) %></span>
     </a>
     <%= debug(shelf) %>
   </li>

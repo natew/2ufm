@@ -1,0 +1,8 @@
+<div class="third">
+  <%- if @artists -%>
+  <h3>Artists on this station</h3>
+  <div class="shelf">
+    <%= render :partial => 'stations/shelf', :collection => @artists, :locals => { :cover_size => '96' } %>
+  </div>
+  <%- end -%>
+</div>

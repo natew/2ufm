@@ -439,12 +439,20 @@ $song-playing-bg: #eee;
       }
     }
 
+    .song-art {
+      width: 156px;
+      height: 156px;
+      bottom: 0;
+      top: auto;
+    }
+
     .song-player {
       position: relative;
       left: 0;
 
       .waveform-wrap {
         display: block;
+        right: 170px;
 
         img {
           opacity: 1;
@@ -466,8 +474,7 @@ $song-playing-bg: #eee;
       }
 
       time {
-        display: inline;
-        float: right;
+        display: none;
       }
     }
   }
