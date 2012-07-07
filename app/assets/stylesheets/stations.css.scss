@@ -33,6 +33,8 @@ $station-image: 32px;
 
     .image {
       margin: 0;
+      padding: 0;
+      border: none;
       display: block;
       width: $station-image;
       height: $station-image;
@@ -121,6 +123,7 @@ $station-image: 32px;
       position: absolute;
       top: 0;
       width: 100%;
+      z-index: 10;
       @include dim(60);
     }
   }
