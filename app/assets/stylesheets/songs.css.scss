@@ -183,10 +183,12 @@ $song-playing-bg: #eee;
         line-height: .9em;
         box-shadow: none;
         text-shadow: none;
+        float: left;
 
         span {
           font-size: 13px;
           margin: 0;
+          line-height: 1.5em;
           padding-right: 4px;
           color: #999;
         }

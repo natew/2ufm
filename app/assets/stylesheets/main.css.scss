@@ -1041,23 +1041,26 @@ h2.title { color: #000; }
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 4px;
+    top: 5px;
     right: 20px;
 
     ul { margin-top: 14px; }
     li {
       list-style: none;
       padding: 0;
-      margin-left: 4px;
+      margin-left: 6px;
       float: left;
       display: block;
 
       div.count {
-        clear: both;
-        margin: 0;
-        line-height: 2.3em;
+        position: relaitve;
+        z-index: 0;
+        background: rgba(0,0,0,0.2);
+        margin: -4px 4px 0;
+        padding: 4px 0 1px;
         text-align: center;
         font-size: 12px;
+        @include border-radius(6px);
       }
     }
   }

@@ -128,20 +128,21 @@ form {
 .input-submit,
 input[type='submit'],
 button {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
   color: #fff;
   font-size: 14px;
   text-decoration: none;
   padding: 4px 16px;
-  float: left;
   margin: 2px 4px 10px 0;
   font-weight: bold;
-  border: 2px solid $primary-dark;
-  @include border-radius(4px);
-  @include background-gradient($primary, $primary-dark);
+  position: relative;
+  z-index: 10;
+  @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.4));
+  @include linear-gradient($primary, $primary-dark);
 
   &:hover {
     color: #fff;
+    @include linear-gradient(lighten($primary,4%), lighten($primary-dark,4%));
   }
 
   &.abs-right {
@@ -160,13 +161,13 @@ button {
 
   /* Keep above .remove, .remove.first-hover needs precedence */
   &.remove:hover {
-    @include background-gradient(#c40e0e, #970808);
+    @include linear-gradient(#c40e0e, #970808);
     border-color: #970808;
   }
 
   &.remove,
   &.remove.first-hover {
-    @include background-gradient($light-green, $green);
+    @include linear-gradient($light-green, $green);
     border-color: #239708;
     border-width: 2px;
     margin: 0;
@@ -174,13 +175,12 @@ button {
 
   &.add {
     color: #fff;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.1);
-    border-width: 2px;
-    border-color: $green;
-    @include border-radius(20px);
-    @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2));
-    @include background-gradient($light-green,$green);
+    @include linear-gradient($light-green,$green);
     span { color: #fff; }
+
+    &:hover {
+      @include linear-gradient(lighten($light-green,4%),lighten($green,4%));
+    }
   }
 
   &.disabled {
@@ -189,7 +189,7 @@ button {
     text-shadow: none;
     cursor: default;
     pointer-events: none;
-    @include background-gradient(#ccc, #aaa);
+    @include linear-gradient(#ccc, #aaa);
 
     span {
       color: #999;
@@ -197,8 +197,10 @@ button {
   }
 
   span {
-    display: inline-block;
-    margin: 0 0 -4px -4px;
+    display: inline;
+    vertical-align: top;
+    line-height: 1.1em;
+    margin: 0 -2px 0 -4px;
     padding-right: 3px;
     font-size: 20px;
   }
@@ -210,7 +212,7 @@ button {
   font-size: 19px;
   display: block;
   text-align: center;
-  @include border-radius(8px !important);
+  @include border-radius(6px);
 }
 
 .actions .input-submit {
