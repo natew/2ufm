@@ -363,16 +363,16 @@ function navDropdown(nav, pad) {
   if (nav && nav.length) {
     var padding = pad ? pad : 20,
         target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
-        dropdown = $(target).removeClass('hidden'),
+        dropdown = $(target).removeClass('hidden').addClass('open'),
         top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
-        left = Math.round(nav.offset().left + (nav.width()/2) - (dropdown.width()/2));
+        left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
 
     // If the nav is not already open
     if (!(navOpen && navOpen[0] == dropdown[0])) {
       navOpen = dropdown.css({
         top: top,
         left: left
-      }).addClass('open');
+      });
 
       return true;
     }

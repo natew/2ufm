@@ -1,5 +1,5 @@
 <div class="title">
-  <h2>Music Blog Directory</h2>
+  <h2>Music Blogs</h2>
   <p>Browse blogs and subscribe to their stations</p>
 
   <div class="title-nav">
@@ -7,10 +7,14 @@
   </div>
 </div>
 
-<div class="whole">
-  <div id="directory-list">
-    <%= render @blogs %>
-  </div>
+<ul class="subnav">
+  <li><%= link_to 'Random', '/blogs' %></li>
+  <li><%= link_to "#", "/blogs?letter=0" %></li>
+  <%- ('A'..'Z').each do |letter| -%>
+  <li><%= link_to letter, "/blogs?letter=#{letter}" %></li>
+  <%- end -%>
+</ul>
 
-  <%= paginate @blogs %>
+<div class="shelf grid large">
+  <%= render :partial => 'stations/shelf', :collection => @blogs %>
 </div>

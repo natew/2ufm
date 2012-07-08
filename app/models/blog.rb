@@ -132,7 +132,7 @@ class Blog < ActiveRecord::Base
   end
 
   def set_screenshot
-    file = open "http://img.bitpixels.com/getthumbnail?code=61978&size=200&url=#{url}"
+    file = open("http://img.bitpixels.com/getthumbnail?code=61978&size=200&url=#{url}")
     self.image = file
   end
 

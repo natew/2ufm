@@ -2,7 +2,13 @@ class BlogsController < ApplicationController
   before_filter :is_admin?, :only => [:destroy]
 
   def index
-    @blogs = Blog.order('created_at desc').page(params[:page]).per(9)
+    if params[:letter]
+      letter = params[:letter]
+      letter = "0-9" if letter == '0'
+      @blogs = Blog.where("name ~* '^[#{letter}]'").order('name desc')
+    else
+      @blogs = Blog.order('random() desc').limit(12)
+    end
 
     respond_to do |format|
       format.html

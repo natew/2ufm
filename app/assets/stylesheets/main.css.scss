@@ -431,6 +431,15 @@ header #second-nav {
 .pictos-clock:before {content: "t";}
 .pictos-cart:before {content: "$";}
 
+
+a[href^="http://"]:after {
+  content: "a";
+  display: block;
+  font-family: 'Pictos';
+  padding: 0 0 0 .3em;
+  -webkit-font-smoothing: antialiased;
+}
+
 /* BAR */
 #bar {
   position: fixed;
