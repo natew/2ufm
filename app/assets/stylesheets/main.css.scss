@@ -1056,17 +1056,6 @@ h2.title { color: #000; }
       margin-left: 6px;
       float: left;
       display: block;
-
-      div.count {
-        position: relaitve;
-        z-index: 0;
-        background: rgba(0,0,0,0.2);
-        margin: -4px 4px 0;
-        padding: 4px 0 1px;
-        text-align: center;
-        font-size: 12px;
-        @include border-radius(6px);
-      }
     }
   }
 }

@@ -18,7 +18,7 @@
 
       <div id="my-stations" class="section">
         <div class="stations">
-          <%= render @user_stations %>
+          <%= render_stations @user_stations %>
         </div>
       </div>
     </div>
@@ -57,16 +57,16 @@
   <div class="third">
     <h2>Top Blogs</h2>
     <div class="stations">
-      <%= render @blog_stations, :locals => { :follow => false } %>
+      <%= render_stations @blog_stations, :nofollow => true %>
     </div>
 
     <h2>Top Artists</h2>
     <div class="stations">
-      <%= render @artist_stations, :locals => { :follow => false } %>
+      <%= render_stations @blog_stations, :nofollow => true %>
     </div>
 
     <h2>Top Stations</h2>
     <div class="stations">
-      <%= render @top_stations, :locals => { :follow => false } %>
+      <%= render_stations @blog_stations, :nofollow => true %>
     </div>
   </div>

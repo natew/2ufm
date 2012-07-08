@@ -1,13 +1,15 @@
 <%-
-  follow ||= true
+  nofollow ||= false
+  size ||= :small
 -%>
+
 <section>
-  <%= link_to image_tag(station.image.url(:small)), station, :class => 'image' %>
+  <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
   <div class="station-info">
     <h4><%= link_to station.title, '/'+station.slug %></h4>
     <span><%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
   </div>
-  <%- if follow -%>
+  <%- unless nofollow -%>
   <div class="station-follow follow-<%= station.id %>">
     <%= follow_station(station.id, station.follows_count) %>
   </div>

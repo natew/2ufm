@@ -21,6 +21,10 @@ module ApplicationHelper
     "#{h}#{m}m #{s}s"
   end
 
+  def render_stations(collection, locals = {})
+    render:partial => 'stations/station', :collection => collection, :locals => locals
+  end
+
   # Render artists for a song
   def links(models)
     links = []
