@@ -288,6 +288,10 @@ class Blog < ActiveRecord::Base
     end
   end
 
+  def make_station
+    self.create_station(title:name)
+  end
+
   private
 
   def get_html(url)
@@ -325,10 +329,6 @@ class Blog < ActiveRecord::Base
         break
       end
     end
-  end
-
-  def make_station
-    self.create_station(title:name)
   end
 
 #  def find_post_date(doc)

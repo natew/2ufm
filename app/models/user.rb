@@ -105,11 +105,11 @@ class User < ActiveRecord::Base
     self.to_json(:only => [:id, :slug, :name])
   end
 
-  protected
-
   def make_station
     self.create_station(title:username)
   end
+
+  protected
 
   # Devise override for logins
   def self.find_for_database_authentication(warden_conditions)

@@ -76,8 +76,6 @@ class Artist < ActiveRecord::Base
     end
   end
 
-  protected
-
   def make_station
     self.create_station(title:name)
   end
