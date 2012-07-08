@@ -3,20 +3,23 @@
   <div class="twothirds-wrap">
     <div class="twothirds nav-container">
       <h2 class="nav-menu">
-        <%=link_to 'My feed', '#my-feed', :class => 'control' + (@has_songs ? ' active' : '') %>
-        <%=link_to 'Todays top songs', '#popular-today', :class => 'control' + (@has_songs ? '' : ' active') %>
+        <%=link_to 'My feed', '#my-feed', :class => 'control active' %>
+        <%=link_to 'My stations', '#my-stations', :class => 'control' %>
       </h2>
 
-      <div id="my-feed" class="section <% if @has_songs %> active<% end %>">
+      <div id="my-feed" class="section  active">
         <%- if @has_songs -%>
-          <%= render :partial => 'stations/playlist', :locals => { :station => @current_user_station, :songs => @current_user_songs, :partial => true } %>
+          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :partial => true } %>
         <%- else -%>
           <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
+          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :partial => true } %>
         <%- end -%>
       </div>
 
-      <div id="popular-today" class="section <% if !@has_songs %> active<% end %>">
-        <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
+      <div id="my-stations" class="section">
+        <div class="stations">
+          <%= render @user_stations %>
+        </div>
       </div>
     </div>
   </div>
@@ -54,16 +57,16 @@
   <div class="third">
     <h2>Top Blogs</h2>
     <div class="stations">
-      <%= render @blog_stations %>
+      <%= render @blog_stations, :locals => { :follow => false } %>
     </div>
 
     <h2>Top Artists</h2>
     <div class="stations">
-      <%= render @artist_stations %>
+      <%= render @artist_stations, :locals => { :follow => false } %>
     </div>
 
     <h2>Top Stations</h2>
     <div class="stations">
-      <%= render @top_stations %>
+      <%= render @top_stations, :locals => { :follow => false } %>
     </div>
   </div>

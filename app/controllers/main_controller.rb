@@ -1,11 +1,6 @@
 class MainController < ApplicationController
   def index
-    # Songs
-    @popular = Station.popular
-    @popular_songs = Song.popular
-    @has_songs = true if user_signed_in? and !current_user.following_songs.empty?
-
-    # Stations
+    # Sidebar Stations
     @blog_stations = Station.blog_station.order('follows_count desc').limit(5)
     @artist_stations = Station.artist_station.order('follows_count desc').limit(5)
     @top_stations = Station.has_parent.order('follows_count desc').limit(5)
@@ -20,11 +15,18 @@ class MainController < ApplicationController
     ]
 
     if user_signed_in?
-      @current_user_station = Station.current_user_station
-      @current_user_songs = current_user.following_songs
+      @user_station = Station.current_user_station
+      @user_songs = current_user.following_songs
+      @has_songs = true if @user_songs.size
+      @user_stations = current_user.stations.order('stations.title asc')
     else
       @new = Station.newest
       @new_songs = Song.newest
+    end
+
+    unless @has_songs
+      @popular = Station.popular
+      @popular_songs = Song.popular
     end
 
     respond_to do |format|

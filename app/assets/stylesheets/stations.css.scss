@@ -83,6 +83,33 @@ $station-image: 32px;
   }
 }
 
+.twothirds .stations {
+  section {
+    .station-follow {
+      display: block;
+      position: absolute;
+      top: $station-pad;
+      right: $station-pad;
+      z-index: 11;
+
+      a {
+        font-size: 14px;
+        padding: 5px 10px;
+
+        span {
+          font-size: 14px;
+          line-height: 1.5em;
+          margin-left: 0;
+        }
+      }
+
+      .count {
+        display: none;
+      }
+    }
+  }
+}
+
 .shelf {
   margin: 0 20px 20px;
 
@@ -131,10 +158,10 @@ $station-image: 32px;
 }
 
 .third .shelf {
-  margin: 0 -5px 25px 0;
+  margin: 0 -8px 25px 0;
 
   li {
-    margin: 0 5px 5px 0;
+    margin: 0 8px 8px 0;
 
     strong {
       font-size: 12px;
