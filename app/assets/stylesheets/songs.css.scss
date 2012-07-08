@@ -284,8 +284,8 @@ $song-playing-bg: #eee;
             }
           }
 
-          &.remove, &.remove:before { background: darken($dark-green,10%); color: #fff; }
-          &.remove:hover, &.remove:hover:before { background: $red; }
+          &.remove, &.remove:before { color: $dark-green; }
+          &.remove:hover, &.remove:hover:before { color: $dark-red; }
         }
       }
     }
