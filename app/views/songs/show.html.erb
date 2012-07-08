@@ -16,7 +16,7 @@
 
 <div class="contain">
   <div class="whole">
-    <h2>Comments</h2>
+    <h2><%= pluralize @song.comment_threads.count, 'Comment' %></h2>
     <%= render :partial => 'comments/new_form' %>
 
     <h3>Similar Songs</h3>

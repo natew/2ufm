@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120708011301) do
+ActiveRecord::Schema.define(:version => 20120708174500) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -81,6 +81,23 @@ ActiveRecord::Schema.define(:version => 20120708011301) do
 
   add_index "broadcasts", ["song_id", "station_id"], :name => "index_broadcasts_on_song_id_and_station_id", :unique => true
   add_index "broadcasts", ["song_id", "station_id"], :name => "index_songs_stations_on_song_id_and_station_id", :unique => true
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id",   :default => 0
+    t.string   "commentable_type", :default => ""
+    t.string   "title",            :default => ""
+    t.text     "body",             :default => ""
+    t.string   "subject",          :default => ""
+    t.integer  "user_id",          :default => 0,  :null => false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

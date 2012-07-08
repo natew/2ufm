@@ -18,6 +18,7 @@ gem 'aws-ses', '~> 0.4.4', :require => 'aws/ses'
 
 # Comments
 gem 'acts_as_commentable_with_threading'
+gem 'acts_as_votable'
 
 # Crawling and parsing
 gem 'nokogiri'

@@ -3,9 +3,7 @@
     <%= image_tag @user.avatar.url(:small), :class => 'image' %>
     <h2 class="icon"><%= @user.username %></h2>
 
-    <ul class="title-nav">
-      <li class="follow-<%= @user.station.id %>"><%= follow_station(@user.station) %></li>
-    </ul>
+    <%= render :partial => 'shared/actions', :locals => { :station => @user.station } %>
 
     <nav class="nav-menu">
       <%= link_to 'Favorites', '#favorites', :class => 'active' %>

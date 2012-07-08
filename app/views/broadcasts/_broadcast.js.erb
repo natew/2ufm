@@ -1,2 +1,11 @@
-$('.tipsy').remove();
-$('#song-<%= @song.id %> .broadcast').html("<%= escape_javascript(render :partial => 'songs/broadcast', :locals => @locals) %>")
+<%-
+  counter = @locals.delete(:counter)
+  add = counter == :add
+-%>
+
+var broadcast = $('#song-<%= @locals[:id] %> .broadcast'),
+    count = parseInt(broadcast.children('a').html(),10);
+
+<%= add %> ? count++ : count--;
+broadcast.html("<%= escape_javascript(render :partial => 'songs/broadcast', :locals => @locals) %>");
+broadcast.children('a').html(count);

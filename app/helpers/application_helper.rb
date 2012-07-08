@@ -1,26 +1,17 @@
 # Application Helper
 module ApplicationHelper
   # Station follow
-  def follow_station(station)
-    station = Station.find(station.to_i) if station.kind_of?(String)
-    id      = station.id
-    has     = current_user.following_station?(id) if user_signed_in?
-    action  = has ? "remove" : "add"
-    follow  = has ? current_user.follows.where(:station_id => id).first.id : id
-    render :partial => "stations/follow", :locals => { :action => action, :id => follow, :count => station.follows.size, :changed => false }
+  def follow_station(id, follows_count)
+    action = "add"
+    action = "remove" if user_signed_in? and current_user.following_station?(id)
+    render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => follows_count, :changed => false }
   end
 
   # Song broadcast
   def broadcast_song(song)
-    if user_signed_in? and current_user.broadcasted_song?(song)
-      action = "remove"
-      id = current_user.station.broadcasts.where(:song_id => song.shared_id).first.id
-    else
-      action = "add"
-      id = song.id
-    end
-
-    render :partial => "songs/broadcast", :locals => { :action => action, :id => id, :count => song.user_broadcasts_count }
+    action = "add"
+    action = "remove" if user_signed_in? and current_user.broadcasted_song?(song)
+    render :partial => "songs/broadcast", :locals => { :action => action, :id => song.shared_id, :count => song.user_broadcasts_count }
   end
 
   def seconds_to_time(seconds)
@@ -47,9 +38,9 @@ module ApplicationHelper
   # Render artists for a song
   def author_links(authors)
     list = []
-    authors = authors.joins(:artist)
+    authors = authors.joins(:artist).select('authors.role, artists.name as artist_name, artists.station_slug as artist_station_slug')
     authors.each do |author|
-      link = link_to(author.artist.name, author.artist, :class => 'role role-' + author.role)
+      link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => 'role role-' + author.role)
       author.role == 'original' ? list.unshift(link) : list.push(link)
     end
     raw list.join(', ')

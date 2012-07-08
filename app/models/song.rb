@@ -55,7 +55,7 @@ class Song < ActiveRecord::Base
   scope :with_blog_station_and_post, with_blog_station.with_post
 
   # Data to select
-  scope :select_with_info, select('posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id')
+  scope :select_with_info, select('posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count')
   scope :individual, select_with_info.with_blog_station_and_post.working
   scope :user, select_with_info.with_post.working
 

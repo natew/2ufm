@@ -10,7 +10,7 @@
 
   <div class="song-meta">
     <div>
-      <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id) %></span>
+      <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
       <%= link_to song.station_title, '/'+song.station_slug %>
       <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
     </div>

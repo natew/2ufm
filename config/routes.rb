@@ -19,6 +19,7 @@ Fusefm::Application.routes.draw do
   resources :comments, :only => [:create, :destroy]
   resources :artists, :only => [:index]
   resources :stations, :only => [:index]
+  resources :comments, :only => [:create]
 
   resources :listens, :only => [:create, :show]
   match "/l/:id", :to => "listens#show"

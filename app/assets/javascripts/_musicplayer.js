@@ -405,12 +405,12 @@ var mp = (function() {
 
   return {
 
-    setPage: function(url) {
+    setPage: function setPage(url) {
       curPage = url;
-      if (isPlaying && curPage && curPage == playingPage) {
+      if (isPlaying && (curPage == playingPage || curPage.split('/')[1] == 'songs')) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
-        player.setCurSection('playing');
+        if (curSection) player.setCurSection('playing');
       } else {
         curSection = null;
       }

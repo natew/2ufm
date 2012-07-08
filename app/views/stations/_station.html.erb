@@ -5,7 +5,7 @@
     <span><%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
   </div>
   <div class="station-follow">
-    <%= follow_station(station) %>
+    <%= follow_station(station.id, station.follows_count) %>
   </div>
   <%= link_to '', '/'+station.slug, :class => 'station-link' %>
   <%= debug(station) %>

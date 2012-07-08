@@ -1,6 +1,7 @@
-<% icon, title, method, path = (action == 'add') ?
-    ['k','Hover to like this song', :post, "/broadcasts/#{id}"] :
-    ['2','Remove song from your station', :delete, "/broadcasts/#{id}" ]
-%>
-
-  <%= link_to count, path, class: "restricted broadcast-song #{action} pictos-heart control", title: title, remote: true, method: method %>
+<%-
+  icon, title, method, path =
+    (action == 'add') ?
+    ['k','Like this song', :post, "/broadcasts/#{id}"] :
+    ['2','Unlike this song', :delete, "/broadcasts/#{id}" ]
+-%>
+<%= link_to count, path, class: "restricted broadcast-song #{action} pictos-heart control", title: title, remote: true, method: method %>

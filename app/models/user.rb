@@ -59,7 +59,8 @@ class User < ActiveRecord::Base
         posts.excerpt as post_excerpt,
         stations.title as station_title,
         stations.slug as station_slug,
-        stations.id as station_id
+        stations.id as station_id,
+        stations.follows_count as station_follows_count
       FROM a
         INNER JOIN
           songs b ON a.song_id = b.id

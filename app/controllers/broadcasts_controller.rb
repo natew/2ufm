@@ -2,9 +2,9 @@ class BroadcastsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @song = Song.find(params[:song_id])
-    @broadcast = current_user.station.broadcasts.create(:song_id => @song.shared_id)
-    @locals = { :action => 'remove', :id => @broadcast.id, :count => @song.user_broadcasts_count+1 }
+    logger.info params
+    @broadcast = current_user.station.broadcasts.create(:song_id => params[:song_id])
+    @locals = { :action => 'remove', :id => params[:song_id], :counter => :add, :count => 0 }
 
     respond_to do |format|
       format.js { render :partial => 'broadcast' }
@@ -12,12 +12,11 @@ class BroadcastsController < ApplicationController
   end
 
   def destroy
-    @broadcast = Broadcast.where(id: params[:id], station_id: current_user.station.id).first
+    @broadcast = Broadcast.where(song_id: params[:id], station_id: current_user.station.id).first
 
     if @broadcast
-      @song = @broadcast.song
       @broadcast.destroy
-      @locals = { :action => 'add', :id => @song.id, :count => @song.user_broadcasts_count }
+      @locals = { :action => 'add', :id => params[:id], :counter => :subtract, :count => 0 }
 
       respond_to do |format|
         format.js { render :partial => 'broadcast' }

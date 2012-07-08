@@ -1,5 +1,6 @@
 <h3>Add Comment</h3>
-<%= form_for :comment, :html => { :multipart => true, :id => 'new-comment' } do |f| %>
-  <%= f.text_area :comment, :class => 'comment-text' %>
+<%= form_for :comment, :url => comments_path, :html => { :multipart => true, :id => 'new-comment' } do |f| %>
+  <%= f.text_area :body, :class => 'comment-text' %>
+  <%= f.hidden_field :song_id, :value => @song.id %>
   <%= f.submit 'Post comment', :class => 'right' %>
 <% end %>
