@@ -432,12 +432,16 @@ header #second-nav {
 .pictos-cart:before {content: "$";}
 
 
-a[href^="http://"]:after {
-  content: "a";
-  display: block;
-  font-family: 'Pictos';
-  padding: 0 0 0 .3em;
-  -webkit-font-smoothing: antialiased;
+a[href^="http://"] {
+  padding-right: .4em;
+
+  &:after {
+    content: "A";
+    display: block;
+    font-family: 'Pictos';
+    padding: 0 0 0 .3em;
+    -webkit-font-smoothing: antialiased;
+  }
 }
 
 /* BAR */
@@ -997,15 +1001,6 @@ h2.title { color: #000; }
 
   &.center h2 {
     font-size: 38px;
-  }
-
-  &.grid {
-    padding-left: 0;
-    padding-right: 0;
-
-    .third {
-      margin-left: 0;
-    }
   }
 
   h2, p {
