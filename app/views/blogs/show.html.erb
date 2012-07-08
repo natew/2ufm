@@ -4,8 +4,9 @@
   </div>
 
   <h2><%= @blog.name %></h2>
+  <p>Check out <%= link_to 'this blog', @blog.url, :target => '_blank' %></p>
 
-  <%= render :partial => 'shared/actions', :locals => { :station => @blog.station, :blog => @blog } %>
+  <%= render :partial => 'shared/actions', :locals => { :station => @blog.station } %>
 </div>
 
 <div class="twothirds-wrap">

@@ -1002,7 +1002,11 @@ h2.title { color: #000; }
   h2, p {
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 60%;
+    width: 56%;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   h2 {
