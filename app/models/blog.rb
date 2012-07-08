@@ -36,7 +36,7 @@ class Blog < ActiveRecord::Base
   scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
 
   def to_param
-    slug
+    station_slug
   end
 
   def get_title

@@ -114,7 +114,7 @@
 
         <section class="right">
           <% if user_signed_in? %>
-            <%= link 'My Profile', station_path(current_user.station_slug), :id => 'nav-my-station' %>
+            <%= link 'My Profile', current_user, :id => 'nav-my-station' %>
             <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
             <%= link_to 'U', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
           <% else %>

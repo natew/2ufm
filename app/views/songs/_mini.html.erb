@@ -4,7 +4,7 @@
     <h4><%= mini.linked_title.html_safe %></h4>
     <div class="song-meta">
       <%= link_to 'j', mini, :class => 'pictos permalink' %>
-      <%= link_to "#{truncate(mini.station_title)}".html_safe, station_path(mini.station_slug) %> &nbsp;&middot;
+      <%= link_to "#{truncate(mini.station_title)}".html_safe, mini %> &nbsp;&middot;
       <%- if mini.reposted? -%>
         Posted by <%= link_to pluralize(mini.shared_count,'blog'), mini %>
         &nbsp;&middot;

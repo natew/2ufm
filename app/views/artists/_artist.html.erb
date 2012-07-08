@@ -1,7 +1,7 @@
 <% size ||= :small %>
 <section class="section">
-  <%= link_to image_tag(artist.image.url(size)), station_path(artist.station_slug), :class => 'image' %>
+  <%= link_to image_tag(artist.image.url(size)), artist, :class => 'image' %>
   <div>
-    <h4><%= link_to artist.name, station_path(artist.station_slug) %></h4>
+    <h4><%= link_to artist.name, artist %></h4>
   </div>
 </section>

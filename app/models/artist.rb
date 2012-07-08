@@ -27,7 +27,7 @@ class Artist < ActiveRecord::Base
   scope :for_linking, joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role')
 
   def to_param
-    slug
+    station_slug
   end
 
   def to_playlist_json

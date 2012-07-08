@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   validates_with SlugValidator
 
   def to_param
-    slug
+    station_slug
   end
 
   def get_title
