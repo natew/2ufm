@@ -5,6 +5,7 @@ require 'anemone'
 
 class Blog < ActiveRecord::Base
   include AttachmentHelper
+  include SlugExtensions
 
   # Relationships
   has_one  :station, :dependent => :destroy
@@ -19,7 +20,7 @@ class Blog < ActiveRecord::Base
   has_attachment :image, styles: { medium: ['256x256#'], small: ['128x128#'], small: ['64x64#'] }
 
   after_create  :delayed_get_blog_info, :delayed_get_new_posts
-  before_create :make_station, :set_screenshot
+  before_create :make_station, :set_station_slug, :set_screenshot
 
   # Validations
   validates :url, presence: true, uniqueness: true

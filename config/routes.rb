@@ -14,10 +14,11 @@ Fusefm::Application.routes.draw do
   resources :genres, :only => [:show]
   resources :blogs, :except => [:show]
   resources :users, :except => [:show]
-  resources :stations, :only => [:show, :index]
   resources :follows, :only => [:create, :destroy]
   resources :broadcasts, :only => [:create, :destroy]
   resources :comments, :only => [:create, :destroy]
+  resources :artists, :only => [:index]
+  resources :stations, :only => [:index]
 
   resources :listens, :only => [:create, :show]
   match "/l/:id", :to => "listens#show"
@@ -26,28 +27,27 @@ Fusefm::Application.routes.draw do
 
   match "/songs/:id", :to => "songs#failed", :as => :post
 
-  resources :artists, :only => [:index, :show] do
-    member do
-      get 'remixes'
-      get 'originals'
-      get 'popular'
-      get 'mashups'
-      get 'covers'
-      get 'productions'
-      get 'features'
-    end
-  end
-
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post
-
-  root :to => 'main#index'
 
   match "/search", :to => 'main#search'
   match "/loading", :to => 'main#loading'
 
   match '/mac', :to => 'main#mac'
 
+  ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
+
+  # Artists
+  match "/:id/remixes", :to => "artists#remixes", :as => "artist_remixes"
+  match "/:id/originals", :to => "artists#originals", :as => "artist_originals"
+  match "/:id/popular", :to => "artists#popular", :as => "artist_popular"
+  match "/:id/mashups", :to => "artists#mashups", :as => "artist_mashups"
+  match "/:id/covers", :to => "artists#covers", :as => "artist_covers"
+  match "/:id/productions", :to => "artists#productions", :as => "artist_productions"
+  match "/:id/features", :to => "artists#features", :as => "artist_features"
+
   # Root level stations access
-  match "/:id", :to => 'stations#show'
+  match "/:id", :to => 'stations#show', :as => "station"
+
+  root :to => 'main#index'
 end

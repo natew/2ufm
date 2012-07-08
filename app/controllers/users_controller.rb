@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
     if @user.save
       self.current_user = @user
-      redirect_to '/' + @user.station.slug
+      redirect_to station_path(@user.station_slug)
       UserMailer.welcome_email(@user).deliver
       flash[:notice] = "Welcome!"
     else

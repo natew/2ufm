@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include AttachmentHelper
+  include SlugExtensions
 
   ROLES = %w[admin blogowner user]
 
@@ -25,7 +26,7 @@ class User < ActiveRecord::Base
 
   acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
 
-  before_create :make_station
+  before_create :make_station, :set_station_slug
 
   validates :username, :length => 3..100
   validates_with SlugValidator

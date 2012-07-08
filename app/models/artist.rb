@@ -1,9 +1,10 @@
 require 'discogs'
 
-include AttachmentHelper
-include PaperclipExtensions
-
 class Artist < ActiveRecord::Base
+  include AttachmentHelper
+  include PaperclipExtensions
+  include SlugExtensions
+
   has_one    :station, :dependent => :destroy
   has_many   :broadcasts, :through => :songs
   has_many   :stations, :through => :broadcasts
@@ -15,7 +16,7 @@ class Artist < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
   before_validation :make_station, :on => :create
-  before_create :get_info
+  before_create :get_info, :set_station_slug
 
   serialize :urls
 

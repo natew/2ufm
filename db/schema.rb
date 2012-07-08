@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120707205217) do
+ActiveRecord::Schema.define(:version => 20120708011301) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120707205217) do
     t.boolean  "has_productions",  :default => false
     t.boolean  "has_features",     :default => false
     t.integer  "song_count",       :default => 0
+    t.string   "station_slug"
   end
 
   create_table "authors", :force => true do |t|
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20120707205217) do
     t.datetime "crawl_started_at"
     t.datetime "crawl_finished_at"
     t.integer  "crawled_pages",     :default => 0
+    t.string   "station_slug"
   end
 
   create_table "blogs_genres", :id => false, :force => true do |t|
@@ -264,6 +266,7 @@ ActiveRecord::Schema.define(:version => 20120707205217) do
     t.string   "last_visited"
     t.integer  "last_station"
     t.integer  "last_song"
+    t.string   "station_slug"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

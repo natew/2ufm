@@ -39,12 +39,17 @@ module ApplicationHelper
     raw links.join(', ')
   end
 
+  def nav_link_to(title, path)
+    class_active = current_page?(path) ? 'active' : ''
+    link_to title, path, :class => class_active
+  end
+
   # Render artists for a song
   def author_links(authors)
     list = []
     authors = authors.joins(:artist)
     authors.each do |author|
-      link = link_to(author.artist.name, author.artist, :class => 'role role-' + author.role)
+      link = link_to(author.artist.name, station_path(author.artist.station_slug), :class => 'role role-' + author.role)
       author.role == 'original' ? list.unshift(link) : list.push(link)
     end
     raw list.join(', ')

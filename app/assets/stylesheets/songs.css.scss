@@ -419,6 +419,8 @@ $song-playing-bg: #eee;
     h1 {
       width: 100%;
       margin-left: 0;
+      padding-right: 170px;
+      @include box-sizing(border-box);
 
       span {
         line-height: 1.4em;

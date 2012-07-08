@@ -36,7 +36,7 @@ var urlParams = {},
       }
     })();
 
-$('img').on('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
+$('img').live('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
 
 //
 // Document.ready
@@ -58,7 +58,7 @@ $(function() {
   });
 
   // Mac app download
-  if (navigator.appVersion.indexOf("Mac")!=-1) {
+  if (navigator.appVersion.indexOf("Mac") != -1) {
     $('#sidebar .announce').addClass('ismac');
   }
 
