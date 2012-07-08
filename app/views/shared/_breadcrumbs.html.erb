@@ -4,8 +4,12 @@
   -%>
   <div id="breadcrumbs">
     <%= link_to 'Home', '/', :class => 'after' %>
-    <%= link_to controller_name.capitalize, '/' + controller_name, :class => separate %>
-    <%= link_to @primary.get_title, @primary unless second_level %>
+    <%= link_to controller_name.capitalize, '/' + controller_name, :class => separate if second_level %>
+    <%- if !second_level -%>
+      <%= link_to @primary.class.name.pluralize, '/' + @primary.class.name.downcase.pluralize, :class => separate %>
+      <%= link_to @primary.get_title, @primary %>
+    <%- end -%>
+
   </div>
 <% end %>
 

@@ -181,9 +181,21 @@ var mp = (function() {
         }
         // reached end of playlist
         else {
-          curSection = null;
-          w.trigger('mp:playlist_end', player.state());
-          return false;
+          // Check for another playlist
+          var curPlaylistInfo = playlistID.split('-'),
+              nextPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) + 1),
+              nextSection = $('#playlist-' + nextPlaylistInfo + ' section:first');
+
+          if (nextSection.length) {
+            this.playSection(nextSection);
+            return true;
+          }
+
+          else {
+            curSection = null;
+            w.trigger('mp:playlist_end', player.state());
+            return false;
+          }
         }
       }
     },
@@ -193,12 +205,28 @@ var mp = (function() {
         previous = curSection.prev();
         this.stop();
         this.setCurSection('inactive');
+
         if (previous.length) {
           curSection = previous;
           playlistIndex--;
           this.play();
-        } else {
-          curSection = null;
+        }
+        // Skipping behind first track of playlist
+        else {
+          // Check for another playlist
+          var curPlaylistInfo = playlistID.split('-'),
+              prevPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) - 1),
+              prevSection = $('#playlist-' + prevPlaylistInfo + ' section:last');
+
+          if (prevSection.length) {
+            this.playSection(prevSection);
+            return true;
+          }
+
+          else {
+            curSection = null;
+            return false;
+          }
         }
       }
     },
@@ -342,7 +370,6 @@ var mp = (function() {
     },
 
     finish: function finish() {
-      player.setCurSection('inactive');
       player.next();
     },
 

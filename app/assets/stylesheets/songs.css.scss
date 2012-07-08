@@ -37,14 +37,14 @@ $song-playing-bg: #eee;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      background: rgba(0,0,0,0.08);
+      background: rgba(0,0,0,0.05);
       .song-controls {
-        background: rgba(0,0,0,0.08);
+        background: rgba(0,0,0,0.05);
       }
     }
 
     &:hover {
-      background: rgba(0,0,0,0.18);
+      background: rgba(0,0,0,0.1);
 
       .song-controls li {
         a, a:before {

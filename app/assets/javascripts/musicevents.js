@@ -48,6 +48,6 @@ w.on({
   },
 
   'mp:playlist_end': function playlistEnd(event, mp, song) {
-    console.log('next');
+    console.log('end of playlist');
   }
 });
