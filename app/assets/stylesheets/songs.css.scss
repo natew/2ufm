@@ -37,14 +37,14 @@ $song-playing-bg: #eee;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      background: rgba(0,0,0,0.05);
+      background: rgba(0,0,0,0.06);
       .song-controls {
-        background: rgba(0,0,0,0.05);
+        background: rgba(0,0,0,0.06);
       }
     }
 
     &:hover {
-      background: rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.12);
 
       .song-controls li {
         a, a:before {
@@ -56,14 +56,14 @@ $song-playing-bg: #eee;
     &:before {
       content: "";
       display: block;
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       position: absolute;
       top: -4px;
       left: -5px;
       z-index: 4;
       background: $gutter-color;
-      border: 1px solid $gutter-dark;
+      @include border-radius(10px);
     }
 
     &.active {
@@ -277,15 +277,21 @@ $song-playing-bg: #eee;
 
           &:hover {
             color: #fff;
-            background: rgba(255,255,255,0.03);
+            background: rgba(0,0,0,0.1);
 
             &:before {
               color: #fff;
             }
           }
 
-          &.remove, &.remove:before { color: $dark-green; }
-          &.remove:hover, &.remove:hover:before { color: $dark-red; }
+          &.remove, &.remove:before {
+            color: $dark-green;
+            text-shadow: 0 1px 0 #000;
+          }
+
+          &.remove:hover, &.remove:hover:before {
+            color: $dark-red;
+          }
         }
       }
     }

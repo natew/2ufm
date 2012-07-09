@@ -16,7 +16,7 @@ $station-image: 48px;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.02);
     }
 
     &:hover {

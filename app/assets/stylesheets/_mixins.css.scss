@@ -9,19 +9,19 @@ $header-shadow: rgba(255,255,255,0.15);
 
 /*  navbar  */
 $navbar-bg: #3a3a3a;
-$navbar-dark: darken($navbar-bg,6%);
+$navbar-dark: darken($navbar-bg,5%);
 $navbar-link: lighten($navbar-bg, 55%);
 $navbar-heading: lighten($navbar-bg, 35%);
 
 /* body */
-$body-bg: #393939;
+$body-bg: #383838;
 $body-dark: darken($body-bg,2.5%);
 $body-light: lighten($body-bg,2.5%);
 $body-darker: darken($body-bg,5%);
 $body-lighter: lighten($body-bg,5%);
 
 /* gutter */
-$gutter-color: #2b2b2b;
+$gutter-color: #2a2a2a;
 $gutter-dark: darken($gutter-color, 3%);
 $gutter-width: 40px;
 
