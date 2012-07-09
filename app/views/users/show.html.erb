@@ -7,25 +7,54 @@
 
     <nav class="nav-menu">
       <%= link_to 'Favorites', '#favorites', :class => 'active' %>
-      <%= link_to 'Listening History', '#listened' %>
       <%= link_to 'Following', '#following' %>
+      <%= link_to 'Followers', '#followers' %>
     </nav>
   </div>
 
-  <div class="whole">
-    <div id="favorites" class="section active">
-      <%- if @songs.empty? -%>
-        <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
-      <%- else -%>
-        <%= render :partial => 'stations/playlist', :locals => { :station => @user.station, :songs => @songs } %>
-      <%- end -%>
-    </div>
+  <div class="twothirds-wrap">
+    <div class="twothirds">
+      <div id="favorites" class="section active">
+        <%- if @songs.empty? -%>
+          <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
+        <%- else -%>
+          <%= render :partial => 'stations/playlist', :locals => { :station => @user.station, :songs => @songs } %>
+        <%- end -%>
+      </div>
 
-    <div id="listened" class="section">
-      <h3>Listening History</h3>
-      <ul class="list">
-        <%= render :partial => 'users/play', :collection => @plays %>
-      </ul>
+      <div id="following" class="section">
+        <%- if @following.size > 0 -%>
+          <div class="stations">
+            <%= render_stations @following %>
+          </div>
+        <%- else -%>
+          <p>Not following anyone!</p>
+        <%- end -%>
+      </div>
+
+      <div id="followers" class="section">
+        <%- if @followers.size > 0 -%>
+          <div class="stations">
+            <%= render_stations @followers %>
+          </div>
+        <%- else -%>
+          <p>No followers!</p>
+        <%- end -%>
+      </div>
     </div>
   </div>
+
+  <div class="third">
+    <h3>Recently Played</h3>
+    <div class="plays">
+      <%= render :partial => 'users/play', :collection => @plays %>
+    </div>
+
+    <h3>Following Artists</h3>
+    <div class="shelf">
+      <%= render :partial => 'stations/shelf', :collection => @artists %>
+    </div>
+  </div>
+
+
 </div>

@@ -1,1 +1,4 @@
-<li><%= play.username %> listened to <%= link_to play.name, play.url %></li>
+<section>
+  <span><%= link_to play.username, play.station_slug %> listened to</span>
+  <%= link_to play.name, play.url, :class => 'play-song' %>
+</section>

@@ -16,8 +16,11 @@ class StationsController < ApplicationController
     case @station.type
     when 'user'
       @user = User.find(@station.user_id) || not_found
-      @plays = Listen.select('listens.created_at, listens.url, songs.name, songs.slug, users.username, users.slug').joins(:song,:user).where(:user_id => @user.id).limit(12)
+      @plays = Listen.select('listens.created_at, listens.url, songs.name, songs.slug, users.username, users.station_slug').joins(:song, :user).where(:user_id => @user.id).limit(10)
       @songs = @user.station.songs.playlist_order_broadcasted.page(params[:page]).per(12)
+      @following = @user.stations
+      @followers = @user.station.followers
+      @artists = @user.station.artists.limit(10)
       @primary = @user
     when 'blog'
       @blog    = Blog.find(@station.blog_id) || not_found

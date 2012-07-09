@@ -6,6 +6,7 @@ class Station < ActiveRecord::Base
   has_many   :broadcasts, :dependent => :destroy
   has_many   :songs, :through => :broadcasts, :extend => SongExtensions
   has_many   :follows
+  has_many   :followers, :through => :follows, :source => :station
   has_many   :artists, :through => :songs, :uniq => true
   has_many   :blogs, :through => :songs, :uniq => true
 

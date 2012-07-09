@@ -483,6 +483,44 @@ $song-playing-bg: #eee;
   }
 }
 
+.plays {
+  margin: 0 0 25px 0;
+
+  section {
+    padding: 6px;
+    padding-bottom: 8px;
+    line-height: 1.4em;
+
+    &:nth-child(2n+1) {
+      background: rgba(0,0,0,0.08);
+    }
+
+    &:hover {
+      background: rgba(0,0,0,0.15);
+    }
+
+    span {
+      display: block;
+      font-size: 11px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .play-song {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.primary-user .plays section span {
+  display: none;
+}
+
 #body .reviews {
   margin-bottom: 10px;
 
