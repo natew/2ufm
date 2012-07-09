@@ -13,7 +13,8 @@ var w = $(window),
     totalPages = 0,
     enableInfiniteScroll = true,
     navItems = getNavItems(),
-    navActive;
+    navActive,
+    pageEndOffsets = [];
 
 // Read URL parameters
 var urlParams = {},
@@ -142,14 +143,10 @@ $(function() {
       clearTimeout(infiniteScrollTimeout);
       infiniteScrollTimeout = setTimeout(function() {
         if (nearBottom()) $('.next-page:visible').click();
+        // decrementPage();
       }, 20);
     }
   });
-
-  // Determines if window is near bottom
-  function nearBottom() {
-    return w.scrollTop() >= ($(document).height() - $(window).height() - 400);
-  }
 
   // Playlist bar hover
   var progressBar = $('#player-bottom'),
@@ -350,6 +347,7 @@ function nextPage(link, callback) {
         loadingPage = false;
         updatePageURL(scrollPage);
         curPlaylist.after(data);
+        pageEndOffsets.push(curPlaylist.offset().top + curPlaylist.height());
         if (callback) callback.call(playlist);
       },
       error: function() {
@@ -357,6 +355,20 @@ function nextPage(link, callback) {
       }
     })
   }
+}
+
+// function decrementPage() {
+//   var scrollBottom = w.scrollTop() + w.height(),
+//       pages = pageEndOffsets.length - 1;
+//   for ( var i = pages; i >= 0; i-- ) {
+//     if (scrollBottom < pageEndOffsets[i]) {
+//       updatePageURL(i+1);
+//     }
+//   }
+// }
+
+function nearBottom() {
+  return w.scrollTop() >= ($(document).height() - $(window).height() - 400);
 }
 
 function navDropdown(nav, pad) {

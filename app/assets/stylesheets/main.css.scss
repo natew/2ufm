@@ -55,6 +55,60 @@ h2, h3, h4 {
   }
 }
 
+#welcome {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 1000;
+  @include linear-gradient($header-light, $header-color);
+  @include box-shadow(0 0 10px rgba(0,0,0,0.2));
+
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+  }
+
+  &:after {
+    visibility: visible;
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(0,0,0,0.15);
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+  }
+
+  small {
+    font-size: 15px;
+    margin: -6px 0 5px;
+    display: block;
+    color: darken($header-color,15%);
+  }
+
+  .button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+
 
 /* Header */
 header {
@@ -72,7 +126,7 @@ header {
   border-bottom: 1px solid $header-dark;
   @include box-sizing(border-box);
   @include box-shadow(0 0 3px rgba(0,0,0,1));
-  @include background-image(url(/images/noise-dark.png), linear-gradient($header-light, $header-color));
+  @include linear-gradient($header-light, $header-color);
 
   &:before {
     content: "";
@@ -189,12 +243,12 @@ header {
     &.right {
       float: right;
       margin-right: 20px;
-      width: 140px;
+      width: 170px;
 
       a {
         float: right;
 
-        &:last-child:after {display:block;}
+        &:last-child:before {display:none;}
         &:first-child:after {display:none;}
       }
     }
@@ -865,36 +919,6 @@ a[href^="http://"] {
     float: left;
     display: inline-block;
     margin-right: 20px;
-  }
-}
-
-
-
-/* Titles */
-.welcome {
-  display: none;
-  padding: 25px 0 0 !important;
-  margin: -35px 0 10px 0;
-
-  h1 {
-    color: #fff;
-    text-align: center;
-  }
-
-  .third {
-    float: left;
-    width: 33.3%;
-    text-align: center;
-  }
-
-  img {
-    width: 200px;
-    height: auto;
-  }
-
-  p {
-    color: #eee;
-    text-align: center;
   }
 }
 

@@ -120,6 +120,7 @@
           <% else %>
             <%= link 'Log in', '/login', :class => 'restricted'  %>
             <%= link 'Sign up', '/signup', :class => 'restricted' %>
+            <%= link_to '?', '#nav-about', :class => "pictos nav" %>
           <% end %>
         </section>
       </div>
@@ -128,6 +129,12 @@
         <%= render :template => 'layouts/single' %>
       </div>
     </div>
+  </div>
+
+  <div id="welcome">
+    <small>What is 2u.fm?</small>
+    <h1>A better way to keep track of new music you like.</h1>
+    <%= link_to 'Learn More', '/tour', :class => 'button' %>
   </div>
 
   <a id="debug" class="control" href="">d</a>
@@ -142,6 +149,13 @@
     <% else %>
       <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
     <% end %>
+  </div>
+
+  <div id="nav-about" class="pop-menu">
+    <%= link_to "Help", "/about" %>
+    <%= link_to "About Us", "/about" %>
+    <%= link_to "Privacy", "/about" %>
+    <%= link_to "Contact", "/about" %>
   </div>
 
   <div id="player-playlist" class="pop-menu">
