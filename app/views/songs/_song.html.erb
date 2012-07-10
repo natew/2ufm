@@ -4,7 +4,7 @@
     time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.created_at
 -%>
 
-<section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
+<section id="song-<%= song.shared_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
   <h1>
     <span class="artist"><%= author_links song.authors %></span>
     <span class="name"><%= link_to song.name, song %></span>
