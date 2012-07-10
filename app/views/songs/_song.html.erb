@@ -1,6 +1,8 @@
 <%- station_id ||= -1
     cover      ||= :icon
-    follow_id    = 'station-follow-' + song.id.to_s -%>
+    follow_id    = 'station-follow-' + song.id.to_s
+    time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.created_at
+-%>
 
 <section id="song-<%= song.id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
   <h1>
@@ -15,7 +17,7 @@
       <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
     </div>
 
-    <time><%= relative_time(song.published_at) %><% if song.source == 'soundcloud' %> <strong>s</strong><% end %></time>
+    <time><%= relative_time(time) %><% if song.source == 'soundcloud' %> <strong>s</strong><% end %></time>
   </div>
 
   <div class="song-player">
