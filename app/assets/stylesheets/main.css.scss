@@ -241,20 +241,9 @@ header {
   left: 0;
   right: 0;
   padding-left: 20px;
-  @include box-shadow(0 0 4px rgba(0,0,0,.2));
+  @include box-shadow(0 0 12px rgba(0,0,0,.7));
   @include background-gradient($navbar-bg, $navbar-dark);
   @include box-sizing(border-box);
-
-  &:before {
-    content: "";
-    position: absolute;
-    display: block;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(0,0,0,0.15);
-  }
 
   section {
     display: block;
@@ -289,7 +278,7 @@ header {
     }
 
     h1, a {
-      padding: 7px 12px;
+      padding: 7px 12px 6px;
     }
 
     h1 {
@@ -335,7 +324,7 @@ header {
         display: block;
         position: absolute;
         right: 0;
-        bottom: 2px;
+        bottom: 0;
         width: 1px;
         height: 100%;
         @include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3));
