@@ -3,7 +3,7 @@
 -%>
   <li>
     <a href="/<%= shelf.station_slug %>">
-      <strong><%= name %></strong>
+      <strong><%= shelf.name %></strong>
       <span><%= image_tag shelf.image.url(image_size) %></span>
     </a>
     <%= debug(shelf) %>
