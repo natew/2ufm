@@ -46,11 +46,11 @@ class User < ActiveRecord::Base
   def following_songs(offset=0, limit=18)
     Song.find_by_sql(%Q{
       WITH a as (
-          SELECT bb.song_id, MAX(bb.created_at) AS maxcreated
+          SELECT aa.station_id, bb.song_id, MAX(bb.created_at) AS maxcreated
           FROM follows aa
           INNER JOIN broadcasts bb ON aa.station_id = bb.station_id
           WHERE aa.user_id = #{id}
-          GROUP BY bb.song_id
+          GROUP BY bb.song_id, aa.station_id
         )
       SELECT
         a.maxcreated,
@@ -63,11 +63,11 @@ class User < ActiveRecord::Base
         stations.follows_count as station_follows_count
       FROM a
         INNER JOIN
-          songs b ON a.song_id = b.id
+          songs b ON a.song_id = b.shared_id
         INNER JOIN
           posts on posts.id = b.post_id
         INNER JOIN
-          stations on stations.blog_id = b.blog_id
+          stations on stations.id = a.station_id
       WHERE b.processed = 't'
         AND b.working = 't'
         AND (b.soundcloud_id IS NULL)
