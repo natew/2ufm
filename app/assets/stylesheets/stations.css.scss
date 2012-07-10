@@ -219,6 +219,18 @@ $station-small-image: 32px;
   }
 }
 
+.promo-title {
+  position: absolute;
+  top: 0;
+  left: -30px;
+  z-index: 100;
+  height: 140px;
+  width: 29px;
+  text-indent: -3000em;
+  overflow: hidden;
+  background: url(../images/featured-stations.png) no-repeat top left;
+}
+
 #genres {
   padding: 0;
   margin: 0 0 30px -4px;
