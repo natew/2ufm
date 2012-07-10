@@ -114,7 +114,7 @@ $song-playing-bg: #eee;
     }
 
     h1 {
-      margin: -2px 166px 0 55px;
+      margin: -3px 166px 2px 55px;
       position: relative;
       z-index: 10;
       line-height: 1.1em;
@@ -123,7 +123,7 @@ $song-playing-bg: #eee;
         display: block;
 
         &.artist {
-          font-size: 13px;
+          font-size: 14px;
           margin: 0 53px 0 0;
 
           a {
@@ -136,7 +136,7 @@ $song-playing-bg: #eee;
         }
 
         &.name {
-          font-size: 15px;
+          font-size: 16px;
           margin: 0;
 
           a {
