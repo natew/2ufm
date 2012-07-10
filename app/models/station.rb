@@ -20,6 +20,7 @@ class Station < ActiveRecord::Base
   scope :blog_station, where(has_blog)
   scope :artist_station, where(has_artist)
   scope :user_station, where(has_user)
+  scope :promo_station, where(:promo => true)
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Whitelist mass-assignment attributes

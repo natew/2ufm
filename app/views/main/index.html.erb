@@ -1,3 +1,10 @@
+<div class="whole">
+  <h2>Featured Stations</h2>
+  <div class="shelf promo">
+    <%= render :partial => 'stations/promo', :collection => @promos %>
+  </div>
+</div>
+
 <%- if user_signed_in? -%>
 
   <div class="twothirds-wrap">

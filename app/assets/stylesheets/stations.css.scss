@@ -135,7 +135,7 @@ $station-small-image: 32px;
 }
 
 .shelf {
-  margin: 0 20px 20px;
+  margin: 0 20px 20px 0;
 
   h3 {
     position: relative;
@@ -200,11 +200,22 @@ $station-small-image: 32px;
   }
 }
 
-.big.shelf {
+.shelf.big {
   li strong {
     font-size: 16px;
     padding: 8px;
     @include dim(80);
+  }
+}
+
+.promo {
+  margin: 0 -3% 30px 0;
+
+  a {
+    width: 47%;
+    height: 180px;
+    margin: 0 3% 0 0;
+    float: left;
   }
 }
 

@@ -1,5 +1,8 @@
 class MainController < ApplicationController
   def index
+    # Promo
+    @promos = Station.blog_station.limit(2)
+
     # Sidebar Stations
     @blog_stations = Station.blog_station.order('follows_count desc').limit(5)
     @artist_stations = Station.artist_station.order('follows_count desc').limit(5)

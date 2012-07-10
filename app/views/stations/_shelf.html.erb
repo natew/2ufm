@@ -2,8 +2,8 @@
   image_size ||= :medium
 -%>
   <li>
-    <a href="/<%= shelf.slug %>">
-      <strong><%= shelf.name %></strong>
+    <a href="/<%= shelf.station_slug %>">
+      <strong><%= name %></strong>
       <span><%= image_tag shelf.image.url(image_size) %></span>
     </a>
     <%= debug(shelf) %>
