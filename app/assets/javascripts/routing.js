@@ -86,27 +86,6 @@ var page = {
     // Reset page
     scrollPage = getPage();
     doneScrolling = false;
-
-    // Stats
-    if (path[1] == 'songs') {
-      var $stats = $('#stats');
-      if ($stats.length > 0) {
-        var data = $stats.data('broadcasts');
-
-        var options = {
-          xaxis: {
-            mode: "time",
-            minTickSize: [1, "day"],
-            min: data[0][0],
-            max: data[data.length-1][0]
-          },
-          yaxis: {
-          }
-        }
-
-        $.plot($stats, [data], options);
-      }
-    }
   },
 
   error: function(xhr) {

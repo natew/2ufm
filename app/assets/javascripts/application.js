@@ -9,9 +9,8 @@
 //= require jquery.form
 //= require jquery.marcopolo
 //= require jquery.tipsy
-//= require jquery.flot.min
 //= require jquery.pjax
-//= require jquery.inverter
+//= require jquery.cookie
 //= require mustache
 //= require soundmanager2
 //= require spin

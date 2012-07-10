@@ -14,7 +14,8 @@ var w = $(window),
     enableInfiniteScroll = true,
     navItems = getNavItems(),
     navActive,
-    pageEndOffsets = [];
+    pageEndOffsets = [],
+    hideWelcome = $.cookie('hideWelcome');
 
 // Read URL parameters
 var urlParams = {},
@@ -39,6 +40,29 @@ var urlParams = {},
 
 $('img').live('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
 
+// Cookies
+if (!hideWelcome && !loggedIn) {
+  var h1s = $('#welcome h1'),
+      h1len = h1s.length,
+      h1cur = 0;
+
+  $('#welcome').addClass('active');
+  $('#welcome h1:first').addClass('in');
+
+  $('#close-welcome').click(function() {
+    $.cookie('hideWelcome', 1);
+    $('#welcome').animate({'margin-bottom': '-100px'}, function() {
+      $(this).remove();
+    });
+  });
+
+  setInterval(function() {
+    $(h1s[h1cur]).addClass('out');
+    if (h1cur == h1len-1) h1cur = -1;
+    $(h1s[++h1cur]).addClass('in').removeClass('out')
+  }, 4500)
+}
+
 //
 // Document.ready
 //
@@ -59,9 +83,9 @@ $(function() {
   });
 
   // Mac app download
-  if (navigator.appVersion.indexOf("Mac") != -1) {
-    $('#sidebar .announce').addClass('ismac');
-  }
+  // if (navigator.appVersion.indexOf("Mac") != -1) {
+  //   $('#sidebar .announce').addClass('ismac');
+  // }
 
   // Hash tag to denote time in songs
   if (window.location.hash) {
