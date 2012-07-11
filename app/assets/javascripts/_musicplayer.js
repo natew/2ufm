@@ -59,12 +59,12 @@ var mp = (function() {
   var player = {
     // Play a section
     playSection: function playSection(section) {
-      fn.log(curSection);
       if (section.is('.playing')) {
         this.toggle();
       } else {
         this.stop();
         curSection = section;
+        fn.log(curSection);
         this.load();
         this.play();
       }
@@ -72,11 +72,13 @@ var mp = (function() {
 
     // Load playlist
     load: function load() {
-      if (!curSection) curSection = $('.playlist section:first,.playlist tbody tr:first');
+      fn.log(curSection);
+      if (!curSection) curSection = $('.playlist:visible section:first');
       if (curSection.length) {
         // Get playlist info
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
+        fn.log('loading', playlistIndex, playlistID);
 
         // Checking to see if first time loaded, or if loading new playlist
         if (typeof playlist === 'undefined' || playlist.id != playlistID) {
@@ -84,7 +86,7 @@ var mp = (function() {
           playingPage = curPage;
 
           // Get new playlist
-          playlist = $('#playlist-'+playlistID).data('playlist');
+          playlist = $('#playlist-' + playlistID).data('playlist');
 
           // Callback
           w.trigger('mp:load', player.state());
