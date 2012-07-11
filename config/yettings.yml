@@ -1,2 +1,5 @@
 defaults: &defaults
-  songs_per_page: 20
+  songs_per_page: 18
+  echo_nest_api: 'DKMZXPHH2NSUZRHIV'
+  echo_nest_consumer: 'a21d568817168e396cb090d5fa0aac3d'
+  echo_nest_secret: 'g5W8Ai5rQGmbDMHx/dGz6Q'

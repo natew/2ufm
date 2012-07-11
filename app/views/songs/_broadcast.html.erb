@@ -1,4 +1,5 @@
 <%-
+  count ||= 0 # When we render this from an ajax call we increment with JS, so no count is necessary
   icon, title, method, path =
     (action == 'add') ?
     ['k','Like this song', :post, "/broadcasts/#{id}"] :

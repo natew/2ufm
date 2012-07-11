@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :get_suggestions, :do_page_request, :set_pagination_vars, :get_counts
+  before_filter :do_page_request, :set_pagination_vars, :get_counts
   layout :set_layout
 
   def not_found
@@ -16,53 +16,7 @@ class ApplicationController < ActionController::Base
     user_signed_in? and current_user.is_admin?
   end
 
-  # def user_signed_in?
-  #   super or session[:guest_used_id]
-  # end
-
-  # def current_user
-  #   if super
-  #     if session[:guest_user_id]
-  #       logging_in
-  #       guest_user.destroy
-  #       session[:guest_used_id] = nil
-  #     end
-  #     current_user
-  #   else
-  #     guest_user
-  #   end
-  # end
-
-  def guest_user
-    if session[:guest_user_id].nil? or User.find(session[:guest_user_id]).nil?
-      u = create_guest_user
-      session[:guest_user_id] = u.id
-    else
-      u = User.find(session[:guest_user_id])
-    end
-    u
-  end
-
   private
-
-  def after_sign_in_path_for(user)
-    station_path(current_user.station)
-  end
-
-  def logging_in
-    # For example:
-    # guest_comments = guest_user.comments.all
-    # guest_comments.each do |comment|
-      # comment.user_id = current_user.id
-      # comment.save
-    # end
-  end
-
-  def create_guest_user
-    u = User.create(:username => "guest", :email => "guest_#{Time.now.to_i}#{rand(9999)}@example.com")
-    u.save(:validate => false)
-    u
-  end
 
   def do_page_request
     logger.debug 'ACCEPT: ' + request.headers['HTTP_ACCEPT']
@@ -99,10 +53,6 @@ class ApplicationController < ActionController::Base
     else
       'application'
     end
-  end
-
-  def get_suggestions
-    @suggestions = Artist.order('random() desc').limit(3).map(&:name).join(', ')
   end
 
   def get_counts

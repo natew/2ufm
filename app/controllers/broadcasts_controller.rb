@@ -4,7 +4,7 @@ class BroadcastsController < ApplicationController
   def create
     logger.info params
     @broadcast = current_user.station.broadcasts.create(:song_id => params[:song_id])
-    @locals = { :action => 'remove', :id => params[:song_id], :counter => :add, :count => 0 }
+    @locals = { :action => 'remove', :id => params[:song_id], :counter => :add }
 
     respond_to do |format|
       format.js { render :partial => 'broadcast' }
@@ -16,7 +16,7 @@ class BroadcastsController < ApplicationController
 
     if @broadcast
       @broadcast.destroy
-      @locals = { :action => 'add', :id => params[:id], :counter => :subtract, :count => 0 }
+      @locals = { :action => 'add', :id => params[:id], :counter => :subtract }
 
       respond_to do |format|
         format.js { render :partial => 'broadcast' }
