@@ -75,10 +75,10 @@ var fn = {
     clip.glue(target, el.parent().attr('id'));
     clip.setText(document.location.host + el.attr('href'));
     clip.addEventListener('mouseOver', function (client) {
-      el.trigger('mouseover').html(hover);
+      el.trigger('mouseover').addClass('hover').html(hover);
     });
     clip.addEventListener('mouseOut', function (client) {
-      if (!wait) el.trigger('mouseout').html(text);
+      if (!wait) el.trigger('mouseout').removeClass('hover').html(text);
     });
     clip.addEventListener('complete', function(client, clip) {
       el.html(click);
