@@ -1,29 +1,27 @@
-@media screen and (max-width: 860px) {
-  #main {
-  	margin-right: 0;
-  }
 
-  #side {
-  	position: relative;
-  	width: auto;
-  }
+@media screen and (max-width: 1000px) {
+  .promo a {width: 31.3%;}
 
-  #bar-top {
-  	display: none;
-  }
-
-  .announce {
-  	font-size: 13px;
+  .twothirds .playlist-song section {
+    h1 { margin-right: 80px; }
+    .song-meta { right: 15px; }
+    .song-art { display: none; }
   }
 }
 
-@media screen and (max-width: 640px) {
-	.shelf {
-		margin-left: -5%;
-	}
+@media screen and (max-width: 800px) {
+  .promo a {width: 48%;}
 
-	.shelf li {
-		width: 28%;
-		margin-left: 5%;
-	}
+  .twothirds-wrap {
+    margin-right: 0;
+    float: none;
+
+    .twothirds {
+      margin-right: 0;
+    }
+  }
+
+  .third {
+    display: none;
+  }
 }

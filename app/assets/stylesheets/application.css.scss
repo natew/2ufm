@@ -3,7 +3,8 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree .
+ *= require_tree ./base
+ *= require_tree ./media
 */
 
 form div:after { content: ""; display: none; }
@@ -19,8 +20,3 @@ h2:after, h3:after {
 }
 
 br { clear: both; }
-
-body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-}

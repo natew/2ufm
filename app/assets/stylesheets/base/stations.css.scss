@@ -229,14 +229,6 @@ $station-small-image: 32px;
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .promo a {width: 31.3%;}
-}
-
-@media screen and (max-width: 700px) {
-  .promo a {width: 48%;}
-}
-
 .promo-title {
   position: absolute;
   top: 15px;
@@ -246,7 +238,7 @@ $station-small-image: 32px;
   width: 29px;
   text-indent: -3000em;
   overflow: hidden;
-  background: url(../images/featured-stations.png) no-repeat top left;
+  background: url(/images/featured-stations.png) no-repeat top left;
 }
 
 #genres {
