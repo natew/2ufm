@@ -24,4 +24,17 @@
   .third {
     display: none;
   }
+
+  #navbar {
+    section {
+      h1 {
+        display: none;
+      }
+
+      &.middle {
+        width: 184px;
+        margin-left: -92px;
+      }
+    }
+  }
 }
