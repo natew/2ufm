@@ -278,20 +278,20 @@ $song-playing-bg: #eee;
 
           &:hover {
             color: #fff;
-            background: rgba(0,0,0,0.1);
+            background: $dark-green;
 
             &:before {
               color: #fff;
             }
           }
 
-          &.remove, &.remove:before {
-            color: $dark-green;
-            text-shadow: 0 1px 0 #000;
+          &.remove {
+            border-right: 2px solid $dark-green;
+            padding-right: 8px;
           }
 
           &.remove:hover, &.remove:hover:before {
-            color: $dark-red;
+            background: $dark-red;
           }
         }
       }
