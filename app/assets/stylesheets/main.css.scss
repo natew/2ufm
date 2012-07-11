@@ -68,22 +68,11 @@ h2, h3, h4 {
   right: 0;
   padding: 20px;
   z-index: 1000;
-  @include linear-gradient($header-light, $header-color);
-  @include box-shadow(0 0 10px rgba(0,0,0,0.2));
+  @include linear-gradient($navbar-bg, $navbar-dark);
+  @include box-shadow(0 0 20px rgba(0,0,0,0.7));
 
   &.active {
     display: block;
-  }
-
-  &:before {
-    content: "";
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(255,255,255,0.3);
   }
 
   &:after {
@@ -271,7 +260,7 @@ header {
     &.right {
       float: right;
       margin-right: 20px;
-      width: 170px;
+      width: 180px;
 
       a {
         float: right;
