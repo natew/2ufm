@@ -25,9 +25,10 @@ class Broadcast < ActiveRecord::Base
 
   # Update user_broadcasts_count on songs
   def update_counter_cache
-    if song
-      self.song.user_broadcasts_count = song.user_broadcasts.count
-      self.song.save
+    shared_song = Song.find(song_id)
+    if shared_song
+      shared_song.user_broadcasts_count = shared_song.user_broadcasts.count
+      shared_song.save
     end
   end
 

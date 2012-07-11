@@ -82,7 +82,7 @@ class Song < ActiveRecord::Base
 
   before_create :set_source, :get_real_url, :clean_url
   after_create :delayed_scan_and_save
-  before_save :set_linked_title, :set_rank
+  before_save :set_rank
 
   # Whitelist mass-assignment attributes
   attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at
@@ -128,24 +128,6 @@ class Song < ActiveRecord::Base
     artists.where("authors.role = 'original'").joins(:authors)
   end
 
-  # Linked title
-  def set_linked_title
-    self.linked_title = full_name
-
-    keywords = /www\.\S*|\S*\.com|featuring |ft(\.| )|feat(\.| )| remix| rmx\.?| bootleg| mix|produced by|prod\.?( by)?| cover/i
-    self.linked_title.gsub!(keywords,' ')
-    self.linked_title = self.linked_title.squish
-
-    # Replace authors with links
-    artists.for_linking.each do |artist|
-      # Sorry, this is ugly
-      self.linked_title.gsub!(
-        /#{artist.name}(\)|,|\s)/,
-        '<a class="role role-'+artist.role+'" href="/artists/'+artist.slug+'">'+artist.name+'</a>\1'
-      )
-    end
-  end
-
   # User broadcasts
   def user_broadcasts
     broadcasts.where(:parent => 'user')
@@ -153,9 +135,10 @@ class Song < ActiveRecord::Base
 
   # Ranking algorithm
   def set_rank
-    plays = Math.log([listens.count,1].max)
-    favs  = Math.log([user_broadcasts.count,1].max*10)
-    time  = ((created_at || Time.now) - Time.new(2012))/100000
+    shared_song = Song.find(shared_id)
+    plays = Math.log([shared_song.listens.count, 1].max)
+    favs  = Math.log([shared_song.user_broadcasts_count, 1].max * 10)
+    time  = ((shared_song.created_at || Time.now) - Time.new(2012)) / 100000
     self.rank = plays + favs + time
   end
 

@@ -30,6 +30,14 @@ GIT
       httparty (>= 0.7.3)
 
 GIT
+  remote: git://github.com/pnc/sql-logging.git
+  revision: a3db4eab9b2ca28d2a41420ef300ec849f4c49e1
+  branch: rails-3-2-fix
+  specs:
+    sql-logging (3.0.6)
+      rails (> 3.0.0)
+
+GIT
   remote: git://github.com/rsl/stringex.git
   revision: ba901cbfe05ef1e45fd94cf8f2326ef5b053aede
   specs:
@@ -52,6 +60,7 @@ GEM
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
+    active_record_query_trace (1.1)
     activemodel (3.2.2)
       activesupport (= 3.2.2)
       builder (~> 3.0.0)
@@ -331,6 +340,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_query_trace
   acts_as_commentable_with_threading
   acts_as_votable
   anemone
@@ -372,6 +382,7 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 3.2.3)
   soundcloud!
+  sql-logging!
   stringex!
   taglib-ruby
   taps
