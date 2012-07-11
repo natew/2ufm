@@ -159,7 +159,6 @@ header {
   left: 0;
   z-index: 1000;
   height: 1+$header-height;
-  z-index: 200;
   line-height: 1em;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   background: $header-color;
@@ -241,7 +240,7 @@ header {
   min-width: $width + 40;
   float: left;
   position: fixed;
-  z-index: 150;
+  z-index: 999;
   top: $header-height;
   left: 0;
   right: 0;
@@ -1078,7 +1077,7 @@ h2.title { color: #000; }
     &.icon {
       clear: none;
       float: left;
-      width: 80%;
+      width: 50%;
       margin: 0;
     }
   }

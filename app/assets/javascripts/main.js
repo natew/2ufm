@@ -431,5 +431,14 @@ function modal(selector) {
     modal.html($(selector).clone());
     show.addClass('shown');
     modalShown = true;
+
+    if (selector == '#modal-user') {
+      var login = $('#user_login');
+      if (login.val() != '') {
+        $('#sign-in').focus();
+      } else {
+        $('#user_username').focus();
+      }
+    }
   }
 }
