@@ -67,16 +67,19 @@ $song-playing-bg: #eee;
     }
 
     &.active {
-      background: rgba(0,0,0,0.15);
+      background: rgba(0,0,0,0.25);
 
-      .song-controls { background: rgba(0,0,0,0.15); }
+      .song-controls { background: rgba(0,0,0,0.25); }
       .waveform-wrap img { opacity: 0.4; }
       .song-player .play-song {
-        border-color: $header-color;
+
         @include linear-gradient($header-light, $header-color);
 
+        &:before {
+          color: darken($header-dark,15%);
+        }
+
         &:hover {
-          border-color: $header-light;
           @include linear-gradient(lighten($header-light,10%),$header-light);
         }
       }
