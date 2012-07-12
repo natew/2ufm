@@ -1,6 +1,7 @@
 class UpdateSongsSimilarSongs < ActiveRecord::Migration
   def up
-    add_column :songs, :blog_broadcasts_count, :integer
+    add_column :songs, :blog_broadcasts_count, :integer, :default => 0
+    add_column :songs, :match_name, :string
 
     Song.skip_callback(:save, :before, :set_rank)
 
@@ -19,5 +20,6 @@ class UpdateSongsSimilarSongs < ActiveRecord::Migration
 
   def down
     remove_column :songs, :blog_broadcasts_count
+    remove_column :songs, :match_name
   end
 end

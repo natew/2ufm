@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712033258) do
+ActiveRecord::Schema.define(:version => 20120712072600) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -226,6 +226,8 @@ ActiveRecord::Schema.define(:version => 20120712033258) do
     t.string   "source",                :default => "direct"
     t.integer  "soundcloud_id"
     t.integer  "play_count",            :default => 0
+    t.integer  "blog_broadcasts_count", :default => 0
+    t.string   "match_name"
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
