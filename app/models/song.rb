@@ -194,8 +194,11 @@ class Song < ActiveRecord::Base
   def set_rank
     find_id = matching_id || id
     shared_song = Song.find(find_id) if find_id
-    plays_count = shared_song.listens.count || 0
-    favs_count = shared_song.user_broadcasts_count || 0
+    plays_count, favs_count = 1,1
+    if shared_song
+      plays_count = shared_song.listens.count
+      favs_count = shared_song.user_broadcasts_count
+    end
     plays = Math.log([plays_count, 1].max)
     favs  = Math.log([favs_count, 1].max * 10)
     time  = ((shared_song.created_at || Time.now) - Time.new(2012)) / 100000
