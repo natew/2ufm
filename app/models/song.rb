@@ -192,7 +192,8 @@ class Song < ActiveRecord::Base
 
   # Ranking algorithm
   def set_rank
-    shared_song = Song.find(matching_id || id)
+    find_id = matching_id || id
+    shared_song = Song.find(find_id) if find_id
     plays_count, favs_count = 1,1
     time_created = Time.now
     if shared_song
