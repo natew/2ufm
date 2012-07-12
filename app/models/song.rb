@@ -192,16 +192,17 @@ class Song < ActiveRecord::Base
 
   # Ranking algorithm
   def set_rank
-    find_id = matching_id || id
-    shared_song = Song.find(find_id) if find_id
+    shared_song = Song.find(matching_id || id)
     plays_count, favs_count = 1,1
+    time_created = Time.now
     if shared_song
       plays_count = shared_song.listens.count
       favs_count = shared_song.user_broadcasts_count
+      time_created = shared_song.created_at
     end
     plays = Math.log([plays_count, 1].max)
     favs  = Math.log([favs_count, 1].max * 10)
-    time  = ((shared_song.created_at || Time.now) - Time.new(2012)) / 100000
+    time  = ((time_created) - Time.new(2012)) / 100000
     self.rank = plays + favs + time
   end
 
