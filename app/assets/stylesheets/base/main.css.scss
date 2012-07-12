@@ -1237,7 +1237,8 @@ $nav-arrow-size: 5px;
   li.mp_selectable { cursor: pointer; }
 
   li.mp_highlighted,
-  a:hover {
+  a:hover,
+  .playing {
     @include linear-gradient($header-light,$header-color);
   }
 }

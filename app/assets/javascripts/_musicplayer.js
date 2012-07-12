@@ -19,7 +19,6 @@ var mp = (function() {
       smReady = false,
       delayStart = false,
       volume = 100,
-      playlist_template = '',
       time = 0;
 
   // Elements
@@ -63,6 +62,7 @@ var mp = (function() {
         this.toggle();
       } else {
         this.stop();
+        if (curSection && curSection.length) this.setCurSection('inactive');
         curSection = section;
         fn.log(curSection);
         this.load();
@@ -88,6 +88,11 @@ var mp = (function() {
           // Get new playlist
           playlist = $('#playlist-' + playlistID).data('playlist');
 
+          // Add indices
+          for (var i = 0; i < playlist.songs.length; i++) {
+            playlist.songs[i].index = i;
+          }
+
           // Callback
           w.trigger('mp:load', player.state());
           fn.log('loaded',playlist,playlistID);
@@ -102,7 +107,7 @@ var mp = (function() {
       } else {
         // Load
         if (!playlist) this.load();
-        fn.log('Playlist...', playlist);
+        fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
 
         if (playlist && playlistIndex < playlist.songs.length) {
           // Load song
@@ -169,66 +174,75 @@ var mp = (function() {
     },
 
     next: function next() {
+      this.stop();
+
       if (curSection) {
         var next = curSection.next();
-        this.stop();
         this.setCurSection('inactive');
 
-        // if next, keep playing
         if (next.length) {
           curSection = next;
-          playlistIndex++;
-          this.play();
+        }
+      }
+
+      playlistIndex++;
+
+      if (this.play()) {
+        return true;
+      }
+
+      // reached end of playlist
+      else {
+        // Check for another playlist
+        var curPlaylistInfo = playlistID.split('-'),
+            nextPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) + 1),
+            nextSection = $('#playlist-' + nextPlaylistInfo + ' section:first');
+
+        if (nextSection.length) {
+          this.playSection(nextSection);
           return true;
         }
-        // reached end of playlist
+
         else {
-          // Check for another playlist
-          var curPlaylistInfo = playlistID.split('-'),
-              nextPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) + 1),
-              nextSection = $('#playlist-' + nextPlaylistInfo + ' section:first');
-
-          if (nextSection.length) {
-            this.playSection(nextSection);
-            return true;
-          }
-
-          else {
-            curSection = null;
-            w.trigger('mp:playlist_end', player.state());
-            return false;
-          }
+          curSection = null;
+          w.trigger('mp:playlist_end', player.state());
+          return false;
         }
       }
     },
 
     prev: function prev() {
+      this.stop();
+
       if (curSection) {
         previous = curSection.prev();
-        this.stop();
         this.setCurSection('inactive');
 
         if (previous.length) {
           curSection = previous;
-          playlistIndex--;
-          this.play();
         }
-        // Skipping behind first track of playlist
+      }
+
+      playlistIndex--;
+
+      if (this.play()) {
+        return true;
+      }
+      // Skipping behind first track of playlist
+      else {
+        // Check for another playlist
+        var curPlaylistInfo = playlistID.split('-'),
+            prevPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) - 1),
+            prevSection = $('#playlist-' + prevPlaylistInfo + ' section:last');
+
+        if (prevSection.length) {
+          this.playSection(prevSection);
+          return true;
+        }
+
         else {
-          // Check for another playlist
-          var curPlaylistInfo = playlistID.split('-'),
-              prevPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) - 1),
-              prevSection = $('#playlist-' + prevPlaylistInfo + ' section:last');
-
-          if (prevSection.length) {
-            this.playSection(prevSection);
-            return true;
-          }
-
-          else {
-            curSection = null;
-            return false;
-          }
+          curSection = null;
+          return false;
         }
       }
     },

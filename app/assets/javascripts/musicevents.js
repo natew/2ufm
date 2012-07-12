@@ -34,7 +34,7 @@ w.on({
 
     // Scroll to song
     if (mp.isOnPlayingPage()) {
-      var section    = $('#song-'+song.id),
+      var section    = $('#song-' + song.id),
           sectionTop = section.offset().top,
           sectionBot = sectionTop + section.height(),
           windowTop  = w.scrollTop(),

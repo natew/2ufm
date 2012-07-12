@@ -343,7 +343,7 @@ function updatePageURL(page) {
   }
 
   url += hash;
-  window.history.replaceState('',document.title,url);
+  window.history.replaceState(null,document.title,url);
 }
 
 function nextPage(link, callback) {
