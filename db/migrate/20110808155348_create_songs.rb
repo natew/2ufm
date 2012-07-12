@@ -5,7 +5,7 @@ class CreateSongs < ActiveRecord::Migration
       t.integer :plays, :size, :track_number, :bitrate, :length, :shared_id
       t.references :blog, :post, :artist, :album  # original blog
       t.boolean :vbr
-      
+
       t.timestamps
     end
   end

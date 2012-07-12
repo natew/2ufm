@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :do_page_request, :set_pagination_vars, :get_counts
+  before_filter :do_page_request, :get_counts
   layout :set_layout
 
   def not_found
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       elsif id == '3'
         dont_paginate = true
         @p_station = Station.current_user_station
-        @p_songs = current_user.following_songs(params[:page].to_i * 18, 18)
+        @p_songs = current_user.following_songs(params[:page].to_i * Yetting.per, Yetting.per)
       else
         @p_station = Station.find_by_slug(id)
         @p_songs = @p_station.songs.playlist_order_broadcasted
@@ -61,12 +61,6 @@ class ApplicationController < ActionController::Base
       :songs   => Rails.cache.fetch(:songs_count,   :expires_in => 30.minutes) { Song.working.count },
       :users   => Rails.cache.fetch(:users_count,   :expires_in => 1.hour) { User.count },
       :artists => Rails.cache.fetch(:artists_count, :expires_in => 1.hour) { Artist.count }
-    }
-  end
-
-  def set_pagination_vars
-    @per = {
-      :station => 18
     }
   end
 

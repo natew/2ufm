@@ -2,7 +2,7 @@
     station       ||= Station.new
 	id              = station.id || 0
     page            = (params[:page] || 1).to_i
-    per           ||= 18
+    per           ||= Yetting.per
     songs         ||= station.songs.playlist_order_broadcasted
     songs           = songs.limit_full(page, per) unless partial
     style         ||= 'song'

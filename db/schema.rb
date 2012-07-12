@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120710044501) do
+ActiveRecord::Schema.define(:version => 20120712033258) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -199,7 +199,7 @@ ActiveRecord::Schema.define(:version => 20120710044501) do
     t.integer  "track_number"
     t.integer  "bitrate"
     t.integer  "length"
-    t.integer  "shared_id"
+    t.integer  "matching_id"
     t.integer  "blog_id"
     t.integer  "post_id"
     t.integer  "album_id"
@@ -212,7 +212,7 @@ ActiveRecord::Schema.define(:version => 20120710044501) do
     t.boolean  "processed",             :default => false
     t.string   "file_file_name"
     t.string   "file_updated_at"
-    t.integer  "shared_count",          :default => 0
+    t.integer  "matching_count",        :default => 0
     t.boolean  "working",               :default => false
     t.datetime "published_at"
     t.text     "absolute_url"
@@ -228,8 +228,8 @@ ActiveRecord::Schema.define(:version => 20120710044501) do
     t.integer  "play_count",            :default => 0
   end
 
-  add_index "songs", ["processed", "working", "rank", "shared_id"], :name => "index_songs_on_processed_and_working_and_rank_and_shared_id"
-  add_index "songs", ["shared_id"], :name => "index_songs_on_shared_id"
+  add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
+  add_index "songs", ["processed", "working", "rank", "matching_id"], :name => "index_songs_on_processed_and_working_and_rank_and_shared_id"
 
   create_table "stations", :force => true do |t|
     t.string   "title"

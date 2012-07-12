@@ -11,7 +11,7 @@ module ApplicationHelper
   def broadcast_song(song)
     action = "add"
     action = "remove" if user_signed_in? and current_user.broadcasted_song?(song)
-    render :partial => "songs/broadcast", :locals => { :action => action, :id => song.shared_id, :count => song.user_broadcasts_count }
+    render :partial => "songs/broadcast", :locals => { :action => action, :id => song.matching_id, :count => song.user_broadcasts_count }
   end
 
   def seconds_to_time(seconds)
@@ -140,7 +140,7 @@ end
 class Array
   def to_playlist
     self.map do |s|
-      {:id => s.shared_id, :artist_name => s.artist_name, :name => s.name, :url => s.url, :image => s.resolve_image(:small) } if s.processed?
+      {:id => s.matching_id, :artist_name => s.artist_name, :name => s.name, :url => s.url, :image => s.resolve_image(:small) } if s.processed?
     end.compact.to_json
   end
 end

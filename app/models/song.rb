@@ -11,6 +11,20 @@ class Song < ActiveRecord::Base
 
   SOURCES = %w[direct soundcloud hulkshare]
 
+  # Regular expressions
+  RE = {
+    :featured => /(featuring |ft\. ?|feat\. ?|f\. ?|w\/){1}/i,
+    :remix => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix/i,
+    :mashup => / mashup| mash-up/i,
+    :producer => /(produced by|prod\.?)/i,
+    :cover => / cover/i,
+    :split => /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
+    :open => /[\(\[\{]/,
+    :close => /[\)\]\}]/,
+    :containers => /[\(\)\[\]]|vs\.? |,| and | & | x /i,
+    :percents => /(% ?){2,10}/
+  }
+
   # Relationships
   belongs_to :blog
   belongs_to :post
@@ -60,10 +74,10 @@ class Song < ActiveRecord::Base
   scope :user, select_with_info.with_post.working
 
   # Orders
-  scope :order_broadcasted_by_type, select('DISTINCT ON ("broadcasts"."created_at", "songs"."shared_id") songs.*').order('broadcasts.created_at desc')
-  scope :order_broadcasted, select('DISTINCT ON ("broadcasts"."created_at", "songs"."shared_id") songs.*').order('broadcasts.created_at desc')
-  scope :order_ranked, select('DISTINCT ON ("songs"."rank", "songs"."shared_id") songs.*').order('songs."rank" desc')
-  scope :order_published, select('DISTINCT ON ("songs"."published_at", "songs"."shared_id") songs.*').order('songs.published_at desc')
+  scope :order_broadcasted_by_type, select('DISTINCT ON ("broadcasts"."created_at", "songs"."matching_id") songs.*').order('broadcasts.created_at desc')
+  scope :order_broadcasted, select('DISTINCT ON ("broadcasts"."created_at", "songs"."matching_id") songs.*').order('broadcasts.created_at desc')
+  scope :order_ranked, select('DISTINCT ON ("songs"."rank", "songs"."matching_id") songs.*').order('songs."rank" desc')
+  scope :order_published, select('DISTINCT ON ("songs"."published_at", "songs"."matching_id") songs.*').order('songs.published_at desc')
 
   # Scopes for playlist
   scope :playlist_order_broadcasted_by_type, order_broadcasted_by_type.individual
@@ -77,7 +91,7 @@ class Song < ActiveRecord::Base
   scope :user_order_published, order_published.user
 
   # Scopes for pagination
-  scope :limit_page, lambda { |page| page(page).per(18) }
+  scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
   scope :limit_full, lambda { |page, per| limit(page * per) }
 
   before_create :set_source, :get_real_url, :clean_url
@@ -96,7 +110,7 @@ class Song < ActiveRecord::Base
   end
 
   def reposted?
-    shared_count > 0
+    blog_broadcasts_count > 1
   end
 
   def self.popular
@@ -107,8 +121,48 @@ class Song < ActiveRecord::Base
     playlist_order_published
   end
 
+  def self.user_following_songs(id, offset, limit)
+    Song.find_by_sql(%Q{
+      WITH a as (
+          SELECT bb.song_id, MAX(bb.created_at) AS maxcreated
+          FROM follows aa
+          INNER JOIN broadcasts bb ON aa.station_id = bb.station_id
+          WHERE aa.user_id = #{id}
+          GROUP BY bb.song_id
+        )
+      SELECT
+        DISTINCT ON (a.maxcreated, s.id)
+        a.maxcreated as broadcasted_at,
+        s.*,
+        posts.url as post_url,
+        posts.excerpt as post_excerpt,
+        stations.title as station_title,
+        stations.slug as station_slug,
+        stations.id as station_id,
+        stations.follows_count as station_follows_count
+      FROM a
+        INNER JOIN
+          songs s ON a.song_id = s.id
+        INNER JOIN
+          posts on posts.id = s.post_id
+        INNER JOIN
+          broadcasts on broadcasts.song_id = s.id
+        INNER JOIN
+          follows on follows.station_id = broadcasts.station_id
+        INNER JOIN
+          stations on stations.id = broadcasts.station_id
+      WHERE s.processed = 't'
+        AND s.working = 't'
+        AND s.soundcloud_id IS NULL
+      ORDER BY
+        a.maxcreated DESC
+      OFFSET #{offset}
+      LIMIT #{limit}
+    })
+  end
+
   def to_playlist
-    { id: shared_id, artist_name:artist_name, name:name, url:url, image:resolve_image(:small) }
+    { id: matching_id, artist_name:artist_name, name:name, url:url, image:resolve_image(:small) }
   end
 
   def resolve_image(*type)
@@ -128,14 +182,17 @@ class Song < ActiveRecord::Base
     artists.where("authors.role = 'original'").joins(:authors)
   end
 
-  # User broadcasts
   def user_broadcasts
     broadcasts.where(:parent => 'user')
   end
 
+  def blog_broadcasts
+    broadcasts.where(:parent => 'blog')
+  end
+
   # Ranking algorithm
   def set_rank
-    shared_song = Song.find(shared_id)
+    shared_song = Song.find(matching_id || id)
     plays = Math.log([shared_song.listens.count, 1].max)
     favs  = Math.log([shared_song.user_broadcasts_count, 1].max * 10)
     time  = ((shared_song.created_at || Time.now) - Time.new(2012)) / 100000
@@ -224,6 +281,8 @@ class Song < ActiveRecord::Base
 
           # Update info if we have processed this song
           if working? and !processed?
+            # Clean name
+            set_match_name
 
             # Waveform
             if waveform_file_name.nil?
@@ -232,7 +291,7 @@ class Song < ActiveRecord::Base
             end
 
             # Determine if we already have this song
-            find_similar_songs
+            update_matching_songs
 
             # Add to artist and blog stations
             add_to_stations
@@ -407,50 +466,57 @@ class Song < ActiveRecord::Base
 
   def add_to_artists_stations
     artists.each do |artist|
-      artist.station.broadcasts.create(song_id:shared_id) if artist.station
+      artist.station.broadcasts.create(song_id:matching_id, created_at:published_at) if artist.station
     end
   end
 
   def add_to_blog_station
     if blog
-      blog.station.broadcasts.create(song_id:shared_id) if blog.station
+      blog.station.broadcasts.create(song_id:matching_id, created_at:published_at) if blog.station
     else
       logger.error "No Blog or Blog station"
     end
   end
 
-  def find_similar_songs
-    if name and artist_name
-      containers  = /\(.*\)|\[.*\]/
-      percents    = /(% ?){2,10}/
-      search_name = name.gsub(containers,'%').gsub(percents,'').strip
-      found       = Song.where("name ILIKE(?) and id != ?", search_name, id).oldest.first
-    end
+  def to_searchable(string)
+    string.gsub(RE[:containers],'%').gsub(/#{RE[:remix]}|#{RE[:featured]}|#{RE[:mashup]}/i, '%').gsub(RE[:percents],'%').strip
+  end
+
+  def similar_songs
+    Song.where("name ILIKE(?) and id != ?", to_searchable(name), id) if name
+  end
+
+  def find_matching_songs
+    Song.where("artist_name ILIKE(?) and name ILIKE(?) and id != ?", to_searchable(artist_name), match_name, id) if name and artist_name
+  end
+
+  def update_matching_songs
+    found = matching_songs.oldest.first
 
     if found
       # Ok we found a song that already exists similar to this one
       # Set our shared ID first
-      self.shared_id = found.id
-      self.save
+      self.matching_id = found.id
 
-      if found.shared_id.nil?
+      if found.matching_id.nil?
         # This means this is the first time weve matched it, lets update the original
-        found.shared_id = found.id
-        found.shared_count = 2
+        found.matching_id = found.id
+        found.matching_count = 2
         found.save
       else
         # Else we have more than one song already existing thats similar
         # So we need to update all similar songs' shared_counts+1
-        existing_similar_songs = Song.where(shared_id:shared_id)
-        existing_similar_songs.update_all(shared_count:existing_similar_songs.size)
+        existing_matching_songs = Song.where(matching_id:matching_id)
+        existing_matching_songs.update_all(matching_count:existing_matching_songs.size)
       end
     else
-      self.shared_id = id
+      self.matching_id = id
+      false
     end
   end
 
-  def similar_songs
-    Song.where(shared_id:id)
+  def matching_songs
+    Song.where(matching_id:id)
   end
 
   def find_or_create_artists
@@ -520,45 +586,37 @@ class Song < ActiveRecord::Base
     string  = title[:artist] || title[:name]
     matched = []
 
-    # Match their respective roles
-    featured = /(featuring |ft\. ?|feat\. ?|f\. ?|w\/){1}/i
-    remixer  = / remix| rmx| edit| bootleg| mix| remake/i
-    mashup  = / mashup| mash-up/i
-    producer = /(produced by|prod\.? by)/i
-    cover    = / cover/i
-    split    = /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i # Splits "one, two & three"
-
     # Detect parenthesis
     parens = true if string =~ /\(/i
 
     # Find any non-original artists
     #   gsub() Strip everything up until "(" if there exists one
     #   split() Split when multiple parenthesis groups exist
-    if string =~ /#{featured}|#{remixer}|#{producer}|#{cover}/i
+    if string =~ /#{RE[:featured]}|#{RE[:remix]}|#{RE[:producer]}|#{RE[:cover]}/i
       string.gsub(/.*(?=\()/,'').split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|
-        part.scan(/#{featured}#{split}/).flatten.compact.collect(&:strip).each do |artist|
-          matched.push [artist,:featured] unless artist =~ featured or artist =~ /&|,/
+        part.scan(/#{RE[:featured]}#{RE[:split]}/).flatten.compact.collect(&:strip).each do |artist|
+          matched.push [artist,:featured] unless artist =~ RE[:featured] or artist =~ /&|,/
         end
 
-        part.scan(/#{producer}#{split}/).flatten.compact.collect(&:strip).each do |artist|
-          matched.push [artist,:producer] unless artist =~ producer or artist =~ /&|,/
+        part.scan(/#{RE[:producer]}#{RE[:split]}/).flatten.compact.collect(&:strip).each do |artist|
+          matched.push [artist,:producer] unless artist =~ RE[:producer] or artist =~ /&|,/
         end
 
         # We can only trust data within a parenthesis for suffix attributes
         # IE: "Song Title Artist Name Remix", we can't determine "Artist Name"
         # TODO: Discogs lookup for artist name in that case
         if parens
-          part.scan(/#{split}#{remixer}/).flatten.compact.collect(&:strip).each do |artist|
+          part.scan(/#{RE[:split]}#{RE[:remix]}/).flatten.compact.collect(&:strip).each do |artist|
             artist = artist.gsub(/\'s.*/i,'') # Remove types of remixes eg: "Arists's Piano Remix"
-            matched.push [artist, :remixer] unless artist =~ remixer or artist =~ /&|,/
+            matched.push [artist, :remixer] unless artist =~ RE[:remix] or artist =~ /&|,/
           end
 
-          part.scan(/#{split}#{cover}/).flatten.compact.collect(&:strip).each do |artist|
-            matched.push [artist, :cover] unless artist =~ producer or artist =~ /&|,/
+          part.scan(/#{RE[:split]}#{RE[:cover]}/).flatten.compact.collect(&:strip).each do |artist|
+            matched.push [artist, :cover] unless artist =~ RE[:producer] or artist =~ /&|,/
           end
 
-          part.scan(/#{split}#{mashup}/).flatten.compact.collect(&:strip).each do |artist|
-            matched.push [artist, :mashup] unless artist =~ producer or artist =~ /&|,/
+          part.scan(/#{RE[:split]}#{RE[:mashup]}/).flatten.compact.collect(&:strip).each do |artist|
+            matched.push [artist, :mashup] unless artist =~ RE[:producer] or artist =~ /&|,/
           end
         end
       end
@@ -568,12 +626,12 @@ class Song < ActiveRecord::Base
       # TODO: Split and scan discogs here to determine whether the & is part of the artist name or just separating multiple artists
 
       # If artist, we can look for comma separated names
-      original = string.gsub(/#{featured}.*|\(.*/i,'')
+      original = string.gsub(/#{RE[:featured]}.*|\(.*/i,'')
 
       # Mashups
       mashup = /vs\.? |\+ /i
-      if !original.scan(mashup).empty?
-        vs_list = /, |& |#{mashup}/i
+      if !original.scan(RE[:mashup]).empty?
+        vs_list = /, |& |#{RE[:mashup]}/i
         original.split(vs_list).each do |artist|
           matched.push [artist.strip, :mashup]
         end
@@ -606,6 +664,14 @@ class Song < ActiveRecord::Base
 
   def clean_url
     self.url = URI.escape(url)
+  end
+
+  def get_match_name
+    to_searchable(name.gsub(/(#{RE[:open]})?(Original Mix|Radio Edit|#{RE[:producer]} .*)(#{RE[:close]})?/i, '')).strip
+  end
+
+  def set_match_name
+    self.match_name = get_match_name
   end
 
   private

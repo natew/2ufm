@@ -4,7 +4,7 @@
     time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.created_at
 -%>
 
-<section id="song-<%= song.shared_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
+<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
   <h1>
     <span class="artist"><%= author_links song.authors %></span>
     <span class="name"><%= link_to song.name, song %></span>
@@ -14,14 +14,14 @@
     <div>
       <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
       <%= link_to song.station_title, '/'+song.station_slug %>
-      <%= link_to '+ ' + (song.shared_count - 1).to_s, song if song.reposted? %>
+      <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if song.reposted? %>
     </div>
 
-    <time><%= relative_time(time) %><% if song.source == 'soundcloud' %> <strong>s</strong><% end %></time>
+    <time><%= relative_time(time) %></time>
   </div>
 
   <div class="song-player">
-    <%= link_to '', "#song-#{song.shared_id}", :class => 'song-link play-song add control pictos' %>
+    <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song add control pictos' %>
     <div class="waveform-wrap song-link"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
     <div class="song-art cover-<%= cover %>">
       <%= image_tag song.resolve_image(cover) %>

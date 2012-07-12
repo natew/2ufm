@@ -23,9 +23,14 @@ class Listen < ActiveRecord::Base
   end
 
   def gen_shortcode
+    length = 5
+    tries = 0
     while true
-      self.shortcode = (0..5).map{ ('A'..'Z').to_a.concat((0..9).to_a)[rand(35)] }.join
+      o = [('a'..'z'),('A'..'Z'),('0'..'9')].map{|i| i.to_a}.flatten
+      self.shortcode = (0..length).map{ o[rand(o.length)]  }.join
       break unless Listen.find_by_shortcode(shortcode)
+      tries += 1
+      length += 1 if tries % 3 == 0 # try longer string every 3 tries, well get there eventually
     end
   end
 

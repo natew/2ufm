@@ -69,10 +69,6 @@ group :assets do
   gem 'uglifier'
 end
 
-group :development, :test do
-  gem 'rspec-rails'
-end
-
 group :development do
   gem 'foreman'
   gem 'taps'
@@ -81,16 +77,13 @@ group :development do
   gem 'awesome_print'
   gem 'marginalia' # Adds nice info to SQL statements, supposedly (not working yet)
   gem 'capistrano_colors'
-  gem 'active_record_query_trace'
-  gem 'sql-logging', :git => 'git://github.com/pnc/sql-logging.git', :branch => 'rails-3-2-fix'
+  # gem 'active_record_query_trace'
+  # gem 'sql-logging', :git => 'git://github.com/pnc/sql-logging.git', :branch => 'rails-3-2-fix'
   # gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'capybara'
-  gem 'guard-rspec'
 end

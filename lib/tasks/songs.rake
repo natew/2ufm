@@ -9,7 +9,7 @@ namespace :songs do
 
   task :fix_similar_count => :environment do
     Song.all.each do |song|
-      #song.shared_count = Song.where(shared_id:id).count
+      #song.shared_count = Song.where(matching_id:id).count
       song.save
     end
   end
@@ -61,9 +61,9 @@ namespace :songs do
       songs = Song.processed
       songs.each do |song|
         puts "Scanning #{song.name} (#{song.id})..."
-        song.shared_id = nil
+        song.matching_id = nil
         song.find_similar_songs
-        puts " == Similar to #{Song.find(song.shared_id).name}!" if song.shared_id
+        puts " == Similar to #{Song.find(song.matching_id).name}!" if song.matching_id
         song.save
       end
     end
