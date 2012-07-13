@@ -1,3 +1,16 @@
+@media screen and (min-width: 1100px) {
+  .twothirds-wrap {
+    margin-right: -301px;
+
+    .twothirds {
+      margin-right: 301px;
+    }
+  }
+
+  .third {
+    width: 300px;
+  }
+}
 
 @media screen and (max-width: 1000px) {
   .promo a {width: 31.3%;}
@@ -22,6 +35,21 @@
   .third {
     display: none;
   }
+}
+
+@media screen and (max-width: 700px) {
+  .promo a {width: 48%;}
+
+  #main-mid #navbar section {
+    width: auto;
+    position: relative;
+    margin-left: 0 !important;
+    left: 0;
+  }
+
+  header form #query {
+    width: 100px;
+  }
 
   #navbar {
     section {
@@ -35,17 +63,9 @@
       }
     }
   }
-}
-
-@media screen and (max-width: 700px) {
-  .promo a {width: 48%;}
-
-  header form {
-    display: none;
-  }
 
   #player #player-main {
-    right: 20px;
+    right: 180px;
   }
 
   .whole .playlist-song section {
@@ -62,5 +82,26 @@
     .song-player .waveform-wrap {
       right: 0;
     }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .promo a { width: 98%; }
+
+  header h1 {
+    width: 20px;
+    overflow: hidden;
+  }
+
+  #bar {
+    left: 20px;
+  }
+
+  header form {
+    display: none;
+  }
+
+  #player #player-main {
+    right: 20px;
   }
 }
