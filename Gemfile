@@ -29,6 +29,7 @@ gem 'feedzirra', :git => 'git://github.com/NateW/feedzirra.git'
 
 # APIs
 gem 'soundcloud', :git => 'git://github.com/andrejj/soundcloud-ruby.git'
+gem 'ruby-echonest', :git => 'git://github.com/NateW/ruby-echonest.git'
 
 # Jobs
 gem 'daemons'

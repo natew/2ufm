@@ -3,8 +3,9 @@
 $station-color: #353535;
 $station-dark: darken($station-color, 10%);
 $station-light: lighten($station-color, 10%);
-$station-pad: 6px;
-$station-image: 48px;
+$station-pad: 8px;
+$station-image: $play-button-size;
+$station-image-small: $play-button-small;
 
 .stations {
   margin: 0 0 25px 0;
@@ -21,6 +22,9 @@ $station-image: 48px;
 
     &:hover {
       background: rgba(0,0,0,0.1);
+
+      .image {visibility: hidden;}
+      .play-button {display: block;}
     }
 
     .station-link {
@@ -33,24 +37,23 @@ $station-image: 48px;
     }
 
     .play-button {
-      top: $station-pad + 2;
+      display: none;
+      top: $station-pad;
       left: $station-pad;
       z-index: 11;
     }
 
     .image {
-      float: right;
       margin: 0;
       padding: 0;
       border: none;
       display: block;
-      width: $station-image;
-      height: $station-image;
+      background: none;
 
       img {
-        width: 100%;
-        height: 100%;
-        @include border-radius(0);
+        width: $station-image;
+        height: $station-image;
+        @include border-radius($station-image);
       }
     }
 
@@ -82,8 +85,8 @@ $station-image: 48px;
 
     .station-follow {
       position: absolute;
-      top: $station-pad + 8;
-      right: $station-pad*3 + $station-image;
+      top: $station-pad;
+      right: $station-pad;
       z-index: 11;
 
       a {
@@ -98,7 +101,10 @@ $station-image: 48px;
       }
 
       .count {
-        display: none;
+        font-size: 11px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        background: none;
       }
     }
   }
@@ -121,14 +127,14 @@ $station-image: 48px;
   }
 
   .image {
-    display: none;
+    img {
+      width: $station-image-small;
+      height: $station-image-small;
+    }
   }
 
   .station-info {
-    position: relative;
-    top: 0;
-    left: 0;
-    padding-left: $station-pad*2 + $play-button-small - 5;
+    left: $station-pad*2 + $station-image-small;
 
     h4 {
       font-size: 14px;
@@ -139,11 +145,6 @@ $station-image: 48px;
     span {
       font-size: 11px;
     }
-  }
-
-  .play-button {
-    top: $station-pad + 1;
-    left: $station-pad + 1;
   }
 }
 

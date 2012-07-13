@@ -25,7 +25,7 @@ class StationsController < ApplicationController
     when 'blog'
       @blog    = Blog.find(@station.blog_id) || not_found
       @posts   = @blog.posts.order('created_at desc').limit(8)
-      @artists = @blog.station.artists.limit(20)
+      @artists = @blog.station.artists.order('random() desc').limit(12)
       @primary = @blog
     when 'artist'
       @artist = Artist.find(@station.artist_id) || not_found

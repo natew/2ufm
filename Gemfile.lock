@@ -14,6 +14,15 @@ GIT
       sax-machine (~> 0.1.0)
 
 GIT
+  remote: git://github.com/NateW/ruby-echonest.git
+  revision: 185da20666a70f05324ffc98d59a34dd39e086df
+  specs:
+    ruby-echonest (0.1.0)
+      hashie
+      httpclient
+      libxml-ruby
+
+GIT
   remote: git://github.com/NateW/texticle.git
   revision: 435dceb62631a8407ad87a2b24083a2238128269
   specs:
@@ -141,6 +150,7 @@ GEM
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
+    httpclient (2.2.5)
     i18n (0.6.0)
     journey (1.0.4)
     jquery-rails (2.0.2)
@@ -151,6 +161,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
+    libxml-ruby (2.3.3)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     loofah-activerecord (1.0.0)
@@ -311,6 +322,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 3.2.2)
+  ruby-echonest!
   sanitize
   sass-rails (~> 3.2.3)
   soundcloud!

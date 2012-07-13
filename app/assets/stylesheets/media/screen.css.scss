@@ -1,20 +1,22 @@
 @media screen and (min-width: 1100px) {
   .twothirds-wrap {
-    margin-right: -301px;
+    margin-right: -331px;
 
     .twothirds {
-      margin-right: 301px;
+      margin-right: 331px;
     }
   }
 
   .third {
-    width: 300px;
+    width: 330px;
   }
 }
 
 @media screen and (max-width: 1024px) {
   .promo a {width: 31.3%;}
+}
 
+@media screen and (max-width: 920px) {
   .twothirds .playlist-song section {
     h1 { margin-right: 80px; }
     .song-meta { right: 15px; }
