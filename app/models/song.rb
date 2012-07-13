@@ -244,7 +244,7 @@ class Song < ActiveRecord::Base
 
         open(file_url,
           :content_length_proc => lambda { |content_length|
-            raise "Too Big" if (content_length > (1048576 * 40)) # 40 MB maximum song size
+            raise "Too Big" if (content_length > Yetting.file_size_limit) # 40 MB maximum song size
             total = content_length
           },
           :progress_proc => lambda { |at|
@@ -254,6 +254,9 @@ class Song < ActiveRecord::Base
               prev = now
             end
         }) do |song|
+          # Set file
+          self.file = song
+
           logger.info "Getting song information"
           file = TagLib::MPEG::File.new(song.path)
           tag = file.id3v2_tag
@@ -334,6 +337,27 @@ class Song < ActiveRecord::Base
     else
       scan_and_save
     end
+  end
+
+  def get_file
+    begin
+      get_real_url
+      io = open(file_url, :content_length_proc => lambda { |content_length|
+        raise "Too Big" if content_length > Yetting.file_size_limit
+      })
+
+      if io
+        self.file = io
+        self.save
+      end
+    rescue Exception => e
+      logger.error "Exception getting file: #{e.message}"
+      logger.error e.backtrace.join("\n")
+    end
+  end
+
+  def delayed_get_file
+    delay(:priority => 2).get_file
   end
 
   # Generate waveform

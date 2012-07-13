@@ -17,19 +17,22 @@ module AttachmentHelper
       # message_previews/00/11/22/001122deadbeef/thumbnail.png
       attachment_path     = "#{attachment_folder}/:id_:style.:extension"
 
+      options[:path]           ||= attachment_path
+      options[:storage]        ||= :s3
+      options[:s3_credentials] ||= File.join(Rails.root, 'config', 'amazon_s3.yml')
+      options[:s3_permissions] ||= 'private'
+
       # Use s3 in production
-      if false #Rails.env.production?
-        options[:path]           ||= attachment_path
-        options[:storage]        ||= :s3
-        options[:s3_credentials] ||= File.join(Rails.root, 'config', 'amazon_s3.yml')
-        options[:bucket]         ||= 'fusefm'
-        options[:s3_permissions] ||= 'private'
+      if Rails.env.production?
+        options[:bucket] ||= '2u-songs'
       else
+        options[:bucket] ||= '2u-songs-development'
+
         # For local Dev/Test envs, use the default filesystem, but separate the environments
         # into different folders, so you can delete test files without breaking dev files.
-        rails_env        = 'development' # Normally would just use Rails.env in the line below, but were still alpha!
-        options[:path] ||= ":rails_root/public/attachments/#{rails_env}/#{attachment_path}"
-        options[:url]  ||= "/attachments/#{rails_env}/#{attachment_path}"
+        # rails_env        = Rails.env
+        # options[:path] ||= ":rails_root/public/attachments/#{rails_env}/#{attachment_path}"
+        # options[:url]  ||= "/attachments/#{rails_env}/#{attachment_path}"
       end
 
       options[:default_url] ||= '/images/default.png'

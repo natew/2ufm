@@ -7,9 +7,7 @@ Fusefm::Application.routes.draw do
     :sessions => 'sessions'
   }
 
-  match "/users", :to => "users#index"
   match "/songs-new", :to => "songs#fresh"
-  match "/activity", :to => "main#activity"
 
   resources :genres, :only => [:show]
   resources :blogs, :except => [:show]

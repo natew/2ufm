@@ -6,10 +6,3 @@ job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :outp
 every 30.minutes do
   rake "blogs:update:all"
 end
-
-
-# every 2.hours do
-#   command "/usr/bin/some_great_command"
-#   runner "MyModel.some_method"
-#   rake "some:great:rake:task"
-# end

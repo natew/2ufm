@@ -70,7 +70,7 @@ var page = {
     }
 
     // Nav toggle
-    var navActive = $('.nav-container a.active'),
+    var navActive = $('.nav-menu a.active'),
         sectionActive = $('.nav-container div.active');
 
     if (navActive.length) {
