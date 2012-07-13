@@ -25,6 +25,7 @@ $playing-color: #618bff;
 
 $song-pad-left: 22px;
 $song-playing-bg: #eee;
+$song-player-height: 50px;
 
 .playlist-song {
   clear: both;
@@ -68,32 +69,8 @@ $song-playing-bg: #eee;
 
     &.active {
       background: rgba(0,0,0,0.25);
-
       .song-controls { background: rgba(0,0,0,0.25); }
       .waveform-wrap img { opacity: 0.4; }
-      .song-player .play-song {
-
-        @include linear-gradient($header-light, $header-color);
-
-        &:before {
-          color: darken($header-dark,15%);
-        }
-
-        &:hover {
-          @include linear-gradient(lighten($header-light,10%),$header-light);
-        }
-      }
-    }
-
-    &.playing .song-player .play-song:before {
-      content: "5";
-      left: 11px;
-      top: 12px;
-      font-size: 22px;
-    }
-
-    &.paused .song-player .play-song:before {
-      content: "4";
     }
 
     &.failed {
@@ -300,9 +277,6 @@ $song-playing-bg: #eee;
       }
     }
 
-    $song-player-height: 50px;
-    $play-button-size: 44px;
-
     .song-player {
       margin: 10px 0 5px;
       position: relative;
@@ -312,36 +286,6 @@ $song-playing-bg: #eee;
       left: 15px;
       right: 15px;
       z-index: 0;
-
-      .play-song {
-        display: inline-block;
-        position: absolute;
-        top: 2px;
-        left: 0;
-        z-index: 5;
-        width: $play-button-size;
-        height: $play-button-size;
-        border: 2px solid #292929;
-        @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.4));
-        @include linear-gradient(#777, #555);
-        @include border-radius($play-button-size);
-        @include box-sizing(border-box);
-
-        &:before {
-          content: "4";
-          display: inline-block;
-          position: absolute;
-          top: 12px;
-          left: 12px;
-          font-size: 23px;
-          color: #333;
-          text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-        }
-
-        &:hover {
-          @include linear-gradient(#999, #777);
-        }
-      }
 
       .waveform-wrap {
         display: none;

@@ -4,16 +4,17 @@
 -%>
 
 <section>
-  <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
+  <%= link_to '', station_path(station), :class => 'play-station play-button pictos' %>
   <div class="station-info">
-    <h4><%= link_to station.title, '/'+station.slug %></h4>
+    <h4><%= station.title %></h4>
     <span><%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
   </div>
+  <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
   <%- unless nofollow -%>
   <div class="station-follow follow-<%= station.id %>">
     <%= follow_station(station.id, station.follows_count) %>
   </div>
   <%- end -%>
-  <%= link_to '', '/'+station.slug, :class => 'station-link' %>
+  <%= link_to '', station_path(station), :class => 'station-link' %>
   <%= debug(station) %>
 </section>

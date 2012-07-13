@@ -19,7 +19,8 @@ var mp = (function() {
       smReady = false,
       delayStart = false,
       volume = 100,
-      time = 0;
+      time = 0,
+      autoPlay = false;
 
   // Elements
   var pl = {
@@ -104,7 +105,8 @@ var mp = (function() {
     play: function play() {
       if (!smReady) {
         delayStart = true;
-      } else {
+      }
+      else {
         // Load
         if (!playlist) this.load();
         fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
@@ -130,18 +132,20 @@ var mp = (function() {
 
           // If we have a time set
           if (time > 0) {
-            curSong.setPosition(time*1000);
+            curSong.setPosition(time * 1000);
             time = 0;
           }
 
           // Play
           curSong.play();
 
-          // For scrolling animation
           return true;
-        } else {
+        }
+        else {
+          fn.log('playing fail');
           curSection = null;
           this.refresh();
+
           return false;
         }
       }
@@ -174,16 +178,9 @@ var mp = (function() {
     },
 
     next: function next() {
+      if (curSection && curSection.length) var next = curSection.next();
       this.stop();
-
-      if (curSection) {
-        var next = curSection.next();
-        this.setCurSection('inactive');
-
-        if (next.length) {
-          curSection = next;
-        }
-      }
+      if (next && next.length) curSection = next;
 
       playlistIndex++;
 
@@ -212,15 +209,14 @@ var mp = (function() {
     },
 
     prev: function prev() {
+      if (curSection && curSection.length) {
+        previous = curSection.prev();
+      }
+
       this.stop();
 
-      if (curSection) {
-        previous = curSection.prev();
-        this.setCurSection('inactive');
-
-        if (previous.length) {
-          curSection = previous;
-        }
+      if (previous && previous.length) {
+        curSection = previous;
       }
 
       playlistIndex--;
@@ -427,8 +423,15 @@ var mp = (function() {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
         if (curSection) player.setCurSection('playing');
-      } else {
+      }
+      else {
         curSection = null;
+
+        if (autoPlay) {
+          fn.log('AUTO PLAY');
+          player.playSection($('.playlist:first section:first'));
+          autoPlay = false;
+        }
       }
     },
 
@@ -499,6 +502,14 @@ var mp = (function() {
 
     curSongInfo: function() {
       return curSongInfo;
+    },
+
+    setAutoPlay: function(value) {
+      autoPlay = value;
+    },
+
+    autoPlay: function() {
+      return autoPlay;
     }
 
   };

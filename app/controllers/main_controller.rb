@@ -4,8 +4,8 @@ class MainController < ApplicationController
     @promos = Station.blog_station.limit(4)
 
     # Sidebar Stations
-    @blog_stations = Station.blog_station.order('follows_count desc').limit(5)
-    @artist_stations = Station.artist_station.order('follows_count desc').limit(5)
+    @blog_stations = Station.blog_station.order('follows_count desc').limit(4)
+    @artist_stations = Station.artist_station.order('follows_count desc').limit(8)
     @top_stations = Station.has_parent.order('follows_count desc').limit(5)
 
     if user_signed_in?

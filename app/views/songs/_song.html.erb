@@ -21,7 +21,7 @@
   </div>
 
   <div class="song-player">
-    <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song add control pictos' %>
+    <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song play-button control pictos' %>
     <div class="waveform-wrap song-link"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
     <div class="song-art cover-<%= cover %>">
       <%= image_tag song.resolve_image(cover) %>

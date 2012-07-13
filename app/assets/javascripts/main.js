@@ -229,6 +229,9 @@ $(function() {
               modal(e.target.getAttribute('href'));
               return false;
             }
+            else if (el.is('.play-station')) {
+              mp.setAutoPlay(true);
+            }
           }
         }
       }
@@ -392,7 +395,7 @@ function nextPage(link, callback) {
 // }
 
 function nearBottom() {
-  return w.scrollTop() >= ($(document).height() - $(window).height() - 400);
+  return w.scrollTop() >= ($(document).height() - $(window).height() - 300);
 }
 
 function navDropdown(nav, pad) {

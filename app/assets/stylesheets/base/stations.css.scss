@@ -3,7 +3,7 @@
 $station-color: #353535;
 $station-dark: darken($station-color, 10%);
 $station-light: lighten($station-color, 10%);
-$station-pad: 8px;
+$station-pad: 6px;
 $station-image: 48px;
 
 .stations {
@@ -21,6 +21,7 @@ $station-image: 48px;
 
     &:hover {
       background: rgba(0,0,0,0.1);
+      h4 { color: #fff; }
     }
 
     .station-link {
@@ -32,7 +33,14 @@ $station-image: 48px;
       z-index: 10;
     }
 
+    .play-button {
+      top: $station-pad + 2;
+      left: $station-pad;
+      z-index: 11;
+    }
+
     .image {
+      float: right;
       margin: 0;
       padding: 0;
       border: none;
@@ -50,7 +58,7 @@ $station-image: 48px;
     .station-info {
       position: absolute;
       top: $station-pad - 2;
-      left: $station-pad*2 + $station-image;
+      left: $station-pad*2 + $play-button-size;
       right: $station-pad;
 
       * {
@@ -63,11 +71,6 @@ $station-image: 48px;
         font-size: 16px;
         margin: 3px 0 2px;
         font-weight: 400;
-
-        a {
-          color: #ddd;
-          text-decoration: none;
-        }
       }
 
       span {
@@ -79,8 +82,8 @@ $station-image: 48px;
 
     .station-follow {
       position: absolute;
-      top: $station-pad;
-      right: $station-pad;
+      top: $station-pad + 8;
+      right: $station-pad*3 + $station-image;
       z-index: 11;
 
       a {
@@ -95,8 +98,7 @@ $station-image: 48px;
       }
 
       .count {
-        font-size: 11px;
-        padding: 2px 0 0;
+        display: none;
       }
     }
   }
@@ -113,25 +115,30 @@ $station-image: 48px;
   @include border-radius(6px);
 }
 
-$station-small-image: 32px;
-
 .third .stations section {
   .image {
-    width: $station-small-image;
-    height: $station-small-image;
+    display: none;
   }
 
   .station-info {
-    left: $station-pad*2 + $station-small-image;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding-left: $station-pad*2 + $play-button-small - 5;
 
     h4 {
       font-size: 14px;
-      margin: 0;
+      margin: 0 0 -1px 0;
     }
 
     span {
       font-size: 11px;
     }
+  }
+
+  .play-button {
+    top: $station-pad + 1;
+    left: $station-pad + 1;
   }
 }
 
