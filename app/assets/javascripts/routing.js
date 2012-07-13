@@ -16,6 +16,8 @@ var page = {
 
     fn.log(curPage);
 
+    $('img').on('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
+
     // Update google analytics
     //_gaq.push(['_trackPageview', curPage]);
 

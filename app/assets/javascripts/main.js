@@ -38,8 +38,6 @@ var urlParams = {},
       }
     })();
 
-$('img').live('error', function(){ $(this).attr('src','/images/default_medium.jpg'); });
-
 // Cookies
 if (!hideWelcome && !loggedIn) {
   var h1s = $('#welcome h1'),
