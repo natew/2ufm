@@ -53,7 +53,6 @@ $station-image-small: $play-button-small;
       img {
         width: $station-image;
         height: $station-image;
-        @include border-radius($station-image);
       }
     }
 
