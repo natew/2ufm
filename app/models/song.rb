@@ -523,12 +523,12 @@ class Song < ActiveRecord::Base
   end
 
   def update_matching_songs
-    found = find_matching_songs.oldest.first
+    matching = find_matching_songs.oldest.first
     self.matching_id = found.id
     return false unless found
-    # Update all similar songs counts
+    # Update songs counts
     existing_matching_songs = Song.where(matching_id: matching_id)
-    count = existing_matching_songs.size
+    count = existing_matching_songs.size + 1
     existing_matching_songs.update_all(matching_count: count)
     self.matching_count = count
   end
