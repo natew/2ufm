@@ -1,4 +1,8 @@
 Fusefm::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  root :to => 'main#index'
+
   # Redirects
   match "/stations/:id", :to => redirect("/%{id}")
 
@@ -50,6 +54,4 @@ Fusefm::Application.routes.draw do
   match "/:id", :to => 'stations#show', :as => "artist"
   match "/:id", :to => 'stations#show', :as => "blog"
   match "/:id", :to => 'stations#show', :as => "user"
-
-  root :to => 'main#index'
 end

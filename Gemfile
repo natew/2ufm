@@ -16,6 +16,9 @@ gem 'devise'
 gem 'cancan'
 gem 'aws-ses', '~> 0.4.4', :require => 'aws/ses'
 
+# Admin
+gem 'rails_admin'
+
 # Comments
 gem 'acts_as_commentable_with_threading'
 gem 'acts_as_votable'
@@ -34,7 +37,6 @@ gem 'ruby-echonest', :git => 'git://github.com/NateW/ruby-echonest.git'
 # Jobs
 gem 'daemons'
 gem 'delayed_job_active_record'
-gem 'delayed_job_admin'
 
 # General
 gem 'stringex', :git => 'git://github.com/rsl/stringex.git'

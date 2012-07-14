@@ -106,6 +106,7 @@ $song-player-height: 50px;
 
         &.artist {
           font-size: 14px;
+          font-weight: 300;
           margin: 0 53px 0 0;
 
           a {
@@ -127,6 +128,12 @@ $song-player-height: 50px;
             &:hover {
               color: $link-hover;
             }
+          }
+
+          em {
+            font-style: normal;
+            font-size: .8em;
+            font-weight: 300;
           }
         }
 

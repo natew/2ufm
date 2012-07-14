@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def render_stations(collection, locals = {})
-    render:partial => 'stations/station', :collection => collection, :locals => locals
+    render :partial => 'stations/station', :collection => collection, :locals => locals
   end
 
   # Render artists for a song
@@ -32,6 +32,10 @@ module ApplicationHelper
       links.push link_to(model.name, model)
     end
     raw links.join(', ')
+  end
+
+  def tagged_song_name(name)
+    name.gsub(/(\([^()]+\))/,'<em>\1</em>').html_safe
   end
 
   def nav_link_to(title, path)
@@ -44,7 +48,7 @@ module ApplicationHelper
     list = []
     authors = authors.joins(:artist).select('authors.role, artists.name as artist_name, artists.station_slug as artist_station_slug')
     authors.each do |author|
-      link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => 'role role-' + author.role)
+      link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => 'role role-' + author.role) unless author.artist_station_slug.nil?
       author.role == 'original' ? list.unshift(link) : list.push(link)
     end
     raw list.join(', ')
