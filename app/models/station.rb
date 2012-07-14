@@ -33,6 +33,8 @@ class Station < ActiveRecord::Base
   validates_with SlugValidator
   validates :slug, :uniqueness => true
 
+  after_create :generate_parent_station_slug
+
   def to_param
     slug
   end
@@ -110,6 +112,11 @@ class Station < ActiveRecord::Base
   end
 
   private
+
+  def generate_parent_station_slug
+    get_parent.station_slug = slug
+    get_parent.save
+  end
 
   def get_parent
     if !blog_id.nil?

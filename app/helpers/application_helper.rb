@@ -46,8 +46,7 @@ module ApplicationHelper
   # Render artists for a song
   def author_links(authors)
     list = []
-    authors = authors.joins(:artist).select('authors.role, artists.name as artist_name, artists.station_slug as artist_station_slug')
-    authors.each do |author|
+    authors.with_artist.each do |author|
       link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => 'role role-' + author.role) unless author.artist_station_slug.nil?
       author.role == 'original' ? list.unshift(link) : list.push(link)
     end
