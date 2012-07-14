@@ -526,21 +526,14 @@ class Song < ActiveRecord::Base
     found = matching_songs.oldest.first
 
     if found
-      # Ok we found a song that already exists similar to this one
-      # Set our shared ID first
-      self.matching_id = found.id
+      # Update all similar songs' shared_counts+1
+      existing_matching_songs = Song.where(matching_id: matching_id)
+      count = existing_matching_songs.size
+      existing_matching_songs.update_all(matching_count: count)
 
-      if found.matching_id.nil?
-        # This means this is the first time weve matched it, lets update the original
-        found.matching_id = found.id
-        found.matching_count = 2
-        found.save
-      else
-        # Else we have more than one song already existing thats similar
-        # So we need to update all similar songs' shared_counts+1
-        existing_matching_songs = Song.where(matching_id:matching_id)
-        existing_matching_songs.update_all(matching_count:existing_matching_songs.size)
-      end
+      # Update song
+      self.matching_id = found.id
+      self.matching_count = count
     else
       self.matching_id = id
       false
