@@ -519,12 +519,12 @@ class Song < ActiveRecord::Base
   end
 
   def find_matching_songs
-    Song.where("artist_name ILIKE(?) and name ILIKE(?)", to_searchable(artist_name), match_name) if name and artist_name
+    Song.where("artist_name ILIKE(?) and name ILIKE(?) and id != ?", to_searchable(artist_name), match_name, id) if name and artist_name
   end
 
   def update_matching_songs
     found = find_matching_songs.oldest.first
-    self.matching_id = found.id
+    self.matching_id = found ? found.id : id
     return false unless found
     # Update songs counts
     existing_matching_songs = Song.where(matching_id: matching_id)
