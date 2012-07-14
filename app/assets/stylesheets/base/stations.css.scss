@@ -4,6 +4,7 @@ $station-color: #353535;
 $station-dark: darken($station-color, 10%);
 $station-light: lighten($station-color, 10%);
 $station-pad: 8px;
+$station-small-pad: 6px;
 $station-image: $play-button-size;
 $station-image-small: $play-button-small;
 
@@ -123,6 +124,8 @@ $station-image-small: $play-button-small;
 }
 
 .third .stations section {
+  padding: $station-small-pad;
+
   &:hover {
     .station-info h4 {color: #fff;}
   }
@@ -134,13 +137,19 @@ $station-image-small: $play-button-small;
     }
   }
 
+  .play-button {
+    top: $station-small-pad;
+    left: $station-small-pad;
+  }
+
   .station-info {
-    left: $station-pad*2 + $station-image-small;
+    left: $station-small-pad*2 + $station-image-small;
 
     h4 {
       font-size: 14px;
       margin: 0 0 -1px 0;
       color: #ddd;
+      font-weight: 300;
     }
 
     span {
