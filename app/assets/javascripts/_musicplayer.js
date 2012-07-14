@@ -36,7 +36,7 @@ var mp = (function() {
   };
 
   // Soundmanager
-  // soundManager.url = '/swfs/soundmanager2_debug.swf';
+  soundManager.url = '/swfs/soundmanager2_debug.swf';
   soundManager.useFlashBlock = false;
   soundManager.debugMode = false;
   soundManager.useHTML5Audio = true;
@@ -59,6 +59,7 @@ var mp = (function() {
   var player = {
     // Play a section
     playSection: function playSection(section) {
+      if (!section || !section.length) return false;
       if (section.is('.playing')) {
         this.toggle();
       } else {
@@ -67,7 +68,7 @@ var mp = (function() {
         curSection = section;
         fn.log(curSection);
         this.load();
-        this.play();
+        return this.play();
       }
     },
 
@@ -76,13 +77,13 @@ var mp = (function() {
       fn.log(curSection);
       if (!curSection) curSection = $('.playlist:visible section:first');
       if (curSection.length) {
-        // Get playlist info
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
-        fn.log('loading', playlistIndex, playlistID);
 
         // Checking to see if first time loaded, or if loading new playlist
         if (typeof playlist === 'undefined' || playlist.id != playlistID) {
+          fn.log('loading', playlistIndex, playlistID);
+
           // Remember this page
           playingPage = curPage;
 
@@ -97,6 +98,7 @@ var mp = (function() {
           // Callback
           w.trigger('mp:load', player.state());
           fn.log('loaded',playlist,playlistID);
+          return true;
         }
       }
     },
@@ -138,14 +140,12 @@ var mp = (function() {
 
           // Play
           curSong.play();
-
           return true;
         }
         else {
           fn.log('playing fail');
           curSection = null;
           this.refresh();
-
           return false;
         }
       }
@@ -178,68 +178,30 @@ var mp = (function() {
     },
 
     next: function next() {
-      if (curSection && curSection.length) var next = curSection.next();
-      this.stop();
-      if (next && next.length) curSection = next;
-
-      playlistIndex++;
-
-      if (this.play()) {
-        return true;
-      }
-
-      // reached end of playlist
-      else {
-        // Check for another playlist
-        var curPlaylistInfo = playlistID.split('-'),
-            nextPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) + 1),
-            nextSection = $('#playlist-' + nextPlaylistInfo + ' section:first');
-
-        if (nextSection.length) {
-          this.playSection(nextSection);
-          return true;
-        }
-
-        else {
-          curSection = null;
-          w.trigger('mp:playlist_end', player.state());
-          return false;
-        }
-      }
+      if (this.playSection(curSection.next())) return true;
+      else return this.toPlaylist('next');
     },
 
     prev: function prev() {
-      if (curSection && curSection.length) {
-        previous = curSection.prev();
-      }
+      if (this.playSection(curSection.prev())) return true;
+      else return this.toPlaylist('prev');
+    },
 
-      this.stop();
+    toPlaylist: function toPlaylist(direction) {
+      fn.log(direction);
+      var fw = direction == 'next' ? true : false,
+          increment = fw ? 1 : -1,
+          section = fw ? 'first' : 'last',
+          curPlaylistInfo = playlistID.split('-'),
+          nextPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) + increment),
+          nextSection = $('#playlist-' + nextPlaylistInfo + ' section:' + section);
 
-      if (previous && previous.length) {
-        curSection = previous;
-      }
-
-      playlistIndex--;
-
-      if (this.play()) {
+      if (nextSection.length) {
+        this.playSection(nextSection);
         return true;
-      }
-      // Skipping behind first track of playlist
-      else {
-        // Check for another playlist
-        var curPlaylistInfo = playlistID.split('-'),
-            prevPlaylistInfo = curPlaylistInfo[0] + '-' + (parseInt(curPlaylistInfo[1],10) - 1),
-            prevSection = $('#playlist-' + prevPlaylistInfo + ' section:last');
-
-        if (prevSection.length) {
-          this.playSection(prevSection);
-          return true;
-        }
-
-        else {
-          curSection = null;
-          return false;
-        }
+      } else {
+        curSection = null;
+        return false;
       }
     },
 
@@ -319,10 +281,10 @@ var mp = (function() {
     },
 
     updateProgress: function updateProgress() {
-      var duration     = curSong.duration || curSong.durationEstimate,
-          milliseconds = Math.round(duration*(dragging_percent/100));
+      var duration     = curSong.duration || curSong.durationEstimate || 0,
+          milliseconds = Math.round(duration * (dragging_percent / 100));
       // fn.log(dragging_percent/100, duration, milliseconds);
-      pl.position.attr('width',dragging_percent+'%');
+      pl.position.attr('width', dragging_percent + '%');
       curSong.setPosition(milliseconds);
     },
 
