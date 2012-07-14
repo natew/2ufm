@@ -16,7 +16,7 @@ class Artist < ActiveRecord::Base
   has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
   before_validation :make_station, :on => :create
-  before_create :get_info, :set_station_slug
+  after_create :get_info
 
   serialize :urls
 
@@ -44,8 +44,7 @@ class Artist < ActiveRecord::Base
   end
 
   def get_info
-    get_discogs_info
-    get_wikipedia_info
+    delay(:priority => 6).get_discogs_info
   end
 
   def get_discogs_info
@@ -58,21 +57,13 @@ class Artist < ActiveRecord::Base
         logger.info "Info found"
         self.image = UrlTempfile.new(artist.images.first.uri) unless artist.images.nil?
         self.urls  = artist.urls unless artist.urls.nil?
+        self.save
       else
         logger.info "No information found"
       end
     rescue Exception => e
       # Artist not found!
-      logger.info "No discogs information found."
-    end
-  end
-
-  def get_wikipedia_info
-    if urls
-      url = urls.find { |e| /^wikipedia/ =~ e }
-      if url
-        # get wikipedia url
-      end
+      logger.error "Error getting discogs information."
     end
   end
 
