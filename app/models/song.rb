@@ -95,8 +95,7 @@ class Song < ActiveRecord::Base
   scope :limit_full, lambda { |page, per| limit(page * per) }
 
   before_create :set_source, :get_real_url, :clean_url
-  after_create :delayed_scan_and_save
-  before_save :set_rank
+  after_create :delayed_scan_and_save, :set_rank
 
   # Whitelist mass-assignment attributes
   attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at

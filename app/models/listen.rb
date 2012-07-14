@@ -35,6 +35,9 @@ class Listen < ActiveRecord::Base
   end
 
   def update_song_play_count
-    song.update_attribute(:play_count, song.play_count.next)
+    return unless song
+    song.play_count = song.play_count.next
+    song.set_rank
+    song.save
   end
 end

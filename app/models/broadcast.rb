@@ -18,10 +18,9 @@ class Broadcast < ActiveRecord::Base
   private
 
   def update_song_rank
-    if song
-      song.set_rank
-      song.save
-    end
+    return unless song
+    song.set_rank
+    song.save
   end
 
   # Update user_broadcasts_count on songs
