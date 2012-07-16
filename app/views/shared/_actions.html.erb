@@ -2,6 +2,6 @@
   share ||= true
 -%>
 <ul class="title-nav">
-  <% if share %><li><%= link_to "j", '/' + station.slug, :id => 'share-station', :class => 'button pictos clipboard tip', :title => 'Copy link to clipboard', 'data-hover' => 'j', 'data-click' => '3'  %></li><% end %>
+  <% if false %><li><%= link_to "j", '/' + station.slug, :id => 'share-station', :class => 'button pictos clipboard tip', :title => 'Copy link to clipboard', 'data-hover' => 'j', 'data-click' => '3'  %></li><% end %>
   <li class="follow-<%= station.id %>"><%= follow_station(station.id, station.follows_count) %></li>
 </ul>

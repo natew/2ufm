@@ -43,9 +43,9 @@
 <%- end -%>
 
   <div class="third">
-    <h2>Top Blogs</h2>
+    <h2>Featured Stations</h2>
     <div class="stations">
-      <%= render_stations @blog_stations, :nofollow => true %>
+      <%= render_stations @top_stations, :nofollow => true %>
     </div>
 
     <h2>Top Artists</h2>
@@ -53,8 +53,8 @@
       <%= render_stations @artist_stations, :nofollow => true %>
     </div>
 
-    <h2>Top Stations</h2>
+    <h2>Top Music Blogs</h2>
     <div class="stations">
-      <%= render_stations @top_stations, :nofollow => true %>
+      <%= render_stations @blog_stations, :nofollow => true %>
     </div>
   </div>

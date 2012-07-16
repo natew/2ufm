@@ -16,7 +16,6 @@ $station-image-small: $play-button-small;
     padding: $station-pad;
     position: relative;
     @include transition(all .1s linear);
-    @include border-left-radius(80px);
 
     &:nth-child(2n+1) {
       background: rgba(255,255,255,0.02);
