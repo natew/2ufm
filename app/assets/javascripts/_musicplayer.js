@@ -68,6 +68,7 @@ var mp = (function() {
         curSection = section;
         fn.log(curSection);
         this.load();
+        fn.scrollTo(curSection);
         return this.play();
       }
     },

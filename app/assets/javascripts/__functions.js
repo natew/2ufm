@@ -55,6 +55,10 @@ var fn = {
     $('html,body').animate({scrollTop:0}, 200);
   },
 
+  scrollTo: function(object) {
+    $('html,body').animate({scrollTop: object.offset().top - 80}, 200);
+  },
+
   jQuerize: function(object) {
     for (var key in object) {
       object[key] = $(object[key]);
