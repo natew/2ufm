@@ -128,10 +128,10 @@ $song-player-height: 50px;
     }
 
     h1 {
-      margin: -2px 0 12px 60px;
+      margin: -2px 120px 12px 60px;
       position: relative;
       z-index: 12;
-      line-height: .9em;
+      line-height: 1.2em;
       font-weight: 400;
       pointer-events: none;
 
@@ -187,19 +187,22 @@ $song-player-height: 50px;
     }
 
     .song-meta {
+      position: absolute;
+      top: 15px;
+      right: 15px;
       font-size: 12px;
       margin: 0;
       color: #999;
       margin-left: 60px;
       z-index: 11;
       line-height: 1.5em;
+      text-align: right;
 
       div {
         display: inline-block;
         padding: 2px 6px;
-        margin: -2px 6px 0 0;
+        margin: -2px -6px;
         background: rgba(0,0,0,0.15);
-        float: left;
         @include border-radius(6px);
       }
 
@@ -224,12 +227,8 @@ $song-player-height: 50px;
 
         &.remove span {
           color: $green;
-
-          &:hover {
-            color: $red;
-          }
+          &:hover { color: $red; }
         }
-
         strong {display: none;}
       }
 
@@ -256,9 +255,7 @@ $song-player-height: 50px;
         white-space: nowrap;
         font-size: 11px;
         line-height: 1em;
-        display: inline-block;
-        margin: 2px 0 0;
-        float: right;
+        display: block;
       }
     }
 
@@ -365,7 +362,7 @@ $song-player-height: 50px;
         display: none;
         position: absolute;
         left: $song-player-height;
-        right: 60px;
+        right: 0;
         top: 0;
         height: $song-player-height;
 
