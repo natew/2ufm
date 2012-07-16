@@ -231,6 +231,7 @@ header {
   right: 20px;
   width: 200px;
   bottom: 0;
+  padding: 15px;
   @include box-sizing(border-box);
 
   section {
@@ -253,7 +254,6 @@ header {
       padding-left: 0;
       margin: 0;
       line-height: 1.8em;
-      float: left;
       position: relative;
       cursor: default;
     }
@@ -265,7 +265,9 @@ header {
       color: $navbar-link;
       font-weight: 600;
       font-size: 13px;
+      width: 50%;
       float: left;
+      @include box-sizing(border-box);
       @include transition(all .1s linear);
 
 

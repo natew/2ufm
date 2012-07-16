@@ -100,19 +100,19 @@
 
       <div id="navbar">
         <section>
-          <h1>Songs:</h1>
+          <h1>Songs</h1>
           <%= link 'Popular', '/songs',   :id => 'nav-songs' %>
           <%= link 'New', '/songs-new',   :id => 'nav-songs-new' %>
         </section>
 
         <section class="middle">
-          <h1>Browse:</h1>
+          <h1>Browse</h1>
           <%= link 'Artists', '/artists', :id => 'nav-artists' %>
           <%= link 'Blogs', '/blogs',     :id => 'nav-blogs' %>
-          <%= link 'Users', '/users',     :id => 'nav-users' %>
         </section>
 
         <section class="right">
+          <h1>Users</h1>
           <% if user_signed_in? %>
             <%= link 'Profile', current_user, :id => 'nav-my-station' %>
             <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
