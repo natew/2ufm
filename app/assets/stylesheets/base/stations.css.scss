@@ -250,7 +250,11 @@ $station-image-small: $play-button-small;
   }
 }
 
-.promo-title {
+.promo {
+  display: none;
+}
+
+.promo h2 {
   position: absolute;
   top: 15px;
   left: -30px;
