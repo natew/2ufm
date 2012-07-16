@@ -128,7 +128,7 @@ $song-player-height: 50px;
     }
 
     h1 {
-      margin: -3px 0 12px 60px;
+      margin: -2px 0 12px 60px;
       position: relative;
       z-index: 12;
       line-height: .9em;
@@ -408,47 +408,24 @@ $song-player-height: 50px;
 }
 
 .primary section, section.active {
+  h1, .song-meta { margin-left: 75px; }
   h1 {
-    width: 100%;
     @include box-sizing(border-box);
 
-    span {
-      line-height: 1.4em;
-
-      &.artist {
-        font-size: 16px;
-        margin: 0 0 2px 0;
-      }
-
-      &.name {
-        font-size: 24px;
-        margin: 0 0 10px 0;
-
-        a {
-          pointer-events: none;
-          cursor: text;
-        }
-      }
+    span { line-height: 1.4em;
+      &.artist { font-size: 16px; margin: 0 0 2px 0; }
+      &.name { font-size: 24px; margin: 0 0 10px 0; }
     }
   }
 
-  .play-button {
-    display: block;
-  }
-
-  .song-player {
-    position: relative;
-    left: 0;
-
+  .song-art { width: 64px; height: 64px; }
+  .play-button { display: block; }
+  .song-player { position: relative; left: 0;
     .waveform-wrap {
       display: block;
       right: 20px;
       img { opacity: 1; }
     }
-  }
-
-  .song-meta {
-    margin-left: 0;
   }
 }
 
