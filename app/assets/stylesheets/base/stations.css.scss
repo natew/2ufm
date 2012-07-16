@@ -16,6 +16,7 @@ $station-image-small: $play-button-small;
     padding: $station-pad;
     position: relative;
     @include transition(all .1s linear);
+    @include border-left-radius(80px);
 
     &:nth-child(2n+1) {
       background: rgba(255,255,255,0.02);
@@ -54,6 +55,7 @@ $station-image-small: $play-button-small;
       img {
         width: $station-image;
         height: $station-image;
+        @include border-radius($station-image);
       }
     }
 
@@ -250,11 +252,7 @@ $station-image-small: $play-button-small;
   }
 }
 
-.promo {
-  display: none;
-}
-
-.promo h2 {
+.promo-title {
   position: absolute;
   top: 15px;
   left: -30px;
