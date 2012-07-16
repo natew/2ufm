@@ -1372,13 +1372,16 @@ h2 small { font-size: 55%; }
   width: 100%;
   float: left;
   margin-right: -$third-width - 1;
+  margin-right: 0;
 }
 
 .twothirds {
   margin-right: 1 + $third-width;
+  margin-right: 0;
 }
 
 .third {
+  display: none;
   float: left;
   width: $third-width;
   padding-left: 0;
