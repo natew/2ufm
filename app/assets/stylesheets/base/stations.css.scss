@@ -238,21 +238,10 @@ $station-image-small: $play-button-small;
 }
 
 .promo {
-  margin: -15px -2% 15px -15px;
-  padding-left: 15px;
-  height: 185px;
-  overflow: hidden;
-
-  a {
-    width: 23%;
-    max-width: 500px;
-    height: 160px;
-    margin: 15px 2% 25px 0;
-    float: left;
-  }
+  display: none;
 }
 
-.promo-title {
+.promo h2 {
   position: absolute;
   top: 15px;
   left: -30px;
