@@ -20,7 +20,8 @@ var mp = (function() {
       delayStart = false,
       volume = 100,
       time = 0,
-      autoPlay = false;
+      autoPlay = false,
+      hasMoved = false;
 
   // Elements
   var pl = {
@@ -68,7 +69,7 @@ var mp = (function() {
         curSection = section;
         fn.log(curSection);
         this.load();
-        fn.scrollTo(curSection);
+        hasMoved = false;
         return this.play();
       }
     },
@@ -260,7 +261,6 @@ var mp = (function() {
     },
 
     endDrag: function endDrag(e) {
-      e.preventDefault();
       dragging_position = false;
       pl.handle.unbind('mousemove');
       pl.handle.unbind('mouseup');
@@ -473,6 +473,11 @@ var mp = (function() {
 
     autoPlay: function() {
       return autoPlay;
+    },
+
+    hasMoved: function hasMoved(val) {
+      if (!val) return hasMoved;
+      hasMoved = val;
     }
 
   };

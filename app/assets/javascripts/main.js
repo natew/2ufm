@@ -77,7 +77,7 @@ $(function() {
   // html5 pushState
   $("a:not(.control)").pjax({
     container: '#body',
-    timeout: 6000
+    timeout: 12000
   });
 
   // Mac app download
@@ -120,7 +120,7 @@ $(function() {
       return data.name;
     },
     onSelect: function (data, $item) {
-      window.location = '/'+data.url;
+      pjax('/'+data.url);
     }
   });
 
@@ -159,6 +159,7 @@ $(function() {
     // Removes on scroll
     clearTimeout(tipsyClearTimeout);
     tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
+    mp.hasMoved(true);
 
     // Automatic page loading
     if (!loadingPage) {
@@ -185,6 +186,7 @@ $(function() {
 
   // Click binding
   $('body').click(function(e) {
+    if (!e.target) return false;
     var parent = e.target;
 
     // Update last position (for loading spinner)
@@ -391,6 +393,14 @@ function nextPage(link, callback) {
 //     }
 //   }
 // }
+
+function pjax(url, container) {
+  $.pjax({
+    url: url,
+    container: container || '#body',
+    timeout: 12000
+  });
+}
 
 function nearBottom() {
   return w.scrollTop() >= ($(document).height() - $(window).height() - 300);

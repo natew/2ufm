@@ -33,7 +33,7 @@ w.on({
     $('#player-song-name').html('<a href="' + song_url + '">' + song.name + '</a>');
 
     // Scroll to song
-    if (mp.isOnPlayingPage()) {
+    if (mp.isOnPlayingPage() && !mp.hasMoved()) {
       var section    = $('#song-' + song.id),
           sectionTop = section.offset().top,
           sectionBot = sectionTop + section.height(),
@@ -41,9 +41,9 @@ w.on({
           windowBot  = windowTop + w.height();
 
       if (sectionTop < (windowTop+60))
-        $('html,body').animate({scrollTop:(sectionTop-60)},200);
+        $('html,body').animate({scrollTop:(sectionTop - 60)},200);
       else if (sectionBot > windowBot)
-        $('html,body').animate({scrollTop:(sectionTop-60)},200);
+        $('html,body').animate({scrollTop:(sectionTop - 60)},200);
     }
   },
 

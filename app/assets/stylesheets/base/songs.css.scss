@@ -19,13 +19,10 @@
 .role-remixer:after {background-position:0 -9px;}
 .role-producer:after {background-position:0 -18px;}
 .role-cover:after {background-position:0 -27px;}
-
 .role-featured:after { background-position:0 -36px; margin: 0 4px 1px 4px; }
 
-$playing-color: #618bff;
-
-$song-pad-left: 22px;
-$song-playing-bg: #eee;
+$song-pad: 15px;
+$song-art: 48px;
 $song-player-height: 50px;
 
 /* Play button */
@@ -67,7 +64,7 @@ $song-player-height: 50px;
   section {
     min-height: 41px;
     margin: 0 0 0 -20px;
-    padding: 15px;
+    padding: $song-pad;
     position: relative;
     @include transition(all .1s linear);
 
@@ -128,7 +125,8 @@ $song-player-height: 50px;
     }
 
     h1 {
-      margin: -2px 120px 12px 60px;
+      margin: 0 120px 0 0;
+      float: left;
       position: relative;
       z-index: 12;
       line-height: 1.2em;
@@ -145,13 +143,8 @@ $song-player-height: 50px;
           position: relative;
           z-index: 13;
 
-          a {
-            color: #aaa;
-            pointer-events: auto;
-
-            &:hover {
-              color: $link-hover;
-            }
+          a { color: #aaa; pointer-events: auto;
+            &:hover { color: $link-hover; }
           }
         }
 
@@ -161,17 +154,10 @@ $song-player-height: 50px;
           position: relative;
           z-index: 9;
 
-          a {
-            color: #fff;
-
-            &:hover {
-              color: $link-hover;
-            }
+          a { color: #fff;
+            &:hover { color: $link-hover; }
           }
-
-          em {
-            font-style: normal;
-          }
+          em { font-style: normal; }
         }
 
       }
@@ -184,12 +170,14 @@ $song-player-height: 50px;
 
     .play-button {
       display: none;
+      top: 6px;
+      left: 2px;
     }
 
     .song-meta {
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: $song-pad;
+      right: $song-pad;
       font-size: 12px;
       margin: 0;
       color: #999;
@@ -301,7 +289,7 @@ $song-player-height: 50px;
           bottom: 0;
           left: 0;
           padding: 10px;
-          padding-top: 15px;
+          padding-top: $song-pad;
           width: 100%;
           @include box-sizing(border-box);
 
@@ -335,12 +323,11 @@ $song-player-height: 50px;
     }
 
     .song-art {
-      width: 48px;
-      height: 48px;
+      width: $song-art;
+      height: $song-art;
       z-index: 1;
-      position: absolute;
-      top: 15px;
-      left: 15px;
+      float: left;
+      margin-right: $song-pad;
 
       img {
         width: 100%;
@@ -350,13 +337,10 @@ $song-player-height: 50px;
 
     .song-player {
       margin: 10px 0 5px;
-      position: relative;
       height: $song-player-height;
-      position: absolute;
-      top: 1px;
-      left: 15px;
-      right: 15px;
-      z-index: 0;
+      clear: both;
+      display: none;
+      position: relative;
 
       .waveform-wrap {
         display: none;
@@ -405,7 +389,6 @@ $song-player-height: 50px;
 }
 
 .primary section, section.active {
-  h1, .song-meta { margin-left: 75px; }
   h1 {
     @include box-sizing(border-box);
 
@@ -417,10 +400,8 @@ $song-player-height: 50px;
 
   .song-art { width: 64px; height: 64px; }
   .play-button { display: block; }
-  .song-player { position: relative; left: 0;
-    .waveform-wrap {
-      display: block;
-      right: 20px;
+  .song-player { display: block;
+    .waveform-wrap { display: block;
       img { opacity: 1; }
     }
   }
