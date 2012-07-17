@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .promo a {width: 31.3%;}
+  .promo div a {width: 31.3%;}
 }
 
 @media screen and (max-width: 920px) {
@@ -35,7 +35,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .promo a {width: 48%;}
+  .promo div a {width: 48%;}
 
   #main-mid #navbar section {
     width: auto;
@@ -83,7 +83,7 @@
 }
 
 @media screen and (max-width: 480px) {
-  .promo a { width: 98%; }
+  .promo div a { width: 98%; }
 
   header h1 {
     width: 20px;

@@ -21,7 +21,7 @@ a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
 #main-mid {
-  padding: $header-height 0 0;
+  padding: $header-height + 35 0 0;
   min-height: 100%;
   height: auto !important;
   height: 100%;
@@ -69,7 +69,7 @@ h1, h2, h3, h4 {
   padding: 20px;
   z-index: 1000;
   @include linear-gradient($navbar-bg, $navbar-dark);
-  @include box-shadow(0 0 20px rgba(0,0,0,0.7));
+  @include box-shadow(0 0 10px rgba(0,0,0,0.7));
 
   &.active {
     display: block;
@@ -227,17 +227,44 @@ header {
 
 #navbar {
   position: fixed;
-  top: 60px;
-  right: 20px;
-  width: 200px;
-  bottom: 0;
-  padding: 15px;
+  min-width: $width + 40;
+  float: left;
+  z-index: 999;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  padding-left: 20px;
+  @include box-shadow(0 0 12px rgba(0,0,0,.7));
+  @include background-gradient($navbar-bg, $navbar-dark);
   @include box-sizing(border-box);
 
   section {
     display: block;
+    float: left;
     position: relative;
     z-index: 1;
+    width: 300px;
+
+    &.middle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 250px;
+      margin-left: -125px;
+    }
+
+    &.right {
+      float: right;
+      margin-right: 20px;
+      width: 180px;
+
+      a {
+        float: right;
+
+        &:last-child:before {display:none;}
+        &:first-child:after {display:none;}
+      }
+    }
 
     h1:after {
       right: 0;
@@ -256,6 +283,7 @@ header {
       line-height: 1.8em;
       position: relative;
       cursor: default;
+      float: left;
     }
 
     a {
@@ -265,7 +293,6 @@ header {
       color: $navbar-link;
       font-weight: 600;
       font-size: 13px;
-      width: 50%;
       float: left;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
@@ -316,7 +343,6 @@ header {
 }
 
 #body {
-  margin-right: 220px;
   min-width: $width;
   overflow: hidden;
   padding: 20px 0;
@@ -366,15 +392,6 @@ header {
       }
     }
   }
-}
-
-#sidebar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 220px;
-  bottom: 0;
-  background: #222;
 }
 
 #query:-moz-placeholder {
@@ -801,23 +818,6 @@ a[href^="http://"] {
       }
     }
   }
-}
-
-section.playing .play-button:before {
-  content: "5";
-  left: 11px;
-  top: 12px;
-  font-size: 22px;
-}
-
-section.paused .play-button:before {
-  content: "4";
-}
-
-section.active .play-button {
-  @include linear-gradient($header-light, $header-color);
-  &:before { color: darken($header-dark,15%); }
-  &:hover { @include linear-gradient(lighten($header-light,10%),$header-light); }
 }
 
 .third .play-button {
@@ -1374,16 +1374,13 @@ h2 small { font-size: 55%; }
   width: 100%;
   float: left;
   margin-right: -$third-width - 1;
-  margin-right: 0;
 }
 
 .twothirds {
   margin-right: 1 + $third-width;
-  margin-right: 0;
 }
 
 .third {
-  display: none;
   float: left;
   width: $third-width;
   padding-left: 0;

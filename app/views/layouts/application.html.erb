@@ -112,7 +112,6 @@
         </section>
 
         <section class="right">
-          <h1>Users</h1>
           <% if user_signed_in? %>
             <%= link 'Profile', current_user, :id => 'nav-my-station' %>
             <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
@@ -127,9 +126,6 @@
 
       <div id="body">
         <%= render :template => 'layouts/single' %>
-      </div>
-
-      <div id="sidebar">
       </div>
     </div>
   </div>

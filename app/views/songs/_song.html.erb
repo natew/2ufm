@@ -14,8 +14,6 @@
     <span class="name"><%= link_to tagged_song_name(song.name), song %></span>
   </h1>
 
-  <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
-
   <div class="song-meta">
     <div>
       <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
@@ -26,10 +24,9 @@
     <time><%= relative_time(time) %></time>
   </div>
 
-  <div class="song-player">
-    <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
-    <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
-  </div>
+  <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
+
+  <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
 
   <ul class="song-controls">
     <li class="broadcast"><%= broadcast_song(song) %></li>

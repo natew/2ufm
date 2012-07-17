@@ -4,7 +4,6 @@
   margin: 0 0 30px 0;
 }
 
-
 .role:after {
   display: inline-block;
   content: "";
@@ -23,6 +22,7 @@
 
 $song-pad: 15px;
 $song-art: 48px;
+$song-art-big: 64px;
 $song-player-height: 50px;
 
 /* Play button */
@@ -45,9 +45,9 @@ $song-player-height: 50px;
     content: "4";
     display: inline-block;
     position: absolute;
-    top: 12px;
-    left: 12px;
-    font-size: 23px;
+    top: 14px;
+    left: 14px;
+    font-size: 25px;
     color: #333;
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
   }
@@ -55,6 +55,23 @@ $song-player-height: 50px;
   &:hover {
     @include linear-gradient(#aaa, #888);
   }
+}
+
+section.playing .play-button:before {
+  content: "5";
+  left: 12px;
+  top: 14px;
+  font-size: 24px;
+}
+
+section.paused .play-button:before {
+  content: "4";
+}
+
+section.active .play-button {
+  @include linear-gradient($header-light, $header-color);
+  &:before { color: darken($header-dark,15%); }
+  &:hover { @include linear-gradient(lighten($header-light,10%),$header-light); }
 }
 
 .playlist-song {
@@ -126,12 +143,11 @@ $song-player-height: 50px;
 
     h1 {
       margin: 0 120px 0 0;
-      float: left;
-      position: relative;
+      position: absolute;
+      left: $play-button-size + $song-pad*2;
       z-index: 12;
       line-height: 1.2em;
       font-weight: 400;
-      pointer-events: none;
 
       span {
         display: block;
@@ -140,8 +156,6 @@ $song-player-height: 50px;
           font-size: 14px;
           font-weight: 300;
           margin: 0 0 3px 0;
-          position: relative;
-          z-index: 13;
 
           a { color: #aaa; pointer-events: auto;
             &:hover { color: $link-hover; }
@@ -151,8 +165,6 @@ $song-player-height: 50px;
         &.name {
           font-size: 16px;
           margin: 0;
-          position: relative;
-          z-index: 9;
 
           a { color: #fff;
             &:hover { color: $link-hover; }
@@ -169,15 +181,15 @@ $song-player-height: 50px;
     }
 
     .play-button {
-      display: none;
-      top: 6px;
-      left: 2px;
+      position: absolute;
+      top: $song-pad;
+      left: $song-pad;
     }
 
     .song-meta {
       position: absolute;
       top: $song-pad;
-      right: $song-pad;
+      right: $song-pad*2 + $song-art;
       font-size: 12px;
       margin: 0;
       color: #999;
@@ -326,8 +338,7 @@ $song-player-height: 50px;
       width: $song-art;
       height: $song-art;
       z-index: 1;
-      float: left;
-      margin-right: $song-pad;
+      float: right;
 
       img {
         width: 100%;
@@ -335,40 +346,32 @@ $song-player-height: 50px;
       }
     }
 
-    .song-player {
-      margin: 10px 0 5px;
-      height: $song-player-height;
-      clear: both;
+    .waveform-wrap {
       display: none;
-      position: relative;
+      position: absolute;
+      left: $song-player-height;
+      right: 0;
+      top: 0;
+      height: $song-player-height;
 
-      .waveform-wrap {
-        display: none;
+      &:before {
+        display: block;
+        content: "";
         position: absolute;
-        left: $song-player-height;
-        right: 0;
         top: 0;
-        height: $song-player-height;
+        left: 0;
+        width: 100%;
+        height: 20px;
+        z-index: 10;
+      }
 
-        &:before {
-          display: block;
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 20px;
-          z-index: 10;
-        }
-
-        img {
-          width: 100%;
-          height: 140%;
-          position: absolute;
-          top: -20%;
-          left: 2px;
-          opacity: 0;
-        }
+      img {
+        width: 100%;
+        height: 140%;
+        position: absolute;
+        top: -20%;
+        left: 2px;
+        opacity: 0;
       }
     }
   }
@@ -388,8 +391,9 @@ $song-player-height: 50px;
   &:after { display: none; }
 }
 
-.primary section, section.active {
+.primary section {
   h1 {
+    left: $song-art-big + $song-pad*2;
     @include box-sizing(border-box);
 
     span { line-height: 1.4em;
@@ -398,7 +402,7 @@ $song-player-height: 50px;
     }
   }
 
-  .song-art { width: 64px; height: 64px; }
+  .song-art { width: $song-art-big; height: $song-art-big; }
   .play-button { display: block; }
   .song-player { display: block;
     .waveform-wrap { display: block;
