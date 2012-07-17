@@ -4,7 +4,7 @@
 var page = {
 
   start: function pageStart() {
-    $('.zeroClipboardDiv').remove();
+    $('#main-mid .zeroClipboardDiv').remove();
     $('.tipsy').remove();
     fn.attachSpinner();
   },
