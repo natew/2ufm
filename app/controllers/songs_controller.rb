@@ -13,7 +13,7 @@ class SongsController < ApplicationController
     # Song and song playlist
     search_type = params[:id].is_numeric? ? :id : :slug
     @song = Song.where(search_type => params[:id]).first
-    @song_playlist = Song.where(:matching_id => @song.matching_id).playlist_order_published || not_found
+    @song_playlist = Song.where(:matching_id => @song.matching_id).playlist_order_published(current_user) || not_found
     @primary = @song
 
     # Extra info
@@ -22,10 +22,10 @@ class SongsController < ApplicationController
 
     # Similar songs
     @blog_ids = @blogs.map(&:blog_id)
-    @blogs_songs = Song.joins('CROSS JOIN blogs').where('blogs.id IN (?)', @blog_ids).playlist_order_rank
+    @blogs_songs = Song.joins('CROSS JOIN blogs').where('blogs.id IN (?)', @blog_ids).playlist_order_rank(current_user)
     @artist_ids = Song.find(@song.id).artists.map(&:id)
     @station_ids = Station.where('stations.artist_id IN (?)', @artist_ids)
-    @similar_songs = Song.playlist_order_rank
+    @similar_songs = Song.playlist_order_rank(current_user)
 
     respond_to do |format|
       format.html
@@ -34,7 +34,7 @@ class SongsController < ApplicationController
 
   def fresh
     @station = Station.newest
-    @songs = Song.newest
+    @songs = Song.playlist_order_published(current_user)
 
     respond_to do |format|
       format.html

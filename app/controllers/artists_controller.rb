@@ -12,7 +12,7 @@ class ArtistsController < ApplicationController
   end
 
   def popular
-    @songs = @artist.station.songs.playlist_order_rank
+    @songs = @artist.station.songs.playlist_order_rank(current_user)
 
     respond_to do |format|
       format.html { render 'show' }
@@ -46,7 +46,7 @@ class ArtistsController < ApplicationController
   private
 
   def render_type(songs)
-    @songs = songs.playlist_order_broadcasted_by_type
+    @songs = songs.playlist_order_broadcasted_by_type(current_user)
 
     respond_to do |format|
       format.html { render 'show' }

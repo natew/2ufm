@@ -223,7 +223,7 @@ var mp = (function() {
 
     setCurSection: function setCurSection(status) {
       var statuses = {
-        'playing':  ['paused', 'active playing'],
+        'playing':  ['paused', 'active playing listened-to'],
         'paused':   ['playing', 'paused'],
         'inactive': ['paused playing active', '']
       }

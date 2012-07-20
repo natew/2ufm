@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120714183901) do
+ActiveRecord::Schema.define(:version => 20120720043206) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20120714183901) do
     t.integer  "user_id"
   end
 
+  add_index "listens", ["user_id", "song_id"], :name => "index_listens_on_user_id_and_song_id"
+
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.string   "author"
@@ -244,7 +246,7 @@ ActiveRecord::Schema.define(:version => 20120714183901) do
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
-  add_index "songs", ["processed", "working", "rank", "matching_id"], :name => "index_songs_on_processed_and_working_and_rank_and_shared_id"
+  add_index "songs", ["processed", "working", "rank", "matching_id", "published_at"], :name => "songs_index"
 
   create_table "stations", :force => true do |t|
     t.string   "title"

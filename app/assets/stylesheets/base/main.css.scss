@@ -454,7 +454,7 @@ header #second-nav {
   display: none;
 }
 
-.pictos, .button span, .playlist .follow-station {
+.pictos, .button span, .playlist .follow-station, .playlist time:after {
   font-family: 'Pictos';
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
@@ -503,6 +503,7 @@ header #second-nav {
 .pictos-link:before {content: "j";}
 .pictos-clock:before {content: "t";}
 .pictos-cart:before {content: "$";}
+.pictos-check:before {content: "3";}
 
 
 a[href^="http://"] {

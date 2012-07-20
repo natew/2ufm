@@ -196,6 +196,7 @@ $(function() {
     while (true) {
       if (parent.tagName == 'A' || parent.tagName == 'BODY') break;
       parent = parent.parentNode;
+      if (!parent) return false;
     }
 
     if (parent.tagName == 'A') {

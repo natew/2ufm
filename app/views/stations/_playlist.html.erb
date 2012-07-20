@@ -1,15 +1,16 @@
 <%-
   nolimit       ||= false
   partial       ||= false
+  part_or_nolim   = partial || nolimit
   station       ||= Station.new
 	id              = station.id || 0
   page            = (params[:page] || 1).to_i
   per           ||= Yetting.per
   songs         ||= station.songs.playlist_order_broadcasted
-  songs           = songs.limit_full(page, per) unless partial or nolimit
+  songs           = songs.limit_full(page, per) unless part_or_nolim
   style         ||= 'song'
   paginate        = (paginate == false || style == 'mini') ? false : true
-  has_more        = songs.length == ( (partial || nolimit) ? per : (page*per) )
+  has_more        = songs.length == (part_or_nolim ? per : (page*per))
   classname     ||= ''
   cover         ||= 'small'
 -%>

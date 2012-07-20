@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :follows
   has_many :stations, :through => :follows
   has_many :songs, :through => :stations, :extend => SongExtensions
+  has_many :listens
 
   has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 

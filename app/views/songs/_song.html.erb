@@ -2,9 +2,10 @@
     cover      ||= :icon
     follow_id    = 'station-follow-' + song.id.to_s
     time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.created_at
+    class_names  = 'listened-to' if song.listen_id
 -%>
 
-<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>">
+<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %>">
   <div class="song-art cover-<%= cover %>">
     <%= image_tag song.resolve_image(cover) %>
   </div>

@@ -68,6 +68,11 @@ class Song < ActiveRecord::Base
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
 
+  # User related
+  scope :with_user, lambda { |user|
+    select('listens.id as listen_id').joins("LEFT JOIN listens on listens.song_id = songs.id AND listens.user_id = #{user.id}") unless user.nil?
+  }
+
   # Data to select
   scope :select_with_info, select('posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count')
   scope :individual, select_with_info.with_blog_station_and_post.working
@@ -80,15 +85,15 @@ class Song < ActiveRecord::Base
   scope :order_published, select('DISTINCT ON ("songs"."published_at", "songs"."matching_id") songs.*').order('songs.published_at desc')
 
   # Scopes for playlist
-  scope :playlist_order_broadcasted_by_type, order_broadcasted_by_type.individual
-  scope :playlist_order_broadcasted, order_broadcasted.individual
-  scope :playlist_order_rank, order_ranked.individual
-  scope :playlist_order_published, order_published.individual
+  scope :playlist_scope_order_broadcasted_by_type, order_broadcasted_by_type.individual
+  scope :playlist_scope_order_broadcasted, order_broadcasted.individual
+  scope :playlist_scope_order_rank, order_ranked.individual
+  scope :playlist_scope_order_published, order_published.individual
 
   # Scopes for users
-  scope :user_order_broadcasted, order_broadcasted.user
-  scope :user_order_rank, order_ranked.user
-  scope :user_order_published, order_published.user
+  scope :user_scope_order_broadcasted, order_broadcasted.user
+  scope :user_scope_order_rank, order_ranked.user
+  scope :user_scope_order_published, order_published.user
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
@@ -112,12 +117,32 @@ class Song < ActiveRecord::Base
     blog_broadcasts_count > 1
   end
 
-  def self.popular
-    playlist_order_rank
+  def self.playlist_order_broadcasted(user)
+    playlist_scope_order_broadcasted.with_user(user)
   end
 
-  def self.newest
-    playlist_order_published
+  def self.playlist_order_broadcasted_by_type(user)
+    playlist_scope_order_broadcasted_by_type.with_user(user)
+  end
+
+  def self.playlist_order_published(user)
+    playlist_scope_order_published.with_user(user)
+  end
+
+  def self.playlist_order_rank(user)
+    playlist_scope_order_rank.with_user(user)
+  end
+
+  def self.user_order_broadcasted(user)
+    user_scope_order_broadcasted.with_user(user)
+  end
+
+  def self.user_order_published(user)
+    user_scope_order_published.with_user(user)
+  end
+
+  def self.user_order_rank(user)
+    user_scope_order_rank.with_user(user)
   end
 
   def self.user_following_songs(id, offset, limit)
@@ -138,7 +163,8 @@ class Song < ActiveRecord::Base
         stations.title as station_title,
         stations.slug as station_slug,
         stations.id as station_id,
-        stations.follows_count as station_follows_count
+        stations.follows_count as station_follows_count,
+        listens.id as listen_id
       FROM a
         INNER JOIN
           songs s ON a.song_id = s.id
@@ -150,6 +176,9 @@ class Song < ActiveRecord::Base
           follows on follows.station_id = broadcasts.station_id
         INNER JOIN
           stations on stations.id = broadcasts.station_id
+        LEFT JOIN
+          listens on listens.song_id = s.id
+          AND listens.user_id = #{id}
       WHERE s.processed = 't'
         AND s.working = 't'
         AND s.soundcloud_id IS NULL
