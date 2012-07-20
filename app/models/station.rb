@@ -60,7 +60,7 @@ class Station < ActiveRecord::Base
   end
 
   def self.current_user_station
-    Station.new(id: 3, title:'My Station', slug:'my-station')
+    Station.new(id: 3, title:'My Music Feed', slug:'my-station')
   end
 
   def self.popular(opts={})

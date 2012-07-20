@@ -1,16 +1,25 @@
-<%- partial       ||= false
-    station       ||= Station.new
+<%-
+  nolimit       ||= false
+  partial       ||= false
+  station       ||= Station.new
 	id              = station.id || 0
-    page            = (params[:page] || 1).to_i
-    per           ||= Yetting.per
-    songs         ||= station.songs.playlist_order_broadcasted
-    songs           = songs.limit_full(page, per) unless partial
-    style         ||= 'song'
-    paginate        = (paginate == false || style == 'mini') ? false : true
-    has_more        = songs.length == ( partial ? per : (page*per) )
-    classname     ||= ''
-    cover         ||= 'small'
+  page            = (params[:page] || 1).to_i
+  per           ||= Yetting.per
+  songs         ||= station.songs.playlist_order_broadcasted
+  songs           = songs.limit_full(page, per) unless partial or nolimit
+  style         ||= 'song'
+  paginate        = (paginate == false || style == 'mini') ? false : true
+  has_more        = songs.length == ( (partial || nolimit) ? per : (page*per) )
+  classname     ||= ''
+  cover         ||= 'small'
 -%>
+
+<% if !partial %>
+  <div class="playlist-header">
+    <span class="ph-song"><%= station.title || "Songs" %></span>
+    <span class="ph-station">Original Station</span>
+  </div>
+<% end %>
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">

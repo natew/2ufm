@@ -8,10 +8,8 @@
   <%= render :partial => 'shared/actions', :locals => { :station => @blog.station } %>
 </div>
 
-<div class="twothirds-wrap">
-  <div class="twothirds">
-    <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
-  </div>
-</div>
+<div class="whole">
+  <%= render 'stations/artists' %>
 
-<%= render :partial => 'stations/sidebar' %>
+  <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
+</div>

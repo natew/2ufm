@@ -1,0 +1,6 @@
+<%- if @artists -%>
+<h3>Artists on this station</h3>
+<div class="horizontal shelf">
+  <%= render :partial => 'stations/shelf', :collection => @artists %>
+</div>
+<%- end -%>

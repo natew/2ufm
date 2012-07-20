@@ -16,10 +16,10 @@
 
       <div id="my-feed" class="section  active">
         <%- if @has_songs -%>
-          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :partial => true } %>
+          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :nolimit => true } %>
         <%- else -%>
           <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
-          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :partial => true } %>
+          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :nolimit => true } %>
         <%- end -%>
       </div>
 

@@ -22,7 +22,7 @@
 
 $song-pad: 15px;
 $song-art: 48px;
-$song-art-big: 128px;
+$song-art-big: 172px;
 $song-player-height: 50px;
 
 /* Play button */
@@ -45,8 +45,8 @@ $song-player-height: 50px;
     content: "4";
     display: inline-block;
     position: absolute;
-    top: 14px;
-    left: 14px;
+    top: 13px;
+    left: 13px;
     font-size: 25px;
     color: #333;
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
@@ -59,8 +59,8 @@ $song-player-height: 50px;
 
 section.playing .play-button:before {
   content: "5";
-  left: 12px;
-  top: 14px;
+  left: 11px;
+  top: 13px;
   font-size: 24px;
 }
 
@@ -72,6 +72,32 @@ section.active .play-button {
   @include linear-gradient($header-light, $header-color);
   &:before { color: darken($header-dark,15%); }
   &:hover { @include linear-gradient(lighten($header-light,10%),$header-light); }
+}
+
+.playlist-header {
+  background: rgba(0,0,0,0.2);
+  padding: 4px;
+  margin-left: -20px;
+
+  span {
+    float: left;
+    font-weight: bold;
+    color: #fff;
+    font-size: 11px;
+  }
+
+  .ph-song {
+    margin-left: $song-pad*2 + $play-button-size - 4;
+  }
+
+  .ph-station {
+    position: absolute;
+    right: $song-art + $song-pad*2;
+  }
+}
+
+.primary .playlist-header {
+  display: none;
 }
 
 .playlist-song {
@@ -142,7 +168,7 @@ section.active .play-button {
     }
 
     h1 {
-      margin: 0 140px + $song-art 0 $play-button-size + $song-pad;
+      margin: -2px 140px + $song-art 0 $play-button-size + $song-pad;
       z-index: 12;
       line-height: 1.2em;
       font-weight: 400;
@@ -419,6 +445,8 @@ section.active .play-button {
     .song-art {width: $song-art-big; height: $song-art-big;}
     .play-button {display: block;}
     .waveform-wrap {
+      left: 0;
+      right: $song-art-big + $song-pad;
       display: block;
       img { opacity: 1; }
     }

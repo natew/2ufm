@@ -210,7 +210,7 @@ $station-image-small: $play-button-small;
   }
 }
 
-.third .shelf {
+.third .shelf, .shelf.horizontal {
   margin: 0 -8px 25px 0;
 
   li {
@@ -225,6 +225,18 @@ $station-image-small: $play-button-small;
       font-size: 12px;
       line-height: 1.2em;
     }
+  }
+}
+
+.shelf.horizontal {
+  padding: 20px;
+  margin: -20px;
+  margin-bottom: 0;
+  height: 96px;
+  overflow: hidden;
+
+  li {
+    margin-bottom: 20px;
   }
 }
 
