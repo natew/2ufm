@@ -47,7 +47,8 @@ if (!hideWelcome && !loggedIn) {
   $('#welcome').addClass('active');
   $('#welcome h1:first').addClass('in');
 
-  $('#close-welcome').click(function() {
+  $('#close-welcome').click(function(e) {
+    e.preventDefault();
     $.cookie('hideWelcome', 1);
     $('#welcome').animate({'margin-bottom': '-100px'}, function() {
       $(this).remove();
