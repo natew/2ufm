@@ -15,12 +15,12 @@ class MainController < ApplicationController
       @user_stations = current_user.stations.order('stations.title asc')
     else
       @new = Station.newest
-      @new_songs = Song.newest
+      @new_songs = Song.playlist_order_published(current_user)
     end
 
     unless @has_songs
       @popular = Station.popular
-      @popular_songs = Song.popular
+      @popular_songs = Song.playlist_order_rank(current_user)
     end
 
     respond_to do |format|
