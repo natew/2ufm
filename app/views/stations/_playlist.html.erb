@@ -6,7 +6,7 @@
 	id              = station.id || 0
   page            = (params[:page] || 1).to_i
   per           ||= Yetting.per
-  songs         ||= station.songs.playlist_order_broadcasted
+  songs         ||= station.songs.playlist_order_broadcasted(current_user)
   songs           = songs.limit_full(page, per) unless part_or_nolim
   style         ||= 'song'
   paginate        = (paginate == false || style == 'mini') ? false : true
