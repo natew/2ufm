@@ -1,7 +1,7 @@
 class SongsController < ApplicationController
   def index
     @popular = Station.popular
-    @popular_songs = Song.popular
+    @popular_songs = Song.playlist_order_rank(current_user)
 
     respond_to do |format|
       format.html

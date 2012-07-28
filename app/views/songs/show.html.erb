@@ -1,24 +1,9 @@
 <div class="whole primary">
   <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false, :style => 'song', :cover => :medium } %>
-
-  <section class="stats horizontal-list">
-    <h3>Info:</h3>
-    <span><%= relative_time @song.created_at %></span>
-    <span><%= pluralize @blogs.length, 'blog' %></span>
-    <span><%= pluralize @song.play_count, 'play' %></span>
-    <span><%= seconds_to_time @song.length %></span>
-  </section>
-</div>
-
-<div class="whole reviews">
-  <%= render :partial => 'blogs/review', :collection => @song_playlist %>
 </div>
 
 <div class="contain">
   <div class="whole">
-    <h2><%= pluralize @song.comment_threads.count, 'Comment' %></h2>
-    <%= render :partial => 'comments/new_form' %>
-
     <h3>Similar Songs</h3>
     <%= render :partial => 'stations/playlist', :locals => { :songs => @similar_songs, :paginate => false, :per => 8, :classname => 'similar-songs' } %>
   </div>

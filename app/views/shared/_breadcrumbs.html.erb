@@ -1,6 +1,7 @@
-<%- if controller_name != 'main'
-      second_level = action_name =~ /index/i || @primary.nil?
-      separate = 'after' unless second_level
+<%- second_level = action_name =~ /index/i || @primary.nil?
+    separate = 'after' unless second_level
+
+    if !second_level
   -%>
   <div id="breadcrumbs">
     <%= link_to 'Home', '/', :class => 'after' %>

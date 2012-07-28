@@ -33,5 +33,15 @@
     <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
 
+  <div class="reviews">
+    <%= render :partial => 'blogs/review', :collection => [song] %>
+  </div>
+
+  <ul class="stats horizontal-list">
+    <li class="title">Info:</li>
+    <li><%= pluralize song.play_count, 'play' %></li>
+    <li><%= seconds_to_time song.length %></li>
+  </ul>
+
   <%= debug(song) %>
 </section>

@@ -67,7 +67,6 @@
               </div>
               <div id="player-post-controls">
                 <%= link_to '>', '#', :class => 'volume pictos control tip-n', :id => 'player-volume', :title => 'Volume toggle' %>
-                <%= link_to 'k', '#', :class => 'add broadcast-song pictos control tip-n', :id => 'player-add', :title => 'Add to favorites' %>
               </div>
             </div>
 
@@ -81,11 +80,6 @@
           <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>
           <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
         </div>
-
-        <%= form_tag '/main/search', :method => 'get' do %>
-          <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
-          <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-        <% end -%>
       </div>
     </div>
   </header>
@@ -99,16 +93,16 @@
       <%- end -%>
 
       <div id="navbar">
-        <section>
-          <h1>Songs</h1>
-          <%= link 'Popular', '/songs',   :id => 'nav-songs' %>
-          <%= link 'New', '/songs-new',   :id => 'nav-songs-new' %>
-        </section>
+        <%= form_tag '/main/search', :method => 'get' do %>
+          <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
+          <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+        <% end -%>
 
-        <section class="middle">
-          <h1>Browse</h1>
+        <section>
+          <%= link 'Just in', '/songs-new',   :id => 'nav-songs-new' %>
+          <%= link 'Popular', '/songs',   :id => 'nav-songs' %>
           <%= link 'Artists', '/artists', :id => 'nav-artists' %>
-          <%= link 'Blogs', '/blogs',     :id => 'nav-blogs' %>
+          <%= link 'Stations', '/blogs',     :id => 'nav-blogs' %>
         </section>
 
         <section class="right">

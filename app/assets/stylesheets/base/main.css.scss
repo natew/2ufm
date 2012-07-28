@@ -11,6 +11,7 @@ body {
   background: $body-bg;
   position: relative;
   font-weight: 300;
+  @include background-gradient($body-darker 0%, $body-bg 20%);
 }
 
 p {
@@ -21,7 +22,7 @@ a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
 #main-mid {
-  padding: $header-height + 35 0 0;
+  padding: $header-height $navbar-width 0 0;
   min-height: 100%;
   height: auto !important;
   height: 100%;
@@ -33,16 +34,17 @@ a:hover { color: $link-hover; }
 
 /* HEADING AND TEXT STYLES */
 
-h1 { font-size: 18px;  }
-h2 { font-size: 16px; }
-h3 { font-size: 14px; }
-h4 { font-size: 12px; }
+h1 { font-size: 22px;  }
+h2 { font-size: 20px; }
+h3 { font-size: 18px; }
+h4 { font-size: 16px; }
 
 h1, h2, h3, h4 {
   line-height: 1.4em;
   padding: 0;
-  margin: 0 0 15px 0;
+  margin: 15px 0;
   font-weight: 300;
+  color: $heading-color;
 
   &.inline {
     display: inline-block;
@@ -57,85 +59,6 @@ h1, h2, h3, h4 {
     a {
       color: #ccc;
     }
-  }
-}
-
-#welcome {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  z-index: 1000;
-  @include linear-gradient($navbar-bg, $navbar-dark);
-  @include box-shadow(0 0 10px rgba(0,0,0,0.7));
-
-  &.active {
-    display: block;
-  }
-
-  &:after {
-    visibility: visible;
-    content: "";
-    position: absolute;
-    display: block;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(0,0,0,0.15);
-  }
-
-  section {
-    height: 26px;
-    margin: 0 0 -6px 0;
-    padding: 10px 0 0;
-    overflow: hidden;
-    position: relative;
-
-    h1 {
-      color: #fff;
-      font-size: 24px;
-      margin: 0 0 6px 0;
-      position: absolute;
-      bottom: -28px;
-      left: 0;
-      opacity: 0;
-      @include transition(all .3s linear);
-
-      &.in {
-        bottom: 0;
-        opacity: 1;
-      }
-
-      &.out {
-        top: 48px;
-        opacity: 0;
-      }
-    }
-  }
-
-  small {
-    font-size: 15px;
-    margin: -6px 0 5px;
-    display: block;
-    color: lighten($header-color,50%);
-  }
-
-  .button {
-    position: absolute;
-    top: 30px;
-    right: 20px;
-  }
-
-  #close-welcome {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 10;
-    font-size: 18px;
-    color: #fff;
   }
 }
 
@@ -228,43 +151,23 @@ header {
 
 #navbar {
   position: fixed;
-  min-width: $width + 40;
-  float: left;
   z-index: 999;
   top: $header-height;
-  left: 0;
   right: 0;
-  padding-left: 20px;
-  @include box-shadow(0 0 12px rgba(0,0,0,.7));
-  @include background-gradient($navbar-bg, $navbar-dark);
+  bottom: 0;
+  width: $navbar-width;
+  padding: 45px 20px 0 0;
   @include box-sizing(border-box);
 
   section {
     display: block;
-    float: left;
     position: relative;
     z-index: 1;
-    width: 300px;
 
     &.middle {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 250px;
-      margin-left: -125px;
     }
 
     &.right {
-      float: right;
-      margin-right: 20px;
-      width: 180px;
-
-      a {
-        float: right;
-
-        &:last-child:before {display:none;}
-        &:first-child:after {display:none;}
-      }
     }
 
     h1:after {
@@ -275,26 +178,15 @@ header {
       padding: 7px 12px 6px;
     }
 
-    h1 {
-      font-size: 12px;
-      text-transform: uppercase;
-      color: $navbar-heading;
-      padding-left: 0;
-      margin: 0;
-      line-height: 1.8em;
-      position: relative;
-      cursor: default;
-      float: left;
-    }
-
     a {
       position: relative;
       display: block;
       text-decoration: none;
       color: $navbar-link;
-      font-weight: 600;
-      font-size: 13px;
-      float: left;
+      font-weight: 300;
+      font-size: 18px;
+      padding: 8px;
+      margin: 0 0 8px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
@@ -313,31 +205,6 @@ header {
         &:before {
           display: none;
         }
-      }
-
-      &:before, &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 1px;
-        height: 100%;
-        @include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3));
-      }
-
-      &:before {
-        left: 0;
-        right: auto;
-        @include linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.06));
-      }
-
-      &:nth-child(2):before {
-        display: none;
-      }
-
-      &:last-child:after {
-        display: none;
       }
     }
   }
@@ -362,8 +229,6 @@ header {
     background: $gutter-color;
     @include box-sizing(border-box);
   }
-
-  h2, h3 { color: $heading-color; }
 
   #breadcrumbs {
     background: $body-dark;
@@ -403,28 +268,26 @@ header {
   color: rgba(255,255,255,0.8);
 }
 
-header form {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  z-index: 1000;
+#navbar form {
+  margin: 20px 0;
+  position: relative;
 
   #query {
     border: none;
     padding: 3px 30px 3px 8px;
     width: $query-width;
     margin: 0;
-    color: #fff;
+    color: rgba(255,255,255,0.6);
     outline: none;
     font-size: 12px;
-    border: 1px solid darken($header-color,10%);
-    @include linear-gradient($header-color,lighten($header-color,5%));
+    border: 1px solid darken($body-bg,6%);
+    @include linear-gradient($body-bg,lighten($body-bg,5%));
     @include box-shadow(0 1px 0 $header-shadow);
     @include border-radius(20px);
     @include transition(all .1s linear);
 
     &:hover {
-      @include linear-gradient(lighten($header-color,5%),lighten($header-color,10%));
+      @include linear-gradient(lighten($body-bg,5%),lighten($body-bg,10%));
       color: #444;
     }
 
@@ -439,7 +302,7 @@ header form {
     border: none;
     pointer-events: none;
     position: absolute;
-    right: -3px;
+    right: -6px;
     top: -2px;
     font-size: 17px;
     color: rgba(0,0,0,0.2);
@@ -550,7 +413,7 @@ a[href^="http://"] {
   #player-invite-container {
     position: absolute;
     top: 6px;
-    right: -4px;
+    right: 15px;
   }
 
   #player-invite {
@@ -671,7 +534,7 @@ a[href^="http://"] {
     position: absolute;
     top: 0;
     left: 90px;
-    right: $query-width + 75;
+    right: 0;
     height: 100%;
 
     #player-meta {
@@ -688,7 +551,7 @@ a[href^="http://"] {
 
       #player-song-name a {
         margin-bottom: 1px;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: bold;
         white-space: nowrap;
         overflow: hidden;
@@ -699,10 +562,9 @@ a[href^="http://"] {
 
       #player-artist-name {
         color: rgba(255,255,255,0.75);
-        font-size: 12px;
+        font-size: 13px;
         white-space: nowrap;
         overflow: hidden;
-        font-weight: bold;
         text-overflow: ellipsis;
       }
     }
@@ -1037,7 +899,6 @@ $announce-color: $heading-color;
   }
 }
 
-h2.title { color: #000; }
 .title {
   padding: 0 20px;
   margin: 0 0 20px;
@@ -1070,11 +931,8 @@ h2.title { color: #000; }
   }
 
   h2 {
-    color: $title;
-    font-size: 26px;
-    font-weight: normal;
     background: none;
-    margin: -2px 0 -3px 0;
+    margin: 5px 0 0;
     padding: 0;
     display: inline-block;
 
@@ -1127,7 +985,8 @@ h2.title { color: #000; }
 
 /* Subnav */
 .subnav {
-  margin: 0 0 20px 0;
+  display: inline-block;
+  margin: 0 20px 20px 0;
   background: rgba(0,0,0,0.1);
   padding: 0 20px;
 
@@ -1137,9 +996,10 @@ h2.title { color: #000; }
 
     a {
       float: left;
-      padding: 8px;
-      padding-left: 7px;
-      font-weight: bold;
+      padding: 7px;
+      line-height: 1.4em;
+      font-size: 16px;
+      font-weight: 300;
       text-decoration: none;
       color: #fff;
     }
@@ -1191,7 +1051,7 @@ $nav-arrow-size: 5px;
   left: 0;
   z-index: 10000;
   padding: $nav-item-pad 0;
-  background: rgba(0,0,0,0.8);
+  background: #000;
   max-width: 280px;
   @include border-radius(5px);
   font-weight: bold;

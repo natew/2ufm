@@ -18,8 +18,6 @@
       <%= nav_link_to "Productions", artist_productions_path(@artist) if @artist.has_productions? %>
       <%= nav_link_to "Featuring", artist_features_path(@artist) if @artist.has_features? %>
     </nav>
-    <%- else -%>
-      <p>Listening to <%= @artist.name %></p>
     <%- end -%>
   </div>
 
