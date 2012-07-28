@@ -282,26 +282,6 @@ $(function() {
       macgap.growl.notify({title: info.artist_name + " - " + info.name, content: 'Now playing'});
     }
   }
-
-  // Debug
-  $('div,li,section').live('hover', function() {
-    var d = $(this).children('.debug_dump');
-    if (d.length) {
-      $('#debug_dump').html(d.html());
-    }
-  });
-
-  $('#debug').click(function(e) {
-    e.preventDefault();
-    if (debug) {
-      $('#debug_dump').removeClass('visible');
-      debug = false;
-    }
-    else {
-      $('#debug_dump').addClass('visible');
-      debug = true;
-    }
-  })
 });
 
 // Bind selectors to callbacks

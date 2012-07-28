@@ -49,10 +49,12 @@
           </div>
 
           <div id="player-main">
+
             <div id="player-meta">
               <span id="player-song-name">&nbsp;</span>
               <span id="player-artist-name">&nbsp;</span>
             </div>
+
             <div id="player-bottom">
               <div id="player-pre-controls">
                 <%= link_to 'm', '#player-playlist', :class => 'pictos nav control tip-n', :id => 'nav-music', :title => 'Current Playlist' %>
@@ -69,10 +71,10 @@
                 <%= link_to '>', '#', :class => 'volume pictos control tip-n', :id => 'player-volume', :title => 'Volume toggle' %>
               </div>
             </div>
+          </div>
 
-            <div id="player-invite-container">
-              <a id="player-invite" class="tip-n control disabled" title="Copy this song to your clipboard!" data-hover="Copy!" data-click="Copied!">Share!</a>
-            </div>
+          <div id="player-invite-container">
+            <a id="player-invite" class="tip-n control disabled" title="Copy this song to your clipboard!" data-hover="Copy!" data-click="Copied!">Share!</a>
           </div>
         </div>
 

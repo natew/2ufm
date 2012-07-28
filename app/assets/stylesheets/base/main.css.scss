@@ -11,7 +11,6 @@ body {
   background: $body-bg;
   position: relative;
   font-weight: 300;
-  @include background-gradient($body-darker 0%, $body-bg 20%);
 }
 
 p {
@@ -156,7 +155,7 @@ header {
   right: 0;
   bottom: 0;
   width: $navbar-width;
-  padding: 45px 20px 0 0;
+  padding: 25px 20px 0 0;
   @include box-sizing(border-box);
 
   section {
@@ -233,8 +232,9 @@ header {
   #breadcrumbs {
     background: $body-dark;
     padding: 6px 20px;
-    margin: -20px 0 20px 0;
+    margin: -20px 20px 20px 0;
     font-size: 11px;
+    @include border-bottom-right-radius(8px);
 
     a {
       color: #888;
@@ -413,22 +413,22 @@ a[href^="http://"] {
   #player-invite-container {
     position: absolute;
     top: 6px;
-    right: 15px;
+    right: 10px;
   }
 
   #player-invite {
     margin: 0;
-    padding: 4px 5px;
-    font-weight: bold;
-    font-size: 12px;
-    width: 38px;
+    padding: 16px 8px;
+    font-weight: 400;
+    font-size: 16px;
+    width: 48px;
     display: block;
     text-align: center;
     text-decoration: none;
     color: #fff;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.2);
     border: 1px solid darken($invite-color,10%);
-    @include border-radius(6px);
+    @include border-radius(8px);
     @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
     @include background-gradient(lighten($invite-color,10%),$invite-color);
 
@@ -534,7 +534,7 @@ a[href^="http://"] {
     position: absolute;
     top: 0;
     left: 90px;
-    right: 0;
+    right: 68px;
     height: 100%;
 
     #player-meta {
@@ -692,6 +692,87 @@ a[href^="http://"] {
     font-size: 20px;
     top: 8px;
     left: 10px;
+  }
+}
+
+
+/* Welcome */
+#welcome {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 1000;
+  @include linear-gradient(#333, #222);
+  @include box-shadow(0 0 10px rgba(0,0,0,0.7));
+
+  &.active {
+    display: block;
+  }
+
+  &:after {
+    visibility: visible;
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(0,0,0,0.15);
+  }
+
+  section {
+    height: 26px;
+    margin: 0 0 -6px 0;
+    padding: 10px 0 0;
+    overflow: hidden;
+    position: relative;
+
+    h1 {
+      color: #fff;
+      font-size: 24px;
+      margin: 0 0 6px 0;
+      position: absolute;
+      bottom: -28px;
+      left: 0;
+      opacity: 0;
+      @include transition(all .3s linear);
+
+      &.in {
+        bottom: 0;
+        opacity: 1;
+      }
+
+      &.out {
+        top: 48px;
+        opacity: 0;
+      }
+    }
+  }
+
+  small {
+    font-size: 15px;
+    margin: -6px 0 5px;
+    display: block;
+    color: lighten($header-color,50%);
+  }
+
+  .button {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+  }
+
+  #close-welcome {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 10;
+    font-size: 18px;
+    color: #fff;
   }
 }
 
@@ -1315,38 +1396,6 @@ h2 small { font-size: 55%; }
   img {
 
   }
-}
-
-
-/* Debug */
-#debug {
-  position: fixed;
-  top: 5px;
-  right: 5px;
-  font-size: 11px;
-  z-index:100000;
-  color: $header-dark;
-  text-decoration: none;
-  font-family: 'Pictos';
-}
-
-.debug_dump {display:none;}
-#debug_dump.visible {display:block;}
-#debug_dump {
-  display: none;
-  position: fixed;
-  border-top: 2px solid #ccc;
-  background: #fff;
-  color: #000;
-  padding: 10px;
-  bottom: 0;
-  left: 0;
-  font-size: 11px;
-  z-index: 10000;
-  width: 100%;
-  height: 250px;
-  overflow: scroll;
-  white-space:pre;
 }
 
 
