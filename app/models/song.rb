@@ -50,7 +50,7 @@ class Song < ActiveRecord::Base
   # Basic Scopes
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
-  scope :working, where(processed: true, working: true).where('soundcloud_id IS NULL')
+  scope :working, where(processed: true, working: true)
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
@@ -181,7 +181,6 @@ class Song < ActiveRecord::Base
           AND listens.user_id = #{id}
       WHERE s.processed = 't'
         AND s.working = 't'
-        AND s.soundcloud_id IS NULL
       ORDER BY
         a.maxcreated DESC
       OFFSET #{offset}

@@ -74,7 +74,9 @@
           </div>
 
           <div id="player-invite-container">
-            <a id="player-invite" class="tip-n control disabled" title="Copy this song to your clipboard!" data-hover="Copy!" data-click="Copied!">Share!</a>
+            <%= link_to "j", '', :id => 'player-invite', :class => 'player-invite button pictos clipboard tip-n control disabled', :title => 'Copy link to clipboard', 'data-hover' => 'j', 'data-click' => '3'  %>
+            <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control disabled', :title => 'Share on Facebook'  %>
+            <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control disabled', :title => 'Tweet song'  %>
           </div>
         </div>
 
