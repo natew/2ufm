@@ -430,6 +430,9 @@ section.active .play-button {
 }
 
 .primary section, section.active {
+  margin: 0 -10px;
+  margin-left: -20px;
+
   h1 {
     margin-right: $song-pad*2 + $song-art-big;
     span { line-height: 1.4em;
