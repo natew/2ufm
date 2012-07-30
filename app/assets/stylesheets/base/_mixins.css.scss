@@ -84,6 +84,11 @@ $lighter-yellow: #fcfbec;
 
 $cover-medium-border: 7px;
 
+/* like */
+$like-color: $green;
+$like-light: lighten($like-color,8%);
+$like-dark: darken($like-color,8%);
+
 
 @mixin dim($percent) {
   background: rgba(0,0,0,$percent/100);

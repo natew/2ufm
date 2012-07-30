@@ -39,6 +39,9 @@ w.on({
     console.log(tweet, facebook);
     $('#player-invite-twitter').attr('href', tweet);
     $('#player-invite-facebook').attr('href', facebook);
+
+    // Undisable
+    $('#player-invite-container').removeClass('disabled');
   },
 
   'mp:play': function mpPlay(event, mp, song) {
@@ -50,11 +53,11 @@ w.on({
     playlistItem.addClass('playing');
 
     // Update player info
+    $('#player-invite-container').addClass('disabled');
     $('#player-artist-name').html(song.artist_name);
     $('#player-song-name').html('<a href="' + song_url + '">' + song.name + '</a>');
 
     // Scroll to song
-    fn.log('hello?', mp.getHasMoved());
     if (mp.isOnPlayingPage() && !mp.getHasMoved()) {
       fn.log('scroll to song');
       var section    = $('#song-' + song.id),

@@ -360,7 +360,7 @@ section.active .play-button {
 
           &:hover {
             color: #fff;
-            background: $dark-green;
+            background: $like-color;
 
             &:before {
               color: #fff;
@@ -368,7 +368,7 @@ section.active .play-button {
           }
 
           &.remove {
-            border-right: 2px solid $dark-green;
+            border-right: 2px solid $like-dark;
             padding-right: 8px;
           }
 
