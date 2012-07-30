@@ -103,18 +103,6 @@ module ApplicationHelper
     Time.at(seconds).gmtime.strftime('%R:%S').gsub(/00\:/,'')
   end
 
-  # Determines if a link is "active" and wraps in ".active" if so
-  def link(*args)
-    options         = args[1] || {}
-    html_options    = args[2] || {}
-    url             = url_for(options)
-    active_options  = html_options.delete(:active) || {}
-
-    html_options[:class] = 'active' if is_active_link?(url, active_options)
-
-    link_to(args[0], options, html_options)
-  end
-
   private
 
   def is_active_link?(url, options = {})

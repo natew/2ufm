@@ -190,12 +190,13 @@ section.active .play-button {
       z-index: 12;
       line-height: 1em;
       font-weight: 400;
+      min-height: $play-button-size + 8;
 
       span {
         display: block;
 
         &.artist {
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 300;
           margin: 0 0 3px 0;
 
@@ -205,7 +206,7 @@ section.active .play-button {
         }
 
         &.name {
-          font-size: 16px;
+          font-size: 18px;
           margin: 0 0 4px 0;
           font-weight: 300;
 
@@ -295,8 +296,9 @@ section.active .play-button {
       }
 
       time {
+        margin: 6px 0 0;
         white-space: nowrap;
-        font-size: 11px;
+        font-size: 12px;
         line-height: 1em;
         display: block;
       }
@@ -430,6 +432,7 @@ section.active .play-button {
 }
 
 .primary section, section.active {
+  min-height: 175px;
   margin: 0 -10px;
   margin-left: -20px;
 

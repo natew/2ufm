@@ -20,6 +20,27 @@ w.on({
       $('#player-playlist').html(playlist_template).addClass('loaded');
   },
 
+  'mp:gotListen': function mpGotListenEvent(event, mp, song) {
+    // Update url
+    fn.replaceState(mp.getListenUrl());
+
+    // Share links
+    var url = encodeURIComponent('http://2u.fm' + mp.getListenUrl()),
+        text = encodeURIComponent('Listening to ' + (mp.getTitle() || 'nothin')),
+        tweet = ['http://twitter.com/share?text='
+                  , text
+                ].join(''),
+        facebook = ['https://www.facebook.com/sharer.php?u='
+                  , url
+                  , '&t='
+                  , text
+                ].join('');
+
+    console.log(tweet, facebook);
+    $('#player-invite-twitter').attr('href', tweet);
+    $('#player-invite-facebook').attr('href', facebook);
+  },
+
   'mp:play': function mpPlay(event, mp, song) {
     var playlistItem = $('#player-playlist .song-'+song.id),
         w = $(window),
@@ -33,7 +54,9 @@ w.on({
     $('#player-song-name').html('<a href="' + song_url + '">' + song.name + '</a>');
 
     // Scroll to song
-    if (mp.isOnPlayingPage() && !mp.hasMoved()) {
+    fn.log('hello?', mp.getHasMoved());
+    if (mp.isOnPlayingPage() && !mp.getHasMoved()) {
+      fn.log('scroll to song');
       var section    = $('#song-' + song.id),
           sectionTop = section.offset().top,
           sectionBot = sectionTop + section.height(),
@@ -41,9 +64,9 @@ w.on({
           windowBot  = windowTop + w.height();
 
       if (sectionTop < (windowTop+60))
-        $('html,body').animate({scrollTop:(sectionTop - 60)},200);
+        $('html,body').animate({scrollTop:(sectionTop - 80)}, 200);
       else if (sectionBot > windowBot)
-        $('html,body').animate({scrollTop:(sectionTop - 60)},200);
+        $('html,body').animate({scrollTop:(sectionTop - 80)}, 200);
     }
   },
 

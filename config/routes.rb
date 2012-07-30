@@ -1,7 +1,7 @@
 Fusefm::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  root :to => 'songs#index'
+  root :to => 'songs#fresh'
 
   # Redirects
   match "/stations/:id", :to => redirect("/%{id}")
@@ -11,8 +11,7 @@ Fusefm::Application.routes.draw do
     :sessions => 'sessions'
   }
 
-  match "/songs-new", :to => "songs#fresh"
-
+  resources :songs, :only => [:index, :show]
   resources :genres, :only => [:show]
   resources :blogs, :except => [:show]
   resources :users, :except => [:show]
@@ -22,20 +21,15 @@ Fusefm::Application.routes.draw do
   resources :artists, :only => [:index]
   resources :stations, :only => [:index]
   resources :comments, :only => [:create]
-
   resources :listens, :only => [:create, :show]
+
+  match "/songs-new", :to => "songs#fresh"
   match "/l/:id", :to => "listens#show"
-
-  resources :songs, :only => [:index, :show]
-
   match "/songs/:id", :to => "songs#failed", :as => :post
-
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post
-
   match "/search", :to => 'main#search'
   match "/loading", :to => 'main#loading'
-
   match '/mac', :to => 'main#mac'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###

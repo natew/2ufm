@@ -32,6 +32,16 @@ var fn = {
     }
   },
 
+  popup: function(url, width, height) {
+    var newwindow = window.open(url, 'name', 'width='+width+',height='+height);
+    if (window.focus) newwindow.focus();
+    return newwindow;
+  },
+
+  replaceState: function(url) {
+    return window.history.replaceState(null,document.title,url);
+  },
+
   flatten: function(obj, includePrototype, into, prefix) {
     into = into || {};
     prefix = prefix || "";

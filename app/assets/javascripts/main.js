@@ -231,8 +231,10 @@ $(function() {
               modal(e.target.getAttribute('href'));
               return false;
             }
-            else if (el.is('.play-station')) {
-              mp.setAutoPlay(true);
+            else {
+              if (el.is('.play-station')) {
+                mp.setAutoPlay(true);
+              }
             }
           }
         }
@@ -250,7 +252,7 @@ $(function() {
     e.preventDefault();
     var link = $(this),
         dimensions = link.data('dimensions').split(',');
-    window.open(link.attr('href'),link.attr('title'),'status=0,toolbar=0,location=0,height='+dimensions[0]+',width='+dimensions[1]);
+    fn.popup(link.attr('href'),link.attr('title'),'status=0,toolbar=0,location=0,height='+dimensions[1]+',width='+dimensions[0]);
   });
 
   // Dialog
@@ -303,8 +305,9 @@ function getNavItems() {
 }
 
 function setNavActive(page) {
+  fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');
-  var newNavActive = navItems[page];
+  var newNavActive = (page == "/") ? navItems['/songs-new'] : navItems[page];
   if (newNavActive) navActive = newNavActive.addClass('active');
 }
 

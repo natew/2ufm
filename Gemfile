@@ -16,6 +16,9 @@ gem 'devise'
 gem 'cancan'
 gem 'aws-ses', '~> 0.4.4', :require => 'aws/ses'
 
+# Facebook
+gem 'koala'
+
 # Admin
 gem 'rails_admin'
 

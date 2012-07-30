@@ -208,10 +208,9 @@ var mp = (function() {
     },
 
     refresh: function refresh() {
-      var icon  = isPlaying ? '\u25BA' : '\u25FC',
-          title = curSongInfo.artist_name + ' - ' + curSongInfo.name;
+      var icon  = isPlaying ? '\u25BA' : '\u25FC';
 
-      $('title').html(icon + ' ' + title);
+      $('title').html(icon + ' ' + this.getTitle());
       if (isPlaying) {
         pl.player.addClass('playing');
         pl.play.html('<span>5</span>');
@@ -219,6 +218,11 @@ var mp = (function() {
         pl.player.removeClass('playing');
         pl.play.html('<span>4</span>');
       }
+    },
+
+    getTitle: function getTitle() {
+      if (curSongInfo) return curSongInfo.artist_name + ' - ' + curSongInfo.name;
+      return '';
     },
 
     setCurSection: function setCurSection(status) {
@@ -311,15 +315,12 @@ var mp = (function() {
         type: 'POST',
         url: '/listens',
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
-        success: function(data) {
+        success: function playSuccess(data) {
           listenURL = '/l/'+data;
           pl.invite.attr('href',listenURL);
           pl.invite.removeClass('disabled');
           fn.clipboard('player-invite');
-
-          // Update popup
-          $('#share-facebook').attr('href', 'https://www.facebook.com/sharer.php?u=http://2u.fm'+encodeURI(listenURL));
-          $('#share-twitter').attr('href', 'https://twitter.com/share?url=http://2u.fm'+encodeURI(listenURL));
+          w.trigger('mp:gotListen', player.state());
         },
         dataType: 'html'
       });
@@ -398,6 +399,10 @@ var mp = (function() {
       }
     },
 
+    getListenUrl: function() {
+      return listenURL;
+    },
+
     isOnPlayingPage: function() {
       return (curPage == playingPage);
     },
@@ -467,6 +472,10 @@ var mp = (function() {
       return curSongInfo;
     },
 
+    getTitle: function() {
+      return player.getTitle();
+    },
+
     setAutoPlay: function(value) {
       autoPlay = value;
     },
@@ -475,9 +484,12 @@ var mp = (function() {
       return autoPlay;
     },
 
-    hasMoved: function hasMoved(val) {
-      if (!val) return hasMoved;
+    hasMoved: function (val) {
       hasMoved = val;
+    },
+
+    getHasMoved: function() {
+      return hasMoved;
     }
 
   };

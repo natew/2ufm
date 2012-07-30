@@ -74,15 +74,11 @@
           </div>
 
           <div id="player-invite-container">
-            <%= link_to "j", '', :id => 'player-invite', :class => 'player-invite button pictos clipboard tip-n control disabled', :title => 'Copy link to clipboard', 'data-hover' => 'j', 'data-click' => '3'  %>
-            <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control disabled', :title => 'Share on Facebook'  %>
-            <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control disabled', :title => 'Tweet song'  %>
+            <%= link_to "j", '', :id => 'player-invite', :class => 'player-invite button pictos clipboard tip-n control', :title => 'Permalink', 'data-hover' => 'j', 'data-click' => '3'  %>
+            <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control popup', :title => 'Share on Facebook', 'data-dimensions' => '800,400'  %>
+            <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
+            <%= link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite button tip-n control pictos', :title => 'Favorite'  %>
           </div>
-        </div>
-
-        <div id="player-share">
-          <%= link_to 'Share on Facebook', '#', :id => 'share-facebook', :class => 'facebook control popup tip-n', :title => 'Share on Facebook', :'data-dimensions' => '500,500' %>
-          <%= link_to 'Share on Twitter', '#', :id => 'share-twitter', :class => 'twitter control popup tip-n', :title => 'Share on Twitter', :'data-dimensions' => '500,500' %>
         </div>
       </div>
     </div>
@@ -103,20 +99,20 @@
         <% end -%>
 
         <section>
-          <%= link 'Just in', '/songs-new',   :id => 'nav-songs-new' %>
-          <%= link 'Popular', '/songs',   :id => 'nav-songs' %>
-          <%= link 'Artists', '/artists', :id => 'nav-artists' %>
-          <%= link 'Stations', '/blogs',     :id => 'nav-blogs' %>
+          <%= link_to 'Just in', '/songs-new',   :id => 'nav-songs-new' %>
+          <%= link_to 'Popular', '/songs',   :id => 'nav-songs' %>
+          <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
+          <%= link_to 'Stations', '/blogs',     :id => 'nav-blogs' %>
         </section>
 
         <section class="right">
           <% if user_signed_in? %>
-            <%= link 'Profile', current_user, :id => 'nav-my-station' %>
+            <%= link_to 'Profile', current_user, :id => 'nav-my-station' %>
             <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
             <%= link_to 'y', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
           <% else %>
-            <%= link 'Log in', '/login', :class => 'restricted'  %>
-            <%= link 'Sign up', '/signup', :class => 'restricted' %>
+            <%= link_to 'Log in', '/login', :class => 'restricted'  %>
+            <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
             <%= link_to '?', '#nav-about', :class => "pictos nav" %>
           <% end %>
         </section>
@@ -149,7 +145,7 @@
       <%= link_to "Account", '/users/edit' %>
       <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
     <% else %>
-      <%= link 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
+      <%= link_to 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
     <% end %>
   </div>
 

@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"e",
+				"each"
+			],
+			[
+				"vis",
+				"visible"
+			],
+			[
+				"pla",
+				"playlist_order_rank"
+			],
+			[
+				"playlist",
+				"playlist_order_broadcasted"
+			],
+			[
+				"play",
+				"play-button-size"
+			],
+			[
 				"v",
 				"visible"
 			],
@@ -118,69 +138,29 @@
 			[
 				"back",
 				"background-gradient"
-			],
-			[
-				"e",
-				"explode"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "/Users/macbook/Sites/fusefm/app/assets/javascripts/_musicplayer.js",
-			"settings":
-			{
-				"buffer_size": 12077,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/macbook/Sites/fusefm/app/controllers/comments_controller.rb",
-			"settings":
-			{
-				"buffer_size": 342,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/macbook/Sites/fusefm/app/models/comment.rb",
-			"settings":
-			{
-				"buffer_size": 1580,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/macbook/Sites/fusefm/app/views/songs/show.html.erb",
-			"settings":
-			{
-				"buffer_size": 1328,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/macbook/Sites/fusefm/app/views/comments/_new_form.html.erb",
-			"settings":
-			{
-				"buffer_size": 225,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 116.0,
+		"height": 375.0,
 		"selected_items":
 		[
 			[
-				"instal",
-				"Package Control: Install Package"
-			],
-			[
 				"dis",
 				"Package Control: Disable Package"
+			],
+			[
+				"disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
 			],
 			[
 				"insta",
@@ -247,7 +227,7 @@
 				"Preferences: Browse Packages"
 			]
 		],
-		"width": 482.0
+		"width": 579.0
 	},
 	"console":
 	{
@@ -264,134 +244,134 @@
 	},
 	"file_history":
 	[
-		"/Users/macbook/Sites/fusefm/Gemfile",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120708174500_acts_as_commentable_with_threading_migration.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/javascripts/musicevents.js",
+		"/Users/macbook/Sites/fusefm/app/views/shared/_actions.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/stations/_artists.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/blogs/show.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/users/show.html.erb",
 		"/Users/macbook/Sites/fusefm/app/assets/javascripts/_musicplayer.js",
+		"/Users/macbook/Sites/fusefm/app/views/stations/_station.html.erb",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/media/screen.css.scss",
 		"/Users/macbook/Sites/fusefm/app/views/shared/_breadcrumbs.html.erb",
-		"/Users/macbook/Sites/fusefm/app/assets/javascripts/main.js",
-		"/Users/macbook/Sites/fusefm/app/assets/javascripts/routing.js",
-		"/Users/macbook/Sites/fusefm/app/views/artists/_artist.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/artists/show.html.erb",
+		"/Users/macbook/Sites/fusefm/app/controllers/songs_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/views/main/index.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/songs/show.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/blogs/_review.html.erb",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/base/stations.css.scss",
+		"/Users/macbook/Sites/fusefm/app/views/stations/_shelf.html.erb",
+		"/Users/macbook/Sites/fusefm/Gemfile",
 		"/Users/macbook/Sites/fusefm/config/routes.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120708011301_update_station_slugs_on_parent_models.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/songs.css.scss",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/_mixins.css.scss",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/main.css.scss",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/_tipsy.css",
+		"/Users/macbook/Sites/fusefm/app/assets/javascripts/__functions.js",
+		"/Users/macbook/Sites/fusefm/app/assets/javascripts/main.js",
+		"/Users/macbook/Sites/fusefm/app/views/layouts/application.html.erb",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/base/main.css.scss",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/base/songs.css.scss",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/base/_mixins.css.scss",
+		"/Users/macbook/Sites/fusefm/app/helpers/application_helper.rb",
+		"/Users/macbook/Sites/fusefm/app/assets/javascripts/routing.js",
+		"/Users/macbook/Sites/fusefm/app/views/songs/_song.html.erb",
+		"/Users/macbook/Sites/fusefm/app/models/song.rb",
+		"/Users/macbook/Sites/fusefm/app/views/stations/show.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/artists/show.html.erb",
 		"/Users/macbook/Sites/fusefm/app/views/songs/_mini.html.erb",
 		"/Users/macbook/Sites/fusefm/app/views/songs/_cover.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/layouts/application.html.erb",
-		"/Users/macbook/Sites/fusefm/app/helpers/application_helper.rb",
-		"/Users/macbook/Sites/fusefm/app/controllers/users_controller.rb",
-		"/Users/macbook/Sites/fusefm/app/models/artist.rb",
-		"/Users/macbook/Sites/fusefm/app/models/blog.rb",
-		"/Users/macbook/Sites/fusefm/app/models/user.rb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/slug_extensions.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/forms.css.scss",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120708011153_add_station_slug_to_parent_models.rb",
-		"/Users/macbook/Sites/fusefm/app/views/artists/index.html.erb",
-		"/Users/macbook/Sites/fusefm/app/controllers/stations_controller.rb",
-		"/Users/macbook/Sites/fusefm/tmp/cache/sass/0258bb90f3ff8fcd2d14a22675df4b33b6e65ac4/songs.css.scssc",
-		"/Users/macbook/Sites/fusefm/app/views/stations/_shelf.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/songs/show.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/stations/show.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/stations/_sidebar.html.erb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/attachment_helper.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/stations.css.scss",
-		"/Users/macbook/Sites/fusefm/app/views/stations/_station.html.erb",
+		"/Users/macbook/Sites/fusefm/test/unit/helpers/stations_helper_test.rb",
 		"/Users/macbook/Sites/fusefm/app/controllers/main_controller.rb",
-		"/Users/macbook/Sites/fusefm/app/views/users/show.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/songs/_song.html.erb",
-		"/Users/macbook/Sites/fusefm/app/controllers/songs_controller.rb",
-		"/Users/macbook/Sites/fusefm/app/models/song.rb",
-		"/Users/macbook/Sites/fusefm/app/views/blogs/show.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/registrations/new.html.erb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/application.css.scss",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/_modal.css.scss",
-		"/Users/macbook/Sites/fusefm/config/initializers/amazon_ses.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120707205217_install_pg_trgrm.rb",
-		"/Users/macbook/Sites/fusefm/config/environments/production.rb",
-		"/Users/macbook/Sites/fusefm/app/views/registrations/_new_form.html.erb",
-		"/Users/macbook/Sites/fusefm/spec/spec_helper.rb",
-		"/Users/macbook/Sites/fusefm/spec/factories/songs.rb",
-		"/Users/macbook/Sites/fusefm/spec/models/song.rb",
-		"/Users/macbook/Sites/fusefm/config/database.yml",
-		"/Users/macbook/Sites/fusefm/app/controllers/application_controller.rb",
+		"/Users/macbook/Sites/fusefm/config/yetting.yml",
+		"/Users/macbook/Sites/fusefm/app/controllers/stations_controller.rb",
 		"/Users/macbook/Sites/fusefm/app/views/stations/_playlist.html.erb",
-		"/Users/macbook/Sites/fusefm/app/views/main/index.html.erb",
-		"/Users/macbook/Sites/fusefm/app/controllers/broadcasts_controller.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/blogs.css.scss",
-		"/Users/macbook/Sites/fusefm/app/views/shared/_actions.html.erb",
-		"/Users/macbook/Sites/fusefm/app/controllers/sessions_controller.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120707002620_readd_to_stations_in_last_week.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/javascripts/z_keyboard.js",
-		"/Users/macbook/Sites/fusefm/app/models/broadcast.rb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/song_extensions.rb",
-		"/Users/macbook/Sites/fusefm/app/controllers/artists_controller.rb",
+		"/Users/macbook/Sites/fusefm/lib/extensions/attachment_helper.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120720043206_add_index_on_listens.rb",
+		"/Users/macbook/Sites/fusefm/app/models/user.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120720043118_redo_index.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120720042259_redo_index_from_shared_id.rb",
 		"/Users/macbook/Sites/fusefm/app/models/station.rb",
-		"/Users/macbook/Sites/fusefm/app/controllers/blogs_controller.rb",
-		"/Users/macbook/Sites/fusefm/app/views/blogs/_review.html.erb",
-		"/Users/macbook/Sites/fusefm/app/controllers/registrations_controller.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/javascripts/__functions.js",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/songs.css.scss",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/main.css.scss",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/stations.css.scss",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/_boilerplate.css",
-		"/Users/macbook/Sites/fusefm/app/views/stations/_follow.html.erb",
-		"/Users/macbook/Sites/fusefm/app/models/follow.rb",
-		"/Users/macbook/Sites/fusefm/app/views/stations/index.html.erb",
-		"/Users/macbook/Sites/fusefm/app/assets/javascripts/application.js",
-		"/Users/macbook/Sites/fusefm/vendor/assets/javascripts/spin.js",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/forms.css.scss",
-		"/Users/macbook/Sites/fusefm/app/models/listen.rb",
-		"/Users/macbook/Sites/fusefm/app/controllers/listens_controller.rb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/paperclip/paperclip_extensions.rb",
-		"/Users/macbook/Sites/fusefm/config/application.rb",
-		"/Users/macbook/Sites/fusefm/config/environment.rb",
-		"/Users/macbook/Sites/fusefm/config/initializers/string.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120701235950_estimate_play_counts.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120701235858_add_play_count_to_songs.rb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/string.rb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/_mixins.css.scss",
-		"/Users/macbook/Sites/fusefm/vendor/assets/javascripts/ZeroClipboard.js",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120701220549_update_genres.rb",
-		"/Users/macbook/Sites/fusefm/app/models/genre.rb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/paperclip/paperclip.rb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/models/song_extensions.rb",
-		"/Users/macbook/Sites/fusefm/lib/extensions/core/string.rb",
-		"/Users/macbook/Sites/fusefm/lib/core_ext/string.rb",
-		"/Users/macbook/Sites/fusefm/app/views/follows/_follow.js.erb",
-		"/Users/macbook/Sites/fusefm/app/views/blogs/_blog.html.erb",
+		"/Users/macbook/Sites/fusefm/app/controllers/application_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/controllers/artists_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/controllers/sessions_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/controllers/users_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/views/stations/_sidebar.html.erb",
 		"/Users/macbook/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
-		"/Users/macbook/Sites/fusefm/app/views/layouts/single.html.erb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/_modal.css.scss",
-		"/Users/macbook/Sites/fusefm/app/views/sessions/_new_form.html.erb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120701005357_count_songs_by_artists.rb",
-		"/Users/macbook/Sites/fusefm/app/models/author.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120701004527_add_songs_count_to_artists.rb",
-		"/tmp/subl stdin IsADt3.txt",
-		"/tmp/subl stdin lqToRK.txt",
-		"/tmp/subl stdin s1QUez.txt",
-		"/tmp/subl stdin 1vzs7C.txt",
-		"/tmp/subl stdin sM5GjO.txt",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120628053945_broadcast_default_type.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120628054046_update_broadcast_parents.rb",
-		"/Users/macbook/Sites/fusefm/app/views/songs/_broadcast.html.erb",
-		"/Users/macbook/Sites/fusefm/config/deploy.rb",
+		"/Users/macbook/Sites/fusefm/app/assets/javascripts/musicevents.js",
 		"/Users/macbook/Sites/fusefm/app/controllers/follows_controller.rb",
-		"/Users/macbook/Sites/fusefm/app/controllers/comments_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/controllers/broadcasts_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/models/listen.rb",
+		"/Users/macbook/Sites/fusefm/app/models/broadcast.rb",
+		"/Users/macbook/Sites/fusefm/app/models/artist.rb",
+		"/Users/macbook/Sites/fusefm/lib/tasks/fix.rake",
+		"/Users/macbook/Sites/fusefm/config/schedule.rb",
 		"/Users/macbook/Sites/fusefm/app/views/comments/_new_form.html.erb",
-		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/global/comments.css.scss",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120625052139_add_more_and_more_blogs.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120624173512_add_new_blogs_two.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120624210618_add_source_to_songs.rb",
+		"/Users/macbook/Sites/fusefm/test/unit/station_test.rb",
+		"/Users/macbook/Sites/fusefm/app/models/author.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20111120050625_create_users.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110814194137_add_username_to_users.rb",
+		"/Users/macbook/Sites/fusefm/app/models/ability.rb",
+		"/Users/macbook/Sites/fusefm/config/initializers/rails_admin.rb",
+		"/Users/macbook/Sites/fusefm/Procfile",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110920173531_drop_old_tables.rb",
+		"/Users/macbook/Sites/fusefm/lib/extensions/slug_validator.rb",
+		"/Users/macbook/Sites/fusefm/lib/tasks/artists.rake",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120714010743_update_matching_songs.rb",
+		"/Users/macbook/Sites/fusefm/app/models/blog.rb",
+		"/Users/macbook/Sites/fusefm/public/fonts/Stratum1WebBold.woff",
+		"/Users/macbook/Sites/fusefm/test/fixtures/create_table_genres_stations.yml",
+		"/Users/macbook/Sites/fusefm/app/views/main/following.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/main/_following.html.erb",
+		"/Users/macbook/Sites/fusefm/config/amazon_s3.yml",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712034245_update_songs_similar_songs.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712072600_redo_blog_broadcasts.rb",
+		"/Users/macbook/Sites/fusefm/app/models/post.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712084821_give_matching_id_to_nulls.rb",
+		"/Users/macbook/Sites/fusefm/lib/tasks/blogs.rake",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712082541_add_default_to_asdasdasdsad.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712074525_update_song_titles.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712062934_update_blog_broadcasts_count.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712062836_add_blog_broadcasts_count_to_songs.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120426042436_add_broadcast_count_to_songs.rb",
+		"/Users/macbook/Sites/fusefm/config/yettings.yml",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120712033258_add_matching_songs.rb",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/application.css.scss",
 		"/Users/macbook/Sites/fusefm/db/schema.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110808155348_create_songs.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120623233637_add_index_to_songs.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120624021532_add_index_on_songs.rb",
+		"/Users/macbook/Sites/fusefm/lib/extensions/song_extensions.rb",
+		"/Users/macbook/Sites/fusefm/lib/tasks/songs.rake",
+		"/Users/macbook/Sites/fusefm/vendor/attachmentdumps/2u.out",
+		"/Users/macbook/Sites/fusefm/vendor/dbdumps/2u.out",
+		"/Users/macbook/Sites/fusefm/vendor/assets/javascripts/handlebars.js",
+		"/Users/macbook/Sites/fusefm/app/controllers/listens_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/helpers/stations_helper.rb",
+		"/Users/macbook/Sites/fusefm/app/views/sessions/_new_form.html.erb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110808192309_create_blogs_songs.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110812202932_create_songs_stations.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110826125841_create_stations_users.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110829035938_create_genres_stations.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110912140159_create_artists_songs.rb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20110928234621_create_blogs_genres.rb",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/songs.css.scss",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/stations.css.scss",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/application.css",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/main.css.scss",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/_mixins.css.scss",
+		"/Users/macbook/Sites/fusefm/app/views/broadcasts/_broadcast.js.erb",
 		"/Users/macbook/Sites/fusefm/config/environments/development.rb",
-		"/Users/macbook/Sites/fusefm/db/migrate/20120624210822_set_source_on_songs.rb",
-		"/Users/macbook/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/macbook/Sites/fusefm/Capfile",
-		"/Users/macbook/Sites/fusefm/lib/shared/attachment_helper.rb"
+		"/Users/macbook/Sites/fusefm/config/application.rb",
+		"/Users/macbook/Sites/fusefm/public/attachments/development/song_images/3613_original.png20120618-8771-rbed0i",
+		"/Users/macbook/Sites/fusefm/app/views/songs/_broadcast.html.erb",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/_modal.css.scss",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/forms.css.scss",
+		"/Users/macbook/Sites/fusefm/app/views/stations/_promo.html.erb",
+		"/Users/macbook/Sites/fusefm/db/migrate/20120710044501_add_promo_to_stations.rb",
+		"/Users/macbook/Sites/fusefm/app/views/artists/index.html.erb",
+		"/Users/macbook/Sites/fusefm/app/views/blogs/index.html.erb",
+		"/Users/macbook/Sites/fusefm/app/controllers/blogs_controller.rb",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/_tipsy.css",
+		"/Users/macbook/Sites/fusefm/app/assets/javascripts/application.js",
+		"/Users/macbook/Sites/fusefm/vendor/assets/javascripts/jquery.cookie.js",
+		"/Users/macbook/Sites/fusefm/config/database.yml",
+		"/Users/macbook/Sites/fusefm/app/views/users/_play.html",
+		"/Users/macbook/Sites/fusefm/app/assets/stylesheets/users.css.scss",
+		"/Users/macbook/Sites/fusefm/vendor/macgap/MacGap.xcodeproj/xcuserdata/Alex.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist"
 	],
 	"find":
 	{
@@ -399,9 +379,15 @@
 	},
 	"find_in_files":
 	{
-		"height": 91.0,
+		"height": 94.0,
 		"where_history":
 		[
+			"",
+			"*.rb",
+			"",
+			"*.rb",
+			"*.js",
+			"*.rb,*.html.erb",
 			"",
 			"*.html.erb",
 			"*.erb.rb",
@@ -453,134 +439,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"juxie",
-			"position",
-			"curpage",
-			"page",
-			"next",
-			"finish",
-			"tipsy",
-			"(station)",
-			"station_slug",
-			"make_station",
-			".remove",
-			"song-controls",
-			"active",
-			".station.slug",
-			"make_station",
-			"user",
-			"'/' + ",
-			"stations",
-			"navitems",
-			"getNavItems",
+			"link",
+			"author",
+			"link ",
+			"link",
+			"link ",
+			"link",
+			"player-main",
+			"disabled",
+			"play-button-size",
+			"h1",
+			"$invite-color",
+			"share",
+			"facebook",
 			"navbar",
-			"slug",
-			"default.",
-			"ses",
-			"song-controls",
-			".image",
-			":before",
-			"post",
-			"prohibited this user",
-			"set_linked_title",
-			".button",
-			"subnav",
+			"invite-con",
+			"invite-container",
+			"player",
+			"setnavactive",
+			"section",
+			"primary",
+			"h1",
+			"invite",
+			"navba",
+			"navbar",
+			"invite",
+			"soundcloud",
+			"invite-",
+			"navbar",
+			"<%= debug",
+			"debug",
 			"shelf",
-			".add",
-			"float: left",
-			"got it",
-			"following_songs",
-			"path",
-			"path_for",
-			"_path",
-			"play:",
-			"stopped",
-			"setCurSection",
-			"setcursection",
-			"mpClick",
-			"next()",
-			"inactive",
-			"cursection.",
-			"setcursection",
-			"setcurse",
-			"resume",
-			"setcursectioninactive",
-			"setCurSectionActive",
-			"playing",
-			"add_to_stations",
-			"stations",
-			"discogs",
-			"find_or_create",
-			"add_to_art",
-			"h1 ",
+			"waveform-wrap",
+			"wavegor",
+			"song-art",
+			"debug",
+			"invite",
+			"intro",
+			"file",
+			"navbar",
+			".shelf",
+			"setnavactive",
+			"primary",
+			"mp_",
+			"mp-",
+			"mp",
+			"marco",
+			"navbar",
+			"primary",
+			"navbar",
+			".reviews",
+			"reviews",
+			"#body",
 			"h1",
-			"follow-station",
-			"updatePageURL",
-			"nextpage",
-			"h1",
-			"ection",
-			":before",
+			"body",
+			"navbar",
+			"span",
+			"review",
+			"nth-child",
+			"navbar",
+			"header",
+			"navbar",
+			"maincss",
+			"promo",
+			"30",
+			"welcome",
+			"header",
 			"song-meta",
-			"h1",
-			"play",
+			"playlist_",
+			"play-button",
+			"setcursection",
+			"playing",
+			"listen",
+			"pictos-",
+			"station.newest",
+			"playlist_order_",
+			"?",
+			"current_user",
+			"finish",
+			"waveform",
+			"song-art-big",
+			"art",
+			".shelf",
+			"my station",
+			"partial",
+			"h1 ",
 			"h1",
 			"song-art",
 			"song-meta",
-			"meta",
-			"nth-chi",
-			".song-meta",
-			"nav-menu",
-			"text-shadow",
-			"player-controls",
-			"nav-menu",
-			"head",
-			"play",
-			"plays",
-			"admin",
-			"popular today",
-			".third",
-			"follow",
-			"do_page",
-			"user_station",
-			"station.",
-			"stations",
-			".click",
-			"loading",
-			"spinner",
-			"section",
-			"curSongInfo",
-			".stat",
-			"pl.song",
-			"mar",
-			"marquee",
-			"pl.song",
-			"song",
-			"nav-menu",
-			"disabled",
-			"bold",
-			"waveform",
-			"nav-user",
-			"stats",
-			"songextensions",
-			"original|",
-			".name",
-			"scan_and_save",
-			"original",
-			"follow_station",
-			"pictos",
-			"id=\"follow",
-			"small",
-			"meta",
-			"pictos",
-			".pictos",
-			".scroll",
+			"song-art",
+			"waveform-wrap",
 			"h1",
-			"nav.",
-			"@station",
-			"div",
-			"controls",
-			"player-controls",
-			"invite"
+			"navbar",
+			"song-art",
+			"promo",
+			"active",
+			"play-button",
+			"playing",
+			"active",
+			"play-button",
+			"song-art",
+			"song-meta",
+			"h1",
+			"promo",
+			".third",
+			"margin-right",
+			"navbar",
+			"promo",
+			"songex",
+			"find_reco",
+			"whitelist",
+			"form_for",
+			"_path do",
+			"_path",
+			"h1",
+			"scrollto",
+			"scrollTo",
+			"scroll",
+			"song-pla",
+			"song-player",
+			"play-button",
+			"h1",
+			"song-art",
+			"meta",
+			"song-meta",
+			"play-button",
+			"playing-color",
+			"15",
+			"song-pad-left"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -588,6 +574,17 @@
 		"regex": false,
 		"replace_history":
 		[
+			"$green",
+			"user_\nuser_",
+			"RE[:close]",
+			"RE[:open]",
+			"RE[:split]",
+			"RE[:cover]",
+			"RE[:producer]",
+			"RE[:mashup]",
+			"RE[:remix]",
+			"RE[:featured]",
+			"matching_id",
 			"(@artist)",
 			"model",
 			"station",
@@ -669,147 +666,8 @@
 	"groups":
 	[
 		{
-			"selected": 4,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/Users/macbook/Sites/fusefm/app/assets/javascripts/_musicplayer.js",
-					"settings":
-					{
-						"buffer_size": 12077,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8295,
-								8306
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 466.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/macbook/Sites/fusefm/app/controllers/comments_controller.rb",
-					"settings":
-					{
-						"buffer_size": 342,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								130,
-								130
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/macbook/Sites/fusefm/app/models/comment.rb",
-					"settings":
-					{
-						"buffer_size": 1580,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1227,
-								1227
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/macbook/Sites/fusefm/app/views/songs/show.html.erb",
-					"settings":
-					{
-						"buffer_size": 1328,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/macbook/Sites/fusefm/app/views/comments/_new_form.html.erb",
-					"settings":
-					{
-						"buffer_size": 225,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								95,
-								34
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -855,516 +713,516 @@
 		"selected_items":
 		[
 			[
-				"newform",
-				"app/views/comments/_new_form.html.erb"
+				"appht",
+				"app/views/layouts/application.html.erb"
 			],
 			[
-				"show",
-				"app/views/songs/show.html.erb"
+				"maincss",
+				"app/assets/stylesheets/base/main.css.scss"
 			],
 			[
-				"actsascom",
-				"db/migrate/20120708174500_acts_as_commentable_with_threading_migration.rb"
-			],
-			[
-				"gem",
-				"Gemfile"
-			],
-			[
-				"commrb",
-				"app/models/comment.rb"
-			],
-			[
-				"commen",
-				"app/controllers/comments_controller.rb"
-			],
-			[
-				"music",
-				"app/assets/javascripts/_musicplayer.js"
-			],
-			[
-				"bread",
-				"app/views/shared/_breadcrumbs.html.erb"
-			],
-			[
-				"musicevn",
-				"app/assets/javascripts/musicevents.js"
-			],
-			[
-				"maincs",
-				"app/assets/stylesheets/main.css.scss"
-			],
-			[
-				"rourb",
-				"config/routes.rb"
-			],
-			[
-				"user",
-				"app/models/user.rb"
-			],
-			[
-				"blorb",
-				"app/models/blog.rb"
-			],
-			[
-				"artirb",
-				"app/models/artist.rb"
-			],
-			[
-				"routrb",
-				"config/routes.rb"
-			],
-			[
-				"_arti",
-				"app/views/artists/_artist.html.erb"
-			],
-			[
-				"blogrb",
-				"app/models/blog.rb"
-			],
-			[
-				"userrb",
-				"app/models/user.rb"
-			],
-			[
-				"sluge",
-				"lib/extensions/slug_extensions.rb"
+				"songcss",
+				"app/assets/stylesheets/base/songs.css.scss"
 			],
 			[
 				"mix",
-				"app/assets/stylesheets/_mixins.css.scss"
+				"app/assets/stylesheets/base/_mixins.css.scss"
 			],
 			[
-				"form",
-				"app/assets/stylesheets/forms.css.scss"
-			],
-			[
-				"soncss",
-				"app/assets/stylesheets/songs.css.scss"
-			],
-			[
-				"apphe",
+				"aphel",
 				"app/helpers/application_helper.rb"
-			],
-			[
-				"rou",
-				"config/routes.rb"
-			],
-			[
-				"brea",
-				"app/views/shared/_breadcrumbs.html.erb"
 			],
 			[
 				"apphel",
 				"app/helpers/application_helper.rb"
 			],
 			[
-				"arti",
-				"app/models/artist.rb"
-			],
-			[
-				"blog",
-				"app/models/blog.rb"
-			],
-			[
-				"updatesta",
-				"db/migrate/20120708011301_update_station_slugs_on_parent_models.rb"
-			],
-			[
-				"addstat",
-				"db/migrate/20120708011153_add_station_slug_to_parent_models.rb"
-			],
-			[
-				"statcon",
-				"app/controllers/stations_controller.rb"
-			],
-			[
-				"maincss",
-				"app/assets/stylesheets/main.css.scss"
-			],
-			[
-				"cssscs",
-				"tmp/cache/sass/0258bb90f3ff8fcd2d14a22675df4b33b6e65ac4/songs.css.scssc"
-			],
-			[
-				"shelf",
-				"app/views/stations/_shelf.html.erb"
-			],
-			[
-				"index",
-				"app/views/artists/index.html.erb"
-			],
-			[
-				"artistht",
-				"app/views/artists/_artist.html.erb"
-			],
-			[
-				"rout",
-				"config/routes.rb"
-			],
-			[
-				"routin",
-				"app/assets/javascripts/routing.js"
-			],
-			[
 				"mainjs",
 				"app/assets/javascripts/main.js"
-			],
-			[
-				"breadc",
-				"app/views/shared/_breadcrumbs.html.erb"
-			],
-			[
-				"sonrb",
-				"app/models/song.rb"
-			],
-			[
-				"songcon",
-				"app/controllers/songs_controller.rb"
-			],
-			[
-				"sonht",
-				"app/views/songs/_song.html.erb"
-			],
-			[
-				"maincon",
-				"app/controllers/main_controller.rb"
-			],
-			[
-				"statht",
-				"app/views/stations/_station.html.erb"
-			],
-			[
-				"statcss",
-				"app/assets/stylesheets/stations.css.scss"
-			],
-			[
-				"attachm",
-				"lib/extensions/attachment_helper.rb"
-			],
-			[
-				"stacss",
-				"app/assets/stylesheets/stations.css.scss"
-			],
-			[
-				"songcs",
-				"app/assets/stylesheets/songs.css.scss"
-			],
-			[
-				"instal",
-				"db/migrate/20120707205217_install_pg_trgrm.rb"
-			],
-			[
-				"songcss",
-				"app/assets/stylesheets/songs.css.scss"
-			],
-			[
-				"produrb",
-				"config/environments/production.rb"
-			],
-			[
-				"formcss",
-				"app/assets/stylesheets/forms.css.scss"
-			],
-			[
-				"modal",
-				"app/assets/stylesheets/_modal.css.scss"
-			],
-			[
-				"appcss",
-				"app/assets/stylesheets/application.css.scss"
-			],
-			[
-				"regi",
-				"app/views/registrations/_new_form.html.erb"
-			],
-			[
-				"attach",
-				"lib/extensions/attachment_helper.rb"
-			],
-			[
-				"configyml",
-				"config/database.yml"
-			],
-			[
-				"blogcss",
-				"app/assets/stylesheets/blogs.css.scss"
-			],
-			[
-				"aincss",
-				"app/assets/stylesheets/main.css.scss"
-			],
-			[
-				"broadcon",
-				"app/controllers/broadcasts_controller.rb"
-			],
-			[
-				"tip",
-				"app/assets/stylesheets/_tipsy.css"
-			],
-			[
-				"pla",
-				"app/views/stations/_playlist.html.erb"
-			],
-			[
-				"appcon",
-				"app/controllers/application_controller.rb"
-			],
-			[
-				"sesscon",
-				"app/controllers/sessions_controller.rb"
-			],
-			[
-				"readd",
-				"db/migrate/20120707002620_readd_to_stations_in_last_week.rb"
-			],
-			[
-				"z",
-				"app/assets/javascripts/z_keyboard.js"
-			],
-			[
-				"broadrb",
-				"app/models/broadcast.rb"
-			],
-			[
-				"broarb",
-				"app/models/broadcast.rb"
-			],
-			[
-				"songex",
-				"lib/extensions/song_extensions.rb"
-			],
-			[
-				"soncon",
-				"app/controllers/songs_controller.rb"
-			],
-			[
-				"broac",
-				"app/controllers/broadcasts_controller.rb"
-			],
-			[
-				"appht",
-				"app/views/layouts/application.html.erb"
-			],
-			[
-				"usercon",
-				"app/controllers/users_controller.rb"
-			],
-			[
-				"sess",
-				"app/controllers/sessions_controller.rb"
-			],
-			[
-				"broacon",
-				"app/controllers/broadcasts_controller.rb"
-			],
-			[
-				"blco",
-				"app/controllers/blogs_controller.rb"
-			],
-			[
-				"review",
-				"app/views/blogs/_review.html.erb"
-			],
-			[
-				"artcon",
-				"app/controllers/artists_controller.rb"
-			],
-			[
-				"artocn",
-				"app/controllers/registrations_controller.rb"
-			],
-			[
-				"blocon",
-				"app/controllers/blogs_controller.rb"
-			],
-			[
-				"stacon",
-				"app/controllers/stations_controller.rb"
-			],
-			[
-				"statrb",
-				"app/models/station.rb"
-			],
-			[
-				"followht",
-				"app/views/stations/_follow.html.erb"
-			],
-			[
-				"broadc",
-				"app/models/broadcast.rb"
-			],
-			[
-				"folorb",
-				"app/models/follow.rb"
-			],
-			[
-				"follow",
-				"app/views/stations/_follow.html.erb"
-			],
-			[
-				"stathtml",
-				"app/views/stations/_station.html.erb"
-			],
-			[
-				"inde",
-				"app/views/stations/index.html.erb"
-			],
-			[
-				"starb",
-				"app/models/station.rb"
-			],
-			[
-				"appjs",
-				"app/assets/javascripts/application.js"
-			],
-			[
-				"routinjs",
-				"app/assets/javascripts/routing.js"
 			],
 			[
 				"func",
 				"app/assets/javascripts/__functions.js"
 			],
 			[
-				"musi",
-				"app/assets/javascripts/musicevents.js"
+				"songscs",
+				"app/assets/stylesheets/base/songs.css.scss"
 			],
 			[
-				"lisnrb",
-				"app/models/listen.rb"
-			],
-			[
-				"listencon",
-				"app/controllers/listens_controller.rb"
-			],
-			[
-				"songrb",
-				"app/models/song.rb"
-			],
-			[
-				"apph",
+				"apphtml",
 				"app/views/layouts/application.html.erb"
 			],
 			[
-				"estim",
-				"db/migrate/20120701235950_estimate_play_counts.rb"
+				"maincs",
+				"app/assets/stylesheets/base/main.css.scss"
 			],
 			[
-				"addplay",
-				"db/migrate/20120701235858_add_play_count_to_songs.rb"
+				"routjs",
+				"app/assets/javascripts/routing.js"
 			],
 			[
-				"envi",
-				"config/environment.rb"
+				"rout",
+				"config/routes.rb"
 			],
 			[
-				"strinrb",
-				"lib/extensions/string.rb"
-			],
-			[
-				"apprb",
-				"config/application.rb"
-			],
-			[
-				"gen",
-				"app/models/genre.rb"
-			],
-			[
-				"genrb",
-				"app/models/genre.rb"
-			],
-			[
-				"update",
-				"db/migrate/20120701220549_update_genres.rb"
-			],
-			[
-				"osncss",
-				"app/assets/stylesheets/global/songs.css.scss"
+				"gem",
+				"Gemfile"
 			],
 			[
 				"songht",
 				"app/views/songs/_song.html.erb"
 			],
 			[
-				"folowjs",
-				"app/views/follows/_follow.js.erb"
+				"action",
+				"app/views/shared/_actions.html.erb"
 			],
 			[
-				"folowht",
-				"app/views/stations/_follow.html.erb"
+				"ap",
+				"app/helpers/application_helper.rb"
 			],
 			[
-				"boil",
-				"app/assets/stylesheets/global/_boilerplate.css"
+				"show",
+				"app/views/users/show.html.erb"
 			],
 			[
-				"zero",
-				"vendor/assets/javascripts/ZeroClipboard.js"
+				"artistsht",
+				"app/views/stations/_artists.html.erb"
 			],
 			[
-				"modalcss",
-				"app/assets/stylesheets/global/_modal.css.scss"
+				"music",
+				"app/assets/javascripts/_musicplayer.js"
 			],
 			[
-				"new",
-				"app/views/sessions/_new_form.html.erb"
+				"sonrb",
+				"app/models/song.rb"
 			],
 			[
-				"apht",
-				"app/views/layouts/application.html.erb"
+				"statht",
+				"app/views/stations/_station.html.erb"
 			],
 			[
-				"roujs",
-				"app/assets/javascripts/routing.js"
+				"stacss",
+				"app/assets/stylesheets/base/stations.css.scss"
 			],
 			[
-				"fun",
-				"app/assets/javascripts/__functions.js"
-			],
-			[
-				"singl",
-				"app/views/layouts/single.html.erb"
-			],
-			[
-				"formcs",
-				"app/assets/stylesheets/global/forms.css.scss"
-			],
-			[
-				"addsongcoun",
-				"db/migrate/20120701004527_add_songs_count_to_artists.rb"
-			],
-			[
-				"authorb",
-				"app/models/author.rb"
-			],
-			[
-				"count",
-				"db/migrate/20120701005357_count_songs_by_artists.rb"
-			],
-			[
-				"art",
-				"app/models/artist.rb"
-			],
-			[
-				"mixcss",
-				"app/assets/stylesheets/global/_mixins.css.scss"
-			],
-			[
-				"mixin",
-				"app/assets/stylesheets/global/_mixins.css.scss"
+				"soncss",
+				"app/assets/stylesheets/base/songs.css.scss"
 			],
 			[
 				"soncs",
-				"app/assets/stylesheets/global/songs.css.scss"
+				"app/assets/stylesheets/base/songs.css.scss"
 			],
 			[
-				"mainc",
-				"app/assets/stylesheets/global/main.css.scss"
+				"main",
+				"app/assets/javascripts/main.js"
 			],
 			[
-				"maicon",
+				"staht",
+				"test/unit/helpers/stations_helper_test.rb"
+			],
+			[
+				"sonht",
+				"app/views/songs/_song.html.erb"
+			],
+			[
+				"screenc",
+				"app/assets/stylesheets/media/screen.css.scss"
+			],
+			[
+				"routin",
+				"app/assets/javascripts/routing.js"
+			],
+			[
+				"bread",
+				"app/views/shared/_breadcrumbs.html.erb"
+			],
+			[
+				"soncon",
+				"app/controllers/songs_controller.rb"
+			],
+			[
+				"review",
+				"app/views/blogs/_review.html.erb"
+			],
+			[
+				"index",
+				"app/views/main/index.html.erb"
+			],
+			[
+				"showht",
+				"app/views/artists/show.html.erb"
+			],
+			[
+				"yet",
+				"config/yetting.yml"
+			],
+			[
+				"play",
+				"app/views/stations/_playlist.html.erb"
+			],
+			[
+				"attach",
+				"lib/extensions/attachment_helper.rb"
+			],
+			[
+				"son",
+				"app/models/song.rb"
+			],
+			[
+				"pla",
+				"app/views/stations/_playlist.html.erb"
+			],
+			[
+				"stacon",
+				"app/controllers/stations_controller.rb"
+			],
+			[
+				"maincon",
 				"app/controllers/main_controller.rb"
+			],
+			[
+				"musi",
+				"app/assets/javascripts/_musicplayer.js"
+			],
+			[
+				"userrb",
+				"app/models/user.rb"
+			],
+			[
+				"indexlis",
+				"db/migrate/20120720043206_add_index_on_listens.rb"
+			],
+			[
+				"redoin",
+				"db/migrate/20120720043118_redo_index.rb"
+			],
+			[
+				"plaht",
+				"app/views/stations/_playlist.html.erb"
+			],
+			[
+				"sess",
+				"app/controllers/sessions_controller.rb"
+			],
+			[
+				"usercon",
+				"app/controllers/users_controller.rb"
+			],
+			[
+				"sidebar",
+				"app/views/stations/_sidebar.html.erb"
+			],
+			[
+				"user",
+				"app/models/user.rb"
+			],
+			[
+				"statrb",
+				"app/models/station.rb"
+			],
+			[
+				"",
+				"app/assets/stylesheets/base/songs.css.scss"
+			],
+			[
+				"scre",
+				"app/assets/stylesheets/media/screen.css.scss"
+			],
+			[
+				"inde",
+				"app/views/main/index.html.erb"
+			],
+			[
+				"indexht",
+				"app/views/main/index.html.erb"
+			],
+			[
+				"stacs",
+				"app/assets/stylesheets/base/stations.css.scss"
+			],
+			[
+				"sonhtml",
+				"app/views/songs/_song.html.erb"
+			],
+			[
+				"bracon",
+				"app/controllers/broadcasts_controller.rb"
+			],
+			[
+				"bro",
+				"app/models/broadcast.rb"
+			],
+			[
+				"brorb",
+				"app/models/broadcast.rb"
+			],
+			[
+				"lisrb",
+				"app/models/listen.rb"
+			],
+			[
+				"broacon",
+				"app/controllers/broadcasts_controller.rb"
+			],
+			[
+				"folo",
+				"app/controllers/follows_controller.rb"
+			],
+			[
+				"musicevn",
+				"app/assets/javascripts/musicevents.js"
+			],
+			[
+				"mainj",
+				"app/assets/javascripts/main.js"
+			],
+			[
+				"musicpl",
+				"app/assets/javascripts/_musicplayer.js"
+			],
+			[
+				"mixi",
+				"app/assets/stylesheets/base/_mixins.css.scss"
+			],
+			[
+				"screen",
+				"app/assets/stylesheets/media/screen.css.scss"
+			],
+			[
+				"statcs",
+				"app/assets/stylesheets/base/stations.css.scss"
+			],
+			[
+				"creatuser",
+				"db/migrate/20111120050625_create_users.rb"
+			],
+			[
+				"routinjs",
+				"app/assets/javascripts/routing.js"
+			],
+			[
+				"autho",
+				"app/models/author.rb"
+			],
+			[
+				"apphe",
+				"app/helpers/application_helper.rb"
+			],
+			[
+				"newform",
+				"app/views/comments/_new_form.html.erb"
+			],
+			[
+				"sche",
+				"config/schedule.rb"
+			],
+			[
+				"abili",
+				"app/models/ability.rb"
+			],
+			[
+				"statcss",
+				"app/assets/stylesheets/base/stations.css.scss"
+			],
+			[
+				"artirb",
+				"app/models/artist.rb"
+			],
+			[
+				"authrb",
+				"app/models/author.rb"
+			],
+			[
+				"abil",
+				"app/models/ability.rb"
+			],
+			[
+				"proc",
+				"Procfile"
+			],
+			[
+				"rourb",
+				"config/routes.rb"
+			],
+			[
+				"apph",
+				"app/helpers/application_helper.rb"
+			],
+			[
+				"appcon",
+				"app/controllers/application_controller.rb"
+			],
+			[
+				"broarb",
+				"app/models/broadcast.rb"
+			],
+			[
+				"list",
+				"app/models/listen.rb"
+			],
+			[
+				"arirb",
+				"app/models/artist.rb"
+			],
+			[
+				"starb",
+				"app/models/station.rb"
+			],
+			[
+				"stanrb",
+				"app/models/station.rb"
+			],
+			[
+				"sluval",
+				"lib/extensions/slug_validator.rb"
+			],
+			[
+				"rake",
+				"lib/tasks/artists.rake"
+			],
+			[
+				"fix",
+				"lib/tasks/fix.rake"
+			],
+			[
+				"artirk",
+				"lib/tasks/artists.rake"
+			],
+			[
+				"staco",
+				"app/controllers/stations_controller.rb"
+			],
+			[
+				"updama",
+				"db/migrate/20120714010743_update_matching_songs.rb"
+			],
+			[
+				"musev",
+				"app/assets/javascripts/musicevents.js"
+			],
+			[
+				"blorb",
+				"app/models/blog.rb"
+			],
+			[
+				"screcss",
+				"app/assets/stylesheets/media/screen.css.scss"
+			],
+			[
+				"strb",
+				"public/fonts/Stratum1WebBold.woff"
+			],
+			[
+				"artrb",
+				"app/models/artist.rb"
+			],
+			[
+				"att",
+				"lib/extensions/attachment_helper.rb"
+			],
+			[
+				"atthe",
+				"lib/extensions/attachment_helper.rb"
+			],
+			[
+				"route",
+				"config/routes.rb"
+			],
+			[
+				"ama",
+				"config/amazon_s3.yml"
+			],
+			[
+				"givema",
+				"db/migrate/20120712084821_give_matching_id_to_nulls.rb"
+			],
+			[
+				"posrb",
+				"app/models/post.rb"
+			],
+			[
+				"blo",
+				"lib/tasks/blogs.rake"
+			],
+			[
+				"sched",
+				"config/schedule.rb"
+			],
+			[
+				"asdasd",
+				"db/migrate/20120712082541_add_default_to_asdasdasdsad.rb"
+			],
+			[
+				"sonr",
+				"app/models/song.rb"
+			],
+			[
+				"actionht",
+				"app/views/shared/_actions.html.erb"
+			],
+			[
+				"redobl",
+				"db/migrate/20120712072600_redo_blog_broadcasts.rb"
+			],
+			[
+				"boarrb",
+				"app/controllers/broadcasts_controller.rb"
+			],
+			[
+				"broaarb",
+				"app/models/broadcast.rb"
+			],
+			[
+				"updatebo",
+				"db/migrate/20120712062934_update_blog_broadcasts_count.rb"
+			],
+			[
+				"addblog",
+				"db/migrate/20120712062836_add_blog_broadcasts_count_to_songs.rb"
+			],
+			[
+				"addbro",
+				"db/migrate/20120426042436_add_broadcast_count_to_songs.rb"
+			],
+			[
+				"ge",
+				"Gemfile"
+			],
+			[
+				"listenrb",
+				"app/models/listen.rb"
+			],
+			[
+				"sonhtm",
+				"app/views/songs/_song.html.erb"
+			],
+			[
+				"broa",
+				"app/models/broadcast.rb"
+			],
+			[
+				"simila",
+				"db/migrate/20120712034245_update_songs_similar_songs.rb"
+			],
+			[
+				"addmatchin",
+				"db/migrate/20120712033258_add_matching_songs.rb"
+			],
+			[
+				"musieve",
+				"app/assets/javascripts/musicevents.js"
+			],
+			[
+				"musievent",
+				"app/assets/javascripts/musicevents.js"
+			],
+			[
+				"listcon",
+				"app/controllers/listens_controller.rb"
+			],
+			[
+				"sonex",
+				"lib/extensions/song_extensions.rb"
 			]
 		],
 		"width": 0.0
@@ -1381,6 +1239,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": false,
-	"side_bar_width": 174.0,
+	"side_bar_width": 330.0,
 	"status_bar_visible": true
 }
