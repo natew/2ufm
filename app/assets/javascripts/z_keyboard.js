@@ -29,8 +29,7 @@ function keyDown(e) {
       break;
     // Space
     case 32:
-      if (mp.isPlaying()) mp.toggle();
-      else mp.playSection(highlightedSong);
+      mp.toggle();
       e.preventDefault();
       break;
     // Enter

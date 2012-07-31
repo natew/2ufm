@@ -44,8 +44,8 @@ Fusefm::Application.routes.draw do
   match "/:id/features", :to => "artists#features", :as => "artist_features"
 
   # Root level stations access
-  match "/:id", :to => 'stations#show', :as => "station"
-  match "/:id", :to => 'stations#show', :as => "artist"
-  match "/:id", :to => 'stations#show', :as => "blog"
-  match "/:id", :to => 'stations#show', :as => "user"
+  match "/:id", :to => 'stations#show', :as => :station
+  match "/:id", :to => 'stations#show', :as => :artist
+  match "/:id", :to => 'stations#show', :as => :blog
+  match "/:id", :to => 'stations#show', :as => :user
 end

@@ -1,4 +1,10 @@
 namespace :songs do
+  task :upload_files => :environment do
+    Song.working.not_uploaded.each do |song|
+      song.get_file
+    end
+  end
+
   task :reset => :environment do
     songs = Song.update_all(processed:false)
   end

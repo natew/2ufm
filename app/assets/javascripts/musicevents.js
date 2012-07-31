@@ -61,15 +61,15 @@ w.on({
     if (mp.isOnPlayingPage() && !mp.getHasMoved()) {
       fn.log('scroll to song');
       var section    = $('#song-' + song.id),
-          sectionTop = section.offset().top,
+          sectionTop = section.offset().top - 160,
           sectionBot = sectionTop + section.height(),
           windowTop  = w.scrollTop(),
           windowBot  = windowTop + w.height();
 
-      if (sectionTop < (windowTop+60))
-        $('html,body').animate({scrollTop:(sectionTop - 80)}, 200);
+      if (sectionTop < (windowTop + 60))
+        $('html,body').animate({scrollTop:(sectionTop)}, 200);
       else if (sectionBot > windowBot)
-        $('html,body').animate({scrollTop:(sectionTop - 80)}, 200);
+        $('html,body').animate({scrollTop:(sectionTop)}, 200);
     }
   },
 

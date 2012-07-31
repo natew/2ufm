@@ -51,6 +51,7 @@ class Song < ActiveRecord::Base
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
   scope :working, where(processed: true, working: true)
+  scope :not_uploaded, where('songs.file_file_name is NULL')
   scope :newest, order('songs.created_at desc')
   scope :oldest, order('songs.published_at asc')
 
