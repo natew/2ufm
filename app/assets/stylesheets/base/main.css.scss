@@ -150,7 +150,7 @@ header {
 
 #navbar {
   position: fixed;
-  z-index: 100;
+  z-index: 40;
   top: $header-height;
   right: 0;
   bottom: 0;
@@ -162,6 +162,10 @@ header {
     display: block;
     position: relative;
     z-index: 1;
+
+    &.featured {
+      display: none;
+    }
 
     a {
       position: relative;
@@ -383,7 +387,7 @@ header #second-nav {
     width: 200px;
 
     &.disabled {
-      opacity: 0.8;
+      opacity: 0.4;
       a {pointer-events:none;}
     }
   }

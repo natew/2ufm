@@ -77,7 +77,7 @@
             <%= link_to "j", '', :id => 'player-invite', :class => 'player-invite button pictos clipboard tip-n control', :title => 'Permalink', 'data-hover' => 'j', 'data-click' => '3'  %>
             <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control popup', :title => 'Share on Facebook', 'data-dimensions' => '800,400'  %>
             <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
-            <%= link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite button tip-n control pictos', :title => 'Favorite'  %>
+            <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite button tip-n control pictos', :title => 'Favorite'  %>
           </div>
         </div>
       </div>
@@ -115,6 +115,13 @@
             <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
             <%= link_to '?', '#nav-about', :class => "pictos nav" %>
           <% end %>
+        </section>
+
+        <section class="featured">
+          <h2>Top Stations</h2>
+          <div class="stations">
+            <%= render_stations @top_stations, :nofollow => true %>
+          </div>
         </section>
       </div>
 

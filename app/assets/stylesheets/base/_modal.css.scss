@@ -23,15 +23,17 @@
 
   &.shown {
     opacity: 1;
-    top: 86px;
+    top: 50px;
   }
 
   .half {
     width: 45%;
   }
 
-  h3 {
-    font-size: 22px;
+  h2, h3 {
+    color: #000;
+    font-size: 28px;
+    font-weight: 300;
     margin: 0 0 10px 0;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
@@ -43,10 +45,12 @@
 
   h4 {
     font-size: 20px;
+    font-weight: 300;
   }
 
   p {
     font-size: 14px;
+    font-weight: 300;
   }
 }
 

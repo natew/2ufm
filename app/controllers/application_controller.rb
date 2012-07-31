@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :do_page_request, :get_counts
+  before_filter :do_page_request, :get_counts, :get_top_stations
   layout :set_layout
 
   def not_found
@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def get_top_stations
+    @top_stations = Station.has_parent.order('follows_count desc').limit(15)
+  end
 
   def do_page_request
     logger.debug 'ACCEPT: ' + request.headers['HTTP_ACCEPT']

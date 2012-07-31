@@ -6,7 +6,6 @@ class MainController < ApplicationController
     # Sidebar Stations
     @blog_stations = Station.blog_station.order('follows_count desc').limit(4)
     @artist_stations = Station.artist_station.order('follows_count desc').limit(8)
-    @top_stations = Station.has_parent.order('follows_count desc').limit(5)
 
     if user_signed_in?
       @user_station = Station.current_user_station
