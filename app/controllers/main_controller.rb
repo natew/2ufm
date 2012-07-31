@@ -1,25 +1,13 @@
 class MainController < ApplicationController
   def index
-    # Promo
-    @promos = Station.blog_station.limit(4)
-
-    # Sidebar Stations
-    @blog_stations = Station.blog_station.order('follows_count desc').limit(4)
-    @artist_stations = Station.artist_station.order('follows_count desc').limit(8)
+    @just_in_station = Station.newest
+    @just_in_songs = Song.playlist_order_published(current_user)
 
     if user_signed_in?
       @user_station = Station.current_user_station
       @user_songs = current_user.following_songs
       @has_songs = true if @user_songs.size
       @user_stations = current_user.stations.order('stations.title asc')
-    else
-      @new = Station.newest
-      @new_songs = Song.playlist_order_published(current_user)
-    end
-
-    unless @has_songs
-      @just_in_station = Station.newest
-      @just_in_songs = Song.playlist_order_published(current_user)
     end
 
     respond_to do |format|

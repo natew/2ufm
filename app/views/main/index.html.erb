@@ -2,8 +2,9 @@
 
     <div class="whole nav-container">
       <h2 class="nav-menu">
-        <%=link_to 'Music feed', '#my-feed', :class => 'control active' %>
+        <%=link_to 'My feed', '#my-feed', :class => 'control active' %>
         <%=link_to 'My stations', '#my-stations', :class => 'control' %>
+        <%=link_to 'Just in', '#just-in', :class => 'control' %>
       </h2>
 
       <div id="my-feed" class="section  active">
@@ -19,6 +20,10 @@
         <div class="stations">
           <%= render_stations @user_stations %>
         </div>
+      </div>
+
+      <div id="just-in" class="section">
+        <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
       </div>
     </div>
 
