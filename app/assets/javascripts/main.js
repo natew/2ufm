@@ -313,14 +313,14 @@ function setNavActive(page) {
 
 // Reads URL parameters for ?page=X and returns X
 function getPage() {
-  var page = window.location.search.match(/page=([0-9]+)/);
+  var page = window.location.search.match(/p=([0-9]+)/);
   return page ? parseInt(page[1],10) : 1;
 }
 
 function updatePageURL(page) {
   var url = window.location.href.replace(/#.*/,''),
-      page = 'page=' + page,
-      page_regex = /page=[0-9]+/,
+      page = 'p=' + page,
+      page_regex = /p=[0-9]+/,
       hash = window.location.hash;
 
   // Replace old page
@@ -348,7 +348,7 @@ function nextPage(link, callback) {
     $.ajax({
       url: mp.getPage(),
       type: 'get',
-      data: 'id=' + id + '&page=' + scrollPage,
+      data: 'id=' + id + '&p=' + scrollPage,
       headers: {
         Accept: "text/page; charset=utf-8",
         "Content-Type": "text/page; charset=utf-8"

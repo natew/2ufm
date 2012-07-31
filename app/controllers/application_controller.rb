@@ -31,13 +31,13 @@ class ApplicationController < ActionController::Base
       elsif id == '3'
         dont_paginate = true
         @p_station = Station.current_user_station
-        @p_songs = current_user.following_songs(params[:page].to_i * Yetting.per, Yetting.per)
+        @p_songs = current_user.following_songs(params[:p].to_i * Yetting.per, Yetting.per)
       else
         @p_station = Station.find_by_slug(id)
         @p_songs = @p_station.songs.playlist_order_broadcasted(current_user)
       end
 
-      @p_songs = @p_songs.limit_page(params[:page]) unless dont_paginate
+      @p_songs = @p_songs.limit_page(params[:p]) unless dont_paginate
 
       if @p_songs.count > 0
         render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs, :partial => true }

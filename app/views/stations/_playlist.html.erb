@@ -4,7 +4,7 @@
   part_or_nolim   = partial || nolimit
   station       ||= Station.new
 	id              = station.id || 0
-  page            = (params[:page] || 1).to_i
+  page            = (params[:p] || 1).to_i
   per           ||= Yetting.per
   songs         ||= station.songs.playlist_order_broadcasted(current_user)
   songs           = songs.limit_full(page, per) unless part_or_nolim
