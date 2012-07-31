@@ -18,7 +18,7 @@ var mp = (function() {
       playingPage,
       smReady = false,
       delayStart = false,
-      volume = 100,
+      volume = $.cookie('volume') || $.cookie('volume', 100),
       time = 0,
       autoPlay = false,
       hasMoved = false;
@@ -243,10 +243,12 @@ var mp = (function() {
       if (volume == 100) {
         pl.volume.html('<');
         volume = 0;
+        $.cookie('volume', volume);
         this.setVolume();
       } else {
         pl.volume.html('>');
         volume = 100;
+        $.cookie('volume', volume);
         this.setVolume();
       }
     },

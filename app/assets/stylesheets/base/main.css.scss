@@ -77,18 +77,6 @@ header {
   border-bottom: 1px solid $header-dark;
   @include box-sizing(border-box);
   @include box-shadow(0 0 14px rgba(0,0,0,.5));
-  @include linear-gradient($header-light, $header-color);
-
-  &:before {
-    content: "";
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: rgba(255,255,255,0.2);
-  }
 
   &:after {
     visibility: visible;
@@ -98,8 +86,8 @@ header {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: rgba(0,0,0,0.15);
+    height: 1px;
+    background: rgba(255,255,255,0.15);
   }
 
   h1 {

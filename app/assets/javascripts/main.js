@@ -128,7 +128,7 @@ $(function() {
   // Page load
   $('.next-page').live('click',function(e) {
     nextPage(this);
-  })
+  });
 
   // Player controls
   mpClick('#player-play', 'toggle');
