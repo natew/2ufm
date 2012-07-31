@@ -6,7 +6,7 @@
 -%>
 
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %>">
-  <a class="song-art cover-<%= cover %>" href="/amazon/">
+  <a class="song-art cover-<%= cover %>" href="/amazon/<%= song.id %>">
     <%= image_tag song.resolve_image(cover) %>
   </a>
 

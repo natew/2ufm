@@ -346,7 +346,7 @@ function nextPage(link, callback) {
     loadingPage = true;
     scrollPage = parseInt(page,10) + 1;
     $.ajax({
-      url: window.location.href,
+      url: mp.getPage(),
       type: 'get',
       data: 'id=' + id + '&page=' + scrollPage,
       headers: {

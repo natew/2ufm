@@ -399,6 +399,10 @@ var mp = (function() {
       }
     },
 
+    getPage: function () {
+      return curPage;
+    },
+
     getListenUrl: function() {
       return listenURL;
     },
