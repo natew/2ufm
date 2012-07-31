@@ -1,10 +1,3 @@
-<div class="whole promo">
-  <h2>Featured Stations</h2>
-  <div class="shelf">
-    <%= render :partial => 'stations/promo', :collection => @promos %>
-  </div>
-</div>
-
 <%- if user_signed_in? -%>
 
     <div class="whole nav-container">
@@ -32,8 +25,8 @@
 <%- else -%>
 
   <div class="whole">
-    <h2>Todays top songs</h2>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>
+    <h2>Just in</h2>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
   </div>
 
 <%- end -%>

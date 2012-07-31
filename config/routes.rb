@@ -1,7 +1,7 @@
 Fusefm::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  root :to => 'songs#fresh'
+  root :to => 'main#index'
 
   # Redirects
   match "/stations/:id", :to => redirect("/%{id}")
@@ -23,7 +23,6 @@ Fusefm::Application.routes.draw do
   resources :comments, :only => [:create]
   resources :listens, :only => [:create, :show]
 
-  match "/songs-new", :to => "songs#fresh"
   match "/l/:id", :to => "listens#show"
   match "/songs/:id", :to => "songs#failed", :as => :post
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post

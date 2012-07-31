@@ -32,15 +32,6 @@ class SongsController < ApplicationController
     end
   end
 
-  def fresh
-    @station = Station.newest
-    @songs = Song.playlist_order_published(current_user)
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def failed
     @song = Song.find(params[:id])
 

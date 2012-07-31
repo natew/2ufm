@@ -18,8 +18,8 @@ class MainController < ApplicationController
     end
 
     unless @has_songs
-      @popular = Station.popular
-      @popular_songs = Song.playlist_order_rank(current_user)
+      @just_in_station = Station.newest
+      @just_in_songs = Song.playlist_order_published(current_user)
     end
 
     respond_to do |format|
