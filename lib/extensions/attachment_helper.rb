@@ -22,7 +22,6 @@ module AttachmentHelper
         options[:path]           ||= attachment_path
         options[:storage]        ||= :s3
         options[:s3_credentials] ||= File.join(Rails.root, 'config', 'amazon_s3.yml')
-        options[:s3_permissions] ||= :public
 
         # Use s3 in production
         if Rails.env.production?
