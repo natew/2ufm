@@ -114,7 +114,6 @@ class Station < ActiveRecord::Base
   private
 
   def generate_parent_station_slug
-    return if !get_parent
     get_parent.station_slug = slug
     get_parent.save
   end
