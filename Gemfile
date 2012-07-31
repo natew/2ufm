@@ -10,7 +10,6 @@ gem 'bourbon'
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'jquery-rails'
-gem 'fog'
 
 # Users
 gem 'devise'
@@ -18,7 +17,7 @@ gem 'cancan'
 gem 'aws-ses', '~> 0.4.4', :require => 'aws/ses'
 
 # Facebook
-gem 'koala'
+# gem 'koala'
 
 # Admin
 gem 'rails_admin'
