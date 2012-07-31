@@ -10,6 +10,7 @@ gem 'bourbon'
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'jquery-rails'
+gem 'fog'
 
 # Users
 gem 'devise'
