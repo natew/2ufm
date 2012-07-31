@@ -203,7 +203,8 @@ class Song < ActiveRecord::Base
   end
 
   def file_url
-    self.file.present? ? self.file.url : absolute_url || url
+    #self.file.present? ? self.file.url : absolute_url || url
+    absolute_url || url
   end
 
   def original_artists
