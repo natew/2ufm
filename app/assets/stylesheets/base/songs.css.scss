@@ -186,7 +186,7 @@ section.active .play-button {
     }
 
     h1 {
-      margin: -2px 140px + $song-art 0 $play-button-size + $song-pad;
+      margin: -2px 140px + $song-art -10px $play-button-size + $song-pad;
       z-index: 12;
       line-height: 1em;
       font-weight: 400;
@@ -462,7 +462,12 @@ section.active .play-button {
       float: left;
       margin: 0 12px 0 0;
     }
-    time { display: none; }
+
+    time {
+      display: inline-block;
+      float: left;
+      margin: 4px 0 0;
+    }
   }
 
   .play-button {top: 20px; left: 20px;}
