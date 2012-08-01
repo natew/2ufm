@@ -720,6 +720,12 @@ class Song < ActiveRecord::Base
     self.match_name = get_match_name
   end
 
+  def report_failure
+    self.failures = failures.next
+    self.working = false if failures > 10
+    self.save
+  end
+
   private
 
   def soundcloud_key

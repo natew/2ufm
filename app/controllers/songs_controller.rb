@@ -12,8 +12,8 @@ class SongsController < ApplicationController
   def show
     # Song and song playlist
     search_type = params[:id].is_numeric? ? :id : :slug
-    @song = Song.where(search_type => params[:id]).first
-    @song_playlist = Song.where(:matching_id => @song.matching_id).playlist_order_published(current_user) || not_found
+    @song = Song.where(search_type => params[:id]).first || not_found
+    @song_playlist = Song.where(:matching_id => @song.matching_id).playlist_order_published(current_user)
     @primary = @song
 
     # Extra info
@@ -33,17 +33,9 @@ class SongsController < ApplicationController
   end
 
   def failed
-    @song = Song.find(params[:id])
-
-    if @song
-      @song.failures += 1
-      @song.working = false if @song.failures > 10
-      @song.save
-    end
-
-    respond_to do |format|
-      format.html
-    end
+    song = Song.find(params[:id])
+    song.report_failure if song
+    head 200
   end
 
   def create
