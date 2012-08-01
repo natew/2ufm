@@ -100,10 +100,9 @@
 
         <%- if user_signed_in? -%>
         <section class="nav-user">
-          <h1>Me</h1>
           <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
           <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
-          <%= link_to 'My Profile', current_user, :id => 'nav-profile' %>
+          <%= link_to 'Profile', current_user, :id => 'nav-profile' %>
         </section>
         <%- end -%>
 
