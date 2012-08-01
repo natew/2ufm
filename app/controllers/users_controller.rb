@@ -1,5 +1,15 @@
 class UsersController < ApplicationController
-  before_filter :load_user, :except => [:create, :new, :activate, :index, :account]
+  before_filter :load_user, :except => [:create, :new, :activate, :index, :account, :feed, :stations]
+
+  def feed
+    @user_station = Station.current_user_station
+    @user_songs = current_user.following_songs
+    @has_songs = true if @user_songs.size
+  end
+
+  def stations
+    @user_stations = current_user.stations.order('stations.title asc')
+  end
 
   def index
     @users = User.page(params[:page]).per(25)

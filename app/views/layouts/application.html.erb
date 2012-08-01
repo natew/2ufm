@@ -98,30 +98,40 @@
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
         <% end -%>
 
-        <section>
-          <%= link_to 'Home', '/',   :id => 'nav-home' %>
-          <%= link_to 'Popular', '/songs',   :id => 'nav-songs' %>
+        <%- if user_signed_in? -%>
+        <section class="nav-user">
+          <h1>Me</h1>
+          <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
+          <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
+          <%= link_to 'My Profile', current_user, :id => 'nav-profile' %>
+        </section>
+        <%- end -%>
+
+        <section class="nav-general">
+          <h1>Browse</h1>
+          <%= link_to 'Just in', '/', :id => 'nav-home' %>
+          <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
           <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
-          <%= link_to 'Stations', '/blogs',     :id => 'nav-blogs' %>
+          <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
         </section>
 
-        <section class="right">
+        <section class="nav-extra">
+          <h1>Account</h1>
           <% if user_signed_in? %>
-            <%= link_to 'Profile', current_user, :id => 'nav-my-station' %>
-            <% nav_class = user_signed_in? ? 'nav' : 'modal' %>
-            <%= link_to 'y', '#'+nav_class+'-user', :class => "pictos #{nav_class}" + (user_signed_in? ? '' : ' restricted') %>
+            <%= link_to "Manage", '/users/edit' %>
+            <%= link_to 'Leave', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
           <% else %>
-            <%= link_to 'Log in', '/login', :class => 'restricted'  %>
+            <%= link_to 'Login', '/login', :class => 'restricted'  %>
             <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
-            <%= link_to '?', '#nav-about', :class => "pictos nav" %>
           <% end %>
         </section>
 
-        <section class="featured">
-          <h2>Top Stations</h2>
-          <div class="stations">
-            <%= render_stations @top_stations, :nofollow => true %>
-          </div>
+        <section class="nav-extra">
+          <h1>About</h1>
+          <%= link_to "Help", "/help" %>
+          <%= link_to "About Us", "/about" %>
+          <%= link_to "Privacy", "/privacy" %>
+          <%= link_to "Contact", "/contact" %>
         </section>
       </div>
 
@@ -149,18 +159,10 @@
   <div id="nav-user" class="pop-menu">
     <% if user_signed_in? %>
       <span id="current_user" data-id="<%= current_user.id %>"></span>
-      <%= link_to "Account", '/users/edit' %>
-      <%= link_to 'Log Out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+
     <% else %>
       <%= link_to 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
     <% end %>
-  </div>
-
-  <div id="nav-about" class="pop-menu">
-    <%= link_to "Help", "/about" %>
-    <%= link_to "About Us", "/about" %>
-    <%= link_to "Privacy", "/about" %>
-    <%= link_to "Contact", "/about" %>
   </div>
 
   <div id="player-playlist" class="pop-menu">

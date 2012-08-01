@@ -1,37 +1,4 @@
-<%- if user_signed_in? -%>
-
-    <div class="whole nav-container">
-      <h2 class="nav-menu">
-        <%=link_to 'My feed', '#my-feed', :class => 'control active' %>
-        <%=link_to 'My stations', '#my-stations', :class => 'control' %>
-        <%=link_to 'Just in', '#just-in', :class => 'control' %>
-      </h2>
-
-      <div id="my-feed" class="section  active">
-        <%- if @has_songs -%>
-          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :nolimit => true } %>
-        <%- else -%>
-          <p class="attention"><strong>Your feed is empty!</strong> Enjoy todays most popular songs until you start following some stations!</p>
-          <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :nolimit => true } %>
-        <%- end -%>
-      </div>
-
-      <div id="my-stations" class="section">
-        <div class="stations">
-          <%= render_stations @user_stations %>
-        </div>
-      </div>
-
-      <div id="just-in" class="section">
-        <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
-      </div>
-    </div>
-
-<%- else -%>
-
   <div class="whole">
     <h2>Just in</h2>
     <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
   </div>
-
-<%- end -%>

@@ -24,6 +24,10 @@ Fusefm::Application.routes.draw do
   resources :listens, :only => [:create, :show]
 
   match "/l/:id", :to => "listens#show"
+  match "/feed", :to => "users#feed"
+  match "/stations", :to => "users#stations"
+  match "/popular", :to => "songs#index"
+  match "/fresh", :to => "songs#fresh"
   match "/songs/:id", :to => "songs#failed", :as => :post
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post

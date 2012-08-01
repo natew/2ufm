@@ -3,13 +3,6 @@ class MainController < ApplicationController
     @just_in_station = Station.newest
     @just_in_songs = Song.playlist_order_published(current_user)
 
-    if user_signed_in?
-      @user_station = Station.current_user_station
-      @user_songs = current_user.following_songs
-      @has_songs = true if @user_songs.size
-      @user_stations = current_user.stations.order('stations.title asc')
-    end
-
     respond_to do |format|
       format.html
     end

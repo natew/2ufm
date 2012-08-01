@@ -150,9 +150,22 @@ header {
     display: block;
     position: relative;
     z-index: 1;
+    margin: 0 0 30px 0;
 
-    &.featured {
-      display: none;
+    &.nav-extra {
+      a {
+        font-size: 16px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+    }
+
+    h1 {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #999;
+      padding: 0 10px;
+      margin-bottom: 8px;
     }
 
     a {
@@ -162,7 +175,7 @@ header {
       color: $navbar-link;
       font-weight: 300;
       font-size: 22px;
-      padding: 10px 8px;
+      padding: 8px;
       margin: 0 0 12px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);

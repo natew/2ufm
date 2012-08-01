@@ -1,0 +1,7 @@
+<div class="whole">
+  <%- if @has_songs -%>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :nolimit => true } %>
+  <%- else -%>
+    <p class="attention"><strong>Your feed is empty!</strong> Follow some users, artists or blogs to fill up your feed!</p>
+  <%- end -%>
+</div>
