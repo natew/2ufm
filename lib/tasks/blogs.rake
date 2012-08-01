@@ -1,3 +1,5 @@
+STDOUT.sync = true
+
 namespace :blogs do
   task :list => :environment do
     Blog.all.each do |blog|
@@ -42,8 +44,8 @@ namespace :blogs do
   namespace :update do
     task :all => :environment do
       puts "Updating blogs at #{Time.now.to_s(:long)}"
-      Blog.all.each do |blog|
-        puts "Updating #{blog.name}"
+      Blog.all.each_with_index do |blog, i|
+        print i + " "
         blog.delayed_get_new_posts
       end
     end

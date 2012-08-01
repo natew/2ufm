@@ -156,7 +156,7 @@ class Blog < ActiveRecord::Base
 
   def delayed_get_new_posts
     if Rails.application.config.delay_jobs
-      delay.get_new_posts
+      delay(:priority => 5).get_new_posts
     else
       get_new_posts
     end
