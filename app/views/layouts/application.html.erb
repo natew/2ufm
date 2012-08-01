@@ -107,7 +107,6 @@
         <%- end -%>
 
         <section class="nav-general">
-          <h1>Browse</h1>
           <%= link_to 'Just in', '/', :id => 'nav-home' %>
           <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
           <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
@@ -123,14 +122,7 @@
             <%= link_to 'Login', '/login', :class => 'restricted'  %>
             <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
           <% end %>
-        </section>
-
-        <section class="nav-extra">
-          <h1>About</h1>
-          <%= link_to "Help", "/help" %>
-          <%= link_to "About Us", "/about" %>
-          <%= link_to "Privacy", "/privacy" %>
-          <%= link_to "Contact", "/contact" %>
+          <%= link_to "About", "#" %>
         </section>
       </div>
 
