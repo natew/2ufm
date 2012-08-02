@@ -332,6 +332,7 @@ function updatePageURL(page) {
 
   url += hash;
   window.history.replaceState(null,document.title,url);
+  mp.updatePage(window.location.pathname + window.location.search);
 }
 
 function nextPage(link, callback) {

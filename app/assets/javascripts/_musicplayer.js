@@ -383,9 +383,15 @@ var mp = (function() {
 
   return {
 
+    updatePage: function updatePage(url) {
+      fn.log("Updating page url", url);
+      if (curPage == playingPage) playingPage = url;
+      curPage = url;
+    },
+
     setPage: function setPage(url) {
       curPage = url;
-      if (isPlaying && (curPage == playingPage || curPage.split('/')[1] == 'songs')) {
+      if (isPlaying && curPage == playingPage) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
         if (curSection) player.setCurSection('playing');
