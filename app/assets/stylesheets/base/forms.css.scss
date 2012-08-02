@@ -172,6 +172,15 @@ button {
     padding: 0 4px;
   }
 
+  &.grey {
+    border-color: #555;
+    @include linear-gradient(#888,#555);
+
+    &:hover {
+      @include linear-gradient(#aaa,#777);
+    }
+  }
+
   /* Keep above .remove, .remove.first-hover needs precedence */
   &.remove:hover {
     @include linear-gradient(#c40e0e, #970808);

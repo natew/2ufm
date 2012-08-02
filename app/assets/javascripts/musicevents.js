@@ -29,6 +29,8 @@ w.on({
         text = encodeURIComponent('Listening to ' + (mp.getTitle() || 'nothin')),
         tweet = ['http://twitter.com/share?text='
                   , text
+                  , "&url="
+                  , url
                 ].join(''),
         facebook = ['https://www.facebook.com/sharer.php?u='
                   , url

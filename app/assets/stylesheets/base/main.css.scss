@@ -185,19 +185,20 @@ header {
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
-
-      &.active {
-        color: #fff;
-        background: rgba(0,0,0,0.2);
-      }
-
       &:hover {
         color: #fff;
-        padding-left: 15px;
+        background: $body-dark;
+        padding-left: 10px;
 
         &:before {
           display: none;
         }
+      }
+
+      &.active {
+        color: #fff;
+        background: $body-darker;
+        margin-right: -15px;
       }
     }
   }
@@ -231,7 +232,7 @@ header {
     @include border-bottom-right-radius(8px);
 
     a {
-      color: #888;
+      color: #aaa;
       text-decoration: none;
       float: left;
 
@@ -239,7 +240,7 @@ header {
         color: #fff;
 
         &.after:after {
-          color: #888;
+          color: #aaa;
         }
       }
 
@@ -1042,7 +1043,7 @@ $announce-color: $heading-color;
 
   p {
     font-size: 14px;
-    margin: 4px 0;
+    margin: 8px 0 20px;
   }
 
   span.stats {
@@ -1058,7 +1059,7 @@ $announce-color: $heading-color;
   .title-nav {
     margin: 10px 0 0 -20px;
     padding: 8px 8px 6px 0;
-    background: $body-darker;
+    background: $body-dark;
     @include border-right-radius(8px);
 
     ul { margin-top: 14px; }

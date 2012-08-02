@@ -3,6 +3,15 @@
 }
 
 @media screen and (max-width: 920px) {
+  .whole .playlist-song section {
+    h1 {margin-right: 80px;}
+    .song-meta {right: 15px;}
+    .song-art {display: none;}
+  }
+
+  .whole .playlist-song section.active  {
+    .song-art {display: block;}
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -10,12 +19,6 @@
 
 @media screen and (max-width: 700px) {
   .promo div a {width: 48%;}
-
-  .whole .playlist-song section {
-    h1 { margin-right: 80px; }
-    .song-meta { right: 15px; }
-    .song-art { display: none; }
-  }
 }
 
 @media screen and (max-width: 480px) {
