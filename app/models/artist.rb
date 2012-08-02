@@ -68,6 +68,7 @@ class Artist < ActiveRecord::Base
   end
 
   def make_station
-    self.create_station(title:name)
+    station = self.create_station(title:name)
+    self.station_slug = station.slug
   end
 end
