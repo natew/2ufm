@@ -721,7 +721,7 @@ class Song < ActiveRecord::Base
   end
 
   def report_failure
-    self.failures = failures.next
+    self.failures = (failures || 0).next
     self.working = false if failures > 10
     self.save
   end
