@@ -132,7 +132,6 @@ $(function() {
 
   // Player controls
   mpClick('#player-play', 'toggle');
-  mpClick('#station-play', 'toggle');
   mpClick('#player-next', 'next');
   mpClick('#player-prev', 'prev');
   mpClick('#player-volume', 'volumeToggle');
