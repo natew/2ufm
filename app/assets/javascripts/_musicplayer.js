@@ -7,9 +7,11 @@ var mp = (function() {
       playlist,
       playlistID,
       playlistIndex,
+      curPlaylistUrl,
       curSection,
       curSongInfo,
       curSong,
+      maxIndex,
       listenURL,
       isPlaying = false,
       dragging_position = false,
@@ -97,6 +99,9 @@ var mp = (function() {
             playlist.songs[i].index = i;
           }
 
+          maxIndex = i;
+          curPlaylistUrl = curPage;
+
           // Callback
           w.trigger('mp:load', player.state());
           fn.log('loaded',playlist,playlistID);
@@ -154,6 +159,7 @@ var mp = (function() {
     },
 
     playSong: function playSong(index) {
+      fn.log("play song at", index);
       if (playlist) {
         playlistIndex = index;
         this.stop();
@@ -180,12 +186,16 @@ var mp = (function() {
     },
 
     next: function next() {
-      if (this.playSection(curSection.next())) return true;
+      // Next section, or next song, or next playlist
+      if (curSection) return this.playSection(curSection.next());
+      else if (curSongInfo.index < maxIndex) this.playSong(curSongInfo.index + 1);
       else return this.toPlaylist('next');
     },
 
     prev: function prev() {
-      if (this.playSection(curSection.prev())) return true;
+      // Prev section, or prev song, or prev playlist
+      if (curSection) return this.playSection(curSection.prev());
+      else if (curSongInfo.index > 0) this.playSong(curSongInfo.index - 1);
       else return this.toPlaylist('prev');
     },
 
@@ -502,6 +512,10 @@ var mp = (function() {
 
     getHasMoved: function() {
       return hasMoved;
+    },
+
+    curPlaylistUrl: function() {
+      return curPlaylistUrl;
     }
 
   };

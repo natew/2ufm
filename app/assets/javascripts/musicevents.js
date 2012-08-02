@@ -29,6 +29,8 @@ w.on({
         text = encodeURIComponent('Listening to ' + (mp.getTitle() || 'nothin')),
         tweet = ['http://twitter.com/share?text='
                   , text
+                  , "&url="
+                  , url
                 ].join(''),
         facebook = ['https://www.facebook.com/sharer.php?u='
                   , url
@@ -36,7 +38,6 @@ w.on({
                   , text
                 ].join('');
 
-    console.log(tweet, facebook);
     $('#player-invite-twitter').attr('href', tweet);
     $('#player-invite-facebook').attr('href', facebook);
 
@@ -55,7 +56,7 @@ w.on({
     // Update player info
     $('#player-invite-container').addClass('disabled');
     $('#player-artist-name').html(song.artist_name);
-    $('#player-song-name').html('<a href="' + song_url + '">' + song.name + '</a>');
+    $('#player-song-name').html('<a href="' + mp.curPlaylistUrl() + '">' + song.name + '</a>');
 
     // Scroll to song
     if (mp.isOnPlayingPage() && !mp.getHasMoved()) {

@@ -1,9 +1,7 @@
 <div class="title">
-  <div class="image cover-small">
-    <%= image_tag(@blog.image.url(:original)) %>
-  </div>
-
-  <h2><%= @blog.name %> <%= link_to '', @blog.url, :target => '_blank' %></h2>
+  <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
+  <h1><%= @blog.name %> </h1>
+  <p><%= link_to 'Visit this blog', @blog.url, :target => '_blank' %></p>
 
   <%= render :partial => 'shared/actions', :locals => { :station => @blog.station } %>
 </div>

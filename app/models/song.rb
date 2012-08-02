@@ -341,9 +341,9 @@ class Song < ActiveRecord::Base
             # Processed
             self.processed = true
 
-            logger.info "Processed and working!"
+            logger.info "Processed #{id} working!"
           else
-            logger.info "Processed (no information)"
+            logger.info "Processed #{id} (no information)"
           end
 
           # Save
@@ -721,7 +721,7 @@ class Song < ActiveRecord::Base
   end
 
   def report_failure
-    self.failures = failures.next
+    self.failures = (failures || 0).next
     self.working = false if failures > 10
     self.save
   end

@@ -85,6 +85,9 @@ var page = {
       });
     }
 
+    // Play station
+    mpClick('#station-play', 'toggle');
+
     // Reset page
     scrollPage = getPage();
     doneScrolling = false;

@@ -33,8 +33,8 @@ a:hover { color: $link-hover; }
 
 /* HEADING AND TEXT STYLES */
 
-h1 { font-size: 22px;  }
-h2 { font-size: 20px; }
+h1 { font-size: 26px; }
+h2 { font-size: 22px; }
 h3 { font-size: 18px; }
 h4 { font-size: 14px; }
 
@@ -60,6 +60,8 @@ h1, h2, h3, h4 {
     }
   }
 }
+
+h1 { font-weight:bold; }
 
 
 /* Header */
@@ -164,6 +166,7 @@ header {
 
     h1 {
       font-size: 12px;
+      font-weight: 300;
       text-transform: uppercase;
       color: #999;
       padding: 0 10px;
@@ -177,24 +180,25 @@ header {
       color: $navbar-link;
       font-weight: 300;
       font-size: 22px;
-      padding: 8px;
-      margin: 0 0 8px 0;
+      padding: 12px;
+      margin: 0 0 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
-
-      &.active {
-        color: #fff;
-        background: rgba(0,0,0,0.2);
-      }
-
       &:hover {
         color: #fff;
-        padding-left: 15px;
+        background: $body-dark;
+        padding-left: 10px;
 
         &:before {
           display: none;
         }
+      }
+
+      &.active {
+        color: #fff;
+        background: $body-darker;
+        margin-right: -15px;
       }
     }
   }
@@ -224,11 +228,11 @@ header {
     background: $body-dark;
     padding: 6px 20px;
     margin: -20px 20px 20px 0;
-    font-size: 11px;
+    font-size: 12px;
     @include border-bottom-right-radius(8px);
 
     a {
-      color: #888;
+      color: #aaa;
       text-decoration: none;
       float: left;
 
@@ -236,7 +240,7 @@ header {
         color: #fff;
 
         &.after:after {
-          color: #888;
+          color: #aaa;
         }
       }
 
@@ -565,7 +569,7 @@ header #second-nav {
       text-overflow: ellipsis;
       overflow: hidden;
       visibility: hidden;
-      margin: 3px 50px 0;
+      margin: 3px 20px 0;
       line-height: 18px;
 
       span {
@@ -586,7 +590,8 @@ header #second-nav {
 
       #player-artist-name {
         color: rgba(255,255,255,0.75);
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: bold;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -640,12 +645,12 @@ header #second-nav {
 
     #player-progress-bar {
       position: absolute;
-      top: 3px;
+      top: 2px;
       left: 30px;
       right: 43px;
       overflow: hidden;
       margin: 2px 0 0;
-      padding: 4px;
+      padding: 5px 4px;
       height: 0;
       border: 1px solid darken($header-color,10%);
       @include linear-gradient(darken($header-color,6%),$header-color);
@@ -678,7 +683,7 @@ header #second-nav {
         top: 0;
         left: 0;
         width: 0%;
-        height: 6px;
+        height: 8px;
         background: rgba(0,0,0,0.1);
         @include border-radius(12px);
       }
@@ -686,23 +691,8 @@ header #second-nav {
       #player-progress-position {
         z-index: 4;
         @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3), 0 0 2px rgba(0,0,0,0.4));
-        @include linear-gradient(lighten($primary-light,5%), $primary);
+        @include linear-gradient(lighten($progress-light,5%), $progress);
         @include border-right-radius(0);
-      }
-
-      #player-progress-waveform {
-        display: none !important;
-      }
-
-      canvas {
-        width: 98%;
-        height: 27px;
-        position: absolute;
-        top: -6px;
-        left: 1.8%;
-        opacity: 0.25;
-        z-index: 2;
-        display: block !important;
       }
     }
   }
@@ -808,7 +798,9 @@ header #second-nav {
   position: fixed;
   z-index: 1000;
   text-align: center;
-  background: orange;
+  background: #000;
+  color: #fff;
+  width: 100%;
   height: 38px;
   line-height: 2.9em;
   color: white;
@@ -1014,6 +1006,10 @@ $announce-color: $heading-color;
     float: left;
     margin: 0 15px 0 0;
 
+    &.medium {
+      width: 128px; height: 128px;
+    }
+
     img {
       height: 58px;
       width: 58px;
@@ -1025,39 +1021,17 @@ $announce-color: $heading-color;
     font-size: 38px;
   }
 
-  h2, p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 56%;
-  }
-
   a {
     text-decoration: none;
   }
 
-  h2 {
-    background: none;
-    margin: 5px 0 0;
-    padding: 0;
-    font-size: 22px;
-    display: inline-block;
-
-    &.icon {
-      clear: none;
-      float: left;
-      width: 60%;
-      margin: 0;
-    }
-  }
-
-  h3 {
-    font-size: 24px;
-    margin: 0 0 2px 0;
+  h1 {
+    margin-bottom: 0;
   }
 
   p {
     font-size: 14px;
-    margin: 4px 0 0;
+    margin: 8px 0 20px;
   }
 
   span.stats {
@@ -1071,19 +1045,24 @@ $announce-color: $heading-color;
   }
 
   .title-nav {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 5px;
-    right: 20px;
+    margin: 10px 0 0 -20px;
+    padding: 8px 8px 6px 0;
+    background: $body-dark;
+    @include border-right-radius(8px);
 
     ul { margin-top: 14px; }
     li {
       list-style: none;
       padding: 0;
-      margin-left: 6px;
+      margin-right: 6px;
       float: left;
       display: block;
+
+      &.right {
+        margin-left: 6px;
+        margin-right: 0;
+        float: right;
+      }
     }
   }
 }
@@ -1242,8 +1221,7 @@ ol.mp_list {
 
 .nav-container {
   .title .nav-menu {
-    margin: 5px 0 0 -8px;
-    width: 60%;
+    margin: 10px 0 0 -8px;
   }
 
   .nav-menu {
@@ -1267,6 +1245,7 @@ ol.mp_list {
       text-decoration: none;
       float: left;
       padding: 0 12px;
+      font-size: 18px;
       margin-left: -1px;
       border-left: 1px solid rgba(255,255,255,0.15);
       color: #ccc;
@@ -1277,17 +1256,12 @@ ol.mp_list {
 
       &.active {
         color: #fff;
+        font-weight: bold;
       }
 
       &:hover {
         color: $link-hover;
       }
-    }
-  }
-
-  nav.nav-menu {
-    a {
-      font-size: 16px;
     }
   }
 
