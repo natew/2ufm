@@ -213,7 +213,12 @@ section.active .play-button {
           a { color: #fff;
             &:hover { color: $link-hover; }
           }
-          em { font-style: normal; }
+
+          em {
+            font-weight: 300;
+            font-style: normal;
+            font-size: 14px;
+          }
         }
 
       }
