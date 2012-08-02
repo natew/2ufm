@@ -36,7 +36,6 @@ w.on({
                   , text
                 ].join('');
 
-    console.log(tweet, facebook);
     $('#player-invite-twitter').attr('href', tweet);
     $('#player-invite-facebook').attr('href', facebook);
 
