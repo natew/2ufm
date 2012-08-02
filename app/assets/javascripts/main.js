@@ -132,6 +132,7 @@ $(function() {
 
   // Player controls
   mpClick('#player-play', 'toggle');
+  mpClick('#station-play', 'toggle');
   mpClick('#player-next', 'next');
   mpClick('#player-prev', 'prev');
   mpClick('#player-volume', 'volumeToggle');
@@ -307,7 +308,7 @@ function getNavItems() {
 function setNavActive(page) {
   fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');
-  var newNavActive = (page == "/") ? navItems['/songs-new'] : navItems[page];
+  var newNavActive = navItems[page];
   if (newNavActive) navActive = newNavActive.addClass('active');
 }
 

@@ -341,9 +341,9 @@ class Song < ActiveRecord::Base
             # Processed
             self.processed = true
 
-            logger.info "Processed and working!"
+            logger.info "Processed #{id} working!"
           else
-            logger.info "Processed (no information)"
+            logger.info "Processed #{id} (no information)"
           end
 
           # Save

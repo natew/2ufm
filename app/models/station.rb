@@ -111,11 +111,13 @@ class Station < ActiveRecord::Base
     Broadcast.where('song_id = ? and station_id = ?', song_id, id).exists?
   end
 
-  private
-
   def generate_parent_station_slug
-    get_parent.station_slug = slug
-    get_parent.save
+    if get_parent
+      get_parent.station_slug = slug
+      get_parent.save
+    else
+      puts "No parent!"
+    end
   end
 
   def get_parent
