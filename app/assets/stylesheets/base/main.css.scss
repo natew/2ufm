@@ -180,8 +180,8 @@ header {
       color: $navbar-link;
       font-weight: 300;
       font-size: 22px;
-      padding: 8px;
-      margin: 0 0 8px 0;
+      padding: 12px;
+      margin: 0 0 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
