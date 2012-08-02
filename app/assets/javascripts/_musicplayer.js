@@ -7,6 +7,7 @@ var mp = (function() {
       playlist,
       playlistID,
       playlistIndex,
+      curPlaylistUrl,
       curSection,
       curSongInfo,
       curSong,
@@ -99,6 +100,7 @@ var mp = (function() {
           }
 
           maxIndex = i;
+          curPlaylistUrl = curPage;
 
           // Callback
           w.trigger('mp:load', player.state());
@@ -504,6 +506,10 @@ var mp = (function() {
 
     getHasMoved: function() {
       return hasMoved;
+    },
+
+    curPlaylistUrl: function() {
+      return curPlaylistUrl;
     }
 
   };
