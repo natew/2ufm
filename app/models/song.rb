@@ -104,7 +104,7 @@ class Song < ActiveRecord::Base
   after_create :delayed_scan_and_save, :set_rank
 
   # Whitelist mass-assignment attributes
-  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at
+  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at, :artist_name, :name
 
   def to_param
     slug
@@ -311,6 +311,9 @@ class Song < ActiveRecord::Base
           self.genre        = tag.genre
           self.image        = get_album_art(tag)
 
+          # Detect if they dumped the artist in the name
+          split_artists_from_name
+
           # Working if we have name or artist name at least
           self.working = !name.blank? and !artist_name.blank?
 
@@ -364,6 +367,15 @@ class Song < ActiveRecord::Base
       delay(:priority => 1).scan_and_save
     else
       scan_and_save
+    end
+  end
+
+  def split_artists_from_name
+    if artist_name == '' and name =~ /-/
+      logger.info "Splitting... #{name}"
+      split = name.split('-')
+      self.artist_name = split.shift.strip
+      self.name = split.join('-').strip
     end
   end
 
@@ -591,7 +603,8 @@ class Song < ActiveRecord::Base
   end
 
   def rescan_artists
-    self.find_or_create_artists
+    split_artists_from_name
+    find_or_create_artists
     self.save
   end
 
