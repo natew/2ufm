@@ -75,7 +75,6 @@ section.active .play-button {
 }
 
 .playlist-header {
-  background: rgba(0,0,0,0.2);
   padding: 4px;
   margin-left: -20px;
   position: relative;
@@ -85,6 +84,8 @@ section.active .play-button {
     font-weight: bold;
     color: #fff;
     font-size: 11px;
+    overflow: hidden;
+    text-indent: -3000em;
   }
 
   .shuffle {
