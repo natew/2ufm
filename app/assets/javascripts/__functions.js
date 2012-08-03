@@ -74,7 +74,10 @@ var fn = {
   },
 
   scrollTo: function(object) {
-    $('html,body').animate({scrollTop: object.offset().top - 80}, 200);
+    var top = object;
+    if (typeof object != 'number') top = object.offset().top
+
+    $('html,body').animate({scrollTop: top }, 200);
   },
 
   jQuerize: function(object) {
