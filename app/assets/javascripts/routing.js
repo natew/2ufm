@@ -26,6 +26,9 @@ var page = {
     // Set page in music player
     mp.setPage(curPage);
 
+    // Shuffle
+    updateShuffle(mp.shuffle(), $('.shuffle'))
+
     // Scroll to top if we are going to new page
     if ($('body').scrollTop() > 0)
       fn.scrollToTop();
