@@ -95,7 +95,7 @@ section.active .play-button {
     color: #888;
 
     &.active {
-      color: #fff;
+      color: $orange;
     }
   }
 
@@ -105,7 +105,7 @@ section.active .play-button {
 
   .ph-station {
     position: absolute;
-    right: $song-pad*2;
+    right: $song-pad;
   }
 }
 
@@ -199,7 +199,6 @@ section.active .play-button {
 
     h1 {
       margin: -5px 140px + $song-art -5px $play-button-size + $song-pad;
-      z-index: 12;
       line-height: 1em;
       font-weight: 400;
       min-height: $play-button-size + 8;
@@ -208,9 +207,11 @@ section.active .play-button {
         display: block;
 
         &.artist {
+          display: inline-block;
           font-size: 14px;
           font-weight: 300;
-          margin: 0 0 -2px 0;
+          position: relative;
+          z-index: 12;
 
           a { color: #aaa; pointer-events: auto;
             &:hover { color: $link-hover; }
@@ -249,7 +250,7 @@ section.active .play-button {
     .song-meta {
       position: absolute;
       top: $song-pad;
-      right: $song-pad*2 + $song-art;
+      right: $song-pad;
       font-size: 12px;
       margin: 0;
       color: #999;
@@ -395,13 +396,17 @@ section.active .play-button {
       }
     }
 
+    .play-button {
+      display: none;
+    }
+
     .song-art {
       position: absolute;
       width: $song-art;
       height: $song-art;
       z-index: 1;
       top: $song-pad;
-      right: $song-pad;
+      left: $song-pad;
 
       img {
         width: 100%;
@@ -454,6 +459,7 @@ section.active .play-button {
 
   h1 {
     margin-right: 100px;
+    margin-left: $song-art-big + $song-pad;
     span { line-height: 1.4em;
       &.artist { font-size: 18px; margin: 0 0 2px 0; }
       &.name { font-size: 26px; margin: 0 0 10px 0; }
@@ -473,13 +479,10 @@ section.active .play-button {
   .song-art {
     width: $song-art-big;
     height: $song-art-big;
-    top: auto;
-    bottom: $song-pad;
   }
 
-  .play-button {display: block;}
   .waveform-wrap {
-    margin-right: $song-art-big + $song-pad;
+    margin: 30px 0 0;
     display: block;
     img { opacity: 1; }
   }

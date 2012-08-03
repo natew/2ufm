@@ -1,7 +1,7 @@
 @import 'bourbon';
 
 /*  header  */
-$header-color: #2684d9;
+$header-color: #222;
 $header-light: lighten($header-color, 15%);
 $header-dark: darken($header-color, 5%);
 $header-height: 60px;
@@ -66,7 +66,7 @@ $light-blue: darken($lightest-blue,10%);
 
 $yellow: #acac04;
 
-$green: #239708;
+$green: #3f8339;
 $light-green: lighten($green,6%);
 $dark-green: darken($green,6%);
 
