@@ -89,12 +89,13 @@ section.active .play-button {
 
   .shuffle {
     position: absolute;
-    top: -40px;
+    top: -30px;
     right: 0;
     font-size: 26px;
+    color: #888;
 
     &.active {
-      color: #e29d21;
+      color: #fff;
     }
   }
 

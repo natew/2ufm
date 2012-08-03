@@ -204,6 +204,7 @@ var mp = (function() {
     },
 
     shuffleNext: function() {
+      fn.log('shuffle next', this.randomIndex());
       if (playlistPlayed.length == playlist.songs.length) return this.toPlaylist('next');
       else if (curSection) return this.playSection($('.playlist:visible section:eq(' + this.randomIndex() + ')'));
       else this.playSong(this.randomIndex());
@@ -213,7 +214,8 @@ var mp = (function() {
       var notunique = 1;
       while (notunique) {
         var i = Math.floor((Math.random() * playlist.songs.length));
-        if (!$.inArray(i, playlistPlayed) || notunique == playlistPlayed) break;
+        fn.log(i, playlistPlayed, $.inArray(i, playlistPlayed));
+        if ($.inArray(i, playlistPlayed) == -1 || notunique == playlistPlayed) break;
         notunique++;
       }
       return i;

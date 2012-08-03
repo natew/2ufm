@@ -49,7 +49,7 @@ $button-bg: lighten($header-color,10%);
 $button-border-color: darken($button-bg,7%);
 $button-color: #fff;
 
-$primary: #1a98e0;
+$primary: $header-color;
 $primary-light: lighten($primary,10%);
 $primary-dark: darken($primary,10%);
 
