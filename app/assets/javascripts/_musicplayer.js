@@ -422,7 +422,7 @@ var mp = (function() {
     onload: function onload(success) {
       if (!success) {
         if (curSection) curSection.addClass('failed');
-        if (curPage == playingPage) player.next();
+        // if (curPage == playingPage) player.next();
         $.post('songs/'+curSongInfo.id, { failing: 'true' });
       }
     }
