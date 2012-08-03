@@ -609,7 +609,7 @@ header #second-nav {
 
       #player-artist-name {
         color: #fff;
-        font-size: 12px;
+        font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
         font-weight: 300;
@@ -664,7 +664,7 @@ header #second-nav {
 
     #player-timer {
       position: absolute;
-      top: 3px;
+      top: 2px;
       right: 45px;
       color: $header-color;
       font-weight: 400;
@@ -673,16 +673,15 @@ header #second-nav {
 
     #player-progress-bar {
       position: absolute;
-      top: 3px;
+      top: 5px;
       left: 30px;
-      right: 84px;
+      right: 78px;
       overflow: hidden;
       margin: 2px 0 0;
-      padding: 5px 4px;
+      padding: 4px 4px;
       height: 0;
       background: darken($header-dark,10%);
       @include box-shadow(0 1px 0 $header-shadow);
-      @include border-radius(16px);
 
       &:hover {
         cursor: pointer;
@@ -712,13 +711,11 @@ header #second-nav {
         width: 0%;
         height: 10px;
         background: rgba(255,255,255,0.02);
-        @include border-radius(12px);
       }
 
       #player-progress-position {
         z-index: 4;
-        background: #32bdea;
-        @include border-right-radius(0);
+        background: $body-dark;
       }
     }
   }
