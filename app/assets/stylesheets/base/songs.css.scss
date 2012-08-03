@@ -78,6 +78,7 @@ section.active .play-button {
   background: rgba(0,0,0,0.2);
   padding: 4px;
   margin-left: -20px;
+  position: relative;
 
   span {
     float: left;
@@ -86,13 +87,24 @@ section.active .play-button {
     font-size: 11px;
   }
 
+  .shuffle {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-size: 26px;
+
+    &.active {
+      color: #e29d21;
+    }
+  }
+
   .ph-song {
     margin-left: $song-pad*2 + $play-button-size - 4;
   }
 
   .ph-station {
     position: absolute;
-    right: $song-art + $song-pad*2;
+    right: $song-pad*2;
   }
 }
 

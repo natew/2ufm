@@ -15,7 +15,9 @@ var w = $(window),
     navItems = getNavItems(),
     navActive,
     pageEndOffsets = [],
-    hideWelcome = $.cookie('hideWelcome');
+    hideWelcome = $.cookie('hideWelcome'),
+    volume = mp.volume(),
+    shuffle = mp.shuffle();
 
 // Read URL parameters
 var urlParams = {},
@@ -74,6 +76,15 @@ $(function() {
   // Fire initial page load
   page.start();
   page.end();
+
+  // Get volume init
+  if (volume === "0") {
+    // dont ask me why
+    mp.toggleVolume();
+    mp.toggleVolume();
+  }
+
+  if (shuffle) updateShuffle(shuffle, $('.shuffle'))
 
   // html5 pushState
   $("a:not(.control)").pjax({
@@ -134,7 +145,7 @@ $(function() {
   mpClick('#player-play', 'toggle');
   mpClick('#player-next', 'next');
   mpClick('#player-prev', 'prev');
-  mpClick('#player-volume', 'volumeToggle');
+  mpClick('#player-volume', 'toggleVolume');
 
   // Play from song
   $('.play-song').live('click', function songClick(e) {
@@ -235,6 +246,11 @@ $(function() {
               if (el.is('.play-station')) {
                 mp.setAutoPlay(true);
               }
+              else if (el.is('.shuffle')) {
+                e.preventDefault();
+                shuffled = mp.toggleShuffle();
+                updateShuffle(shuffled, el);
+              }
             }
           }
         }
@@ -285,6 +301,11 @@ $(function() {
     }
   }
 });
+
+function updateShuffle(shuffled, el) {
+  if (shuffled) el.addClass('active');
+  else el.removeClass('active');
+}
 
 // Bind selectors to callbacks
 function mpClick(selector, callback) {
