@@ -419,7 +419,7 @@ section.active .play-button {
       clear: both;
       position: relative;
       height: $song-player-height;
-      margin: 20px 0 0;
+      margin: 20px 0 0 $song-art-big + $song-pad;
 
       &:before {
         display: block;
@@ -467,7 +467,6 @@ section.active .play-button {
   }
 
   .reviews {
-    margin-right: $song-pad + $song-art-big;
     display: block;
     font-weight: 300;
   }
