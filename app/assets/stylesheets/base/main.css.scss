@@ -86,7 +86,7 @@ header {
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   background: $header-color;
   @include box-sizing(border-box);
-  @include background-gradient($header-color 0%, $header-light 20%);
+  @include linear-gradient(left, $header-dark, $header-light);
   @include box-shadow(0 0 20px rgba(0,0,0,0.8));
 
   &:after {
@@ -108,12 +108,17 @@ header {
     margin: -12px 0 0 -5px;
 
     a {
-      background: url(/images/2ufm.png) no-repeat 0 0;
-      width: 80px;
+      background: rgba(0,0,0,0.1) url(/images/2ufm.png) no-repeat 0 0;
+      width: 90px;
       height: 72px;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
+      @include box-shadow(inset 0 0 10px rgba(0,0,0,0.1));
+
+      &:hover {
+        background-color: rgba(255,255,255,0.1);
+      }
     }
   }
 
@@ -414,7 +419,7 @@ header #second-nav {
   }
 
   .player-invite {
-    margin: 0 0 0 7px;
+    margin: 0 0 0 12px;
     padding: 12px;
     font-weight: 400;
     font-size: 16px;
@@ -581,7 +586,7 @@ header #second-nav {
     position: absolute;
     top: 0;
     left: 95px;
-    right: 185px;
+    right: $navbar-width;
     height: 100%;
 
     #player-meta {
