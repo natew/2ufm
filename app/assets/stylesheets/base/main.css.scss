@@ -108,16 +108,15 @@ header {
     margin: -12px 0 0 -5px;
 
     a {
-      background: rgba(0,0,0,0.1) url(/images/2ufm.png) no-repeat 0 0;
+      background: url(/images/2ufm.png) no-repeat 0 0;
       width: 90px;
-      height: 72px;
+      height: 68px;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
-      @include box-shadow(inset 0 0 10px rgba(0,0,0,0.1));
 
       &:hover {
-        background-color: rgba(255,255,255,0.1);
+        background-color: rgba(0,0,0,0.1);
       }
     }
   }
