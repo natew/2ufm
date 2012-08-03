@@ -337,8 +337,8 @@ var mp = (function() {
       clearInterval(timerInterval);
       timerInterval = setInterval(function() {
         var position = curSong.position / 1000,
-            seconds = fn.pad(Math.floor(position), 2),
-            minutes = Math.floor(seconds / 60);
+            seconds = fn.pad(Math.floor(position) % 60, 2),
+            minutes = Math.floor(position / 60);
 
         pl.timer.html(minutes + ":" + seconds);
       }, 1000);
