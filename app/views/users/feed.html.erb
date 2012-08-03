@@ -1,4 +1,5 @@
 <div class="whole">
+  <h2>Feed</h2>
   <%- if @has_songs -%>
     <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :nolimit => true } %>
   <%- else -%>

@@ -22,7 +22,7 @@
 
 $song-pad: 15px;
 $song-art: 48px;
-$song-art-big: 150px;
+$song-art-big: 130px;
 $song-player-height: 50px;
 
 /* Play button */
@@ -102,7 +102,6 @@ section.active .play-button {
 
 .playlist-song {
   clear: both;
-  margin: 0;
 
   section {
     min-height: 41px;
@@ -217,7 +216,6 @@ section.active .play-button {
           em {
             font-weight: 300;
             font-style: normal;
-            font-size: 14px;
           }
         }
 
@@ -438,12 +436,14 @@ section.active .play-button {
 
 .primary section, section.active {
   min-height: 175px;
+  margin: 0 -10px 0 -20px;
+  padding: 20px;
 
   h1 {
     margin-right: 100px;
     span { line-height: 1.4em;
-      &.artist { font-size: 16px; margin: 0 0 2px 0; }
-      &.name { font-size: 24px; margin: 0 0 10px 0; }
+      &.artist { font-size: 18px; margin: 0 0 2px 0; }
+      &.name { font-size: 26px; margin: 0 0 10px 0; }
     }
   }
 

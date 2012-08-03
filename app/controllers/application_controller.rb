@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :do_page_request, :get_counts, :get_top_stations
+  before_filter :do_page_request, :get_counts, :get_top_stations, :get_friends
   layout :set_layout
 
   def not_found
@@ -53,6 +53,10 @@ class ApplicationController < ActionController::Base
     else
       'application'
     end
+  end
+
+  def get_friends
+    @friends = user_signed_in? ? current_user.stations.user_station.limit(6) : nil
   end
 
   def get_counts

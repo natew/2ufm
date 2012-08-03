@@ -1,4 +1,5 @@
-<%- station_id ||= -1
+<%-
+    station_id ||= -1
     cover      ||= :icon
     follow_id    = 'station-follow-' + song.id.to_s
     time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.created_at

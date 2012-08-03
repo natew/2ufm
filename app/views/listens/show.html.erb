@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>
-    <% if @user %><%= @user.username %> is listening to<% else %>Listen to<% end %> "<%= @song.name %>" by <%= @song.artist_name %>
+    <%= @song.artist_name %> - <%= @song.name %>
   </title>
   <script type="text/javascript">
     top.location = "<%= @go.html_safe %>"

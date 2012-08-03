@@ -23,7 +23,8 @@ var mp = (function() {
       volume = $.cookie('volume') || $.cookie('volume', 100),
       time = 0,
       autoPlay = false,
-      hasMoved = false;
+      hasMoved = false,
+      timerInterval;
 
   // Elements
   var pl = {
@@ -35,7 +36,8 @@ var mp = (function() {
     meta: $('#player-meta'),
     play: $('#player-play'),
     invite: $('#player-invite'),
-    volume: $('#player-volume')
+    volume: $('#player-volume'),
+    timer: $('#player-timer')
   };
 
   // Soundmanager
@@ -303,6 +305,18 @@ var mp = (function() {
       // fn.log(dragging_percent/100, duration, milliseconds);
       pl.position.attr('width', dragging_percent + '%');
       curSong.setPosition(milliseconds);
+      this.startTimer();
+    },
+
+    startTimer: function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(function() {
+        var position = curSong.position / 1000,
+            seconds = fn.pad(Math.floor(position), 2),
+            minutes = Math.floor(seconds / 60);
+
+        pl.timer.html(minutes + ":" + seconds);
+      }, 1000);
     },
 
     state: function() {
@@ -320,6 +334,7 @@ var mp = (function() {
       pl.player.addClass('loaded');
       player.setCurSection('playing');
       player.refresh();
+      player.startTimer();
       w.trigger('mp:play', player.state());
 
       // Scrobbling

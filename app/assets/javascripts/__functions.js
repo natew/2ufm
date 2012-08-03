@@ -32,6 +32,14 @@ var fn = {
     }
   },
 
+  pad: function(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+  },
+
   popup: function(url, width, height) {
     var newwindow = window.open(url, 'name', 'width='+width+',height='+height);
     if (window.focus) newwindow.focus();

@@ -67,6 +67,7 @@
                 </div>
                 <img id="player-progress-waveform" src="/images/transparent.png" />
               </div>
+              <div id="player-timer">0:00</div>
               <div id="player-post-controls">
                 <%= link_to '>', '#', :class => 'volume pictos control tip-n', :id => 'player-volume', :title => 'Volume toggle' %>
               </div>
@@ -74,7 +75,7 @@
           </div>
 
           <div id="player-invite-container" class="disabled">
-            <%= link_to "j", '', :id => 'player-invite', :class => 'player-invite button pictos clipboard tip-n control', :title => 'Permalink', 'data-hover' => 'j', 'data-click' => '3'  %>
+            <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite button clipboard tip-n control', :title => 'Permalink', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
             <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control popup', :title => 'Share on Facebook', 'data-dimensions' => '800,400'  %>
             <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
             <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite button tip-n control pictos', :title => 'Favorite'  %>
@@ -114,16 +115,22 @@
         </section>
 
         <section class="nav-extra">
-          <h1>Account</h1>
           <% if user_signed_in? %>
-            <%= link_to "Manage", '/users/edit' %>
+            <%= link_to "Account", '/users/edit' %>
             <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
           <% else %>
             <%= link_to 'Login', '/login', :class => 'restricted'  %>
             <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
           <% end %>
-          <%= link_to "About", "#" %>
+          <%= link_to "About Us", "#", :class => "secondary" %>
         </section>
+
+        <% if @friends %>
+        <section class="nav-extra stations">
+          <h1>Following</h1>
+          <%= render :partial => 'users/friend', :collection => @friends %>
+        </section>
+        <% end %>
       </div>
 
       <div id="body">
