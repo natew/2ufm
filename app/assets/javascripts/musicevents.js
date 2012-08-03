@@ -56,7 +56,7 @@ w.on({
     // Update player info
     $('#player-invite-container').addClass('disabled');
     $('#player-artist-name').html(song.artist_name);
-    $('#player-song-name').html('<a href="' + mp.curPlaylistUrl() + '">' + song.name + '</a>');
+    $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
 
     // Scroll to song
     if (mp.isOnPlayingPage() && !mp.getHasMoved()) {
@@ -67,8 +67,8 @@ w.on({
           windowTop  = w.scrollTop(),
           windowBot  = windowTop + w.height();
 
-      if (sectionTop < (windowTop + 60)) fn.scrollTo(sectionTop - 160);
-      else if (sectionBot > windowBot) fn.scrollTo(sectionTop - 160);
+      if (sectionTop < (windowTop + 60)) fn.scrollTo(sectionTop - 200);
+      else if (sectionBot > windowBot) fn.scrollTo(sectionTop - 200);
     }
   },
 

@@ -154,6 +154,14 @@ $(function() {
     mp.playSection(section);
   });
 
+  // Song title click
+  $('#player-song-name a').click(function() {
+    alert(mp.isOnPlayingPage());
+
+    fn.scrollTo($('.song-' + mp.curSongInfo().id));
+    if (mp.isOnPlayingPage()) return false;
+  });
+
   // Play from playlist
   $('#player-playlist a').live('click',function(e) {
     e.preventDefault();
