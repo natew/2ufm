@@ -25,7 +25,7 @@ module AttachmentHelper
 
         # Use s3 in production
         if Rails.env.production?
-          options[:bucket] ||= '2u-songs'
+          options[:bucket] ||= 'media.2u.fm'
         else
           options[:bucket] ||= '2u-songs-development'
         end
