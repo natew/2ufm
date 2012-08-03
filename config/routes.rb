@@ -22,6 +22,7 @@ Fusefm::Application.routes.draw do
   resources :comments, :only => [:create]
   resources :listens, :only => [:create, :show]
 
+  match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
   match "/feed", :to => "users#feed"
   match "/stations", :to => "users#stations"

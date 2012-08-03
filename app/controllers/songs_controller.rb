@@ -32,6 +32,14 @@ class SongsController < ApplicationController
     end
   end
 
+  def play
+    request_time = params[:key].to_i / 1000
+    time = Time.now.to_f.to_i
+    difference = time - request_time
+    logger.info "DIFFERENCE: " + difference
+    redirect_to Yetting.s3_url + "/song_files/#{params[:id]}_original."
+  end
+
   def failed
     song = Song.find(params[:id])
     song.report_failure if song

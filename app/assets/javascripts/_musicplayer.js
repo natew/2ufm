@@ -131,7 +131,7 @@ var mp = (function() {
           curSongInfo = playlist.songs[playlistIndex];
           curSong = soundManager.createSound({
             id:curSongInfo.id,
-            url:curSongInfo.url,
+            url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
             onplay:events.play,
             onstop:events.stop,
             onpause:events.pause,

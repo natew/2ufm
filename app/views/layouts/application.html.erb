@@ -35,7 +35,7 @@
   <%- end -%>
 </head>
 
-<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>">
+<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>">
 
   <header>
     <div class="page-contain">
