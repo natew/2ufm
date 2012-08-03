@@ -36,8 +36,11 @@ class SongsController < ApplicationController
     request_time = params[:key].to_i / 1000
     time = Time.now.to_f.to_i
     difference = time - request_time
-    logger.info "DIFFERENCE: " + difference.to_s
-    redirect_to Yetting.s3_url + "/song_files/#{params[:id]}_original."
+    if difference < 2
+      redirect_to Yetting.s3_url + "/song_files/#{params[:id]}_original."
+    else
+      head 403
+    end
   end
 
   def failed
