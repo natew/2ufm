@@ -276,7 +276,7 @@ $(function() {
     $('#dialog').animate({opacity:'0'},500,function() {
       $(this).hide();
     });
-  },1000);
+  },4000);
 
   //
   // Application integration

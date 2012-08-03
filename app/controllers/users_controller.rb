@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def feed
     @user_station = Station.current_user_station
     @user_songs = current_user.following_songs
-    @has_songs = true if @user_songs.size
+    @has_songs = true if @user_songs.size > 0
   end
 
   def stations

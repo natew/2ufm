@@ -34,6 +34,7 @@ Fusefm::Application.routes.draw do
   match "/search", :to => 'main#search'
   match "/loading", :to => 'main#loading'
   match '/mac', :to => 'main#mac'
+  match '/account', :to => 'users#edit'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

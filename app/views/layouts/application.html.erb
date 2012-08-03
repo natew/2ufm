@@ -75,7 +75,7 @@
           </div>
 
           <div id="player-invite-container" class="disabled">
-            <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite button clipboard tip-n control', :title => 'Permalink', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
+            <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite button clipboard tip-n control', :title => 'Link to song', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
             <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control popup', :title => 'Share on Facebook', 'data-dimensions' => '800,400'  %>
             <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
             <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite button tip-n control pictos', :title => 'Favorite'  %>
@@ -101,9 +101,9 @@
 
         <%- if user_signed_in? -%>
         <section class="nav-user">
-          <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
+          <%= link_to 'Music Feed', '/feed', :id => 'nav-feed' %>
           <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
-          <%= link_to 'Profile', current_user, :id => 'nav-profile' %>
+          <%= link_to current_user.username, current_user, :id => 'nav-profile' %>
         </section>
         <%- end -%>
 
@@ -116,7 +116,7 @@
 
         <section class="nav-extra">
           <% if user_signed_in? %>
-            <%= link_to "Account", '/users/edit' %>
+            <%= link_to "Account", '/account' %>
             <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
           <% else %>
             <%= link_to 'Login', '/login', :class => 'restricted'  %>
@@ -178,12 +178,13 @@
 
   <div class="hidden">
     <div id="modal-user">
-      <h3>Welcome to 2u.fm <small>Sign up for free!</small></h3>
+      <h3>Welcome to 2u.fm  <small>sign up in seconds!</small></h3>
       <div id="user-signup">
+        <h4>Start here</h4>
         <%= render :partial => 'registrations/new_form' %>
       </div>
       <div id="user-login">
-        <h4>Login with username or email</h4>
+        <h4>Sign in</h4>
         <%= render :partial => 'sessions/new_form' %>
       </div>
     </div>

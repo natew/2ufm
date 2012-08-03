@@ -86,6 +86,8 @@ header {
   text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   background: $header-color;
   @include box-sizing(border-box);
+  @include background-gradient($header-color 0%, $header-light 20%);
+  @include box-shadow(0 0 20px rgba(0,0,0,0.8));
 
   &:after {
     visibility: visible;
@@ -423,8 +425,11 @@ header #second-nav {
     text-decoration: none;
     color: #fff;
     float: right;
-    background: $light-green;
-    @include border-radius(0);
+    border: none;
+    box-shadow: none !important;
+    background: darken($header-dark,5%);
+    border: 1px solid darken($header-dark,15%);
+    @include border-radius(8px);
   }
 
   #player-invite {
@@ -473,6 +478,7 @@ header #second-nav {
       height: 10px;
       z-index: -1;
       background: #5a6fa5;
+      @include border-bottom-radius(7px);
     }
   }
 }
@@ -593,7 +599,7 @@ header #second-nav {
       #player-song-name a {
         margin-bottom: 1px;
         font-size: 14px;
-        font-weight: 300;
+        font-weight: 400;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -602,7 +608,7 @@ header #second-nav {
       }
 
       #player-artist-name {
-        color: rgba(255,255,255,0.9);
+        color: #fff;
         font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
