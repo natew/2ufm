@@ -75,7 +75,7 @@ var fn = {
 
   scrollTo: function(object) {
     var top = object;
-    if (typeof object != 'number') top = object.offset().top
+    if (typeof object != 'number') top = object.offset().top - 160
 
     $('html,body').animate({scrollTop: top }, 200);
   },

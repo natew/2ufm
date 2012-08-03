@@ -21,7 +21,6 @@
   <%= stylesheet_link_tag "application", :debug => Rails.env.development? %>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
 
-  <%- if Rails.env == 'production' -%>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-32843361-1']);
@@ -32,7 +31,6 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
-  <%- end -%>
 </head>
 
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>">
@@ -142,9 +140,10 @@
   <div id="welcome">
     <small>What is 2u.fm?</small>
     <section>
-      <h1>A better way to keep track of the new music you like.</h1>
-      <h1>A place to discover and follow artists.</h1>
-      <h1>Like twitter for music. With stations.  And stuff.</h1>
+      <h1>The best new music from across the web.</h1>
+      <h1>An easy way to listen to music with friends.</h1>
+      <h1>A place to discover and follow new artists.</h1>
+      <h1>.</h1>
     </section>
     <%= link_to 'Learn More', '/tour', :class => 'button add' %>
     <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>

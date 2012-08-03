@@ -446,7 +446,10 @@ var mp = (function() {
       if (isPlaying && curPage == playingPage) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
-        if (curSection) player.setCurSection('playing');
+        if (curSection) {
+          player.setCurSection('playing');
+          fn.scrollTo(curSection);
+        }
       }
       else {
         curSection = null;

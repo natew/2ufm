@@ -156,10 +156,9 @@ $(function() {
 
   // Song title click
   $('#player-song-name a').click(function() {
-    alert(mp.isOnPlayingPage());
-
-    fn.scrollTo($('.song-' + mp.curSongInfo().id));
+    fn.scrollTo($('section.playing'));
     if (mp.isOnPlayingPage()) return false;
+    else mp.doScroll();
   });
 
   // Play from playlist
