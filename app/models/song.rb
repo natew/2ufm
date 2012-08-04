@@ -240,9 +240,9 @@ class Song < ActiveRecord::Base
   end
 
   def check_if_working
-    if !url.nil?
+    if !file.nil?
       begin
-        uri  = URI.parse url
+        uri  = URI.parse file.url
         req  = Net::HTTP.new(uri.host,uri.port)
         head = req.request_head(uri.path)
 
@@ -264,6 +264,13 @@ class Song < ActiveRecord::Base
 
   def delayed_check_if_working
     delay(:priority => 4).check_if_working
+  end
+
+  def upload_if_not_working
+    if !check_if_working
+      self.file.clear
+      self.delayed_scan_and_save
+    end
   end
 
   # Read ID3 Tag and generally collect information on the song

@@ -1,4 +1,10 @@
 namespace :songs do
+  task :fix_files => :environment do
+    Song.all.each do |song|
+      song.upload_if_not_working
+    end
+  end
+
   task :upload_files => :environment do
     Song.working.not_uploaded.each do |song|
       song.delayed_get_file
