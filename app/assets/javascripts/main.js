@@ -227,6 +227,8 @@ $(function() {
         return false;
       }
       else {
+        if (el.is('.control')) e.preventDefault();
+
         // Nav Dropdown
         if (el.is('.nav')) {
           navDropdown($(e.target));
@@ -257,6 +259,11 @@ $(function() {
                 e.preventDefault();
                 shuffled = mp.toggleShuffle();
                 updateShuffle(shuffled, el);
+              }
+              else if (el.is('#more-artists')) {
+                var next = $('.artists-shelf li:not(.hidden):lt(5)');
+                if (next.length) next.addClass('hidden')
+                else $('.artists-shelf li').removeClass('hidden');
               }
             }
           }

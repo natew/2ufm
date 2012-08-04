@@ -82,7 +82,7 @@ class Song < ActiveRecord::Base
   # Orders
   scope :order_broadcasted_by_type, select('DISTINCT ON ("broadcasts"."created_at", "songs"."matching_id") songs.*').order('broadcasts.created_at desc')
   scope :order_broadcasted, select('DISTINCT ON ("broadcasts"."created_at", "songs"."matching_id") songs.*').order('broadcasts.created_at desc')
-  scope :order_ranked, select('DISTINCT ON ("songs"."rank", "songs"."matching_id") songs.*').order('songs."rank" desc')
+  scope :order_ranked, select('DISTINCT ON ("songs"."rank", "songs"."matching_id") songs.*').order('songs.rank desc')
   scope :order_published, select('DISTINCT ON ("songs"."published_at", "songs"."matching_id") songs.*').order('songs.published_at desc')
 
   # Scopes for playlist
@@ -128,6 +128,10 @@ class Song < ActiveRecord::Base
 
   def self.playlist_order_published(user)
     playlist_scope_order_published.with_user(user)
+  end
+
+  def join_listens
+    ['listens.id as listen_id', ]
   end
 
   def self.playlist_order_rank(user)

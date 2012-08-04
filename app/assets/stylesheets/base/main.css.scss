@@ -207,16 +207,22 @@ header {
         color: #fff;
         background: $body-dark;
         padding-left: 10px;
-
-        &:before {
-          display: none;
-        }
       }
 
       &.active {
         color: #fff;
         background: $body-darker;
         margin-right: -15px;
+      }
+
+      &.pictos-nav {
+        padding-left: 43px;
+
+        &:before {
+          font-size: 24px;
+          top: 13px;
+          left: 10px;
+        }
       }
     }
   }
@@ -733,6 +739,18 @@ header #second-nav {
     font-size: 20px;
     top: 8px;
     left: 10px;
+  }
+}
+
+#more-artists {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 26px;
+  color: #fff;
+
+  &:hover {
+    @include box-shadow(none !important);
   }
 }
 
