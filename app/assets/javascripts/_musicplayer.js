@@ -26,7 +26,8 @@ var mp = (function() {
       autoPlay = false,
       hasMoved = false,
       timerInterval,
-      shuffle = $.cookie('shuffle') == "true" || ($.cookie('shuffle', false) && false);
+      shuffle = $.cookie('shuffle') == "true" || ($.cookie('shuffle', false) && false),
+      failures = 0;
 
   // Elements
   var pl = {
@@ -157,8 +158,10 @@ var mp = (function() {
         }
         else {
           fn.log('playing fail');
+          failures++;
           curSection = null;
           this.refresh();
+          if (failures < 5) this.next();
           return false;
         }
       }
@@ -443,6 +446,7 @@ var mp = (function() {
 
     setPage: function setPage(url) {
       curPage = url;
+      failures = 0;
       if (isPlaying && curPage == playingPage) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
