@@ -78,20 +78,19 @@ section.active .play-button {
   padding: 4px;
   margin-left: -20px;
   position: relative;
+  background: $body-dark;
 
   span {
     float: left;
     font-weight: bold;
-    color: #fff;
+    color: #ccc;
     font-size: 11px;
-    overflow: hidden;
-    text-indent: -3000em;
   }
 
   .shuffle {
     position: absolute;
     top: -30px;
-    right: 0;
+    right: $song-pad;
     font-size: 26px;
     color: #888;
 
