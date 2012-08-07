@@ -77,8 +77,10 @@ section.active .play-button {
 .playlist-header {
   padding: 4px;
   margin-left: -20px;
+  margin-top: 15px;
   position: relative;
   background: $body-dark;
+  @include border-right-radius(8px);
 
   span {
     float: left;
