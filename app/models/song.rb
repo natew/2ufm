@@ -70,7 +70,6 @@ class Song < ActiveRecord::Base
   scope :not_uploaded, where('songs.file_file_name is NULL')
   scope :newest, order('songs.published_at desc')
   scope :oldest, order('songs.published_at asc')
-  scope :highest_ranked, order('songs.rank desc')
 
   # Basic types
   scope :with_authors, joins(:authors)
@@ -92,9 +91,8 @@ class Song < ActiveRecord::Base
   }
 
   # Data to select
-  scope :select_with_info, select('posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count')
-  scope :individual, select_with_info.with_blog_station_and_post.working
-  scope :user, select_with_info.with_post.working
+  scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count')
+  scope :individual, select_with_info.with_blog_station_and_post
 
   # Orders
   scope :order_broadcasted_by_type, order('broadcasts.created_at desc')
@@ -104,18 +102,19 @@ class Song < ActiveRecord::Base
 
   # Selects
   scope :select_songs, select('songs.*')
-  scope :select_distinct, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*')
+  scope :select_distinct_broadcasts, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*')
+  scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
   # Scopes for playlist
-  scope :playlist_scope_order_broadcasted_by_type, select_distinct.order_broadcasted_by_type.individual
-  scope :playlist_scope_order_broadcasted, select_distinct.order_broadcasted.individual
-  scope :playlist_scope_order_rank, select_songs.order_ranked.individual
+  scope :playlist_scope_order_broadcasted_by_type, select_distinct_broadcasts.order_broadcasted_by_type.individual
+  scope :playlist_scope_order_broadcasted, select_distinct_broadcasts.order_broadcasted.individual
+  scope :playlist_scope_order_rank, select_distinct_rank.order_ranked.individual
   scope :playlist_scope_order_published, select_songs.order_published.individual
 
   # Grouped Scopes
-  scope :grouped, where('matching_id is not null').select(:matching_id)
-  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest
-  scope :grouped_order_rank, grouped.group(:matching_id, :rank).highest_ranked
+  scope :grouped, where('matching_id is not null').select(:matching_id).working
+  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working
+  scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').working
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
