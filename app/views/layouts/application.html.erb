@@ -124,7 +124,7 @@
           <% link_to "About Us", "#", :class => "secondary" %>
         </section>
 
-        <% if @friends.length > 0 %>
+        <% if @friends and @friends.length > 0 %>
         <section class="nav-extra stations">
           <h1>Following</h1>
           <%= render :partial => 'users/friend', :collection => @friends %>
