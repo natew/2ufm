@@ -43,6 +43,10 @@ class Blog < ActiveRecord::Base
     name
   end
 
+  def station_songs_count
+    station.songs_count
+  end
+
   # Uses Anemone to crawl a website
   #     http://anemone.rubyforge.org/
   #     http://anemone.rubyforge.org/doc/index.html
