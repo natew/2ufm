@@ -68,8 +68,9 @@ class Song < ActiveRecord::Base
   scope :processed, where(processed: true)
   scope :working, where(processed: true, working: true)
   scope :not_uploaded, where('songs.file_file_name is NULL')
-  scope :newest, order('songs.created_at desc')
+  scope :newest, order('songs.published_at desc')
   scope :oldest, order('songs.published_at asc')
+  scope :highest_ranked, order('songs.rank desc')
 
   # Basic types
   scope :with_authors, joins(:authors)
@@ -96,21 +97,25 @@ class Song < ActiveRecord::Base
   scope :user, select_with_info.with_post.working
 
   # Orders
-  scope :order_broadcasted_by_type, select('DISTINCT ON ("broadcasts"."created_at", "songs"."matching_id") songs.*').order('broadcasts.created_at desc')
-  scope :order_broadcasted, select('DISTINCT ON ("broadcasts"."created_at", "songs"."matching_id") songs.*').order('broadcasts.created_at desc')
-  scope :order_ranked, select('DISTINCT ON ("songs"."rank", "songs"."matching_id") songs.*').order('songs.rank desc')
-  scope :order_published, select('DISTINCT ON ("songs"."published_at", "songs"."matching_id") songs.*').order('songs.published_at desc')
+  scope :order_broadcasted_by_type, order('broadcasts.created_at desc')
+  scope :order_broadcasted, order('broadcasts.created_at desc')
+  scope :order_ranked, order('songs.rank desc')
+  scope :order_published, order('songs.published_at desc')
+
+  # Selects
+  scope :select_songs, select('songs.*')
+  scope :select_distinct, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*')
 
   # Scopes for playlist
-  scope :playlist_scope_order_broadcasted_by_type, order_broadcasted_by_type.individual
-  scope :playlist_scope_order_broadcasted, order_broadcasted.individual
-  scope :playlist_scope_order_rank, order_ranked.individual
-  scope :playlist_scope_order_published, order_published.individual
+  scope :playlist_scope_order_broadcasted_by_type, select_distinct.order_broadcasted_by_type.individual
+  scope :playlist_scope_order_broadcasted, select_distinct.order_broadcasted.individual
+  scope :playlist_scope_order_rank, select_songs.order_ranked.individual
+  scope :playlist_scope_order_published, select_songs.order_published.individual
 
-  # Scopes for users
-  scope :user_scope_order_broadcasted, order_broadcasted.user
-  scope :user_scope_order_rank, order_ranked.user
-  scope :user_scope_order_published, order_published.user
+  # Grouped Scopes
+  scope :grouped, where('matching_id is not null').select(:matching_id)
+  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest
+  scope :grouped_order_rank, grouped.group(:matching_id, :rank).highest_ranked
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
@@ -143,27 +148,11 @@ class Song < ActiveRecord::Base
   end
 
   def self.playlist_order_published(user)
-    playlist_scope_order_published.with_user(user)
-  end
-
-  def join_listens
-    ['listens.id as listen_id', ]
+    Song.where(id: Song.grouped_order_published).playlist_scope_order_published.with_user(user)
   end
 
   def self.playlist_order_rank(user)
-    playlist_scope_order_rank.with_user(user)
-  end
-
-  def self.user_order_broadcasted(user)
-    user_scope_order_broadcasted.with_user(user)
-  end
-
-  def self.user_order_published(user)
-    user_scope_order_published.with_user(user)
-  end
-
-  def self.user_order_rank(user)
-    user_scope_order_rank.with_user(user)
+    Song.where(id: Song.grouped_order_rank).playlist_scope_order_rank.with_user(user)
   end
 
   def self.user_following_songs(id, offset, limit)
@@ -582,18 +571,25 @@ class Song < ActiveRecord::Base
   end
 
   def find_matching_songs
-    Song.where("artist_name ILIKE(?) and name ILIKE(?) and id != ?", to_searchable(artist_name), match_name, id) if name and artist_name
+    if working
+      matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", to_searchable(artist_name), to_searchable(match_name)).oldest.first
+      self.matching_id = matching_song ? matching_song.id : id
+      return false unless matching_song
+      # Update songs counts
+      existing_matching_songs = Song.where(matching_id: matching_id)
+      count = existing_matching_songs.size + 1
+      existing_matching_songs.update_all(matching_count: count)
+      self.matching_count = count
+    end
   end
 
   def update_matching_songs
-    found = find_matching_songs.oldest.first
-    self.matching_id = found ? found.id : id
-    return false unless found
-    # Update songs counts
-    existing_matching_songs = Song.where(matching_id: matching_id)
-    count = existing_matching_songs.size + 1
-    existing_matching_songs.update_all(matching_count: count)
-    self.matching_count = count
+    find_matching_songs
+    self.save
+  end
+
+  def delayed_update_matching_songs
+    delay.update_matching_songs
   end
 
   def matching_songs

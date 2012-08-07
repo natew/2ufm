@@ -24,33 +24,33 @@ class ArtistsController < ApplicationController
   end
 
   def remixes
-    render_type @artist.station.songs.remixes
+    render_type 'remixes'
   end
 
   def originals
-    render_type @artist.station.songs.originals
+    render_type 'originals'
   end
 
   def mashups
-    render_type @artist.station.songs.mashups
+    render_type 'mashups'
   end
 
   def covers
-    render_type @artist.station.songs.covers
+    render_type 'covers'
   end
 
   def features
-    render_type @artist.station.songs.featuring
+    render_type 'featuring'
   end
 
   def productions
-    render_type @artist.station.songs.productions
+    render_type 'productions'
   end
 
   private
 
-  def render_type(songs)
-    @songs = songs.playlist_order_broadcasted_by_type(current_user)
+  def render_type(method)
+    @songs = @artist.station.songs.send(method).playlist_order_broadcasted_by_type(current_user)
 
     respond_to do |format|
       format.html { render 'show' }

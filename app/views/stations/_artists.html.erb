@@ -1,4 +1,4 @@
-<%- if @artists -%>
+<%- if @artists and @artists.length > 0 -%>
 <h4 class="vertical artists">Artists on this station</h4>
 <div class="horizontal shelf artists-shelf">
   <%= render :partial => 'stations/shelf', :collection => @artists %>

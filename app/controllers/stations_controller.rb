@@ -30,7 +30,7 @@ class StationsController < ApplicationController
     when 'artist'
       @artist = Artist.find(@station.artist_id) || not_found
       @blogs = @artist.stations.blog_station.distinct
-      @songs = @artist.station.songs.playlist_order_broadcasted(current_user)
+      @songs = @artist.station.songs.playlist_order_published(current_user)
       @primary = @artist
     end
 
