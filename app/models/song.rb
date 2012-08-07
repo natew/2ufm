@@ -108,8 +108,8 @@ class Song < ActiveRecord::Base
   scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
   # Scopes for playlist
-  scope :playlist_scope_order_broadcasted_by_type, select_distinct_broadcasts.order_broadcasted_by_type.individual
-  scope :playlist_scope_order_broadcasted, select_distinct_broadcasts.order_broadcasted.individual
+  scope :playlist_scope_order_broadcasted_by_type, select_distinct_broadcasts.working.order_broadcasted_by_type.individual
+  scope :playlist_scope_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
   scope :playlist_scope_order_rank, select_distinct_rank.order_ranked.individual
   scope :playlist_scope_order_published, select_songs.order_published.individual
 
