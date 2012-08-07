@@ -101,7 +101,7 @@ class Song < ActiveRecord::Base
   scope :order_published, order('songs.published_at desc')
 
   # Selects
-  scope :select_songs, select('songs.*')
+  scope :select_songs, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
   scope :select_distinct_broadcasts, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*')
   scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
