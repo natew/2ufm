@@ -68,6 +68,8 @@ class Song < ActiveRecord::Base
   scope :processed, where(processed: true)
   scope :working, where(processed: true, working: true)
   scope :not_uploaded, where('songs.file_file_name is NULL')
+  scope :unranked, where('songs.rank is NULL')
+  scope :ranked, where('songs.rank is NOT NULL')
   scope :newest, order('songs.published_at desc')
   scope :oldest, order('songs.published_at asc')
 
@@ -226,17 +228,15 @@ class Song < ActiveRecord::Base
   def set_rank
     find_id = matching_id || id
     shared_song = Song.find(find_id) if find_id
-    plays_count, favs_count = 1,1
-    time_created = Time.now
+    favs_count = 1
+    time_created = created_at
     if shared_song
-      plays_count = shared_song.listens.count
       favs_count = shared_song.user_broadcasts_count
       time_created = shared_song.created_at
     end
-    plays = Math.log([plays_count, 1].max)
-    favs  = Math.log([favs_count, 1].max * 10)
-    time  = ((time_created) - Time.new(2012)) / 100000
-    self.rank = plays + favs + time
+    favs  = [Math.log(favs_count * 10), 0].max
+    time  = (time_created - Time.new(2012)) / 100000
+    self.rank = favs + time
   end
 
   def check_if_working
