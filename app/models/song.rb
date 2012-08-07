@@ -114,9 +114,10 @@ class Song < ActiveRecord::Base
   scope :playlist_scope_order_published, select_songs.order_published.individual
 
   # Grouped Scopes
-  scope :grouped, where('matching_id is not null').select(:matching_id).working
-  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working
-  scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').working
+  scope :limit_inner, limit(Yetting.per * 4)
+  scope :grouped, where('matching_id is not null').select(:matching_id).working.limit_inner
+  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working.limit_inner
+  scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').working.limit_inner
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
@@ -164,6 +165,8 @@ class Song < ActiveRecord::Base
           INNER JOIN broadcasts bb ON aa.station_id = bb.station_id
           WHERE aa.user_id = #{id}
           GROUP BY bb.song_id
+          LIMIT #{limit}
+          OFFSET #{offset}
         )
       SELECT
         DISTINCT ON (a.maxcreated, s.id)
@@ -190,8 +193,6 @@ class Song < ActiveRecord::Base
         AND s.working = 't'
       ORDER BY
         a.maxcreated DESC
-      OFFSET #{offset}
-      LIMIT #{limit}
     })
   end
 
