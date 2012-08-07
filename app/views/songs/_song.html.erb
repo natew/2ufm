@@ -12,6 +12,8 @@
   </a>
 
   <h1>
+    <span class="artist"><%= author_links(song.authors) %></span>
+    <span class="name"><%= link_to tagged_song_name(song.name), song %></span>
   </h1>
 
   <div class="song-meta">
