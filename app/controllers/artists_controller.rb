@@ -2,9 +2,13 @@ class ArtistsController < ApplicationController
   before_filter :get_artist_info, :except => [:index]
 
   def index
-    letter   = params[:letter] || 'a'
-    letter   = "0-9" if letter == '0'
-    @artists = Artist.where("name ~* '^[#{letter}]'").order('name desc').limit(30)
+    if params[:letter]
+      letter = params[:letter]
+      letter = "0-9" if letter == '0'
+      @artists = Artist.where("name ~* '^[#{letter}]'").order('name desc')
+    else
+      @artists = Artist.order('random() desc').limit(12)
+    end
 
     respond_to do |format|
       format.html

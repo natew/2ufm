@@ -1,10 +1,12 @@
 <%-
   image_size ||= :medium
+  songs_count = shelf.station_songs_count || 0
 -%>
   <li>
     <a href="/<%= shelf.station_slug %>">
       <strong><%= shelf.name %></strong>
       <span><%= image_tag shelf.image.url(image_size) %></span>
+      <p><%= pluralize(songs_count, 'song') %></p>
     </a>
     <% debug(shelf) %>
   </li>

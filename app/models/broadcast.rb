@@ -31,6 +31,11 @@ class Broadcast < ActiveRecord::Base
       matching_song.blog_broadcasts_count = matching_song.blog_broadcasts.count
       matching_song.save
     end
+
+    if station
+      station.songs_count = station.songs.count
+      station.save
+    end
   end
 
   def set_parent

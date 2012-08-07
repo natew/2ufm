@@ -47,6 +47,10 @@ class Artist < ActiveRecord::Base
     delay(:priority => 6).get_discogs_info
   end
 
+  def station_songs_count
+    station.songs_count
+  end
+
   def get_discogs_info
     begin
       logger.info "Getting info for #{name}"

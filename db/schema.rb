@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802024842) do
+ActiveRecord::Schema.define(:version => 20120807035007) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(:version => 20120802024842) do
     t.datetime "updated_at",          :default => '2012-05-11 03:38:08'
     t.datetime "last_broadcasted_at", :default => '2012-05-11 04:13:11'
     t.boolean  "promo",               :default => false
+    t.integer  "songs_count"
   end
 
   create_table "stations_songs", :id => false, :force => true do |t|

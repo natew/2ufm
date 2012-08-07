@@ -184,6 +184,8 @@ section.active .play-button {
     }
 
     .reviews {
+      position: relative;
+      z-index: 13;
       display: none;
     }
 
@@ -192,7 +194,7 @@ section.active .play-button {
     }
 
     h1 {
-      margin: -8px 140px + $song-art -5px $play-button-size + $song-pad;
+      margin: -8px 0 + $song-art -5px $play-button-size + $song-pad;
       line-height: 1em;
       font-weight: 400;
       min-height: $play-button-size + 8;

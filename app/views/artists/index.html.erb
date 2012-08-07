@@ -3,6 +3,7 @@
 </div>
 
 <ul class="subnav">
+  <li><%= link_to 'Random', '/artists' %></li>
   <li><%= link_to "#", "/artists?letter=0" %></li>
   <%- ('A'..'Z').each do |letter| -%>
   <li><%= link_to letter, "/artists?letter=#{letter}" %></li>

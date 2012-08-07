@@ -13,7 +13,7 @@ class Song < ActiveRecord::Base
 
   # Regular expressions
   RE = {
-    :featured => /(featuring |ft\. ?|feat\. ?|f\. ?|w\/){1}/i,
+    :featured => /(featuring |ft\.? ?|feat\.? ?|f\. ?|w\/){1}/i,
     :remix => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix/i,
     :mashup => / mashup| mash-up/i,
     :producer => /(produced by|prod\.?)/i,
@@ -23,6 +23,22 @@ class Song < ActiveRecord::Base
     :close => /[\)\]\}]/,
     :containers => /[\(\)\[\]]|vs\.? |,| and | & | x /i,
     :percents => /(% ?){2,10}/
+  }
+
+  SQL = {
+    :stations => %Q{
+        stations.title as station_title,
+        stations.slug as station_slug,
+        stations.id as station_id,
+        stations.follows_count as station_follows_count,
+      },
+    :posts => %Q{
+        posts.url as post_url,
+        posts.excerpt as post_excerpt,
+      },
+    :listens => %Q{
+        listens.id as listen_id
+      }
   }
 
   # Relationships
@@ -163,13 +179,9 @@ class Song < ActiveRecord::Base
         DISTINCT ON (a.maxcreated, s.id)
         a.maxcreated as broadcasted_at,
         s.*,
-        posts.url as post_url,
-        posts.excerpt as post_excerpt,
-        stations.title as station_title,
-        stations.slug as station_slug,
-        stations.id as station_id,
-        stations.follows_count as station_follows_count,
-        listens.id as listen_id
+        #{SQL[:stations]}
+        #{SQL[:posts]}
+        #{SQL[:listens]}
       FROM a
         INNER JOIN
           songs s ON a.song_id = s.id

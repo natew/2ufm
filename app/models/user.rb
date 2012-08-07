@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   before_create :make_station, :set_station_slug
 
-  validates :username, :length => 3..100
+  validates :username, :length => 2..22
   validates_with SlugValidator
 
   def to_param
