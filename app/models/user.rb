@@ -64,6 +64,12 @@ class User < ActiveRecord::Base
     username
   end
 
+  def friends_with(user)
+    # users_station = user.station_id
+    # Follow.where(user_id: user.id, station_id: )
+    # Follow.where(user_id: , station_id: )
+  end
+
   def broadcasted_song?(song)
     station.broadcasts.where(:song_id => song.matching_id).exists?
   end

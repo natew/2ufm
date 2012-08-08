@@ -160,11 +160,13 @@ class Song < ActiveRecord::Base
   def self.user_following_songs(id, offset, limit)
     Song.find_by_sql(%Q{
       WITH a as (
-          SELECT bb.song_id, MAX(bb.created_at) AS maxcreated
-          FROM follows aa
-          INNER JOIN broadcasts bb ON aa.station_id = bb.station_id
-          WHERE aa.user_id = #{id}
-          GROUP BY bb.song_id
+          SELECT broadcasts.song_id,
+            MAX(broadcasts.created_at) AS maxcreated
+          FROM broadcasts
+          INNER JOIN follows ff ON ff.station_id = broadcasts.station_id
+          WHERE ff.user_id = #{id}
+          GROUP BY broadcasts.song_id
+          ORDER BY maxcreated desc
           LIMIT #{limit}
           OFFSET #{offset}
         )

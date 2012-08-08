@@ -201,9 +201,14 @@ var mp = (function() {
       }
 
       // Next section, or next song, or next playlist
-      if (curSection) return this.playSection(curSection.next());
-      else if (curSongInfo.index < maxIndex) this.playSong(curSongInfo.index + 1);
-      else return this.toPlaylist('next');
+      if (curSection && curSection.next().attr('id')) return this.playSection(curSection.next());
+      else if ((curSongInfo.index + 1) < maxIndex) {
+        fn.log('playnext')
+        this.playSong(curSongInfo.index + 1);
+      }
+      else {
+        return this.toPlaylist('next');
+      }
     },
 
     shuffleNext: function() {
@@ -244,8 +249,12 @@ var mp = (function() {
         this.playSection(nextSection);
         return true;
       } else {
-        curSection = null;
-        return false;
+        var next = $('#' + $('.playlist-song section.active').parent().attr('id')).next().next();
+        if (next.length) this.playSection(next)
+        else {
+          curSection = null;
+          return false;
+        }
       }
     },
 

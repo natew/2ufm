@@ -1,5 +1,6 @@
 <div class="whole primary">
   <%= render :partial => 'stations/playlist', :locals => { :songs => @song_playlist, :paginate => false, :style => 'song', :cover => :medium } %>
+  <%= render :partial => 'stations/playlist', :locals => { :songs => @blogs_songs } %>
 </div>
 
 <div class="contain">
