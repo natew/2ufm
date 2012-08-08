@@ -158,7 +158,7 @@ header {
   right: 0;
   bottom: 0;
   width: $navbar-width;
-  padding: 15px 15px 0 0;
+  padding: 15px 15px 0 15px;
   @include box-sizing(border-box);
 
   section {
