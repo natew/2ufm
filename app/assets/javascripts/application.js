@@ -12,7 +12,7 @@
 //= require jquery.pjax
 //= require jquery.cookie
 //= require mustache
-//= require soundmanager2
+//= require soundmanager2-nodebug-jsmin
 //= require spin
 //= require ZeroClipboard
 //= require_tree .
