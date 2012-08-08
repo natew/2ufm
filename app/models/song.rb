@@ -169,8 +169,6 @@ class Song < ActiveRecord::Base
           WHERE ff.user_id = #{id}
           GROUP BY broadcasts.song_id, broadcasts.station_id
           ORDER BY maxcreated desc
-          LIMIT #{limit}
-          OFFSET #{offset}
         )
       SELECT
         DISTINCT ON (a.maxcreated, s.id)
@@ -197,6 +195,8 @@ class Song < ActiveRecord::Base
         AND s.working = 't'
       ORDER BY
         a.maxcreated DESC
+      LIMIT #{limit}
+      OFFSET #{offset}
     })
   end
 
