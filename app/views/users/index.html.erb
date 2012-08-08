@@ -1,6 +1,6 @@
 
 <ul>
 <% for user in @users %>
-  <li><%= user.username %></li>
+  <li><%= link_to user.username, user %></li>
 <% end %>
 </ul>
