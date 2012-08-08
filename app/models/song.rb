@@ -114,7 +114,7 @@ class Song < ActiveRecord::Base
   scope :playlist_scope_order_published, select_songs.order_published.individual
 
   # Grouped Scopes
-  scope :limit_inner, limit(Yetting.per * 4)
+  scope :limit_inner, limit(Yetting.per * 20)
   scope :grouped, where('matching_id is not null').select(:matching_id).working.limit_inner
   scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working.limit_inner
   scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').working.limit_inner
