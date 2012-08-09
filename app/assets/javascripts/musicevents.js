@@ -42,7 +42,7 @@ w.on({
     $('#player-invite-facebook').attr('href', facebook);
 
     // Undisable
-    $('#player-invite-container').removeClass('disabled');
+    $('#invite-container').removeClass('disabled');
   },
 
   'mp:play': function mpPlay(event, mp, song) {
@@ -54,7 +54,7 @@ w.on({
     playlistItem.addClass('playing');
 
     // Update player info
-    $('#player-invite-container').addClass('disabled');
+    $('#invite-container').addClass('disabled');
     $('#player-artist-name').html(song.artist_name);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
 
