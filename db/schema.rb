@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807072751) do
+ActiveRecord::Schema.define(:version => 20120809033642) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(:version => 20120807072751) do
     t.integer  "play_count",            :default => 0
     t.integer  "blog_broadcasts_count", :default => 0
     t.string   "match_name"
+    t.integer  "comments_count",        :default => 0
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"

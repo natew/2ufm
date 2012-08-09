@@ -16,7 +16,6 @@ class StationsController < ApplicationController
     case @station.type
     when 'user'
       @user = User.find(@station.user_id) || not_found
-      @plays = Listen.select('listens.created_at, listens.url, songs.name, songs.slug, users.username, users.station_slug').joins(:song, :user).where(:user_id => @user.id).limit(10)
       @songs = @user.station.songs.playlist_order_broadcasted(current_user).page(params[:page]).per(12)
       @following = @user.stations
       @followers = @user.station.followers

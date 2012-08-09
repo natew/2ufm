@@ -27,6 +27,18 @@ form {
     }
   }
 
+  fieldset {
+    background: $body-dark;
+    padding: 20px;
+    margin: 0 0 20px 0;
+
+    legend {
+      background: $body-darker;
+      padding: 8px 10px;
+      font-size: 16px;
+    }
+  }
+
   h3 {
     border: none;
     font-size: 18px;

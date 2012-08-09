@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate]
   before_filter :load_user, :except => [:create, :new, :activate, :index, :account, :feed, :stations]
 
   def feed
@@ -16,6 +17,13 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
+    end
+  end
+
+  def edit
+    return if params[:user].nil?
+    if current_user.update_attributes(params[:user])
+      flash[:notice] = 'Updated profile!'
     end
   end
 
@@ -50,13 +58,13 @@ class UsersController < ApplicationController
   def activate
     @user = User.find(params[:id].to_i)
 
-    if @user.email_confirmed?
+    if @user.confirmed?
       @message = 'Account has already been activated!'
     else
       verify = Digest::SHA1.hexdigest(@user.email + '328949126')
 
       if verify == params[:key]
-        if @user.update_attribute(:email_confirmed, true)
+        if @user.confirm!
           @message = 'Congrats!  Your account has been activated'
         else
           @message = 'Error activating account.  Please contact support.'
@@ -64,14 +72,6 @@ class UsersController < ApplicationController
       else
         @message = 'Sorry!  Your verification key does not match' + verify
       end
-    end
-  end
-
-  def update
-    if current_user.update_attributes(params[:user])
-      redirect_to 'account/profile', :notice => 'Updated successfully'
-    else
-      render :action => 'profile'
     end
   end
 

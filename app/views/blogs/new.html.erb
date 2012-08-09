@@ -7,7 +7,7 @@
   <h3><%= @blog.current_step.capitalize %></h3>
   <div id="wizard">
   <%= form_for @blog, :html => { :multipart => true } do |f| %>
-    <%= render :partial => 'shared/form_errors', :locals => { :object => @blog } %>
+    <%= render 'shared/form_errors', :target => @blog %>
     <%= render "new_#{@blog.current_step}_step", :f => f %>
     <div class="actions clearfix">
       <%= f.submit "Continue", :class => 'form-control continue' %>

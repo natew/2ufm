@@ -132,11 +132,12 @@ section.active .play-button {
     }
 
     &.listened-to {
-      background: rgba(255,255,255,0.05);
+      background: lighten($body-bg,5%);
+      &:nth-child(2n+1) { background: lighten($body-bg,8%); }
     }
 
     &:hover {
-      background: $body-darker;
+      background: $body-darker !important;
       .song-controls li {
         a, a:before { color: #fff; }
       }
@@ -155,10 +156,14 @@ section.active .play-button {
       @include border-radius(10px);
     }
 
+    &.open {
+      .reviews { display: block; }
+    }
+
     &.active {
       border: 2px solid $header-color;
       border-left: none;
-      background: $body-darker;
+      background: $body-darker !important;
       &:before {background: $header-color;}
       .song-controls { background: rgba(0,0,0,0.25); }
       .waveform-wrap img { opacity: 0.4; }
@@ -196,7 +201,7 @@ section.active .play-button {
     }
 
     h1 {
-      margin: -8px 0 + $song-art -5px $play-button-size + $song-pad;
+      margin: -8px 100px -5px $play-button-size + $song-pad;
       line-height: 1em;
       font-weight: 400;
       min-height: $play-button-size + 8;
@@ -257,7 +262,7 @@ section.active .play-button {
       line-height: 1.5em;
       text-align: right;
 
-      div {
+      .song-follow {
         display: inline-block;
         padding: 2px 6px;
         margin: -2px -6px 0;
@@ -311,11 +316,21 @@ section.active .play-button {
       }
 
       time {
+        display: inline-block;
         margin: 6px 0 0;
         white-space: nowrap;
         font-size: 12px;
         line-height: 1em;
-        display: block;
+      }
+
+      .comments {
+        display: none;
+        color: #ccc;
+        font-weight: normal;
+        margin: 6px 0 0 3px;
+        padding-left: 15px;
+
+        &:before { top:0; left:0; }
       }
     }
 

@@ -1,4 +1,11 @@
+<%- if notice -%>
+  <div id="dialog" class="notice"><%= notice %></div>
+<%- elsif alert -%>
+  <div id="dialog" class="alert"><%= alert %></div>
+<%- end -%>
+
 <%= render :partial => 'shared/breadcrumbs' %>
+
 <div class="contain controller-<%= controller.controller_name %> action-<%= controller.action_name %> primary-<%= @primary.class.name.downcase || 'none' %>">
   <%= yield %>
 </div>

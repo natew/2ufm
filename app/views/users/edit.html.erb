@@ -1,1 +1,26 @@
-coming
+    <div class="whole">
+      <h2>Update Account</h2>
+      <%= form_for current_user, :url => { :action => :edit }, :html => { :multipart => true } do |f| %>
+        <%= render 'shared/form_errors', :target => current_user %>
+
+        <fieldset>
+          <legend>Account Information</legend>
+          <%= label :user, :email, 'Email', :class => 'inline' %>
+          <%= f.text_field :email %><br />
+        </fieldset>
+
+        <fieldset>
+          <legend>Update Password</legend>
+          <%= label :user, :password, 'New Password', :class => 'inline' %>
+          <%= f.password_field :password, :autocomplete => 'off' %><br />
+        </fieldset>
+
+        <fieldset>
+          <legend>Avatar</legend>
+          <img alt="<%= current_user.username %>'s Avatar" src="<%= current_user.avatar.url %>" />
+          <%= file_field :user, 'avatar', :class => 'file' %>
+        </fieldset>
+
+        <%= submit_tag 'Update', :class => 'submitbutton inline' %>
+      <% end %>
+    </div>

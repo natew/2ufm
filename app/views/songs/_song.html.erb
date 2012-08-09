@@ -17,13 +17,16 @@
   </h1>
 
   <div class="song-meta">
-    <div>
+    <div class="song-follow">
       <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
       <%= link_to song.station_title, '/'+song.station_slug %>
       <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if song.reposted? %>
     </div>
 
-    <time><%= relative_time(time) %></time>
+    <div>
+      <time><%= relative_time(time) %></time>
+      <%= link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
+    </div>
   </div>
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>

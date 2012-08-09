@@ -21,8 +21,8 @@ class SongsController < ApplicationController
     @stats = Broadcast.find_by_sql("SELECT date_part('day', created_at), count(*) from broadcasts where song_id=#{@song.matching_id} group by date_part('day', created_at) order by date_part('day', created_at);").map {|x| [((Time.now.day - x.date_part.to_i).days.ago.to_f*1000).round,x.count.to_i]}
 
     # Similar songs
-    @blog_ids = @blogs.map(&:blog_id)
-    @blogs_songs = Song.joins('CROSS JOIN blogs').where('blogs.id IN (?)', @blog_ids).playlist_order_rank(current_user)
+    #@blog_ids = @blogs.map(&:blog_id)
+    #@blogs_songs = Song.joins('CROSS JOIN blogs').where('blogs.id IN (?)', @blog_ids).playlist_order_rank(current_user)
     @artist_ids = Song.find(@song.id).artists.map(&:id)
     @station_ids = Station.where('stations.artist_id IN (?)', @artist_ids)
     @similar_songs = Song.playlist_order_rank(current_user)

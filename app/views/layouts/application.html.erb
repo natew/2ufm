@@ -85,12 +85,6 @@
 
   <div id="main-mid">
     <div class="page-contain">
-      <%- if notice -%>
-      <div id="dialog" class="notice"><%= notice %></div>
-      <%- elsif alert -%>
-      <div id="dialog" class="alert"><%= alert %></div>
-      <%- end -%>
-
       <div id="navbar">
         <%= form_tag '/main/search', :method => 'get' do %>
           <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>

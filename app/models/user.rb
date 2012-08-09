@@ -6,11 +6,11 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :login, :email, :password, :remember_me, :role
+  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :listens
 
   has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
+  has_attachment :cover, styles: { medium: ['900x300^'] } # ^ means preserve aspect ratio
 
   acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
 
