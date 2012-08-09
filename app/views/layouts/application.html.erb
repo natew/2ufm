@@ -63,30 +63,33 @@
                   <div id="player-progress-position"></div>
                   <div id="player-progress-loaded"></div>
                 </div>
-                <img id="player-progress-waveform" src="/images/transparent.png" />
               </div>
               <div id="player-timer">0:00</div>
               <div id="player-post-controls">
                 <%= link_to '>', '#', :class => 'volume pictos control tip-n', :id => 'player-volume', :title => 'Volume toggle' %>
               </div>
             </div>
+            <!-- /player bottom -->
           </div>
+          <!-- /player-meta -->
 
-          <div id="player-invite-container" class="disabled">
+          <div id="invite-container" class="disabled">
             <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite button clipboard tip-n control', :title => 'Link to song', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
             <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control popup', :title => 'Share on Facebook', 'data-dimensions' => '800,400'  %>
             <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
             <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite button tip-n control pictos', :title => 'Favorite'  %>
           </div>
         </div>
+        <!-- /player-main -->
       </div>
+      <!-- /player -->
     </div>
   </header>
 
   <div id="main-mid">
     <div class="page-contain">
       <div id="navbar">
-        <%= form_tag '/main/search', :method => 'get' do %>
+        <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
           <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
         <% end -%>
