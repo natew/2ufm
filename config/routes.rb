@@ -11,6 +11,8 @@ Fusefm::Application.routes.draw do
     :sessions => 'sessions'
   }
 
+  match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
+
   resources :songs, :only => [:index, :show]
   resources :genres, :only => [:show]
   resources :blogs, :except => [:show]

@@ -38,4 +38,6 @@ Fusefm::Application.configure do
   config.assets.debug = true
 
   config.delay_jobs = true
+
+  config.action_mailer.default_url_options = { :host => 'localhost:5100' }
 end
