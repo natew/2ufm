@@ -453,7 +453,7 @@ var mp = (function() {
 
     updatePage: function updatePage(url) {
       fn.log("Updating page url", url);
-      if (curPage == playingPage) playingPage = url;
+      if (this.isOnPlayingPage()) playingPage = url;
       curPage = url;
     },
 
@@ -461,7 +461,7 @@ var mp = (function() {
       curPage = url;
       failures = 0;
       curFailures = 0;
-      if (isPlaying && curPage == playingPage) {
+      if (isPlaying && this.isOnPlayingPage()) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
         if (curSection) {
@@ -489,7 +489,7 @@ var mp = (function() {
     },
 
     isOnPlayingPage: function() {
-      return (curPage == playingPage);
+      return (curPage == playingPage.replace(/\?.*/, ''));
     },
 
     playSong: function(index) {
