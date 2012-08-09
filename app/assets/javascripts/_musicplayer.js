@@ -18,7 +18,7 @@ var mp = (function() {
       dragging_position = false,
       dragging_percent,
       curPage,
-      playingPage,
+      playingPage = '',
       smReady = false,
       delayStart = false,
       volume = $.cookie('volume') || ($.cookie('volume', 100) && 100),
