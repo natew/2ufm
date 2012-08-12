@@ -171,10 +171,12 @@ header {
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 100%;
+      width: $navbar-width - 20;
       max-height: 250px;
-      padding: 0 0 20px 0;
+      padding: 0 0 10px 0;
       overflow: scroll;
+      background: $body-bg;
+      @include linear-gradient($body-dark 0%, $body-bg 10%);
     }
 
     &.nav-extra {
