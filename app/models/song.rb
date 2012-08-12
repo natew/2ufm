@@ -117,7 +117,7 @@ class Song < ActiveRecord::Base
   scope :limit_inner, limit(Yetting.per * 20)
   scope :grouped, where('matching_id is not null').select(:matching_id).working.limit_inner
   scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working.limit_inner
-  scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').working.limit_inner
+  scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 0').working.limit_inner
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
