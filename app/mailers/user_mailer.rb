@@ -6,10 +6,9 @@ class UserMailer < ActionMailer::Base
     activate = Digest::SHA1.hexdigest(user.email + '328949126')
     @url     = "http://2u.fm/activate/#{@user.id}/#{activate}"
 
-    mail(:to => "#{user.login} <#{user.email}>",
+    mail(:to => "#{user.username} <#{user.email}>",
          :subject => "Welcome to 2u.fm!  Please activate your new account") do |format|
       format.html { render 'welcome' }
-      #format.text { render 'another_template' }
     end
   end
 
@@ -18,7 +17,7 @@ class UserMailer < ActionMailer::Base
       @reset   = Digest::SHA1.hexdigest(Time.now.to_s + '328949126')
       @user.password = @reset
       if @user.save!
-        mail(:to => "#{user.login} <#{user.email}>",
+        mail(:to => "#{user.username} <#{user.email}>",
              :subject => "Your 2u.fm Account Password Has Been Reset") do |format|
           format.html { render 'reset' }
         end
@@ -30,7 +29,6 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email,
          :subject => "Your 2u.fm account is activated!") do |format|
       format.html { render 'activation' }
-      #format.text { render 'another_template' }
     end
   end
 end
