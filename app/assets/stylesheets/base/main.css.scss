@@ -180,7 +180,9 @@ header {
     }
 
     &.nav-extra {
-      margin-bottom: 20px;
+      padding-bottom: 10px;
+      max-height: 400px;
+      overflow-y: scroll;
 
       a {
         font-size: 14px;
@@ -206,6 +208,7 @@ header {
       font-weight: 300;
       font-size: 21px;
       padding: 7px 10px;
+      margin: 0 0 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
@@ -332,7 +335,7 @@ header {
     border: none;
     pointer-events: none;
     position: absolute;
-    right: -20px;
+    right: -9px;
     top: -2px;
     font-size: 17px;
     color: rgba(0,0,0,0.2);
@@ -479,13 +482,6 @@ header #second-nav {
   #player-invite-facebook {
     font-size: 28px;
     line-height: .5em;
-    font-weight: bold;
-    border-color: darken(#2d4486,10%);
-    background: #2d4486;
-
-    &:hover {
-      background: #425699;
-    }
 
     &:after {
       content: "";
@@ -501,6 +497,20 @@ header #second-nav {
       background: #5a6fa5;
       @include border-bottom-radius(7px);
     }
+  }
+}
+
+.facebook-button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  position: relative;
+  border-color: darken(#2d4486,10%);
+  background: #2d4486;
+
+  &:hover {
+    background: #425699;
   }
 }
 

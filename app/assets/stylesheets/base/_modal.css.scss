@@ -168,11 +168,14 @@
 
   #user-signup {
     float: left;
-    width: 380px;
-    padding: 20px;
-    background: $lightest-blue;
-    border: 2px solid $light-blue;
-    @include border-radius(8px);
+
+    form {
+      padding: 20px;
+      width: 380px;
+      background: $lightest-blue;
+      border: 2px solid $light-blue;
+      @include border-radius(8px);
+    }
 
     .actions {
       background: none;

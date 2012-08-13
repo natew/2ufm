@@ -8,7 +8,8 @@ Fusefm::Application.routes.draw do
 
   devise_for :users, :controllers => {
     :registrations => 'registrations',
-    :sessions => 'sessions'
+    :sessions => 'sessions',
+    :omniauth_callbacks => 'users/omniauth_callbacks'
   }
 
   match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
@@ -26,7 +27,7 @@ Fusefm::Application.routes.draw do
 
   match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
-  match "/feed", :to => "users#feed"
+  match "/feed", :to => "users#feed", :as => 'user_root'
   match "/stations", :to => "users#stations"
   match "/popular", :to => "songs#index"
   match "/fresh", :to => "songs#fresh"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120809033642) do
+ActiveRecord::Schema.define(:version => 20120813001703) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -304,6 +304,8 @@ ActiveRecord::Schema.define(:version => 20120809033642) do
     t.integer  "last_station"
     t.integer  "last_song"
     t.string   "station_slug"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
