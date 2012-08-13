@@ -1,13 +1,13 @@
 class UserMailer < ActionMailer::Base
-  default :from => "admin@gamegum.com"
+  default :from => "admin@2u.fm"
 
   def welcome_email(user)
     @user    = user
     activate = Digest::SHA1.hexdigest(user.email + '328949126')
-    @url     = "http://gamegum.com/activate/#{@user.id}/#{activate}"
+    @url     = "http://2u.fm/activate/#{@user.id}/#{activate}"
 
     mail(:to => "#{user.login} <#{user.email}>",
-         :subject => "Welcome to GameGum!  Please activate your new account") do |format|
+         :subject => "Welcome to 2u.fm!  Please activate your new account") do |format|
       format.html { render 'welcome' }
       #format.text { render 'another_template' }
     end
@@ -19,7 +19,7 @@ class UserMailer < ActionMailer::Base
       @user.password = @reset
       if @user.save!
         mail(:to => "#{user.login} <#{user.email}>",
-             :subject => "Your GameGum Account Password Has Been Reset") do |format|
+             :subject => "Your 2u.fm Account Password Has Been Reset") do |format|
           format.html { render 'reset' }
         end
       end
@@ -28,7 +28,7 @@ class UserMailer < ActionMailer::Base
   def activation_email(user)
     @user    =  user
     mail(:to => user.email,
-         :subject => "Your GameGum account is activated!") do |format|
+         :subject => "Your 2u.fm account is activated!") do |format|
       format.html { render 'activation' }
       #format.text { render 'another_template' }
     end

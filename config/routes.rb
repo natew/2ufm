@@ -38,6 +38,7 @@ Fusefm::Application.routes.draw do
   match "/loading", :to => 'main#loading'
   match '/mac', :to => 'main#mac'
   match '/account', :to => 'users#edit'
+  match '/activate/:id/:key', :to => 'users#activate'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
