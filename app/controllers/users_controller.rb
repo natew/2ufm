@@ -46,9 +46,9 @@ class UsersController < ApplicationController
 
     if @user.save
       self.current_user = @user
-      redirect_to @user
       UserMailer.welcome_email(@user).deliver
       flash[:notice] = "Welcome!"
+      redirect_to @user
     else
       render :action => 'new'
       flash[:notice] = "Error signing up!"
