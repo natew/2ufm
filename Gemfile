@@ -16,9 +16,7 @@ gem 'devise'
 gem 'cancan'
 gem 'aws-ses', '~> 0.4.4', :require => 'aws/ses'
 gem 'omniauth-facebook'
-
-# Facebook
-# gem 'koala'
+gem 'koala'
 
 # Admin
 gem 'rails_admin'

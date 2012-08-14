@@ -167,6 +167,9 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
+    koala (1.5.0)
+      faraday (~> 0.7)
+      multi_json (~> 1.3)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     loofah-activerecord (1.0.0)
@@ -348,6 +351,7 @@ DEPENDENCIES
   hashie
   jquery-rails
   kaminari
+  koala
   loofah-activerecord
   marginalia
   mongo_mapper
