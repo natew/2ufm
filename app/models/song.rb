@@ -15,7 +15,8 @@ class Song < ActiveRecord::Base
   RE = {
     :featured => /(featuring |ft\.? ?|feat\.? ?|f\. ?|w\/){1}/i,
     :remix => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| bootleg remix/i,
-    :mashup => / mashup| mash-up/i,
+    :mashup => / x .* x | mashup| mash-up/i,
+    :mashup_split => / x | vs\.? /i,
     :producer => /(produced by|prod\.?)/i,
     :cover => / cover/i,
     :split => /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
@@ -23,7 +24,7 @@ class Song < ActiveRecord::Base
     :close => /[\)\]\}]/,
     :containers => /[\(\)\[\]]|vs\.? |,| and | & | x /i,
     :percents => /(% ?){2,10}/,
-    :remove => /original mix|preview/i
+    :remove => /(original mix|preview|radio edit)/i
   }
 
   SQL = {
@@ -350,7 +351,10 @@ class Song < ActiveRecord::Base
             end
 
             # Determine if we already have this song
-            update_matching_songs
+            find_matching_songs
+
+            # Delete file if we already have it
+            delete_file_if_matching
 
             # Add to artist and blog stations
             add_to_stations
@@ -385,6 +389,10 @@ class Song < ActiveRecord::Base
     else
       scan_and_save
     end
+  end
+
+  def delete_file_if_matching
+    self.file.clear if matching_id != id
   end
 
   def split_artists_from_name
@@ -675,7 +683,7 @@ class Song < ActiveRecord::Base
     # Find any non-original artists
     #   gsub() Strip everything up until "(" if there exists one
     #   split() Split when multiple parenthesis groups exist
-    if string =~ /#{RE[:featured]}|#{RE[:remix]}|#{RE[:producer]}|#{RE[:cover]}/i
+    if string =~ /#{RE[:mashup_split]}|#{RE[:mashup]}|#{RE[:featured]}|#{RE[:remix]}|#{RE[:producer]}|#{RE[:cover]}/i
       string.gsub(/.*(?=\()/,'').split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|
         part.scan(/#{RE[:featured]}#{RE[:split]}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:featured] unless artist =~ RE[:featured] or artist =~ /&|,/
@@ -695,11 +703,15 @@ class Song < ActiveRecord::Base
           end
 
           part.scan(/#{RE[:split]}#{RE[:cover]}/).flatten.compact.collect(&:strip).each do |artist|
-            matched.push [artist, :cover] unless artist =~ RE[:producer] or artist =~ /&|,/
+            matched.push [artist, :cover] unless artist =~ RE[:cover] or artist =~ /&|,/
           end
 
-          part.scan(/#{RE[:split]}#{RE[:mashup]}/).flatten.compact.collect(&:strip).each do |artist|
-            matched.push [artist, :mashup] unless artist =~ RE[:producer] or artist =~ /&|,/
+          part.scan(/#{RE[:mashup]}/).flatten.compact.collect(&:strip).each do |artist|
+            matched.push [artist, :mashup] unless artist =~ RE[:mashup]
+          end
+
+          part.split(/#{RE[:mashup_split]}/).each do |artist|
+            matched.push [artist, :mashup]
           end
         end
       end
@@ -750,7 +762,7 @@ class Song < ActiveRecord::Base
   end
 
   def get_match_name
-    to_searchable(name.gsub(/(#{RE[:open]})?(Original Mix|Radio Edit|#{RE[:producer]} .*)(#{RE[:close]})?/i, '')).strip
+    to_searchable(name.gsub(/(#{RE[:open]})?(#{RE[:remove]}|#{RE[:producer]} .*)(#{RE[:close]})?/i, '')).strip
   end
 
   def set_match_name

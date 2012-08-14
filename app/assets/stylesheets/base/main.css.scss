@@ -433,7 +433,7 @@ header #second-nav {
   width: 200px;
 
   &.disabled {
-    opacity: 0.4;
+    display: none;
     a {pointer-events:none;}
   }
 
