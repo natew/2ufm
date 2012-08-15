@@ -679,6 +679,7 @@ class Song < ActiveRecord::Base
 
     # Detect parenthesis
     parens = true if string =~ /\(/i
+    matches = 0
 
     # Find any non-original artists
     #   gsub() Strip everything up until "(" if there exists one
@@ -687,10 +688,12 @@ class Song < ActiveRecord::Base
       string.gsub(/.*(?=\()/,'').split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|
         part.scan(/#{RE[:featured]}#{RE[:split]}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:featured] unless artist =~ RE[:featured] or artist =~ /&|,/
+          matches += 1
         end
 
         part.scan(/#{RE[:producer]}#{RE[:split]}/).flatten.compact.collect(&:strip).each do |artist|
           matched.push [artist,:producer] unless artist =~ RE[:producer] or artist =~ /&|,/
+          matches += 1
         end
 
         # We can only trust data within a parenthesis for suffix attributes
@@ -700,18 +703,25 @@ class Song < ActiveRecord::Base
           part.scan(/#{RE[:split]}#{RE[:remix]}/).flatten.compact.collect(&:strip).each do |artist|
             artist = artist.gsub(/\'s.*/i,'') # Remove types of remixes eg: "Arists's Piano Remix"
             matched.push [artist, :remixer] unless artist =~ RE[:remix] or artist =~ /&|,/
+            matches += 1
           end
 
           part.scan(/#{RE[:split]}#{RE[:cover]}/).flatten.compact.collect(&:strip).each do |artist|
             matched.push [artist, :cover] unless artist =~ RE[:cover] or artist =~ /&|,/
+            matches += 1
           end
 
           part.scan(/#{RE[:mashup]}/).flatten.compact.collect(&:strip).each do |artist|
             matched.push [artist, :mashup] unless artist =~ RE[:mashup]
+            matches += 1
           end
 
-          part.split(/#{RE[:mashup_split]}/).each do |artist|
-            matched.push [artist, :mashup]
+          # Only look for mashups if nothing else is found
+          if matches == 0
+            part.split(/#{RE[:mashup_split]}/).each do |artist|
+              matched.push [artist, :mashup]
+              matches += 1
+            end
           end
         end
       end
