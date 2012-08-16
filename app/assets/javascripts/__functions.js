@@ -102,7 +102,7 @@ var fn = {
     var clip = new ZeroClipboard.Client();
     clip.setHandCursor(true);
     clip.glue(target, el.parent().attr('id'));
-    clip.setText(document.location.host + el.attr('href'));
+    clip.setText('http://' + document.location.host + el.attr('href'));
 
     // Listeners
     clip.addEventListener('mouseOver', function (client) {
