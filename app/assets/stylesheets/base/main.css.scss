@@ -433,70 +433,74 @@ header #second-nav {
   width: 200px;
 
   &.disabled {
-    display: none;
+    visibility: hidden;
     a {pointer-events:none;}
   }
 
-  .player-invite {
-    margin: 0 0 0 12px;
-    padding: 12px;
-    font-weight: 400;
-    font-size: 16px;
-    width: 14px;
-    height: 12px;
+  #invite-wrap {
+    display: inline-block;
+  }
+}
+
+.player-invite {
+  margin: 0 0 0 12px;
+  padding: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  width: 14px;
+  height: 12px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  float: right;
+  border: none;
+  box-shadow: none !important;
+  background: darken($header-dark,5%);
+  border: 1px solid darken($header-dark,15%);
+  @include border-radius(8px);
+}
+
+#player-invite {
+  width: 50px;
+}
+
+#player-invite-favorite {
+  @include background-gradient($like-light, $like-color);
+
+  &:hover {
+    background: $like-light !important;
+  }
+}
+
+#player-invite-twitter {
+  font-size: 26px;
+  line-height: .4em;
+  font-weight: bold;
+  background: #6dccf2;
+
+  &:hover {
+    background: #6dccf2 !important;
+  }
+}
+
+#player-invite-facebook {
+  font-size: 28px;
+  line-height: .5em;
+
+  &:after {
+    content: "";
     display: block;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    float: right;
-    border: none;
-    box-shadow: none !important;
-    background: darken($header-dark,5%);
-    border: 1px solid darken($header-dark,15%);
-    @include border-radius(8px);
-  }
-
-  #player-invite {
-    width: 50px;
-  }
-
-  #player-invite-favorite {
-    @include background-gradient($like-light, $like-color);
-
-    &:hover {
-      background: $like-light !important;
-    }
-  }
-
-  #player-invite-twitter {
-    font-size: 26px;
-    line-height: .4em;
-    font-weight: bold;
-    background: #6dccf2;
-
-    &:hover {
-      background: #6dccf2 !important;
-    }
-  }
-
-  #player-invite-facebook {
-    font-size: 28px;
-    line-height: .5em;
-
-    &:after {
-      content: "";
-      display: block;
-      z-index: 0;
-      height: 10px;
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 10px;
-      z-index: -1;
-      background: #5a6fa5;
-      @include border-bottom-radius(7px);
-    }
+    z-index: 0;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 10px;
+    z-index: -1;
+    background: #5a6fa5;
+    @include border-bottom-radius(7px);
   }
 }
 
