@@ -160,7 +160,7 @@ header {
   width: $navbar-width;
   padding: 15px 15px 0 15px;
   @include box-sizing(border-box);
-  @include linear-gradient(left, $body-bg, $body-dark);
+  @include linear-gradient(left, $body-bg, $body-darker);
 
   section {
     display: block;
@@ -251,8 +251,8 @@ header {
 
       &:hover {
         color: #fff;
-        background: $body-dark;
-        padding-left: 10px;
+        background: $body-darker;
+        padding-left: 15px;
       }
 
       &.active {
