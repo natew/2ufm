@@ -184,7 +184,7 @@ header {
       padding: 0 30px 10px 0;
       overflow-x: hidden;
       overflow-y: scroll;
-      @include linear-gradient(left, $body-bg, $body-darker);
+      background: $body-bg;
       @include box-shadow(0 0 6px rgba(0,0,0,0.7));
 
       &.collapsed {
