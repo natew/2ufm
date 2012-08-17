@@ -158,7 +158,7 @@ header {
   right: 0;
   bottom: 0;
   width: $navbar-width;
-  padding: 15px 15px 0 15px;
+  padding: 15px 0 0 15px;
   @include box-sizing(border-box);
   @include linear-gradient(left, $body-bg, $body-darker);
 
@@ -179,7 +179,7 @@ header {
       position: fixed;
       bottom: 0;
       right: -5px;
-      width: $navbar-width - 25;
+      width: $navbar-width - 40;
       max-height: 250px;
       padding: 0 30px 10px 10px;
       overflow: scroll;
@@ -188,6 +188,10 @@ header {
       &.collapsed {
         height: 15px;
         overflow: hidden;
+
+        &:after {
+          content: "+";
+        }
       }
 
       h1 {
@@ -224,7 +228,7 @@ header {
       }
     }
 
-    &.accounts {
+    &.account {
       a {
         color: #999;
       }
@@ -236,7 +240,8 @@ header {
       color: #fff;
       padding: 5px 10px;
       margin: 0 -20px 5px 0;
-      background: $body-lighter;
+      background: $header-bg;
+      @include border-left-radius(8px);
     }
 
     a {
@@ -247,7 +252,7 @@ header {
       font-weight: 300;
       font-size: 21px;
       padding: 7px 10px;
-      margin: 0 0 2px 0;
+      margin: 0 15px 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
@@ -264,8 +269,8 @@ header {
 
       &.active {
         color: #fff;
-        background: $header-color;
-        margin-right: -15px;
+        background: $body-darker;
+        margin-right: 0;
       }
 
       &.pictos-nav {
