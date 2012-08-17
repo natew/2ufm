@@ -132,8 +132,8 @@ section.active .play-button {
     }
 
     &.listened-to {
-      background: lighten($body-bg,5%);
-      &:nth-child(2n+1) { background: lighten($body-bg,8%); }
+      background: lighten($body-bg,4%);
+      &:nth-child(2n+1) { background: lighten($body-bg,6%); }
     }
 
     &:hover {
@@ -163,7 +163,7 @@ section.active .play-button {
     &.active {
       border: 2px solid $header-color;
       border-left: none;
-      background: $body-lighter !important;
+      background: lighten($body-lighter,2%) !important;
       &:before {background: $header-color;}
       .song-controls { background: rgba(0,0,0,0.25); }
       .waveform-wrap img { opacity: 0.4; }
