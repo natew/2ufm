@@ -198,7 +198,7 @@ header {
       h1 {
         position: relative;
         margin-right: -30px;
-        background: $header-color;
+        background: $body-light;
 
         &:after {
           display: block;
@@ -211,7 +211,7 @@ header {
         }
 
         &:hover {
-          background: $body-darker;
+          background: $body-lighter;
           cursor: pointer;
         }
       }
@@ -255,7 +255,6 @@ header {
       margin: 0 15px 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
-      @include border-left-radius(8px);
 
       &.secondary {
         color: #777;
