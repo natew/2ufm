@@ -163,6 +163,7 @@ header {
   @include linear-gradient(left, $body-bg, $body-darker);
 
   #navbar-menus {
+    overflow: hidden;
     overflow-y: scroll;
   }
 
@@ -174,10 +175,10 @@ header {
 
     &.stations {
       margin: 0;
-      position: absolute;
+      position: fixed;
       bottom: 0;
       right: -5px;
-      width: $navbar-width - 40;
+      width: $navbar-width - 25;
       max-height: 250px;
       padding: 0 30px 10px 10px;
       overflow: scroll;
