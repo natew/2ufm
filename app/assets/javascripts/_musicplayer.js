@@ -46,7 +46,7 @@ var mp = (function() {
 
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
-  soundManager.useFlashBlock = false;
+  soundManager.useFlashBlock = true;
   soundManager.debugMode = false;
   soundManager.useHTML5Audio = true;
   soundManager.preferFlash = true;

@@ -1604,3 +1604,17 @@ ul.tagit input[type="text"] {
     font-weight: normal;
     font-style: normal;
 }
+
+#sm2-container,
+#sm2-container.swf_unblocked {
+  position: absolute;
+  top: -5000px;
+  left: -5000px;
+  z-index: 100000;
+}
+
+#sm2-container.swf_timedout {
+  left: 50%;
+  height: 50%;
+  border: 4px solid red;
+}
