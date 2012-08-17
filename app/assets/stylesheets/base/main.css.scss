@@ -551,7 +551,7 @@ header #second-nav {
     right: 0;
     bottom: 0;
     height: 10px;
-    z-index: -1;
+    z-index: 0;
     background: #5a6fa5;
   }
 }
@@ -562,7 +562,6 @@ header #second-nav {
   font-weight: bold;
   display: inline-block;
   position: relative;
-  border-color: darken(#2d4486,10%);
   background: #2d4486;
 
   &:hover {
