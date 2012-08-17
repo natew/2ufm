@@ -62,14 +62,17 @@ w.on({
     setTimeout(function() {
       if (mp.isOnPlayingPage() && !mp.getHasMoved()) {
         fn.log('scroll to song');
-        var section    = $('#song-' + song.id),
-            sectionTop = section.offset().top,
-            sectionBot = sectionTop + section.height(),
-            windowTop  = w.scrollTop(),
-            windowBot  = windowTop + w.height();
+        var section    = $('#song-' + song.id);
 
-        if (sectionTop < (windowTop + 60)) fn.scrollTo(sectionTop - 200);
-        else if (sectionBot > windowBot) fn.scrollTo(sectionTop - 200);
+        if (section.length) {
+          var sectionTop = section.offset().top,
+              sectionBot = sectionTop + section.height(),
+              windowTop  = w.scrollTop(),
+              windowBot  = windowTop + w.height();
+
+          if (sectionTop < (windowTop + 60)) fn.scrollTo(sectionTop - 200);
+          else if (sectionBot > windowBot) fn.scrollTo(sectionTop - 200);
+        }
       }
     }, 200);
   },
