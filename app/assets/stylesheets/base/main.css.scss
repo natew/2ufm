@@ -181,10 +181,11 @@ header {
       right: -5px;
       width: $navbar-width - 40;
       max-height: 250px;
-      padding: 0 30px 10px 10px;
+      padding: 0 30px 10px 0;
       overflow-x: hidden;
       overflow-y: scroll;
       @include linear-gradient(left, $body-bg, $body-darker);
+      @include box-shadow(0 0 6px rgba(0,0,0,0.7));
 
       &.collapsed {
         height: 15px;
