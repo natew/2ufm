@@ -174,11 +174,11 @@ header {
       right: 0;
       width: $navbar-width - 50;
       max-height: 250px;
-      padding: 0 30px 10px 0;
+      padding: 0 30px 10px 10px;
       overflow: scroll;
       background: $body-bg;
 
-      &.hidden {
+      &.collapsed {
         height: 30px;
       }
 
