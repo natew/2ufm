@@ -127,7 +127,7 @@
 
         <% if @friends and @friends.length > 0 %>
         <section class="nav-extra stations">
-          <h1>Following</h1>
+          <h1 class="collapse">Following</h1>
           <%= render :partial => 'users/friend', :collection => @friends %>
         </section>
         <% end %>

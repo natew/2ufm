@@ -264,6 +264,8 @@ $(function() {
                 var next = $('.artists-shelf li:not(.hidden):lt(5)');
                 if (next.length) next.addClass('hidden')
                 else $('.artists-shelf li').removeClass('hidden');
+              } else if (el.is('.collapse')) {
+                $(this).parent().toggeClass('collapsed');
               }
             }
           }

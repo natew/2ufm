@@ -168,15 +168,24 @@ header {
     margin: 0 0 20px 0;
 
     &.stations {
+      margin: 0;
       position: absolute;
       bottom: 0;
       right: 0;
-      width: $navbar-width - 20;
+      width: $navbar-width - 50;
       max-height: 250px;
-      padding: 0 0 10px 0;
+      padding: 0 30px 10px 0;
       overflow: scroll;
       background: $body-bg;
-      @include linear-gradient($body-dark 0%, $body-bg 10%);
+
+      &.hidden {
+        height: 30px;
+      }
+
+      h1:hover {
+        background: $body-darker;
+        cursor: pointer;
+      }
     }
 
     &.nav-extra {
@@ -197,7 +206,8 @@ header {
       text-transform: lowercase;
       color: #aaa;
       padding: 0 10px;
-      margin-bottom: 8px;
+      margin: 0 -20px 8px 0;
+      background: #111;
     }
 
     a {
@@ -458,7 +468,6 @@ header #second-nav {
   box-shadow: none !important;
   background: darken($header-dark,5%);
   border: 1px solid darken($header-dark,15%);
-  @include border-radius(8px);
 }
 
 #player-invite {
@@ -500,7 +509,6 @@ header #second-nav {
     height: 10px;
     z-index: -1;
     background: #5a6fa5;
-    @include border-bottom-radius(7px);
   }
 }
 
@@ -565,8 +573,7 @@ header #second-nav {
   }
 
   #player-controls {
-    margin: 0 0 -4px 2px;
-    width: 80px;
+    margin: 0 0 -4px 0;
     float: left;
 
     a {
@@ -590,8 +597,8 @@ header #second-nav {
 
     /* play button */
     .play {
-      font-size: 34px;
-      width: 50px;
+      font-size: 41px;
+      width: 54px;
       height: 50px;
       color: #fff;
 
@@ -602,7 +609,7 @@ header #second-nav {
 
     .next {
       margin: 16px 0 0 -3px;
-      font-size: 23px;
+      font-size: 27px;
       width: 30px;
       height: 30px;
 
@@ -624,7 +631,7 @@ header #second-nav {
       overflow: hidden;
       visibility: hidden;
       margin: 3px 20px 0;
-      line-height: 18px;
+      line-height: 19px;
 
       span {
         display: block;
@@ -633,7 +640,7 @@ header #second-nav {
 
       #player-song-name a {
         margin-bottom: 1px;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 400;
         white-space: nowrap;
         overflow: hidden;
@@ -647,7 +654,7 @@ header #second-nav {
         font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
-        font-weight: 300;
+        font-weight: 400;
         text-overflow: ellipsis;
       }
     }
@@ -677,7 +684,7 @@ header #second-nav {
     a.control {
       display: block;
       float: left;
-      font-size: 16px;
+      font-size: 18px;
       color: $header-color;
       padding: 4px 5px;
       pointer-events: none;
@@ -713,7 +720,7 @@ header #second-nav {
       right: 78px;
       overflow: hidden;
       margin: 2px 0 0;
-      padding: 4px 4px;
+      padding: 5px 4px;
       height: 0;
       background: darken($header-dark,10%);
       @include box-shadow(0 1px 0 $header-shadow);
