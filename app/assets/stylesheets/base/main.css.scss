@@ -384,7 +384,7 @@ header {
     border: none;
     pointer-events: none;
     position: absolute;
-    right: -9px;
+    right: 7px;
     top: -2px;
     font-size: 17px;
     color: rgba(0,0,0,0.2);
@@ -477,7 +477,7 @@ header #second-nav {
 
 #invite-container {
   position: absolute;
-  top: 10px;
+  top: 9px;
   right: 15px;
   width: 200px;
 
@@ -505,11 +505,11 @@ header #second-nav {
   float: right;
   border: none;
   box-shadow: none !important;
-  background: $dark-green;
-  border: 1px solid darken($header-dark,15%);
+  background: $green;
+  border: 2px solid #fff;
 
-  &:hover {
-    background: $green;
+  &.hover {
+    background: $light-green;
   }
 }
 
