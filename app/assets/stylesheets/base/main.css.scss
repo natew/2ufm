@@ -160,6 +160,7 @@ header {
   width: $navbar-width;
   padding: 15px 15px 0 15px;
   @include box-sizing(border-box);
+  @include linear-gradient(left, $body-bg, $body-dark);
 
   section {
     display: block;
