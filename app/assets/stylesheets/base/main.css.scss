@@ -162,6 +162,10 @@ header {
   @include box-sizing(border-box);
   @include linear-gradient(left, $body-bg, $body-darker);
 
+  #navbar-menus {
+    overflow-y: scroll;
+  }
+
   section {
     display: block;
     position: relative;
