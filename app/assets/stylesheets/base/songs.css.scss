@@ -163,7 +163,7 @@ section.active .play-button {
     &.active {
       border: 2px solid $header-color;
       border-left: none;
-      background: $body-darker !important;
+      background: $body-lighter !important;
       &:before {background: $header-color;}
       .song-controls { background: rgba(0,0,0,0.25); }
       .waveform-wrap img { opacity: 0.4; }

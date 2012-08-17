@@ -507,7 +507,7 @@ header #second-nav {
   border: none;
   box-shadow: none !important;
   background: $green;
-  border: 2px solid #fff;
+  border: 2px solid $header-dark;
 
   &.hover {
     background: $light-green;
@@ -533,7 +533,7 @@ header #second-nav {
   background: #6dccf2;
 
   &:hover {
-    background: #6dccf2 !important;
+    background: #8cd6f2 !important;
   }
 }
 
