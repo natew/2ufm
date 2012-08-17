@@ -185,7 +185,7 @@ header {
 
       h1 {
         position: relative;
-        background: #111;
+        background: $header-color;
 
         &:after {
           display: block;
