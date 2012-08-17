@@ -216,6 +216,10 @@ header {
           cursor: pointer;
         }
       }
+
+      a {
+        margin-right: 0;
+      }
     }
 
     &.nav-extra {
@@ -270,7 +274,7 @@ header {
 
       &.active {
         color: #fff;
-        background: $body-darker;
+        background: $header-color;
         margin-right: 0;
       }
 
