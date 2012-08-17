@@ -190,7 +190,7 @@ header {
         height: 15px;
         overflow: hidden;
 
-        &:after {
+        h1:after {
           content: "+";
         }
       }
@@ -242,7 +242,6 @@ header {
       padding: 5px 10px;
       margin: 0 -20px 5px 0;
       background: $header-color;
-      @include border-left-radius(8px);
     }
 
     a {
@@ -256,6 +255,7 @@ header {
       margin: 0 15px 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
+      @include border-left-radius(8px);
 
       &.secondary {
         color: #777;
