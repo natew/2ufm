@@ -183,9 +183,24 @@ header {
         overflow: hidden;
       }
 
-      h1:hover {
-        background: $body-darker;
-        cursor: pointer;
+      h1 {
+        position: relative;
+        background: #111;
+
+        &:after {
+          display: block;
+          content: "_";
+          position: absolute;
+          bottom: 11px;
+          right: 10px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        &:hover {
+          background: $body-darker;
+          cursor: pointer;
+        }
       }
     }
 
@@ -214,7 +229,7 @@ header {
       color: #aaa;
       padding: 5px 10px;
       margin: 0 -20px 5px 0;
-      background: #111;
+      background: #333;
     }
 
     a {
