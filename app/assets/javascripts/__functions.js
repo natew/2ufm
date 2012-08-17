@@ -88,17 +88,23 @@ var fn = {
   },
 
   clipboard: function(target) {
+    fn.log('clipboard', target);
     var el    = $('#' + target),
         text  = el.html(),
         hover = el.data('hover'),
         click = el.data('click'),
         wait  = false;
 
+    // Remove old one
+    el.parent().find('.ZeroClipboardDiv').remove();
+
     ZeroClipboard.setMoviePath('/swfs/ZeroClipboard.swf');
     var clip = new ZeroClipboard.Client();
     clip.setHandCursor(true);
     clip.glue(target, el.parent().attr('id'));
-    clip.setText(document.location.host + el.attr('href'));
+    clip.setText('http://' + document.location.host + el.attr('href'));
+
+    // Listeners
     clip.addEventListener('mouseOver', function (client) {
       el.trigger('mouseover').addClass('hover').html(hover);
     });

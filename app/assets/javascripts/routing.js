@@ -41,8 +41,9 @@ var page = {
     setNavActive(curPage);
 
     // Clipboard items
-    var citems = $('.clipboard');
+    var citems = $('#main-mid .clipboard');
     if (citems.length) {
+      fn.log('binding to clipboard');
       citems.each(function() { fn.clipboard($(this).attr('id')); });
     }
 
