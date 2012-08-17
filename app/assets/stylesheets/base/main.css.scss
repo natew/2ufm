@@ -176,12 +176,12 @@ header {
       margin: 0;
       position: absolute;
       bottom: 0;
-      right: 0;
-      width: $navbar-width - 50;
+      right: -5px;
+      width: $navbar-width - 40;
       max-height: 250px;
       padding: 0 30px 10px 10px;
       overflow: scroll;
-      background: $body-bg;
+      @include linear-gradient(left, $body-bg, $body-darker);
 
       &.collapsed {
         height: 15px;
@@ -190,6 +190,7 @@ header {
 
       h1 {
         position: relative;
+        margin-right: -30px;
         background: $header-color;
 
         &:after {
