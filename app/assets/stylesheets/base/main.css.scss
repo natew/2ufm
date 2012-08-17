@@ -200,13 +200,19 @@ header {
       }
     }
 
+    &.accounts {
+      a {
+        color: #999;
+      }
+    }
+
     h1 {
       font-size: 12px;
       font-weight: 300;
       text-transform: lowercase;
       color: #aaa;
       padding: 5px 10px;
-      margin: -5px -20px 5px 0;
+      margin: 0 -20px 5px 0;
       background: #111;
     }
 

@@ -107,13 +107,13 @@
           <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
         </section>
 
-        <section>
+        <section class="nav-extra">
           <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
           <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
           <%= link_to 'Users', '/users', :id => 'nav-users' %>
         </section>
 
-        <section class="nav-extra">
+        <section class="nav-extra account">
           <% if user_signed_in? %>
             <%= link_to "Account", '/account' %>
             <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
