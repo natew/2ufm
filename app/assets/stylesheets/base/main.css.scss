@@ -182,7 +182,8 @@ header {
       width: $navbar-width - 40;
       max-height: 250px;
       padding: 0 30px 10px 10px;
-      overflow: scroll;
+      overflow-x: hidden;
+      overflow-y: scroll;
       @include linear-gradient(left, $body-bg, $body-darker);
 
       &.collapsed {
