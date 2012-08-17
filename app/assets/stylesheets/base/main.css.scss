@@ -501,8 +501,12 @@ header #second-nav {
   float: right;
   border: none;
   box-shadow: none !important;
-  background: darken($header-dark,5%);
+  background: $dark-green;
   border: 1px solid darken($header-dark,15%);
+
+  &:hover {
+    background: $green;
+  }
 }
 
 #player-invite {
