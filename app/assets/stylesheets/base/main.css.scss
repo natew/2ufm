@@ -192,6 +192,7 @@ header {
 
         h1:after {
           content: "+";
+          bottom: 6px;
         }
       }
 
@@ -204,8 +205,8 @@ header {
           display: block;
           content: "_";
           position: absolute;
-          bottom: 11px;
-          right: 10px;
+          bottom: 12px;
+          right: 14px;
           font-size: 20px;
           font-weight: bold;
         }
@@ -241,7 +242,7 @@ header {
       color: #fff;
       padding: 5px 10px;
       margin: 0 -20px 5px 0;
-      background: $header-color;
+      font-weight: bold;
     }
 
     a {
