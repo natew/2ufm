@@ -203,7 +203,11 @@ $(function() {
   // Close modal
   $('#overlay').click(function() { modal(false); });
 
-  // Click binding
+  $('.collapse').click(function() {
+    $(this).parent().toggleClass('collapsed');
+  })
+
+  // Link binding
   $('body').click(function(e) {
     if (!e.target) return false;
     var parent = e.target;
@@ -220,6 +224,7 @@ $(function() {
 
     if (parent.tagName == 'A') {
       var el = $(parent);
+      fn.log('click', el);
 
       // Disabled
       if (el.is('.disabled')) {
@@ -255,12 +260,14 @@ $(function() {
               if (el.is('.play-station')) {
                 mp.setAutoPlay(true);
               }
-              else if (el.is('.shuffle')) {
+              else
+              if (el.is('.shuffle')) {
                 e.preventDefault();
                 shuffled = mp.toggleShuffle();
                 updateShuffle(shuffled, el);
               }
-              else if (el.is('#more-artists')) {
+              else
+              if (el.is('#more-artists')) {
                 var next = $('.artists-shelf li:not(.hidden):lt(5)');
                 if (next.length) next.addClass('hidden')
                 else $('.artists-shelf li').removeClass('hidden');

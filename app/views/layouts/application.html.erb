@@ -73,10 +73,10 @@
           <!-- /player-meta -->
 
           <div id="invite-container" class="disabled">
-            <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite button tip-n control', :title => 'Link to song', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
-            <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite button tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
-            <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite button tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
-            <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite button tip-n control pictos', :title => 'Favorite'  %>
+            <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite tip-n control', :title => 'Link to song', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
+            <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
+            <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
+            <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite tip-n control pictos', :title => 'Favorite'  %>
           </div>
         </div>
         <!-- /player-main -->
@@ -93,44 +93,46 @@
           <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
         <% end -%>
 
-        <%- if user_signed_in? -%>
-        <section class="nav-user">
-          <h1><%= current_user.username %></h1>
-          <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
-          <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
-          <%= link_to 'Profile', current_user, :id => 'nav-profile' %>
-        </section>
-        <%- end -%>
+        <div id="navbar-menus">
+          <%- if user_signed_in? -%>
+          <section class="nav-user">
+            <h1><%= current_user.username %></h1>
+            <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
+            <%= link_to 'Following', '/stations', :id => 'nav-stations' %>
+            <%= link_to 'Profile', current_user, :id => 'nav-profile' %>
+          </section>
+          <%- end -%>
 
-        <section class="nav-general">
-          <%= link_to 'New', '/', :id => 'nav-home' %>
-          <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
-        </section>
+          <section class="nav-general">
+            <%= link_to 'New', '/', :id => 'nav-home' %>
+            <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
+          </section>
 
-        <section>
-          <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
-          <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
-          <%= link_to 'Users', '/users', :id => 'nav-users' %>
-        </section>
+          <section class="nav-extra">
+            <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
+            <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
+            <%= link_to 'Users', '/users', :id => 'nav-users' %>
+          </section>
 
-        <section class="nav-extra">
-          <% if user_signed_in? %>
-            <%= link_to "Account", '/account' %>
-            <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-          <% else %>
-            <%= link_to 'Login', '/login', :class => 'restricted'  %>
-            <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
-            <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button control popup', 'data-dimensions' => '750,450' %>
+          <section class="nav-extra account">
+            <% if user_signed_in? %>
+              <%= link_to "Account", '/account' %>
+              <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+            <% else %>
+              <%= link_to 'Login', '/login', :class => 'restricted'  %>
+              <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
+              <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button control popup', 'data-dimensions' => '750,450' %>
+            <% end %>
+            <% link_to "About Us", "#", :class => "secondary" %>
+          </section>
+
+          <% if @friends and @friends.length > 0 %>
+          <section class="nav-extra stations">
+            <h1 class="collapse">Following</h1>
+            <%= render :partial => 'users/friend', :collection => @friends %>
+          </section>
           <% end %>
-          <% link_to "About Us", "#", :class => "secondary" %>
-        </section>
-
-        <% if @friends and @friends.length > 0 %>
-        <section class="nav-extra stations">
-          <h1>Following</h1>
-          <%= render :partial => 'users/friend', :collection => @friends %>
-        </section>
-        <% end %>
+        </div>
       </div>
 
       <div id="body">

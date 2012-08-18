@@ -8,7 +8,7 @@ class Artist < ActiveRecord::Base
   has_one    :station, :dependent => :destroy
   has_many   :broadcasts, :through => :songs
   has_many   :stations, :through => :broadcasts
-  has_many   :authors
+  has_many   :authors, :dependent => :destroy
   has_many   :songs, :through => :authors, :extend => SongExtensions
 
   acts_as_url :name, :url_attribute => :slug, :allow_duplicates => false
