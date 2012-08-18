@@ -72,12 +72,10 @@
           </div>
           <!-- /player-meta -->
 
-          <div id="invite-container" class="disabled">
-            <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite tip-n control', :title => 'Link to song', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
-            <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
-            <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
-            <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite tip-n control pictos', :title => 'Favorite'  %>
-          </div>
+          <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
+            <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
+            <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+          <% end -%>
         </div>
         <!-- /player-main -->
       </div>
@@ -88,10 +86,12 @@
   <div id="main-mid">
     <div class="page-contain">
       <div id="navbar">
-        <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
-          <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
-          <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-        <% end -%>
+        <div id="invite-container" class="disabled">
+          <%= link_to "Share", '', :id => 'player-invite', :class => 'player-invite tip-n control', :title => 'Link to song', 'data-hover' => 'Copy', 'data-click' => 'Paste!'  %>
+          <%= link_to "f", '', :id => 'player-invite-facebook', :class => 'player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
+          <%= link_to "t", '', :id => 'player-invite-twitter', :class => 'player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
+          <% link_to "k", '', :id => 'player-invite-favorite', :class => 'player-invite tip-n control pictos', :title => 'Favorite'  %>
+        </div>
 
         <div id="navbar-menus">
           <%- if user_signed_in? -%>
@@ -118,10 +118,6 @@
             <% if user_signed_in? %>
               <%= link_to "Account", '/account' %>
               <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-            <% else %>
-              <%= link_to 'Login', '/login', :class => 'restricted'  %>
-              <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
-              <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button control popup', 'data-dimensions' => '750,450' %>
             <% end %>
             <% link_to "About Us", "#", :class => "secondary" %>
           </section>
@@ -178,6 +174,14 @@
   <!-- Modals -->
   <div id="overlay" class="shown slow-fade"></div>
   <div id="modal"></div>
+
+  <% if !user_signed_in? %>
+    <div id="modal-login">
+      <h3>Welcome</h3>
+      <p>Login with facebook to begin browsing music</p>
+      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button control popup', 'data-dimensions' => '750,450' %>
+    </div>
+  <% end %>
 
   <div class="hidden">
     <div id="modal-user">
