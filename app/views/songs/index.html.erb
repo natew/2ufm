@@ -1,4 +1,4 @@
-<%= render 'main/nav', :locals => { :title => 'Popular' } %>
+<%= render :partial => 'main/nav', :locals => { :title => 'Popular' } %>
 
 <div class="whole">
   <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs } %>

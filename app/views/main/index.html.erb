@@ -1,4 +1,4 @@
-  <%= render 'main/nav', :locals => { :title => 'New' } %>
+  <%= render :partial => 'main/nav', :locals => { :title => 'New' } %>
 
   <div class="whole">
     <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
