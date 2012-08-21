@@ -16,16 +16,6 @@
       <span class="artist"><%= author_links(song.authors) %></span>
       <span class="name"><%= tagged_song_name(song.name) %></span>
     </h1>
-
-    <div class="reviews">
-      <%= render :partial => 'blogs/review', :collection => [song] %>
-    </div>
-
-    <ul class="stats horizontal-list">
-      <li class="title">Info:</li>
-      <li><%= pluralize song.play_count, 'play' %></li>
-      <li><%= seconds_to_time song.length %></li>
-    </ul>
   </div>
 
   <div class="song-meta">
@@ -41,6 +31,18 @@
     </div>
   </div>
 
+  <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
+
+  <div class="reviews">
+    <%= render :partial => 'blogs/review', :collection => [song] %>
+  </div>
+
+  <ul class="stats horizontal-list">
+    <li class="title">Info:</li>
+    <li><%= pluralize song.play_count, 'play' %></li>
+    <li><%= seconds_to_time song.length %></li>
+  </ul>
+
   <div class="invite-container">
     <%= link_to "f", '', :class => 'player-invite-facebook player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
     <%= link_to "t", '', :class => 'player-invite-twitter player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
@@ -48,8 +50,6 @@
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
   <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
-
-  <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
 
   <ul class="song-controls tip-n" title="Like">
     <li class="broadcast"><%= broadcast_song(song) %></li>
