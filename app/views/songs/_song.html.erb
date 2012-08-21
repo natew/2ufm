@@ -39,11 +39,11 @@
       <time><%= relative_time(time) %></time>
       <%= link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
     </div>
+  </div>
 
-    <div class="invite-container">
-      <%= link_to "f", '', :class => 'player-invite-facebook player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
-      <%= link_to "t", '', :class => 'player-invite-twitter player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
-    </div>
+  <div class="invite-container">
+    <%= link_to "f", '', :class => 'player-invite-facebook player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
+    <%= link_to "t", '', :class => 'player-invite-twitter player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
   </div>
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
