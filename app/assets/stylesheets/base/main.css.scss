@@ -578,8 +578,12 @@ header #second-nav {
 
   #player-share-container {
     position: absolute;
-    top: 4px;
-    right: 0;
+    top: 2px;
+    right: 10px;
+
+    #player-share {
+      z-index: 88;
+    }
   }
 
   #player-main {
