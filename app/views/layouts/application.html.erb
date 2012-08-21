@@ -90,20 +90,17 @@
         <div id="navbar-menus">
           <%- if user_signed_in? -%>
           <section class="nav-user">
-            <h1><%= link_to current_user.username, current_user %></h1>
+            <%= link_to current_user.username, current_user, :id => 'nav-user' %>
             <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
             <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
           </section>
           <%- end -%>
 
-          <section class="nav-general">
-            <%= link_to 'Songs', '/', :id => 'nav-home' %>
-          </section>
-
           <section class="nav-extra">
+            <%= link_to 'Songs', '/', :id => 'nav-home' %>
             <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
             <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
-            <%= link_to 'Users', '/users', :id => 'nav-users' %>
+            <% link_to 'Users', '/users', :id => 'nav-users' %>
           </section>
 
           <section class="nav-extra account">
