@@ -4,6 +4,7 @@ class Artist < ActiveRecord::Base
   include AttachmentHelper
   include PaperclipExtensions
   include SlugExtensions
+  include CommonScopes
 
   has_one    :station, :dependent => :destroy
   has_many   :broadcasts, :through => :songs

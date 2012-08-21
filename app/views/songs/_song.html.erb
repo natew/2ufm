@@ -7,14 +7,26 @@
 -%>
 
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %>">
-  <a class="song-art cover-<%= cover %>" href="/amazon/<%= song.id %>">
-    <%= image_tag song.resolve_image(cover) %>
-  </a>
+  <div class="song-info">
+    <a class="song-art cover-<%= cover %>" href="/amazon/<%= song.id %>">
+      <%= image_tag song.resolve_image(cover) %>
+    </a>
 
-  <h1>
-    <span class="artist"><%= author_links(song.authors) %></span>
-    <span class="name"><%= tagged_song_name(song.name) %></span>
-  </h1>
+    <h1>
+      <span class="artist"><%= author_links(song.authors) %></span>
+      <span class="name"><%= tagged_song_name(song.name) %></span>
+    </h1>
+
+    <div class="reviews">
+      <%= render :partial => 'blogs/review', :collection => [song] %>
+    </div>
+
+    <ul class="stats horizontal-list">
+      <li class="title">Info:</li>
+      <li><%= pluralize song.play_count, 'play' %></li>
+      <li><%= seconds_to_time song.length %></li>
+    </ul>
+  </div>
 
   <div class="song-meta">
     <div class="song-follow">
@@ -27,6 +39,11 @@
       <time><%= relative_time(time) %></time>
       <%= link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
     </div>
+
+    <div class="invite-container">
+      <%= link_to "f", '', :class => 'player-invite-facebook player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
+      <%= link_to "t", '', :class => 'player-invite-twitter player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
+    </div>
   </div>
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
@@ -36,16 +53,6 @@
 
   <ul class="song-controls tip-n" title="Like">
     <li class="broadcast"><%= broadcast_song(song) %></li>
-  </ul>
-
-  <div class="reviews">
-    <%= render :partial => 'blogs/review', :collection => [song] %>
-  </div>
-
-  <ul class="stats horizontal-list">
-    <li class="title">Info:</li>
-    <li><%= pluralize song.play_count, 'play' %></li>
-    <li><%= seconds_to_time song.length %></li>
   </ul>
 
   <% debug(song) %>

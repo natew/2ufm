@@ -54,9 +54,9 @@ w.on({
     playlistItem.addClass('playing');
 
     // Update player info
-    $('#invite-container').addClass('disabled');
     $('#player-artist-name').html(song.artist_name);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
+    playlistItem.after($('#invite-container').html());
 
     // Scroll to song
     setTimeout(function() {

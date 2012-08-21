@@ -61,13 +61,6 @@ h1, h2, h3, h4 {
   }
 }
 
-h2 {
-  display: inline-block;
-  padding: 10px;
-  margin: 0;
-  margin-bottom: auto;
-}
-
 
 /* Header */
 header {
@@ -79,7 +72,6 @@ header {
   z-index: 1000;
   height: 1+$header-height;
   line-height: 1em;
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
   background: $header-color;
   @include box-sizing(border-box);
   @include linear-gradient(left, $header-dark, $header-light);
@@ -252,7 +244,7 @@ header {
       color: $navbar-link;
       font-weight: 300;
       font-size: 22px;
-      padding: 10px;
+      padding: 8px;
       margin: 0 15px 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
@@ -354,8 +346,7 @@ header #search-form {
   #query {
     background: #fff;
     border: 2px solid $header-dark;
-    width: 180px;
-    padding: 50pxpx;
+    width: $navbar-width - 60;
     &:hover { background: #fff !important; }
   }
 
@@ -372,7 +363,7 @@ header #search-form {
   #query {
     border: none;
     padding: 4px 30px 4px 8px;
-    width: $query-width;
+    width: $navbar-width - 30 - 8;
     margin: 0;
     color: rgba(255,255,255,0.6);
     outline: none;
@@ -491,99 +482,6 @@ header #second-nav {
   height: $header-height;
 }
 
-#invite-container {
-  display: none;
-  position: absolute;
-  top: 9px;
-  right: 15px;
-  width: 200px;
-
-  &.disabled {
-    visibility: hidden;
-    a {pointer-events:none;}
-  }
-
-  #invite-wrap {
-    display: inline-block;
-  }
-}
-
-.player-invite {
-  margin: 0 0 0 12px;
-  padding: 12px;
-  font-weight: 400;
-  font-size: 16px;
-  width: 14px;
-  height: 12px;
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  float: right;
-  border: none;
-  box-shadow: none !important;
-  background: $green;
-
-  &.hover {
-    background: $light-green;
-  }
-}
-
-#player-invite {
-  width: 50px;
-}
-
-#player-invite-favorite {
-  @include background-gradient($like-light, $like-color);
-
-  &:hover {
-    background: $like-light !important;
-  }
-}
-
-#player-invite-twitter {
-  font-size: 26px;
-  line-height: .4em;
-  font-weight: bold;
-  background: #6dccf2;
-
-  &:hover {
-    background: #8cd6f2 !important;
-  }
-}
-
-#player-invite-facebook {
-  font-size: 28px;
-  line-height: .5em;
-
-  &:after {
-    content: "";
-    display: block;
-    z-index: 0;
-    height: 10px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 10px;
-    z-index: 0;
-    background: #5a6fa5;
-  }
-}
-
-.facebook-button {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-  position: relative;
-  background: #2d4486;
-
-  &:hover {
-    background: #425699;
-  }
-}
-
 #player {
   padding-top: 7px;
   white-space: nowrap;
@@ -699,7 +597,7 @@ header #second-nav {
 
       #player-song-name a {
         margin-bottom: 1px;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 400;
         white-space: nowrap;
         overflow: hidden;
@@ -775,14 +673,14 @@ header #second-nav {
 
     #player-progress-bar {
       position: absolute;
-      top: 5px;
+      top: 4px;
       left: 30px;
       right: 78px;
       overflow: hidden;
       margin: 2px 0 0;
       padding: 5px 4px;
       height: 0;
-      background: darken($header-dark,10%);
+      background: darken($header-dark,5%);
       @include box-shadow(0 1px 0 $header-shadow);
 
       &:hover {

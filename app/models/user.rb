@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
 
-  before_create :make_station, :set_station_slug
+  before_create :make_station, :set_station_slug, :set_station_id
 
   validates :username, :length => 2..22
   validates_with SlugValidator
@@ -48,6 +48,13 @@ class User < ActiveRecord::Base
 
   def following_songs(offset=0, limit=18)
     Song.user_following_songs(id, offset, limit)
+  end
+
+  def followers
+    Station
+    .joins('inner join users on users.station_id = stations.id')
+    .joins('inner join follows on follows.user_id = users.id')
+    .where('follows.station_id = ?', station_id)
   end
 
   def image
@@ -110,6 +117,10 @@ class User < ActiveRecord::Base
 
   def make_station
     self.create_station(title:username)
+  end
+
+  def set_station_id
+    self.station_id = station.id
   end
 
   protected

@@ -18,8 +18,8 @@ class StationsController < ApplicationController
       @user = User.find(@station.user_id) || not_found
       @songs = @user.station.songs.playlist_order_broadcasted(current_user).page(params[:page]).per(12)
       @following = @user.stations
-      @followers = @user.station.followers
-      @artists = @user.station.artists.order('random() desc').limit(12)
+      @followers = @user.followers
+      @artists = @user.station.artists.has_image.order('random() desc').limit(12)
       @primary = @user
     when 'blog'
       @blog    = Blog.find(@station.blog_id) || not_found

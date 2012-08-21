@@ -25,6 +25,81 @@ $song-art: 48px;
 $song-art-big: 130px;
 $song-player-height: 50px;
 
+
+/* Share buttons */
+
+.invite-container {
+  border: 2px solid rgba(0,0,0,0.1);
+  margin: 6px 0 0;
+  display: inline-block;
+
+  &.disabled {
+    visibility: hidden;
+    a {pointer-events:none;}
+  }
+
+  .invite-wrap {
+    display: inline-block;
+  }
+}
+
+.player-invite {
+  margin: 0;
+  padding: 7px;
+  font-weight: 400;
+  font-size: 12px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  z-index: 1000;
+  float: right;
+  border: none;
+  box-shadow: none !important;
+  background: $green;
+
+  &.hover {
+    background: $light-green;
+  }
+}
+
+.player-invite-favorite {
+  @include background-gradient($like-light, $like-color);
+
+  &:hover {
+    background: $like-light !important;
+  }
+}
+
+.player-invite-twitter {
+  font-size: 14px;
+  line-height: .4em;
+  font-weight: bold;
+  background: #4b8fa9;
+
+  &:hover {
+    background: #8cd6f2 !important;
+  }
+}
+
+.player-invite-facebook {
+  line-height: .5em;
+}
+
+.facebook-button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  position: relative;
+  background: #2d4486;
+
+  &:hover {
+    background: #425699;
+  }
+}
+
 /* Play button */
 
 .play-button {
@@ -199,7 +274,7 @@ section.active .play-button {
     }
 
     h1 {
-      margin: -8px 100px -5px $play-button-size + $song-pad;
+      margin: -8px 0 -5px $play-button-size + $song-pad;
       line-height: 24px;
       font-weight: 400;
       min-height: $play-button-size + 8;
@@ -213,7 +288,6 @@ section.active .play-button {
           font-weight: 300;
           position: relative;
           z-index: 12;
-          margin-right: 20px;
 
           a { color: #aaa; pointer-events: auto;
             &:hover { color: $link-hover; }
@@ -250,16 +324,21 @@ section.active .play-button {
       left: $song-pad;
     }
 
+    .song-info {
+      float: left;
+      width: 72%;
+    }
+
     .song-meta {
-      position: absolute;
-      top: $song-pad;
-      right: $song-pad;
-      font-size: 14px;
+      float: right;
+      width: 15%;
+      max-width: 200px;
+      min-width: 100px;
+      font-size: 12px;
       margin: 0;
       color: #999;
-      margin-left: 60px;
       z-index: 11;
-      line-height: 1.5em;
+      line-height: 1.3em;
       text-align: right;
 
       .song-follow {
@@ -275,19 +354,18 @@ section.active .play-button {
         background: none;
         border: none;
         padding: 0;
-        margin: -1px 0 0;
+        margin: -2px 0 0;
         line-height: .9em;
         box-shadow: none;
         text-shadow: none;
         float: left;
 
         span {
-          font-size: 16px;
+          font-size: 14px;
           margin: 0;
           line-height: 1.5em;
           padding-right: 4px;
           color: #999;
-          -webkit-font-smoothing: antialiased;
         }
 
         &.remove span {
@@ -317,8 +395,8 @@ section.active .play-button {
       }
 
       time {
-        display: inline-block;
         margin: 6px 0 0;
+        display: inline-block;
         white-space: nowrap;
         font-size: 12px;
         line-height: 1em;
@@ -328,7 +406,7 @@ section.active .play-button {
         display: none;
         color: #ccc;
         font-weight: normal;
-        margin: 6px 0 0 3px;
+        margin: 6px 0 0 6px;
         padding-left: 15px;
 
         &:before { top:0; left:0; }
@@ -373,9 +451,14 @@ section.active .play-button {
           z-index: 3;
           font-size: 22px;
           color: lighten($gutter-color, 60%);
+          background: rgba(0,0,0,0.1);
           padding: 10px;
-          padding-bottom: 40px;
           padding-top: $song-pad;
+          position: absolute;
+          bottom: 0;
+          top: 0;
+          left: 0;
+          right: 0;
           @include box-sizing(border-box);
 
           &:before {
@@ -480,10 +563,6 @@ section.active .play-button {
   .reviews {
     display: block;
     font-weight: 300;
-  }
-
-  .song-meta {
-    right: $song-pad;
   }
 
   .song-art {
