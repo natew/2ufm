@@ -39,7 +39,7 @@ var mp = (function() {
     song: $('#player-song'),
     meta: $('#player-meta'),
     play: $('#player-play'),
-    invite: $('#player-invite'),
+    invite: $('#player-share'),
     volume: $('#player-volume'),
     timer: $('#player-timer')
   };
