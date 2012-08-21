@@ -30,7 +30,7 @@ $song-player-height: 50px;
 
 .invite-container {
   border: 2px solid rgba(0,0,0,0.1);
-  margin: 6px 0 0;
+  margin: 6px 0 -6px;
   display: inline-block;
 
   &.disabled {
@@ -342,6 +342,7 @@ section.active .play-button {
       text-align: right;
 
       .song-follow {
+        white-space: nowrap;
         display: inline-block;
         padding: 2px 6px;
         margin: -2px -6px 0;
@@ -380,9 +381,8 @@ section.active .play-button {
       a {
         color: #ddd;
         text-decoration: none;
-        font-weight: bold;
         display: inline-block;
-        max-width: 115px;
+        max-width: 85px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
