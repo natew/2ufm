@@ -1,0 +1,11 @@
+<%-
+  active = { :class => 'active' }
+-%>
+
+<div class="title">
+  <h2><%= title %></h2>
+  <nav class="nav-menu">
+    <%= link_to 'New', '/', (title == 'New' ? active : nil) %>
+    <%= link_to 'Popular', '/popular', (title == 'Popular' ? active : nil) %>
+  </nav>
+</div>
