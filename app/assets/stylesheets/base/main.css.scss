@@ -576,6 +576,12 @@ header #second-nav {
     }
   }
 
+  #player-share-container {
+    position: absolute;
+    top: 4px;
+    right: 0;
+  }
+
   #player-main {
     position: absolute;
     top: 0;
@@ -587,7 +593,7 @@ header #second-nav {
       text-overflow: ellipsis;
       overflow: hidden;
       visibility: hidden;
-      margin: 3px 10px 0;
+      margin: 3px 70px 0 10px;
       line-height: 19px;
 
       span {

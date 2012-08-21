@@ -40,9 +40,6 @@ w.on({
 
     $('#player-invite-twitter').attr('href', tweet);
     $('#player-invite-facebook').attr('href', facebook);
-
-    // Undisable
-    $('#invite-container').removeClass('disabled');
   },
 
   'mp:play': function mpPlay(event, mp, song) {

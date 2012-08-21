@@ -383,7 +383,7 @@ var mp = (function() {
           listenURL = '/l/'+data;
           pl.invite.attr('href',listenURL);
           pl.invite.removeClass('disabled');
-          fn.clipboard('player-invite');
+          fn.clipboard('player-share');
           w.trigger('mp:gotListen', player.state());
         },
         dataType: 'html'
