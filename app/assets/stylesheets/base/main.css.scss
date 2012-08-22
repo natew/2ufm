@@ -74,8 +74,7 @@ header {
   line-height: 1em;
   background: $header-color;
   @include box-sizing(border-box);
-  @include linear-gradient(left, $header-dark, $header-light);
-  @include box-shadow(0 0 20px rgba(0,0,0,0.8));
+  @include box-shadow(0 0 15px rgba(0,0,0,0.8));
 
   &:after {
     visibility: visible;
