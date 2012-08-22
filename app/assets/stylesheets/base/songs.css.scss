@@ -200,13 +200,11 @@ section.active .play-button {
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      background: darken($body-bg,1.5%);
       .song-controls { background: rgba(0,0,0,0.06); }
     }
 
     &.listened-to {
-      background: lighten($body-bg,3%);
-      &:nth-child(2n+1) { background: lighten($body-bg,7%); }
+      background: lighten($body-bg,2%);
     }
 
     &:hover {
