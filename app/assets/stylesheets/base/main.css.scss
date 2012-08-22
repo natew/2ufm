@@ -147,6 +147,7 @@ header {
   width: $navbar-width;
   padding: 15px 0 0 15px;
   @include box-sizing(border-box);
+  @include linear-gradient(left, $body-bg, $body-darker);
 
   #navbar-menus {
     overflow: hidden;
@@ -170,7 +171,7 @@ header {
       padding: 0 30px 10px 0;
       overflow-x: hidden;
       overflow-y: scroll;
-      background: $body-bg;
+      background: $body-light;
       @include box-shadow(0 0 6px rgba(0,0,0,0.7));
 
       &.collapsed {

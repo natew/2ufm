@@ -208,7 +208,7 @@ section.active .play-button {
     }
 
     &:hover {
-      background: $body-darker !important;
+      background: $body-dark !important;
       .song-controls li {
         a, a:before { color: #fff; }
       }
