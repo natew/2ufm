@@ -234,9 +234,9 @@ section.active .play-button {
     &.active {
       border: 2px solid $primary;
       border-left: none;
-      background: $body-darker !important;
-      &:before {background: $primary;}
+      background: none !important;
       .song-controls { background: rgba(0,0,0,0.25); }
+      .player-invite {padding:8px; font-size:15px;}
       .waveform-wrap img { opacity: 0.4; }
     }
 
@@ -265,6 +265,7 @@ section.active .play-button {
       position: relative;
       z-index: 13;
       display: none;
+      color: #888;
     }
 
     .stats {
