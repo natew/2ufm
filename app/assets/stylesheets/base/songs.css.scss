@@ -204,7 +204,7 @@ section.active .play-button {
     }
 
     &.listened-to {
-      background: lighten($body-bg,2%);
+      background: lighten($body-bg,3.5%);
     }
 
     &:hover {
