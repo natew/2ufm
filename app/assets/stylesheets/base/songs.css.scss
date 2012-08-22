@@ -478,7 +478,8 @@ section.active .play-button {
           }
 
           &.remove {
-            border-right: 2px solid $like-dark;
+            border-right: 4px solid $like-dark;
+            margin-right: -2px;
             padding-right: 8px;
           }
 

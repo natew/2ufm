@@ -91,7 +91,8 @@
         <div id="navbar-menus">
           <%- if user_signed_in? -%>
           <section class="nav-user">
-            <%= link_to current_user.username, current_user, :id => 'nav-user' %>
+            <h1><%= current_user.username %></h1>
+            <%= link_to 'Profile', current_user, :id => 'nav-user' %>
             <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
             <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
           </section>
