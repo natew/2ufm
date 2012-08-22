@@ -262,8 +262,10 @@ header {
 
       &.active {
         color: #fff;
-        background: $header-color;
+        background: $primary;
         margin-right: 0;
+
+        &:hover {background: $primary;}
       }
 
       &.pictos-nav {
