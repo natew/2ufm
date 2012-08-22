@@ -342,7 +342,7 @@ header {
 header #search-form {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 10px;
 
   #query {
     background: #fff;
@@ -567,7 +567,7 @@ header #second-nav {
 
     .next {
       margin: 16px 0 0 -3px;
-      font-size: 27px;
+      font-size: 24px;
       width: 30px;
       height: 30px;
 
@@ -579,16 +579,18 @@ header #second-nav {
 
   #player-share-container {
     position: absolute;
-    top: 2px;
-    right: 10px;
+    top: 0;
+    right: 15px;
 
     #player-share {
       z-index: 88;
-      width: 60px;
+      width: 50px;
+      font-size: 14px;
       font-weight: bold;
       background: darken($header-dark, 10%);
+      @include border-bottom-radius(5px);
 
-      &:hover {
+      &.hover {
         background: $header-dark;
       }
     }
@@ -605,7 +607,7 @@ header #second-nav {
       text-overflow: ellipsis;
       overflow: hidden;
       visibility: hidden;
-      margin: 2px 70px 0 10px;
+      margin: 2px 75px 0 10px;
       line-height: 19px;
 
       span {
@@ -626,7 +628,7 @@ header #second-nav {
       }
 
       #player-artist-name {
-        color: #fff;
+        color: rgba(255,255,255,0.9);
         font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
@@ -660,7 +662,7 @@ header #second-nav {
     a.control {
       display: block;
       float: left;
-      font-size: 18px;
+      font-size: 16px;
       color: $header-color;
       padding: 4px 5px;
       pointer-events: none;
@@ -682,11 +684,11 @@ header #second-nav {
 
     #player-timer {
       position: absolute;
-      top: 2px;
-      right: 45px;
+      top: 3px;
+      right: 41px;
       color: $header-color;
       font-weight: 400;
-      font-size: 11px;
+      font-size: 12px;
     }
 
     #player-progress-bar {
