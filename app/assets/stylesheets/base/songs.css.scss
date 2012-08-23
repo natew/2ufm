@@ -234,7 +234,7 @@ section.active .play-button {
     &.active {
       border: 1px solid $primary;
       border-left: none;
-      background: $body-dark !important;
+      background: $body-darker !important;
       .song-controls { background: rgba(0,0,0,0.25); }
       .player-invite {padding:8px; font-size:15px;}
       .waveform-wrap img { opacity: 0.4; }

@@ -22,7 +22,7 @@ w.on({
 
   'mp:gotListen': function mpGotListenEvent(event, mp, song) {
     // Update url
-    // fn.replaceState(mp.getListenUrl());
+    fn.replaceState(mp.getListenUrl());
 
     // Share links
     var url = encodeURIComponent('http://2u.fm' + mp.getListenUrl()),
