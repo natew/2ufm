@@ -287,6 +287,7 @@ section.active .play-button {
           font-weight: 300;
           position: relative;
           z-index: 12;
+          pointer-events: none;
 
           a { color: #aaa; pointer-events: auto;
             &:hover { color: $link-hover; }
