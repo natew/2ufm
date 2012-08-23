@@ -176,6 +176,7 @@ class Song < ActiveRecord::Base
         DISTINCT ON (a.maxcreated, s.id)
         a.maxcreated as broadcasted_at,
         s.*,
+        blogs.url as blog_url,
         #{SQL[:stations]}
         #{SQL[:posts]}
         #{SQL[:listens]}
