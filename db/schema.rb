@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821041558) do
+ActiveRecord::Schema.define(:version => 20120823075258) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -174,6 +174,15 @@ ActiveRecord::Schema.define(:version => 20120821041558) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
+  create_table "shares", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "song_id"
+    t.string   "song_name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "socialite_facebook_identities", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -262,6 +271,7 @@ ActiveRecord::Schema.define(:version => 20120821041558) do
     t.datetime "last_broadcasted_at", :default => '2012-05-11 04:13:11'
     t.boolean  "promo",               :default => false
     t.integer  "songs_count"
+    t.datetime "online"
   end
 
   create_table "stations_songs", :id => false, :force => true do |t|
@@ -306,6 +316,7 @@ ActiveRecord::Schema.define(:version => 20120821041558) do
     t.string   "station_slug"
     t.string   "provider"
     t.string   "uid"
+    t.string   "avatar_remote_url"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

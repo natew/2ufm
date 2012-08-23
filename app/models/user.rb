@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
          :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid
+  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
   acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
 
   before_create :make_station, :set_station_slug, :set_station_id
+  before_validation :get_remote_avatar, :if => :avatar_url_provided?
+  validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
 
   validates :username, :length => 2..22
   validates_with SlugValidator
@@ -44,6 +46,21 @@ class User < ActiveRecord::Base
 
   def title
     username
+  end
+
+  def avatar_url_provided?
+    !self.avatar_remote_url.blank?
+  end
+
+  def get_remote_avatar
+    self.avatar = download_remote_avatar
+  end
+
+  def download_remote_avatar
+    io = open(URI.parse(avatar_remote_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
 
   def following_songs(offset=0, limit=18)
@@ -73,18 +90,41 @@ class User < ActiveRecord::Base
     username
   end
 
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
       user = User.create(
         username: auth.extra.raw_info.name,
+        full_name: auth.extra.raw_info.name,
         provider: auth.provider,
         uid: auth.uid,
-        email: auth.info.email,
+        email: session[:email_address],
         password: Devise.friendly_token[0,20]
       )
       user.skip_confirmation!
-      user.save
+      user.save!
+    end
+    user
+  end
+
+  def self.find_for_twitter_oauth(auth, signed_in_resource=nil, session=nil)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      info = auth.extra.raw_info
+      logger.info "OASOAOSAOSAOSAOSOASOA O O \n\n\n\n\n\n\n\n" + session[:email_address]
+      user = User.create(
+        username: info.screen_name,
+        provider: auth.provider,
+        uid: auth.uid,
+        email: session[:email_address],
+        location: info.location,
+        bio: info.description,
+        full_name: info.name,
+        avatar_remote_url: info.profile_image_url,
+        password: Devise.friendly_token[0,20]
+      )
+      user.skip_confirmation!
+      user.save!
     end
     user
   end

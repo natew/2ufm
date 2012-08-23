@@ -4,7 +4,7 @@ var w = $(window),
     tipsyClearTimeout,
     infiniteScrollTimeout,
     debug = false,
-    loggedIn = $('body.signed_in').length > 0,
+    isOnline = $('body.signed_in').length > 0,
     modalShown = false,
     navOpen,
     loadingPage = false,
@@ -41,7 +41,7 @@ var urlParams = {},
     })();
 
 // Cookies
-if (!hideWelcome && !loggedIn) {
+if (!hideWelcome && !isOnline) {
   var h1s = $('#welcome h1'),
       h1len = h1s.length,
       h1cur = 0;
@@ -69,9 +69,33 @@ if (!hideWelcome && !loggedIn) {
 //
 
 $(function() {
-  // Fade in effect
-  $('#overlay').removeClass('shown');
-  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
+  // Logged in
+  if (!isOnline) {
+    modal('#modal-login');
+
+    $('.login-button').click(function() {
+      var email = $('#modal_user_email');
+      if (fn.validateEmail(email.val())) {
+        email.removeClass('error');
+        $.post('/set_email', { email: email.val() });
+      } else {
+        email.addClass('error');
+        return false;
+      }
+    });
+
+    // Dialog
+    setTimeout(function() {
+      $('#dialog').animate({opacity:'0'},500,function() {
+        $(this).hide();
+      });
+    },4000);
+  }
+ else {
+    // Fade in effect
+    $('#overlay').removeClass('shown');
+    setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
+  }
 
   // Fire initial page load
   page.start();
@@ -173,6 +197,9 @@ $(function() {
     else mp.playSong(index);
   });
 
+  // Online friends
+  getOnlineFriends();
+
   // Page scroll functions
   w.scroll(function() {
     // Removes on scroll
@@ -244,7 +271,7 @@ $(function() {
           navDropdown(false);
 
           // Not logged in
-          if (!loggedIn) {
+          if (!isOnline) {
             if (el.is('.restricted')) {
               modal('#modal-user');
               return false;
@@ -291,13 +318,6 @@ $(function() {
         dimensions = link.data('dimensions').split(',');
     fn.popup(link.attr('href'),link.attr('title'),'status=0,toolbar=0,location=0,height='+dimensions[1]+',width='+dimensions[0]);
   });
-
-  // Dialog
-  setTimeout(function() {
-    $('#dialog').animate({opacity:'0'},500,function() {
-      $(this).hide();
-    });
-  },4000);
 
   //
   // Application integration
@@ -480,4 +500,17 @@ function modal(selector) {
       }
     }
   }
+}
+
+function getOnlineFriends() {
+  if (isOnline) {
+    getFriends();
+    setInterval(getFriends, 60 * 1000);
+  }
+}
+
+function getFriends() {
+  $.get('/get_friends', function(data) {
+    $('.stations').html(data);
+  });
 }

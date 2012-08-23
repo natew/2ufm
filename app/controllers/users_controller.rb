@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate]
+  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :set_email]
   before_filter :load_user, :except => [:create, :new, :activate, :index, :account, :feed, :stations]
 
   def feed
@@ -12,12 +12,24 @@ class UsersController < ApplicationController
     @user_stations = current_user.stations.order('stations.title asc')
   end
 
+  def get_friends
+    @online = user_signed_in? ? current_user.stations.user_station.online.limit(5) : nil
+    @friends = user_signed_in? ? current_user.stations.user_station.not_online.limit(6) : nil
+    render :layout => false
+  end
+
   def index
     @users = User.page(params[:page]).per(25)
 
     respond_to do |format|
       format.html
     end
+  end
+
+  def set_email
+    session[:email_address] = params[:email]
+    logger.info "set email to " + session[:email_address]
+    render :text => ''
   end
 
   def edit

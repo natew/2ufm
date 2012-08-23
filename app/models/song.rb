@@ -85,7 +85,7 @@ class Song < ActiveRecord::Base
   scope :originals, with_authors.where('"authors"."role" = \'original\'')
 
   # Joins
-  scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id"')
+  scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id" INNER JOIN blogs on blogs.id = posts.blog_id')
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
 
@@ -95,7 +95,7 @@ class Song < ActiveRecord::Base
   }
 
   # Data to select
-  scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count')
+  scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url')
   scope :individual, select_with_info.with_blog_station_and_post
 
   # Orders
@@ -184,6 +184,8 @@ class Song < ActiveRecord::Base
           songs s ON a.song_id = s.id
         INNER JOIN
           posts on posts.id = s.post_id
+        INNER JOIN
+          blogs on blogs.id = posts.blog_id
         INNER JOIN
           broadcasts on broadcasts.song_id = s.id
         INNER JOIN

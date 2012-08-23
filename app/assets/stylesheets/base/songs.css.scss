@@ -74,6 +74,20 @@ $song-player-height: 50px;
   }
 }
 
+.facebook-button, .twitter-button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  position: relative;
+  background: #2d4486;
+
+  &:hover {
+    background: #425699;
+  }
+}
+
+.twitter-button {background: #4b8fa9;}
 .player-invite-twitter {
   line-height: .4em;
   font-weight: bold;
@@ -87,20 +101,6 @@ $song-player-height: 50px;
 .player-invite-facebook {
   line-height: .5em;
 }
-
-.facebook-button {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-  position: relative;
-  background: #2d4486;
-
-  &:hover {
-    background: #425699;
-  }
-}
-
 /* Play button */
 
 .play-button {
@@ -228,17 +228,31 @@ section.active .play-button {
       @include border-radius(10px);
     }
 
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: $body-bg;
+      visibility: visible;
+      z-index: 100;
+    }
+
     &.open {
       .reviews { display: block; }
     }
 
     &.active {
-      border: 2px solid $primary;
+      border: 1px solid $primary;
       border-left: none;
-      background: none !important;
+      background: $body-dark !important;
       .song-controls { background: rgba(0,0,0,0.25); }
       .player-invite {padding:8px; font-size:15px;}
       .waveform-wrap img { opacity: 0.4; }
+      h1 span.artist a {color: #fff;}
     }
 
     &.failed {
@@ -477,8 +491,7 @@ section.active .play-button {
           }
 
           &.remove {
-            border-right: 4px solid $like-dark;
-            margin-right: -1px;
+            border-right: 3px solid $like-dark;
             padding-right: 8px;
           }
 

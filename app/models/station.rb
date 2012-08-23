@@ -21,6 +21,9 @@ class Station < ActiveRecord::Base
   scope :artist_station, where(has_artist)
   scope :user_station, where(has_user)
   scope :promo_station, where(:promo => true)
+  scope :ordered_online, order('stations.online desc')
+  scope :online, where('online > ?', 45.minutes.ago).ordered_online
+  scope :not_online, where('online < ?', 45.minutes.ago).ordered_online
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Whitelist mass-assignment attributes

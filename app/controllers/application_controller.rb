@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :do_page_request, :get_counts, :get_top_stations, :get_friends
+  before_filter :do_page_request
   layout :set_layout
 
   def sign_in_and_redirect(resource_or_scope, *args)
@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     scope    = Devise::Mapping.find_scope!(resource_or_scope)
     resource = args.last || resource_or_scope
     sign_in(scope, resource, options)
-    redirect_to after_sign_in_path_for(resource) || '/'
+    redirect_to after_sign_in_path_for(resource) || '/feed'
   end
 
   def not_found
@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def get_top_stations
-    @top_stations = Station.has_parent.order('follows_count desc').limit(15)
-  end
 
   def do_page_request
     return head 204 unless defined? request.headers['HTTP_ACCEPT']
@@ -62,19 +58,6 @@ class ApplicationController < ActionController::Base
     else
       'application'
     end
-  end
-
-  def get_friends
-    @friends = user_signed_in? ? current_user.stations.user_station.limit(6) : nil
-  end
-
-  def get_counts
-    @count = {
-      :blogs   => Rails.cache.fetch(:blogs_count,   :expires_in => 24.hours) { Blog.count },
-      :songs   => Rails.cache.fetch(:songs_count,   :expires_in => 30.minutes) { Song.working.count },
-      :users   => Rails.cache.fetch(:users_count,   :expires_in => 1.hour) { User.count },
-      :artists => Rails.cache.fetch(:artists_count, :expires_in => 1.hour) { Artist.count }
-    }
   end
 
   def authenticate_user!
