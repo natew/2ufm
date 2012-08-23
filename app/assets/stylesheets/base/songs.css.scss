@@ -218,25 +218,12 @@ section.active .play-button {
     &:before {
       content: "";
       display: block;
-      width: 8px;
-      height: 8px;
-      position: absolute;
-      top: -4px;
-      left: -5px;
-      z-index: 4;
-      background: $gutter-color;
-      @include border-radius(10px);
-    }
-
-    &:after {
-      content: "";
-      display: block;
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 1px;
-      background: $body-bg;
+      background: darken($body-bg,2%);
       visibility: visible;
       z-index: 100;
     }

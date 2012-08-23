@@ -704,11 +704,10 @@ header #second-nav {
       left: 30px;
       right: 78px;
       overflow: hidden;
-      margin: 2px 0 0;
-      padding: 5px 4px;
+      margin: 1px 0 0;
+      padding: 8px 4px;
       height: 0;
       background: darken($header-dark,5%);
-      @include box-shadow(0 1px 0 $header-shadow);
 
       &:hover {
         cursor: pointer;
