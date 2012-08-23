@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   before_create :make_station, :set_station_slug, :set_station_id
   before_validation :get_remote_avatar, :if => :avatar_url_provided?
-  validates :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
+  validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
 
   validates :username, :length => 2..22
   validates_with SlugValidator

@@ -741,7 +741,7 @@ header #second-nav {
 
       #player-progress-position {
         z-index: 4;
-        background: $body-dark;
+        background: lighten($header-light,5%);
       }
     }
   }
