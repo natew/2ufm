@@ -85,10 +85,8 @@ module ApplicationHelper
   def relative_time(date)
     begin
       return_date = date.to_time
-      if (return_date > 1.minute.ago)
-        "just now"
-      elsif (return_date > 2.weeks.ago)
-        time_ago_in_words(return_date).gsub(/about/,'') + ' ago'
+      if (return_date > 2.weeks.ago)
+        time_ago_in_words(return_date)
       else
         year = return_date.year != Time.now.year ? ', %Y' : ''
         return_date.strftime("%b #{return_date.day.ordinalize}#{year}")

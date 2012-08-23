@@ -4,5 +4,23 @@
 en:
   activerecord:
     attributes:
-      user:  
+      user:
         login: "Username or email"
+  datetime:
+    distance_in_words:
+      half_a_minute: "1m"
+      x_seconds:
+        one: "just now"
+        other: "just now"
+      less_than_x_minutes:
+        one:   "1m ago"
+        other: "%{count}m ago"
+      x_minutes:
+        one:   "1m ago"
+        other: "%{count}m ago"
+      about_x_hours:
+        one:   "1h ago"
+        other: "%{count}h ago"
+      x_days:
+        one:   "1d"
+        other: "%{count}d"

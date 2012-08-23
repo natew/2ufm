@@ -7,16 +7,17 @@ $header-dark: darken($header-color, 5%);
 $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
 
-/*  navbar  */
-$navbar-width: 200px;
-$navbar-bg: #444;
-
 /* body */
 $body-bg: #2f2f2f;
 $body-dark: darken($body-bg,2.5%);
 $body-light: lighten($body-bg,2.5%);
 $body-darker: darken($body-bg,5%);
 $body-lighter: lighten($body-bg,5%);
+
+/*  navbar  */
+$navbar-width: 200px;
+$navbar-bg: #444;
+$navbar-active: lighten($body-bg, 5%);
 
 /* gutter */
 $gutter-color: #222;
