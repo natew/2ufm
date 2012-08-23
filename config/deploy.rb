@@ -43,7 +43,7 @@ end
 # and handling the root password prompt.
 def surun(command)
   password = fetch(:root_password, Capistrano::CLI.password_prompt("Root Password: "))
-  run("#{command}") do |channel, stream, output|
+  run("su - -c '#{command}'") do |channel, stream, output|
     channel.send_data("#{password}\n") if output
   end
 end
