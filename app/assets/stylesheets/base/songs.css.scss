@@ -11,6 +11,7 @@
   height: 9px;
   margin: 0 2px .1em 4px;
   background: url(/images/artist-icons.png) no-repeat top left;
+  pointer-events: none;
 }
 
 .role-original:after,
@@ -338,7 +339,7 @@ section.active .play-button {
       margin: 0;
       color: #999;
       z-index: 11;
-      line-height: 1.3em;
+      line-height: 1.5em;
       text-align: right;
 
       .song-follow {
@@ -355,10 +356,7 @@ section.active .play-button {
         background: none;
         border: none;
         padding: 0;
-        margin: -2px 0 0;
-        line-height: .9em;
-        box-shadow: none;
-        text-shadow: none;
+        margin: -1px 0 -1px;
         float: left;
 
         span {
@@ -480,7 +478,7 @@ section.active .play-button {
 
           &.remove {
             border-right: 4px solid $like-dark;
-            margin-right: -2px;
+            margin-right: -1px;
             padding-right: 8px;
           }
 
