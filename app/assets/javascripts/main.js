@@ -511,6 +511,6 @@ function getOnlineFriends() {
 
 function getFriends() {
   $.get('/get_friends', function(data) {
-    $('.stations').html(data);
+    $('#stations-inner').html(data);
   });
 }
