@@ -39,6 +39,8 @@ Fusefm::Application.routes.draw do
   match '/mac', :to => 'main#mac'
   match '/account', :to => 'users#edit'
   match '/activate/:id/:key', :to => 'users#activate'
+  match "/get_friends", :to => 'users#get_friends'
+  match '/set_email', :to => 'users#set_email'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

@@ -98,9 +98,12 @@
           </section>
           <%- end -%>
 
-          <section class="nav-extra">
+          <section>
             <%= link_to 'New', '/', :id => 'nav-new' %>
             <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
+          </section>
+
+          <section class="nav-extra">
             <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
             <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
             <% link_to 'Users', '/users', :id => 'nav-users' %>
@@ -110,19 +113,15 @@
             <% if user_signed_in? %>
               <%= link_to "Account", '/account' %>
               <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-            <% else %>
-              <%= link_to 'Login', '/login', :class => 'restricted'  %>
-              <%= link_to 'Sign up', '/signup', :class => 'restricted' %>
             <% end %>
             <% link_to "About Us", "#", :class => "secondary" %>
           </section>
 
-          <% if @friends and @friends.length > 0 %>
           <section class="nav-extra stations">
-            <h1 class="collapse">Following</h1>
-            <%= render :partial => 'users/friend', :collection => @friends %>
+            <h1 class="collapse">Friends</h1>
+            <div id="stations-inner">
+            </div>
           </section>
-          <% end %>
         </div>
       </div>
 
@@ -147,16 +146,6 @@
   <a id="debug" class="control" href="">x</a>
   <div id="debug_dump"></div>
 
-  <!-- Menu items -->
-  <div id="nav-user" class="pop-menu">
-    <% if user_signed_in? %>
-      <span id="current_user" data-id="<%= current_user.id %>"></span>
-
-    <% else %>
-      <%= link_to 'Login / Signup', '#new-user', :class => 'modal pictos-key' %>
-    <% end %>
-  </div>
-
   <div id="player-playlist" class="pop-menu">
     <h4>{{station.title}}</h4>
     {{#songs}}
@@ -172,24 +161,24 @@
 
   <% if !user_signed_in? %>
     <div id="modal-login">
-      <h3>Welcome</h3>
-      <p>Login with facebook to begin browsing music</p>
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button control popup', 'data-dimensions' => '750,450' %>
+      <h3>Welcome to 2u.fm!</h3>
+      <p class="large">The best new music from around the web.  Sign up for free!</p>
+
+      <form>
+        <div class="clearfix">
+          <label for="user_email">Email address:</label>
+          <input id="modal_user_email" class="input-text" type="text" name="email" />
+        </div>
+
+        <div class="actions clearfix">
+          <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button' %>
+          <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button' %>
+        </div>
+      </form>
     </div>
   <% end %>
 
   <div class="hidden">
-    <div id="modal-user">
-      <h3>Welcome to 2u.fm  <small>sign up in seconds!</small></h3>
-      <div id="user-signup">
-        <%= render :partial => 'registrations/new_form' %>
-      </div>
-      <div id="user-login">
-        <h4>Sign in</h4>
-        <%= render :partial => 'sessions/new_form' %>
-      </div>
-    </div>
-
     <div id="help">
       <h3>Help</h3>
       <p>Welcome to 2u.fm!  We are collectors of the latest and greatest music from all around the web.  We find new music and sort it all out so you can sit back and enjoy.  Check out our <strong><%= link_to 'popular', '/popular' %></strong>, <strong><%= link_to 'genre', '/genres' %></strong>, and <strong><%= link_to 'artist', '/artists' %></strong> stations to get a start.

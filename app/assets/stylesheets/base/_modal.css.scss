@@ -50,6 +50,14 @@
   p {
     font-size: 14px;
     font-weight: 300;
+
+    &.large { font-size: 18px; }
+  }
+
+  .twitter-button, .facebook-button {
+    font-size: 24px;
+    font-weight: 400;
+    padding: 20px;
   }
 }
 
@@ -80,11 +88,7 @@
    top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
 }
 
-#modal-user {
-  h4 {
-    font-size: 15px;
-  }
-
+#modal {
   .input-text,
   .input-email,
   .input-password,
@@ -108,6 +112,12 @@
         color: #444;
       }
     }
+  }
+}
+
+#modal-user {
+  h4 {
+    font-size: 15px;
   }
 
   #user-login {

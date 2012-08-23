@@ -10,13 +10,17 @@ class Listen < ActiveRecord::Base
 
   before_validation :anonymous_user, :on => :create
   before_create :gen_shortcode
-  after_create :update_song_play_count
+  after_create :update_song_play_count, :update_user_online
 
   def has_user?
     user_id == 0 ? false : true
   end
 
   private
+
+  def update_user_online
+    user.station.update_attributes(:online => Time.now) if user
+  end
 
   def anonymous_user
     self.user_id = 0 if user_id.blank?
