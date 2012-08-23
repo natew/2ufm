@@ -27,7 +27,7 @@ class Station < ActiveRecord::Base
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Whitelist mass-assignment attributes
-  attr_accessible :id, :description, :title, :slug
+  attr_accessible :id, :description, :title, :slug, :online
 
   # Slug
   acts_as_url :title, :url_attribute => :slug, :allow_duplicates => false

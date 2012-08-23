@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_filter :authorize_user!, :only => [:play]
+  before_filter :authenticate_user!, :only => [:play]
 
   def index
     @popular = Station.popular

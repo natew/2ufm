@@ -15,7 +15,8 @@ class ListensController < ApplicationController
   end
 
   def create
-    @listen = Listen.new(params[:listen])
+    @listen = Listen.new(params[:listen].merge!({user_id: user_signed_in? ? current_user.id : nil}))
+    logger.info @listen
 
     respond_to do |format|
       if @listen.save

@@ -19,7 +19,7 @@ class Listen < ActiveRecord::Base
   private
 
   def update_user_online
-    user.station.update_attributes(:online => Time.now)
+    user.station.update_attributes(:online => Time.now) if user
   end
 
   def anonymous_user
