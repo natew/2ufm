@@ -500,7 +500,7 @@ header #second-nav {
       .play span {
         left: -3px;
         top: 0;
-        font-size: 33px;
+        font-size: 36px;
       }
     }
   }
@@ -585,21 +585,13 @@ header #second-nav {
 
   #player-share-container {
     position: absolute;
-    top: 2px;
-    right: 15px;
+    top: 4px;
+    right: 34px;
+    z-index: 11;
 
     #player-share {
-      padding: 6px 7px;
-      z-index: 88;
-      width: 50px;
-      font-size: 14px;
-      font-weight: bold;
-      background: darken($header-dark, 15%);
-      @include border-radius(5px);
-
-      &.hover {
-        background: $header-dark;
-      }
+      padding: 6px;
+      &:before {font-size: 23px;}
     }
   }
 
@@ -614,24 +606,43 @@ header #second-nav {
       text-overflow: ellipsis;
       overflow: hidden;
       visibility: hidden;
-      margin: 2px 75px 0 10px;
+      margin: 2px 20px 0 20px;
       line-height: 19px;
+
+      &:before {
+        content: "1";
+        display: block;
+        font-family: 'Pictos';
+        font-size: 23px;
+        color: white;
+        font-weight: lighter;
+        -webkit-font-smoothing: antialiased;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+      }
 
       span {
         display: block;
         text-align: center;
       }
 
-      #player-song-name a {
-        margin-bottom: 1px;
-        font-size: 14px;
-        font-weight: 400;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: #fff;
-        text-decoration: none;
-        display: block;
+      #player-song-name {
+        position: relative;
+        z-index: 10;
+
+        a {
+          margin-bottom: -20px;
+          padding-bottom: 20px;
+          font-size: 14px;
+          font-weight: 400;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: #fff;
+          text-decoration: none;
+          display: block;
+        }
       }
 
       #player-artist-name {
@@ -641,6 +652,8 @@ header #second-nav {
         overflow: hidden;
         font-weight: 300;
         text-overflow: ellipsis;
+        position: relative;
+        z-index: 9;
       }
     }
 
@@ -1236,7 +1249,7 @@ $nav-arrow-size: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
 
-    &[class*="pictos-"] {
+    &[class*="2s-"] {
       padding-left: 18+$nav-pad;
       line-height: .9em;
     }
