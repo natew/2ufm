@@ -13,8 +13,11 @@
     </a>
 
     <h1>
-      <span class="artist"><%= song.artist_name %></span>
-      <span class="name"><%= tagged_song_name(song.name) %> <em><%= author_links(song.authors) %></em></span>
+      <%
+        links = author_links(song.authors)
+      %>
+      <span class="artist"><%= links[:original] %></span>
+      <span class="name"><%= tagged_song_name(song.name) %> <em><%= links[:other] %></em></span>
     </h1>
   </div>
 
