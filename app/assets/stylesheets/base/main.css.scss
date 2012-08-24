@@ -586,11 +586,15 @@ header #second-nav {
   #player-share-container {
     position: absolute;
     top: 4px;
-    right: 34px;
+    right: 41px;
     z-index: 11;
 
     #player-share {
       padding: 6px;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      display: block;
       &:before {font-size: 23px;}
     }
   }
