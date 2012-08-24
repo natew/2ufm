@@ -233,11 +233,11 @@ section.active .play-button {
 
     &.active {
       background: $header-dark !important;
-      .song-controls { background: darken($header-dark, 5%); }
       .player-invite { padding:8px; font-size:15px; }
-      .waveform-wrap img { opacity: 0.4; }
+      .waveform-wrap img { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
-      * {color: #fff !important;}
+      * {color: lighten($header-color, 20%) !important;}
+      a {color: #fff !important;}
     }
 
     &.failed {
