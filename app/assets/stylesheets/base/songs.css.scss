@@ -299,6 +299,9 @@ section.active .play-button {
           font-size: 18px;
           margin: 0 0 4px 0;
           font-weight: 400;
+          position: relative;
+          z-index: 11;
+          pointer-events: none;
 
           a { color: #fff;
             &:hover { color: $link-hover; }
@@ -307,8 +310,10 @@ section.active .play-button {
           em {
             font-weight: 300;
             font-style: normal;
-            color: #aaa;
-            font-size: .9em;
+            a {
+              color: #aaa;
+              pointer-events: auto;
+            }
           }
         }
       }

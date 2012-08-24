@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def tagged_song_name(name)
-    name.gsub(/(\([^()]+\))/,'<em>\1</em>').html_safe
+    name.gsub(/(\([^()]+\))/,'').html_safe
   end
 
   def nav_link_to(title, path)
@@ -47,8 +47,10 @@ module ApplicationHelper
   def author_links(authors)
     list = []
     authors.with_artist.each do |author|
-      link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => 'role role-' + author.role) unless author.artist_station_slug.nil?
-      author.role == 'original' ? list.unshift(link) : list.push(link)
+      if author.role != 'original'
+        link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => 'role role-' + author.role) unless author.artist_station_slug.nil?
+        author.role == 'remix' ? list.unshift(link) : list.push(link)
+      end
     end
     raw list.join(', ')
   end
