@@ -381,7 +381,6 @@ section.active .play-button {
       }
 
       .comments {
-        display: none;
         color: #ccc;
         font-weight: normal;
         margin: 6px 0 0 6px;
@@ -401,11 +400,7 @@ section.active .play-button {
     }
 
     .song-controls {
-      top: 0;
-      bottom: -1px;
-      left: -$gutter-width;
       width: $gutter-width;
-      position: absolute;
       margin: 0;
       padding: 0;
       z-index: 2;

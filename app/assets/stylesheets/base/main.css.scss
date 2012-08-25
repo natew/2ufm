@@ -294,21 +294,6 @@ header {
   min-width: $width;
   overflow: hidden;
   padding: 20px 0;
-  padding-left: $gutter-width;
-
-  /* Gutter */
-  &:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
-    width: $gutter-width;
-    background: $gutter-color;
-    @include box-sizing(border-box);
-  }
 
   #breadcrumbs {
     background: $body-dark;
@@ -663,7 +648,7 @@ header #second-nav {
       text-align: center;
       color: $header-color;
       font-weight: 400;
-      font-size: 12px;
+      font-size: 11px;
       pointer-events: none;
     }
 
