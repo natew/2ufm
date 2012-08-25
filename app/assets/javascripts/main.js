@@ -330,6 +330,9 @@ $(function() {
                 if (next.length) next.addClass('hidden')
                 else $('.artists-shelf li').removeClass('hidden');
               }
+              else if (el.is('.close-modal')) {
+                modal(false);
+              }
             }
           }
         }

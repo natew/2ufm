@@ -42,6 +42,10 @@ Fusefm::Application.routes.draw do
   match "/get_friends", :to => 'users#get_friends'
   match '/set_email', :to => 'users#set_email'
 
+  devise_scope :user do
+    match '/login', :to => 'sessions#new'
+  end
+
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
   # Artists
