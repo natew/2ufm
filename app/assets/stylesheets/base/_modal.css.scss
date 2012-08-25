@@ -31,9 +31,10 @@
     margin-top: -150px;
     height: 300px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #000;
     overflow: hidden;
     @include border-radius(0 !important);
+    * {color:#fff !important;}
   }
 
   .half {
