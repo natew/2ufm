@@ -541,6 +541,7 @@ function modal(selector) {
 }
 
 function getOnlineFriends() {
+  fn.log('online?', isOnline)
   if (isOnline) {
     getFriends();
     setInterval(getFriends, 60 * 1000);
@@ -548,9 +549,10 @@ function getOnlineFriends() {
 }
 
 function getFriends() {
+  fn.log(hasFriends);
   if (hasFriends) {
-    $.get('/get_friends', function(data) {
-      if (data.length) $('#stations-inner').html();
+    $.get('/get_friends', function getFriendsCallback(data) {
+      if (data && data.length) $('#stations-inner').html(data);
       else hasFriends = false;
     });
   }
