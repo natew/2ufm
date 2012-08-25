@@ -284,7 +284,7 @@ section.active .play-button {
 
         &.artist {
           display: inline-block;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 300;
           position: relative;
           z-index: 12;
@@ -315,9 +315,9 @@ section.active .play-button {
               color: #aaa;
               pointer-events: auto;
               background: rgba(0,0,0,0.15);
-              border-radius: 5px;
               padding: 0 4px;
               white-space: nowrap;
+              @include border-radius(5px);
             }
           }
         }
