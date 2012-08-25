@@ -237,7 +237,8 @@ section.active .play-button {
       .waveform-wrap img { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
       * {color: #fff;}
-      a {color: lighten($header-color, 25%) !important !important;}
+      a {color: lighten($header-color, 25%) !important !important;
+        &:hover {color: #fff !important;}}
     }
 
     &.failed {
@@ -301,6 +302,7 @@ section.active .play-button {
           position: relative;
           z-index: 11;
           pointer-events: none;
+          line-height: 1.5em;
 
           a { color: #fff;
             &:hover { color: $link-hover; }
@@ -312,6 +314,10 @@ section.active .play-button {
             a {
               color: #aaa;
               pointer-events: auto;
+              background: rgba(0,0,0,0.15);
+              border-radius: 5px;
+              padding: 0 4px;
+              white-space: nowrap;
             }
           }
         }
@@ -331,12 +337,12 @@ section.active .play-button {
 
     .song-info {
       float: left;
-      width: 77%;
+      width: 79%;
     }
 
     .song-meta {
       float: right;
-      width: 15%;
+      width: 12%;
       max-width: 200px;
       min-width: 100px;
       font-size: 12px;

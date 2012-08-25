@@ -85,49 +85,46 @@
   </header>
 
   <div id="main-mid">
-    <div class="page-contain">
-      <div id="navbar">
+    <div id="navbar">
+      <div id="navbar-menus">
+        <%- if user_signed_in? -%>
+        <section class="nav-user">
+          <h1><%= current_user.username %></h1>
+          <%= link_to 'Profile', current_user, :id => 'nav-user' %>
+          <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
+          <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
+        </section>
+        <%- end -%>
 
-        <div id="navbar-menus">
-          <%- if user_signed_in? -%>
-          <section class="nav-user">
-            <h1><%= current_user.username %></h1>
-            <%= link_to 'Profile', current_user, :id => 'nav-user' %>
-            <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
-            <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
-          </section>
-          <%- end -%>
+        <section>
+          <%= link_to 'New', '/', :id => 'nav-new' %>
+          <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
+        </section>
 
-          <section>
-            <%= link_to 'New', '/', :id => 'nav-new' %>
-            <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
-          </section>
+        <section class="nav-extra">
+          <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
+          <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
+          <% link_to 'Users', '/users', :id => 'nav-users' %>
+        </section>
 
-          <section class="nav-extra">
-            <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
-            <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
-            <% link_to 'Users', '/users', :id => 'nav-users' %>
-          </section>
+        <section class="nav-extra account">
+          <% if user_signed_in? %>
+            <%= link_to "Account", '/account' %>
+            <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+          <% end %>
+          <% link_to "About Us", "#", :class => "secondary" %>
+        </section>
 
-          <section class="nav-extra account">
-            <% if user_signed_in? %>
-              <%= link_to "Account", '/account' %>
-              <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-            <% end %>
-            <% link_to "About Us", "#", :class => "secondary" %>
-          </section>
-
-          <section class="nav-extra stations">
-            <h1 class="collapse">Friends</h1>
-            <div id="stations-inner">
-            </div>
-          </section>
-        </div>
+        <section class="nav-extra stations">
+          <h1 class="collapse">Friends</h1>
+          <div id="stations-inner">
+          </div>
+        </section>
       </div>
+    </div>
 
-      <div id="body">
-        <%= render :template => 'layouts/single' %>
-      </div>
+    <div id="body">
+      <%= render :template => 'layouts/single' %>
     </div>
   </div>
 
