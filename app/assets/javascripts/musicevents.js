@@ -45,13 +45,19 @@ w.on({
   'mp:play': function mpPlay(event, mp, song) {
     var playlistItem = $('#player-playlist .song-'+song.id),
         w = $(window),
-        song_url = $('#song-' + song.id + ' .name a').attr('href');
+        song_url = $('#song-' + song.id + ' .name a').attr('href'),
+        curSection = mp.curSection();
 
     $('#player-playlist a').removeClass('playing');
     playlistItem.addClass('playing');
 
     // Update player info
-    $('#player-artist-name').html(song.artist_name);
+    var em = curSection.find('.name em'),
+        artist = curSection.find('.artist').html(),
+        other_artists = em.length ? em.html() : '',
+        separator = artist.length && other_artists.length ? ', ' : ''
+        artists = artist.length ? artist + separator + other_artists : other_artists;
+    $('#player-artist-name').html(artists);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
     playlistItem.after($('#invite-container').html());
 

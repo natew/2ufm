@@ -439,7 +439,7 @@ var mp = (function() {
         if (curFailures == 1) this.play(); // try again
         else {
           if (curSection) curSection.addClass('failed');
-          if (failures < 7) player.next();
+          if (failures < 2) player.next();
           $.post('songs/'+curSongInfo.id, { failing: 'true' });
         }
       }

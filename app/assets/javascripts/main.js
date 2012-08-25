@@ -181,6 +181,7 @@ $(function() {
 
   // Song title click
   $('#player-song-name a').click(function() {
+    $('.tipsy').remove();
     fn.scrollTo($('section.playing'));
     if (mp.isOnPlayingPage()) return false;
     else mp.doScroll();
@@ -524,12 +525,12 @@ function modal(selector) {
       show = $('#overlay,#modal');
 
   if (modalShown || selector === false) {
-    show.removeClass('shown');
+    show.attr('class', '');
     modalShown = false;
   }
   else {
     modal.html($(selector).clone());
-    show.addClass('shown');
+    show.addClass('shown').addClass(selector);
     modalShown = true;
 
     if (selector == '#modal-user') {

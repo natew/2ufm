@@ -605,6 +605,7 @@ header #second-nav {
       visibility: hidden;
       margin: 2px 0 0;
       line-height: 19px;
+      text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
 
       span {
         display: block;
@@ -620,7 +621,6 @@ header #second-nav {
           font-weight: 400;
           white-space: nowrap;
           overflow: hidden;
-          text-decoration: none;
           text-overflow: ellipsis;
           color: #fff;
           display: block;
