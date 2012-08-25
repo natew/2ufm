@@ -59,7 +59,6 @@ w.on({
         artists = artist.length ? artist + separator + other_artists : other_artists;
     $('#player-artist-name').html(artists);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
-    playlistItem.after($('#invite-container').html());
 
     // Scroll to song
     setTimeout(function() {
@@ -81,6 +80,6 @@ w.on({
   },
 
   'mp:playlist_end': function playlistEnd(event, mp, song) {
-    console.log('end of playlist');
+    mp.playSection($('.playlist-song:visible section:first'));
   }
 });

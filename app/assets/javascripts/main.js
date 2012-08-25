@@ -18,7 +18,8 @@ var w = $(window),
     hideWelcome = $.cookie('hideWelcome'),
     volume = mp.volume(),
     shuffle = mp.shuffle(),
-    isDragging = false;
+    isDragging = false,
+    hasFriends = true;
 
 // Read URL parameters
 var urlParams = {},
@@ -73,17 +74,6 @@ $(function() {
   // Logged in
   if (!isOnline) {
     modal('#modal-login');
-
-    $('.login-button').click(function() {
-      var email = $('#modal_user_email');
-      if (fn.validateEmail(email.val())) {
-        email.removeClass('error');
-        $.post('/set_email', { email: email.val() });
-      } else {
-        email.addClass('error');
-        return false;
-      }
-    });
 
     // Dialog
     setTimeout(function() {
@@ -313,11 +303,9 @@ $(function() {
           navDropdown(false);
 
           // Not logged in
-          if (!isOnline) {
-            if (el.is('.restricted')) {
-              modal('#modal-user');
-              return false;
-            }
+          if (!isOnline && el.is('.restricted')) {
+            modal('#modal-user');
+            return false;
           }
           else {
             // Modals
@@ -331,6 +319,7 @@ $(function() {
               }
               else
               if (el.is('.shuffle')) {
+                fn.log('shuffle');
                 e.preventDefault();
                 shuffled = mp.toggleShuffle();
                 updateShuffle(shuffled, el);
@@ -386,6 +375,7 @@ $(function() {
 });
 
 function updateShuffle(shuffled, el) {
+  fn.log('shuffled = ', shuffled);
   if (shuffled) el.addClass('active');
   else el.removeClass('active');
 }
@@ -497,8 +487,10 @@ function nearBottom() {
 }
 
 function navDropdown(nav, pad) {
+  fn.log(nav, pad);
   if (nav && nav.length) {
-    var padding = pad ? pad : 20,
+    var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
+        padding = pad ? pad : 20,
         target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
         dropdown = $(target).removeClass('hidden').addClass('open'),
         top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
@@ -506,6 +498,7 @@ function navDropdown(nav, pad) {
 
     // If the nav is not already open
     if (!(navOpen && navOpen[0] == dropdown[0])) {
+      fn.log('opening', dropdown);
       navOpen = dropdown.css({
         top: top,
         left: left
@@ -530,7 +523,7 @@ function modal(selector) {
   }
   else {
     modal.html($(selector).clone());
-    show.addClass('shown').addClass(selector);
+    show.addClass('shown').addClass(selector.substring(1));
     modalShown = true;
 
     if (selector == '#modal-user') {
@@ -552,7 +545,10 @@ function getOnlineFriends() {
 }
 
 function getFriends() {
-  $.get('/get_friends', function(data) {
-    $('#stations-inner').html(data);
-  });
+  if (hasFriends) {
+    $.get('/get_friends', function(data) {
+      if (data.length) $('#stations-inner').html();
+      else hasFriends = false;
+    });
+  }
 }

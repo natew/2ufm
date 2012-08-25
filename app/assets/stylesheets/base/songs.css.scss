@@ -29,23 +29,6 @@ $song-player-height: 50px;
 
 /* Share buttons */
 
-.invite-container {
-  position: absolute;
-  top: $song-pad - 5;
-  left: $song-pad - 5;
-  z-index: 20;
-  line-height: 0;
-
-  &.disabled {
-    visibility: hidden;
-    a {pointer-events:none;}
-  }
-
-  .invite-wrap {
-    display: inline-block;
-  }
-}
-
 .player-invite {
   margin: 0;
   padding: 6px;

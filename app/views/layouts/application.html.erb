@@ -46,8 +46,8 @@
           </div>
 
           <div id="player-buttons">
-            <div id="player-share-container"><%= link_to 'Share', '', :id => 'player-share', :class => 'tip-n pictos-link control', :title => 'Copy the link to this song'  %></div>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control tip-n pictos-music', :id => 'nav-music', :title => 'Current Playlist' %>
+            <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav control pictos-link', 'data-pad' => '40' %>
+            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control tip-n pictos-music disabled', :id => 'nav-music', :title => 'Current Playlist', 'data-pad' => '40' %>
             <%= link_to 'Volume', '#', :class => 'volume control tip-n pictos-volume-on', :id => 'player-volume', :title => 'Volume toggle' %>
             <%= link_to 'Shuffle', "", :id => 'player-shuffle', :class => 'shuffle tip-n control pictos-shuffle', :title => 'Shuffle' %>
           </div>
@@ -152,6 +152,11 @@
     {{/songs}}
   </div>
 
+  <div id="share" class="pop-menu">
+    <%= link_to "Facebook", '', :class => 'player-invite-facebook player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
+    <%= link_to "Twitter", '', :class => 'player-invite-twitter player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
+  </div>
+
   <!-- Modals -->
   <div id="overlay" class="shown slow-fade"></div>
   <div id="modal"></div>
@@ -162,11 +167,6 @@
       <p class="large">The best new music from around the web.  Sign up for free!</p>
 
       <form>
-        <div class="clearfix">
-          <label for="user_username">Username:</label>
-          <input id="modal_user_username" class="input-text" type="text" name="email" />
-        </div>
-
         <div class="actions clearfix">
           <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button' %>
           <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button' %>

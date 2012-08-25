@@ -35,8 +35,9 @@ h1 { font-size: 36px; }
 h2 { font-size: 28px; }
 h3 { font-size: 18px; }
 h4 { font-size: 14px; }
+h5 { font-size: 14px; }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   line-height: 1.4em;
   padding: 0;
   margin: 15px 0;
@@ -723,6 +724,7 @@ header #second-nav {
       display: inline-block;
       font-size: 11px;
       padding: 26px 4px 0;
+      width: 32px;
       margin: 0 4px;
       color: #fff;
       float: left;
@@ -742,8 +744,18 @@ header #second-nav {
       &.active {
         color: $orange !important;
       }
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
     }
   }
+}
+
+#share a {
+  padding: 14px;
+  font-size: 16px;
 }
 
 .third .play-button {
@@ -1196,7 +1208,7 @@ $nav-arrow-size: 5px;
   z-index: 10000;
   padding: $nav-item-pad 0;
   background: #000;
-  max-width: 280px;
+  max-width: 250px;
   @include border-radius(5px);
   font-weight: bold;
 

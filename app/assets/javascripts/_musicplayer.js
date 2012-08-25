@@ -39,7 +39,6 @@ var mp = (function() {
     song: $('#player-song'),
     meta: $('#player-meta'),
     play: $('#player-play'),
-    invite: $('#player-share'),
     volume: $('#player-volume'),
     timer: $('#player-timer')
   };
@@ -383,9 +382,6 @@ var mp = (function() {
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function playSuccess(data) {
           listenURL = '/l/'+data;
-          pl.invite.attr('href',listenURL);
-          pl.invite.removeClass('disabled');
-          fn.clipboard('player-share');
           w.trigger('mp:gotListen', player.state());
         },
         dataType: 'html'
