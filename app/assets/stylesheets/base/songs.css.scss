@@ -457,12 +457,14 @@ section.active .play-button {
           }
 
           &.remove {
-            border-right: 2px solid $like-dark;
             padding-right: 8px;
+            border-right: 4px solid $like-dark;
+            &:before { color: $like-dark; }
           }
 
           &.remove:hover, &.remove:hover:before {
             background: $dark-red;
+            &:before { content: "D"; color: darken($dark-red,10%); }
           }
         }
       }

@@ -12,6 +12,11 @@ Fusefm::Application.routes.draw do
     :omniauth_callbacks => 'users/omniauth_callbacks'
   }
 
+  devise_scope :user do
+    resources :sessions, :only => [:new]
+    match '/login', :to => 'sessions#new'
+  end
+
   match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
 
   resources :songs, :only => [:index, :show]
@@ -41,10 +46,6 @@ Fusefm::Application.routes.draw do
   match '/activate/:id/:key', :to => 'users#activate'
   match "/get_friends", :to => 'users#get_friends'
   match '/set_email', :to => 'users#set_email'
-
-  devise_scope :user do
-    match '/login', :to => 'sessions#new'
-  end
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
