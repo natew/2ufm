@@ -638,6 +638,11 @@ header #second-nav {
         position: relative;
         z-index: 9;
       }
+
+      a {
+        text-decoration: none;
+        &:hover {text-decoration: underline; color: #fff;}
+      }
     }
 
   }
