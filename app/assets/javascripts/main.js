@@ -74,19 +74,19 @@ $(function() {
   // Logged in
   if (!isOnline) {
     modal('#modal-login');
-
-    // Dialog
-    setTimeout(function() {
-      $('#dialog').animate({opacity:'0'},500,function() {
-        $(this).hide();
-      });
-    },4000);
   }
  else {
     // Fade in effect
     $('#overlay').removeClass('shown');
     setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
   }
+
+  // Dialog
+  setTimeout(function() {
+    $('#dialog').animate({opacity:'0'},500,function() {
+      $(this).hide();
+    });
+  },4000);
 
   // Fire initial page load
   page.start();
