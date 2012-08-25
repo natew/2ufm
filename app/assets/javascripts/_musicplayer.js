@@ -290,12 +290,14 @@ var mp = (function() {
 
     toggleVolume: function toggleVolume() {
       if (volume == 100) {
-        pl.volume.html('<');
+        pl.volume.removeClass('pictos-volume-on');
+        pl.volume.addClass('pictos-volume-off');
         volume = 0;
         $.cookie('volume', volume);
         this.setVolume();
       } else {
-        pl.volume.html('>');
+        pl.volume.addClass('pictos-volume-on');
+        pl.volume.removeClass('pictos-volume-off');
         volume = 100;
         $.cookie('volume', volume);
         this.setVolume();

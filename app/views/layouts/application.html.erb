@@ -45,18 +45,21 @@
             <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
           </div>
 
+          <div id="player-buttons">
+            <div id="player-share-container"><%= link_to 'Share', '', :id => 'player-share', :class => 'tip-n pictos-link control', :title => 'Copy the link to this song'  %></div>
+            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control tip-n pictos-music', :id => 'nav-music', :title => 'Current Playlist' %>
+            <%= link_to 'Volume', '#', :class => 'volume control tip-n pictos-volume-on', :id => 'player-volume', :title => 'Volume toggle' %>
+            <%= link_to 'Shuffle', "", :id => 'player-shuffle', :class => 'shuffle tip-n control pictos-shuffle', :title => 'Shuffle' %>
+          </div>
+
           <div id="player-main">
 
             <div id="player-meta">
-              <span id="player-song-name"><a href="">&nbsp;</a></span>
+              <span id="player-song-name" class="tip-n" title="Click to return to song"><a href="">&nbsp;</a></span>
               <span id="player-artist-name">&nbsp;</span>
-              <div id="player-share-container"><%= link_to "", '', :id => 'player-share', :class => 'tip-n pictos-link control', :title => 'Copy the link to this song'  %></div>
             </div>
 
             <div id="player-bottom">
-              <div id="player-pre-controls">
-                <%= link_to 'm', '#player-playlist', :class => 'pictos nav control tip-n', :id => 'nav-music', :title => 'Current Playlist' %>
-              </div>
               <div id="player-progress-bar">
                 <div id="player-progress-grabber"></div>
                 <div id="player-progress-inner-wrap">
@@ -65,18 +68,10 @@
                 </div>
               </div>
               <div id="player-timer">0:00</div>
-              <div id="player-post-controls">
-                <%= link_to '>', '#', :class => 'volume pictos control tip-n', :id => 'player-volume', :title => 'Volume toggle' %>
-              </div>
             </div>
             <!-- /player bottom -->
           </div>
           <!-- /player-meta -->
-
-          <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
-            <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
-            <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-          <% end -%>
         </div>
         <!-- /player-main -->
       </div>
@@ -87,6 +82,11 @@
   <div id="main-mid">
     <div id="navbar">
       <div id="navbar-menus">
+        <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
+          <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
+          <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+        <% end -%>
+
         <%- if user_signed_in? -%>
         <section class="nav-user">
           <h1><%= current_user.username %></h1>
@@ -174,6 +174,8 @@
       </form>
     </div>
   <% end %>
+
+  <div id="song-dragger" class="pictos">m</div>
 
   <div class="hidden">
     <div id="help">

@@ -6,7 +6,7 @@
     class_names  = 'listened-to' if song.listen_id? rescue nil
 -%>
 
-<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %>">
+<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %> ui-draggable">
   <div class="song-info">
     <a class="song-art cover-<%= cover %>" href="">
       <%= image_tag song.resolve_image(cover) %>

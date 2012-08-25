@@ -17,7 +17,8 @@ var w = $(window),
     pageEndOffsets = [],
     hideWelcome = $.cookie('hideWelcome'),
     volume = mp.volume(),
-    shuffle = mp.shuffle();
+    shuffle = mp.shuffle(),
+    isDragging = false;
 
 // Read URL parameters
 var urlParams = {},
@@ -196,6 +197,46 @@ $(function() {
     if (section.length) mp.playSection(section);
     else mp.playSong(index);
   });
+
+  var last, el, friendHovered = false;
+
+  // Dragging to friends
+  $('.playlist-song section').on('mousedown', function(e) {
+    e.preventDefault(e);
+    updatePosition(e);
+    $(document).bind('mousemove', function(e) {
+      e.preventDefault();
+      updatePosition(e);
+
+      // Prevent load
+      var now = new Date();
+      if (now - last < 15) return;
+      last = now;
+
+      // Show dragger
+      if (!isDragging) $('#song-dragger').addClass('visible');
+      isDragging = true;
+
+      // Show hovered friend
+      el = $(document.elementFromPoint(e.clientX, e.clientY));
+      if (el.is('#stations-inner a')) el.addClass('active');
+      else $('#stations-inner a').removeClass('active');
+    }).on('mouseup', function() {
+      $('#song-dragger').removeClass('visible');
+      $(document).unbind('mousemove');
+      isDragging = false;
+    });
+  });
+
+  function updatePosition(e) {
+    var x = parseInt(e.clientX, 10),
+        y = parseInt(e.clientY, 10);
+
+    $('#song-dragger').css({
+      top: y,
+      left: x
+    });
+  }
 
   // Online friends
   getOnlineFriends();

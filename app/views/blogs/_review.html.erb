@@ -1,6 +1,6 @@
 <% if !review.post_excerpt.blank? %>
 <div>
-  <h3><%= link_to review.station_title, '/'+review.station_slug %><%=link_to '', review.blog_url, :class=> 'external popup', 'data-dimensions' => '800,900' %> wrote</h3>
+  <h3><%= link_to review.station_title, '/'+review.station_slug %> <%=link_to '', review.blog_url, :class=> 'external popup', 'data-dimensions' => '800,900' %> wrote</h3>
   <p><%= review.post_excerpt %> <%= link_to 'Read more', review.post_url, :target => '_blank' %></p>
 </div>
 <% end %>

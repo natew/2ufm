@@ -163,18 +163,6 @@ section.active .play-button {
     font-size: 11px;
   }
 
-  .shuffle {
-    position: absolute;
-    top: -30px;
-    right: $song-pad;
-    font-size: 26px;
-    color: #888;
-
-    &.active {
-      color: $orange;
-    }
-  }
-
   .ph-song {
     margin-left: $song-pad*2 + $play-button-size - 4;
   }
@@ -233,12 +221,19 @@ section.active .play-button {
 
     &.active {
       background: $header-dark !important;
-      .player-invite { padding:8px; font-size:15px; }
+      .player-invite { padding: 16px; font-size:26px; }
       .waveform-wrap img { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
-      * {color: #fff;}
-      a {color: lighten($header-color, 25%) !important !important;
-        &:hover {color: #fff !important;}}
+      * {color: #fff !important;}
+      a {color: lighten($header-light, 22%) !important;}
+      .reviews a, .artist a {
+        background: rgba(0,0,0,0.2);
+        padding: 2px;
+        margin: -2px;
+        @include border-radius(5px);
+        text-decoration: none;
+      }
+
     }
 
     &.failed {
@@ -314,10 +309,6 @@ section.active .play-button {
             a {
               color: #aaa;
               pointer-events: auto;
-              background: rgba(0,0,0,0.15);
-              padding: 0 4px;
-              white-space: nowrap;
-              @include border-radius(5px);
             }
           }
         }
@@ -636,6 +627,6 @@ section.active .play-button {
       }
     }
 
-    p a { font-weight: bold; text-decoration: none; }
+    p a { font-weight: bold; }
   }
 }
