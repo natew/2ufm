@@ -208,13 +208,8 @@ section.active .play-button {
       .waveform-wrap img { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
       * {color: #fff !important;}
-      a {color: lighten($header-light, 22%) !important;}
-      .reviews a, .artist a {
-        background: rgba(0,0,0,0.2);
-        padding: 2px;
-        margin: -2px;
-        @include border-radius(5px);
-        text-decoration: none;
+      a {
+        color: lighten($header-light, 22%) !important;
       }
 
     }

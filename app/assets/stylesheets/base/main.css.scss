@@ -653,9 +653,10 @@ header #second-nav {
       position: absolute;
       z-index: 15;
       width: 100%;
-      bottom: 1px;
+      bottom: 0;
       right: 0;
-      color: #fff;
+      text-align: center;
+      color: $header-color;
       font-weight: 400;
       font-size: 12px;
       pointer-events: none;
@@ -1209,8 +1210,9 @@ $nav-arrow-size: 5px;
   padding: $nav-item-pad 0;
   background: #000;
   max-width: 250px;
-  @include border-radius(5px);
   font-weight: bold;
+  @include border-radius(5px);
+  @include box-shadow(0 0 10px rgba(0,0,0,0.8));
 
   &.open {
     display: block;
