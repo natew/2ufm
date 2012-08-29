@@ -1,6 +1,4 @@
 class SongsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:play]
-
   def index
     @popular = Station.popular
     @popular_songs = Song.playlist_order_rank(current_user)

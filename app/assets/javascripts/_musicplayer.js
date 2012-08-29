@@ -145,6 +145,8 @@ var mp = (function() {
             volume:volume
           });
 
+          fn.log(curSongInfo, curSong.url);
+
           // If we have a time set
           if (time > 0) {
             curSong.setPosition(time * 1000);
@@ -282,7 +284,7 @@ var mp = (function() {
 
       fn.log('setting song ' + curSongInfo.name + ' to ' + status);
 
-      if (curSection) {
+      if (curSection && curSection.length) {
         curSection.removeClass(statuses[status][0]).addClass(statuses[status][1]);
       }
     },
@@ -429,7 +431,7 @@ var mp = (function() {
 
     onload: function onload(success) {
       if (!success) {
-        fn.log('failure');
+        fn.log('failure', success);
         curFailures++;
         failures++;
         if (curFailures == 1) this.play(); // try again
