@@ -60,11 +60,11 @@ cache('song_' + id) do
   <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
   <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
 
+  <%
+    end # end cache
+  %>
+
   <ul class="song-controls">
     <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
 </section>
-
-<%
-  end # end cache
-%>
