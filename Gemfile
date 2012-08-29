@@ -83,7 +83,7 @@ group :development do
   gem 'awesome_print'
   gem 'marginalia' # Adds nice info to SQL statements, supposedly (not working yet)
   gem 'capistrano_colors'
-  gem 'bullet'
+  # gem 'bullet'
   # gem 'active_record_query_trace'
   # gem 'sql-logging', :git => 'git://github.com/pnc/sql-logging.git', :branch => 'rails-3-2-fix'
   # gem 'ruby-debug19', :require => 'ruby-debug'

@@ -41,13 +41,13 @@ Fusefm::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'localhost:5100' }
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
-    Bullet.growl = true
-    Bullet.rails_logger = true
-    Bullet.disable_browser_cache = true
-  end
+  # config.after_initialize do
+  #   Bullet.enable = true
+  #   Bullet.alert = true
+  #   Bullet.bullet_logger = true
+  #   Bullet.console = true
+  #   Bullet.growl = true
+  #   Bullet.rails_logger = true
+  #   Bullet.disable_browser_cache = true
+  # end
 end
