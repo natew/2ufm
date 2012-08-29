@@ -32,7 +32,7 @@
   </script>
 </head>
 
-<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>">
+<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>"<% end %>>
 
   <header>
     <div class="page-contain">

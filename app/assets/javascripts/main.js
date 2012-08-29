@@ -5,6 +5,7 @@ var w = $(window),
     infiniteScrollTimeout,
     debug = false,
     isOnline = $('body.signed_in').length > 0,
+    userId = $('body').data('user'),
     modalShown = false,
     navOpen,
     loadingPage = false,
@@ -19,7 +20,8 @@ var w = $(window),
     volume = mp.volume(),
     shuffle = mp.shuffle(),
     isDragging = false,
-    hasFriends = true;
+    hasFriends = true,
+    sareSong;
 
 // Read URL parameters
 var urlParams = {},
@@ -82,11 +84,7 @@ $(function() {
   }
 
   // Dialog
-  setTimeout(function() {
-    $('#dialog').animate({opacity:'0'},500,function() {
-      $(this).hide();
-    });
-  },4000);
+  hideDialog();
 
   // Fire initial page load
   page.start();
@@ -192,40 +190,66 @@ $(function() {
   var last, el, friendHovered = false;
 
   // Dragging to friends
-  $('.playlist-song section').on('mousedown', function(e) {
-    e.preventDefault(e);
-    updatePosition(e);
-    $(document).bind('mousemove', function(e) {
-      e.preventDefault();
+  if (isOnline) {
+    $('.playlist-song section').on('mousedown', function(e) {
+      e.preventDefault(e);
       updatePosition(e);
+      sareSong = $(this).attr('id').split('-')[1];
 
-      // Prevent load
-      var now = new Date();
-      if (now - last < 15) return;
-      last = now;
+      $(document).bind('mousemove', function(e) {
+        e.preventDefault();
+        updatePosition(e);
 
-      // Show dragger
-      if (!isDragging) $('#song-dragger').addClass('visible');
-      isDragging = true;
+        // Prevent load
+        var now = new Date();
+        if (now - last < 35) return;
+        last = now;
 
-      // Show hovered friend
-      el = $(document.elementFromPoint(e.clientX, e.clientY));
-      if (el.is('#stations-inner a')) el.addClass('active');
-      else $('#stations-inner a').removeClass('active');
-    }).on('mouseup', function() {
-      $('#song-dragger').removeClass('visible');
-      $(document).unbind('mousemove');
-      isDragging = false;
-    });
-  });
+        // Show dragger
+        if (!isDragging) $('#song-dragger').addClass('visible');
+        isDragging = true;
 
-  function updatePosition(e) {
-    var x = parseInt(e.clientX, 10),
-        y = parseInt(e.clientY, 10);
+        // Show hovered friend
+        el = $(document.elementFromPoint(e.clientX, e.clientY));
+        if (el.is('#stations-inner a')) el.addClass('active');
+        else $('#stations-inner a').removeClass('active');
+      }).on('mouseup', function() {
+        $('#song-dragger').removeClass('visible');
+        var receiver = $('#stations-inner a.active').html();
+        $('#stations-inner a').removeClass('active');
+        $(document).unbind('mousemove');
+        isDragging = false;
 
-    $('#song-dragger').css({
-      top: y,
-      left: x
+        // Send song
+        el = $(document.elementFromPoint(e.clientX, e.clientY));
+        fn.log(el, el.length && el.is('.song-link'));
+        if (el.length && el.is('.song-link')) {
+          fn.log(userId, shareSong)
+          fn.log(el.attr('href').split('-')[1])
+          var data = {
+            'share': {
+              'sender_id': userId,
+              'receiver_id': el.attr('href').split('-')[1],
+              'song_id': shareSong
+            }
+          };
+
+          fn.log(data);
+          $.post('/share', data, function() {
+            notice('Sent song to ' + receiver)
+          })
+        }
+      });
+
+      function updatePosition(e) {
+        var x = parseInt(e.clientX, 10),
+            y = parseInt(e.clientY, 10);
+
+        $('#song-dragger').css({
+          top: y,
+          left: x
+        });
+      }
     });
   }
 
@@ -377,6 +401,19 @@ $(function() {
   }
 });
 
+function notice(message) {
+  $('<div id="dialog">' + message + '</div>').prependTo('#main-mid');
+  hideDialog();
+}
+
+function hideDialog() {
+  setTimeout(function () {
+    $('#dialog').animate({opacity:'0'},500, function() {
+      $(this).hide();
+    });
+  }, 4000);
+}
+
 function updateShuffle(shuffled, el) {
   fn.log('shuffled = ', shuffled);
   if (shuffled) el.addClass('active');
@@ -415,7 +452,7 @@ function getPage() {
 }
 
 function updatePageURL(page) {
-  var url = window.location.href.replace(/#.*/,''),
+  var url = mp.getPage(),
       page = 'p=' + page,
       page_regex = /p=[0-9]+/,
       hash = window.location.hash;
@@ -429,7 +466,7 @@ function updatePageURL(page) {
 
   url += hash;
   window.history.replaceState(null,document.title,url);
-  mp.updatePage(window.location.pathname + window.location.search);
+  mp.updatePage(url);
 }
 
 function nextPage(link, callback) {
