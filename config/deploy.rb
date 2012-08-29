@@ -78,4 +78,3 @@ namespace :deploy do
     run_rake "songs:clear_cache"
   end
 end
-end
