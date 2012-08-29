@@ -19,11 +19,6 @@ $gutter-color: #222;
 $gutter-dark: darken($gutter-color, 3%);
 $gutter-width: 50px;
 
-/*  navbar  */
-$navbar-width: 200px;
-$navbar-bg: #444;
-$navbar-active: $primary;
-
 /* containers */
 $third-width: 220px;
 
@@ -51,6 +46,11 @@ $button-color: #fff;
 $primary: #3786dd;
 $primary-light: lighten($primary,10%);
 $primary-dark: darken($primary,10%);
+
+/*  navbar  */
+$navbar-width: 200px;
+$navbar-bg: #444;
+$navbar-active: $primary;
 
 $progress: #fff;
 
