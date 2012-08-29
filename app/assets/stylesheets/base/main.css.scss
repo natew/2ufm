@@ -139,13 +139,13 @@ header {
 
 #navbar {
   position: fixed;
-  z-index: 40;
+  z-index: 1;
   top: $header-height;
   right: 0;
   bottom: 0;
   width: $navbar-width;
   padding: 15px 0 0 0;
-  background: #111;
+  background: #222;
   @include box-sizing(border-box);
 
   #navbar-menus {
@@ -296,6 +296,9 @@ header {
   min-width: $width;
   overflow: hidden;
   padding: 20px 0;
+  position: relative;
+  z-index: 2;
+  @include box-shadow(0 0 8px rgba(0,0,0,0.6));
 
   #breadcrumbs {
     background: $body-dark;
