@@ -401,7 +401,7 @@ $(function() {
 });
 
 function notice(message) {
-  $('<div id="dialog">' + message + '</div>').prependTo('#main-mid');
+  $('<div id="dialog">' + message + '</div>').prependTo('#body');
   hideDialog();
 }
 
