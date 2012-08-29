@@ -126,6 +126,7 @@
 }
 
 #modal-login {
+  display: none;
   label {font-size: 16px;}
   .actions {
     width: 290px;
@@ -133,6 +134,10 @@
     padding-top: 0;
     a { margin: 0 0 10px 0;}}
   a.alt { color: #aaa; }
+}
+
+#modal #modal-login {
+  display: block;
 }
 
 #modal-user {

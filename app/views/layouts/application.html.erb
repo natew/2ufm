@@ -140,8 +140,8 @@
     <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
   </div>
 
-  <a id="debug" class="control" href="">x</a>
-  <div id="debug_dump"></div>
+  <!-- <a id="debug" class="control" href="">x</a>
+  <div id="debug_dump"></div> -->
 
   <div id="player-playlist" class="pop-menu">
     <h4>{{station.title}}</h4>
@@ -171,7 +171,7 @@
           <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button' %>
           <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button' %>
         </div>
-        Or <%= link_to "login without friends", new_user_registration_path, :class => 'alt close-modal' %>.
+        Or <%= link_to "login without importing friends", '/login', :class => 'alt close-modal' %>.
       </form>
     </div>
   <% end %>

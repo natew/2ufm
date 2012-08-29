@@ -14,7 +14,7 @@ Fusefm::Application.routes.draw do
 
   devise_scope :user do
     resources :sessions, :only => [:new]
-    match '/login', :to => 'sessions#new'
+    match '/login', :to => 'users#new'
   end
 
   match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
