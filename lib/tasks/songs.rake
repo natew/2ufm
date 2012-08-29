@@ -1,4 +1,8 @@
 namespace :songs do
+  task :clear_cache => :environment do
+    Rails.cache.clear
+  end
+
   task :fix_files => :environment do
     Song.all.each do |song|
       song.upload_if_not_working

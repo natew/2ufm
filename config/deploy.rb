@@ -32,6 +32,7 @@ role :db,  domain, :primary => true # This is where Rails migrations will run
 
 after 'deploy:update', 'deploy:symlink_attachments'
 after 'deploy:update', 'deploy:symlink_tmp'
+after 'deploy:update', 'deploy:clear_caches'
 
 # Run rake tasks
 def run_rake(task, options={}, &block)
@@ -70,6 +71,11 @@ namespace :deploy do
     run "rm -rf #{release_path}/tmp"
     run "ln -nfs #{shared_path}/tmp #{release_path}/tmp"
     run "chmod 775 #{shared_path}/tmp"
-    run_rake "tmp:cache:clear"
   end
+
+  task :clear_caches do
+    run_rake "tmp:cache:clear"
+    run_rake "songs:clear_cache"
+  end
+end
 end
