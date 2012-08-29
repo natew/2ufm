@@ -77,11 +77,10 @@ $(function() {
   if (!isOnline) {
     modal('#modal-login');
   }
- else {
-    // Fade in effect
-    $('#overlay').removeClass('shown');
-    setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
-  }
+
+  // Fade in effect
+  $('#overlay').removeClass('shown');
+  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
   // Dialog
   hideDialog();
