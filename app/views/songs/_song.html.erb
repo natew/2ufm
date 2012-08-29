@@ -19,6 +19,10 @@
       <span class="artist"><%= links[:original] %></span>
       <span class="name"><%= tagged_song_name(song.name) %> <em><%= links[:other] %></em></span>
     </h1>
+
+    <div class="song-friends">
+      <% if user_signed_in? %><% end %>
+    </div>
   </div>
 
   <div class="song-meta">
@@ -30,7 +34,11 @@
 
     <div>
       <time><%= relative_time(time) %></time>
+    </div>
+
+    <div>
       <%= link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
+      <%= link_to song.play_count, song, :class => 'comments pictos-play control' %>
     </div>
   </div>
 
@@ -42,7 +50,6 @@
 
   <ul class="stats horizontal-list">
     <li class="title">Info:</li>
-    <li><%= pluralize song.play_count, 'play' %></li>
     <li><%= seconds_to_time song.length %></li>
   </ul>
 

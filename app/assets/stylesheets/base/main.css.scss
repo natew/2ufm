@@ -424,6 +424,8 @@ header #second-nav {
   -webkit-font-smoothing: antialiased;
 }
 
+.pictos-play:before {content: "4";}
+.pictos-puase:before {content: "5";}
 .pictos-key:before {content: "K";}
 .pictos-info:before {content: "i";}
 .pictos-write:before {content: "W";}

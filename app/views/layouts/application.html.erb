@@ -111,6 +111,8 @@
           <% if user_signed_in? %>
             <%= link_to "Account", '/account' %>
             <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+          <% else %>
+            <%= link_to 'Login', '/login' %>
           <% end %>
           <% link_to "About Us", "#", :class => "secondary" %>
         </section>
