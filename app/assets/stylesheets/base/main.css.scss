@@ -255,7 +255,7 @@ header {
       font-weight: 300;
       font-size: 22px;
       padding: 8px;
-      margin: 0 15px 2px 15px;
+      margin: 0 0 2px 15px;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
@@ -462,6 +462,7 @@ header #second-nav {
 .pictos-check:before {content: "3";}
 .pictos-volume-on:before {content: ">";}
 .pictos-volume-off:before {content: "<";}
+.pictos-time:before {content: "t";}
 
 
 #main-mid a[href^="http://"] {

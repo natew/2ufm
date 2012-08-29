@@ -43,6 +43,7 @@ cache('song_' + id) do
     <div>
       <%= link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
       <%= link_to song.play_count, song, :class => 'comments pictos-play control' %>
+      <%= link_to seconds_to_time(song.length), '#', :class => 'comments pictos-time' %>
     </div>
   </div>
 
@@ -51,11 +52,6 @@ cache('song_' + id) do
   <div class="reviews">
     <%= render :partial => 'blogs/review', :collection => [song] %>
   </div>
-
-  <ul class="stats horizontal-list">
-    <li class="title">Info:</li>
-    <li><%= seconds_to_time song.length %></li>
-  </ul>
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
   <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
