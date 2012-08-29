@@ -144,9 +144,9 @@ header {
   right: 0;
   bottom: 0;
   width: $navbar-width;
-  padding: 15px 0 0 15px;
+  padding: 15px 0 0 0;
+  background: #111;
   @include box-sizing(border-box);
-  @include linear-gradient(left, $body-bg, darken($body-dark, 5%));
 
   #navbar-menus {
     overflow: hidden;
@@ -158,7 +158,7 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 0 0 20px 0;
+    margin: 0 15px 20px 0;
 
     &.stations {
       margin: 0;
@@ -207,7 +207,8 @@ header {
 
       a {
         color: #777;
-        margin-right: 0;
+        margin-left: 0;
+        margin-right: -25px;
 
         &.active {
           background: $primary;
@@ -243,7 +244,7 @@ header {
       font-weight: 300;
       color: #aaa;
       padding: 5px 10px;
-      margin: 0 -20px 0 0;
+      margin: 0 -20px 0 15px;
     }
 
     a {
@@ -254,7 +255,7 @@ header {
       font-weight: 300;
       font-size: 22px;
       padding: 8px;
-      margin: 0 15px 2px 0;
+      margin: 0 15px 2px 15px;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
@@ -265,14 +266,15 @@ header {
 
       &:hover {
         color: #fff;
-        background: $body-darker;
+        background: $body-light;
         padding-left: 12px;
       }
 
       &.active {
         color: #fff;
         background: $navbar-active;
-        margin-right: 0;
+        margin-left: 0;
+        padding-left: 23px;
 
         &:hover {background: $navbar-active;}
       }
@@ -353,7 +355,7 @@ header #search-form {
 }
 
 #search-form {
-  margin: 5px 0 20px;
+  margin: 5px 0 15px 15px;
   position: relative;
 
   #query {
