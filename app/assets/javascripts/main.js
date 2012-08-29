@@ -73,14 +73,14 @@ if (!hideWelcome && !isOnline) {
 //
 
 $(function() {
+  // Fade in effect
+  $('#overlay').removeClass('shown');
+  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
+
   // Logged in
   if (!isOnline) {
     modal('#modal-login');
   }
-
-  // Fade in effect
-  $('#overlay').removeClass('shown');
-  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
   // Dialog
   hideDialog();
