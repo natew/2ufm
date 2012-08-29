@@ -146,7 +146,7 @@ header {
   width: $navbar-width;
   padding: 15px 0 0 15px;
   @include box-sizing(border-box);
-  @include linear-gradient(left, $body-bg, $body-dark);
+  @include linear-gradient(left, $body-bg, darken($body-dark, 5%));
 
   #navbar-menus {
     overflow: hidden;

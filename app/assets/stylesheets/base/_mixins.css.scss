@@ -22,7 +22,7 @@ $gutter-width: 50px;
 /*  navbar  */
 $navbar-width: 200px;
 $navbar-bg: #444;
-$navbar-active: lighten($body-bg, 5%);
+$navbar-active: $primary;
 
 /* containers */
 $third-width: 220px;
