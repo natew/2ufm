@@ -43,7 +43,7 @@ cache('song_' + id) do
     <div>
       <%= link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
       <%= link_to song.play_count, song, :class => 'comments pictos-play control' %>
-      <%= link_to seconds_to_time(song.length), '#', :class => 'comments pictos-time' %>
+      <% link_to seconds_to_time(song.length), '#', :class => 'comments pictos-time' %>
     </div>
   </div>
 
