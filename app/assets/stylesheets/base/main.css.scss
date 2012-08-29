@@ -185,8 +185,8 @@ header {
 
       h1 {
         position: relative;
-        margin-right: -30px;
-        background: $navbar-active;
+        margin-right: 0;
+        margin-left: -25px;
         color: #fff;
 
         &:after {
@@ -200,7 +200,7 @@ header {
         }
 
         &:hover {
-          background: $primary-light;
+          background: $body-lighter;
           cursor: pointer;
         }
       }
@@ -266,7 +266,7 @@ header {
 
       &:hover {
         color: #fff;
-        background: $body-light;
+        background: $body-lighter;
         padding-left: 12px;
       }
 
