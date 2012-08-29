@@ -1,7 +1,11 @@
 <%-
+    id = song.id.to_is
+
+cache('song_' + id) do
+
     station_id ||= -1
     cover      ||= :icon
-    follow_id    = 'station-follow-' + song.id.to_s
+    follow_id    = 'station-follow-' + id
     time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.published_at
     class_names  = 'listened-to' if song.listen_id? rescue nil
 -%>
@@ -59,6 +63,8 @@
   <ul class="song-controls">
     <li class="broadcast"><%= broadcast_song(song) %></li>
   </ul>
-
-  <% debug(song) %>
 </section>
+
+<%
+  end # end cache
+%>

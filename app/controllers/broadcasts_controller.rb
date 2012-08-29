@@ -1,5 +1,5 @@
 class BroadcastsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :clear_cache
 
   def create
     logger.info params
@@ -24,5 +24,11 @@ class BroadcastsController < ApplicationController
     else
       head 500
     end
+  end
+
+  private
+
+  def clear_cache
+    expire_fragment('song_' + (params[:song_id] || params[:id]))
   end
 end
