@@ -1174,31 +1174,24 @@ $announce-color: $heading-color;
   }
 }
 
-#soundmanager-debug {
-  display: none !important;
-}
-
 
 /* NAVIGATION AND PAGINATION */
 
 .next-page {
   display: block;
-  color: #fff;
+  color: #ccc;
   font-size: 14px;
   text-align: center;
-  margin: 30px 0 800px;
+  margin: 30px 0 400px;
   padding: 10px;
   text-decoration: none;
   font-weight: bold;
   text-transform: uppercase;
   @include border-radius(8px);
 
-  &:hover {
-    background: lighten($body-bg,6%);
-  }
-
   &.loading {
-    display: block;
+    color: #999;
+    pointer-events: none;
     cursor: normal;
   }
 }

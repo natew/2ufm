@@ -23,23 +23,6 @@ w.on({
   'mp:gotListen': function mpGotListenEvent(event, mp, song) {
     // Update url
     fn.replaceState(mp.getListenUrl());
-
-    // Share links
-    var url = encodeURIComponent('http://2u.fm' + mp.getListenUrl()),
-        text = encodeURIComponent('Listening to ' + (mp.getTitle() || 'nothin')),
-        tweet = ['http://twitter.com/share?text='
-                  , text
-                  , "&url="
-                  , url
-                ].join(''),
-        facebook = ['https://www.facebook.com/sharer.php?u='
-                  , url
-                  , '&t='
-                  , text
-                ].join('');
-
-    $('#player-invite-twitter').attr('href', tweet);
-    $('#player-invite-facebook').attr('href', facebook);
   },
 
   'mp:play': function mpPlay(event, mp, song) {

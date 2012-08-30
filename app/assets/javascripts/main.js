@@ -130,6 +130,9 @@ $(function() {
     mp.playSection(section);
   }
 
+  // Scrollpanes
+  $('.scroll-pane').jScrollPane();
+
   // Tooltips
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
@@ -148,11 +151,6 @@ $(function() {
     }
   });
 
-  // Page load
-  $('.next-page').live('click',function(e) {
-    nextPage(this);
-  });
-
   // Player controls
   mpClick('#player-play', 'toggle');
   mpClick('#player-next', 'next');
@@ -160,11 +158,7 @@ $(function() {
   mpClick('#player-volume', 'toggleVolume');
 
   // Play from song
-  $('.play-song').live('click', function songClick(e) {
-    e.preventDefault();
-    var section = $(this.getAttribute('href'));
-    mp.playSection(section);
-  });
+  $('.play-song').live('click', );
 
   // Song title click
   $('#player-song-name a').click(function() {
@@ -315,8 +309,6 @@ $(function() {
       }
       else {
         if (el.is('.control')) e.preventDefault();
-
-        // Nav Dropdown
         if (el.is('.nav')) {
           navDropdown($(e.target));
           return false;
@@ -324,40 +316,43 @@ $(function() {
         else {
           // Close any dropdowns
           navDropdown(false);
+        }
 
-          // Not logged in
-          if (!isOnline && el.is('.restricted')) {
-            modal('#modal-user');
-            return false;
-          }
-          else {
-            // Modals
-            if (el.is('.modal')) {
-              modal(e.target.getAttribute('href'));
-              return false;
-            }
-            else {
-              if (el.is('.play-station')) {
-                mp.setAutoPlay(true);
-              }
-              else
-              if (el.is('.shuffle')) {
-                fn.log('shuffle');
-                e.preventDefault();
-                shuffled = mp.toggleShuffle();
-                updateShuffle(shuffled, el);
-              }
-              else
-              if (el.is('#more-artists')) {
-                var next = $('.artists-shelf li:not(.hidden):lt(5)');
-                if (next.length) next.addClass('hidden')
-                else $('.artists-shelf li').removeClass('hidden');
-              }
-              else if (el.is('.close-modal')) {
-                modal(false);
-              }
-            }
-          }
+        // Not logged in
+        if (!isOnline && el.is('.restricted')) {
+          modal('#modal-user');
+          return false;
+        }
+
+        // Modals
+        if (el.is('.modal')) {
+          modal(e.target.getAttribute('href'));
+          return false;
+        }
+
+        // Infinite scroll
+        if (el.is('.next-page')) {
+          // Page load
+          nextPage(el);
+          return false;
+        }
+
+        if (el.is('.play-station')) {
+          mp.setAutoPlay(true);
+        }
+        else if (el.is('.shuffle')) {
+          fn.log('shuffle');
+          e.preventDefault();
+          shuffled = mp.toggleShuffle();
+          updateShuffle(shuffled, el);
+        }
+        else if (el.is('#more-artists')) {
+          var next = $('.artists-shelf li:not(.hidden):lt(5)');
+          if (next.length) next.addClass('hidden')
+          else $('.artists-shelf li').removeClass('hidden');
+        }
+        else if (el.is('.close-modal')) {
+          modal(false);
         }
       }
     }
@@ -469,7 +464,7 @@ function updatePageURL(page) {
 }
 
 function nextPage(link, callback) {
-  var link = $(link).html('Loading').addClass('loading');
+  var link = link.html('Loading').addClass('loading');
   // Infinite scrolling
   if (morePages) {
     var curPlaylist = $('.playlist:visible:last'),
@@ -489,7 +484,7 @@ function nextPage(link, callback) {
       },
       success: function(data) {
         var playlist = $('#playlist-' + id + '-' + scrollPage);
-        link.remove();
+        link.html('Page ' + scrollPage);
         loadingPage = false;
         updatePageURL(scrollPage);
         curPlaylist.after(data);
@@ -522,7 +517,7 @@ function pjax(url, container) {
 }
 
 function nearBottom() {
-  return w.scrollTop() >= ($(document).height() - $(window).height() - 300);
+  return w.scrollTop() >= ($(document).height() - $(window).height() - 1400);
 }
 
 function navDropdown(nav, pad) {

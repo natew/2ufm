@@ -11,22 +11,6 @@ class Song < ActiveRecord::Base
 
   SOURCES = %w[direct soundcloud hulkshare]
 
-  # Regular expressions
-  RE = {
-    :featured => /(featuring |ft\.? ?|feat\.? ?|f\. ?|w\/){1}/i,
-    :remix => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| bootleg remix/i,
-    :mashup => / x .* x | mashup| mash-up/i,
-    :mashup_split => / x | vs\.? /i,
-    :producer => /(produced by|prod\.?)/i,
-    :cover => / cover/i,
-    :split => /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
-    :open => /[\(\[\{]/,
-    :close => /[\)\]\}]/,
-    :containers => /[\(\)\[\]]|vs\.? |,| and | & | x /i,
-    :percents => /(% ?){2,10}/,
-    :remove => /(original mix|preview|radio edit)/i
-  }
-
   SQL = {
     :stations => %Q{
         stations.title as station_title,
@@ -41,6 +25,29 @@ class Song < ActiveRecord::Base
     :listens => %Q{
         listens.id as listen_id
       }
+  }
+
+  # Regular expressions
+  RE = {
+    :featured => /(featuring |ft\.? |feat\.? ?|f\. ?|w\/){1}/i,
+    :remix => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| bootleg remix/i,
+    :mashup_split => / \+ | x | vs\.? /i,
+    :producer => /(produced by|prod\.?)/i,
+    :cover => / cover/i,
+    :split => /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
+    :open => /[\(\[\{]/,
+    :close => /[\)\]\}]/,
+    :containers => /[\{\[\(\)\]\}]/i,
+    :percents => /(% ?){2,10}/,
+    :remove => /(extended|vip|original|club) mix|(extended|vip|radio) edit|(on )?soundcloud|free download/i
+  }
+
+  SPLITS = {
+    :featuered => /#{RE[:featured]}#{RE[:split]}/i,
+    :producer => /#{RE[:producer]}#{RE[:split]}/i,
+    :remixer => /#{RE[:split]}#{RE[:remix]}/i,
+    :cover => /#{RE[:split]}#{RE[:cover]}/i,
+    :mashup => /#{RE[:mashup_split]}/i
   }
 
   # Relationships
@@ -332,6 +339,8 @@ class Song < ActiveRecord::Base
           self.genre        = tag.genre
           self.image        = get_album_art(tag)
 
+          fix_tags
+
           # Detect if they dumped the artist in the name
           split_artists_from_name
 
@@ -391,6 +400,14 @@ class Song < ActiveRecord::Base
       delay(:priority => 1).scan_and_save
     else
       scan_and_save
+    end
+  end
+
+  def fix_tags
+    if name.blank? and artist_name =~ / - /
+      splitted = artist_name.split(' - ')
+      self.artist_anem = splitted[0]
+      self.name = splitted[1]
     end
   end
 
@@ -579,7 +596,7 @@ class Song < ActiveRecord::Base
   end
 
   def to_searchable(string)
-    '%' + string.gsub(RE[:containers],'%').gsub(/#{RE[:remix]}|#{RE[:featured]}|#{RE[:mashup]}/i, '%').gsub(RE[:percents],'%').strip + '%'
+    '%' + string.gsub(RE[:containers],'%').gsub(/#{RE[:remix]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%').gsub(RE[:percents],'%').strip + '%'
   end
 
   def similar_songs
@@ -662,8 +679,7 @@ class Song < ActiveRecord::Base
   def artists_in_name
     parse_name = name
     parse_name = link_info[1] if name.blank?
-    # Strip unnecessary stuff and parse the song name
-    parse_name = parse_name.gsub(/(extended|vip|original|club)|(extended|vip|radio) edit/i, '')
+    parse_name = parse_name.gsub(RE[:remove], '')
     all_artists(name: parse_name)
   end
 
@@ -671,7 +687,11 @@ class Song < ActiveRecord::Base
     # Now parse the artist field
     parse_artist_name = artist_name
     parse_artist_name = link_info[0] if parse_artist_name.blank?
-    all_artists(artist:parse_artist_name)
+    all_artists(artist: parse_artist_name)
+  end
+
+  def scan(string, type)
+    string.scan(/#{type}#{RE[:split]}/).flatten.compact.collect(&:strip)
   end
 
   def all_artists(title)
@@ -680,67 +700,20 @@ class Song < ActiveRecord::Base
     string  = title[:artist] || title[:name]
     matched = []
 
-    # Detect parenthesis
-    parens = true if string =~ /\(/i
-    matches = 0
-
-    # Find any non-original artists
-    #   gsub() Strip everything up until "(" if there exists one
-    #   split() Split when multiple parenthesis groups exist
-    if string =~ /#{RE[:mashup_split]}|#{RE[:mashup]}|#{RE[:featured]}|#{RE[:remix]}|#{RE[:producer]}|#{RE[:cover]}/i
-      string.gsub(/.*(?=\()/,'').split(/\(|\)/).reject(&:blank?).collect(&:strip).each do |part|
-        part.scan(/#{RE[:featured]}#{RE[:split]}/).flatten.compact.collect(&:strip).each do |artist|
-          matched.push [artist,:featured] unless artist =~ RE[:featured] or artist =~ /&|,/
-          matches += 1
-        end
-
-        part.scan(/#{RE[:producer]}#{RE[:split]}/).flatten.compact.collect(&:strip).each do |artist|
-          matched.push [artist,:producer] unless artist =~ RE[:producer] or artist =~ /&|,/
-          matches += 1
-        end
-
-        # We can only trust data within a parenthesis for suffix attributes
-        # IE: "Song Title Artist Name Remix", we can't determine "Artist Name"
-        # TODO: Discogs lookup for artist name in that case
-        if parens
-          part.scan(/#{RE[:split]}#{RE[:remix]}/).flatten.compact.collect(&:strip).each do |artist|
-            artist = artist.gsub(/\'s.*/i,'') # Remove types of remixes eg: "Arists's Piano Remix"
-            matched.push [artist, :remixer] unless artist =~ RE[:remix] or artist =~ /&|,/
-            matches += 1
-          end
-
-          part.scan(/#{RE[:split]}#{RE[:cover]}/).flatten.compact.collect(&:strip).each do |artist|
-            matched.push [artist, :cover] unless artist =~ RE[:cover] or artist =~ /&|,/
-            matches += 1
-          end
-
-          part.scan(/#{RE[:mashup]}/).flatten.compact.collect(&:strip).each do |artist|
-            matched.push [artist, :mashup] unless artist =~ RE[:mashup]
-            matches += 1
-          end
-
-          # Only look for mashups if nothing else is found
-          if matches == 0
-            part.split(/#{RE[:mashup_split]}/).each do |artist|
-              matched.push [artist, :mashup]
-              matches += 1
-            end
-          end
-        end
+    # Find artists within containers () [] {}
+    if string =~ /#{RE[:remix]}#{RE[:featured]}|#{RE[:producer]}|#{RE[:cover]}/i
+      string.clean_split(RE[:containers]).each do |part|
+        matched = get_artist_types(part, true)
       end
     end
 
     if artist
-      # TODO: Split and scan discogs here to determine whether the & is part of the artist name or just separating multiple artists
-
       # If artist, we can look for comma separated names
-      original = string.gsub(/#{RE[:featured]}.*|\(.*/i,'')
+      original = string.gsub(/#{RE[:producer]}.*|#{RE[:featured]}.*|#{RE[:containers]}.*/i,'')
 
       # Mashups
-      mashup = /vs\.? |\+ /i
-      if !original.scan(RE[:mashup]).empty?
-        vs_list = /, |& |#{RE[:mashup]}/i
-        original.split(vs_list).each do |artist|
+      if !original.scan(RE[:mashup_split]).empty?
+        original.split(RE[:mashup_split]).each do |artist|
           matched.push [artist.strip, :mashup]
         end
 
@@ -749,16 +722,36 @@ class Song < ActiveRecord::Base
         original.split(/, |& /).each do |artist|
           matched.push [artist.strip, :original]
         end
-      end
 
-      matched.push [original.strip, :original] if matched.empty?
-    else
-      # If name, we can look for a badly formatted mp3
-      # Such as "artist - song" inside the name
-      #matched.push [name.gsub(/-.*/,'').strip, :original]
+        matched.push [original.strip, :original] if matched.empty?
+      end
     end
 
     matched
+  end
+
+  def get_artist_types(part, container = false)
+    if container
+      featured = find_artists(part, :featured)
+      producers = find_artists(part, :producer)
+      remixers = find_artists(part, :remixer, :gsub => /\'s.*/i)
+      covers = find_artists(part, :cover)
+    else
+      producers = find_artists(part, :producer)
+      featured = find_artists(part, :featured)
+    end
+
+    [featured, producers, remixers, covers]
+  end
+
+  def find_artists(part, type, options = {})
+    options[:strip] ||= nil
+    artists = []
+    part.clean_scan(SPLITS[type]).each do |artist|
+      artists.gsub(options[:strip],'') if options[:strip]
+      artists.push [artist, :producer]
+    end
+    artists
   end
 
   def link_info
