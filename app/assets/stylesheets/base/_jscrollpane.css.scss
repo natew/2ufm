@@ -1,9 +1,4 @@
-/*
- * CSS Styles that are needed by jScrollPane for it to operate correctly.
- *
- * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
- * may not operate correctly without them.
- */
+@import "mixins.css.scss";
 
 .jspContainer
 {
@@ -21,7 +16,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 16px;
+  width: 8px;
   height: 100%;
   background: red;
 }
@@ -55,13 +50,13 @@
 
 .jspTrack
 {
-  background: #dde;
+  background: $body-bg;
   position: relative;
 }
 
 .jspDrag
 {
-  background: #bbd;
+  background: $body-light;
   position: relative;
   top: 0;
   left: 0;
@@ -77,7 +72,7 @@
 
 .jspArrow
 {
-  background: #50506d;
+  background: #000;
   text-indent: -20000px;
   display: block;
   cursor: pointer;
@@ -86,7 +81,7 @@
 .jspArrow.jspDisabled
 {
   cursor: default;
-  background: #80808d;
+  background: $body-bg;
 }
 
 .jspVerticalBar .jspArrow
@@ -108,7 +103,7 @@
 
 .jspCorner
 {
-  background: #eeeef4;
+  background: $body-light;
   float: left;
   height: 100%;
 }

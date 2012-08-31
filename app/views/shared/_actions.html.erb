@@ -2,7 +2,5 @@
   share ||= true
 -%>
 <ul class="title-nav">
-  <li><%= link_to 'Play Station', '#', :class => 'button grey control', :id => 'station-play' %>
-  <li class="right follow-<%= station.id %>"><%= follow_station(station.id, station.follows_count) %></li>
-  <li class="right"><%= link_to "j", '/' + station.slug, :id => 'share-station', :class => 'button pictos clipboard tip', :title => 'Copy link to this station', 'data-hover' => 'j', 'data-click' => '3'  %></li>
+  <li class="follow-<%= station.id %>"><%= follow_station(station.id, station.follows_count) %></li>
 </ul>

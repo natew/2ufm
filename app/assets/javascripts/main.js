@@ -131,7 +131,12 @@ $(function() {
   }
 
   // Scrollpanes
-  $('.scroll-pane').jScrollPane();
+  reScrollPane();
+  $(window).resize(reScrollPane);
+
+  function reScrollPane() {
+    $('.scroll-pane').jScrollPane();
+  }
 
   // Tooltips
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
@@ -156,9 +161,6 @@ $(function() {
   mpClick('#player-next', 'next');
   mpClick('#player-prev', 'prev');
   mpClick('#player-volume', 'toggleVolume');
-
-  // Play from song
-  $('.play-song').live('click', );
 
   // Song title click
   $('#player-song-name a').click(function() {
@@ -260,7 +262,7 @@ $(function() {
     if (!loadingPage) {
       clearTimeout(infiniteScrollTimeout);
       infiniteScrollTimeout = setTimeout(function() {
-        if (nearBottom()) $('.next-page:visible').click();
+        if (nearBottom()) $('.next-page:visible:last').click();
         // decrementPage();
       }, 20);
     }
@@ -484,7 +486,7 @@ function nextPage(link, callback) {
       },
       success: function(data) {
         var playlist = $('#playlist-' + id + '-' + scrollPage);
-        link.html('Page ' + scrollPage);
+        link.html('Page ' + scrollPage).addClass('loaded');
         loadingPage = false;
         updatePageURL(scrollPage);
         curPlaylist.after(data);

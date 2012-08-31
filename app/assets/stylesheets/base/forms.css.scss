@@ -220,15 +220,15 @@ button {
   }
 
   &.disabled {
-    color: #999;
-    border-color: #aaa;
+    color: #444;
+    background: #333;
+    border-color: transparent;
     text-shadow: none;
     cursor: default;
     pointer-events: none;
-    @include linear-gradient(#ccc, #aaa);
 
     span {
-      color: #999;
+      color: #444;
     }
   }
 

@@ -4,22 +4,32 @@
   margin: 0 0 30px 0;
 }
 
+.role {
+  padding-right: 12px;
+  margin-right: -12px;
+}
+
 .role:after {
   display: inline-block;
   content: "";
   width: 16px;
   height: 9px;
-  margin: 0 2px .1em 4px;
+  margin: 0 -8px .1em 4px;
+  padding-right: 12px;
   background: url(/images/artist-icons.png) no-repeat top left;
   pointer-events: none;
 }
 
 .role-original:after,
-.role-mashup:after {display:none;}
-.role-remixer:after {background-position:0 -9px;}
-.role-producer:after {background-position:0 -18px;}
-.role-cover:after {background-position:0 -27px;}
-.role-featured:after { background-position:0 -36px; margin: 0 4px 1px 4px; }
+.role-mashup:after {background: none;}
+.role-remixer { color: #b17929 !important;
+  &:after { background-position:0 -9px; } }
+.role-producer { color: #3b941c !important;
+  &:after { background-position:0 -18px; } }
+.role-cover { color: #11847f !important;
+  &:after { background-position:0 -27px;} }
+.role-featured { color: #c50017 !important;
+  &:after { background-position:0 -36px; margin: 0 4px 1px 4px; } }
 
 $song-pad: 15px;
 $song-art: 48px;
@@ -166,7 +176,7 @@ section.active .play-button {
   margin-left: 50px;
 
   section {
-    min-height: 41px;
+    min-height: 68px;
     margin: 0 0 0 -20px;
     padding: $song-pad;
     position: relative;
@@ -284,7 +294,6 @@ section.active .play-button {
           }
 
           em {
-            font-weight: 300;
             font-style: normal;
             a {
               color: #aaa;
@@ -307,15 +316,14 @@ section.active .play-button {
     }
 
     .song-info {
-      float: left;
-      width: 79%;
+      margin-right: 130px;
     }
 
     .song-meta {
-      float: right;
-      width: 12%;
-      max-width: 200px;
-      min-width: 100px;
+      position: absolute;
+      top: $song-pad;
+      right: $song-pad;
+      width: 120px;
       font-size: 12px;
       margin: 0;
       color: #999;
@@ -330,6 +338,10 @@ section.active .play-button {
         margin: -2px -6px 0;
         background: rgba(0,0,0,0.15);
         @include border-radius(6px);
+
+        a {
+          font-weight: bold;
+        }
       }
 
       .follow-station {

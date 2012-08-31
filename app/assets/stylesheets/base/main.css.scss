@@ -1,5 +1,6 @@
 @import "mixins.css.scss";
 
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); }
 body, button, input, select, textarea {
   font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #bbb;
@@ -50,7 +51,7 @@ h1, h2, h3, h4, h5 {
   }
 
   small {
-    font-size: 75%;
+    font-size: .8em;
     color: #aaa;
     font-weight: normal;
 
@@ -59,6 +60,9 @@ h1, h2, h3, h4, h5 {
     }
   }
 }
+
+h1 span { font-size: 26px; }
+
 
 
 /* Header */
@@ -254,8 +258,8 @@ header {
       color: #fff;
       font-weight: 300;
       font-size: 22px;
-      padding: 8px;
-      margin: 0 0 2px 15px;
+      padding: 8px 8px 8px 20px;
+      margin: 0 0 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
 
@@ -266,8 +270,8 @@ header {
 
       &:hover {
         color: #fff;
-        background: $body-lighter;
-        padding-left: 12px;
+        background: darken($body-darker, 5%);
+        padding-left: 25px;
       }
 
       &.active {
@@ -303,7 +307,7 @@ header {
   #breadcrumbs {
     background: $body-dark;
     padding: 6px 20px;
-    margin: -20px 20px 20px 0;
+    margin: -20px 20px 15px 0;
     font-size: 12px;
     @include border-bottom-right-radius(8px);
 
@@ -1086,8 +1090,9 @@ $announce-color: $heading-color;
   position: relative;
 
   .image {
-    float: left;
-    margin: 0 15px 0 0;
+    position: absolute;
+    top: 0;
+    right: 0;
 
     &.medium {
       width: 128px; height: 128px;
@@ -1108,10 +1113,6 @@ $announce-color: $heading-color;
     text-decoration: none;
   }
 
-  h1 {
-    margin-bottom: 0;
-  }
-
   p {
     font-size: 14px;
     margin: 8px 0 20px;
@@ -1128,10 +1129,8 @@ $announce-color: $heading-color;
   }
 
   .title-nav {
-    margin: 10px 0 0 -20px;
-    padding: 8px 8px 6px 0;
-    background: $body-dark;
-    @include border-right-radius(8px);
+    padding: 0;
+    margin: 10px 0 0;
 
     ul { margin-top: 14px; }
     li {
@@ -1148,6 +1147,24 @@ $announce-color: $heading-color;
       }
     }
   }
+}
+
+.follow-station {
+  float: left;
+}
+
+.count {
+  float: left;
+  color: #aaa;
+  position: relative;
+  z-index: 0;
+  margin: 2px 0 0 0;
+  padding: 6px;
+  padding-left: 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  @include border-right-radius(6px);
 }
 
 
@@ -1193,6 +1210,10 @@ $announce-color: $heading-color;
     color: #999;
     pointer-events: none;
     cursor: normal;
+  }
+
+  &.loaded {
+    margin-bottom: 30px;
   }
 }
 
@@ -1295,16 +1316,17 @@ ol.mp_list {
 
 .nav-container {
   .title .nav-menu {
-    margin: 0 0 0 -8px;
+    margin: -10px 0 0 -8px;
   }
 
   .nav-menu {
-    display: inline-block;
+    display: block;
     margin: 0;
     line-height: 2em;
     overflow: hidden;
-    padding: 3px 0;
-    max-width: 65%;
+    padding: 6px;
+    padding-right: 128px;
+    background: rgba(0,0,0,0.2);
 
     &.inline {
       margin-top: -2px;
@@ -1320,9 +1342,8 @@ ol.mp_list {
       text-decoration: none;
       float: left;
       padding: 0 10px;
-      font-size: 16px;
+      font-size: 18px;
       margin-left: -1px;
-      border-left: 1px solid rgba(255,255,255,0.15);
       color: #ccc;
 
       &:first-child {
@@ -1462,7 +1483,8 @@ h2 small { font-size: 55%; }
 
 .image {
   background: lighten($body-bg,20%);
-  border: 2px solid $gutter-color;
+  border: 4px solid $gutter-color;
+  border-right: none;
   padding: 1px;
   display: block;
 

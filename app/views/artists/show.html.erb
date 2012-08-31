@@ -1,7 +1,7 @@
 <div class="nav-container">
   <div class="title">
     <%= image_tag @artist.image.url(:medium), :class => 'image medium' %>
-    <h1 class="icon"><%= @artist.name %></h1>
+    <h1 class="icon"><%= @artist.name %> <span><%= render :partial => 'shared/link', :locals => { :slug => @artist.station.slug } %></span></h1>
 
     <%- if @artist.song_count > 2 -%>
     <nav class="nav-menu">
