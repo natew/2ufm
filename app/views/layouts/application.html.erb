@@ -46,7 +46,7 @@
           </div>
 
           <div id="player-buttons">
-            <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav control pictos-link', 'data-pad' => '20' %>
+            <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav control pictos-link' %>
             <%= link_to 'Playlist', '#player-playlist', :class => 'nav control tip-n pictos-music disabled', :id => 'nav-music', :title => 'Current Playlist', 'data-pad' => '40' %>
             <%= link_to 'Sound', '#', :class => 'volume control tip-n pictos-volume-on', :id => 'player-volume', :title => 'Volume toggle' %>
             <%= link_to 'Shuffle', "", :id => 'player-shuffle', :class => 'shuffle tip-n control pictos-shuffle', :title => 'Shuffle' %>
@@ -155,8 +155,9 @@
   </div>
 
   <div id="share" class="pop-menu">
-    <%= link_to "Facebook", '', :class => 'player-invite-facebook player-invite tip-n control popup facebook-button', :title => 'Share', 'data-dimensions' => '800,400'  %>
-    <%= link_to "Twitter", '', :class => 'player-invite-twitter player-invite tip-n control popup', :title => 'Tweet song', 'data-dimensions' => '600,300' %>
+    <%= link_to "Facebook", '', :class => 'player-invite-facebook player-invite control popup facebook-button', 'data-dimensions' => '800,400'  %>
+    <%= link_to "Twitter", '', :class => 'player-invite-twitter player-invite control popup', 'data-dimensions' => '600,300' %>
+    <%= link_to "Copy Link", '', :class => 'player-invite control', 'data-click' => 'Copied!' %>
   </div>
 
   <!-- Modals -->

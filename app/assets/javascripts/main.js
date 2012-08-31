@@ -21,7 +21,7 @@ var w = $(window),
     shuffle = mp.shuffle(),
     isDragging = false,
     hasFriends = true,
-    sareSong;
+    shareSong;
 
 // Read URL parameters
 var urlParams = {},
@@ -189,7 +189,7 @@ $(function() {
     $('.playlist-song section').on('mousedown', function(e) {
       e.preventDefault(e);
       updatePosition(e);
-      sareSong = $(this).attr('id').split('-')[1];
+      shareSong = $(this).attr('id').split('-')[1];
 
       $(document).bind('mousemove', function(e) {
         e.preventDefault();
@@ -206,11 +206,13 @@ $(function() {
 
         // Show hovered friend
         el = $(document.elementFromPoint(e.clientX, e.clientY));
+
+        // Highlight friend
         if (el.is('#stations-inner a')) el.addClass('active');
         else $('#stations-inner a').removeClass('active');
       }).on('mouseup', function() {
         $('#song-dragger').removeClass('visible');
-        var receiver = $('#stations-inner a.active').html();
+        var receiver = $('#stations-inner a.active');
         $('#stations-inner a').removeClass('active');
         $(document).unbind('mousemove');
         isDragging = false;
@@ -219,19 +221,14 @@ $(function() {
         el = $(document.elementFromPoint(e.clientX, e.clientY));
         fn.log(el, el.length && el.is('.song-link'));
         if (el.length && el.is('.song-link')) {
-          fn.log(userId, shareSong)
-          fn.log(el.attr('href').split('-')[1])
           var data = {
-            'share': {
-              'sender_id': userId,
-              'receiver_id': el.attr('href').split('-')[1],
-              'song_id': shareSong
-            }
+            'receiver': receiver.attr('id').split('-')[1],
+            'song': shareSong,
           };
 
           fn.log(data);
           $.post('/share', data, function() {
-            notice('Sent song to ' + receiver)
+            notice('Sent song to ' + receiver.html(), 2);
           })
         }
       });
@@ -397,17 +394,18 @@ $(function() {
   }
 });
 
-function notice(message) {
+function notice(message, time) {
+  time = time || 4;
   $('<div id="dialog">' + message + '</div>').prependTo('#body');
-  hideDialog();
+  hideDialog(time);
 }
 
-function hideDialog() {
+function hideDialog(time) {
   setTimeout(function () {
     $('#dialog').animate({opacity:'0'},500, function() {
       $(this).hide();
     });
-  }, 4000);
+  }, time * 1000);
 }
 
 function updateShuffle(shuffled, el) {

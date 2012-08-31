@@ -5,6 +5,7 @@
 }
 
 .role {
+  display: inline-block;
   padding-right: 12px;
   margin-right: -12px;
 }
@@ -20,15 +21,16 @@
   pointer-events: none;
 }
 
+.role-original { margin:0; padding:0; }
 .role-original:after,
-.role-mashup:after {background: none;}
+.role-mashup:after {display:none;}
 .role-remixer { color: #b17929 !important;
   &:after { background-position:0 -9px; } }
 .role-producer { color: #3b941c !important;
   &:after { background-position:0 -18px; } }
 .role-cover { color: #11847f !important;
   &:after { background-position:0 -27px;} }
-.role-featured { color: #c50017 !important;
+.role-featured { color: #b63043 !important;
   &:after { background-position:0 -36px; margin: 0 4px 1px 4px; } }
 
 $song-pad: 15px;
@@ -216,7 +218,7 @@ section.active .play-button {
     &.active {
       background: $header-dark !important;
       .player-invite { padding: 16px; font-size:26px; }
-      .waveform-wrap img { opacity: 0.6; }
+      .waveform { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
       * {color: #fff !important;}
       a {
@@ -500,7 +502,7 @@ section.active .play-button {
       }
     }
 
-    .waveform-wrap {
+    .waveform {
       display: none;
       clear: both;
       position: relative;
@@ -561,10 +563,10 @@ section.active .play-button {
     height: $song-art-big;
   }
 
-  .waveform-wrap {
+  .waveform {
     margin: 30px 0 0;
     display: block;
-    img { opacity: 1; }
+    opacity: 1;
   }
 }
 

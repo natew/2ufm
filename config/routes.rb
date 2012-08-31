@@ -47,6 +47,7 @@ Fusefm::Application.routes.draw do
   match '/activate/:id/:key', :to => 'users#activate'
   match "/get_friends", :to => 'users#get_friends'
   match '/set_email', :to => 'users#set_email'
+  match '/share', :to => 'shares#create'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
@@ -58,6 +59,10 @@ Fusefm::Application.routes.draw do
   match "/:id/covers", :to => "artists#covers", :as => "artist_covers"
   match "/:id/productions", :to => "artists#productions", :as => "artist_productions"
   match "/:id/features", :to => "artists#features", :as => "artist_features"
+
+  # Users
+  match '/:id/following', :to => 'users#following', :as => 'user_following'
+  match '/:id/followers', :to => 'users#followers', :as => 'user_followers'
 
   # Root level stations access
   match "/:id", :to => 'stations#show', :as => :station

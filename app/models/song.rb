@@ -43,7 +43,7 @@ class Song < ActiveRecord::Base
   }
 
   SPLITS = {
-    :featuered => /#{RE[:featured]}#{RE[:split]}/i,
+    :featured => /#{RE[:featured]}#{RE[:split]}/i,
     :producer => /#{RE[:producer]}#{RE[:split]}/i,
     :remixer => /#{RE[:split]}#{RE[:remix]}/i,
     :cover => /#{RE[:split]}#{RE[:cover]}/i,
@@ -670,88 +670,63 @@ class Song < ActiveRecord::Base
 
   def parse_artists
     logger.info "Parsing artists in #{id}: #{full_name}"
-    name_artists = artists_in_name
-    artist_artists = artists_in_artist
-    merged = name_artists | artist_artists
-    merged ? merged : []
-  end
-
-  def artists_in_name
-    parse_name = name
-    parse_name = link_info[1] if name.blank?
+    parse_name = name || link_info[1]
     parse_name = parse_name.gsub(RE[:remove], '')
-    all_artists(name: parse_name)
+    parse_artist_name = artist_name || link_info[0]
+
+    [split_and_find_artists(parse_name)] |
+    [find_artists(parse_artist_name)] |
+    [split_and_find_artists(parse_artist_name)]
   end
 
-  def artists_in_artist
-    # Now parse the artist field
-    parse_artist_name = artist_name
-    parse_artist_name = link_info[0] if parse_artist_name.blank?
-    all_artists(artist: parse_artist_name)
-  end
-
-  def scan(string, type)
-    string.scan(/#{type}#{RE[:split]}/).flatten.compact.collect(&:strip)
-  end
-
-  def all_artists(title)
-    logger.debug "All artists in #{title}"
-    artist  = title[:artist].nil? ? false : true
-    string  = title[:artist] || title[:name]
-    matched = []
-
-    # Find artists within containers () [] {}
-    if string =~ /#{RE[:remix]}#{RE[:featured]}|#{RE[:producer]}|#{RE[:cover]}/i
-      string.clean_split(RE[:containers]).each do |part|
-        matched = get_artist_types(part, true)
+  def find_artists(name)
+    matches = []
+    if !name.scan(RE[:mashup_split]).empty?
+      name.split(RE[:mashup_split]).each do |artist|
+        matches.push [artist.strip, :mashup]
       end
-    end
-
-    if artist
-      # If artist, we can look for comma separated names
-      original = string.gsub(/#{RE[:producer]}.*|#{RE[:featured]}.*|#{RE[:containers]}.*/i,'')
-
-      # Mashups
-      if !original.scan(RE[:mashup_split]).empty?
-        original.split(RE[:mashup_split]).each do |artist|
-          matched.push [artist.strip, :mashup]
-        end
-
-      # Original artists
-      else
-        original.split(/, |& /).each do |artist|
-          matched.push [artist.strip, :original]
-        end
-
-        matched.push [original.strip, :original] if matched.empty?
-      end
-    end
-
-    matched
-  end
-
-  def get_artist_types(part, container = false)
-    if container
-      featured = find_artists(part, :featured)
-      producers = find_artists(part, :producer)
-      remixers = find_artists(part, :remixer, :gsub => /\'s.*/i)
-      covers = find_artists(part, :cover)
+    # Original artists
     else
-      producers = find_artists(part, :producer)
-      featured = find_artists(part, :featured)
+      name.split(/, |& /).each do |artist|
+        matches.push [artist.strip, :original]
+      end
     end
-
-    [featured, producers, remixers, covers]
+    matches.push [name.strip, :original] if matches.empty?
   end
 
-  def find_artists(part, type, options = {})
+  def split_and_find_artists(name)
+    matches = []
+    name.split(RE[:containers]).each do |part|
+      matches.push find_artists_types(part, true)
+    end
+  end
+
+  def find_artists_types(part, container = false)
+    matches = []
+    types = [:producer, :featured]
+
+    if container
+      matches.push scan_artists(part, :cover)
+      matches.push scan_artists(part, :remixer, :strip => /\'s.*/i) if container
+    end
+
+    types.each do |type|
+      matches.push scan_artists(part, type)
+    end
+  end
+
+  def scan_artists(part, type, options = {})
     options[:strip] ||= nil
     artists = []
     part.clean_scan(SPLITS[type]).each do |artist|
-      artists.gsub(options[:strip],'') if options[:strip]
-      artists.push [artist, :producer]
+      artist.gsub(options[:strip],'') if options[:strip]
+      artists.push [artist, type]
     end
     artists
+  end
+
+  def clean_scan(string, type)
+    string.scan(/#{type}#{RE[:split]}/).flatten.compact.collect(&:strip)
   end
 
   def link_info

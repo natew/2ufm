@@ -18,6 +18,22 @@ class UsersController < ApplicationController
     render :layout => false
   end
 
+  def following
+    @following = @user.stations
+
+    respond_to do |format|
+      format.html { render 'users/show' }
+    end
+  end
+
+  def followers
+    @followers = @user.followers
+
+    respond_to do |format|
+      format.html { render 'users/show' }
+    end
+  end
+
   def index
     @users = User.page(params[:page]).per(25)
 
@@ -91,5 +107,6 @@ class UsersController < ApplicationController
 
   def load_user
     @user = User.find_by_slug(params[:id])
+    @primary = @user
   end
 end

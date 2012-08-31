@@ -4,16 +4,18 @@
     <h1 class="icon"><%= @user.username %></h1>
 
     <nav class="nav-menu">
-      <%= link_to 'Favorites', '#favorites', :class => 'active' %>
-      <%= link_to 'Following', '#following' %>
-      <%= link_to 'Followers', '#followers' %>
+      <%= nav_link_to 'Favorites', @user %>
+      <%= nav_link_to 'Following', user_following_path %>
+      <%= nav_link_to 'Followers', user_followers_path %>
     </nav>
 
     <%= render :partial => 'shared/actions', :locals => { :station => @user.station } %>
   </div>
 
+
   <div class="whole">
-    <%= render 'stations/artists' if @artists.length > 0 %>
+    <% if @songs %>
+      <%= render 'stations/artists' if @artists.length > 0 %>
 
     <div id="favorites" class="section active">
       <%- if @songs.empty? -%>
@@ -23,7 +25,9 @@
       <%- end -%>
     </div>
 
-    <div id="following" class="section">
+    <% elsif @following %>
+
+    <div id="following" class="section active">
       <%- if @following.size > 0 -%>
         <div class="stations">
           <%= render_stations @following %>
@@ -33,7 +37,9 @@
       <%- end -%>
     </div>
 
-    <div id="followers" class="section">
+    <% elsif @followers %>
+
+    <div id="followers" class="section active">
       <%- if @followers.size > 0 -%>
         <div class="stations">
           <%= render_stations @followers %>
@@ -42,5 +48,7 @@
         <p>No followers!</p>
       <%- end -%>
     </div>
+
+    <% end %>
   </div>
 </div>

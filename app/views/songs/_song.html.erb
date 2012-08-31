@@ -47,13 +47,12 @@ cache('song_' + id) do
     </div>
   </div>
 
-  <div class="waveform-wrap"><%= image_tag song.waveform, :class => 'waveform' if song.waveform? %></div>
+  <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
 
   <div class="reviews">
     <%= render :partial => 'blogs/review', :collection => [song] %>
   </div>
 
-  <%= link_to '', "#song-#{song.matching_id}", :class => 'play-song play-button control pictos' %>
   <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
 
   <%
