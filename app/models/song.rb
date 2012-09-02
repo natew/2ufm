@@ -29,8 +29,8 @@ class Song < ActiveRecord::Base
 
   # Regular expressions
   RE = {
-    :featured => /(featuring |ft\.? |feat\.? ?|f\. ?|w\/){1}/i,
-    :remix => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| bootleg remix/i,
+    :featured => /(featuring |ft\.? |feat\.? |f\. |w\/){1}/i,
+    :remixer => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| bootleg remix/i,
     :mashup_split => / \+ | x | vs\.? /i,
     :producer => /(produced by|prod\.?)/i,
     :cover => / cover/i,
@@ -39,13 +39,14 @@ class Song < ActiveRecord::Base
     :close => /[\)\]\}]/,
     :containers => /[\{\[\(\)\]\}]/i,
     :percents => /(% ?){2,10}/,
-    :remove => /(extended|vip|original|club) mix|(extended|vip|radio) edit|(on )?soundcloud|free download/i
+    :remove => /(extended|vip|original|club) mix|(extended|vip|radio) edit|(on )?soundcloud|free download/i,
+    :and => /, |& |and /i
   }
 
   SPLITS = {
     :featured => /#{RE[:featured]}#{RE[:split]}/i,
     :producer => /#{RE[:producer]}#{RE[:split]}/i,
-    :remixer => /#{RE[:split]}#{RE[:remix]}/i,
+    :remixer => /#{RE[:split]}#{RE[:remixer]}/i,
     :cover => /#{RE[:split]}#{RE[:cover]}/i,
     :mashup => /#{RE[:mashup_split]}/i
   }
@@ -604,16 +605,15 @@ class Song < ActiveRecord::Base
   end
 
   def find_matching_songs
-    if working
-      matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", to_searchable(artist_name), to_searchable(match_name)).oldest.first
-      self.matching_id = matching_song ? matching_song.id : id
-      return false unless matching_song
-      # Update songs counts
-      existing_matching_songs = Song.where(matching_id: matching_id)
-      count = existing_matching_songs.size + 1
-      existing_matching_songs.update_all(matching_count: count)
-      self.matching_count = count
-    end
+    return unless working
+    matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", to_searchable(artist_name), to_searchable(match_name)).oldest.first
+    self.matching_id = matching_song ? matching_song.id : id
+    return false unless matching_song
+    # Update songs counts
+    existing_matching_songs = Song.where(matching_id: matching_id)
+    count = existing_matching_songs.size + 1
+    existing_matching_songs.update_all(matching_count: count)
+    self.matching_count = count
   end
 
   def update_matching_songs
@@ -656,6 +656,7 @@ class Song < ActiveRecord::Base
 
   def rescan_artists
     split_artists_from_name
+    self.authors.destroy_all
     find_or_create_artists
     self.save
   end
@@ -670,63 +671,84 @@ class Song < ActiveRecord::Base
 
   def parse_artists
     logger.info "Parsing artists in #{id}: #{full_name}"
-    parse_name = name || link_info[1]
-    parse_name = parse_name.gsub(RE[:remove], '')
-    parse_artist_name = artist_name || link_info[0]
 
-    [split_and_find_artists(parse_name)] |
-    [find_artists(parse_artist_name)] |
-    [split_and_find_artists(parse_artist_name)]
+    parse_name = (name || link_info[1]).gsub(RE[:remove], '')
+    parse_artist = artist_name || link_info[0]
+
+    split_and_find_artists(parse_name) | find_artists(parse_artist) | split_and_find_artists(parse_artist)
   end
 
   def find_artists(name)
     matches = []
-    if !name.scan(RE[:mashup_split]).empty?
-      name.split(RE[:mashup_split]).each do |artist|
-        matches.push [artist.strip, :mashup]
+    search_name = name.gsub(/#{RE[:open]}.*|#{RE[:featured]}.*|#{RE[:producer]}.*/i, '')
+
+    # Mashup
+    if has_mashups(search_name)
+      find_mashups(search_name) do |artist|
+        matches.push artist
       end
-    # Original artists
     else
-      name.split(/, |& /).each do |artist|
+      search_name.clean_split(RE[:and]) do |artist|
         matches.push [artist.strip, :original]
       end
     end
-    matches.push [name.strip, :original] if matches.empty?
+    matches.push [search_name.strip, :original] if matches.empty?
+    matches.reject(&:blank?)
+  end
+
+  def has_mashups(name)
+    name.scan(RE[:mashup_split]).empty? ? false : true
+  end
+
+  def find_mashups(name)
+    name.clean_split(RE[:mashup_split]) do |artist|
+      yield [artist.strip, :mashup]
+    end
   end
 
   def split_and_find_artists(name)
     matches = []
-    name.split(RE[:containers]).each do |part|
-      matches.push find_artists_types(part, true)
+    name.clean_split(RE[:containers]) do |part|
+      if has_mashups(part)
+        find_mashups(part) do |artist|
+          artist[0] = artist[0].gsub(RE[:remixer], '')
+          matches.push artist
+        end
+      else
+        matches = matches + find_artists_types(part, true)
+      end
     end
+    matches.reject(&:blank?)
   end
 
   def find_artists_types(part, container = false)
     matches = []
     types = [:producer, :featured]
-
-    if container
-      matches.push scan_artists(part, :cover)
-      matches.push scan_artists(part, :remixer, :strip => /\'s.*/i) if container
+    types = types + [:remixer, :cover] if container
+    scan_for(part, types) do |match|
+      matches.push match
     end
+    matches.reject(&:empty?)
+  end
 
+  def scan_for(part, types)
     types.each do |type|
-      matches.push scan_artists(part, type)
+      scan_artists(part, type) do |match|
+        yield match
+      end
     end
   end
 
   def scan_artists(part, type, options = {})
-    options[:strip] ||= nil
-    artists = []
-    part.clean_scan(SPLITS[type]).each do |artist|
-      artist.gsub(options[:strip],'') if options[:strip]
-      artists.push [artist, type]
-    end
-    artists
-  end
+    return unless part
+    options[:strip] = /\'s.*/i if type == :remixer
 
-  def clean_scan(string, type)
-    string.scan(/#{type}#{RE[:split]}/).flatten.compact.collect(&:strip)
+    part.clean_scan(SPLITS[type], RE[type]) do |artist|
+      artist.gsub(options[:strip],'') unless options[:strip].nil?
+      artist.split(/ and /).each do |split|
+        yield [split, type]
+      end
+    end
   end
 
   def link_info

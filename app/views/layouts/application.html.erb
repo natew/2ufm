@@ -90,6 +90,7 @@
         <%- if user_signed_in? -%>
         <section class="nav-user">
           <h1><%= current_user.username %></h1>
+          <%= image_tag current_user.avatar.url(:small) %>
           <%= link_to 'Profile', current_user, :id => 'nav-user' %>
           <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
           <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
@@ -157,7 +158,7 @@
   <div id="share" class="pop-menu">
     <%= link_to "Facebook", '', :class => 'player-invite-facebook player-invite control popup facebook-button', 'data-dimensions' => '800,400'  %>
     <%= link_to "Twitter", '', :class => 'player-invite-twitter player-invite control popup', 'data-dimensions' => '600,300' %>
-    <%= link_to "Copy Link", '', :class => 'player-invite control', 'data-click' => 'Copied!' %>
+    <%= link_to "Link", '', :class => 'player-invite control', 'data-click' => 'Copied!' %>
   </div>
 
   <!-- Modals -->

@@ -24,22 +24,19 @@ class Author < ActiveRecord::Base
 
   def add_artist_roles
     if artist
-      self.artist['has_' + ROLES_TO_POSSESIVE[role]] = true
+      self.artist['has_' + ROLES_TO_POSSESIVE[role.to_sym]] = true
       self.artist.save
     end
   end
 
   def remove_artist_roles
     if artist
-      self.artist['has_' + ROLES_TO_POSSESIVE[role]] = Author.where(:artist_id => artist_id, :role => role).exists?
+      self.artist['has_' + ROLES_TO_POSSESIVE[role.to_sym]] = Author.where(:artist_id => artist_id, :role => role).exists?
       self.artist.save
     end
   end
 
   def update_artist_songs_count
-    if artist
-      self.artist.song_count = Author.select('artist_id, song_id').where(artist_id: artist.id).group('song_id, artist_id').order('song_id').length
-      self.artist.save
-    end
+    artist.update_attributes(song_count: artist.songs.count) if artist
   end
 end

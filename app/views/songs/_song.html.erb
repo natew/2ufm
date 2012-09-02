@@ -10,23 +10,17 @@ cache('song_' + id) do
     class_names  = 'listened-to' if song.listen_id? rescue nil
 -%>
 
-<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %> ui-draggable">
+<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %>">
   <div class="song-info">
-    <a class="song-art cover-<%= cover %>" href="">
-      <%= image_tag song.resolve_image(cover) %>
-    </a>
+    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" %>
 
     <h1>
-      <%
+      <%-
         links = author_links(song.authors)
-      %>
+      -%>
       <span class="artist"><%= links[:original] %></span>
       <span class="name"><%= tagged_song_name(song.name) %> <em><%= links[:other] %></em></span>
     </h1>
-
-    <div class="song-friends">
-      <% if user_signed_in? %><% end %>
-    </div>
   </div>
 
   <div class="song-meta">
@@ -36,9 +30,7 @@ cache('song_' + id) do
       <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if song.reposted? %>
     </div>
 
-    <div>
-      <time><%= relative_time(time) %></time>
-    </div>
+    <time><%= relative_time(time) %></time>
 
     <div>
       <%= link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
@@ -55,11 +47,11 @@ cache('song_' + id) do
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
 
-  <%
+  <%-
     end # end cache
-  %>
+  -%>
 
-  <ul class="song-controls">
-    <li class="broadcast"><%= broadcast_song(song) %></li>
-  </ul>
+  <div class="song-controls">
+    <%= broadcast_song(song) %>
+  </div>
 </section>

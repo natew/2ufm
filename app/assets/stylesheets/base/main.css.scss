@@ -164,6 +164,22 @@ header {
     z-index: 1;
     margin: 0 15px 20px 0;
 
+    &.nav-user {
+      h1 {
+        padding-right: 26px;
+        margin-bottom: 6px;
+        display: inline-block;
+      }
+
+      img {
+        top: 0;
+        right: 0;
+        position: absolute;
+        width: 32px;
+        height: 32px;
+      }
+    }
+
     &.stations {
       margin: 0;
       position: fixed;
@@ -192,6 +208,7 @@ header {
         margin-right: -25px;
         margin-left: 0;
         color: #fff;
+        background: $body-dark;
 
         &:after {
           display: block;
@@ -247,7 +264,7 @@ header {
       font-size: 14px;
       font-weight: 300;
       color: #aaa;
-      padding: 5px 10px;
+      padding: 5px 8px;
       margin: 0 -20px 0 15px;
     }
 
@@ -258,7 +275,7 @@ header {
       color: #fff;
       font-weight: 300;
       font-size: 22px;
-      padding: 8px 8px 8px 20px;
+      padding: 10px 8px 10px 20px;
       margin: 0 0 2px 0;
       @include box-sizing(border-box);
       @include transition(all .1s linear);
@@ -276,11 +293,11 @@ header {
 
       &.active {
         color: #fff;
-        background: $navbar-active;
+        background: $body-bg;
         margin-left: 0;
         padding-left: 23px;
 
-        &:hover {background: $navbar-active;}
+        &:hover {background: $body-bg;}
       }
 
       &.pictos-nav {
@@ -302,14 +319,12 @@ header {
   padding: 20px 0;
   position: relative;
   z-index: 2;
-  @include box-shadow(0 0 8px rgba(0,0,0,0.6));
 
   #breadcrumbs {
-    background: $body-dark;
+    border-bottom: 1px solid $body-dark;
     padding: 6px 20px;
-    margin: -20px 20px 15px 0;
+    margin: -20px 0 15px 0;
     font-size: 12px;
-    @include border-bottom-right-radius(8px);
 
     a {
       color: #aaa;
@@ -626,7 +641,7 @@ header #second-nav {
       }
 
       #player-artist-name {
-        color: #fff;
+        color: #ccc;
         font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
@@ -634,11 +649,14 @@ header #second-nav {
         text-overflow: ellipsis;
         position: relative;
         z-index: 9;
+
+        a {color: #ccc !important;}
       }
 
       a {
+        color: #fff;
         text-decoration: none;
-        &:hover {text-decoration: underline; color: #fff;}
+        &:hover {text-decoration: underline; color: #fff !important;}
       }
     }
 
@@ -1317,13 +1335,12 @@ ol.mp_list {
 
 .nav-container {
   .title .nav-menu {
-    margin: -10px 0 0 -8px;
+    margin: -15px 0 14px;
   }
 
   .nav-menu {
     display: block;
     margin: 0;
-    line-height: 2em;
     overflow: hidden;
     padding: 6px;
     padding-right: 128px;
@@ -1342,9 +1359,8 @@ ol.mp_list {
     a {
       text-decoration: none;
       float: left;
-      padding: 0 10px;
+      padding: 4px 10px;
       font-size: 18px;
-      margin-left: -1px;
       color: #ccc;
 
       &:first-child {
@@ -1484,9 +1500,8 @@ h2 small { font-size: 55%; }
 
 .image {
   background: lighten($body-bg,20%);
-  border: 4px solid $gutter-color;
+  border: 6px solid $gutter-color;
   border-right: none;
-  padding: 1px;
   display: block;
 
   img {

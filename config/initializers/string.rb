@@ -5,17 +5,13 @@ class String
 
   def clean_split(regex)
     self.split(regex).reject(&:blank?).collect(&:strip).each do |part|
-      yield
+      yield part
     end
   end
 
-  def before_split(regex)
-
-  end
-
-  def clean_scan(regex)
-    self.scan(regex).flatten.compact.collect(&:strip).reject do |string|
-      string =~ /#{regex}|&|,/
+  def clean_scan(regex, reject)
+    self.scan(regex).flatten.compact.each do |string|
+      yield string.strip unless string.nil? or string =~ reject
     end
   end
 end

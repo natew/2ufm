@@ -39,7 +39,8 @@ w.on({
         artist = curSection.find('.artist').html(),
         other_artists = em.length ? em.html() : '',
         separator = artist.length && other_artists.length ? ', ' : ''
-        artists = artist.length ? artist + separator + other_artists : other_artists;
+        html_artists = artist.length ? artist + separator + other_artists : other_artists,
+        artists = html_artists ? html_artists : mp.curSongInfo().artist_name;
     $('#player-artist-name').html(artists);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
 

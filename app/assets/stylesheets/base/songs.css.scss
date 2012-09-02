@@ -22,16 +22,12 @@
 }
 
 .role-original { margin:0; padding:0; }
-.role-original:after,
-.role-mashup:after {display:none;}
-.role-remixer { color: #b17929 !important;
-  &:after { background-position:0 -9px; } }
-.role-producer { color: #3b941c !important;
-  &:after { background-position:0 -18px; } }
-.role-cover { color: #11847f !important;
-  &:after { background-position:0 -27px;} }
-.role-featured { color: #b63043 !important;
-  &:after { background-position:0 -36px; margin: 0 4px 1px 4px; } }
+.role-original:after { display:none; }
+.role-mashup { color: #aa8bfd !important;   &:after { display: none; } }
+.role-remixer { color: #b19a2d !important;  &:after { background-position:0 -9px; } }
+.role-producer { color: #3b941c !important; &:after { background-position:0 -18px; } }
+.role-cover { color: #11847f !important;    &:after { background-position:0 -27px;} }
+.role-featured { color: #b63043 !important; &:after { background-position:0 -36px; margin: 0 4px 1px 4px; } }
 
 $song-pad: 15px;
 $song-art: 48px;
@@ -46,7 +42,7 @@ $song-player-height: 50px;
   padding: 6px;
   font-weight: 400;
   font-size: 12px;
-  display: block;
+  display: inline-block;
   text-align: center;
   text-decoration: none;
   color: #fff;
@@ -55,6 +51,9 @@ $song-player-height: 50px;
   border: none;
   box-shadow: none !important;
   background: $green;
+  line-height: .4em;
+  font-weight: bold;
+  text-decoration: none;
 
   &.hover {
     background: $light-green;
@@ -70,11 +69,6 @@ $song-player-height: 50px;
 }
 
 .facebook-button, .twitter-button {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-  position: relative;
   background: #2d4486;
 
   &:hover {
@@ -84,8 +78,6 @@ $song-player-height: 50px;
 
 .twitter-button {background: #4b8fa9;}
 .player-invite-twitter {
-  line-height: .4em;
-  font-weight: bold;
   background: #4b8fa9;
 
   &:hover {
@@ -194,7 +186,7 @@ section.active .play-button {
 
     &:hover {
       background: $body-dark !important;
-      .song-controls li {
+      .song-controls {
         a, a:before { color: #fff; }
       }
     }
@@ -297,6 +289,8 @@ section.active .play-button {
 
           em {
             font-style: normal;
+            font-size: 16px;
+
             a {
               color: #aaa;
               pointer-events: auto;
@@ -389,7 +383,7 @@ section.active .play-button {
 
       time {
         margin: 6px 0 0;
-        display: inline-block;
+        display: block;
         white-space: nowrap;
         font-size: 12px;
         line-height: 1em;
@@ -426,60 +420,56 @@ section.active .play-button {
       text-align: right;
       @include box-sizing(border-box);
 
-      li {
-        list-style: none;
+      &.hover-show {
+        a {
+          display: none;
+        }
+      }
 
-        &.hover-show {
-          a {
-            display: none;
+      a {
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        float: right;
+        z-index: 3;
+        font-size: 22px;
+        color: lighten($gutter-color, 60%);
+        background: rgba(0,0,0,0.1);
+        padding: 10px;
+        padding-top: $song-pad;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        @include box-sizing(border-box);
+
+        &:before {
+          top: auto;
+          top: 39px;
+          right: 5px;
+          font-size: 18px;
+          color: lighten($gutter-color, 15%);
+        }
+
+        &:hover {
+          color: #fff;
+          background: $like-color;
+
+          &:before {
+            color: #fff;
           }
         }
 
-        a {
-          text-decoration: none;
-          display: block;
-          text-align: center;
-          float: right;
-          z-index: 3;
-          font-size: 22px;
-          color: lighten($gutter-color, 60%);
-          background: rgba(0,0,0,0.1);
-          padding: 10px;
-          padding-top: $song-pad;
-          position: absolute;
-          bottom: 0;
-          top: 0;
-          left: 0;
-          right: 0;
-          @include box-sizing(border-box);
+        &.remove {
+          padding-right: 8px;
+          border-right: 4px solid $like-dark;
+          &:before { color: $like-dark; }
+        }
 
-          &:before {
-            top: auto;
-            top: 39px;
-            right: 5px;
-            font-size: 18px;
-            color: lighten($gutter-color, 15%);
-          }
-
-          &:hover {
-            color: #fff;
-            background: $like-color;
-
-            &:before {
-              color: #fff;
-            }
-          }
-
-          &.remove {
-            padding-right: 8px;
-            border-right: 4px solid $like-dark;
-            &:before { color: $like-dark; }
-          }
-
-          &.remove:hover, &.remove:hover:before {
-            background: $dark-red;
-            &:before { content: "D"; color: darken($dark-red,10%); }
-          }
+        &.remove:hover, &.remove:hover:before {
+          background: $dark-red;
+          &:before { content: "D"; color: darken($dark-red,10%); }
         }
       }
     }

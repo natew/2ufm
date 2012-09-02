@@ -6,4 +6,8 @@ namespace :artists do
       sleep 1
     end
   end
+
+  task :delete_empty => :environment do
+    Artist.where('song_count = 0').destroy_all
+  end
 end

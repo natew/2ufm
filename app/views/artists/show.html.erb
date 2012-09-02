@@ -1,9 +1,8 @@
 <div class="nav-container">
   <div class="title">
     <%= image_tag @artist.image.url(:medium), :class => 'image medium' %>
-    <h1 class="icon"><%= @artist.name %> <span><%= render :partial => 'shared/link', :locals => { :slug => @artist.station.slug } %></span></h1>
+    <h1><%= @artist.name %> <span><%= render :partial => 'shared/link', :locals => { :slug => @artist.station.slug } %></span></h1>
 
-    <%- if @artist.song_count > 2 -%>
     <nav class="nav-menu">
       <%= nav_link_to 'New', station_path(@artist) %>
       <%= nav_link_to 'Popular', artist_popular_path(@artist) if @artist.song_count > 9 %>
@@ -14,7 +13,6 @@
       <%= nav_link_to "Productions", artist_productions_path(@artist) if @artist.has_productions? %>
       <%= nav_link_to "Featuring", artist_features_path(@artist) if @artist.has_features? %>
     </nav>
-    <%- end -%>
 
     <%= render :partial => 'shared/actions', :locals => { :station => @artist.station } %>
   </div>

@@ -20,6 +20,7 @@ var w = $(window),
     volume = mp.volume(),
     shuffle = mp.shuffle(),
     isDragging = false,
+    mouseDown = false,
     hasFriends = true,
     shareSong;
 
@@ -186,50 +187,55 @@ $(function() {
 
   // Dragging to friends
   if (isOnline) {
-    $('.playlist-song section').on('mousedown', function(e) {
+    $('.playlist-song section').on('mousedown', function songMouseDown(e) {
       e.preventDefault(e);
-      updatePosition(e);
       shareSong = $(this).attr('id').split('-')[1];
+      mouseDown = true;
 
-      $(document).bind('mousemove', function(e) {
-        e.preventDefault();
-        updatePosition(e);
+      $(document).bind('mousemove', function songMouseMove(e) {
+        if (mouseDown) {
+          e.preventDefault();
+          updatePosition(e);
 
-        // Prevent load
-        var now = new Date();
-        if (now - last < 35) return;
-        last = now;
+          // Prevent load
+          var now = new Date();
+          if (now - last < 35) return;
+          last = now;
 
-        // Show dragger
-        if (!isDragging) $('#song-dragger').addClass('visible');
-        isDragging = true;
+          // Show dragger
+          if (!isDragging) $('#song-dragger').addClass('visible');
+          isDragging = true;
 
-        // Show hovered friend
-        el = $(document.elementFromPoint(e.clientX, e.clientY));
+          // Show hovered friend
+          el = $(document.elementFromPoint(e.clientX, e.clientY));
 
-        // Highlight friend
-        if (el.is('#stations-inner a')) el.addClass('active');
-        else $('#stations-inner a').removeClass('active');
-      }).on('mouseup', function() {
-        $('#song-dragger').removeClass('visible');
-        var receiver = $('#stations-inner a.active');
-        $('#stations-inner a').removeClass('active');
-        $(document).unbind('mousemove');
-        isDragging = false;
+          // Highlight friend
+          if (el.is('#stations-inner a')) el.addClass('active');
+          else $('#stations-inner a').removeClass('active');
+        }
+      }).on('mouseup', function songMouseUp() {
+        mouseDown = false;
+        if (isDragging) {
+          $('#song-dragger').removeClass('visible');
+          var receiver = $('#stations-inner a.active');
+          $('#stations-inner a').removeClass('active');
+          $(document).unbind('mousemove');
+          isDragging = false;
 
-        // Send song
-        el = $(document.elementFromPoint(e.clientX, e.clientY));
-        fn.log(el, el.length && el.is('.song-link'));
-        if (el.length && el.is('.song-link')) {
-          var data = {
-            'receiver': receiver.attr('id').split('-')[1],
-            'song': shareSong,
-          };
+          // Send song
+          el = $(document.elementFromPoint(e.clientX, e.clientY));
+          fn.log(el, el.length && el.is('.song-link'));
+          if (el.length && el.is('.song-link')) {
+            var data = {
+              'receiver': receiver.attr('id').split('-')[1],
+              'song': shareSong,
+            };
 
-          fn.log(data);
-          $.post('/share', data, function() {
-            notice('Sent song to ' + receiver.html(), 2);
-          })
+            fn.log(data);
+            $.post('/share', data, function() {
+              notice('Sent song to ' + receiver.html(), 2);
+            })
+          }
         }
       });
 
@@ -283,7 +289,7 @@ $(function() {
   })
 
   // Link binding
-  $('body').click(function(e) {
+  $('body').click(function bodyClick(e) {
     if (!e.target) return false;
     var parent = e.target;
 
@@ -317,26 +323,32 @@ $(function() {
           navDropdown(false);
         }
 
+        // Songs
+        if (el.is('.song-link')) {
+          fn.log('song link')
+          mp.playSection(el.parent('section'));
+        }
+
         // Not logged in
-        if (!isOnline && el.is('.restricted')) {
+        else if (!isOnline && el.is('.restricted')) {
           modal('#modal-user');
           return false;
         }
 
         // Modals
-        if (el.is('.modal')) {
+        else if (el.is('.modal')) {
           modal(e.target.getAttribute('href'));
           return false;
         }
 
         // Infinite scroll
-        if (el.is('.next-page')) {
+        else if (el.is('.next-page:not(.loaded)')) {
           // Page load
           nextPage(el);
           return false;
         }
 
-        if (el.is('.play-station')) {
+        else if (el.is('.play-station')) {
           mp.setAutoPlay(true);
         }
         else if (el.is('.shuffle')) {
@@ -487,7 +499,7 @@ function nextPage(link, callback) {
         link.html('Page ' + scrollPage).addClass('loaded');
         loadingPage = false;
         updatePageURL(scrollPage);
-        curPlaylist.after(data);
+        link.after(data);
         pageEndOffsets.push(curPlaylist.offset().top + curPlaylist.height());
         if (callback) callback.call(playlist);
       },
