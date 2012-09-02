@@ -31,12 +31,6 @@ cache('song_' + id) do
     </div>
 
     <time><%= relative_time(time) %></time>
-
-    <div>
-      <% link_to song.comments_count, song, :class => 'comments pictos-comment control' %>
-      <%= link_to song.play_count, song, :class => 'comments pictos-play after control' %>
-      <% link_to seconds_to_time(song.length), '#', :class => 'comments pictos-time' %>
-    </div>
   </div>
 
   <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>

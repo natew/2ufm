@@ -148,7 +148,7 @@ header {
   right: 0;
   bottom: 0;
   width: $navbar-width;
-  padding: 15px 0 0 0;
+  padding: 20px 0 0 0;
   background: #222;
   @include box-sizing(border-box);
 
@@ -165,18 +165,12 @@ header {
     margin: 0 15px 20px 0;
 
     &.nav-user {
-      h1 {
-        padding-right: 26px;
-        margin-bottom: 6px;
-        display: inline-block;
-      }
-
       img {
-        top: 0;
-        right: -15px;
+        top: 4px;
+        right: 4px;
         position: absolute;
-        width: 32px;
-        height: 32px;
+        width: 33px;
+        height: 33px;
       }
     }
 
@@ -350,34 +344,18 @@ header {
   }
 }
 
+$placeholder-color: #999;
+
 #query:-moz-placeholder {
-  color: rgba(255,255,255,0.8);
+  color: $placeholder-color;
 }
 
 #query::-webkit-input-placeholder {
-  color: rgba(255,255,255,0.8);
-}
-
-header #search-form {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-
-  #query {
-    background: #fff;
-    border: 2px solid $header-dark;
-    width: $navbar-width - 60;
-    &:hover { background: #fff !important; }
-  }
-
-  #search {
-    top: 4px;
-    right: 6px;
-  }
+  color: $placeholder-color;
 }
 
 #search-form {
-  margin: 5px 0 15px 15px;
+  margin: 0 0 20px 15px;
   position: relative;
 
   #query {
@@ -385,7 +363,7 @@ header #search-form {
     padding: 4px 30px 4px 8px;
     width: $navbar-width - 70;
     margin: 0;
-    color: rgba(255,255,255,0.6);
+    color: $placeholder-color;
     outline: none;
     font-size: 12px;
     border: 1px solid darken($body-bg,6%);
@@ -401,7 +379,7 @@ header #search-form {
 
     &:focus {
       background: #fff;
-      color: #999;
+      color: #444;
     }
   }
 
@@ -411,7 +389,7 @@ header #search-form {
     pointer-events: none;
     cursor: text;
     position: absolute;
-    right: 18px;
+    right: 20px;
     top: 4px;
     font-size: 20px;
     color: rgba(0,0,0,0.2);
@@ -1327,7 +1305,7 @@ ol.mp_list {
 
 .nav-container {
   .title .nav-menu {
-    margin: -15px 0 14px;
+    margin: -10px 0 14px;
   }
 
   .nav-menu {

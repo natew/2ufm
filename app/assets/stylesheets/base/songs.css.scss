@@ -60,34 +60,28 @@ $song-player-height: 50px;
   }
 }
 
+.login-button {
+  text-decoration: none;
+  color: #fff;
+  float: left;
+}
+
 .player-invite-favorite {
   @include background-gradient($like-light, $like-color);
-
-  &:hover {
-    background: $like-light !important;
-  }
+  &:hover { background: $like-light !important; }
 }
 
 .facebook-button, .twitter-button {
   background: #2d4486;
-
-  &:hover {
-    background: #425699;
-  }
+  &:hover { background: #425699; }
 }
 
 .twitter-button {background: #4b8fa9;}
 .player-invite-twitter {
   background: #4b8fa9;
-
-  &:hover {
-    background: #54a0be !important;
-  }
+  &:hover { background: #54a0be !important; }
 }
 
-.player-invite-facebook {
-  line-height: .5em;
-}
 /* Play button */
 
 .play-button {
@@ -153,18 +147,18 @@ $song-player-height: 50px;
   margin-left: 50px;
 
   section {
-    min-height: 68px;
+    min-height: 50px;
     margin: 0 0 0 -20px;
     padding: $song-pad;
     position: relative;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      .song-controls { background: rgba(0,0,0,0.06); }
+      .song-controls a { background: darken($body-dark, 1%); }
     }
 
     &.listened-to {
-      background: lighten($body-bg,3.5%);
+      background: lighten($body-bg, 2%);
     }
 
     &:hover {
@@ -179,11 +173,11 @@ $song-player-height: 50px;
       display: block;
       position: absolute;
       top: 0;
-      left: 0;
+      left: -$gutter-width;
       right: 0;
       height: 1px;
-      background: darken($body-bg,2%);
       z-index: 100;
+      @include linear-gradient(left, $body-darker, $body-bg);
     }
 
     &.open {
@@ -195,10 +189,10 @@ $song-player-height: 50px;
       .player-invite { padding: 16px; font-size:26px; }
       .waveform { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
-      .name em { display: block; line-height: 2em; }
-      * {color: #fff !important;}
+      .name em { display: block; line-height: 1.6em; }
+      * {color: #fff;}
       a {
-        color: lighten($header-light, 22%) !important;
+        color: lighten($header-light, 22%);
         &:hover { color: #fff !important; }
       }
 
@@ -274,6 +268,7 @@ $song-player-height: 50px;
           em {
             font-style: normal;
             font-size: 16px;
+            color: #aaa;
 
             a {
               color: #aaa;
@@ -414,7 +409,7 @@ $song-player-height: 50px;
         z-index: 3;
         font-size: 22px;
         color: lighten($gutter-color, 60%);
-        background: rgba(0,0,0,0.1);
+        background: $body-dark;
         padding: 10px;
         padding-top: $song-pad;
         position: absolute;
