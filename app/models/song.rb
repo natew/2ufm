@@ -742,6 +742,7 @@ class Song < ActiveRecord::Base
   def scan_artists(part, type, options = {})
     return unless part
     options[:strip] = /\'s.*/i if type == :remixer
+    options[:strip] = /^by /i if type == :producer
 
     part.clean_scan(SPLITS[type], RE[type]) do |artist|
       artist.gsub(options[:strip],'') unless options[:strip].nil?
