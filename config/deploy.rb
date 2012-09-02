@@ -75,6 +75,6 @@ namespace :deploy do
 
   task :clear_caches do
     run_rake "tmp:cache:clear"
-    run_rake "songs:clear_cache"
+    # run_rake "songs:clear_cache"
   end
 end
