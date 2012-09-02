@@ -32,7 +32,7 @@ class Song < ActiveRecord::Base
     :featured => /(featuring |ft\.? |feat\.? |f\. |w\/){1}/i,
     :remixer => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| bootleg remix/i,
     :mashup_split => / \+ | x | vs\.? /i,
-    :producer => /(produced by|prod\.?)/i,
+    :producer => /(produced by|prod\.? by |prod\. )/i,
     :cover => / cover/i,
     :split => /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
     :open => /[\(\[\{]/,
@@ -407,7 +407,7 @@ class Song < ActiveRecord::Base
   def fix_tags
     if name.blank? and artist_name =~ / - /
       splitted = artist_name.split(' - ')
-      self.artist_anem = splitted[0]
+      self.artist_name = splitted[0]
       self.name = splitted[1]
     end
   end
@@ -676,6 +676,52 @@ class Song < ActiveRecord::Base
     parse_artist = artist_name || link_info[0]
 
     split_and_find_artists(parse_name) | find_artists(parse_artist) | split_and_find_artists(parse_artist)
+  end
+
+  def better_parse
+    logger.info "#{id}: #{full_name}"
+
+    parse_name = (name || link_info[1]).gsub(RE[:remove], '')
+    parse_artist = (artist_name || link_info[0]).gsub(RE[:remove], '')
+
+    original_name = nil
+    matches = []
+    outer_types = [:featured, :producer]
+    next_type = nil
+    outer_split = /#{RE[:featured]}|#{RE[:producer]}|#{RE[:containers]}/i
+
+    parse_name.split(outer_split).compact.each do |part|
+      if original_name.nil?
+        original_name = part
+      else
+        outer_types.each do |outer_type|
+          # Search for features and producers
+          if part =~ RE[outer_type]
+            next_type = outer_type
+
+          # Matching outer_type
+          elsif next_type
+            matches.push [part, outer_type]
+            next_type = nil
+
+          # Container
+          else
+            if has_mashups(part)
+              find_mashups(part) do |mashup|
+                matches.push [mashup, :mashup]
+              end
+            elsif part =~ RE[:remixer]
+              inner_types = [:remixer, :cover]
+              scan_for(part, inner_types) do |match|
+                matches.push match
+              end
+            end
+          end
+        end
+      end
+    end
+
+    matches
   end
 
   def find_artists(name)
