@@ -670,58 +670,12 @@ class Song < ActiveRecord::Base
   end
 
   def parse_artists
-    logger.info "Parsing artists in #{id}: #{full_name}"
+    logger.info "#{id}: #{full_name}"
 
     parse_name = (name || link_info[1]).gsub(RE[:remove], '')
     parse_artist = artist_name || link_info[0]
 
     split_and_find_artists(parse_name) | find_artists(parse_artist) | split_and_find_artists(parse_artist)
-  end
-
-  def better_parse
-    logger.info "#{id}: #{full_name}"
-
-    parse_name = (name || link_info[1]).gsub(RE[:remove], '')
-    parse_artist = (artist_name || link_info[0]).gsub(RE[:remove], '')
-
-    original_name = nil
-    matches = []
-    outer_types = [:featured, :producer]
-    next_type = nil
-    outer_split = /#{RE[:featured]}|#{RE[:producer]}|#{RE[:containers]}/i
-
-    parse_name.split(outer_split).compact.each do |part|
-      if original_name.nil?
-        original_name = part
-      else
-        outer_types.each do |outer_type|
-          # Search for features and producers
-          if part =~ RE[outer_type]
-            next_type = outer_type
-
-          # Matching outer_type
-          elsif next_type
-            matches.push [part, outer_type]
-            next_type = nil
-
-          # Container
-          else
-            if has_mashups(part)
-              find_mashups(part) do |mashup|
-                matches.push [mashup, :mashup]
-              end
-            elsif part =~ RE[:remixer]
-              inner_types = [:remixer, :cover]
-              scan_for(part, inner_types) do |match|
-                matches.push match
-              end
-            end
-          end
-        end
-      end
-    end
-
-    matches
   end
 
   def find_artists(name)
