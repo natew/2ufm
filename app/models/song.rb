@@ -29,10 +29,10 @@ class Song < ActiveRecord::Base
 
   # Regular expressions
   RE = {
-    :featured => /(featuring |ft\.? |feat\.? |f\. |w\/){1}/i,
+    :featured => /^(featuring |ft\.? |feat\.? |f\. |w\/){1}/i,
     :remixer => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| bootleg remix/i,
     :mashup_split => / \+ | x | vs\.? /i,
-    :producer => /(produced by|prod\.? by |prod\. )/i,
+    :producer => /^(produced by|prod\.? by |prod\. )/i,
     :cover => / cover/i,
     :split => /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
     :open => /[\(\[\{]/,
