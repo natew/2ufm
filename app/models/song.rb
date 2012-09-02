@@ -597,11 +597,11 @@ class Song < ActiveRecord::Base
   end
 
   def to_searchable(string)
-    '%' + string.gsub(RE[:containers],'%').gsub(/#{RE[:remix]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%').gsub(RE[:percents],'%').strip + '%'
+    '%' + string.gsub(RE[:containers],'%').gsub(/#{RE[:remixer]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%').gsub(RE[:percents],'%').strip + '%'
   end
 
   def similar_songs
-    Song.where("name ILIKE(?) and id != ?", to_searchable(name), id) if name
+    Song.where("name ILIKE(?) and id != ?", to_searchable(name), id) unless name.empty?
   end
 
   def find_matching_songs

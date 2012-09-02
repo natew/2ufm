@@ -173,7 +173,7 @@ header {
 
       img {
         top: 0;
-        right: 0;
+        right: -15px;
         position: absolute;
         width: 32px;
         height: 32px;
@@ -529,16 +529,8 @@ header #second-nav {
     }
 
     #player-controls a {
-      span {
-        color: #fff;
-        text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
-      }
-
-      &:hover {
-        span {
-          color: #fff;
-        }
-      }
+      span { color: #fff; }
+      &:hover span { color: #fff; }
     }
 
     #player-bottom #player-timer {color: lighten($header-color, 15%);}

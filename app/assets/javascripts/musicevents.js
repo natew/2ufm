@@ -29,19 +29,22 @@ w.on({
     var playlistItem = $('#player-playlist .song-'+song.id),
         w = $(window),
         song_url = $('#song-' + song.id + ' .name a').attr('href'),
-        curSection = mp.curSection();
+        curSection = mp.curSection(),
+        html_artists = null;
 
     $('#player-playlist a').removeClass('playing');
     playlistItem.addClass('playing');
 
     // Update player info
-    var em = curSection.find('.name em'),
-        artist = curSection.find('.artist').html(),
-        other_artists = em.length ? em.html() : '',
-        separator = artist.length && other_artists.length ? ', ' : ''
-        html_artists = artist.length ? artist + separator + other_artists : other_artists,
-        artists = html_artists ? html_artists : mp.curSongInfo().artist_name;
-    $('#player-artist-name').html(artists);
+    if (curSection) {
+      var em = curSection.find('.name em'),
+          artist = curSection.find('.artist').html(),
+          other_artists = em.length ? em.html() : '',
+          separator = artist.length && other_artists.length ? ', ' : '';
+      html_artists = artist.length ? artist + separator + other_artists : other_artists
+    }
+
+    $('#player-artist-name').html(html_artists || song.artist_name);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
 
     // Scroll to song

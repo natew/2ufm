@@ -120,23 +120,6 @@ $song-player-height: 50px;
   }
 }
 
-section.playing .play-button:before {
-  content: "5";
-  left: 11px;
-  top: 13px;
-  font-size: 24px;
-}
-
-section.paused .play-button:before {
-  content: "4";
-}
-
-section.active .play-button {
-  @include linear-gradient($header-light, $header-color);
-  &:before { color: darken($header-dark,15%); }
-  &:hover { @include linear-gradient(lighten($header-light,10%),$header-light); }
-}
-
 .playlist-header {
   padding: 4px;
   margin-left: -20px;
@@ -212,6 +195,7 @@ section.active .play-button {
       .player-invite { padding: 16px; font-size:26px; }
       .waveform { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
+      .name em { display: block; line-height: 2em; }
       * {color: #fff !important;}
       a {
         color: lighten($header-light, 22%) !important;
@@ -305,12 +289,6 @@ section.active .play-button {
       }
     }
 
-    .play-button {
-      position: absolute;
-      top: $song-pad - 1;
-      left: $song-pad;
-    }
-
     .song-info {
       margin-right: 130px;
     }
@@ -326,8 +304,10 @@ section.active .play-button {
       z-index: 11;
       line-height: 1.5em;
       text-align: right;
+      pointer-events: none;
 
       .song-follow {
+        pointer-events: all;
         white-space: nowrap;
         display: inline-block;
         padding: 2px 6px;
@@ -474,10 +454,6 @@ section.active .play-button {
       }
     }
 
-    .play-button {
-      display: none;
-    }
-
     .song-art {
       position: absolute;
       width: $song-art;
@@ -496,28 +472,9 @@ section.active .play-button {
       display: none;
       clear: both;
       position: relative;
-      height: $song-player-height;
-      margin: 20px 0 0 $song-art-big + $song-pad;
-
-      &:before {
-        display: block;
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 20px;
-        z-index: 10;
-      }
-
-      img {
-        width: 100%;
-        height: 140%;
-        position: absolute;
-        top: -20%;
-        left: 2px;
-        opacity: 0;
-      }
+      height: 100px;
+      margin: -20px 0;
+      width: 100%;
     }
   }
 }
@@ -554,9 +511,7 @@ section.active .play-button {
   }
 
   .waveform {
-    margin: 30px 0 0;
     display: block;
-    opacity: 1;
   }
 }
 

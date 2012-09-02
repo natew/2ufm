@@ -11,7 +11,7 @@ class String
 
   def clean_scan(regex, reject)
     self.scan(regex).flatten.compact.each do |string|
-      yield string.strip unless string.nil? or string =~ reject
+      yield string.strip unless string =~ reject or string =~ /^[&,]/
     end
   end
 end
