@@ -25,8 +25,9 @@ w.on({
     fn.replaceState(mp.getListenUrl());
   },
 
-  'mp:play': function mpPlay(event, mp, song) {
-    var playlistItem = $('#player-playlist .song-'+song.id),
+  'mp:play': function mpPlay(event, mp) {
+    var song = mp.curSongInfo(),
+        playlistItem = $('#player-playlist .song-'+song.id),
         w = $(window),
         song_url = $('#song-' + song.id + ' .name a').attr('href'),
         curSection = mp.curSection(),
