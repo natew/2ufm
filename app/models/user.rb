@@ -93,12 +93,13 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
+      info = auth.extra.raw_info
       user = User.create(
-        username: auth.extra.raw_info.name,
-        full_name: auth.extra.raw_info.name,
+        username: info.username || info.name,
+        full_name: info.name,
         provider: auth.provider,
         uid: auth.uid,
-        email: session[:email_address],
+        email: info.email,
         password: Devise.friendly_token[0,20]
       )
       user.skip_confirmation!
@@ -111,7 +112,6 @@ class User < ActiveRecord::Base
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
       info = auth.extra.raw_info
-      logger.info "OASOAOSAOSAOSAOSOASOA O O \n\n\n\n\n\n\n\n" + session[:email_address]
       user = User.create(
         username: info.screen_name,
         provider: auth.provider,
