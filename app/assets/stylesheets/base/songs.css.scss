@@ -21,8 +21,8 @@
 
 .role-original { margin:0; padding:0; }
 .role-original:after { display:none; }
-.role-mashup { color: #aa8bfd !important;   &:after { display: none; } }
-.role-remixer { color: #b19a2d !important;  &:after { background-position:0 -9px; } }
+.role-mashup { color: #b091fd !important;   &:after { display: none; } }
+.role-remixer { color: #c1a93b !important;  &:after { background-position:0 -9px; } }
 .role-producer { color: #3b941c !important; &:after { background-position:0 -18px; } }
 .role-cover { color: #11847f !important;    &:after { background-position:0 -27px;} }
 .role-featured { color: #b63043 !important; &:after { background-position:0 -36px; margin: 0 4px 1px 4px; } }
@@ -237,21 +237,24 @@ $song-player-height: 50px;
         display: block;
 
         &.artist {
+          font-weight: 300;
+          margin: 0 0 0 -4px;
           display: inline-block;
           font-size: 16px;
-          font-weight: 300;
           position: relative;
           z-index: 12;
           pointer-events: none;
 
-          a { color: #aaa; pointer-events: auto;
+          a {
+            color: #bbb;
+            pointer-events: auto;
             &:hover { color: $link-hover; }
           }
         }
 
         &.name {
           font-size: 18px;
-          margin: 0 0 4px 0;
+          margin: 4px 0;
           font-weight: 400;
           position: relative;
           z-index: 11;

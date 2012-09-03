@@ -17,8 +17,10 @@
     <h1>
       <%-
         links = author_links(song.authors)
+        if links[:original].length > 0
       -%>
       <span class="artist"><%= links[:original] %></span>
+      <% end %>
       <span class="name"><%= tagged_song_name(song.name) %> <em><%= links[:other] %></em></span>
     </h1>
   </div>
