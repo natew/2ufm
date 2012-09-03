@@ -1489,12 +1489,12 @@ h2 small { font-size: 55%; }
   text-align: center;
   padding: 50px 0 0;
   color: #fff;
-  background: rgba(yellow,0.2);
+  background: rgba($primary,0.2);
   font-weight: bold;
   @include box-sizing(border-box);
 
   &:hover {
-    background: rgba(yellow,0.5);
+    background: rgba($primary,0.5);
   }
 }
 

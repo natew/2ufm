@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_many :songs, :through => :stations, :extend => SongExtensions
   has_many :listens
 
-  has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
+  has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }, :s3 => Yetting.s3_enabled
   has_attachment :cover, styles: { medium: ['900x300^'] } # ^ means preserve aspect ratio
 
   acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
