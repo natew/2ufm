@@ -112,7 +112,7 @@
             <%= link_to "Account", '/account' %>
             <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
           <% else %>
-            <%= link_to 'Login', '/login' %>
+            <%= link_to 'Login', '#modal-login', :class => 'modal' %>
           <% end %>
           <% link_to "About Us", "#", :class => "secondary" %>
         </section>
@@ -142,9 +142,6 @@
     <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
   </div>
 
-  <!-- <a id="debug" class="control" href="">x</a>
-  <div id="debug_dump"></div> -->
-
   <div id="player-playlist" class="pop-menu">
     <h4>{{station.title}}</h4>
     {{#songs}}
@@ -165,17 +162,26 @@
   <div id="modal"></div>
 
   <% if !user_signed_in? %>
-    <div id="modal-login">
+    <div id="modal-login" class="hidden">
       <h3>Welcome to 2u.fm!</h3>
       <p class="large">The best new music from around the web.  Sign up for free!</p>
 
-      <form>
-        <div class="actions clearfix">
-          <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button' %>
-          <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button' %>
-        </div>
-        Or <%= link_to "login without importing friends", '/login', :class => 'alt close-modal' %>.
-      </form>
+      <div class="center">
+        <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button' %>
+        <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button' %>
+      </div>
+
+      <em>or</em>
+
+      <div class="half inline">
+        <h4>Login</h4>
+        <%= render :partial => 'sessions/new_form' %>
+      </div>
+
+      <div class="half inline">
+        <h4>Sign up</h4>
+        <%= render :partial => 'registrations/new_form' %>
+      </div>
     </div>
   <% end %>
 

@@ -3,20 +3,42 @@
 /* Modals */
 
 .hidden { display: none; }
+.center { text-align: center; }
+
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  pointer-events: none;
+  @include opacity(0);
+  @include transition(opacity linear .1s);
+}
+
+#overlay.slow-fade {
+  @include transition(opacity linear .3s);
+}
+
+#overlay.shown {
+  pointer-events: auto;
+  @include opacity(.5);
+}
 
 #modal {
-  top: -500px;
+  z-index: 1001;
+  top: -700px;
   position: fixed;
   left: 50%;
-  margin-left: -380px;
-  width: 760px;
-  background-color: #fff;
-  color: #444;
+  margin-left: -350px;
+  width: 700px;
+  background-color: $body-bg;
+  color: #ddd;
   padding: 20px;
-  z-index: 998;
   overflow: auto;
   font-weight: normal;
-  @include border-bottom-radius(8px);
   @include box-shadow(0 0 15px rgba(0,0,0,0.8));
   @include transition(top linear .2s);
   @include box-sizing(border-box);
@@ -28,25 +50,28 @@
 
   &.modal-login {
     top: 50%;
-    margin-top: -175px;
-    height: 350px;
-    padding: 20px;
-    background-color: #fff;
+    margin-top: -275px;
+    height: 550px;
     overflow: hidden;
-    @include border-radius(0 !important);
   }
 
-  .half {
-    width: 45%;
+  em {
+    display: block;
+    clear: both;
+    text-align: center;
+    font-size: 14px;
+    background: $body-bg;
+    color: #999;
+    margin: 1em 0;
   }
 
   h2, h3, h4 {
-    color: #000;
+    color: $primary;
     font-size: 28px;
-    font-weight: bold;
-    margin: 0 0 10px 0;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    margin: -20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: $body-darker;
 
     small {
       font-size: 80%;
@@ -54,7 +79,10 @@
   }
 
   h4 {
-    font-size: 20px;
+    font-size: 16px;
+    padding: 8px 10px;
+    font-weight: 400;
+    margin: 0 -10px 10px;
   }
 
   p {
@@ -71,73 +99,16 @@
   }
 }
 
-#overlay {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	z-index: 52;
-	opacity: 0;
-	left: 0;
-	top: 0;
-	background-color: #000;
-  pointer-events: none;
-  @include transition(opacity linear .1s);
-}
-
-#overlay.slow-fade {
-  @include transition(opacity linear .3s);
-}
-
-#overlay.shown {
-  opacity: 0.6;
-  pointer-events: auto;
-}
-
-* html #modal {
-   position: absolute;
-   top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
-}
-
-#modal {
-  .input-text,
-  .input-email,
-  .input-password,
-  textarea,
-  input[type="text"],
-  input[type="password"],
-  input[type="email"] {
-    background: #fff;
-    color: #666;
-    border: 1px solid rgba(0,0,0,0.2);
-
-    &:focus {
-      border-color: #049adb;
-      @include box-shadow(0px 0px 8px #80cced);
-    }
-  }
-
-  form {
-    #error_explanation {
-      ul {
-        color: #444;
-      }
-    }
-  }
-}
-
 #modal-login {
-  display: none;
-  label {font-size: 16px;}
   .actions {
-    width: 290px;
     background: none;
-    padding-top: 0;
     a { margin: 0 0 10px 0;}}
   a.alt { color: #aaa; }
 }
 
-#modal #modal-login {
-  display: block;
+#modal div.hidden {
+  display: block !important;
+  visibility: visible;
 }
 
 #modal-user {
@@ -219,4 +190,9 @@
       border: none;
     }
   }
+}
+
+* html #modal {
+   position: absolute;
+   top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
 }

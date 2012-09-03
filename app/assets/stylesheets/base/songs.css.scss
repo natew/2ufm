@@ -60,7 +60,8 @@ $song-player-height: 50px;
 .login-button {
   text-decoration: none;
   color: #fff;
-  float: left;
+  display: inline-block;
+  margin: 0 5px;
 }
 
 .player-invite-favorite {
@@ -73,10 +74,9 @@ $song-player-height: 50px;
   &:hover { background: #425699; }
 }
 
-.twitter-button {background: #4b8fa9;}
-.player-invite-twitter {
+.twitter-button {
   background: #4b8fa9;
-  &:hover { background: #54a0be !important; }
+  &:hover { background: #54a0be; }
 }
 
 .playlist-song {

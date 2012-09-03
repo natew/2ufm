@@ -331,7 +331,7 @@ $(function() {
 
         // Not logged in
         else if (!isOnline && el.is('.restricted')) {
-          modal('#modal-user');
+          modal('#modal-login');
           return false;
         }
 
@@ -565,11 +565,13 @@ function modal(selector) {
 
   if (modalShown || selector === false) {
     show.attr('class', '');
+    $('body').removeClass('modal-shown');
     modalShown = false;
   }
   else {
     modal.html($(selector).clone());
     show.addClass('shown').addClass(selector.substring(1));
+    $('body').addClass('modal-shown');
     modalShown = true;
 
     if (selector == '#modal-user') {
