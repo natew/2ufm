@@ -190,9 +190,9 @@ $song-player-height: 50px;
       .waveform { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
       .name em { display: block; line-height: 1.6em; }
-      * {color: #fff;}
+      * {color: #fff !important;}
       a {
-        color: lighten($header-light, 22%);
+        color: lighten($header-light, 22%) !important;
         &:hover { color: #fff !important; }
       }
 
