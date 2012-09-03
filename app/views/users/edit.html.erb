@@ -1,7 +1,23 @@
     <div class="whole">
-      <h2>Update Account</h2>
+      <h2>My Account</h2>
       <%= form_for current_user, :url => { :action => :edit }, :html => { :multipart => true } do |f| %>
         <%= render 'shared/form_errors', :target => current_user %>
+
+        <fieldset>
+          <legend>Profile</legend>
+          <div class="clearfix">
+            <%= label :user, :username, 'Username', :class => 'inline' %>
+            <%= f.text_field :username %>
+          </div>
+
+          <%= label :user, :avatar, 'Avatar' %>
+          <img alt="<%= current_user.username %>'s Avatar" src="<%= current_user.avatar.url %>" />
+          <%= file_field :user, 'avatar', :class => 'file' %>
+          <%- if current_user.avatar.exists? -%>
+            <%= label :avatar, :delete, 'Delete avatar?' %>
+            <%= check_box :avatar, :delete %>
+          <%- end -%>
+        </fieldset>
 
         <fieldset>
           <legend>Account Information</legend>
@@ -11,14 +27,21 @@
 
         <fieldset>
           <legend>Update Password</legend>
-          <%= label :user, :password, 'New Password', :class => 'inline' %>
-          <%= f.password_field :password, :autocomplete => 'off' %><br />
-        </fieldset>
 
-        <fieldset>
-          <legend>Avatar</legend>
-          <img alt="<%= current_user.username %>'s Avatar" src="<%= current_user.avatar.url %>" />
-          <%= file_field :user, 'avatar', :class => 'file' %>
+          <div class="clearfix">
+            <%= label :user, :old_password, 'Old Password', :class => 'inline' %>
+            <%= f.password_field :old_password, :autocomplete => 'off' %>
+          </div>
+
+          <div class="clearfix">
+            <%= label :user, :password, 'New Password', :class => 'inline' %>
+            <%= f.password_field :password, :autocomplete => 'off' %>
+          </div>
+
+          <div class="clearfix">
+            <%= label :user, :password_confirmation, 'Confirm', :class => 'inline' %>
+            <%= f.password_field :password_confirmation, :autocomplete => 'off' %>
+          </div>
         </fieldset>
 
         <%= submit_tag 'Update', :class => 'submitbutton inline' %>

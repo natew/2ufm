@@ -50,8 +50,19 @@ class UsersController < ApplicationController
 
   def edit
     return if params[:user].nil?
-    if current_user.update_attributes(params[:user])
+
+    # Old pass
+    old_pass = params[:user][:old_password]
+    params[:user].delete :old_password
+
+    if old_pass.blank?
+      current_user.update_without_password(params[:user])
       flash[:notice] = 'Updated profile!'
+    elsif current_user.valid_password? old_pass
+      current_user.update_with_password(params[:user])
+      flash[:notice] = 'Updated password!'
+    else
+      flash[:notice] = 'Incorrect password.'
     end
   end
 

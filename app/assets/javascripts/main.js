@@ -407,14 +407,14 @@ $(function() {
 });
 
 function notice(message, time) {
-  time = time || 4;
   $('<div id="dialog">' + message + '</div>').prependTo('#body');
   hideDialog(time);
 }
 
 function hideDialog(time) {
+  time = time || 3;
   setTimeout(function () {
-    $('#dialog').animate({opacity:'0'},500, function() {
+    $('#dialog').animate({opacity:'0'}, 500, function() {
       $(this).hide();
     });
   }, time * 1000);
