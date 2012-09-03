@@ -131,14 +131,6 @@ $(function() {
     mp.playSection(section);
   }
 
-  // Scrollpanes
-  reScrollPane();
-  $(window).resize(reScrollPane);
-
-  function reScrollPane() {
-    $('.scroll-pane').jScrollPane();
-  }
-
   // Tooltips
   $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
   $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
@@ -509,16 +501,6 @@ function nextPage(link, callback) {
     })
   }
 }
-
-// function decrementPage() {
-//   var scrollBottom = w.scrollTop() + w.height(),
-//       pages = pageEndOffsets.length - 1;
-//   for ( var i = pages; i >= 0; i-- ) {
-//     if (scrollBottom < pageEndOffsets[i]) {
-//       updatePageURL(i+1);
-//     }
-//   }
-// }
 
 function pjax(url, container) {
   $.pjax({

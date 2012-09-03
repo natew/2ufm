@@ -12,7 +12,6 @@
 //= require jquery.pjax
 //= require jquery.cookie
 //= require jquery.mousewheel
-//= require jquery.scrollpane.min
 //= require mustache
 //= require soundmanager2-nodebug-jsmin
 //= require spin
