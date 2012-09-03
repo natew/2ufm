@@ -6,8 +6,6 @@
 
 .role {
   display: inline-block;
-  padding-right: 12px;
-  margin-right: -12px;
 }
 
 .role:after {
@@ -53,7 +51,6 @@ $song-player-height: 50px;
   background: $green;
   line-height: .4em;
   font-weight: bold;
-  text-decoration: none;
 
   &.hover {
     background: $light-green;
@@ -259,7 +256,6 @@ $song-player-height: 50px;
           position: relative;
           z-index: 11;
           pointer-events: none;
-          line-height: 1.5em;
 
           a { color: #fff;
             &:hover { color: $link-hover; }
@@ -281,6 +277,9 @@ $song-player-height: 50px;
       a {
         color: $heading-color-dark;
         text-decoration: none;
+        padding: 0 4px;
+        background: rgba(0,0,0,0.1);
+        @include border-radius(4px);
       }
     }
 
