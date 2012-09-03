@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   before_validation :get_remote_avatar, :if => :avatar_url_provided?
   validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
 
-  validates :username, :length => 2..22
+  validates :username, :length => 2..22, :uniqueness => true
   validates_with SlugValidator
 
   def to_param

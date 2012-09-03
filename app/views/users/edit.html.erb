@@ -10,9 +10,12 @@
             <%= f.text_field :username %>
           </div>
 
-          <%= label :user, :avatar, 'Avatar' %>
-          <img alt="<%= current_user.username %>'s Avatar" src="<%= current_user.avatar.url %>" />
-          <%= file_field :user, 'avatar', :class => 'file' %>
+          <div class="clearfix">
+            <%= label :user, :avatar, 'Avatar' %>
+            <%= image_tag current_user.avatar.url(:medium) %>
+            <%= file_field :user, 'avatar', :class => 'file' %>
+          </div>
+
           <%- if current_user.avatar.exists? -%>
             <%= label :avatar, :delete, 'Delete avatar?' %>
             <%= check_box :avatar, :delete %>
