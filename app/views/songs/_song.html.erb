@@ -23,6 +23,10 @@
     </h1>
   </div>
 
+  <%-
+    end # end cache
+  -%>
+
   <div class="song-meta">
     <div class="song-follow">
       <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
@@ -40,10 +44,6 @@
   </div>
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
-
-  <%-
-    end # end cache
-  -%>
 
   <div class="song-controls">
     <%= broadcast_song(song) %>
