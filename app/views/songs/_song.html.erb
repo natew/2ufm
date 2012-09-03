@@ -1,8 +1,5 @@
 <%-
     id = song.id.to_s
-
-cache('song_' + id) do
-
     station_id ||= -1
     cover      ||= :icon
     follow_id    = 'station-follow-' + id
@@ -11,6 +8,9 @@ cache('song_' + id) do
 -%>
 
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %>">
+  <%-
+    cache('song_' + id) do
+  -%>
   <div class="song-info">
     <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" %>
 
