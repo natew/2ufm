@@ -1088,7 +1088,7 @@ $announce-color: $heading-color;
   .image {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 20px;
 
     &.medium {
       width: 128px; height: 128px;
@@ -1476,8 +1476,7 @@ h2 small { font-size: 55%; }
 
 .image {
   background: lighten($body-bg,20%);
-  border: 6px solid $gutter-color;
-  border-right: none;
+  border: 6px solid $body-darker;
   display: block;
 }
 
