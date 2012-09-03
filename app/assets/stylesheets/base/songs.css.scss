@@ -24,10 +24,10 @@
 .role-mashup { color: #b091fd !important;   &:after { display: none; } }
 .role-remixer { color: #c1a93b !important;  &:after { background-position:0 -9px; } }
 .role-producer { color: #3b941c !important; &:after { background-position:0 -18px; } }
-.role-cover { color: #11847f !important;    &:after { background-position:0 -27px;} }
-.role-featured { color: #b63043 !important; &:after { background-position:0 -36px; margin: 0 4px 1px 4px; } }
+.role-cover { color: #11847f !important;    &:after { background-position:0 -27px; } }
+.role-featured { color: #c54b5f !important; &:after { background-position:0 -36px; } }
 
-$song-pad: 15px;
+$song-pad: 20px;
 $song-art: 48px;
 $song-art-big: 130px;
 $song-player-height: 50px;
@@ -77,65 +77,6 @@ $song-player-height: 50px;
 .player-invite-twitter {
   background: #4b8fa9;
   &:hover { background: #54a0be !important; }
-}
-
-/* Play button */
-
-.play-button {
-  display: inline-block;
-  position: absolute;
-  top: 2px;
-  left: 0;
-  z-index: 5;
-  width: $play-button-size;
-  height: $play-button-size;
-  border: 2px solid #292929;
-  @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.4));
-  @include linear-gradient(#777, #444);
-  @include border-radius($play-button-size);
-  @include box-sizing(border-box);
-
-  &:before {
-    content: "4";
-    display: inline-block;
-    position: absolute;
-    top: 13px;
-    left: 13px;
-    font-size: 25px;
-    color: #333;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-  }
-
-  &:hover {
-    @include linear-gradient(#999, #666);
-  }
-}
-
-.playlist-header {
-  padding: 4px;
-  margin-left: -20px;
-  margin-top: 15px;
-  position: relative;
-
-  span {
-    float: left;
-    font-weight: bold;
-    color: #ccc;
-    font-size: 11px;
-  }
-
-  .ph-song {
-    margin-left: $song-pad*2 + $play-button-size - 4;
-  }
-
-  .ph-station {
-    position: absolute;
-    right: $song-pad;
-  }
-}
-
-.primary .playlist-header {
-  display: none;
 }
 
 .playlist-song {
@@ -265,6 +206,7 @@ $song-player-height: 50px;
           }
 
           em {
+            font-weight: 300;
             font-style: normal;
             font-size: 16px;
             color: #aaa;
