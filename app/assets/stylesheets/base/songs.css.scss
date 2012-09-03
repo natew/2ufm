@@ -84,6 +84,10 @@ $song-player-height: 50px;
   margin-right: 10px;
   margin-left: 50px;
 
+  &.open section .reviews {
+    display: block;
+  }
+
   section {
     min-height: 50px;
     margin: 0 0 0 -20px;
@@ -160,8 +164,12 @@ $song-player-height: 50px;
     .reviews {
       position: relative;
       z-index: 13;
-      display: none;
       color: #888;
+      display: none;
+
+      a {
+        text-decoration: none;
+      }
     }
 
     .stats {
