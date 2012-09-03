@@ -1438,51 +1438,63 @@ h2 small { font-size: 55%; }
 
 
 /* Image Covers */
-.cover-tiny img {
+.cover-tiny {
   position: relative;
   width: 24px;
   height: 24px;
 }
 
-.cover-icon img {
+.cover-icon {
   position: relative;
   width: 32px;
   height: 32px;
 }
 
-.cover-small img {
+.cover-small {
   position: relative;
   width: 64px;
   height: 64px;
 }
 
-.cover-96 img {
+.cover-96 {
   position: relative;
   width: 96px;
   height: 96px;
 }
 
-.cover-128 img {
+.cover-128, .upload-avatar {
   position: relative;
   width: 128px;
   height: 128px;
 }
 
-.cover-medium img {
+.cover-medium {
   position: relative;
   width: 256px;
   height: 256px;
 }
-
 
 .image {
   background: lighten($body-bg,20%);
   border: 6px solid $gutter-color;
   border-right: none;
   display: block;
+}
 
-  img {
+.upload-avatar {
+  position: absolute;
+  top: 6px;
+  right: 0;
+  z-index: 12;
+  text-align: center;
+  padding: 50px 0 0;
+  color: #fff;
+  background: rgba(yellow,0.2);
+  font-weight: bold;
+  @include box-sizing(border-box);
 
+  &:hover {
+    background: rgba(yellow,0.5);
   }
 }
 

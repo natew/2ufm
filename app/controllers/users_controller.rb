@@ -55,6 +55,8 @@ class UsersController < ApplicationController
     old_pass = params[:user][:old_password]
     params[:user].delete :old_password
 
+    current_user.avatar.destroy if params[:avatar]
+
     if old_pass.blank?
       current_user.update_without_password(params[:user])
       flash[:notice] = 'Updated profile!'
