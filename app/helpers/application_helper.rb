@@ -48,7 +48,7 @@ module ApplicationHelper
     list = []
     original = []
     authors.with_artist.each do |author|
-      tip = author.role == 'original' ? '' : 'tip'
+      tip = author.role == 'original' ? '' : 'tip-n'
       link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => "#{tip} role role-#{author.role}", :title => author.role.capitalize) unless author.artist_station_slug.nil?
       if author.role == 'original'
         original.push(link)

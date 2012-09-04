@@ -610,7 +610,7 @@ header #second-nav {
       }
 
       #player-artist-name {
-        color: #ccc;
+        color: lighten($header-light, 18%);
         font-size: 12px;
         white-space: nowrap;
         overflow: hidden;
@@ -619,7 +619,8 @@ header #second-nav {
         position: relative;
         z-index: 9;
 
-        a {color: #ccc !important;}
+        a {color: lighten($header-light, 22%) !important;
+          &:hover { color: #fff !important; }}
       }
 
       a {
@@ -740,10 +741,10 @@ header #second-nav {
         font-size: 22px;
         display: block;
         text-align: center;
-        color: #fff;
+        color: lighten($header-light, 32%);
       }
 
-      &:hover {
+      &:hover, &:hover:before {
         color: #fff;
         text-shadow: 0 0 10px rgba(255,255,255,0.5);
       }
@@ -1336,7 +1337,7 @@ ol.mp_list {
       text-decoration: none;
       float: left;
       padding: 4px 10px;
-      font-size: 18px;
+      font-size: 16px;
       color: #ccc;
 
       &:first-child {
