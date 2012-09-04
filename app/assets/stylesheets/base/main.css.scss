@@ -148,7 +148,7 @@ header {
   bottom: 0;
   width: $navbar-width;
   padding: 20px 0 0 0;
-  background: #222;
+  background: $navbar-bg;
   @include box-sizing(border-box);
 
   #navbar-menus {
@@ -173,21 +173,32 @@ header {
       }
     }
 
+    &.nav-extra {
+      padding-bottom: 10px;
+      max-height: 400px;
+      overflow-y: scroll;
+
+      a {
+        font-size: 18px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+    }
+
     &.stations {
       margin: 0;
       position: fixed;
       bottom: 0;
-      right: -5px;
+      right: 10px;
       width: $navbar-width - 40;
       max-height: 250px;
       padding: 0 30px 10px 0;
       overflow-x: hidden;
       overflow-y: scroll;
-      background: $body-light;
-      @include box-shadow(0 0 6px rgba(0,0,0,0.7));
+      background: $navbar-bg;
 
       &.collapsed {
-        height: 15px;
+        height: 18px;
         overflow: hidden;
 
         h1:after {
@@ -200,8 +211,9 @@ header {
         position: relative;
         margin-right: -25px;
         margin-left: 0;
+        padding-left: 20px;
         color: #fff;
-        background: $body-dark;
+        background: $body-bg;
 
         &:after {
           display: block;
@@ -223,6 +235,7 @@ header {
         color: #aaa;
         margin-left: 0;
         margin-right: -25px;
+        font-size: 14px;
 
         &.active {
           background: $primary;
@@ -232,18 +245,6 @@ header {
 
       .online a {
         color: #fff;
-      }
-    }
-
-    &.nav-extra {
-      padding-bottom: 10px;
-      max-height: 400px;
-      overflow-y: scroll;
-
-      a {
-        font-size: 18px;
-        padding-top: 6px;
-        padding-bottom: 6px;
       }
     }
 
@@ -365,9 +366,8 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 12px;
-    border: 1px solid darken($body-bg,6%);
-    @include linear-gradient($body-bg,lighten($body-bg,5%));
-    @include box-shadow(0 1px 0 $header-shadow);
+    border: 1px solid $body-lighter;
+    background: $body-bg;
     @include border-radius(20px);
     @include transition(all .1s linear);
 
@@ -391,7 +391,7 @@ $placeholder-color: #999;
     right: 20px;
     top: 4px;
     font-size: 20px;
-    color: rgba(0,0,0,0.2);
+    color: #fff;
     text-shadow: none;
     padding: 0;
     box-shadow: none;
