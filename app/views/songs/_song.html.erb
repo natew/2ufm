@@ -30,24 +30,32 @@
   -%>
 
   <div class="song-meta">
-    <div class="song-follow">
-      <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
-      <%= link_to song.station_title, '/'+song.station_slug %>
-      <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if song.reposted? %>
+    <div class="song-posted">
+      Posted by
+      <div class="follow-station-wrap">
+        <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
+        <%= link_to song.station_title, '/'+song.station_slug %>
+        <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if song.reposted? %>
+      </div>
+      <time datetime="<%= time %>"><%= relative_time(time) %></time>
     </div>
 
-    <time><%= relative_time(time) %></time>
+    <div class="song-controls">
+      <%= broadcast_song(song) %>
+    </div>
   </div>
 
-  <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
+  <%-
+    cache('song_' + id + '_after') do
+  -%>
+    <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
 
-  <div class="reviews">
-    <%= render :partial => 'blogs/review', :collection => [song] %>
-  </div>
+    <div class="reviews">
+      <%= render :partial => 'blogs/review', :collection => [song] %>
+    </div>
 
-  <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
-
-  <div class="song-controls">
-    <%= broadcast_song(song) %>
-  </div>
+    <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
+  <%-
+    end # end of after cache
+  -%>
 </section>

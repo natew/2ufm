@@ -176,7 +176,7 @@ var mp = (function() {
     },
 
     stop: function stop() {
-      if (isPlaying) {
+      if (isPlaying && curSong) {
         curSong.stop();
         soundManager.stopAll();
       }

@@ -82,7 +82,6 @@ $song-player-height: 50px;
 .playlist-song {
   clear: both;
   margin-right: 10px;
-  margin-left: 50px;
 
   &.open section .reviews {
     display: block;
@@ -90,17 +89,18 @@ $song-player-height: 50px;
 
   section {
     min-height: 50px;
-    margin: 0 0 0 -20px;
+    margin: 0;
     padding: $song-pad;
     position: relative;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      .song-controls a { background: darken($body-dark, 1%); }
+      section { background: $body-bg; }
     }
 
     &.listened-to {
-      background: lighten($body-bg, 2%);
+      background: $body-light;
+      &:nth-child(2n+1) { background: lighten($body-bg, 1%); }
     }
 
     &:hover {
@@ -110,34 +110,17 @@ $song-player-height: 50px;
       }
     }
 
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      left: -$gutter-width;
-      right: 0;
-      height: 1px;
-      z-index: 100;
-      @include linear-gradient(left, $body-darker, $body-bg);
-    }
-
     &.open {
       .reviews { display: block; }
     }
 
     &.active {
-      background: $header-dark !important;
+      border: 2px solid $primary;
+      background: $body-lighter !important;
       .player-invite { padding: 16px; font-size:26px; }
       .waveform { opacity: 0.6; }
       h1 span.artist a { color: #fff; }
       .name em { display: block; line-height: 1.6em; }
-      * {color: #fff !important;}
-      a {
-        color: lighten($header-light, 22%) !important;
-        &:hover { color: #fff !important; }
-      }
-
     }
 
     &.failed {
@@ -236,29 +219,25 @@ $song-player-height: 50px;
       }
     }
 
-    .song-info {
-      margin-right: 130px;
-    }
-
     .song-meta {
-      position: absolute;
-      top: $song-pad;
-      right: $song-pad;
-      width: 120px;
       font-size: 12px;
-      margin: 0;
+      margin: 10px 0 0;
       color: #999;
-      z-index: 11;
-      line-height: 1.5em;
-      text-align: right;
+      z-index: 12;
       pointer-events: none;
 
+      a {pointer-events: all;}
+
       .song-follow {
-        pointer-events: all;
+        display: inline;
+      }
+
+      .follow-station-wrap {
         white-space: nowrap;
+        position: relative;
         display: inline-block;
         padding: 2px 6px;
-        margin: -2px -6px 0;
+        margin: 0 0 -8px;
         background: rgba(0,0,0,0.15);
         @include border-radius(6px);
 
@@ -309,11 +288,8 @@ $song-player-height: 50px;
       }
 
       time {
-        margin: 6px 0 0;
-        display: block;
+        display: inline-block;
         white-space: nowrap;
-        font-size: 12px;
-        line-height: 1em;
       }
 
       .comments {
@@ -335,48 +311,29 @@ $song-player-height: 50px;
       z-index: 10;
     }
 
+    .song-posted {
+      float: left;
+    }
+
     .song-controls {
-      top: 0;
-      bottom: -1px;
-      left: -$gutter-width;
-      width: $gutter-width;
-      position: absolute;
+      float: right;
       margin: 0;
       padding: 0;
-      z-index: 2;
-      text-align: right;
-      @include box-sizing(border-box);
 
-      &.hover-show {
-        a {
-          display: none;
-        }
-      }
+      &.hover-show a { display: none; }
 
       a {
         text-decoration: none;
         display: block;
         text-align: center;
-        float: right;
-        z-index: 3;
-        font-size: 22px;
-        color: lighten($gutter-color, 60%);
-        background: $body-dark;
-        padding: 10px;
-        padding-top: $song-pad;
-        position: absolute;
-        bottom: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        @include box-sizing(border-box);
+        font-size: 16px;
 
         &:before {
-          top: auto;
-          top: 39px;
-          right: 5px;
+          position: relative;
           font-size: 18px;
-          color: lighten($gutter-color, 15%);
+          padding: 4px;
+          top: 0;
+          left: 0;
         }
 
         &:hover {
@@ -391,6 +348,7 @@ $song-player-height: 50px;
         &.remove {
           padding-right: 8px;
           border-right: 4px solid $like-dark;
+          background: $body-dark;
           &:before { color: $like-dark; }
         }
 
@@ -436,10 +394,10 @@ $song-player-height: 50px;
 
 .primary section, section.active {
   min-height: 175px;
-  margin: 0 -10px 0 -20px;
+  margin: 0 -10px;
   padding: 20px;
 
-  h1 {
+  h1, .song-meta {
     margin-left: $song-art-big + $song-pad;
     span { line-height: 1.4em;
       &.artist { font-size: 18px; margin: 0 0 2px 0; }
