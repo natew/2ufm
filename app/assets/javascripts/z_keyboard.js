@@ -19,18 +19,18 @@ function keyDown(e) {
   switch(e.keyCode) {
     // Left
     case 37:
-      mp.prev();
       e.preventDefault();
+      mp.prev();
       break;
     // Right
     case 39:
-      mp.next();
       e.preventDefault();
+      mp.next();
       break;
     // Space
     case 32:
-      mp.toggle();
       e.preventDefault();
+      mp.toggle();
       break;
     // Enter
     case 13:

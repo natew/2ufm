@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def tagged_song_name(name)
-    name.gsub(/(\([^()]+\))/,'').html_safe
+    name.gsub(/([\(\[][^\(\)\[\]]+[\)\]])|((featuring | ?ft\.? |feat\.? |f\. |w\/).*)/i,'').html_safe
   end
 
   def nav_link_to(title, path)

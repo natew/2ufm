@@ -600,7 +600,7 @@ header #second-nav {
 
         a {
           font-size: 14px;
-          font-weight: 400;
+          font-weight: bold;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -611,7 +611,7 @@ header #second-nav {
 
       #player-artist-name {
         color: lighten($header-light, 18%);
-        font-size: 12px;
+        font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
         font-weight: 400;
@@ -619,7 +619,7 @@ header #second-nav {
         position: relative;
         z-index: 9;
 
-        a {color: lighten($header-light, 22%) !important;
+        a {color: lighten($header-light, 25%) !important;
           &:hover { color: #fff !important; }}
       }
 
