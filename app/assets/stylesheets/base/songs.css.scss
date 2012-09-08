@@ -92,15 +92,11 @@ $song-player-height: 50px;
     margin: 0;
     padding: $song-pad;
     position: relative;
+    border-bottom: 1px solid $body-dark;
     @include transition(all .1s linear);
 
-    &:nth-child(2n+1) {
-      background: darken($body-bg,2%);
-    }
-
     &.listened-to {
-      background: $body-lighter;
-      &:nth-child(2n+1) { background: $body-light; }
+      background: $body-light;
     }
 
     &:hover {
@@ -116,11 +112,7 @@ $song-player-height: 50px;
 
     &.active {
       border: 2px solid $primary;
-      background: $body-lighter !important;
-      .player-invite { padding: 16px; font-size:26px; }
       .waveform { opacity: 0.6; }
-      h1 span.artist a { color: #fff; }
-      .name em { display: block; line-height: 1.6em; }
     }
 
     &.failed {
@@ -147,7 +139,7 @@ $song-player-height: 50px;
     .reviews {
       position: relative;
       z-index: 13;
-      color: #888;
+      color: #aaa;
       display: none;
 
       a {
@@ -178,7 +170,7 @@ $song-player-height: 50px;
           pointer-events: none;
 
           a {
-            color: #bbb;
+            color: #ccc;
             pointer-events: auto;
             &:hover { color: $link-hover; }
           }
@@ -220,11 +212,10 @@ $song-player-height: 50px;
     }
 
     .song-meta {
-      border-top: 1px solid rgba(255,255,255,0.05);
       font-size: 12px;
-      margin: 10px 0 -10px;
+      margin: 5px 0 -10px;
       padding: 4px 0 0;
-      color: #999;
+      color: #888;
       z-index: 12;
       pointer-events: none;
 
@@ -242,7 +233,7 @@ $song-player-height: 50px;
         margin: 0 1px -8px;
 
         a {
-          font-weight: bold;
+          font-weight: 400;
         }
       }
 
@@ -256,10 +247,11 @@ $song-player-height: 50px;
 
         span {
           font-size: 14px;
-          margin: 0;
-          line-height: 1.5em;
+          margin: -1px 0 -1px -2px;
+          line-height: 1.6em;
           padding-right: 4px;
-          color: #999;
+          color: #bbb;
+          -webkit-font-smoothing: antialiased;
         }
 
         &.remove span {
@@ -272,7 +264,7 @@ $song-player-height: 50px;
       .count {display:none;}
 
       a {
-        color: #ddd;
+        color: #bbb;
         text-decoration: none;
         position: relative;
         z-index: 12;
@@ -391,7 +383,7 @@ $song-player-height: 50px;
   h1, .song-meta {
     margin-left: $song-art-big + $song-pad;
     span { line-height: 1.4em;
-      &.artist { font-size: 18px; margin: 0 0 2px 0; }
+      &.artist { font-size: 18px; }
       &.name { font-size: 26px; margin: 0 0 10px 0; }
     }
   }
