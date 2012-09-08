@@ -95,12 +95,12 @@ $song-player-height: 50px;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      section { background: $body-bg; }
+      background: darken($body-bg,2%);
     }
 
     &.listened-to {
-      background: $body-light;
-      &:nth-child(2n+1) { background: lighten($body-bg, 1%); }
+      background: $body-lighter;
+      &:nth-child(2n+1) { background: $body-light; }
     }
 
     &:hover {
@@ -220,8 +220,10 @@ $song-player-height: 50px;
     }
 
     .song-meta {
+      border-top: 1px solid rgba(255,255,255,0.05);
       font-size: 12px;
-      margin: 10px 0 0;
+      margin: 10px 0 -10px;
+      padding: 4px 0 0;
       color: #999;
       z-index: 12;
       pointer-events: none;
@@ -236,10 +238,8 @@ $song-player-height: 50px;
         white-space: nowrap;
         position: relative;
         display: inline-block;
-        padding: 2px 6px;
-        margin: 0 0 -8px;
-        background: rgba(0,0,0,0.15);
-        @include border-radius(6px);
+        padding: 1px 3px;
+        margin: 0 1px -8px;
 
         a {
           font-weight: bold;
@@ -250,8 +250,8 @@ $song-player-height: 50px;
         display: inline;
         background: none;
         border: none;
+        margin: 0;
         padding: 0;
-        margin: -1px 0 -1px;
         float: left;
 
         span {
@@ -274,22 +274,12 @@ $song-player-height: 50px;
       a {
         color: #ddd;
         text-decoration: none;
-        display: inline-block;
-        max-width: 85px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         position: relative;
         z-index: 12;
 
         &:hover, &:hover span {
           color: #fff;
         }
-      }
-
-      time {
-        display: inline-block;
-        white-space: nowrap;
       }
 
       .comments {
@@ -327,13 +317,16 @@ $song-player-height: 50px;
         display: block;
         text-align: center;
         font-size: 16px;
+        padding: 4px 8px 0;
+        margin: -4px;
+        font-weight: 400;
 
         &:before {
           position: relative;
-          font-size: 18px;
-          padding: 4px;
-          top: 0;
-          left: 0;
+          font-size: 16px;
+          padding: 4px 4px 4px 0;
+          top: -2px;
+          left: -2px;
         }
 
         &:hover {
@@ -347,8 +340,6 @@ $song-player-height: 50px;
 
         &.remove {
           padding-right: 8px;
-          border-right: 4px solid $like-dark;
-          background: $body-dark;
           &:before { color: $like-dark; }
         }
 
