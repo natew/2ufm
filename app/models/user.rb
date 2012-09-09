@@ -72,6 +72,10 @@ class User < ActiveRecord::Base
     Song.user_received_songs(id, offset, limit)
   end
 
+  def sent_songs(offset=0, limit=18)
+    Song.user_sent_songs(id, offset, limit)
+  end
+
   def followers
     Station
     .joins('inner join users on users.station_id = stations.id')

@@ -67,6 +67,10 @@ class Station < ActiveRecord::Base
     Station.new(id: 4, title:'Inbox', slug:'inbox')
   end
 
+  def self.current_user_outbox_station
+    Station.new(id: 5, title:'Outbox', slug:'outbox')
+  end
+
   def self.current_user_station
     Station.new(id: 3, title:'My Music Feed', slug:'my-station')
   end

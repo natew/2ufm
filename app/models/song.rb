@@ -186,6 +186,10 @@ class Song < ActiveRecord::Base
     Song.joins(:shares).where('shares.receiver_id = ?', id).limit(limit).offset(offset).playlist_scope_order_shared.with_user(id)
   end
 
+  def self.user_sent_songs(id, offset, limit)
+    Song.joins(:shares).where('shares.sender_id = ?', id).limit(limit).offset(offset).playlist_scope_order_shared.with_user(id)
+  end
+
   def self.user_following_songs(id, offset, limit)
     Song.find_by_sql(%Q{
       WITH a as (

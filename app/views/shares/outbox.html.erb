@@ -1,0 +1,15 @@
+<div class="nav-container">
+  <div class="title">
+    <h2>Shares</h2>
+    <%= render 'nav' %>
+  </div>
+</div>
+
+<div class="whole">
+  <%- if @has_songs -%>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @outbox_station, :songs => @outbox_songs, :nolimit => true } %>
+  <%- else -%>
+    <h3>You haven't sent any songs!</h3>
+    <p>Use the share link on any song to send it to users you are friends with.</p>
+  <%- end -%>
+</div>
