@@ -214,6 +214,13 @@ $(function() {
     $(this).parent().toggleClass('collapsed');
   });
 
+  // Share hover
+  $('#player-share').hover(function() {
+    var el = $(this);
+    updateShareLinks(el.data('link'), el.data('title'));
+    updateShareFriends(null);
+  });
+
   // Hover binding
   $('.nav-hover').hover(function(e) {
     var el = $(this);
@@ -234,7 +241,7 @@ $(function() {
     }, 300);
   }).click(function() {
     return false;
-  })
+  });
 
   // Link binding
   $('body').on('click', 'a', function bodyClick(e) {
@@ -492,6 +499,8 @@ function nearBottom() {
 function navDropdown(nav, pad) {
   fn.log(nav, pad);
   if (nav && nav.length) {
+    if (nav.is('.song-share')) updateShare(nav);
+
     var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
         padding = pad ? pad : 10,
         target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
@@ -513,6 +522,44 @@ function navDropdown(nav, pad) {
 
   if (navOpen) navOpen.removeClass('open').addClass('hidden');
   navOpen = false;
+}
+
+function updateShare(nav) {
+  var id = nav.data('id'),
+      section = $('#song-' + id),
+      index = section.data('index'),
+      playlist = $('#playlist-' + section.data('station')).data('playlist'),
+      song = playlist.songs[index],
+      link = 'http://2u.fm/songs/' + section.data('slug'),
+      title = song.artist_name + ' - ' + song.name,
+      share = $('#share');
+
+      fn.log(section, index, playlist, song);
+
+  updateShareLinks(link, title);
+  updateShareFriends(true);
+}
+
+function updateShareLinks(link, title) {
+  $('#share .player-invite').each(function() {
+    var el = $(this),
+        dataLink = el.data('link'),
+        url = dataLink.replace('{{url}}', encodeURIComponent(link)).replace('{{text}}', encodeURIComponent(title));
+    el.attr('href', url);
+  });
+
+  // Update link
+  $('#player-invite').val(link);
+}
+
+function updateShareFriends(friends) {
+  if (friends === true) {
+    $('#share-friends').show();
+  } else if (friends) {
+    $('#share-friends').html(friends);
+  } else {
+    $('#share-friends').hide();
+  }
 }
 
 // Modal
@@ -554,8 +601,13 @@ function getFriends() {
   fn.log(hasFriends);
   if (hasFriends) {
     $.get('/get_friends', function getFriendsCallback(data) {
-      if (data && data.length) $('#stations-inner').html(data);
-      else hasFriends = false;
+      if (data && data.length) {
+        $('#stations-inner').html(data);
+        updateShareFriends(data);
+      }
+      else {
+        hasFriends = false;
+      }
     });
   }
 }

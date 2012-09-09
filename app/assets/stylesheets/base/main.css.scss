@@ -533,7 +533,7 @@ header #second-nav {
   }
 
   #player-controls {
-    margin: 2px 0 -4px 0;
+    margin: 1px 0 -4px 0;
     float: left;
     width: 100px;
 
@@ -573,8 +573,8 @@ header #second-nav {
     }
 
     .next {
-      margin: 16px 0 0 -3px;
-      font-size: 24px;
+      margin: 14px 0 0 -3px;
+      font-size: 26px;
       width: 30px;
       height: 30px;
 
@@ -615,7 +615,7 @@ header #second-nav {
           overflow: hidden;
           text-overflow: ellipsis;
           color: #fff;
-          display: block;
+          display: inline-block;
         }
       }
 
@@ -723,11 +723,6 @@ header #second-nav {
     width: 200px;
     right: 2px;
 
-    #player-share-container {
-      display: inline-block;
-      float: left;
-    }
-
     a {
       display: inline-block;
       font-size: 10px;
@@ -769,6 +764,11 @@ header #second-nav {
         opacity: 0.5;
       }
     }
+
+    #player-share {
+      color: #fff;
+      &:before { color: #fff; }
+    }
   }
 }
 
@@ -799,6 +799,27 @@ header #second-nav {
     .input-text, input[type="text"] {
       width: 128px;
       margin: 10px;
+    }
+  }
+
+  #share-friends {
+    max-height: 200px;
+    overflow-y: scroll;
+
+    &:before {
+      content: "Send to a friend";
+      display: block;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    a {
+      float: none;
+      padding: 2px 4px;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
@@ -1276,7 +1297,7 @@ $nav-arrow-size: 5px;
     display: block;
     content: "";
     position: absolute;
-    top: -$nav-arrow-size;
+    top: -$nav-arrow-size + 1;
     left: 50%;
     margin-left: -$nav-arrow-size;
     width: 0;

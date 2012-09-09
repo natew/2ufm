@@ -3,7 +3,7 @@
   add = counter == :add
 -%>
 
-var broadcast = $('#song-<%= @locals[:id] %> .song-controls'),
+var broadcast = $('#song-<%= @locals[:id] %> .broadcast'),
     count = parseInt(broadcast.children('a').html(),10);
 
 <%= add %> ? count++ : count--;

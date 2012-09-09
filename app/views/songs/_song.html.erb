@@ -1,5 +1,5 @@
-<%-
-    id = song.id.to_s
+ <%-
+    id = song.matching_id.to_s
     station_id ||= -1
     cover      ||= :icon
     follow_id    = 'station-follow-' + id
@@ -7,7 +7,7 @@
     class_names  = 'listened-to' if song.listen_id? rescue nil
 -%>
 
-<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" class="<%= class_names %>">
+<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>" class="<%= class_names %>">
   <%-
     cache('song_' + id) do
   -%>
@@ -41,7 +41,8 @@
     </div>
 
     <div class="song-controls">
-      <%= broadcast_song(song) %>
+      <span class="broadcast"><%= broadcast_song(song) %></span>
+      <%= link_to 'Share', '#share', :class => 'nav-hover song-share restricted control', 'data-pad' => '20', 'data-id' => id %>
     </div>
   </div>
 

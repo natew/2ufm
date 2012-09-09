@@ -26,15 +26,8 @@ w.on({
     // fn.replaceState(listen);
 
     // Update share links
-    $('.player-invite').each(function() {
-      var el = $(this),
-          dataLink = el.data('link'),
-          url = dataLink.replace('{{url}}', encodeURIComponent(listen)).replace('{{text}}', encodeURIComponent(mp.getTitle()));
-      el.attr('href', url);
-    });
-
-    // Update link
-    $('#player-invite').val(listen);
+    $('#player-share').data('link', listen);
+    $('#player-share').data('title', mp.getTitle());
   },
 
   'mp:play': function mpPlay(event, mp) {
