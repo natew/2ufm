@@ -78,6 +78,10 @@ class Station < ActiveRecord::Base
     get_parent.image
   end
 
+  def avatar_exists?
+    get_parent.avatar.exists?
+  end
+
   def avatar(size)
     get_parent.avatar(size)
   end
