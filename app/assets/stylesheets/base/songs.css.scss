@@ -112,7 +112,6 @@ $song-player-height: 50px;
 
     &.active {
       border: 2px solid $primary;
-      .waveform { opacity: 0.6; }
     }
 
     &.failed {
@@ -363,6 +362,7 @@ $song-player-height: 50px;
       height: 100px;
       margin: -20px 0;
       width: 100%;
+      z-index: 9;
     }
   }
 }
@@ -382,6 +382,7 @@ $song-player-height: 50px;
 
   h1, .song-meta {
     margin-left: $song-art-big + $song-pad;
+    margin-top: -5px;
     span { line-height: 1.4em;
       &.artist { font-size: 18px; }
       &.name { font-size: 26px; margin: 0 0 10px 0; }
