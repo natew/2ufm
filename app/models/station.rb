@@ -25,6 +25,7 @@ class Station < ActiveRecord::Base
   scope :online, where('online > ?', 45.minutes.ago).ordered_online
   scope :not_online, where('online < ?', 45.minutes.ago).ordered_online
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
+  scope :with_user, joins(:user)
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug, :online
@@ -60,6 +61,10 @@ class Station < ActiveRecord::Base
 
   def user_broadcasts
     broadcasts.where(:parent => 'user')
+  end
+
+  def self.current_user_inbox_station
+    Station.new(id: 4, title:'Inbox', slug:'inbox')
   end
 
   def self.current_user_station

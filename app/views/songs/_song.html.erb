@@ -7,6 +7,10 @@
     class_names  = 'listened-to' if song.listen_id? rescue nil
 -%>
 
+<% if song.respond_to?('sender_username') %>
+  <h4 class="song-sender">Sent from <%= link_to song.sender_username, song.sender_station_slug %> <small><%= relative_time(song.sent_at) %></small></h4>
+<% end %>
+
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>" class="<%= class_names %>">
   <%-
     cache('song_' + id) do

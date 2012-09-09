@@ -49,6 +49,7 @@ Fusefm::Application.routes.draw do
   match '/set_email', :to => 'users#set_email'
   match '/share', :to => 'shares#create'
   match '/authorized', :to => 'users#authorized'
+  match '/inbox', :to => 'users#inbox'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

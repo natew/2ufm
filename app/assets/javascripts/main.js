@@ -221,7 +221,21 @@ $(function() {
     updateShareFriends(null);
   });
 
+  // Bind hovering on nav elements
   bindNavHover();
+
+  // Share click
+  $('#share-friends').on('click', 'a', function() {
+    var el = $(this);
+    $.post('/share', {
+      receiver_id: el.attr('id').split('-')[1],
+      song_id: shareSong
+    }, function() {
+      notice('Sent song to ' + el.text());
+    });
+
+    return false;
+  });
 
   // Link binding
   $('body').on('click', 'a', function bodyClick(e) {
@@ -538,8 +552,8 @@ function updateShare(nav) {
       title = song.artist_name + ' - ' + song.name,
       share = $('#share');
 
-      fn.log(section, index, playlist, song);
-
+  fn.log(section, index, playlist, song);
+  shareSong = id;
   updateShareLinks(link, title);
   updateShareFriends(true);
 }

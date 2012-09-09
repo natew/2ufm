@@ -69,6 +69,7 @@ class Song < ActiveRecord::Base
   has_many   :authors
   has_many   :artists, :through => :authors
   has_many   :listens
+  has_many   :shares
 
   # Comments
   acts_as_commentable
@@ -105,10 +106,12 @@ class Song < ActiveRecord::Base
   scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id" INNER JOIN blogs on blogs.id = posts.blog_id')
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
+  scope :with_sender, joins('INNER JOIN users as sender ON sender.id = shares.sender_id')
 
   # User related
   scope :with_user, lambda { |user|
-    select('listens.id as listen_id').joins("LEFT JOIN listens on listens.song_id = songs.id AND listens.user_id = #{user.id}") unless user.nil?
+    id = user.respond_to?('id') ? user.id : user
+    select('listens.id as listen_id').joins("LEFT JOIN listens on listens.song_id = songs.id AND listens.user_id = #{id}") unless user.nil?
   }
 
   # Data to select
@@ -120,9 +123,11 @@ class Song < ActiveRecord::Base
   scope :order_broadcasted, order('broadcasts.created_at desc')
   scope :order_ranked, order('songs.rank desc')
   scope :order_published, order('songs.published_at desc')
+  scope :order_shared, order('shares.created_at desc')
 
   # Selects
   scope :select_songs, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
+  scope :select_shared_songs, select('DISTINCT ON (shares.created_at, songs.matching_id) songs.*').select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at')
   scope :select_distinct_broadcasts, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*')
   scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
@@ -131,6 +136,7 @@ class Song < ActiveRecord::Base
   scope :playlist_scope_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
   scope :playlist_scope_order_rank, select_distinct_rank.order_ranked.individual
   scope :playlist_scope_order_published, select_songs.order_published.individual
+  scope :playlist_scope_order_shared, select_shared_songs.with_sender.order_shared.individual
 
   # Grouped Scopes
   scope :limit_inner, limit(Yetting.per * 20)
@@ -174,6 +180,10 @@ class Song < ActiveRecord::Base
 
   def self.playlist_order_rank(user)
     Song.where(id: Song.grouped_order_rank).playlist_scope_order_rank.with_user(user)
+  end
+
+  def self.user_received_songs(id, offset, limit)
+    Song.joins(:shares).where('shares.receiver_id = ?', id).limit(limit).offset(offset).playlist_scope_order_shared.with_user(id)
   end
 
   def self.user_following_songs(id, offset, limit)

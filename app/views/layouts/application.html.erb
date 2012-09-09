@@ -93,6 +93,7 @@
           <%= link_to ('Profile ' + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
           <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
           <%= link_to 'Stations', '/stations', :id => 'nav-stations' %>
+          <%= link_to 'Inbox', '/inbox', :id => 'nav-inbox' %>
         </section>
         <%- end -%>
 

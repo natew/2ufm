@@ -13,9 +13,15 @@ class UsersController < ApplicationController
   end
 
   def get_friends
-    @online = user_signed_in? ? current_user.stations.user_station.online.limit(5) : nil
-    @friends = user_signed_in? ? current_user.stations.user_station.not_online.limit(6) : nil
+    @online = user_signed_in? ? current_user.stations.user_station.with_user.online.limit(5) : nil
+    @friends = user_signed_in? ? current_user.stations.user_station.with_user.not_online.limit(6) : nil
     render :layout => false
+  end
+
+  def inbox
+    @inbox_station = Station.current_user_inbox_station
+    @inbox_songs = current_user.received_songs
+    @has_songs = true if @inbox_songs.size > 0
   end
 
   def following

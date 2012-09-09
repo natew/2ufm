@@ -87,6 +87,20 @@ $song-player-height: 50px;
     display: block;
   }
 
+  h4 {
+    background: $body-dark;
+    padding: 8px;
+    margin: 15px 0 0;
+
+    a {
+      text-decoration: none;
+      background: rgba(0,0,0,0.1);
+      padding: 2px;
+      margin: -2px 0;
+      @include border-radius(4px);
+    }
+  }
+
   section {
     min-height: 50px;
     margin: 0;
