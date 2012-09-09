@@ -46,10 +46,10 @@
           </div>
 
           <div id="player-buttons">
-            <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav control pictos-link' %>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control tip-n pictos-music disabled', :id => 'nav-music', :title => 'Current Playlist', 'data-pad' => '40' %>
-            <%= link_to 'Sound', '#', :class => 'volume control tip-n pictos-volume-on', :id => 'player-volume', :title => 'Volume toggle' %>
-            <%= link_to 'Shuffle', "", :id => 'player-shuffle', :class => 'shuffle tip-n control pictos-shuffle', :title => 'Shuffle' %>
+            <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link' %>
+            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music', 'data-pad' => '40' %>
+            <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
+            <%= link_to 'Shuffle', "", :id => 'player-shuffle', :class => 'shuffle control pictos-shuffle' %>
           </div>
 
           <div id="player-main">
@@ -152,12 +152,13 @@
   </div>
 
   <div id="share" class="pop-menu">
-    <%= link_to "Facebook", '', :class => 'player-invite control popup facebook-button', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
-    <%= link_to "Twitter", '', :class => 'player-invite control popup twitter-button', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
-    <form>
-      <label for="player-invite">Direct link</label>
-      <input type="text" id="player-invite" class="select-on-click" />
-    </form>
+    <%= link_to image_tag('facebook.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
+    <%= link_to image_tag('twitter.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
+    <%= link_to image_tag('tumblr.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://tumblr.com/share?v=3&u={{url}}&t={{text}}' %>
+    <%= link_to image_tag('stumbleupon.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://stumbleupon.com/submit?url={{url}}&title={{text}}' %>
+    <%= link_to image_tag('pinterest.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://pinterest.com/pin/create/button?url={{url}}&description={{text}}' %>
+    <%= link_to image_tag('reddit.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,600', 'data-link' => 'http://reddit.com/submit?url={{url}}&title={{text}}' %>
+    <form><input type="text" id="player-invite" class="select-on-click" /></form>
   </div>
 
   <!-- Modals -->

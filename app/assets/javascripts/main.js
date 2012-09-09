@@ -22,7 +22,9 @@ var w = $(window),
     isDragging = false,
     mouseDown = false,
     hasFriends = true,
-    shareSong;
+    shareSong,
+    navHovered = [],
+    navUnhoveredOnce = false;
 
 // Read URL parameters
 var urlParams = {},
@@ -210,6 +212,28 @@ $(function() {
 
   $('.collapse').click(function() {
     $(this).parent().toggleClass('collapsed');
+  });
+
+  // Hover binding
+  $('.nav-hover').hover(function(e) {
+    var el = $(this);
+    if (!navHovered[el.attr('class')]) navDropdown(el);
+    navHovered[el.attr('class')] = true;
+  }, function() {
+    var el = $(this);
+    var navHoverInterval = setInterval(function() {
+      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+        navUnhoveredOnce = true;
+        if (navUnhoveredOnce) {
+          navDropdown(false);
+          clearInterval(navHoverInterval);
+          navHovered[el.attr('class')] = false;
+          navUnhoveredOnce = false;
+        }
+      }
+    }, 300);
+  }).click(function() {
+    return false;
   })
 
   // Link binding
@@ -469,7 +493,7 @@ function navDropdown(nav, pad) {
   fn.log(nav, pad);
   if (nav && nav.length) {
     var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
-        padding = pad ? pad : 20,
+        padding = pad ? pad : 10,
         target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
         dropdown = $(target).removeClass('hidden').addClass('open'),
         top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,

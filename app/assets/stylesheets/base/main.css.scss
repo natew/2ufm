@@ -762,9 +762,35 @@ header #second-nav {
   }
 }
 
-#share a {
-  padding: 14px;
-  font-size: 16px;
+#share {
+  width: 162px;
+
+  a {
+    float: left;
+    background: none;
+    padding: 9px;
+
+    &:nth-child(4n) {
+      clear: left;
+    }
+
+    &:hover {
+      background: $body-bg;
+    }
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+
+  form {
+    width: 160px;
+    .input-text, input[type="text"] {
+      width: 128px;
+      margin: 10px;
+    }
+  }
 }
 
 .third .play-button {
@@ -1225,8 +1251,8 @@ $nav-arrow-size: 5px;
   top: 0;
   left: 0;
   z-index: 10000;
-  padding: $nav-item-pad 0;
-  background: #000;
+  padding: $nav-item-pad 4px;
+  background: rgba(0,0,0,0.7);
   max-width: 250px;
   font-weight: bold;
   @include border-radius(5px);
@@ -1291,11 +1317,6 @@ $nav-arrow-size: 5px;
   a:hover,
   .playing {
     @include linear-gradient($header-light,$header-color);
-  }
-
-  form {
-    width:160px;
-    .input-text, input[type="text"] { width:148px; }
   }
 }
 
