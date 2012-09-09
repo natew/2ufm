@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
 
   before_create :make_station, :set_station_slug, :set_station_id
+  after_update :update_station_title
   before_validation :get_remote_avatar, :if => :avatar_url_provided?
   validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
 
@@ -164,6 +165,11 @@ class User < ActiveRecord::Base
   end
 
   protected
+
+  def update_station_title
+    self.station.title = username if self.username_changed?
+    self.station.save
+  end
 
   # Devise override for logins
   def self.find_for_database_authentication(warden_conditions)
