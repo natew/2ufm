@@ -13,10 +13,10 @@ en:
         one: "just now"
         other: "just now"
       less_than_x_minutes:
-        one:   "minutes ago"
+        one:   "a minute ago"
       x_minutes:
-        one:   "minutes ago"
-        other: "%{count} minute ago"
+        one:   "a minute ago"
+        other: "%{count} minutes ago"
       about_x_hours:
         one:   "an hour ago"
         other: "%{count} hours ago"

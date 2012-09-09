@@ -221,27 +221,7 @@ $(function() {
     updateShareFriends(null);
   });
 
-  // Hover binding
-  $('.nav-hover').hover(function(e) {
-    var el = $(this);
-    if (!navHovered[el.attr('class')]) navDropdown(el);
-    navHovered[el.attr('class')] = true;
-  }, function() {
-    var el = $(this);
-    var navHoverInterval = setInterval(function() {
-      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-        navUnhoveredOnce = true;
-        if (navUnhoveredOnce) {
-          navDropdown(false);
-          clearInterval(navHoverInterval);
-          navHovered[el.attr('class')] = false;
-          navUnhoveredOnce = false;
-        }
-      }
-    }, 300);
-  }).click(function() {
-    return false;
-  });
+  bindNavHover();
 
   // Link binding
   $('body').on('click', 'a', function bodyClick(e) {
@@ -406,6 +386,30 @@ function mpClick(selector, callback) {
     e.preventDefault();
     fn.log(fn);
     mp[callback].call();
+  });
+}
+
+function bindNavHover() {
+  // Hover binding
+  $('.nav-hover').hover(function(e) {
+    var el = $(this);
+    if (!navHovered[el.attr('class')]) navDropdown(el);
+    navHovered[el.attr('class')] = true;
+  }, function() {
+    var el = $(this);
+    var navHoverInterval = setInterval(function() {
+      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+        navUnhoveredOnce = true;
+        if (navUnhoveredOnce) {
+          navDropdown(false);
+          clearInterval(navHoverInterval);
+          navHovered[el.attr('class')] = false;
+          navUnhoveredOnce = false;
+        }
+      }
+    }, 300);
+  }).click(function() {
+    return false;
   });
 }
 
