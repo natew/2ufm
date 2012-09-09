@@ -52,7 +52,7 @@ class Song < ActiveRecord::Base
   }
 
   STRIP = {
-    :remixer => /\'s.*| (vocal|instrumental|(summer|fall|spring|winter)( 2[0-9]{3})?) /i,
+    :remixer => /\'s.*| (extended|original|vocal|instrumental|(summer|fall|spring|winter)( 2[0-9]{3})?)? /i,
     :producer => /^by /i
   }
 
