@@ -133,10 +133,10 @@
   <div id="welcome">
     <small>What is 2u.fm?</small>
     <section>
-      <h1>The best new music from across the web.</h1>
-      <h1>An easy way to listen to music with friends.</h1>
-      <h1>A place to discover and follow new artists.</h1>
-      <h1>.</h1>
+      <h1>All the best new music from across the web.</h1>
+      <h1>The easiest way to find and share music with your friends.</h1>
+      <h1>A place to discover and follow new artists and songs.</h1>
+      <h1>Music + social, without cluttering up your other profiles.</h1>
     </section>
     <%= link_to 'Learn More', '/tour', :class => 'button add' %>
     <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
@@ -163,24 +163,30 @@
 
   <% if !user_signed_in? %>
     <div id="modal-login" class="hidden">
-      <h3>Welcome to 2u.fm!</h3>
-      <p class="large">The best new music from around the web.  Sign up for free!</p>
+      <h3>Welcome to 2u.fm!
+        <small>The best new music from around the web.  Sign up for free!</small></h3>
+      <p class="large"></p>
 
-      <div class="center">
-        <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button' %>
-        <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button' %>
-      </div>
+      <form id="modal-login-form" class="centered">
+        <label for="login-email">What's your email address?</label>
+        <input type="text" name="login-email" id="login-email" placeholder="user@example.com" />
+      </form>
 
-      <em>or</em>
+      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup', 'data-dimensions' => '800,500' %>
+      <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup', 'data-dimensions' => '800,500' %>
 
-      <div class="half inline">
-        <h4>Login</h4>
-        <%= render :partial => 'sessions/new_form' %>
-      </div>
+      <em>or <%= link_to 'login without a social network', '#loner-login', :class => 'show-hide' %></em>
 
-      <div class="half inline">
-        <h4>Sign up</h4>
-        <%= render :partial => 'registrations/new_form' %>
+      <div class="hidden" id="loner-login">
+        <div class="half inline">
+          <h4>Sign up</h4>
+          <%= render :partial => 'registrations/new_form' %>
+        </div>
+
+        <div class="half inline">
+          <h4>Login</h4>
+          <%= render :partial => 'sessions/new_form' %>
+        </div>
       </div>
     </div>
   <% end %>

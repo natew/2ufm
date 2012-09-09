@@ -48,6 +48,7 @@ Fusefm::Application.routes.draw do
   match "/get_friends", :to => 'users#get_friends'
   match '/set_email', :to => 'users#set_email'
   match '/share', :to => 'shares#create'
+  match '/authorized', :to => 'users#authorized'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

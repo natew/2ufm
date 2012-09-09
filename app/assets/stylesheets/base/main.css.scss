@@ -799,7 +799,7 @@ header #second-nav {
   left: 0;
   right: 0;
   padding: 20px;
-  z-index: 1000;
+  z-index: 10000;
   @include linear-gradient(#333, #222);
   @include box-shadow(0 0 10px rgba(0,0,0,0.7));
 

@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
         full_name: info.name,
         provider: auth.provider,
         uid: auth.uid,
-        email: info.email,
+        email: session[:user_email] || info.email,
         password: Devise.friendly_token[0,20]
       )
       user.skip_confirmation!
@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
         username: info.screen_name,
         provider: auth.provider,
         uid: auth.uid,
-        email: session[:email_address],
+        email: session[:user_email] || session[:email_address],
         location: info.location,
         bio: info.description,
         full_name: info.name,

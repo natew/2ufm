@@ -30,6 +30,12 @@
 }
 
 form {
+  &.has_errors {
+    background: $light-red !important;
+    .input-text, input[type="text"] {background: #fff; color: #555;}
+  }
+
+
   .field_with_errors {
     .input-text {
       border: 2px solid $light-red;
@@ -193,7 +199,7 @@ button {
   text-decoration: none;
   padding: 4px 16px;
   margin: 2px 4px 10px 0;
-  font-weight: bold;
+  font-weight: 400;
   position: relative;
   z-index: 10;
   border: none;

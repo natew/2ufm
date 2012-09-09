@@ -38,9 +38,9 @@
   color: #ddd;
   padding: 20px;
   overflow: auto;
+  opacity: 0;
   font-weight: normal;
   @include box-shadow(0 0 15px rgba(0,0,0,0.8));
-  @include transition(top linear .2s);
   @include box-sizing(border-box);
 
   &.shown {
@@ -49,10 +49,9 @@
   }
 
   &.modal-login {
-    top: 50%;
-    margin-top: -275px;
-    height: 550px;
+    top: 10%;
     overflow: hidden;
+    text-align: center;
   }
 
   em {
@@ -66,7 +65,7 @@
   }
 
   h2, h3, h4 {
-    color: $primary;
+    color: #fff;
     font-size: 28px;
     margin: -20px;
     margin-bottom: 20px;
@@ -74,7 +73,9 @@
     background: $body-darker;
 
     small {
-      font-size: 80%;
+      font-size: 50%;
+      display: block;
+      line-height: 1.5em;
     }
   }
 
@@ -100,96 +101,21 @@
 }
 
 #modal-login {
-  .actions {
-    background: none;
-    a { margin: 0 0 10px 0;}}
+  form.centered {
+    margin: -10px -20px 20px;
+    padding: 20px;
+    input, label {
+      float: none;
+      font-size: 16px;
+    }}
+  .actions {background:none; padding:0;
+   input {float: right;}}
   a.alt { color: #aaa; }
 }
 
-#modal div.hidden {
+#modal > div.hidden {
   display: block !important;
   visibility: visible;
-}
-
-#modal-user {
-  h4 {
-    font-size: 15px;
-  }
-
-  #user-login {
-    width: 250px;
-    padding: 10px 20px;
-    float: right;
-
-    input[type="text"],
-    input[type="password"] {
-      width: 95%;
-    }
-
-    label {
-      width: auto;
-      margin: 0;
-      padding: 0 0 4px 0;
-      float: none;
-      text-align: left;
-      display: block;
-    }
-
-    #user_remember_me {
-      float: right;
-      margin: 12px 104px 0 0;
-    }
-
-    #remember-me {
-      display: block;
-      float: right;
-      margin: -17px 125px 0 10px;
-      padding: 0;
-    }
-
-    .actions {
-      background: none;
-      padding: 0;
-      margin-top: -38px;
-      float: right;
-      text-align: right;
-      border: none;
-
-      p {
-        float: none;
-        margin: 45px -20px 0 0;
-      }
-
-      input {
-        float: right;
-      }
-
-      a {
-        font-size: 11px;
-        text-decoration: none;
-        color: #666;
-      }
-    }
-  }
-
-  #user-signup {
-    float: left;
-
-    form {
-      padding: 20px;
-      width: 380px;
-      background: $lightest-blue;
-      border: 2px solid $light-blue;
-      @include border-radius(8px);
-    }
-
-    .actions {
-      background: none;
-      padding-top: 0;
-      padding-bottom: 0;
-      border: none;
-    }
-  }
 }
 
 * html #modal {

@@ -213,97 +213,107 @@ $(function() {
   })
 
   // Link binding
-  $('body').click(function bodyClick(e) {
-    if (!e.target) return false;
-    var parent = e.target;
+  $('body').on('click', 'a', function bodyClick(e) {
+    var el = $(this);
+    fn.log('click', el);
 
-    // Update last position (for loading spinner)
-    lastPosition = [e.pageX, e.pageY];
-
-    // Find A tag
-    while (true) {
-      if (parent.tagName == 'A' || parent.tagName == 'BODY') break;
-      parent = parent.parentNode;
-      if (!parent) return false;
+    // Disabled
+    if (el.is('.disabled')) {
+      e.preventDefault();
+      return false;
     }
-
-    if (parent.tagName == 'A') {
-      var el = $(parent);
-      fn.log('click', el);
-
-      // Disabled
-      if (el.is('.disabled')) {
-        e.preventDefault();
+    else {
+      if (el.is('.control')) e.preventDefault();
+      if (el.is('.nav')) {
+        navDropdown($(e.target));
         return false;
       }
       else {
-        if (el.is('.control')) e.preventDefault();
-        if (el.is('.nav')) {
-          navDropdown($(e.target));
-          return false;
-        }
-        else {
-          // Close any dropdowns
-          navDropdown(false);
-        }
+        // Close any dropdowns
+        navDropdown(false);
+      }
 
-        // Songs
-        if (el.is('.song-link')) {
-          fn.log('song link')
-          mp.playSection(el.parent('section'));
-        }
+      // Songs
+      if (el.is('.song-link')) {
+        fn.log('song link')
+        mp.playSection(el.parent('section'));
+      }
 
-        // Not logged in
-        else if (!isOnline && el.is('.restricted')) {
-          modal('#modal-login');
-          return false;
-        }
+      // Not logged in
+      else if (!isOnline && el.is('.restricted')) {
+        modal('#modal-login');
+        return false;
+      }
 
-        // Modals
-        else if (el.is('.modal')) {
-          modal(e.target.getAttribute('href'));
-          return false;
-        }
+      // Modals
+      else if (el.is('.modal')) {
+        modal(e.target.getAttribute('href'));
+        return false;
+      }
 
-        // Infinite scroll
-        else if (el.is('.next-page:not(.loaded)')) {
-          // Page load
-          nextPage(el);
-          return false;
-        }
+      // Infinite scroll
+      else if (el.is('.next-page:not(.loaded)')) {
+        // Page load
+        nextPage(el);
+        return false;
+      }
 
-        else if (el.is('.play-station')) {
-          mp.setAutoPlay(true);
-        }
-        else if (el.is('.shuffle')) {
-          fn.log('shuffle');
+      else if (el.is('.play-station')) {
+        mp.setAutoPlay(true);
+      }
+
+      else if (el.is('.shuffle')) {
+        fn.log('shuffle');
+        e.preventDefault();
+        shuffled = mp.toggleShuffle();
+        updateShuffle(shuffled, el);
+      }
+
+      else if (el.is('#more-artists')) {
+        var next = $('.artists-shelf li:not(.hidden):lt(5)');
+        if (next.length) next.addClass('hidden')
+        else $('.artists-shelf li').removeClass('hidden');
+      }
+
+      else if (el.is('.close-modal')) {
+        modal(false);
+      }
+
+      else if (el.is('.show-hide')) {
+        $(el.attr('href')).toggleClass('hidden');
+        return false;
+      }
+
+      else if (el.is('.login-button')) {
+        var email = $('#login-email').val();
+        if (!fn.validateEmail(email)) {
           e.preventDefault();
-          shuffled = mp.toggleShuffle();
-          updateShuffle(shuffled, el);
-        }
-        else if (el.is('#more-artists')) {
-          var next = $('.artists-shelf li:not(.hidden):lt(5)');
-          if (next.length) next.addClass('hidden')
-          else $('.artists-shelf li').removeClass('hidden');
-        }
-        else if (el.is('.close-modal')) {
-          modal(false);
+          $('#modal-login-form').addClass('has_errors');
+          return false;
+        } else {
+          $('#modal-login-form').removeClass('has_errors');
+          $.post('/set_email', {email: email});
         }
       }
-    }
 
-    // Not a link click
-    else {
-      navDropdown(false);
+      // Always run the below functions
+
+      if (el.is('.popup')) {
+        e.preventDefault();
+        var link = $(this),
+            dimensions = link.data('dimensions').split(',');
+        fn.popup(link.attr('href'), dimensions[0], dimensions[1]);
+      }
     }
   });
 
-  // Popups
-  $('.popup').click(function(e){
-    e.preventDefault();
-    var link = $(this),
-        dimensions = link.data('dimensions').split(',');
-    fn.popup(link.attr('href'),link.attr('title'),'status=0,toolbar=0,location=0,height='+dimensions[1]+',width='+dimensions[0]);
+  // Clicks not on a
+  $('body').on('click', function() {
+    // Update last position (for loading spinner)
+    lastPosition = [e.pageX, e.pageY];
+
+    // Hide dropdowns on click
+    if (!$(this).is('a')) navDropdown(false);
   });
 
   //
