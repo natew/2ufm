@@ -78,8 +78,8 @@ class Station < ActiveRecord::Base
     get_parent.image
   end
 
-  def avatar
-    get_parent.avatar
+  def avatar(size)
+    get_parent.avatar(size)
   end
 
   def description
