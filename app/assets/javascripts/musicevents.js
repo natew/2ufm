@@ -52,7 +52,7 @@ w.on({
     if (curSection) {
       var em = curSection.find('.name em'),
           artist = curSection.find('.artist').html(),
-          other_artists = em.length ? em.html() : '',
+          other_artists = (em && em.length) ? em.html() : '',
           separator = artist.length && other_artists.length ? ', ' : '';
       html_artists = artist.length ? artist + separator + other_artists : other_artists
     }

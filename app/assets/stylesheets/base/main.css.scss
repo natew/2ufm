@@ -236,10 +236,19 @@ header {
         margin-left: 0;
         margin-right: -25px;
         font-size: 14px;
+        position: relative;
 
         &.active {
           background: $primary;
           color: #fff;
+        }
+
+        img {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 32px;
+          height: 32px;
         }
       }
 

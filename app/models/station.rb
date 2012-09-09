@@ -78,6 +78,10 @@ class Station < ActiveRecord::Base
     get_parent.image
   end
 
+  def avatar
+    get_parent.avatar
+  end
+
   def description
     parent = get_parent
     parent.description if parent.respond_to?('description')
