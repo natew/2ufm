@@ -1,4 +1,4 @@
 <%
-  image = friend.avatar.exists? ? friend.avatar(:small) : ''
+  image = friend.avatar(:small).exists? ? friend.avatar(:small) : ''
 %>
 <%= link_to raw(friend.title + ' ' + image), friend, :id => 'friend-' + friend.id.to_s %>
