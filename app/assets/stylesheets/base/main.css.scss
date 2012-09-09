@@ -148,8 +148,8 @@ header {
   bottom: 0;
   width: $navbar-width;
   padding: 20px 0 0 0;
-  background: $navbar-bg;
   @include box-sizing(border-box);
+  @include linear-gradient(left, darken($navbar-bg, 1%), $navbar-bg 2%);
 
   #navbar-menus {
     overflow: hidden;
@@ -299,6 +299,7 @@ header {
         background: $body-bg;
         margin-left: 0;
         padding-left: 23px;
+        @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
 
         &:hover {background: $body-bg;}
       }
@@ -1518,7 +1519,7 @@ h2 small { font-size: 55%; }
 .upload-avatar {
   position: absolute;
   top: 6px;
-  right: 0;
+  right: 26px;
   z-index: 12;
   text-align: center;
   padding: 50px 0 0;
