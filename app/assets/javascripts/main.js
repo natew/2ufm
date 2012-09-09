@@ -300,21 +300,29 @@ $(function() {
 
       if (el.is('.popup')) {
         e.preventDefault();
-        var link = $(this),
-            dimensions = link.data('dimensions').split(',');
-        fn.popup(link.attr('href'), dimensions[0], dimensions[1]);
+        var el = $(this),
+            url = el.attr('href'),
+            dimensions = el.data('dimensions').split(',');
+
+        fn.popup(url, dimensions[0], dimensions[1]);
       }
     }
   });
 
   // Clicks not on a
   $('body').on('click', function() {
+    var el = $(this);
+
     // Update last position (for loading spinner)
     lastPosition = [e.pageX, e.pageY];
 
     // Hide dropdowns on click
-    if (!$(this).is('a')) navDropdown(false);
+    if (!el.is('a')) navDropdown(false);
   });
+
+  $('.select-on-click').click(function() {
+    $(this).select();
+  })
 
   //
   // Application integration

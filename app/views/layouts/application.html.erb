@@ -152,9 +152,12 @@
   </div>
 
   <div id="share" class="pop-menu">
-    <%= link_to "Facebook", '', :class => 'player-invite-facebook player-invite control popup facebook-button', 'data-dimensions' => '800,400'  %>
-    <%= link_to "Twitter", '', :class => 'player-invite-twitter player-invite control popup', 'data-dimensions' => '600,300' %>
-    <%= link_to "Link", '', :class => 'player-invite control', 'data-click' => 'Copied!' %>
+    <%= link_to "Facebook", '', :class => 'player-invite control popup facebook-button', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
+    <%= link_to "Twitter", '', :class => 'player-invite control popup twitter-button', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
+    <form>
+      <label for="player-invite">Direct link</label>
+      <input type="text" id="player-invite" class="select-on-click" />
+    </form>
   </div>
 
   <!-- Modals -->
@@ -163,8 +166,7 @@
 
   <% if !user_signed_in? %>
     <div id="modal-login" class="hidden">
-      <h3>Welcome to 2u.fm!
-        <small>The best new music from around the web.  Sign up for free!</small></h3>
+      <h3>Welcome to 2u.fm!</h3>
       <p class="large"></p>
 
       <form id="modal-login-form" class="centered">

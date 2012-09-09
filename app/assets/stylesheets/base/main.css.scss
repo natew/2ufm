@@ -1292,6 +1292,11 @@ $nav-arrow-size: 5px;
   .playing {
     @include linear-gradient($header-light,$header-color);
   }
+
+  form {
+    width:160px;
+    .input-text, input[type="text"] { width:148px; }
+  }
 }
 
 /* Ordered list for display results. */

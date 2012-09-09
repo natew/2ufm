@@ -21,8 +21,20 @@ w.on({
   },
 
   'mp:gotListen': function mpGotListenEvent(event, mp, song) {
+    var listen = 'http://2u.fm' + mp.getListenUrl();
     // Update url
-    fn.replaceState(mp.getListenUrl());
+    // fn.replaceState(listen);
+
+    // Update share links
+    $('.player-invite').each(function() {
+      var el = $(this),
+          dataLink = el.data('link'),
+          url = dataLink.replace('{{url}}', encodeURIComponent(listen)).replace('{{text}}', encodeURIComponent(mp.getTitle()));
+      el.attr('href', url);
+    });
+
+    // Update link
+    $('#player-invite').val(listen);
   },
 
   'mp:play': function mpPlay(event, mp) {
