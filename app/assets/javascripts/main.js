@@ -311,13 +311,14 @@ $(function() {
 
   // Clicks not on a
   $('body').on('click', function(e) {
-    var el = $(this);
+    var el = $(e.target);
 
     // Update last position (for loading spinner)
     lastPosition = [e.pageX, e.pageY];
 
     // Hide dropdowns on click
-    if (!el.is('a')) navDropdown(false);
+    console.log(el, el.is('input'))
+    if (!el.is('a,input')) navDropdown(false);
   });
 
   $('.select-on-click').click(function() {
