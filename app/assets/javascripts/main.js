@@ -310,7 +310,7 @@ $(function() {
   });
 
   // Clicks not on a
-  $('body').on('click', function() {
+  $('body').on('click', function(e) {
     var el = $(this);
 
     // Update last position (for loading spinner)
@@ -413,7 +413,7 @@ function updatePageURL(page) {
   }
 
   url += hash;
-  window.history.replaceState(null,document.title,url);
+  fn.replaceState(url);
   mp.updatePage(url);
 }
 
@@ -440,8 +440,8 @@ function nextPage(link, callback) {
         var playlist = $('#playlist-' + id + '-' + scrollPage);
         link.html('Page ' + scrollPage).addClass('loaded');
         loadingPage = false;
-        updatePageURL(scrollPage);
         link.after(data);
+        updatePageURL(scrollPage);
         pageEndOffsets.push(curPlaylist.offset().top + curPlaylist.height());
         if (callback) callback.call(playlist);
       },

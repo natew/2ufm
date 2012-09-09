@@ -75,7 +75,8 @@ function handleClick(event, container, options) {
     container: $(link).attr('data-pjax'),
     target: link,
     clickedElement: $(link), // DEPRECATED: use target
-    fragment: null
+    fragment: null,
+    dontRequest: false
   }
 
   $.pjax($.extend({}, defaults, options))
@@ -296,7 +297,7 @@ var pjax = $.pjax = function( options ) {
   }
 
   pjax.options = options
-  pjax.xhr = $.ajax(options)
+  if (!options.dontRequest) pjax.xhr = $.ajax(options)
   $(document).trigger('pjax', [pjax.xhr, options])
 
   return pjax.xhr

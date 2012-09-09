@@ -48,8 +48,9 @@ var fn = {
     return newwindow;
   },
 
-  replaceState: function(url) {
-    return window.history.replaceState(null,document.title,url);
+  replaceState: function(url, container) {
+    window.history.replaceState(null,document.title,url)
+    return $.pjax({url: url, container: (container || '#null'), replace: true, dontRequest: true});
   },
 
   flatten: function(obj, includePrototype, into, prefix) {
