@@ -86,7 +86,7 @@ $(function() {
   }
 
   // Dialog
-  // hideDialog();
+  hideDialog();
 
   // Fire initial page load
   page.start();
@@ -376,7 +376,7 @@ $(function() {
 
 function notice(message, time) {
   $('<div id="dialog">' + message + '</div>').prependTo('#body');
-  // hideDialog(time);
+  hideDialog(time);
 }
 
 function hideDialog(time) {
