@@ -86,7 +86,7 @@ $(function() {
   }
 
   // Dialog
-  hideDialog();
+  // hideDialog();
 
   // Fire initial page load
   page.start();
@@ -228,7 +228,7 @@ $(function() {
   $('#share-friends').on('click', 'a', function() {
     var el = $(this);
     $.post('/share', {
-      receiver_id: el.attr('id').split('-')[1],
+      receiver_id: el.data('user'),
       song_id: shareSong
     }, function() {
       notice('Sent song to ' + el.text());
@@ -376,7 +376,7 @@ $(function() {
 
 function notice(message, time) {
   $('<div id="dialog">' + message + '</div>').prependTo('#body');
-  hideDialog(time);
+  // hideDialog(time);
 }
 
 function hideDialog(time) {

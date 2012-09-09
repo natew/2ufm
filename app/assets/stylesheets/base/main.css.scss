@@ -820,6 +820,8 @@ header #second-nav {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+
+      img {display: none;}
     }
   }
 }
@@ -936,15 +938,13 @@ header #second-nav {
   position: fixed;
   z-index: 1000;
   text-align: center;
-  background: rgba(0,0,0,0.8);
-  color: #fff;
+  background: rgba(0,0,0,0.6);
+  color: yellow;
   width: 100%;
-  height: 38px;
   line-height: 2.9em;
-  color: white;
   margin: -20px 0 0 -40px;
   left: 0;
-  font-weight: bold;
+  font-size: 18px;
   width: 110%;
   overflow: hidden;
 
