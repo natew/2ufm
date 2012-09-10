@@ -1,5 +1,5 @@
 <%- second_level = action_name =~ /index/i || @primary.nil?
-    separate = 'after' unless second_level
+    separate = second_level ? '' : 'after'
 
     if !second_level
   -%>
@@ -7,7 +7,7 @@
     <%= link_to 'Home', '/', :class => 'after' %>
     <%= link_to controller_name.capitalize, '/' + controller_name, :class => separate if second_level %>
     <%- if !second_level -%>
-      <%= link_to @primary.class.name.pluralize, '/' + @primary.class.name.downcase.pluralize, :class => separate %>
+      <%= link_to @primary.class.name.pluralize, '/' + @primary.class.name.downcase.pluralize, :class => separate + ' highlight' %>
       <%= link_to @primary.get_title, @primary %>
     <%- end -%>
 

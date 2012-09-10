@@ -98,11 +98,9 @@
         <%- end -%>
 
         <section>
-          <%= link_to 'New', '/', :id => 'nav-new' %>
+          <h1>Browse</h1>
+          <%= link_to 'Just in', '/', :id => 'nav-new' %>
           <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
-        </section>
-
-        <section class="nav-extra">
           <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
           <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
           <% link_to 'Users', '/users', :id => 'nav-users' %>
@@ -156,9 +154,6 @@
     <%= link_to image_tag('/images/facebook.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
     <%= link_to image_tag('/images/twitter.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
     <%= link_to image_tag('/images/tumblr.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://tumblr.com/share?v=3&u={{url}}&t={{text}}' %>
-    <%= link_to image_tag('/images/stumbleupon.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://stumbleupon.com/submit?url={{url}}&title={{text}}' %>
-    <%= link_to image_tag('/images/pinterest.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://pinterest.com/pin/create/button?url={{url}}&description={{text}}' %>
-    <%= link_to image_tag('/images/reddit.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,600', 'data-link' => 'http://reddit.com/submit?url={{url}}&title={{text}}' %>
     <form><input type="text" id="player-invite" class="select-on-click" /></form>
     <div id="share-friends"></div>
   </div>

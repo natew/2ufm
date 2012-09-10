@@ -28,7 +28,8 @@ var mp = (function() {
       timerInterval,
       shuffle = $.cookie('shuffle') == "true" || ($.cookie('shuffle', false) && false),
       curFailures = 0,
-      failures = 0;
+      failures = 0,
+      playTimeout;
 
   // Elements
   var pl = {
@@ -118,52 +119,55 @@ var mp = (function() {
 
     // Play song
     play: function play() {
-      if (!smReady) {
-        delayStart = true;
-      }
-      else {
-        // Load
-        if (!playlist) this.load();
-        fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
-
-        if (playlist && playlistIndex < playlist.songs.length) {
-          // Load song
-          fn.log('Song at index '+playlistIndex);
-          curSongInfo = playlist.songs[playlistIndex];
-          curSong = soundManager.createSound({
-            id:curSongInfo.id,
-            url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
-            onplay:events.play,
-            onstop:events.stop,
-            onpause:events.pause,
-            onresume:events.resume,
-            onfinish:events.finish,
-            whileloading:events.whileloading,
-            whileplaying:events.whileplaying,
-            onmetadata:events.metadata,
-            onload:events.onload,
-            volume:volume
-          });
-
-          fn.log(curSongInfo, curSong.url);
-
-          // If we have a time set
-          if (time > 0) {
-            curSong.setPosition(time * 1000);
-            time = 0;
-          }
-
-          // Play
-          playlistPlayed.push(playlistIndex);
-          curSong.play();
-          return true;
+      clearTimeout(playTimeout);
+      playTimeout = setTimeout(function() {
+        if (!smReady) {
+          delayStart = true;
         }
         else {
-          fn.log('playing fail');
-          this.refresh();
-          return false;
+          // Load
+          if (!playlist) this.load();
+          fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
+
+          if (playlist && playlistIndex < playlist.songs.length) {
+            // Load song
+            fn.log('Song at index '+playlistIndex);
+            curSongInfo = playlist.songs[playlistIndex];
+            curSong = soundManager.createSound({
+              id:curSongInfo.id,
+              url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
+              onplay:events.play,
+              onstop:events.stop,
+              onpause:events.pause,
+              onresume:events.resume,
+              onfinish:events.finish,
+              whileloading:events.whileloading,
+              whileplaying:events.whileplaying,
+              onmetadata:events.metadata,
+              onload:events.onload,
+              volume:volume
+            });
+
+            fn.log(curSongInfo, curSong.url);
+
+            // If we have a time set
+            if (time > 0) {
+              curSong.setPosition(time * 1000);
+              time = 0;
+            }
+
+            // Play
+            playlistPlayed.push(playlistIndex);
+            curSong.play();
+            return true;
+          }
+          else {
+            fn.log('playing fail');
+            this.refresh();
+            return false;
+          }
         }
-      }
+      }, 300);
     },
 
     playSong: function playSong(index) {
@@ -176,6 +180,7 @@ var mp = (function() {
     },
 
     stop: function stop() {
+      clearTimeout(playTimeout);
       if (isPlaying && curSong) {
         curSong.stop();
         soundManager.stopAll();
@@ -183,6 +188,7 @@ var mp = (function() {
     },
 
     pause: function pause() {
+      clearTimeout(playTimeout);
       if (isPlaying) {
         curSong.pause();
       }
@@ -194,6 +200,7 @@ var mp = (function() {
     },
 
     next: function next() {
+      clearTimeout(playTimeout);
       if (shuffle) {
         this.shuffleNext();
         return;
