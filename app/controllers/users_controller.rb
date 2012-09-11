@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def navbar
-    only = { :only => [:id, :user_id, :title, :avatar, :station_slug] }
+    only = { :only => [:id, :user_id, :title, :avatar, :slug] }
     @online = current_user.stations.user_station.with_user.online.limit(5).to_json(only)
     @offline = current_user.stations.user_station.with_user.not_online.limit(6).to_json(only)
     @received_songs_notifications = current_user.received_songs_notifications
