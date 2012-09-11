@@ -8,7 +8,7 @@ w.on({
 
     // Update player loaded UI
     $('#main-mid').addClass('loaded');
-    $('#nav-music').removeClass('disabled');
+    $('#player-buttons a').removeClass('disabled');
 
     // Update now playing button in sidebar nav
     $('#nav-now-playing')
