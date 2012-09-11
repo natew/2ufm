@@ -380,7 +380,7 @@ $(function() {
 });
 
 function notice(message, time) {
-  hideDialog(0);
+  $('#dialog').remove();
   $('<div id="dialog">' + message + '</div>').prependTo('#body');
   hideDialog(time);
 }
