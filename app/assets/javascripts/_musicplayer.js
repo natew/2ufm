@@ -119,7 +119,7 @@ var mp = (function() {
 
     // Play song
     play: function play() {
-      mp.setCurSection('playing');
+      this.setCurSection('playing');
       clearTimeout(playTimeout);
       playTimeout = setTimeout(function() {
         if (!smReady) {
@@ -290,9 +290,8 @@ var mp = (function() {
         'inactive': ['paused playing active', '']
       }
 
-      fn.log('setting song ' + curSongInfo.name + ' to ' + status);
-
       if (curSection && curSection.length) {
+        if (curSongInfo) fn.log('setting song ' + curSongInfo.name + ' to ' + status);
         curSection.removeClass(statuses[status][0]).addClass(statuses[status][1]);
       }
     },
