@@ -573,7 +573,7 @@ function updateShareLinks(link, title) {
   });
 
   // Update link
-  $('#player-invite').val(link);
+  $('#share-link').attr('href', link);
 }
 
 function updateShareFriends(friends) {
