@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :stations, :through => :follows
   has_many :songs, :through => :stations, :extend => SongExtensions
   has_many :listens
+  has_many :shares, :foreign_key => :receiver_id
 
   has_attachment :avatar, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }, :s3 => Yetting.s3_enabled
   has_attachment :cover, styles: { medium: ['900x300^'] } # ^ means preserve aspect ratio
@@ -70,6 +71,10 @@ class User < ActiveRecord::Base
 
   def received_songs(offset=0, limit=18)
     Song.user_received_songs(id, offset, limit)
+  end
+
+  def received_songs_notifications
+    Song.user_unread_recevied_songs(id)
   end
 
   def sent_songs(offset=0, limit=18)

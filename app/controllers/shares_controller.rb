@@ -1,5 +1,6 @@
 class SharesController < ApplicationController
   before_filter :authenticate_user!
+  after_filter :mark_read, :only => [:inbox]
 
   def inbox
     @inbox_station = Station.current_user_inbox_station
@@ -21,5 +22,11 @@ class SharesController < ApplicationController
     else
       head 500
     end
+  end
+
+  private
+
+  def mark_read
+    current_user.shares.where(:read => false).update_all(:read => true)
   end
 end

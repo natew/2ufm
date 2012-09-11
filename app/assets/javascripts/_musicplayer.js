@@ -119,6 +119,7 @@ var mp = (function() {
 
     // Play song
     play: function play() {
+      mp.setCurSection('playing');
       clearTimeout(playTimeout);
       playTimeout = setTimeout(function() {
         if (!smReady) {

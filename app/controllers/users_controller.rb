@@ -12,9 +12,11 @@ class UsersController < ApplicationController
     @user_stations = current_user.stations.order('stations.title asc')
   end
 
-  def get_friends
-    @online = user_signed_in? ? current_user.stations.user_station.with_user.online.limit(5) : nil
-    @friends = user_signed_in? ? current_user.stations.user_station.with_user.not_online.limit(6) : nil
+  def navbar
+    only = { :only => [:id, :user_id, :title, :avatar, :station_slug] }
+    @online = current_user.stations.user_station.with_user.online.limit(5).to_json(only)
+    @offline = current_user.stations.user_station.with_user.not_online.limit(6).to_json(only)
+    @received_songs_notifications = current_user.received_songs_notifications
     render :layout => false
   end
 

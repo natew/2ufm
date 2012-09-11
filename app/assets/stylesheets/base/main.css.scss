@@ -270,7 +270,7 @@ header {
       font-weight: 300;
       color: #aaa;
       padding: 5px 8px;
-      margin: 0 -20px 0 15px;
+      margin: 0 0 0 12px;
     }
 
     a {
@@ -304,14 +304,17 @@ header {
         &:hover {background: $body-bg;}
       }
 
-      &.pictos-nav {
-        padding-left: 43px;
-
-        &:before {
-          font-size: 24px;
-          top: 13px;
-          left: 10px;
-        }
+      span {
+        padding: 2px 6px;
+        margin: -2px 0 0;
+        font-size: 12px;
+        color: #fff;
+        background: #6a0007;
+        float: right;
+        text-align: center;
+        min-width: 24px;
+        @include border-radius(20px);
+        @include box-sizing(border-box);
       }
     }
   }

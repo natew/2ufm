@@ -208,6 +208,17 @@
         <dt>Arrow keys</dt><dd>Next / Prev</dd>
       </dl>
     </div>
+
+    <div id="friends">
+      <div class="online">
+      {{#online}}
+        <a href="/{{station_slug}}" id="friend-{{id}}" data-user="{{user_id}}">{{title}}</a>
+      {{/online}}
+      </div>
+      {{#offline}}
+        <a href="/{{station_slug}}" id="friend-{{id}}" data-user="{{user_id}}">{{title}}</a>
+      {{/offline}}
+    </div>
   </div>
 
   <!-- Spinner -->

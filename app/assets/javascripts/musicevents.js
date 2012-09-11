@@ -69,7 +69,7 @@ w.on({
           else if (sectionBot > windowBot) fn.scrollTo(sectionTop - 200);
         }
       }
-    }, 200);
+    }, 100);
   },
 
   'mp:playlist_end': function playlistEnd(event, mp, song) {

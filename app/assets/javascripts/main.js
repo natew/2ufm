@@ -21,10 +21,11 @@ var w = $(window),
     shuffle = mp.shuffle(),
     isDragging = false,
     mouseDown = false,
-    hasFriends = true,
+    hasNavbar = true,
     shareSong,
     navHovered = [],
-    navUnhoveredOnce = false;
+    navUnhoveredOnce = false,
+    friendsTemplate = $('#friends').html();
 
 // Read URL parameters
 var urlParams = {},
@@ -178,7 +179,7 @@ $(function() {
   });
 
   // Online friends
-  getOnlineFriends();
+  startGetNavbar();
 
   // Page scroll functions
   w.scroll(function() {
@@ -319,6 +320,10 @@ $(function() {
           $('#modal-login-form').removeClass('has_errors');
           $.post('/set_email', {email: email});
         }
+      }
+
+      else if (el.is('#nav-shares')) {
+        el.children('span').remove();
       }
 
       // Always run the below functions
@@ -607,24 +612,33 @@ function modal(selector) {
   }
 }
 
-function getOnlineFriends() {
+function startGetNavbar() {
   fn.log('online?', isOnline)
   if (isOnline) {
-    getFriends();
-    setInterval(getFriends, 60 * 1000);
+    getNavbar();
+    setInterval(getNavbar, 60 * 1000);
   }
 }
 
-function getFriends() {
-  fn.log(hasFriends);
-  if (hasFriends) {
-    $.get('/get_friends', function getFriendsCallback(data) {
-      if (data && data.length) {
-        $('#stations-inner').html(data);
-        updateShareFriends(data);
+function getNavbar() {
+  fn.log('?', hasNavbar);
+  if (hasNavbar) {
+    $.getJSON('/navbar.json', function getNavbarCallback(data) {
+      fn.log('got', data);
+      if (data) {
+        var inbox_count = parseInt(data['inbox_count'],10);
+        if (inbox_count > 0) {
+          $('#nav-shares span').remove();
+          $('#nav-shares').append('<span>' + inbox_count + '</span>');
+        }
+
+        fn.log('friends', friendsTemplate, data['friends']);
+        var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
+        $('#stations-inner').html(friendsHtml);
+        updateShareFriends(friendsHtml);
       }
       else {
-        hasFriends = false;
+        hasNavbar = false;
       }
     });
   }

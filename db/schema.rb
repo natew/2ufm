@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120701235950) do
+ActiveRecord::Schema.define(:version => 20120911052040) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -19,15 +19,15 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.integer  "user_id"
     t.integer  "station_id"
     t.integer  "song_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "artists", :force => true do |t|
     t.string   "name"
     t.text     "about"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.string   "image_updated_at"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.boolean  "has_productions",  :default => false
     t.boolean  "has_features",     :default => false
     t.integer  "song_count",       :default => 0
+    t.string   "station_slug"
   end
 
   create_table "authors", :force => true do |t|
@@ -55,14 +56,15 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.string   "url"
     t.string   "feed_url"
     t.datetime "feed_updated_at"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
     t.datetime "crawl_started_at"
     t.datetime "crawl_finished_at"
     t.integer  "crawled_pages",     :default => 0
+    t.string   "station_slug"
   end
 
   create_table "blogs_genres", :id => false, :force => true do |t|
@@ -80,6 +82,23 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
   add_index "broadcasts", ["song_id", "station_id"], :name => "index_broadcasts_on_song_id_and_station_id", :unique => true
   add_index "broadcasts", ["song_id", "station_id"], :name => "index_songs_stations_on_song_id_and_station_id", :unique => true
 
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id",   :default => 0
+    t.string   "commentable_type", :default => ""
+    t.string   "title",            :default => ""
+    t.text     "body",             :default => ""
+    t.string   "subject",          :default => ""
+    t.integer  "user_id",          :default => 0,  :null => false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -89,8 +108,8 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "queue"
   end
 
@@ -118,10 +137,12 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.string   "url"
     t.integer  "time",       :default => 0
     t.integer  "song_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
   end
+
+  add_index "listens", ["user_id", "song_id"], :name => "index_listens_on_user_id_and_song_id"
 
   create_table "posts", :force => true do |t|
     t.string   "title"
@@ -131,8 +152,8 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.integer  "blog_id"
     t.boolean  "songs_saved"
     t.datetime "songs_updated_at"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.string   "image_updated_at"
@@ -140,9 +161,32 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.string   "excerpt"
   end
 
+  create_table "rails_admin_histories", :force => true do |t|
+    t.text     "message"
+    t.string   "username"
+    t.integer  "item"
+    t.string   "table"
+    t.integer  "month",      :limit => 2
+    t.integer  "year",       :limit => 8
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "shares", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "song_id"
+    t.string   "song_name"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "read",        :default => false
+  end
+
   create_table "socialite_facebook_identities", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "socialite_identities", :force => true do |t|
@@ -152,8 +196,8 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.string   "unique_id",  :null => false
     t.string   "provider",   :null => false
     t.text     "auth_hash"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "socialite_identities", ["api_id", "api_type"], :name => "index_socialite_identities_on_api_id_and_api_type"
@@ -163,54 +207,57 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
 
   create_table "socialite_users", :force => true do |t|
     t.string   "remember_token"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "songs", :force => true do |t|
-    t.string   "name",                                 :default => ""
-    t.string   "artist_name",                          :default => ""
+    t.string   "name",                  :default => ""
+    t.string   "artist_name",           :default => ""
     t.string   "album_name"
     t.string   "genre"
     t.string   "album_artist"
-    t.text     "url",                   :limit => 255
+    t.text     "url"
     t.string   "link_text"
     t.integer  "plays"
     t.integer  "size"
     t.integer  "track_number"
     t.integer  "bitrate"
     t.integer  "length"
-    t.integer  "shared_id"
+    t.integer  "matching_id"
     t.integer  "blog_id"
     t.integer  "post_id"
     t.integer  "album_id"
     t.boolean  "vbr"
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
-    t.boolean  "processed",                            :default => false
+    t.boolean  "processed",             :default => false
     t.string   "file_file_name"
     t.string   "file_updated_at"
-    t.integer  "shared_count",                         :default => 0
-    t.boolean  "working",                              :default => false
+    t.integer  "matching_count",        :default => 0
+    t.boolean  "working",               :default => false
     t.datetime "published_at"
-    t.text     "absolute_url",          :limit => 255
-    t.float    "rank"
+    t.text     "absolute_url"
+    t.float    "rank",                  :default => 0.0
     t.boolean  "original_song"
     t.integer  "failures"
-    t.integer  "user_broadcasts_count",                :default => 0
+    t.integer  "user_broadcasts_count", :default => 0
     t.text     "linked_title"
     t.string   "waveform_file_name"
     t.datetime "waveform_updated_at"
-    t.string   "source",                               :default => "direct"
+    t.string   "source",                :default => "direct"
     t.integer  "soundcloud_id"
-    t.integer  "play_count",                           :default => 0
+    t.integer  "play_count",            :default => 0
+    t.integer  "blog_broadcasts_count", :default => 0
+    t.string   "match_name"
+    t.integer  "comments_count",        :default => 0
   end
 
-  add_index "songs", ["processed", "working", "rank", "shared_id"], :name => "index_songs_on_processed_and_working_and_rank_and_shared_id"
-  add_index "songs", ["shared_id"], :name => "index_songs_on_shared_id"
+  add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
+  add_index "songs", ["processed", "working", "rank", "matching_id", "published_at"], :name => "songs_index"
 
   create_table "stations", :force => true do |t|
     t.string   "title"
@@ -220,18 +267,26 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.integer  "follows_count",       :default => 0
     t.string   "slug"
     t.integer  "broadcasts_count",    :default => 0
-    t.datetime "created_at",          :default => '2012-08-30 21:19:10'
-    t.datetime "updated_at",          :default => '2012-08-30 21:19:10'
-    t.datetime "last_broadcasted_at", :default => '2012-08-30 21:19:10'
+    t.datetime "created_at",          :default => '2012-05-11 03:38:08'
+    t.datetime "updated_at",          :default => '2012-05-11 03:38:08'
+    t.datetime "last_broadcasted_at", :default => '2012-05-11 04:13:11'
+    t.boolean  "promo",               :default => false
+    t.integer  "songs_count"
+    t.datetime "online"
+  end
+
+  create_table "stations_songs", :id => false, :force => true do |t|
+    t.integer "station_id"
+    t.integer "song_id"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",     :null => false
-    t.string   "encrypted_password",     :default => "",     :null => false
+    t.string   "email",                                 :default => "",     :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",     :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -239,8 +294,7 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        :default => 0
+    t.integer  "failed_attempts",                       :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "full_name"
@@ -248,18 +302,22 @@ ActiveRecord::Schema.define(:version => 20120701235950) do
     t.string   "url"
     t.boolean  "follower_notifications"
     t.boolean  "newsletter"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "avatar_file_name"
     t.datetime "avatar_updated_at"
     t.string   "username"
     t.integer  "station_id"
     t.text     "bio"
-    t.string   "role",                   :default => "user"
+    t.string   "role",                                  :default => "user"
     t.string   "last_visited"
     t.integer  "last_station"
     t.integer  "last_song"
+    t.string   "station_slug"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "avatar_remote_url"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
