@@ -13,7 +13,8 @@ var page = {
     var curPage = window.location.pathname,
         path = curPage.split('/'),
         tipTimer,
-        signedIn = !$('body').is('.signed_out');
+        signedIn = !$('body').is('.signed_out'),
+        pageFollow;
 
     fn.log(curPage, 'signed in?', signedIn);
 
@@ -22,8 +23,11 @@ var page = {
       updateFollows();
 
       // Update page follow
-      setFollowsIds([$('#page-follow li').attr('class').split('-')[1]]);
-      updateFollows();
+      pageFollow = $('#page-follow li');
+      if (pageFollow.length) {
+        setFollowsIds([pageFollow.attr('class').split('-')[1]]);
+        updateFollows();
+      }
     }
 
     $('img').on('error', function(){ $(this).attr('src','/images/default.png'); });
