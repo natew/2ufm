@@ -14,7 +14,7 @@
 <%- end -%>
 
 <%-
-  cache('song_' + id) do
+  cache("song-#{id}-#{song.updated_at}") do
 -%>
 
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>" class="<%= class_names %>">
