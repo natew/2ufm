@@ -12,7 +12,7 @@
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
 <%-
-  cache("song-#{id}-#{song.updated_at}-#{station_id}") do
+  cache("song-#{id}-#{song.updated_at.to_i}-#{station_id}") do
 
     follow_id    = 'station-follow-' + id
     time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.published_at
