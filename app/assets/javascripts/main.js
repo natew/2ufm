@@ -25,7 +25,8 @@ var w = $(window),
     shareSong,
     navHovered = [],
     navUnhoveredOnce = false,
-    friendsTemplate = $('#friends').html();
+    friendsTemplate = $('#friends').html(),
+    navbarInterval;
 
 // Read URL parameters
 var urlParams = {},
@@ -676,8 +677,13 @@ function startGetNavbar() {
   fn.log('online?', isOnline)
   if (isOnline) {
     getNavbar();
-    setInterval(getNavbar, 60 * 1000);
+    navbarInterval = setInterval(getNavbar, 60 * 1000);
   }
+
+  // Stopgap... stop polling after an hour
+  setTimeout(function() {
+    clearInterval(navbarInterval);
+  }, 60 * 60 * 1000);
 }
 
 function getNavbar() {
