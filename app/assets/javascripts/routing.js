@@ -21,13 +21,6 @@ var page = {
     if (signedIn) {
       updateBroadcasts();
       updateFollows();
-
-      // Update page follow
-      pageFollow = $('#page-follow li');
-      if (pageFollow.length) {
-        setFollowsIds([pageFollow.attr('class').split('-')[1]]);
-        updateFollows();
-      }
     }
 
     $('img').on('error', function(){ $(this).attr('src','/images/default.png'); });

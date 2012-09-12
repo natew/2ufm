@@ -14,10 +14,10 @@
       <%= nav_link_to "Productions", artist_productions_path(@artist) if @artist.has_productions? %>
       <%= nav_link_to "Featuring", artist_features_path(@artist) if @artist.has_features? %>
     </nav>
-
+<%- end -%>
     <%= render :partial => 'shared/actions', :locals => { :station => @artist.station } %>
   </div>
-<%- end -%>
+
 
 <%-
   @type ||= 'default'
