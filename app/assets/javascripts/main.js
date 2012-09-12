@@ -597,6 +597,7 @@ function updateShareFriends(friends) {
 }
 
 function updateBroadcasts() {
+  if (!updateBroadcastsIds || updateBroadcastsIds.length == 0) return false;
   var select = '#song-',
       songs = select + updateBroadcastsIds.join(',' + select),
       b = {
@@ -618,6 +619,7 @@ function updateBroadcasts() {
 }
 
 function updateFollows() {
+  if (!updateFollowsIds || updateFollowsIds.length == 0) return false;
   var follows,
       len = updateFollowsIds.length,
       i = 0,
