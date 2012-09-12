@@ -111,8 +111,10 @@ class Song < ActiveRecord::Base
 
   # User related
   scope :with_user, lambda { |user|
-    id = user.respond_to?('id') ? user.id : user
-    select('listens.id as listen_id').joins("LEFT JOIN listens on listens.song_id = songs.id AND listens.user_id = #{id}") unless user.nil?
+    if user
+      id = user.respond_to?('id') ? user.id : user
+      select('listens.id as listen_id').joins("LEFT JOIN listens on listens.song_id = songs.id AND listens.user_id = #{id}") unless user.nil?
+    end
   }
 
   # Data to select

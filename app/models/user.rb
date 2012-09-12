@@ -81,6 +81,14 @@ class User < ActiveRecord::Base
     Song.user_sent_songs(id, offset, limit)
   end
 
+  def get_song_broadcasts(ids)
+    Broadcast.where(:song_id => ids, :station_id => station_id).map(&:song_id)
+  end
+
+  def get_station_follows(ids)
+    Follow.where(:station_id => ids, :user_id => id).map(&:station_id)
+  end
+
   def followers
     Station
     .joins('inner join users on users.station_id = stations.id')

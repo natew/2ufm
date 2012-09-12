@@ -788,19 +788,12 @@ header #second-nav {
     background: none;
     padding: 9px;
 
-    &:nth-child(4n) {
-      clear: left;
-    }
-
-    &:hover {
-      background: $body-bg;
-    }
+    &:nth-child(4n) { clear: left; }
+    &:hover, &.hover { background: $body-bg; }
+    &.pictos { font-size: 24px; padding: 16px; }
   }
 
-  img {
-    width: 32px;
-    height: 32px;
-  }
+  img { width: 32px; height: 32px; }
 
   form {
     width: 160px;
@@ -813,6 +806,7 @@ header #second-nav {
   #share-friends {
     max-height: 200px;
     overflow-y: scroll;
+    clear: both;
 
     &:before {
       content: "Send to a friend";
@@ -832,6 +826,52 @@ header #second-nav {
       img {display: none;}
     }
   }
+}
+
+/* Share buttons */
+
+.player-invite {
+  margin: 0;
+  padding: 6px;
+  font-weight: 400;
+  font-size: 12px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  z-index: 1000;
+  border: none;
+  box-shadow: none !important;
+  background: $green;
+  line-height: .4em;
+  font-weight: bold;
+
+  &.hover {
+    background: $light-green;
+  }
+}
+
+.login-button {
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.player-invite-favorite {
+  @include background-gradient($like-light, $like-color);
+  &:hover { background: $like-light !important; }
+}
+
+.facebook-button, .twitter-button {
+  background: #2d4486;
+  &:hover { background: #425699; }
+}
+
+.twitter-button {
+  background: #4b8fa9;
+  &:hover { background: #54a0be; }
 }
 
 .third .play-button {

@@ -30,6 +30,10 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
+
+  <script type="text/javascript">
+    var updateBroadcastsIds, updateFollowsIds;
+  </script>
 </head>
 
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>"<% end %>>
@@ -153,7 +157,7 @@
   <div id="share" class="pop-menu">
     <%= link_to image_tag('/images/facebook.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
     <%= link_to image_tag('/images/twitter.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
-    <%= link_to "j", '', :id => 'share-link', :class => 'control pictos', 'data-click' => '3' %>
+    <span id="share-link-container"><%= link_to "j", '', :id => 'share-link', :class => 'control pictos tip', :title => "Copy link to clipboard", 'data-click' => '3' %></span>
     <div id="share-friends"></div>
   </div>
 

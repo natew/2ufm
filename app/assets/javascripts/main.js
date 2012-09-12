@@ -493,6 +493,8 @@ function nextPage(link, callback) {
         "Content-Type": "text/page; charset=utf-8"
       },
       success: function(data) {
+        updateBroadcasts();
+        updateFollows();
         var playlist = $('#playlist-' + id + '-' + scrollPage);
         link.html('Page ' + scrollPage).addClass('loaded');
         loadingPage = false;
@@ -523,7 +525,11 @@ function nearBottom() {
 function navDropdown(nav, pad) {
   fn.log(nav, pad);
   if (nav && nav.length) {
-    if (nav.is('.song-share')) updateShare(nav);
+    var navIsShare = false;
+    if (nav.is('.song-share')) {
+      navIsShare = true;
+      updateShare(nav);
+    }
 
     var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
         padding = pad ? pad : 10,
@@ -539,6 +545,10 @@ function navDropdown(nav, pad) {
         top: top,
         left: left
       });
+
+      if (navIsShare) {
+        fn.clipboard('share-link', 'fixed');
+      }
 
       return true;
     }
@@ -584,6 +594,53 @@ function updateShareFriends(friends) {
   } else {
     $('#share-friends').hide();
   }
+}
+
+function updateBroadcasts() {
+  var select = '#song-',
+      songs = select + updateBroadcastsIds.join(',' + select),
+      b = {
+        html: '2',
+        title: 'Unlike this song',
+        method: 'delete'
+      };
+
+  fn.log(songs)
+  $(songs).each(function() {
+    var broadcast = $(this).children('.song-meta').find('.song-controls .broadcast a');
+    broadcast
+      .attr('title', b.title)
+      .data('method', b.method)
+      .removeClass('add')
+      .addClass('remove')
+      .html(b.html);
+  });
+}
+
+function updateFollows() {
+  var follows,
+      len = updateFollowsIds.length,
+      i = 0,
+      f = {
+        icon: '2',
+        html: 'Following',
+        title: 'Unfollow station',
+        method: 'delete'
+      };
+
+  for (; i < len; i++) {
+    updateFollowsIds[i] += ' a';
+  }
+
+  follows = '.follow-' + updateFollowsIds.join(', .follow-');
+
+  fn.log(follows);
+  $(follows)
+    .attr('title', f.title)
+    .data('method', f.method)
+    .removeClass('add')
+    .addClass('remove')
+    .html('<span>' + f.icon + '</span><strong>' + f.html + '</strong>');
 }
 
 // Modal

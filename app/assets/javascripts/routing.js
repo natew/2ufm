@@ -12,9 +12,15 @@ var page = {
   end: function pageEnd(data) {
     var curPage = window.location.pathname,
         path = curPage.split('/'),
-        tipTimer;
+        tipTimer,
+        signedIn = !$('body').is('.signed_out');
 
-    fn.log(curPage);
+    fn.log(curPage, 'signed in?', signedIn);
+
+    if (signedIn) {
+      updateBroadcasts();
+      updateFollows();
+    }
 
     $('img').on('error', function(){ $(this).attr('src','/images/default.png'); });
 
@@ -32,10 +38,6 @@ var page = {
     // Scroll to top if we are going to new page
     if ($('body').scrollTop() > 0)
       fn.scrollToTop();
-
-    // Run loaded functions
-    var $doc = $(document);
-    var $body = $doc.children().children('body');
 
     // Nav highlight
     setNavActive(curPage);
@@ -64,12 +66,10 @@ var page = {
     })
 
     // Styling for inputs
-    $doc.find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+    $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
 
     // Disable AJAX stuff signed out
-    if ($body.is('.signed_out'));
-    // Signed in
-    else {
+    if (signedIn) {
       $('.remove')
         .live('mouseenter', function() { $('span',this).html('D'); })
         .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });

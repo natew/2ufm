@@ -21,3 +21,20 @@
 </div>
 
 <%= link_to 'Load more', '/page-2', :class => 'next-page control' if paginate and has_more %>
+
+<%-
+  # Get broadcasts and follows
+  if user_signed_in?
+    broadcasts = current_user.get_song_broadcasts(songs.map(&:matching_id))
+    follows = current_user.get_station_follows(songs.map(&:station_id).uniq!)
+-%>
+
+<script type="text/javascript">
+  updateBroadcastsIds = <%= raw broadcasts %>;
+  updateFollowsIds = <%= raw follows %>;
+</script>
+
+<%-
+  end
+  # End broadcasts and follows
+-%>

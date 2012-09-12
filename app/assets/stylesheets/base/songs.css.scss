@@ -32,53 +32,6 @@ $song-art: 48px;
 $song-art-big: 130px;
 $song-player-height: 50px;
 
-
-/* Share buttons */
-
-.player-invite {
-  margin: 0;
-  padding: 6px;
-  font-weight: 400;
-  font-size: 12px;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  position: relative;
-  z-index: 1000;
-  border: none;
-  box-shadow: none !important;
-  background: $green;
-  line-height: .4em;
-  font-weight: bold;
-
-  &.hover {
-    background: $light-green;
-  }
-}
-
-.login-button {
-  text-decoration: none;
-  color: #fff;
-  display: inline-block;
-  margin: 0 5px;
-}
-
-.player-invite-favorite {
-  @include background-gradient($like-light, $like-color);
-  &:hover { background: $like-light !important; }
-}
-
-.facebook-button, .twitter-button {
-  background: #2d4486;
-  &:hover { background: #425699; }
-}
-
-.twitter-button {
-  background: #4b8fa9;
-  &:hover { background: #54a0be; }
-}
-
 .playlist-song {
   clear: both;
 

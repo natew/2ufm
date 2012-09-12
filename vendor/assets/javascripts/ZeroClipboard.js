@@ -96,6 +96,7 @@ ZeroClipboard.Client.prototype = {
 	handCursorEnabled: true, // whether to show hand cursor, or default pointer cursor
 	cssEffects: true, // enable CSS mouse effects on dom container
 	handlers: null, // user event handlers
+	position: 'absolute',
 
 	glue: function(elem, appendElem, stylesToAdd) {
 		// glue to DOM element
@@ -103,7 +104,7 @@ ZeroClipboard.Client.prototype = {
 		this.domElement = ZeroClipboard.$(elem);
 
 		// float just above object, or zIndex 99 if dom element isn't set
-		var zIndex = 99;
+		var zIndex = 99999;
 		if (this.domElement.style.zIndex) {
 			zIndex = parseInt(this.domElement.style.zIndex, 10) + 1;
 		}
@@ -122,7 +123,7 @@ ZeroClipboard.Client.prototype = {
 		this.div = document.createElement('div');
 		this.div.className = 'zeroClipboardDiv';
 		var style = this.div.style;
-		style.position = 'absolute';
+		style.position = this.position;
 		style.left = '' + box.left + 'px';
 		style.top = '' + box.top + 'px';
 		style.width = '' + box.width + 'px';
@@ -201,6 +202,10 @@ ZeroClipboard.Client.prototype = {
 			style.left = '' + box.left + 'px';
 			style.top = '' + box.top + 'px';
 		}
+	},
+
+	setPosition: function(position) {
+		this.position = position;
 	},
 
 	setText: function(newText) {
