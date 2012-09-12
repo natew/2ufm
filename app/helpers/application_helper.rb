@@ -1,9 +1,10 @@
 # Application Helper
 module ApplicationHelper
   # Station follow
-  def follow_station(id, follows_count)
+  def follow_station(id, follows_count, options)
     action = "add"
-    # action = "remove" if user_signed_in? and current_user.following_station?(id)
+    options[:nocache] ||= false
+    action = "remove" if options[:nocache] and user_signed_in? and current_user.following_station?(id)
     render :partial => "stations/follow", :locals => { :action => action, :id => id, :count => follows_count, :changed => false }
   end
 
