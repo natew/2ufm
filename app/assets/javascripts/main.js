@@ -493,12 +493,12 @@ function nextPage(link, callback) {
         "Content-Type": "text/page; charset=utf-8"
       },
       success: function(data) {
-        updateBroadcasts();
-        updateFollows();
         var playlist = $('#playlist-' + id + '-' + scrollPage);
         link.html('Page ' + scrollPage).addClass('loaded');
         loadingPage = false;
         link.after(data);
+        updateBroadcasts();
+        updateFollows();
         updatePageURL(scrollPage);
         pageEndOffsets.push(curPlaylist.offset().top + curPlaylist.height());
         if (callback) callback.call(playlist);
