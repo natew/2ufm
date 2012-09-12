@@ -52,6 +52,7 @@ class ArtistsController < ApplicationController
   def render_type(method)
     @songs = @artist.station.songs.send(method).playlist_order_broadcasted_by_type(current_user)
     @type = method
+    @type_updated_at = @songs.first.broadcasted_at
 
     respond_to do |format|
       format.html { render 'show' }

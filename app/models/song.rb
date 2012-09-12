@@ -387,29 +387,23 @@ class Song < ActiveRecord::Base
 
           # Update info if we have processed this song
           if working? and !processed?
-            # Clean name
-            set_match_name
-
             # Waveform
             if waveform_file_name.nil?
               logger.info "Generating waveform..."
               self.waveform = generate_waveform(song.path)
             end
 
-            # Determine if we already have this song
+            set_match_name
             find_matching_songs
-
-            # Delete file if we already have it
             delete_file_if_matching
-
-            # Add to artist and blog stations
             add_to_stations
 
-            # Slug
+            # Slug & Processed
             self.slug = full_name.to_url
-
-            # Processed
             self.processed = true
+
+            # Clear cache
+            expire_fragment('playlist_new')
 
             logger.info "Processed #{id} working!"
           else

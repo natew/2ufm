@@ -21,7 +21,8 @@
 
 <%-
   @type ||= 'default'
-  cache("artist_playlist_#{@type}_#{@artist.station.updated_at.to_i}") do -%>
+  type_and_updated = "#{@type}" + (@type_updated_at ? "_#{@type_updated_at}" : '')
+  cache("artist_playlist_#{type_and_updated}_#{@artist.station.updated_at.to_i}") do -%>
   <div class="whole">
     <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs } %>
   </div>
