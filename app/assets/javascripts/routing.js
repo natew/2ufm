@@ -20,6 +20,10 @@ var page = {
     if (signedIn) {
       updateBroadcasts();
       updateFollows();
+
+      // Update page follow
+      setFollowsIds([$('#page-follow li').attr('class').split('-')[1]]);
+      updateFollows();
     }
 
     $('img').on('error', function(){ $(this).attr('src','/images/default.png'); });
