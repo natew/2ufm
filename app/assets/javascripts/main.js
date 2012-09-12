@@ -602,7 +602,6 @@ function updateBroadcasts() {
   var select = '#song-',
       songs = select + updateBroadcastsIds.join(',' + select),
       b = {
-        html: '2',
         title: 'Unlike this song',
         method: 'delete'
       };
@@ -614,8 +613,7 @@ function updateBroadcasts() {
       .attr('title', b.title)
       .data('method', b.method)
       .removeClass('add')
-      .addClass('remove')
-      .html(b.html);
+      .addClass('remove');
   });
 }
 

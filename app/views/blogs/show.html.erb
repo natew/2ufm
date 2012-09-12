@@ -1,3 +1,4 @@
+<%- cache("blog_#{@blog.station.updated_at}") do -%>
 <div class="title">
   <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
   <h1><%= @blog.name %> <span><%= link_to '', @blog.url, :target => '_blank' %></span></h1>
@@ -10,3 +11,4 @@
   <%= render 'stations/artists' %>
   <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
 </div>
+<%- end -%>
