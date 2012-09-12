@@ -21,6 +21,15 @@ module ApplicationHelper
     "#{h}#{m}m #{s}s"
   end
 
+  def cache_if(condition, name = {}, &block)
+    if condition
+      cache(name, &block)
+    else
+      yield
+    end
+    return nil
+  end
+
   def render_stations(collection, locals = {})
     render :partial => 'stations/station', :collection => collection, :locals => locals
   end

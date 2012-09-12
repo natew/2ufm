@@ -9,7 +9,7 @@
   paginate        = (paginate == false || style == 'mini') ? false : true
   per           ||= Yetting.per
 
-cache("playlist_#{id}_#{station.updated_at}_#{page}_#{part_or_nolim}_#{paginate}_#{per}") do
+cache_if(id > 4, "playlist_#{id}_#{station.updated_at}_#{page}_#{part_or_nolim}_#{paginate}_#{per}") do
 
   songs         ||= station.songs.playlist_order_broadcasted(current_user)
   songs           = songs.limit_full(page, per) unless part_or_nolim
