@@ -402,9 +402,6 @@ class Song < ActiveRecord::Base
             self.slug = full_name.to_url
             self.processed = true
 
-            # Clear cache
-            expire_fragment('playlist_new')
-
             logger.info "Processed #{id} working!"
           else
             logger.info "Processed #{id} (no information)"
