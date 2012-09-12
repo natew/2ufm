@@ -12,6 +12,9 @@ gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'jquery-rails'
 
+# Caching
+gem 'dalli'
+
 # Users
 gem 'devise'
 gem 'cancan'
