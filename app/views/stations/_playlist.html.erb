@@ -1,13 +1,16 @@
 <%-
+  style         ||= 'song'
   nolimit       ||= false
   partial       ||= false
   part_or_nolim   = partial || nolimit
   station       ||= Station.new
   id              = station.id || 0
   page            = (params[:p] || 1).to_i
-  style         ||= 'song'
   paginate        = (paginate == false || style == 'mini') ? false : true
   per           ||= Yetting.per
+
+cache("playlist_#{id}_#{station.updated_at}_#{page}_#{part_or_nolim}_#{paginate}_#{per}") do
+
   songs         ||= station.songs.playlist_order_broadcasted(current_user)
   songs           = songs.limit_full(page, per) unless part_or_nolim
   has_more        = songs.length == (part_or_nolim ? per : (page*per))
@@ -20,10 +23,8 @@
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover } unless songs.nil? %>
 </div>
 
-<%= link_to 'Load more', '/page-2', :class => 'next-page control' if paginate and has_more %>
-
 <%-
-  # Get broadcasts and follows
+  # broadcasts and follows
   if user_signed_in?
     broadcasts = current_user.get_song_broadcasts(songs.map(&:matching_id))
     follows = current_user.get_station_follows(songs.map(&:station_id).uniq!)
@@ -36,5 +37,11 @@
 
 <%-
   end
-  # End broadcasts and follows
+  # end broadcasts and follows
 -%>
+
+<%-
+  end # end cache
+-%>
+
+  <%= link_to 'Load more', '', :class => 'next-page control' if paginate %>
