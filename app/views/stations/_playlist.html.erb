@@ -8,14 +8,13 @@
   page            = (params[:p] || 1).to_i
   paginate        = (paginate == false || style == 'mini') ? false : true
   per           ||= Yetting.per
-
-cache_if(id > 4, "playlist_#{id}_#{station.updated_at.to_i}_#{page}_#{part_or_nolim}_#{paginate}_#{per}") do
-
   songs         ||= station.songs.playlist_order_broadcasted(current_user)
   songs           = songs.limit_full(page, per) unless part_or_nolim
   has_more        = songs.length == (part_or_nolim ? per : (page*per))
   classname     ||= ''
   cover         ||= 'small'
+
+cache_if(id > 4, "playlist_#{id}_#{station.updated_at.to_i}_#{page}_#{part_or_nolim}_#{paginate}_#{per}") do
 -%>
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %> <%= 'has-more' if has_more %>"
