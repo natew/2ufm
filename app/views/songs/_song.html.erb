@@ -13,10 +13,9 @@
 
 <%-
   cache("song-#{id}-#{song.updated_at.to_i}-#{station_id}") do
-
     follow_id    = 'station-follow-' + id
-    time         = song.respond_to?(:broadcasted_at) ? song.broadcasted_at : song.published_at
     cover      ||= :icon
+    broadcasted  = song.respond_to? :broadcasted_at
 -%>
 
   <div class="song-info">
@@ -34,14 +33,9 @@
   </div>
 
   <div class="song-meta">
-    <div class="song-posted">
-      Posted by
-      <div class="follow-station-wrap">
-        <span class="follow-<%= song.station_id %>"><%= follow_station(song.station_id, song.station_follows_count) %></span>
-        <%= link_to song.station_title, '/'+song.station_slug %>
-        <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if song.reposted? %>
-      </div>
-      <time datetime="<%= js_date(time) %>"><%= relative_time(time) %></time>
+    <div class="song-meta-pre">
+      <%= render :partial => 'songs/posted', :locals => { :song => song } unless broadcasted and song.following_station_id == song.station_id  %>
+      <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } if broadcasted %>
     </div>
 
     <div class="song-controls">

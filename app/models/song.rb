@@ -12,12 +12,6 @@ class Song < ActiveRecord::Base
   SOURCES = %w[direct soundcloud hulkshare]
 
   SQL = {
-    :stations => %Q{
-        stations.title as station_title,
-        stations.slug as station_slug,
-        stations.id as station_id,
-        stations.follows_count as station_follows_count,
-      },
     :posts => %Q{
         posts.url as post_url,
         posts.excerpt as post_excerpt,
@@ -218,7 +212,17 @@ class Song < ActiveRecord::Base
         a.maxcreated as broadcasted_at,
         s.*,
         blogs.url as blog_url,
-        #{SQL[:stations]}
+
+        stations.title as following_station_title,
+        stations.slug as following_station_slug,
+        stations.id as following_station_id,
+        stations.follows_count as following_station_follows_count,
+
+        blog_stations.title as station_title,
+        blog_stations.slug as station_slug,
+        blog_stations.id as station_id,
+        blog_stations.follows_count as station_follows_count,
+
         #{SQL[:posts]}
         #{SQL[:listens]}
       FROM a
@@ -228,6 +232,8 @@ class Song < ActiveRecord::Base
           posts on posts.id = s.post_id
         INNER JOIN
           blogs on blogs.id = posts.blog_id
+        INNER JOIN
+          stations as blog_stations on blog_stations.slug = blogs.station_slug
         INNER JOIN
           broadcasts on broadcasts.song_id = s.id
         INNER JOIN

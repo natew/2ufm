@@ -189,6 +189,10 @@ $song-player-height: 50px;
       z-index: 12;
       pointer-events: none;
 
+      .song-meta-pre {
+        float: left;
+      }
+
       a {pointer-events: all;}
 
       .song-follow {
@@ -261,10 +265,6 @@ $song-player-height: 50px;
       width: 100%;
       height: 100%;
       z-index: 10;
-    }
-
-    .song-posted {
-      float: left;
     }
 
     .song-controls {
@@ -344,8 +344,8 @@ $song-player-height: 50px;
       display: none;
       clear: both;
       position: relative;
-      height: 100px;
-      margin: -20px 0;
+      height: 80px;
+      margin: 10px 0 -20px 0;
       width: 100%;
       z-index: 9;
     }
