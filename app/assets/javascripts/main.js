@@ -18,7 +18,7 @@ var w = $(window),
     pageEndOffsets = [],
     hideWelcome = $.cookie('hideWelcome'),
     volume = mp.volume(),
-    shuffle = mp.shuffle(),
+    playMode = mp.playMode(),
     isDragging = false,
     mouseDown = false,
     hasNavbar = true,
@@ -26,7 +26,8 @@ var w = $(window),
     navHovered = [],
     navUnhoveredOnce = false,
     friendsTemplate = $('#friends').html(),
-    navbarInterval;
+    navbarInterval,
+    playModeEl = $('#player-mode');
 
 // Read URL parameters
 var urlParams = {},
@@ -101,7 +102,7 @@ $(function() {
     mp.toggleVolume();
   }
 
-  if (shuffle) updateShuffle(shuffle, $('.shuffle'))
+  if (playMode != 'normal') updatePlayMode(playMode);
 
   // html5 pushState
   $("a:not(.control)").pjax({
@@ -289,11 +290,9 @@ $(function() {
         mp.setAutoPlay(true);
       }
 
-      else if (el.is('.shuffle')) {
-        fn.log('shuffle');
+      else if (el.is('#player-mode')) {
         e.preventDefault();
-        shuffled = mp.toggleShuffle();
-        updateShuffle(shuffled, el);
+        updatePlayMode(mp.nextPlayMode());
       }
 
       else if (el.is('#more-artists')) {
@@ -395,10 +394,11 @@ function hideDialog(time) {
   }, time * 1000);
 }
 
-function updateShuffle(shuffled, el) {
-  fn.log('shuffled = ', shuffled);
-  if (shuffled) el.addClass('active');
-  else el.removeClass('active');
+function updatePlayMode(mode) {
+  playModeEl
+    .removeClass('pictos-normal pictos-shuffle pictos-repeat')
+    .addClass('pictos-' + mode)
+    .html(fn.capitalize(mode));
 }
 
 // Bind selectors to callbacks

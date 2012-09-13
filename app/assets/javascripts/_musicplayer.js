@@ -26,10 +26,14 @@ var mp = (function() {
       autoPlay = false,
       hasMoved = false,
       timerInterval,
-      shuffle = $.cookie('shuffle') == "true" || ($.cookie('shuffle', false) && false),
+      playModes = {0: 'normal', 1: 'shuffle', 2: 'repeat'},
+      playMode = $.cookie('playmode'),
       curFailures = 0,
       failures = 0,
       playTimeout;
+
+  // Playmode
+  playMode = playMode || 0;
 
   // Elements
   var pl = {
@@ -204,7 +208,7 @@ var mp = (function() {
 
     next: function next() {
       clearTimeout(playTimeout);
-      if (shuffle) {
+      if (playMode == 1) { // shuffle
         this.shuffleNext();
         return;
       }
@@ -225,6 +229,12 @@ var mp = (function() {
       if (playlistPlayed.length == playlist.songs.length) return this.toPlaylist('next');
       else if (curSection) return this.playSection($('.playlist:visible section:eq(' + this.randomIndex() + ')'));
       else this.playSong(this.randomIndex());
+    },
+
+    repeat: function() {
+      fn.log('repeating');
+      curSong.setPosition(0);
+      curSong.play();
     },
 
     randomIndex: function() {
@@ -344,7 +354,7 @@ var mp = (function() {
 
       // fn.log(e,x,offset,width,newPos);
       dragging_percent = newPos;
-      if (dragging_percent >= 99 || dragging_percent <= 0) player.endDrag();
+      if (dragging_percent >= 100 || dragging_percent <= 0) player.endDrag();
       else player.updateProgress();
     },
 
@@ -419,7 +429,9 @@ var mp = (function() {
     },
 
     finish: function finish() {
-      player.next();
+      fn.log('finished', curSong);
+      if (playMode == 2) player.repeat();
+      else player.next();
     },
 
     whileloading: function whileloading() {
@@ -595,14 +607,18 @@ var mp = (function() {
       return curPlaylistUrl;
     },
 
-    toggleShuffle: function() {
-      shuffle = !shuffle;
-      $.cookie('shuffle', shuffle);
-      return shuffle;
+    nextPlayMode: function() {
+      return this.setPlayMode(++playMode % 3);
     },
 
-    shuffle: function() {
-      return shuffle;
+    setPlayMode: function(mode) {
+      playMode = mode;
+      $.cookie('playmode', playMode);
+      return playModes[playMode];
+    },
+
+    playMode: function() {
+      return playModes[playMode];
     }
 
   };

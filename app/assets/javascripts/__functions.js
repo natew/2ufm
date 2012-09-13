@@ -72,6 +72,10 @@ var fn = {
     return into;
   },
 
+  capitalize: function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  },
+
   scrollToTop: function() {
     $('html,body').animate({scrollTop:0}, 200);
   },
