@@ -69,7 +69,7 @@ class Song < ActiveRecord::Base
   acts_as_commentable
 
   # Attachments
-  has_attachment :image, styles: { large: ['800x800#', :jpg], medium: ['256x256#', :jpg], small: ['128x128#', :jpg], icon: ['64x64#', :jpg], tiny: ['32x32#', :jpg] }
+  has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
   has_attachment :file, :s3 => Yetting.s3_enabled
 

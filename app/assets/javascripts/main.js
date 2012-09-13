@@ -538,7 +538,6 @@ function navDropdown(nav, pad, hover) {
 
       // If the nav is not already open
       if (!(navOpen && navOpen[0] == dropdown[0])) {
-        fn.log('opening', dropdown);
         navOpen = dropdown.css({
           top: top,
           left: left
