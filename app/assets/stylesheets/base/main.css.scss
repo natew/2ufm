@@ -377,7 +377,7 @@ header {
   #player-buttons {
     position: absolute;
     top: 8px;
-    width: 190px;
+    width: 196px;
     right: 0;
 
     a {
@@ -386,7 +386,7 @@ header {
       padding: 0 4px 0;
       width: 36px;
       text-align: center;
-      margin: 0;
+      margin: 0 1px;
       color: lighten($header-light, 20%);
       float: left;
       text-decoration: none;
