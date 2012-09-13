@@ -133,7 +133,7 @@ class Song < ActiveRecord::Base
   scope :select_shared_songs, select('DISTINCT ON (shares.created_at, songs.matching_id) songs.*')
   scope :select_sender, select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at')
   scope :select_receiver, select('receiver.username as receiver_username, receiver.station_slug as receiver_station_slug, shares.created_at as sent_at')
-  scope :select_distinct_broadcasts, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*')
+  scope :select_distinct_broadcasts, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*').select('broadcasts.created_at as broadcasted_at')
   scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
   # Scopes for playlist
@@ -387,28 +387,19 @@ class Song < ActiveRecord::Base
 
           # Update info if we have processed this song
           if working? and !processed?
-            # Clean name
-            set_match_name
-
             # Waveform
             if waveform_file_name.nil?
               logger.info "Generating waveform..."
               self.waveform = generate_waveform(song.path)
             end
 
-            # Determine if we already have this song
+            set_match_name
             find_matching_songs
-
-            # Delete file if we already have it
             delete_file_if_matching
-
-            # Add to artist and blog stations
             add_to_stations
 
-            # Slug
+            # Slug & Processed
             self.slug = full_name.to_url
-
-            # Processed
             self.processed = true
 
             logger.info "Processed #{id} working!"

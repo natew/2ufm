@@ -13,7 +13,8 @@ var page = {
     var curPage = window.location.pathname,
         path = curPage.split('/'),
         tipTimer,
-        signedIn = !$('body').is('.signed_out');
+        signedIn = !$('body').is('.signed_out'),
+        pageFollow;
 
     fn.log(curPage, 'signed in?', signedIn);
 

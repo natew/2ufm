@@ -646,7 +646,11 @@ function updateFollows() {
     updateFollowsIds[i] += ' a';
   }
 
-  follows = '.follow-' + updateFollowsIds.join(', .follow-');
+  if (len > 1) {
+    follows = '.follow-' + updateFollowsIds.join(', .follow-');
+  } else {
+    follows = '.follow-' + updateFollowsIds[0];
+  }
 
   fn.log(follows);
   $(follows)
@@ -655,6 +659,10 @@ function updateFollows() {
     .removeClass('add')
     .addClass('remove')
     .html('<span>' + f.icon + '</span><strong>' + f.html + '</strong>');
+}
+
+function setFollowsIds(ids) {
+  updateFollowsIds = ids;
 }
 
 // Modal

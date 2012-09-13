@@ -1,6 +1,6 @@
 <%-
   share ||= true
 -%>
-<ul class="title-nav">
-  <li class="follow-<%= station.id %>"><%= follow_station(station.id, station.follows_count) %></li>
+<ul id="page-follow" class="title-nav">
+  <li class="follow-<%= station.id %>"><%= follow_station(station.id, station.follows_count, :nocache => true) %></li>
 </ul>
