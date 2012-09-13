@@ -71,6 +71,12 @@ module ApplicationHelper
         author.role == 'remix' ? list.unshift(link) : list.push(link)
       end
     end
+
+    if original.empty?
+      original = list
+      list = []
+    end
+
     { :original => raw(original.join(', ')), :other => raw(list.join(', ')) }
   end
 
