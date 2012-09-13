@@ -86,10 +86,6 @@ $song-player-height: 50px;
     }
 
     &.failed {
-      .song-meta, h1 {
-        z-index: 101;
-      }
-
       &:after {
         border: none;
         content: "";
@@ -187,6 +183,7 @@ $song-player-height: 50px;
       padding: 4px 0 0;
       color: #888;
       z-index: 12;
+      position: relative;
       pointer-events: none;
 
       .song-meta-pre {
@@ -268,9 +265,9 @@ $song-player-height: 50px;
     }
 
     .song-controls {
-      float: right;
-      margin: 0;
-      padding: 0;
+      position: absolute;
+      bottom: 0;
+      right: 0;
       width: 150px;
 
       &.hover-show a { display: none; }
@@ -285,7 +282,7 @@ $song-player-height: 50px;
         font-size: 14px;
         padding: 6px;
         margin: -6px;
-        margin-left: 10px;
+        margin-left: 12px;
         font-weight: 400;
         line-height: .9em;
 
@@ -299,6 +296,11 @@ $song-player-height: 50px;
           width: 14px;
         }
 
+        &.pictos-comment:before {
+          margin-right: 5px;
+          top: -1px;
+        }
+
         &:hover {
           color: #fff;
           background: $body-lighter;
@@ -306,13 +308,10 @@ $song-player-height: 50px;
       }
 
       .broadcast {
-        a {
-          font-size: 16px;
-          &:hover {
-            color: #fff;
-            background: $like-color;
-            &:before { color: #fff; }
-          }
+        a:hover {
+          color: #fff;
+          background: $like-color;
+          &:before { color: #fff; }
         }
 
         .remove {
