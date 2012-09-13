@@ -33,6 +33,7 @@ var mp = (function() {
 
   // Elements
   var pl = {
+    bar: $('#player-progress-bar'),
     loaded: $('#player-progress-loaded'),
     position: $('#player-progress-position'),
     handle: $('#player-progress-grabber'),
@@ -119,7 +120,8 @@ var mp = (function() {
 
     // Play song
     play: function play() {
-      this.setCurSection('playing');
+      var self = this;
+      self.setCurSection('playing');
       clearTimeout(playTimeout);
       playTimeout = setTimeout(function() {
         if (!smReady) {
@@ -127,7 +129,7 @@ var mp = (function() {
         }
         else {
           // Load
-          if (!playlist) this.load();
+          if (!playlist) self.load();
           fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
 
           if (playlist && playlistIndex < playlist.songs.length) {
@@ -164,7 +166,7 @@ var mp = (function() {
           }
           else {
             fn.log('playing fail');
-            this.refresh();
+            self.refresh();
             return false;
           }
         }
@@ -337,7 +339,7 @@ var mp = (function() {
       var e      = e ? e : window.event,
           x      = parseInt(e.clientX),
           offset = pl.handle.offset().left,
-          width  = pl.handle.width(),
+          width  = pl.bar.width(),
           newPos = Math.round(((x - offset) / width) * 100);
 
       // fn.log(e,x,offset,width,newPos);
@@ -347,7 +349,7 @@ var mp = (function() {
     },
 
     updateProgress: function updateProgress() {
-      var duration     = curSong.duration || curSong.durationEstimate || 0,
+      var duration     = curSong.durationEstimate || curSong.duration || 0,
           milliseconds = Math.round(duration * (dragging_percent / 100));
       // fn.log(dragging_percent/100, duration, milliseconds);
       pl.position.attr('width', dragging_percent + '%');

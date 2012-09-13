@@ -23,6 +23,7 @@ module ApplicationHelper
   end
 
   def js_date(time)
+    time = time.class == String ? Date.parse(time) : time
     time.strftime("%Y-%m-%dT%H:%M:%S")
   end
 
