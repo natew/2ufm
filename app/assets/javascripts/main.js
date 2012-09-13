@@ -619,7 +619,6 @@ function updateBroadcasts() {
         method: 'delete'
       };
 
-  fn.log(songs)
   $(songs).each(function() {
     var broadcast = $(this).children('.song-meta').find('.song-controls .broadcast a');
     broadcast
@@ -652,7 +651,6 @@ function updateFollows() {
     follows = '.follow-' + updateFollowsIds[0];
   }
 
-  fn.log(follows);
   $(follows)
     .attr('title', f.title)
     .data('method', f.method)
