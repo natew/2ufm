@@ -16,6 +16,8 @@
     follow_id    = 'station-follow-' + id
     cover      ||= :icon
     broadcasted  = song.respond_to? :broadcasted_at
+    with_follow  = song.respond_to? :following_station_id
+    show_original = (!with_follow or song.following_station_id != song.station_id)
 -%>
 
   <div class="song-info">
@@ -34,8 +36,8 @@
 
   <div class="song-meta">
     <div class="song-meta-pre">
-      <%= render :partial => 'songs/posted', :locals => { :song => song } unless broadcasted and song.following_station_id == song.station_id  %>
-      <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } if broadcasted %>
+      <%= render :partial => 'songs/posted', :locals => { :song => song } if show_original  %>
+      <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } if with_follow %>
     </div>
 
     <div class="song-controls">
