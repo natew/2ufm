@@ -41,7 +41,7 @@
         <%= link_to song.station_title, '/'+song.station_slug %>
         <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if song.reposted? %>
       </div>
-      <time datetime="<%= time %>"><%= relative_time(time) %></time>
+      <time datetime="<%= js_date(time) %>"><%= relative_time(time) %></time>
     </div>
 
     <div class="song-controls">

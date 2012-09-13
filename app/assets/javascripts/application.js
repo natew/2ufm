@@ -16,4 +16,5 @@
 //= require soundmanager2-nodebug-jsmin
 //= require spin
 //= require ZeroClipboard
+//= require relativetime
 //= require_tree .

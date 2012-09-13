@@ -17,10 +17,8 @@ var page = {
 
     fn.log(curPage, 'signed in?', signedIn);
 
-    if (signedIn) {
-      updateBroadcasts();
-      updateFollows();
-    }
+    if (signedIn)
+      updatePlaylist();
 
     $('img').on('error', function(){ $(this).attr('src','/images/default.png'); });
 

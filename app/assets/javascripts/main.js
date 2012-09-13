@@ -498,8 +498,7 @@ function nextPage(link, callback) {
         link.html('Page ' + scrollPage).addClass('loaded');
         loadingPage = false;
         link.after(data);
-        updateBroadcasts();
-        updateFollows();
+        updatePlaylist();
         updatePageURL(scrollPage);
         pageEndOffsets.push(curPlaylist.offset().top + curPlaylist.height());
         if (callback) callback.call(playlist);
@@ -595,6 +594,20 @@ function updateShareFriends(friends) {
   } else {
     $('#share-friends').hide();
   }
+}
+
+function updatePlaylist() {
+  updateFollows();
+  updateBroadcasts();
+  updateTimes();
+}
+
+function updateTimes() {
+  $('time').each(function() {
+    var el = $(this),
+        datetime = new Date(el.attr('datetime')).toRelativeTime();
+    el.html(datetime);
+  });
 }
 
 function updateBroadcasts() {

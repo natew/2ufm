@@ -21,6 +21,10 @@ module ApplicationHelper
     "#{h}#{m}m #{s}s"
   end
 
+  def js_date(time)
+    time.strftime("%Y-%m-%dT%H:%M:%S")
+  end
+
   def cache_if(condition, name = {}, &block)
     if condition
       cache(name, &block)
