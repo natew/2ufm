@@ -357,7 +357,7 @@ class Song < ActiveRecord::Base
             track = client.get("/tracks/#{soundcloud_id}")
             tag.title = track.title || tag.title
             tag.genre = track.genres || tag.genre
-            tag.artist ||= track.user
+            tag.artist = track.user.username || tag.artist
           end
 
           # Properties
