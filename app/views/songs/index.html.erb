@@ -1,6 +1,7 @@
 <%- cache("playlist_popular") do -%>
 <div class="whole">
-  <h2>Popular Songs</h2>
+  <h2>Recently Popular</h2>
+  <p class="sub">Browse the most recent songs that people like from music blogs around the web.</p>
   <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs, :classname => 'open' } %>
 </div>
 <%- end -%>

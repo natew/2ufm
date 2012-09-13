@@ -1,11 +1,5 @@
 class MainController < ApplicationController
-  def index
-    @just_in_station = Station.newest
-    @just_in_songs = Song.playlist_order_published(current_user)
-
-    respond_to do |format|
-      format.html
-    end
+  def stations
   end
 
   def search

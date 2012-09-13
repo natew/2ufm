@@ -1,10 +1,8 @@
 <div class="title">
   <h2>Music Blogs</h2>
-  <p>Browse blogs and subscribe to their stations</p>
+  <p>Browse blogs and subscribe to their stations. <%= link_to 'Submit your blog', new_blog_path %></p>
 
-  <div class="title-nav">
-    <%= link_to 'Submit your blog', new_blog_path, :class => 'button' %>
-  </div>
+  <%= render :partial => 'shared/stations_nav' %>
 </div>
 
 <ul class="subnav">

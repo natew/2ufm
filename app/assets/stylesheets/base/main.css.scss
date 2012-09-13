@@ -1259,6 +1259,13 @@ $announce-color: $heading-color;
   }
 }
 
+.sub {
+  font-size: 14px;
+  background: $body-dark;
+  border: 1px solid $body-light;
+  padding: 10px;
+}
+
 .follow-station {
   float: left;
 }

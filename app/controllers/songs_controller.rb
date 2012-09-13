@@ -9,6 +9,15 @@ class SongsController < ApplicationController
     end
   end
 
+  def fresh
+    @just_in_station = Station.newest
+    @just_in_songs = Song.playlist_order_published(current_user)
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def show
     # Song and song playlist
     search_type = params[:id].is_numeric? ? :id : :slug
