@@ -24,7 +24,7 @@ module ApplicationHelper
 
   def js_date(time)
     time = time.class == String ? Date.parse(time) : time
-    time.strftime("%Y-%m-%dT%H:%M:%S")
+    time.strftime("%Y-%m-%d %H:%M:%S GMT%z")
   end
 
   def cache_if(condition, name = {}, &block)
