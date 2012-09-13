@@ -410,30 +410,6 @@ function mpClick(selector, callback) {
   });
 }
 
-function bindNavHover() {
-  // Hover binding
-  $('.nav-hover').hover(function(e) {
-    var el = $(this);
-    if (!navHovered[el.attr('class')]) navDropdown(el);
-    navHovered[el.attr('class')] = true;
-  }, function() {
-    var el = $(this);
-    var navHoverInterval = setInterval(function() {
-      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-        navUnhoveredOnce = true;
-        if (navUnhoveredOnce) {
-          navDropdown(false);
-          clearInterval(navHoverInterval);
-          navHovered[el.attr('class')] = false;
-          navUnhoveredOnce = false;
-        }
-      }
-    }, 300);
-  }).click(function() {
-    return false;
-  });
-}
-
 function getNavItems() {
   var items = {};
   $('#navbar a').each(function() {
@@ -522,36 +498,63 @@ function nearBottom() {
   return w.scrollTop() >= ($(document).height() - $(window).height() - 1400);
 }
 
+function bindNavHover() {
+  // Hover binding
+  $('.nav-hover').hover(function(e) {
+    var el = $(this);
+    if (!navHovered[el.attr('class')]) navDropdown(el);
+    navHovered[el.attr('class')] = true;
+  }, function() {
+    var el = $(this);
+    var navHoverInterval = setInterval(function() {
+      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+        navUnhoveredOnce = true;
+        if (navUnhoveredOnce) {
+          navDropdown(false);
+          clearInterval(navHoverInterval);
+          navHovered[el.attr('class')] = false;
+          navUnhoveredOnce = false;
+        }
+      }
+    }, 200);
+  }).click(function() {
+    return false;
+  });
+}
+
 function navDropdown(nav, pad) {
   fn.log(nav, pad);
   if (nav && nav.length) {
-    var navIsShare = false;
-    if (nav.is('.song-share')) {
-      navIsShare = true;
-      updateShare(nav);
-    }
-
-    var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
-        padding = pad ? pad : 10,
-        target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
-        dropdown = $(target).removeClass('hidden').addClass('open'),
-        top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
-        left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
-
-    // If the nav is not already open
-    if (!(navOpen && navOpen[0] == dropdown[0])) {
-      fn.log('opening', dropdown);
-      navOpen = dropdown.css({
-        top: top,
-        left: left
-      });
-
-      if (navIsShare) {
-        fn.clipboard('share-link', 'fixed');
+    setTimeout(function() {
+      if (!nav.is(':hover')) return false;
+      var navIsShare = false;
+      if (nav.is('.song-share')) {
+        navIsShare = true;
+        updateShare(nav);
       }
 
-      return true;
-    }
+      var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
+          padding = pad ? pad : 10,
+          target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
+          dropdown = $(target).removeClass('hidden').addClass('open'),
+          top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
+          left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
+
+      // If the nav is not already open
+      if (!(navOpen && navOpen[0] == dropdown[0])) {
+        fn.log('opening', dropdown);
+        navOpen = dropdown.css({
+          top: top,
+          left: left
+        });
+
+        if (navIsShare) {
+          fn.clipboard('share-link', 'fixed');
+        }
+
+        return true;
+      }
+    }, 300);
   }
 
   if (navOpen) navOpen.removeClass('open').addClass('hidden');
