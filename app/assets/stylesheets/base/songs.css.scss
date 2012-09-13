@@ -81,7 +81,7 @@ $song-player-height: 50px;
     }
 
     &.active {
-      background: lighten($body-lighter,2%) !important;
+      background: $body-dark !important;
       border: 2px solid $primary;
     }
 
