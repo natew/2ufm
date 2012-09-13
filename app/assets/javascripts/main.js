@@ -502,7 +502,7 @@ function bindNavHover() {
   // Hover binding
   $('.nav-hover').hover(function(e) {
     var el = $(this);
-    if (!navHovered[el.attr('class')]) navDropdown(el);
+    if (!navHovered[el.attr('class')]) navDropdown(el, false, true);
     navHovered[el.attr('class')] = true;
   }, function() {
     var el = $(this);
@@ -522,8 +522,9 @@ function bindNavHover() {
   });
 }
 
-function navDropdown(nav, pad) {
+function navDropdown(nav, pad, hover) {
   fn.log(nav, pad);
+  var delay = hover ? 300 : 0;
   if (nav && nav.length) {
     setTimeout(function() {
       if (!nav.is(':hover')) return false;
@@ -554,7 +555,7 @@ function navDropdown(nav, pad) {
 
         return true;
       }
-    }, 300);
+    }, delay);
   }
 
   if (navOpen) navOpen.removeClass('open').addClass('hidden');
