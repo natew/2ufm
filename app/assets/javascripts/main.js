@@ -721,7 +721,9 @@ function getNavbar() {
 
         fn.log('friends', friendsTemplate, data['friends']);
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
-        $('#stations-inner').html(friendsHtml);
+        $('#stations-inner').html(friendsHtml).find('img').load(function() {
+          $(this).removeClass('hidden');
+        });
         updateShareFriends(friendsHtml);
       }
       else {
