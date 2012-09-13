@@ -15,7 +15,6 @@ var w = $(window),
     enableInfiniteScroll = true,
     navItems = getNavItems(),
     navActive,
-    pageEndOffsets = [],
     hideWelcome = $.cookie('hideWelcome'),
     volume = mp.volume(),
     playMode = mp.playMode(),
@@ -194,7 +193,10 @@ $(function() {
     if (!loadingPage) {
       clearTimeout(infiniteScrollTimeout);
       infiniteScrollTimeout = setTimeout(function() {
-        if (nearBottom()) $('.next-page:visible:last').click();
+        if (nearBottom()) {
+          var lastPlaylist = $('.playlist:visible:last');
+          if (lastPlaylist.length && lastPlaylist.is('.has-more')) nextPage(lastPlaylist);
+        }
         // decrementPage();
       }, 20);
     }
@@ -276,13 +278,6 @@ $(function() {
       // Modals
       else if (el.is('.modal')) {
         modal(e.target.getAttribute('href'));
-        return false;
-      }
-
-      // Infinite scroll
-      else if (el.is('.next-page:not(.loaded)')) {
-        // Page load
-        nextPage(el);
         return false;
       }
 
@@ -450,17 +445,19 @@ function updatePageURL(page) {
   mp.updatePage(url);
 }
 
-function nextPage(link, callback) {
-  var link = link.html('Loading').addClass('loading');
+function nextPage(playlist) {
   // Infinite scrolling
-  if (morePages) {
-    var curPlaylist = $('.playlist:visible:last'),
-        curPlaylistInfo = curPlaylist.attr('id').split('-'),
-        id = curPlaylistInfo[1]
-        page = curPlaylistInfo[2];
+  if (morePages && playlist) {
+    var link = playlist.next('.next-page').html('Loading...'),
+        playlistInfo = playlist.attr('id').split('-'),
+        id = playlistInfo[1]
+        page = parseInt(playlistInfo[2], 10);
 
     loadingPage = true;
-    scrollPage = parseInt(page,10) + 1;
+    scrollPage = page + 1;
+
+    fn.log(id, scrollPage, mp.getPage());
+
     $.ajax({
       url: mp.getPage(),
       type: 'get',
@@ -476,8 +473,6 @@ function nextPage(link, callback) {
         link.after(data);
         updatePlaylist();
         updatePageURL(scrollPage);
-        pageEndOffsets.push(curPlaylist.offset().top + curPlaylist.height());
-        if (callback) callback.call(playlist);
       },
       error: function() {
         morePages = false;
@@ -603,6 +598,7 @@ function updateShareFriends(friends) {
 function updatePlaylist() {
   updateFollows();
   updateBroadcasts();
+  updateListens();
   updateTimes();
 }
 
@@ -612,6 +608,14 @@ function updateTimes() {
         datetime = new Date(el.attr('datetime')).toRelativeTime();
     el.html(datetime);
   });
+}
+
+function updateListens() {
+  if (!updateListensIds || updateListensIds.length == 0) return false;
+  var select = '#song-',
+      songs = select + updateListensIds.join(',' + select);
+
+  $(songs).addClass('listened-to');
 }
 
 function updateBroadcasts() {

@@ -1,5 +1,6 @@
 var w = $(window),
-    playlistActive;
+    playlistActive,
+    playlistTemplate = $('#player-playlist-template').html();
 
 // Callbacks
 w.on({
@@ -16,8 +17,8 @@ w.on({
       .attr('href',playlist.station.slug);
 
       // Render playlist
-      playlist_template = Mustache.render($('#player-playlist').html(),playlist);
-      $('#player-playlist').html(playlist_template).addClass('loaded');
+      playerPlaylist = Mustache.render(playlistTemplate, playlist);
+      $('#player-playlist').html(playerPlaylist).addClass('loaded');
   },
 
   'mp:gotListen': function mpGotListenEvent(event, mp, song) {

@@ -18,30 +18,31 @@ cache_if(id > 4, "playlist_#{id}_#{station.updated_at.to_i}_#{page}_#{part_or_no
   cover         ||= 'small'
 -%>
 
-<div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %>"
+<div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %> <%= 'has-more' if has_more %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover } unless songs.nil? %>
 </div>
 
-<%-
-  # broadcasts and follows
-  if user_signed_in?
-    broadcasts = current_user.get_song_broadcasts(songs.map(&:matching_id))
-    follows = current_user.get_station_follows(songs.map(&:station_id).uniq!)
--%>
-
-<script type="text/javascript">
-  updateBroadcastsIds = <%= raw broadcasts %>;
-  updateFollowsIds = <%= raw follows %>;
-</script>
-
-<%-
-  end
-  # end broadcasts and follows
--%>
+<%= link_to 'Next Page', '', :class => 'next-page control' if has_more %>
 
 <%-
   end # end cache
 -%>
 
-  <%= link_to 'Load more', '', :class => 'next-page control' if paginate %>
+<%-
+  # broadcasts and follows
+  if user_signed_in?
+    ids = songs.map(&:matching_id)
+    broadcasts = current_user.get_song_broadcasts(ids)
+    follows = current_user.get_station_follows(songs.map(&:station_id).uniq!)
+    listens = current_user.get_song_listens(ids)
+-%>
+
+<script type="text/javascript">
+  updateBroadcastsIds = <%= raw broadcasts %>;
+  updateFollowsIds = <%= raw follows %>;
+  updateListensIds = <%= raw listens %>;
+</script>
+<%-
+  end # end broadcasts and follows
+-%>

@@ -1316,11 +1316,12 @@ $announce-color: $heading-color;
   color: #ccc;
   font-size: 14px;
   text-align: center;
-  margin: 30px 0 400px;
+  margin: 30px 0 800px;
   padding: 10px;
   text-decoration: none;
   font-weight: bold;
   text-transform: uppercase;
+  pointer-events: none;
   @include border-radius(8px);
 
   &.loading {

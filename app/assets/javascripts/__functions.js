@@ -49,8 +49,7 @@ var fn = {
   },
 
   replaceState: function(url, container) {
-    window.history.replaceState(null,document.title,url);
-    return $.pjax({url: url, container: (container || '#null'), replace: true, dontRequest: true});
+    return window.history.replaceState(null,document.title,url);;
   },
 
   flatten: function(obj, includePrototype, into, prefix) {

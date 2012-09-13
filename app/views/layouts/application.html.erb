@@ -32,7 +32,7 @@
   </script>
 
   <script type="text/javascript">
-    var updateBroadcastsIds, updateFollowsIds;
+    var updateBroadcastsIds, updateFollowsIds, updateListensIds;
   </script>
 </head>
 
@@ -143,7 +143,8 @@
     <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
   </div>
 
-  <div id="player-playlist" class="pop-menu">
+  <div id="player-playlist" class="pop-menu"></div>
+  <div id="player-playlist-template" class="hidden">
     <h4>{{station.title}}</h4>
     {{#songs}}
       <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{index}}">

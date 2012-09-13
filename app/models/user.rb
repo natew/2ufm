@@ -85,6 +85,10 @@ class User < ActiveRecord::Base
     Broadcast.where(:song_id => ids, :station_id => station_id).map(&:song_id)
   end
 
+  def get_song_listens(ids)
+    Listen.where(:song_id => ids, :user_id => id).map(&:song_id)
+  end
+
   def get_station_follows(ids)
     Follow.where(:station_id => ids, :user_id => id).map(&:station_id)
   end
