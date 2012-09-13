@@ -467,8 +467,8 @@ header {
 
       a {
         font-size: 18px;
-        padding-top: 6px;
-        padding-bottom: 6px;
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
     }
 
@@ -477,11 +477,11 @@ header {
       position: fixed;
       bottom: 0;
       right: 10px;
-      width: $navbar-width - 40;
+      width: $navbar-width - 10;
       background: $navbar-bg;
 
       &.collapsed {
-        height: 18px;
+        height: 24px;
         overflow: hidden;
 
         h1:after {
@@ -524,7 +524,10 @@ header {
         color: #aaa;
         margin-left: 0;
         margin-right: 10px;
-        padding: 4px 32px 4px 20px;
+        padding: 3px 34px 3px 20px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
         font-size: 14px;
         position: relative;
 
