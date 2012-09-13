@@ -14,7 +14,7 @@
   top: 0;
   background-color: #000;
   pointer-events: none;
-  @include opacity(0);
+  opacity: 0;
   @include transition(opacity linear .1s);
 }
 
@@ -24,7 +24,7 @@
 
 #overlay.shown {
   pointer-events: auto;
-  @include opacity(.5);
+  opacity: .5;
 }
 
 .close-modal {

@@ -49,7 +49,7 @@ form {
   #error_explanation {
     padding: 0 0 1px;
     margin: 0 0 20px 0;
-    @include border-bottom-radius(6px);
+    border-bottom-radius: 6px;
 
     h2 {
       background: $red;
@@ -57,7 +57,7 @@ form {
       padding: 4px 8px;
       margin: 0;
       font-size: 18px;
-      @include border-radius(6px);
+      border-radius: 6px;
     }
 
     ul {
@@ -204,7 +204,7 @@ button {
   z-index: 10;
   border: none;
   background: $primary;
-  @include border-radius(6px);
+  border-radius: 6px;
 
   &:hover, &.hover {
     color: #fff;

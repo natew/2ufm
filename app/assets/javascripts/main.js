@@ -182,6 +182,19 @@ $(function() {
   // Online friends
   startGetNavbar();
 
+  // Custom scrollpanes
+  $('.scroll-pane').jScrollPane({
+  })
+  .bind('mousewheel DOMMouseScroll', function(e) {
+    var delta = e.wheelDelta || -e.detail;
+    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+    e.preventDefault();
+  });
+
+  $(window).resize(fn.triggerOnFinish(function() {
+    $('.scroll-pane').jScrollPane();
+  }));
+
   // Page scroll functions
   w.scroll(function() {
     // Removes on scroll
@@ -254,7 +267,7 @@ $(function() {
     }
     else {
       if (el.is('.control')) e.preventDefault();
-      if (el.is('.nav')) {
+      if (el.is('.nav:not(.active)')) {
         navDropdown($(e.target));
         return false;
       }
@@ -520,9 +533,9 @@ function bindNavHover() {
 function navDropdown(nav, pad, hover) {
   fn.log(nav, pad);
   var delay = hover ? 300 : 0;
-  if (nav && nav.length) {
-    setTimeout(function() {
-      if (!nav.is(':hover')) return false;
+  setTimeout(function() {
+    if (nav && nav.length) {
+      if (hover && !nav.is(':hover')) return false;
       var navIsShare = false;
       if (nav.is('.song-share')) {
         navIsShare = true;
@@ -549,11 +562,11 @@ function navDropdown(nav, pad, hover) {
 
         return true;
       }
-    }, delay);
-  }
+    }
 
-  if (navOpen) navOpen.removeClass('open').addClass('hidden');
-  navOpen = false;
+    if (navOpen) navOpen.removeClass('open').addClass('hidden');
+    navOpen = false;
+  }, delay);
 }
 
 function updateShare(nav) {

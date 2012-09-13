@@ -26,9 +26,7 @@ $link-color: #ccc;
 $link-hover: #fff;
 
 /* layout widths */
-$width: 550px;
-
-$browse-height: 120px;
+$width: 400px;
 
 $heading-color: #fff;
 $heading-color-light: lighten($heading-color,20%);
@@ -47,17 +45,6 @@ $navbar-width: 200px;
 $navbar-bg: #222;
 $navbar-active: $primary;
 
-$progress: #fff;
-
-$title: #000;
-$border: #555;
-
-$bar-bg: #444;
-
-$lightest-blue: #e8f5fc;
-$lighter-blue: darken($lightest-blue,5%);
-$light-blue: darken($lightest-blue,10%);
-
 $yellow: #acac04;
 
 $green: #1d8605;
@@ -69,42 +56,11 @@ $light-red: lighten($red,6%);
 $dark-red: darken($red,6%);
 
 $orange: #eb983f;
-$light-orange: lighten($orange,6%);
-$dark-orange: darken($orange,6%);
-
-$light-grey: #f6f6f6;
-
-$playing: #666;
-$light-yellow: #ffd;
-$lighter-yellow: #fcfbec;
-
-$cover-medium-border: 7px;
 
 /* like */
 $like-color: $green;
 $like-light: lighten($like-color,8%);
 $like-dark: darken($like-color,8%);
-
-@mixin opacity($decimal) {
-  opacity: $decimal;
-  filter: alpha(opacity=$decimal*100);
-}
-
-@mixin scale($size) {
-  -webkit-transform: scale($size);
-  -moz-transform: scale($size);
-  -ms-transform: scale($size);
-  -o-transform: scale($size);
-  transform: scale($size);
-}
-
-@mixin blur($amount) {
-  -webkit-filter: blur($amount);
-  -moz-filter: blur($amount);
-  -ms-filter: blur($amount);
-  -o-filter: blur($amount);
-  filter: blur($amount);
-}
 
 @mixin dim($percent) {
   background: rgba(0,0,0,$percent/100);

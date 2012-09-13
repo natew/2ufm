@@ -40,6 +40,18 @@ var fn = {
     return str;
   },
 
+  triggerOnFinish: function(func , timeout) {
+     var timeoutID , timeout = timeout || 200;
+     return function () {
+        var scope = this , args = arguments;
+        clearTimeout( timeoutID );
+        timeoutID = setTimeout( function () {
+            func.apply( scope , Array.prototype.slice.call( args ) );
+        } , timeout );
+     }
+  },
+
+
   popup: function(url, width, height) {
     var left = (screen.width/2)-(width/2),
         top = (screen.height/2)-(height/2),

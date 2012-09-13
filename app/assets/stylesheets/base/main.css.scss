@@ -70,10 +70,11 @@ header {
   position: fixed;
   width: 100%;
   top: 0;
-  left: 0;
+  left: 5px;
   z-index: 1000;
   height: 1 + $header-height;
   line-height: 1em;
+  border-bottom-left-radius: 8px;
   @include box-sizing(border-box);
   @include box-shadow(0 0 15px rgba(0,0,0,0.8));
   @include linear-gradient($header-light, $header-dark);
@@ -140,371 +141,11 @@ header {
   }
 }
 
-#navbar {
-  position: fixed;
-  z-index: 1;
-  top: $header-height;
-  right: 0;
-  bottom: 0;
-  width: $navbar-width;
-  padding: 20px 0 0 0;
-  @include box-sizing(border-box);
-  @include linear-gradient(left, darken($navbar-bg, 1%), $navbar-bg 2%);
-
-  #navbar-menus {
-    overflow: hidden;
-    overflow-y: scroll;
-    height: 100%;
-  }
-
-  section {
-    display: block;
-    position: relative;
-    z-index: 1;
-    margin: 0 15px 20px 0;
-
-    &.nav-user {
-      img {
-        top: 4px;
-        right: 4px;
-        position: absolute;
-        width: 33px;
-        height: 33px;
-      }
-    }
-
-    &.nav-extra {
-      padding-bottom: 10px;
-      max-height: 400px;
-      overflow-y: scroll;
-
-      a {
-        font-size: 18px;
-        padding-top: 6px;
-        padding-bottom: 6px;
-      }
-    }
-
-    &.stations {
-      margin: 0;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      width: $navbar-width - 30;
-      max-height: 250px;
-      padding: 0 30px 10px 0;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      background: $navbar-bg;
-
-      &.collapsed {
-        height: 18px;
-        overflow: hidden;
-
-        h1:after {
-          content: "+";
-          bottom: 6px;
-        }
-      }
-
-      h1 {
-        position: relative;
-        margin-right: -30px;
-        margin-left: 0;
-        padding-left: 20px;
-        color: #fff;
-        background: darken($navbar-bg, 3%);
-
-        &:after {
-          display: block;
-          content: "_";
-          position: absolute;
-          bottom: 12px;
-          right: 14px;
-          font-size: 20px;
-          font-weight: bold;
-        }
-
-        &:hover {
-          background: $body-lighter;
-          cursor: pointer;
-        }
-      }
-
-      a {
-        color: #aaa;
-        margin-left: 0;
-        margin-right: -30px;
-        padding-left: 10px;
-        padding-right: 32px;
-        font-size: 14px;
-        position: relative;
-
-        &:hover {
-          background: $body-bg;
-          padding-left: 10px;
-        }
-
-        &.active {
-          background: $primary;
-          color: #fff;
-        }
-
-        img {
-          position: absolute;
-          top: 4px;
-          right: 4px;
-          width: 24px;
-          height: 24px;
-        }
-      }
-
-      .online a {
-        color: #fff;
-      }
-    }
-
-    &.account {
-      a {
-        font-size: 14px;
-        padding-top: 6px;
-        padding-bottom: 6px;
-      }
-    }
-
-    h1 {
-      font-size: 14px;
-      font-weight: 300;
-      color: #aaa;
-      padding: 5px 8px;
-      margin: 0 0 0 12px;
-    }
-
-    a {
-      position: relative;
-      display: block;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 300;
-      font-size: 22px;
-      padding: 10px 8px 10px 20px;
-      margin: 0 0 2px 0;
-      @include box-sizing(border-box);
-      @include transition(all .1s linear);
-
-      &.secondary {
-        color: #777;
-        font-size: 12px;
-      }
-
-      &:hover {
-        color: #fff;
-        background: darken($body-darker, 5%);
-        padding-left: 25px;
-      }
-
-      &.active {
-        color: #fff;
-        background: $body-bg;
-        @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
-
-        &:hover {background: $body-bg;}
-      }
-
-      span {
-        padding: 2px 6px;
-        margin: -2px 0 0;
-        font-size: 12px;
-        color: #fff;
-        background: #6a0007;
-        float: right;
-        text-align: center;
-        min-width: 24px;
-        @include border-radius(20px);
-        @include box-sizing(border-box);
-      }
-    }
-  }
-}
-
-#body {
-  min-width: $width;
-  overflow: hidden;
-  padding: 20px 0;
-  position: relative;
-  z-index: 2;
-
-  #breadcrumbs {
-    border-bottom: 1px solid $body-dark;
-    padding: 6px 20px;
-    margin: -20px 0 15px 0;
-    font-size: 12px;
-
-    a {
-      color: #aaa;
-      text-decoration: none;
-      float: left;
-
-      &:hover {
-        color: #fff;
-
-        &.after:after {
-          color: #aaa;
-        }
-      }
-
-      &.highlight {
-        color: #ccc;
-        font-weight: 400;
-        &:after {color: #aaa;}
-      }
-
-      &.after:after {
-        display: inline-block;
-        padding: 0 5px;
-        margin: -2px 0 0;
-        font-size: 10px;
-        content: ">";
-      }
-    }
-  }
-}
-
-$placeholder-color: #999;
-
-#query:-moz-placeholder {
-  color: $placeholder-color;
-}
-
-#query::-webkit-input-placeholder {
-  color: $placeholder-color;
-}
-
-#search-form {
-  margin: 0 0 20px 15px;
-  position: relative;
-
-  #query {
-    border: none;
-    padding: 4px 30px 4px 8px;
-    width: $navbar-width - 70;
-    margin: 0;
-    color: $placeholder-color;
-    outline: none;
-    font-size: 12px;
-    border: 1px solid $body-lighter;
-    background: $body-bg;
-    @include border-radius(20px);
-    @include transition(all .1s linear);
-
-    &:hover {
-      @include linear-gradient(lighten($body-bg,5%),lighten($body-bg,10%));
-      color: #444;
-    }
-
-    &:focus {
-      background: #fff;
-      color: #444;
-    }
-  }
-
-  #search {
-    background: none;
-    border: none;
-    pointer-events: none;
-    cursor: text;
-    position: absolute;
-    right: 20px;
-    top: 4px;
-    font-size: 20px;
-    color: #fff;
-    text-shadow: none;
-    padding: 0;
-    box-shadow: none;
-
-    &:hover { color: #fff; }
-  }
-}
-
-header #second-nav {
-  display: none;
-}
-
-.pictos, .button span, .playlist .follow-station, .playlist time:after {
-  font-family: 'Pictos';
-  text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-}
-
-[class*="pictos-"] {
-  position: relative;
-}
-
-[class*="pictos-"]:before {
-  font-weight: normal;
-  display: inline-block;
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  font-size: 12px;
-  font-family: 'Pictos';
-  -webkit-font-smoothing: antialiased;
-}
-
-.pictos-play:before {content: "4";}
-.pictos-puase:before {content: "5";}
-.pictos-key:before {content: "K";}
-.pictos-info:before {content: "i";}
-.pictos-write:before {content: "W";}
-.pictos-gear:before {content: "y";}
-.pictos-help:before {content: "h";}
-.pictos-user:before {content: "U";}
-.pictos-users:before {content: "g";}
-.pictos-download:before {content: "~";}
-.pictos-up:before {content: "{";}
-.pictos-down:before {content: "}";}
-.pictos-refresh:before {content: "1";}
-.pictos-heart:before {content: "k";}
-.pictos-star:before {content: "S";}
-.pictos-music:before {content: "m";}
-.pictos-add:before {content: "+";}
-.pictos-remove:before {content: "-";}
-.pictos-share:before {content: "R";}
-.pictos-list:before {content: "l";}
-.pictos-cart:before {content: "$";}
-.pictos-newspaper:before {content: "N";}
-.pictos-eye:before {content: "E";}
-.pictos-comment:before {content: "w";}
-.pictos-comments:before {content: "q";}
-.pictos-shuffle:before {content: ";";}
-.pictos-repeat:before {content: "r";}
-.pictos-normal:before {content: "l";}
-.pictos-link:before {content: "j";}
-.pictos-clock:before {content: "t";}
-.pictos-cart:before {content: "$";}
-.pictos-check:before {content: "3";}
-.pictos-volume-on:before {content: ">";}
-.pictos-volume-off:before {content: "<";}
-.pictos-time:before {content: "t";}
-
-
-#main-mid a[href^="http://"] {
-  padding-right: .4em;
-
-  &:after {
-    content: "A";
-    display: block;
-    font-family: 'Pictos';
-    padding: 0 0 0 .3em;
-    -webkit-font-smoothing: antialiased;
-  }
-}
-
 /* BAR */
 #bar {
   position: fixed;
   top: 0;
-  left: 85px;
+  left: 95px;
   right: 0;
   z-index: 0;
   min-width: $width - 40;
@@ -522,7 +163,7 @@ header #second-nav {
       .play span {
         left: -3px;
         top: 0;
-        font-size: 36px;
+        font-size: 41px;
       }
     }
   }
@@ -534,7 +175,10 @@ header #second-nav {
 
     #player-controls a {
       span { color: #fff; }
-      &:hover span { color: #fff; }
+      &:hover span {
+        color: #fff;
+        text-shadow: 0 0 10px rgba(255,255,255,0.5);
+      }
     }
 
     #player-bottom #player-timer {color: lighten($header-color, 15%);}
@@ -571,22 +215,16 @@ header #second-nav {
         @include box-sizing(border-box);
         @include transition(all .1s linear);
       }
-
-      &:hover span {
-        text-shadow: 0 0 10px rgba(255,255,255,0.5);
-      }
     }
 
     /* play button */
     .play {
       font-size: 41px;
       width: 54px;
-      height: 60px;
+      height: 50px;
       color: #fff;
 
-      span {
-        padding: 19px 0 0 12px;
-      }
+      span { padding: 19px 0 0 12px; }
     }
 
     .next {
@@ -595,9 +233,7 @@ header #second-nav {
       width: 30px;
       height: 30px;
 
-      span {
-        padding: 4px 0 0 5px;
-      }
+      span { padding: 4px 0 0 5px; }
     }
   }
 
@@ -605,7 +241,7 @@ header #second-nav {
     position: absolute;
     top: 0;
     left: 105px;
-    right: $navbar-width + 20;
+    right: $navbar-width + 10;
     height: 100%;
 
     #player-meta {
@@ -731,6 +367,8 @@ header #second-nav {
 
       #player-progress-position {
         z-index: 4;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
         background: darken($header-dark,20%);
       }
     }
@@ -739,8 +377,8 @@ header #second-nav {
   #player-buttons {
     position: absolute;
     top: 8px;
-    width: 200px;
-    right: 2px;
+    width: 190px;
+    right: 0;
 
     a {
       display: inline-block;
@@ -748,7 +386,7 @@ header #second-nav {
       padding: 0 4px 0;
       width: 36px;
       text-align: center;
-      margin: 0 2px;
+      margin: 0;
       color: lighten($header-light, 20%);
       float: left;
       text-decoration: none;
@@ -788,6 +426,364 @@ header #second-nav {
       color: #fff;
       &:before { color: #fff; }
     }
+  }
+}
+
+#navbar {
+  position: fixed;
+  z-index: 1;
+  top: $header-height;
+  right: 0;
+  bottom: 0;
+  width: $navbar-width;
+  padding: 20px 0 0 0;
+  @include box-sizing(border-box);
+  @include linear-gradient(left, darken($navbar-bg, 1%), $navbar-bg 2%);
+
+  #navbar-menus {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 100%;
+  }
+
+  section {
+    display: block;
+    position: relative;
+    z-index: 1;
+    margin: 0 15px 20px 0;
+
+    &.nav-user {
+      img {
+        top: 4px;
+        right: 4px;
+        position: absolute;
+        width: 33px;
+        height: 33px;
+      }
+    }
+
+    &.nav-extra {
+      padding-bottom: 10px;
+
+      a {
+        font-size: 18px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+    }
+
+    &.stations {
+      margin: 0;
+      position: fixed;
+      bottom: 0;
+      right: 10px;
+      width: $navbar-width - 40;
+      max-height: 250px;
+      padding: 0 30px 10px 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      background: $navbar-bg;
+
+      &.collapsed {
+        height: 18px;
+        overflow: hidden;
+
+        h1:after {
+          content: "+";
+          bottom: 6px;
+        }
+      }
+
+      h1 {
+        position: relative;
+        margin-right: -25px;
+        margin-left: 0;
+        padding-left: 20px;
+        color: #fff;
+        background: $body-dark;
+        @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
+
+        &:after {
+          display: block;
+          content: "_";
+          position: absolute;
+          bottom: 12px;
+          right: 14px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        &:hover {
+          background: $body-bg;
+          cursor: pointer;
+        }
+      }
+
+      a {
+        color: #aaa;
+        margin-left: 0;
+        margin-right: -30px;
+        padding-left: 20px;
+        padding-right: 32px;
+        font-size: 14px;
+        position: relative;
+
+        &:hover {
+          background: darken($navbar-bg, 5%);
+        }
+
+        &.active {
+          background: $primary;
+          color: #fff;
+        }
+
+        img {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .online a {
+        color: #fff;
+      }
+    }
+
+    &.account {
+      a {
+        font-size: 14px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 300;
+      color: #999;
+      padding: 5px 8px;
+      margin: 0 0 0 12px;
+    }
+
+    a {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 300;
+      font-size: 22px;
+      padding: 10px 8px 10px 20px;
+      margin: 0 0 2px 0;
+      @include box-sizing(border-box);
+      @include transition(all .1s linear);
+
+      &.secondary {
+        color: #777;
+        font-size: 12px;
+      }
+
+      &:hover {
+        color: #fff;
+        background: darken($body-darker, 5%);
+        padding-left: 25px;
+      }
+
+      &.active {
+        color: #fff;
+        background: $body-bg;
+        @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
+
+        &:hover {background: $body-bg;}
+      }
+
+      span {
+        padding: 2px 6px;
+        margin: -2px 0 0;
+        font-size: 12px;
+        color: #fff;
+        background: #6a0007;
+        float: right;
+        text-align: center;
+        min-width: 24px;
+        border-radius: 20px;
+        @include box-sizing(border-box);
+      }
+    }
+  }
+}
+
+#body {
+  min-width: $width;
+  overflow: hidden;
+  padding: 10px 0;
+  position: relative;
+  z-index: 2;
+
+  #breadcrumbs {
+    border-bottom: 1px solid $body-dark;
+    padding: 6px 20px;
+    margin: -10px 0 15px 0;
+    font-size: 12px;
+
+    a {
+      color: #aaa;
+      text-decoration: none;
+      float: left;
+
+      &:hover {
+        color: #fff;
+
+        &.after:after {
+          color: #aaa;
+        }
+      }
+
+      &.highlight {
+        color: #ccc;
+        font-weight: 400;
+        &:after {color: #aaa;}
+      }
+
+      &.after:after {
+        display: inline-block;
+        padding: 0 5px;
+        margin: -2px 0 0;
+        font-size: 10px;
+        content: ">";
+      }
+    }
+  }
+}
+
+$placeholder-color: #999;
+
+#query:-moz-placeholder {
+  color: $placeholder-color;
+}
+
+#query::-webkit-input-placeholder {
+  color: $placeholder-color;
+}
+
+#search-form {
+  margin: 0 0 20px 15px;
+  position: relative;
+
+  #query {
+    border: none;
+    padding: 4px 30px 4px 8px;
+    width: $navbar-width - 70;
+    margin: 0;
+    color: $placeholder-color;
+    outline: none;
+    font-size: 12px;
+    border: 1px solid $body-lighter;
+    background: $body-bg;
+    border-radius: 20px;
+    @include transition(all .1s linear);
+
+    &:hover {
+      @include linear-gradient(lighten($body-bg,5%),lighten($body-bg,10%));
+      color: #444;
+    }
+
+    &:focus {
+      background: #fff;
+      color: #444;
+    }
+  }
+
+  #search {
+    background: none;
+    border: none;
+    pointer-events: none;
+    cursor: text;
+    position: absolute;
+    right: 20px;
+    top: 4px;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: none;
+    padding: 0;
+    box-shadow: none;
+
+    &:hover { color: #fff; }
+  }
+}
+
+header #second-nav {
+  display: none;
+}
+
+.pictos, .button span, .playlist .follow-station, .playlist time:after {
+  font-family: 'Pictos';
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+[class*="pictos-"] {
+  position: relative;
+}
+
+[class*="pictos-"]:before {
+  font-weight: normal;
+  display: inline-block;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-size: 12px;
+  font-family: 'Pictos';
+  -webkit-font-smoothing: antialiased;
+}
+
+.pictos-play:before {content: "4";}
+.pictos-puase:before {content: "5";}
+.pictos-key:before {content: "K";}
+.pictos-info:before {content: "i";}
+.pictos-write:before {content: "W";}
+.pictos-gear:before {content: "y";}
+.pictos-help:before {content: "h";}
+.pictos-user:before {content: "U";}
+.pictos-users:before {content: "g";}
+.pictos-download:before {content: "~";}
+.pictos-up:before {content: "{";}
+.pictos-down:before {content: "}";}
+.pictos-refresh:before {content: "1";}
+.pictos-heart:before {content: "k";}
+.pictos-star:before {content: "S";}
+.pictos-music:before {content: "m";}
+.pictos-add:before {content: "+";}
+.pictos-remove:before {content: "-";}
+.pictos-share:before {content: "R";}
+.pictos-list:before {content: "l";}
+.pictos-cart:before {content: "$";}
+.pictos-newspaper:before {content: "N";}
+.pictos-eye:before {content: "E";}
+.pictos-comment:before {content: "w";}
+.pictos-comments:before {content: "q";}
+.pictos-shuffle:before {content: ";";}
+.pictos-repeat:before {content: "r";}
+.pictos-normal:before {content: "l";}
+.pictos-link:before {content: "j";}
+.pictos-clock:before {content: "t";}
+.pictos-cart:before {content: "$";}
+.pictos-check:before {content: "3";}
+.pictos-volume-on:before {content: ">";}
+.pictos-volume-off:before {content: "<";}
+.pictos-time:before {content: "t";}
+
+
+#main-mid a[href^="http://"] {
+  padding-right: .4em;
+
+  &:after {
+    content: "A";
+    display: block;
+    font-family: 'Pictos';
+    padding: 0 0 0 .3em;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
@@ -998,7 +994,7 @@ header #second-nav {
   z-index: 1000;
   text-align: center;
   background: rgba(0,0,0,0.6);
-  color: yellow;
+  color: $yellow;
   width: 100%;
   line-height: 2.9em;
   margin: -20px 0 0 -40px;
@@ -1098,7 +1094,7 @@ header #second-nav {
 
       img {
         margin-top: 2px;
-        @include border-radius(30px);
+        border-radius: 30px;
       }
     }
   }
@@ -1159,39 +1155,6 @@ $announce-color: $heading-color;
     color: #666;
     font-size: 14px;
     margin: 2px 0 0 3px;
-  }
-}
-
-#announce {
-  display: none;
-  background: $lighter-blue;
-  color: rgba(0,0,0,0.6);
-  font-size: 14px;
-  padding: 10px 0 6px;
-  margin: 0 20px -5px;
-  text-align: center;
-  @include border-bottom-radius(5px);
-
-  #announce-contain {
-    margin: 0 auto;
-    display: inline-block;
-  }
-
-  strong {
-    display: block;
-    font-size: 24px;
-    color: #000;
-    margin: 0 10px 0 0;
-  }
-
-  ol {
-    margin: 0;
-    padding: 0;
-
-    li {
-      display: inline-block;
-      margin: 0 20px;
-    }
   }
 }
 
@@ -1266,6 +1229,10 @@ $announce-color: $heading-color;
   background: $body-dark;
   border: 1px solid $body-light;
   padding: 10px;
+  border-radius: 8px;
+  color: $yellow;
+  a { color: lighten($yellow, 10%); text-decoration: none;
+    &:hover { color: #fff; } }
 }
 
 .follow-station {
@@ -1324,7 +1291,7 @@ $announce-color: $heading-color;
   font-weight: bold;
   text-transform: uppercase;
   pointer-events: none;
-  @include border-radius(8px);
+  border-radius: 8px;
 
   &.loading {
     color: #999;
@@ -1353,7 +1320,7 @@ $nav-arrow-size: 5px;
   background: rgba(0,0,0,0.7);
   max-width: 250px;
   font-weight: bold;
-  @include border-radius(5px);
+  border-radius: 5px;
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));
 
   &.open {
@@ -1445,7 +1412,8 @@ ol.mp_list {
     overflow: hidden;
     padding: 6px;
     padding-right: 128px;
-    background: rgba(0,0,0,0.2);
+    background: $body-darker;
+    border-radius: 8px;
 
     &.inline {
       margin-top: -2px;
@@ -1635,8 +1603,8 @@ h2 small { font-size: 55%; }
   z-index: 100000;
   text-align: center;
   cursor: pointer;
+  border-radius: 5px;
   @include box-sizing(border-box);
-  @include border-radius(5px);
 
   &.visible {
     display: block;
@@ -1665,7 +1633,7 @@ h2 small { font-size: 55%; }
     border: 1px solid #ddd;
     color: #999;
     cursor: text;
-    @include border-radius(50px);
+    border-radius: 50px;
     @include box-shadow(none);
     @include box-sizing(border-box);
 
@@ -1690,7 +1658,7 @@ h2 small { font-size: 55%; }
     &:hover {
       color: #fff;
       border-color: darken($green, 10%);
-      @include border-radius(20px);
+      border-radius: 20px;
       @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
       @include background-gradient(lighten($green, 10%), $green);
     }
