@@ -596,9 +596,11 @@ function updateShareFriends(friends) {
 }
 
 function updatePlaylist() {
-  updateFollows();
-  updateBroadcasts();
-  updateListens();
+  if (isOnline) {
+    updateFollows();
+    updateBroadcasts();
+    updateListens();
+  }
   updateTimes();
 }
 
