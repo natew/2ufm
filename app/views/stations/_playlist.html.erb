@@ -14,7 +14,7 @@
   classname     ||= ''
   cover         ||= 'small'
 
-cache_if(id > 4, ['v1', station, page, per]) do
+cache_if(id > 4, ['v1', station, page, per, partial]) do
 -%>
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %> <%= 'has-more' if has_more %>"
