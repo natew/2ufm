@@ -183,17 +183,11 @@ $(function() {
   startGetNavbar();
 
   // Custom scrollpanes
-  $('.scroll-pane').jScrollPane({
-  })
-  .bind('mousewheel DOMMouseScroll', function(e) {
+  $('#stations-inner').bind('mousewheel DOMMouseScroll', function(e) {
     var delta = e.wheelDelta || -e.detail;
     this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
     e.preventDefault();
   });
-
-  $(window).resize(fn.triggerOnFinish(function() {
-    $('.scroll-pane').jScrollPane();
-  }));
 
   // Page scroll functions
   w.scroll(function() {

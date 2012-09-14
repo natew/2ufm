@@ -467,8 +467,8 @@ header {
 
       a {
         font-size: 18px;
-        padding-top: 6px;
-        padding-bottom: 6px;
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
     }
 
@@ -477,15 +477,11 @@ header {
       position: fixed;
       bottom: 0;
       right: 10px;
-      width: $navbar-width - 40;
-      max-height: 250px;
-      padding: 0 30px 10px 0;
-      overflow-x: hidden;
-      overflow-y: scroll;
+      width: $navbar-width - 10;
       background: $navbar-bg;
 
       &.collapsed {
-        height: 18px;
+        height: 24px;
         overflow: hidden;
 
         h1:after {
@@ -494,10 +490,15 @@ header {
         }
       }
 
+      #stations-inner {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        max-height: 250px;
+      }
+
       h1 {
         position: relative;
-        margin-right: -25px;
-        margin-left: 0;
+        margin: 0;
         padding-left: 20px;
         color: #fff;
         background: $body-dark;
@@ -522,9 +523,11 @@ header {
       a {
         color: #aaa;
         margin-left: 0;
-        margin-right: -30px;
-        padding-left: 20px;
-        padding-right: 32px;
+        margin-right: 10px;
+        padding: 3px 34px 3px 20px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
         font-size: 14px;
         position: relative;
 
@@ -994,10 +997,10 @@ header #second-nav {
   z-index: 1000;
   text-align: center;
   background: rgba(0,0,0,0.6);
-  color: $yellow;
+  color: $light-yellow;
   width: 100%;
   line-height: 2.9em;
-  margin: -20px 0 0 -40px;
+  margin: -10px 0 0 -20px;
   left: 0;
   font-size: 18px;
   width: 110%;

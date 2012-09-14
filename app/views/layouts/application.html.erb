@@ -102,10 +102,9 @@
         <%- end -%>
 
         <section>
-          <h1>Browse</h1>
           <%= link_to 'Popular', '/', :id => 'nav-popular' %>
           <%= link_to 'Just in', '/fresh', :id => 'nav-new' %>
-          <%= link_to 'Stations', '/blogs', :id => 'nav-stations' %>
+          <%= link_to 'Browse', '/blogs', :id => 'nav-browse' %>
         </section>
 
         <section class="nav-extra account">
@@ -118,7 +117,7 @@
           <% link_to "About Us", "#", :class => "secondary" %>
         </section>
 
-        <section class="nav-extra stations">
+        <section class="stations">
           <h1 class="collapse">Friends</h1>
           <div id="stations-inner">
           </div>
