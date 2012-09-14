@@ -430,7 +430,7 @@ function setNavActive(page) {
   if (newNavActive) navActive = newNavActive.addClass('active');
 
   // Update .nav-menu
-  $('.nav-menu').removeClass('active');
+  $('.nav-menu a').removeClass('active');
   $('.nav-menu a[href="' + page + '"]').addClass('active');
 }
 

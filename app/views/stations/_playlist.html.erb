@@ -32,8 +32,10 @@ cache_if(id > 4, "playlist_#{id}_#{station.updated_at.to_i}_#{page}_#{part_or_no
   # broadcasts and follows
   if user_signed_in?
     ids = songs.map(&:matching_id)
+    stations = songs.map(&:station_id).uniq!
+    stations = stations | songs.map(&:following_station_id).uniq! if songs.first.respond_to? :following_station_id
     broadcasts = current_user.get_song_broadcasts(ids)
-    follows = current_user.get_station_follows(songs.map(&:station_id).uniq!)
+    follows = current_user.get_station_follows(stations)
     listens = current_user.get_song_listens(ids)
 -%>
 
