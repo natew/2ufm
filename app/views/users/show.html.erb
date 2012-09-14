@@ -21,7 +21,6 @@
       <%= render 'stations/artists' if @artists.length > 0 %>
       <%- end -%>
 
-    <%- cache("user_playlist_#{@user.station.updated_at.to_i}") do -%>
     <div id="favorites" class="section active">
       <%- if @songs.empty? -%>
         <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
@@ -29,7 +28,6 @@
         <%= render :partial => 'stations/playlist', :locals => { :station => @user.station, :songs => @songs } %>
       <%- end -%>
     </div>
-    <%- end -%>
 
     <% elsif @following %>
 
