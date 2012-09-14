@@ -1230,8 +1230,8 @@ $announce-color: $heading-color;
   border: 1px solid $body-light;
   padding: 10px;
   border-radius: 8px;
-  color: $yellow;
-  a { color: lighten($yellow, 10%); text-decoration: none;
+  color: $green;
+  a { color: $light-green; text-decoration: none;
     &:hover { color: #fff; } }
 }
 
