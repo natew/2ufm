@@ -21,7 +21,10 @@ var page = {
     if (signedIn)
       updatePlaylist();
 
-    $('img').on('error', function(){ $(this).attr('src','/images/default.png'); });
+    $('img').on('error', function(){
+      var el = $(this);
+      el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
+    });
 
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);
