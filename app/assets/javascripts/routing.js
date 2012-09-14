@@ -18,8 +18,7 @@ var page = {
 
     fn.log(curPage, 'signed in?', signedIn);
 
-    if (signedIn)
-      updatePlaylist();
+    updatePlaylist();
 
     $('img').on('error', function(){
       var el = $(this);

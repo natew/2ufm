@@ -10,7 +10,7 @@ class String
   end
 
   def clean_scan(regex, reject)
-    self.scan(regex).flatten.compact.each do |string|
+    self.scan(regex).flatten.compact.reject(&:blank?).each do |string|
       yield string.strip unless string =~ reject or string =~ /^[&,]/
     end
   end

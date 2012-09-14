@@ -1,7 +1,5 @@
-<%- cache("playlist_new") do -%>
   <div class="whole">
     <h2>New Songs</h2>
     <p class="sub">The newest songs found on <%= link_to 'music blogs', '/blogs' %> from around the web.</p>
     <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
   </div>
-<%- end -%>

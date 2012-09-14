@@ -1,5 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
+empty:
+  artist_name:
+  name:
+
 one:
   artist_name: Thomas feat. FeatMan
   name: Fly away featuring Jessica Care More produced by Crada
@@ -8,6 +12,10 @@ two:
   artist_name: Black vs White vs Yellow
   name: Smooth Song (Mashup-King Remix)
 
-three:
+artist_empty:
   artist_name:
   name: "Artist feat. FeatArtist and Youngin - Songname [DOWNLOAD FREE]"
+
+artist_empty_mashup_download:
+  artist_name:
+  name: "One feat. Two and Three - Name of Song [DOWNLOAD FREE ON FACEBOOK]"

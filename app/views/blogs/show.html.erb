@@ -1,15 +1,14 @@
-<%- cache("blog_#{@blog.station.updated_at.to_i}") do -%>
+<%- cache ['v1', @blog] do -%>
 <div class="title">
   <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
   <h1><%= @blog.name %> <span><%= link_to '', @blog.url, :target => '_blank' %></span></h1>
   <p><%= @blog.description %></p>
 <%- end -%>
+
   <%= render :partial => 'shared/actions', :locals => { :station => @blog.station } %>
 </div>
 
-<%- cache("blog_#{@blog.station.updated_at.to_i}_playlist") do -%>
 <div class="whole">
   <%= render 'stations/artists' %>
   <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
 </div>
-<%- end -%>

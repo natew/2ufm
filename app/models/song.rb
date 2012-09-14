@@ -33,8 +33,9 @@ class Song < ActiveRecord::Base
     :close => /[\)\]\}]/,
     :containers => /[\{\[\(\)\]\}]/i,
     :percents => /(% ?){2,10}/,
-    :remove => /(extended|vip|original|club|vocal) mix|(extended|vip|radio) edit|(on )?soundcloud|(exclusive )?free (download|d\/?l)/i,
-    :and => /, | & | and /i
+    :remove => /(extended|vip|original|club|vocal) mix|(extended|vip|radio) edit|(on|and|or) (soundcloud|facebook)|(exclusive )?((free )?(download|d\/?l)( free)?)/i,
+    :and => /, | & | and /i,
+    :dash_split => /^[^-]* [—-] [^-]*$/
   }
 
   SPLITS = {
@@ -262,7 +263,7 @@ class Song < ActiveRecord::Base
   end
 
   def full_name
-    "#{artist_name} - #{name}"
+    [artist_name, name].reject(&:blank?).join(' - ') || ''
   end
 
   def file_url
@@ -372,14 +373,14 @@ class Song < ActiveRecord::Base
           self.length  = props.length.to_f
 
           # Tag
-          self.name         = tag.title || link_info[0] || ''
-          self.artist_name  = tag.artist || link_info[1] || ''
+          self.name         = tag.title || ''
+          self.artist_name  = tag.artist || ''
           self.album_name   = tag.album
           self.track_number = tag.track.to_i
           self.genre        = tag.genre
           self.image        = get_album_art(tag)
 
-          fix_tags
+          find_correct_tag_info
 
           # Detect if they dumped the artist in the name
           split_artists_from_name
@@ -431,14 +432,6 @@ class Song < ActiveRecord::Base
       delay(:priority => 1).scan_and_save
     else
       scan_and_save
-    end
-  end
-
-  def fix_tags
-    if name.blank? and artist_name =~ / - /
-      splitted = artist_name.split(' - ')
-      self.artist_name = splitted[0]
-      self.name = splitted[1]
     end
   end
 
@@ -699,13 +692,16 @@ class Song < ActiveRecord::Base
     end
   end
 
+  def find_correct_tag_info
+    artist, name = full_name.split(/ [-—] /)
+    self.artist_name = (artist || '').strip
+    self.name = (name || '').strip
+    full_name
+  end
+
   def parse_artists
     logger.info "#{id}: #{full_name}"
-
-    parse_name = (name || link_info[1]).gsub(RE[:remove], '')
-    parse_artist = artist_name || link_info[0]
-
-    split_and_find_artists(parse_name) | find_artists(parse_artist) | split_and_find_artists(parse_artist)
+    split_and_find_artists(name) | find_artists(artist_name) | split_and_find_artists(artist_name)
   end
 
   def find_artists(name)
@@ -778,15 +774,6 @@ class Song < ActiveRecord::Base
       artist.split(RE[:and]).each do |split|
         yield [split, type]
       end
-    end
-  end
-
-  def link_info
-    if link_text
-      split = link_text.split(/\s*(-|—|–)\s*/)
-      split.size >= 3 ? [split[0], split[2]] : [nil,nil]
-    else
-      ['','']
     end
   end
 

@@ -14,7 +14,7 @@
   classname     ||= ''
   cover         ||= 'small'
 
-cache_if(id > 4, "playlist_#{id}_#{station.updated_at.to_i}_#{page}_#{part_or_nolim}_#{paginate}_#{per}") do
+cache_if(id > 4, ['v1', station, page, per]) do
 -%>
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %> <%= 'has-more' if has_more %>"
@@ -26,10 +26,9 @@ cache_if(id > 4, "playlist_#{id}_#{station.updated_at.to_i}_#{page}_#{part_or_no
 
 <%-
   end # end cache
--%>
 
-<%-
-  # broadcasts and follows
+  # update non-cached values
+  # broadcasts, follows, listens, counts
   if user_signed_in?
     ids = songs.map(&:matching_id)
     stations = songs.map(&:station_id).uniq!
@@ -37,13 +36,17 @@ cache_if(id > 4, "playlist_#{id}_#{station.updated_at.to_i}_#{page}_#{part_or_no
     broadcasts = current_user.get_song_broadcasts(ids)
     follows = current_user.get_station_follows(stations)
     listens = current_user.get_song_listens(ids)
+  end
+
+  broadcasts_count = {}
+  songs.each { |s| broadcasts_count[s.matching_id] = s.user_broadcasts_count }
 -%>
 
 <script type="text/javascript">
+  <%- if user_signed_in? -%>
   updateBroadcastsIds = <%= raw broadcasts %>;
   updateFollowsIds = <%= raw follows %>;
   updateListensIds = <%= raw listens %>;
+  <%- end -%>
+  updateBroadcastsCounts = <%= raw broadcasts_count.to_json %>;
 </script>
-<%-
-  end # end broadcasts and follows
--%>

@@ -614,6 +614,13 @@ function updatePlaylist() {
     updateListens();
   }
   updateTimes();
+  updateCounts();
+}
+
+function updateCounts() {
+  for (var key in updateBroadcastsCounts) {
+    $('#song-' + key).children('.song-meta').find('.song-controls .broadcast a').html(updateBroadcastsCounts[key]);
+  }
 }
 
 function updateTimes() {
