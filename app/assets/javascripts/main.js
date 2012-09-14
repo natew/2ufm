@@ -557,7 +557,7 @@ function navDropdown(nav, pad, hover) {
         });
 
         if (navIsShare) {
-          fn.clipboard('share-link', 'fixed');
+          fn.clipboard('share-link', 'relative');
         }
 
         return true;

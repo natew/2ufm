@@ -123,6 +123,11 @@ ZeroClipboard.Client.prototype = {
 		this.div = document.createElement('div');
 		this.div.className = 'zeroClipboardDiv';
 		var style = this.div.style;
+		if (this.position === 'relative') {
+			this.position = 'absolute';
+			box.left = '-' + box.width;
+			box.top = 0;
+		}
 		style.position = this.position;
 		style.left = '' + box.left + 'px';
 		style.top = '' + box.top + 'px';

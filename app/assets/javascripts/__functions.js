@@ -110,7 +110,7 @@ var fn = {
     return re.test(email);
   },
 
-  clipboard: function(target, position) {
+  clipboard: function fnClipboard(target, position) {
     fn.log('clipboard', target);
     var el    = $('#' + target),
         text  = el.html(),
@@ -119,7 +119,7 @@ var fn = {
         wait  = false;
 
     // Remove old one
-    el.parent().find('.ZeroClipboardDiv').remove();
+    el.parent().find('.zeroClipboardDiv').remove();
 
     ZeroClipboard.setMoviePath('/swfs/ZeroClipboard.swf');
     var clip = new ZeroClipboard.Client(),
