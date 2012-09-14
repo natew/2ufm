@@ -24,7 +24,7 @@ module AttachmentHelper
         options[:s3_credentials] ||= File.join(Rails.root, 'config', 'amazon_s3.yml')
 
         # Use s3 in production
-        if Rails.env.production?
+        if true#Rails.env.production?
           options[:bucket] ||= 'media.2u.fm'
         else
           options[:bucket] ||= '2u-songs-development'
@@ -32,7 +32,7 @@ module AttachmentHelper
       else
         # For local Dev/Test envs, use the default filesystem, but separate the environments
         # into different folders, so you can delete test files without breaking dev files.
-        rails_env        = 'development'
+        rails_env        = Rails.env.downcase
         options[:path] ||= ":rails_root/public/attachments/#{rails_env}/#{attachment_path}"
         options[:url]  ||= "/attachments/#{rails_env}/#{attachment_path}"
       end

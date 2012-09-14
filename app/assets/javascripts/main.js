@@ -343,6 +343,7 @@ $(function() {
             dimensions = el.data('dimensions').split(',');
 
         fn.popup(url, dimensions[0], dimensions[1]);
+        return false;
       }
     }
   });

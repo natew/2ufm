@@ -1,5 +1,15 @@
 <div class="whole">
   <h2>Feed</h2>
+  <%- if params[:welcome] -%>
+    <div class="sub">
+      <strong>Welcome to 2u.fm! <small>Thank you for registering.</small></strong>
+      Now would be a great time to <a href="/account">update your avatar</a> and <a href="/artists">start browsing some stations</a>.
+    </div>
+    <script type="text/javascript">
+      window.history.replaceState(null,document.title,'/feed');
+    </script>
+  <%- end -%>
+
   <%- if @has_songs -%>
     <%= render :partial => 'stations/playlist', :locals => { :station => @user_station, :songs => @user_songs, :nolimit => true } %>
   <%- else -%>

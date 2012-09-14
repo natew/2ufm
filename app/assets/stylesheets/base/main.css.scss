@@ -1228,11 +1228,12 @@ $announce-color: $heading-color;
   font-size: 14px;
   background: $body-dark;
   border: 1px solid $body-light;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
-  color: $green;
-  a { color: $light-green; text-decoration: none;
-    &:hover { color: #fff; } }
+  color: $yellow;
+  strong {font-size: 18px; display:block; margin:0 0 10px 0;}
+  a { color: $yellow;
+    &:hover { color: $light-yellow; } }
 }
 
 .follow-station {

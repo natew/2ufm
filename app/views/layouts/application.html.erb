@@ -51,8 +51,8 @@
 
           <div id="player-buttons">
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled' %>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music' %>
-            <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
+            <%= link_to 'Playing', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music' %>
+            <%= link_to 'Volume', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
             <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-normal' %>
           </div>
 
@@ -174,8 +174,8 @@
         <input type="text" name="login-email" id="login-email" placeholder="user@example.com" />
       </form>
 
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup', 'data-dimensions' => '800,500' %>
-      <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup', 'data-dimensions' => '800,500' %>
+      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup control', 'data-dimensions' => '800,500' %>
+      <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup control', 'data-dimensions' => '800,500' %>
 
       <em>or <%= link_to 'login without a social network', '#loner-login', :class => 'show-hide' %></em>
 

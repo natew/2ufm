@@ -46,6 +46,7 @@ $navbar-bg: #222;
 $navbar-active: $primary;
 
 $yellow: #acac04;
+$light-yellow: lighten($yellow,12%);
 
 $green: #4c773c;
 $light-green: lighten($green,12%);
