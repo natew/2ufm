@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def render_stations(collection, locals = {})
-    render :partial => 'stations/station', :collection => collection, :locals => locals
+    render :partial => 'stations/station', :collection => collection, :locals => { :nocache => true }.merge(locals)
   end
 
   # Render artists for a song

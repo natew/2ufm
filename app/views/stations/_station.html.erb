@@ -1,6 +1,7 @@
 <%-
   nofollow ||= false
   size ||= :small
+  nocache ||= false
 -%>
 
 <section>
@@ -12,7 +13,7 @@
   <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
   <%- unless nofollow -%>
   <div class="station-follow follow-<%= station.id %>">
-    <%= follow_station(station.id, station.follows_count) %>
+    <%= follow_station(station.id, station.follows_count, :nocache => nocache) %>
   </div>
   <%- end -%>
   <%= link_to '', station_path(station), :class => 'station-link' %>

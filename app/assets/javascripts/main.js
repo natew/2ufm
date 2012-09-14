@@ -423,10 +423,15 @@ function getNavItems() {
 }
 
 function setNavActive(page) {
+  // Update #navbar
   fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');
   var newNavActive = navItems[page];
   if (newNavActive) navActive = newNavActive.addClass('active');
+
+  // Update .nav-menu
+  $('.nav-menu').removeClass('active');
+  $('.nav-menu a[href="' + page + '"]').addClass('active');
 }
 
 // Reads URL parameters for ?page=X and returns X

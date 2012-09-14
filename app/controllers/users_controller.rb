@@ -1,15 +1,11 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :set_email]
-  before_filter :load_user, :except => [:create, :new, :activate, :index, :account, :feed, :stations]
+  before_filter :load_user, :only => [:followers, :following]
 
   def feed
     @user_station = Station.current_user_station
     @user_songs = current_user.following_songs
     @has_songs = true if @user_songs.size > 0
-  end
-
-  def stations
-    @user_stations = current_user.stations.order('stations.title asc')
   end
 
   def navbar
@@ -121,7 +117,7 @@ class UsersController < ApplicationController
   private
 
   def load_user
-    @user = User.find_by_slug(params[:id])
+    @user = User.find_by_slug(params[:id]) || current_user
     @primary = @user
   end
 end

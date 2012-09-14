@@ -37,7 +37,6 @@ Fusefm::Application.routes.draw do
   match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
   match "/feed", :to => "users#feed", :as => 'user_root'
-  match "/following", :to => "users#stations"
   match "/fresh", :to => "songs#fresh"
   match "/songs/:id", :to => "songs#failed", :as => :post
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post

@@ -53,7 +53,7 @@
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled' %>
             <%= link_to 'Playing', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music' %>
             <%= link_to 'Volume', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
-            <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-normal' %>
+            <%= link_to 'Mode', "", :id => 'player-mode', :class => 'control pictos-normal' %>
           </div>
 
           <div id="player-main">
@@ -96,7 +96,7 @@
           <h1><%= current_user.username %></h1>
           <%= link_to ('Profile ' + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
           <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
-          <%= link_to 'Following', '/following', :id => 'nav-stations' %>
+          <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
           <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
         </section>
         <%- end -%>

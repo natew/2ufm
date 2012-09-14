@@ -1321,7 +1321,7 @@ $nav-arrow-size: 5px;
   left: 0;
   z-index: 10000;
   padding: $nav-item-pad 4px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.9);
   max-width: 250px;
   font-weight: bold;
   border-radius: 5px;
@@ -1398,6 +1398,7 @@ ol.mp_list {
   z-index: 99999;
   left: 0;
   padding-top: 0;
+  margin: 15px 0 0 -11px;
 
   li {
     list-style: none;
