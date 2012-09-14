@@ -27,7 +27,7 @@
 .role-cover { color: #11847f !important;    &:after { background-position:0 -27px; } }
 .role-featured { color: #c54b5f !important; &:after { background-position:0 -36px; } }
 
-$song-pad: 20px;
+$song-pad: 15px;
 $song-art: 48px;
 $song-art-big: 130px;
 $song-player-height: 50px;
@@ -62,7 +62,7 @@ $song-player-height: 50px;
     margin: 0;
     padding: $song-pad;
     position: relative;
-    border-bottom: 1px solid $body-dark;
+    border-bottom: 1px solid $body-lighter;
     @include transition(all .1s linear);
 
     &.listened-to {
@@ -179,7 +179,7 @@ $song-player-height: 50px;
 
     .song-meta {
       font-size: 12px;
-      margin: 5px 0 -5px;
+      margin: 6px 0 0;
       padding: 4px 0 0;
       color: #888;
       z-index: 12;
@@ -266,7 +266,7 @@ $song-player-height: 50px;
 
     .song-controls {
       position: absolute;
-      bottom: 0;
+      bottom: 5px;
       right: 0;
       width: 150px;
 
