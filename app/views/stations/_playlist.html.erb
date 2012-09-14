@@ -35,7 +35,7 @@ cache_if(id > 4, ['v1', station, page, per]) do
     stations = stations | songs.map(&:following_station_id).uniq! if songs.first.respond_to? :following_station_id
     broadcasts = current_user.get_song_broadcasts(ids)
     follows = current_user.get_station_follows(stations)
-    listens = current_user.get_song_listens(ids)
+    listens = current_user.get_song_listens(ids).uniq!
   end
 
   broadcasts_count = {}
