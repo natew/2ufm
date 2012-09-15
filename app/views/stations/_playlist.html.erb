@@ -19,7 +19,7 @@ cache_if(id > 4, ['v1', station, page, per, partial]) do
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %> <%= 'has-more' if has_more %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
-  <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover } unless songs.nil? %>
+  <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover, :nolimit => nolimit } unless songs.nil? %>
 </div>
 
 <%= link_to 'Next Page', '', :class => 'next-page control' if has_more %>

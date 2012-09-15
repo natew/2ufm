@@ -5,8 +5,9 @@
 <%- end -%>
 
 <%-
-  id = song.matching_id.to_s
+  id           = song.matching_id.to_s
   station_id ||= -1
+  nolimit    ||= false
 -%>
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
@@ -61,4 +62,4 @@
   page = (song_counter + 1) / Yetting.per
 -%>
 
-<%= link_to "Page #{((song_counter+1)/Yetting.per) + 1}", '', :class => 'next-page control loaded' if (song_counter + 1) % Yetting.per == 0 and page < params[:p].to_i  %>
+<%= link_to "Page #{((song_counter+1)/Yetting.per) + 1}", '', :class => 'next-page control loaded' if nolimit and (song_counter + 1) % Yetting.per == 0 and page < params[:p].to_i  %>
