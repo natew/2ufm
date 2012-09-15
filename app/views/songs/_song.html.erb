@@ -57,4 +57,8 @@
 
 <%-
   end # end cache
+
+  page = (song_counter + 1) / Yetting.per
 -%>
+
+<%= link_to "Page #{((song_counter+1)/Yetting.per) + 1}", '', :class => 'next-page control loaded' if (song_counter + 1) % Yetting.per == 0 and page < params[:p].to_i  %>
