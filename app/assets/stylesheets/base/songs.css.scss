@@ -49,7 +49,7 @@ $producer-color: #62b84c;
 $cover-color: #11847f;
 $featured-color: #d56c82;
 
-.role-original { margin:0; padding:4px !important;
+.role-original { margin:0; padding:2px 4px !important;
   &:after { display:none; } }
 
 .role-mashup {
@@ -83,8 +83,8 @@ $featured-color: #d56c82;
 }
 
 $song-pad: 15px;
-$song-art: 48px;
-$song-art-big: 130px;
+$song-art: 64px;
+$song-art-big: 128px;
 $song-player-height: 50px;
 
 .playlist-song {
@@ -173,7 +173,7 @@ $song-player-height: 50px;
     }
 
     h1 {
-      margin: -8px 0 -5px $play-button-size + $song-pad;
+      margin: -8px 0 -5px $song-art + $song-pad;
       line-height: 24px;
       font-weight: 400;
       min-height: $play-button-size + 8;
@@ -199,7 +199,7 @@ $song-player-height: 50px;
 
         &.name {
           font-size: 18px;
-          margin: 4px 0;
+          margin: 5px 0;
           font-weight: 400;
           position: relative;
           z-index: 11;
@@ -226,7 +226,7 @@ $song-player-height: 50px;
 
     .song-meta {
       font-size: 12px;
-      margin: 6px 0 0;
+      margin: 0 0 0 $song-art + $song-pad;
       padding: 4px 0 0;
       color: #888;
       z-index: 12;
