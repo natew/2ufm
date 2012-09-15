@@ -298,6 +298,34 @@ class Song < ActiveRecord::Base
     self.rank = favs + time
   end
 
+  def set_file_size
+    return false unless file.present?
+    begin
+      response = http.request_head(file.url)
+      file_size = response['content-length']
+      self.file_file_size = file_size unless file_size.nil?
+    rescue Exception => e
+      logger.error "Error getting image"
+      logger.error e.message
+      logger.error e.backtrace.join("\n")
+    end
+    file_file_size
+  end
+
+  def set_image_type
+    return false unless image.present?
+    begin
+      response = http.request_head(image.url)
+      image_type = response['content-type']
+      self.image_content_type = image_type unless image_type.nil?
+    rescue Exception => e
+      logger.error "Error getting image"
+      logger.error e.message
+      logger.error e.backtrace.join("\n")
+    end
+    image_content_type
+  end
+
   def check_if_working
     if !file.nil?
       begin
@@ -693,13 +721,6 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def find_correct_tag_info
-    artist, name = full_name.split(/ [-—] /)
-    self.artist_name = (artist || '').strip
-    self.name = (name || '').strip
-    full_name
-  end
-
   def parse_artists
     logger.info "#{id}: #{full_name}"
     split_and_find_artists(name) | find_artists(artist_name) | split_and_find_artists(artist_name)
@@ -776,6 +797,13 @@ class Song < ActiveRecord::Base
         yield [split, type]
       end
     end
+  end
+
+  def find_correct_tag_info
+    artist, name = full_name.split(/ [-—] /)
+    self.artist_name = (artist || '').strip
+    self.name = (name || '').strip
+    full_name
   end
 
   def clean_url

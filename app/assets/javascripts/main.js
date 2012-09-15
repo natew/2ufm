@@ -1,7 +1,8 @@
 // Variables
 var w = $(window),
     songOffsets = [],
-    tipsyClearTimeout,
+    scrollDelayTimeout,
+    notScrolling = true,
     infiniteScrollTimeout,
     debug = false,
     isOnline = $('body.signed_in').length > 0,
@@ -189,25 +190,27 @@ $(function() {
     e.preventDefault();
   });
 
-  // Page scroll functions
-  w.scroll(function() {
-    // Removes on scroll
-    clearTimeout(tipsyClearTimeout);
-    tipsyClearTimeout = setTimeout(function(){ $('.tipsy').remove() },100);
-    mp.hasMoved(true);
-
-    // Automatic page loading
-    if (!loadingPage) {
-      clearTimeout(infiniteScrollTimeout);
-      infiniteScrollTimeout = setTimeout(function() {
-        if (nearBottom()) {
-          var lastPlaylist = $('.playlist:visible:last');
-          if (lastPlaylist.length && lastPlaylist.is('.has-more')) nextPage(lastPlaylist);
-        }
-        // decrementPage();
-      }, 20);
-    }
-  });
+  // Scroll functions
+  w .on('scrollstart', function() {
+      fn.log('start scrolling');
+      $('.tipsy').remove();
+      $('.pop-menu').removeClass('open');
+      mp.hasMoved(true);
+    })
+    // window.scroll
+    .scroll(function() {
+      // Automatic page loading
+      if (!loadingPage) {
+        clearTimeout(infiniteScrollTimeout);
+        infiniteScrollTimeout = setTimeout(function() {
+          if (nearBottom()) {
+            var lastPlaylist = $('.playlist:visible:last');
+            if (lastPlaylist.length && lastPlaylist.is('.has-more')) nextPage(lastPlaylist);
+          }
+          // decrementPage();
+        }, 20);
+      }
+    });
 
   // Playlist bar hover
   var progressBar = $('#player-bottom'),
@@ -576,7 +579,7 @@ function updateShare(nav) {
       playlist = $('#playlist-' + section.data('station')).data('playlist'),
       song = playlist.songs[index],
       link = 'http://2u.fm/songs/' + section.data('slug'),
-      title = song.artist_name + ' - ' + song.name,
+      title = (song.artist_name || '') + ' - ' + (song.name || ''),
       share = $('#share');
 
   fn.log(section, index, playlist, song);

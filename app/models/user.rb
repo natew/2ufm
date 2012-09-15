@@ -54,17 +54,6 @@ class User < ActiveRecord::Base
     !self.avatar_remote_url.blank?
   end
 
-  def get_remote_avatar
-    self.avatar = download_remote_avatar
-  end
-
-  def download_remote_avatar
-    io = open(URI.parse(avatar_remote_url))
-    def io.original_filename; base_uri.path.split('/').last; end
-    io.original_filename.blank? ? nil : io
-    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
-  end
-
   def following_songs(offset=0, limit=18)
     Song.user_following_songs(id, offset, limit)
   end

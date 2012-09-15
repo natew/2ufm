@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120913122151) do
+ActiveRecord::Schema.define(:version => 20120915140557) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -19,15 +19,15 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.integer  "user_id"
     t.integer  "station_id"
     t.integer  "song_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "artists", :force => true do |t|
     t.string   "name"
     t.text     "about"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.string   "image_updated_at"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.string   "url"
     t.string   "feed_url"
     t.datetime "feed_updated_at"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "queue"
   end
 
@@ -139,8 +139,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.string   "url"
     t.integer  "time",       :default => 0
     t.integer  "song_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
   end
 
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.integer  "blog_id"
     t.boolean  "songs_saved"
     t.datetime "songs_updated_at"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.string   "image_updated_at"
@@ -187,8 +187,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
   end
 
   create_table "socialite_facebook_identities", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "socialite_identities", :force => true do |t|
@@ -198,8 +198,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.string   "unique_id",  :null => false
     t.string   "provider",   :null => false
     t.text     "auth_hash"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "socialite_identities", ["api_id", "api_type"], :name => "index_socialite_identities_on_api_id_and_api_type"
@@ -209,8 +209,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
 
   create_table "socialite_users", :force => true do |t|
     t.string   "remember_token"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "songs", :force => true do |t|
@@ -231,8 +231,8 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.integer  "post_id"
     t.integer  "album_id"
     t.boolean  "vbr"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
@@ -257,6 +257,7 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.string   "match_name"
     t.integer  "comments_count",        :default => 0
     t.string   "image_content_type"
+    t.string   "file_file_size"
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
@@ -270,21 +271,26 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.integer  "follows_count",       :default => 0
     t.string   "slug"
     t.integer  "broadcasts_count",    :default => 0
-    t.datetime "created_at",          :default => '2012-09-14 17:28:57'
-    t.datetime "updated_at",          :default => '2012-09-14 17:28:57'
-    t.datetime "last_broadcasted_at", :default => '2012-09-14 17:28:57'
+    t.datetime "created_at",          :default => '2012-05-11 03:38:08'
+    t.datetime "updated_at",          :default => '2012-05-11 03:38:08'
+    t.datetime "last_broadcasted_at", :default => '2012-05-11 04:13:11'
     t.boolean  "promo",               :default => false
     t.integer  "songs_count"
     t.datetime "online"
   end
 
+  create_table "stations_songs", :id => false, :force => true do |t|
+    t.integer "station_id"
+    t.integer "song_id"
+  end
+
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",     :null => false
-    t.string   "encrypted_password",     :default => "",     :null => false
+    t.string   "email",                                 :default => "",     :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",     :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -292,8 +298,7 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        :default => 0
+    t.integer  "failed_attempts",                       :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "full_name"
@@ -301,15 +306,15 @@ ActiveRecord::Schema.define(:version => 20120913122151) do
     t.string   "url"
     t.boolean  "follower_notifications"
     t.boolean  "newsletter"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "slug"
     t.string   "avatar_file_name"
     t.datetime "avatar_updated_at"
     t.string   "username"
     t.integer  "station_id"
     t.text     "bio"
-    t.string   "role",                   :default => "user"
+    t.string   "role",                                  :default => "user"
     t.string   "last_visited"
     t.integer  "last_station"
     t.integer  "last_song"
