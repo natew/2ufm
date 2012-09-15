@@ -81,7 +81,8 @@ class Song < ActiveRecord::Base
   # Basic Scopes
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
-  scope :working, where(processed: true, working: true)
+  scope :working, where(working: true)
+  scope :not_working, where(working: true)
   scope :not_uploaded, where('songs.file_file_name is NULL')
   scope :unranked, where('songs.rank is NULL')
   scope :ranked, where('songs.rank is NOT NULL')

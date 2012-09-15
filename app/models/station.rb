@@ -22,8 +22,8 @@ class Station < ActiveRecord::Base
   scope :user_station, where(has_user)
   scope :promo_station, where(:promo => true)
   scope :ordered_online, order('stations.online desc')
-  scope :online, where('online >= ?', 45.minutes.ago).ordered_online
-  scope :not_online, where('online < ?', 45.minutes.ago).ordered_online
+  scope :online, where('online >= ?', 10.minutes.ago).ordered_online
+  scope :not_online, where('online < ?', 10.minutes.ago).ordered_online
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
   scope :with_user, joins(:user)
 
