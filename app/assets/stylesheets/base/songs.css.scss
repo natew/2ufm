@@ -63,7 +63,8 @@ $producer-color: #62b84c;
 $cover-color: #11847f;
 $featured-color: #d56c82;
 
-.role-original { margin:0; padding:2px 4px !important;
+.role-original {
+  margin:0; padding:2px 4px !important;
   &:after { display:none; } }
 
 .role-mashup {
@@ -208,7 +209,7 @@ $song-player-height: 50px;
           pointer-events: none;
 
           a {
-            color: #ccc;
+            color: #ddd;
             pointer-events: auto;
             &:hover { color: $link-hover; }
           }
@@ -502,10 +503,8 @@ $song-player-height: 50px;
 
       a {
         text-decoration: none;
-        color: #fff;
+
       }
     }
-
-    p a { font-weight: bold; }
   }
 }
