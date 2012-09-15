@@ -63,8 +63,7 @@ module ApplicationHelper
     list = []
     original = []
     authors.with_artist.each do |author|
-      postpend = author.role =~ /original|mashup|featured/i ? ' Artist' : ''
-      link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => "tip-n role role-#{author.role}", :title => author.role.capitalize + postpend) unless author.artist_station_slug.nil?
+      link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => "role role-#{author.role}") unless author.artist_station_slug.nil?
       if author.role == 'original'
         original.push(link)
       else
@@ -77,7 +76,7 @@ module ApplicationHelper
       list = []
     end
 
-    { :original => raw(original.join(', ')), :other => raw(list.join(', ')) }
+    { :original => raw(original.join(' ')), :other => raw(list.join(' ')) }
   end
 
   # Self explanitory

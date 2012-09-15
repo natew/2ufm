@@ -6,26 +6,78 @@
 
 .role {
   display: inline-block;
+  padding-right: 21px !important;
+  position: relative;
+
+  &:hover:after {
+    z-index: 1000;
+    font-weight: bold;
+  }
 }
 
 .role:after {
+  position: absolute;
+  top: 4px;
+  right: 4px;
   display: inline-block;
   content: "";
-  width: 16px;
-  height: 9px;
-  margin: 0 -8px .1em 4px;
-  padding-right: 12px;
-  background: url(/images/artist-icons.png) no-repeat top left;
+  width: 13px;
+  height: 16px;
+  line-height: 1em;
+  padding-top: 3px;
   pointer-events: none;
+  color: #fff;
+  float: right;
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+  border-radius: 2px;
+  @include box-sizing(border-box);
 }
 
-.role-original { margin:0; padding:0; }
-.role-original:after { display:none; }
-.role-mashup { color: #b091fd !important;   &:after { display: none; } }
-.role-remixer { color: #c1a93b !important;  &:after { background-position:0 -9px; } }
-.role-producer { color: #3b941c !important; &:after { background-position:0 -18px; } }
-.role-cover { color: #11847f !important;    &:after { background-position:0 -27px; } }
-.role-featured { color: #c54b5f !important; &:after { background-position:0 -36px; } }
+$remix-color: #c1a93b;
+$mashup-color: #987edb;
+$producer-color: #3b941c;
+$cover-color: #11847f;
+$featured-color: #c54b5f;
+
+.role-original { margin:0; padding:4px !important;
+  &:after { display:none; } }
+
+.role-mashup {
+  color: $mashup-color !important;
+  &:hover { color: lighten($mashup-color, 12%) !important;}
+  &:after { content: "M"; color: $mashup-color; background: darken($mashup-color, 28%); }
+  &:hover:after { content: "Mashup"; width: 46px; right: -29px; }
+}
+
+.role-remixer {
+  color: $remix-color !important;
+  &:hover { color: lighten($remix-color, 12%) !important;}
+  &:after { content: "R"; color: $remix-color; background: darken($remix-color, 30%); }
+  &:hover:after { content: "Remix"; width: 40px; right: -23px; }
+}
+
+.role-producer {
+  color: $producer-color !important;
+  &:hover { color: lighten($producer-color, 12%) !important;}
+  &:after { content: "P"; color: darken($producer-color, 5%); background: darken($producer-color, 22%); }
+  &:hover:after { content: "Producer"; width: 54px; right: -37px; }
+}
+
+.role-cover {
+  color: $cover-color !important;
+  &:hover { color: lighten($cover-color, 12%) !important;}
+  &:after { content: "C"; color: $cover-color; background: darken($cover-color, 14%); }
+  &:hover:after { content: "Cover"; width: 40px; right: -23px; }
+}
+
+.role-featured {
+  color: $featured-color !important;
+  &:hover { color: lighten($featured-color, 12%) !important;}
+  &:after { content: "F"; color: darken($featured-color, 5%); background: darken($featured-color, 28%); }
+  &:hover:after { content: "Featured"; width: 54px; right: -37px; }
+}
 
 $song-pad: 15px;
 $song-art: 48px;
