@@ -13,7 +13,7 @@
   <div class="follow-station-wrap">
     <span class="follow-<%= id %>"><%= follow_station(id, follows_count) %></span>
     <%= link_to title, '/' + slug %>
-    <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song if !broadcasted and song.reposted? %>
+    <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song, :class => 'tip', :title => "#{song.blog_broadcasts_count} blogs wrote about this song" if !broadcasted and song.reposted? %>
   </div>
   <time datetime="<%= js_date(time) %>"><%= relative_time(time) %></time>
 </div>
