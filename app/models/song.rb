@@ -114,7 +114,8 @@ class Song < ActiveRecord::Base
   }
 
   # Data to select
-  scope :select_with_info, select('songs.*, posts.url as post_url, posts.excerpt as post_excerpt, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url')
+  scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
+  scope :select_with_info, select('songs.*, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post
   scope :individual, select_with_info.with_blog_station_and_post
 
   # Orders
@@ -144,6 +145,7 @@ class Song < ActiveRecord::Base
   scope :limit_inner, limit(Yetting.per * 20)
   scope :grouped, where('matching_id is not null').select(:matching_id).working.limit_inner
   scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working.limit_inner
+  scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working.limit_inner
   scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 1').working.limit_inner
 
   # Scopes for pagination
@@ -176,8 +178,12 @@ class Song < ActiveRecord::Base
     playlist_scope_order_broadcasted_by_type.with_user(user)
   end
 
-  def self.playlist_order_published(user)
+  def self.playlist_order_oldest(user)
     Song.where(id: Song.grouped_order_published).playlist_scope_order_published.with_user(user)
+  end
+
+  def self.playlist_order_published(user)
+    Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published.with_user(user)
   end
 
   def self.playlist_order_rank(user)

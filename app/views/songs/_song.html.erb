@@ -8,15 +8,18 @@
   id           = song.matching_id.to_s
   station_id ||= -1
 -%>
+
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
 <%-
-  cache ['v1', song, id, station_id] do
-    follow_id    = 'station-follow-' + id
-    cover      ||= :icon
-    broadcasted  = song.respond_to? :broadcasted_at
-    with_follow  = song.respond_to? :following_station_id
-    show_original = (!with_follow or song.following_station_id != song.station_id)
+  cache ['v2', song, id, station_id] do
+
+    follow_id       = 'station-follow-' + id
+    cover         ||= :icon
+    broadcasted     = song.respond_to? :broadcasted_at
+    with_follow     = song.respond_to? :following_station_id
+    show_original   = (!with_follow or song.following_station_id != song.station_id)
+    reviews       ||= [song]
 -%>
 
   <div class="song-info">
@@ -49,7 +52,7 @@
   <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
 
   <div class="reviews">
-    <%= render :partial => 'blogs/review', :collection => [song] %>
+    <%= render :partial => 'blogs/review', :collection => reviews %>
   </div>
 
   <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>

@@ -13,13 +13,15 @@
   has_more        = songs.length == (part_or_nolim ? per : (page*per))
   classname     ||= ''
   cover         ||= 'icon'
+  single        ||= false
+  reviews       ||= nil
 
-cache_if(id > 4, ['v1', station, page, per, partial]) do
+cache_if(id > 4, ['v2', station, page, per, partial, single]) do
 -%>
 
 <div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> <%= classname %> <%= 'has-more' if has_more %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
-  <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover, :partial => partial } unless songs.nil? %>
+  <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover, :partial => partial, :single => single, :reviews => reviews } unless songs.nil? %>
 </div>
 
 <%= link_to 'Next Page', '', :class => 'next-page control' if has_more %>

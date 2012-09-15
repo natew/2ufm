@@ -35,9 +35,8 @@
   @include box-sizing(border-box);
 }
 
-.playlist-song section.active .role:after {
-  top: 12px;
-}
+.primary .role:after { top: 12px; }
+.playlist-song { .active, .open { .role:after { top: 12px; } } }
 
 .role:hover:after {
   color: #fff;
