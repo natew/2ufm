@@ -527,7 +527,7 @@ function bindNavHover() {
           navUnhoveredOnce = false;
         }
       }
-    }, 200);
+    }, 150);
   }).click(function() {
     return false;
   });
@@ -535,7 +535,7 @@ function bindNavHover() {
 
 function navDropdown(nav, pad, hover) {
   fn.log(nav, pad);
-  var delay = hover ? 300 : 0;
+  var delay = hover ? 100 : 0;
   setTimeout(function() {
     if (nav && nav.length) {
       if (hover && !nav.is(':hover')) return false;

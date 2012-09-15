@@ -42,6 +42,21 @@
   color: #fff;
 }
 
+.playlist a,
+.sub a {
+  color: $heading-color-dark;
+  text-decoration: none;
+  padding: 1px 4px;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+  &:hover {
+    color: #fff !important;
+    background: rgba(0,0,0,0.2);
+  }
+}
+
 $remix-color: #d2bc54;
 $mashup-color: #bcafe0;
 $producer-color: #62b84c;
@@ -158,12 +173,14 @@ $song-player-height: 50px;
     }
 
     .reviews {
+      pointer-events: none;
       position: relative;
       z-index: 13;
       color: #aaa;
       display: none;
 
       a {
+        pointer-events: all;
         text-decoration: none;
       }
     }
@@ -309,6 +326,8 @@ $song-player-height: 50px;
       width: 100%;
       height: 100%;
       z-index: 10;
+      background: none;
+      padding: 0;
     }
 
     .song-controls {

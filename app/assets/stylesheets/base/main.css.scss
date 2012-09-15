@@ -1244,21 +1244,6 @@ $announce-color: $heading-color;
   }
 }
 
-.playlist h1 a,
-.sub a {
-  color: $heading-color-dark;
-  text-decoration: none;
-  padding: 1px 4px;
-  margin-top: -1px;
-  margin-bottom: -1px;
-  background: rgba(0,0,0,0.1);
-  border-radius: 4px;
-  &:hover {
-    color: #fff !important;
-    background: rgba(0,0,0,0.2);
-  }
-}
-
 .sub {
   font-size: 14px;
   background: #345b52;
