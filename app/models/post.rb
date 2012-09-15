@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   has_many   :songs, :dependent => :destroy
 
   # Attachments
-  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], icon: ['64x64#'] }
+  has_attachment :image, styles: { medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'] }
 
   # Validations
   validates :url, presence: true, uniqueness: true
