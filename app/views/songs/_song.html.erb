@@ -11,7 +11,7 @@
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
 <%-
-  cache ['v1', song] do
+  cache ['v1', song, id, station_id] do
     follow_id    = 'station-follow-' + id
     cover      ||= :icon
     broadcasted  = song.respond_to? :broadcasted_at
