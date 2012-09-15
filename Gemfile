@@ -5,6 +5,7 @@ gem 'rails', '3.2.6'
 gem 'pg'
 gem 'sqlite3'
 gem 'yettings'
+gem 'thin'
 
 # Assets
 gem 'bourbon'
@@ -83,7 +84,6 @@ group :development do
   gem 'foreman'
   gem 'taps'
   gem 'quiet_assets'
-  gem 'thin'
   gem 'awesome_print'
   gem 'marginalia' # Adds nice info to SQL statements, supposedly (not working yet)
   gem 'capistrano_colors'
