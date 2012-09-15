@@ -51,16 +51,16 @@ end
 
 namespace :deploy do
   task :start, :roles => :app do
-    surun "touch #{current_release}/tmp/restart.txt && #{dj_script} start"
+    surun "cd #{current_path}; bundle exec thin start && #{dj_script} start"
   end
 
   task :stop, :roles => :app do
-    surun "#{dj_script} stop >> /dev/null"
+    surun "cd #{current_path}; bundle exec thin stop && #{dj_script} stop >> /dev/null"
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    surun "touch #{current_release}/tmp/restart.txt && #{dj_script} restart >> /dev/null"
+    surun "cd #{current_path}; bundle exec thin restart && #{dj_script} restart >> /dev/null"
   end
 
   task :symlink_attachments do
