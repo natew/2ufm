@@ -6,6 +6,13 @@ body, button, input, select, textarea {
   color: #bbb;
 }
 
+::selection {
+  background: #000;
+  }
+::-moz-selection {
+  background: #000;
+}
+
 /* Layout */
 html,body {height: 100%;}
 body {
