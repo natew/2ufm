@@ -45,7 +45,7 @@ class SongsController < ApplicationController
 
     # Blogs songs
     @blog_ids = @blogs.map(&:blog_id)
-    @blogs_songs = Song.joins('CROSS JOIN blogs as related_blogs').where('related_blogs.id IN (?)', @blog_ids).playlist_order_rank
+    @blogs_songs = Song.joins('CROSS JOIN blogs as related_blogs').where('related_blogs.id IN (?)', @blog_ids).playlist_order_trending
 
     respond_to do |format|
       format.html
