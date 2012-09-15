@@ -1,5 +1,0 @@
-<div class="whole">
-  <h2>Recently Popular</h2>
-  <p class="sub">The most recently popular songs found on <%= link_to 'music blogs', '/blogs' %> from around the web.</p>
-  <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs, :classname => 'open' } %>
-</div>

@@ -88,6 +88,7 @@ class Song < ActiveRecord::Base
   scope :ranked, where('songs.rank is NOT NULL')
   scope :newest, order('songs.published_at desc')
   scope :oldest, order('songs.published_at asc')
+  scope :within_a_month, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 1.month.ago))
 
   # Basic types
   scope :with_authors, joins(:authors)
@@ -121,7 +122,7 @@ class Song < ActiveRecord::Base
   # Orders
   scope :order_broadcasted_by_type, order('broadcasts.created_at desc')
   scope :order_broadcasted, order('broadcasts.created_at desc')
-  scope :order_ranked, order('songs.rank desc')
+  scope :order_rank, order('songs.rank desc')
   scope :order_published, order('songs.published_at desc')
   scope :order_shared, order('shares.created_at desc')
 
@@ -136,17 +137,18 @@ class Song < ActiveRecord::Base
   # Scopes for playlist
   scope :playlist_scope_order_broadcasted_by_type, select_distinct_broadcasts.working.order_broadcasted_by_type.individual
   scope :playlist_scope_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
-  scope :playlist_scope_order_rank, select_distinct_rank.order_ranked.individual
+  scope :playlist_scope_order_trending, select_distinct_rank.order_rank.individual
   scope :playlist_scope_order_published, select_songs.order_published.individual
   scope :playlist_scope_order_received, select_shared_songs.select_sender.with_sender.order_shared.individual
   scope :playlist_scope_order_sent, select_shared_songs.select_receiver.with_receiver.order_shared.individual
 
   # Grouped Scopes
-  scope :limit_inner, limit(Yetting.per * 20)
+  scope :limit_inner, limit(Yetting.per)
   scope :grouped, where('matching_id is not null').select(:matching_id).working.limit_inner
   scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working.limit_inner
   scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working.limit_inner
-  scope :grouped_order_rank, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 1').working.limit_inner
+  scope :grouped_order_trending, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 1').working.limit_inner
+  scope :grouped_order_popular, grouped.group(:matching_id, :rank).order('songs.rank desc').working.within_a_month.limit_inner
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
@@ -186,8 +188,13 @@ class Song < ActiveRecord::Base
     Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published.with_user(user)
   end
 
-  def self.playlist_order_rank(user)
-    Song.where(id: Song.grouped_order_rank).playlist_scope_order_rank.with_user(user)
+  def self.playlist_order_trending(user)
+    Song.where(id: Song.grouped_order_trending).playlist_scope_order_trending.with_user(user)
+  end
+
+  def self.playlist_order_popular(user)
+    limit = Song.within_a_month.order(:rank).limit(50).last.user_broadcasts_count
+    Song.where(id: Song.grouped_order_popular).where('songs.rank >= ?', limit).playlist_scope_order_trending.with_user(user)
   end
 
   def self.user_received_songs(id, offset, limit)

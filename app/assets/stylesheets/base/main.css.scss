@@ -453,6 +453,65 @@ header {
     height: 100%;
   }
 
+  h1 {
+    font-size: 14px;
+    font-weight: 300;
+    color: #999;
+    padding: 5px 8px;
+    margin: 0 0 0 12px;
+  }
+
+  .smaller a {
+    font-size: 18px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 300;
+    font-size: 22px;
+    padding: 10px 8px 10px 20px;
+    margin: 0;
+    @include box-sizing(border-box);
+    @include transition(all .1s linear);
+
+    &.secondary {
+      color: #777;
+      font-size: 12px;
+    }
+
+    &:hover {
+      color: #fff;
+      background: darken($body-darker, 5%);
+      padding-left: 25px;
+    }
+
+    &.active {
+      color: #fff;
+      background: $body-bg;
+      @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
+
+      &:hover {background: $body-bg;}
+    }
+
+    span {
+      padding: 2px 6px;
+      margin: -2px 0 0;
+      font-size: 12px;
+      color: #fff;
+      background: #6a0007;
+      float: right;
+      text-align: center;
+      min-width: 24px;
+      border-radius: 20px;
+      @include box-sizing(border-box);
+    }
+  }
+
   section {
     display: block;
     position: relative;
@@ -566,59 +625,6 @@ header {
         font-size: 14px;
         padding-top: 6px;
         padding-bottom: 6px;
-      }
-    }
-
-    h1 {
-      font-size: 14px;
-      font-weight: 300;
-      color: #999;
-      padding: 5px 8px;
-      margin: 0 0 0 12px;
-    }
-
-    a {
-      position: relative;
-      display: block;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 300;
-      font-size: 22px;
-      padding: 10px 8px 10px 20px;
-      margin: 0 0 2px 0;
-      @include box-sizing(border-box);
-      @include transition(all .1s linear);
-
-      &.secondary {
-        color: #777;
-        font-size: 12px;
-      }
-
-      &:hover {
-        color: #fff;
-        background: darken($body-darker, 5%);
-        padding-left: 25px;
-      }
-
-      &.active {
-        color: #fff;
-        background: $body-bg;
-        @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
-
-        &:hover {background: $body-bg;}
-      }
-
-      span {
-        padding: 2px 6px;
-        margin: -2px 0 0;
-        font-size: 12px;
-        color: #fff;
-        background: #6a0007;
-        float: right;
-        text-align: center;
-        min-width: 24px;
-        border-radius: 20px;
-        @include box-sizing(border-box);
       }
     }
   }

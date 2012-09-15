@@ -96,19 +96,26 @@
           <h1><%= current_user.username %></h1>
           <%= link_to ('Profile ' + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
           <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
-          <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
-          <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
+          <span class="smaller">
+            <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
+            <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
+          </span>
         </section>
         <%- end -%>
 
         <section>
-          <%= link_to 'Popular', '/', :id => 'nav-popular' %>
-          <%= link_to 'Just in', '/fresh', :id => 'nav-new' %>
-          <%= link_to 'Browse', '/blogs', :id => 'nav-browse' %>
+          <%= link_to 'Trending', '/', :id => 'nav-trending' %>
+          <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
+          <span class="smaller">
+            <%= link_to 'Just in', '/fresh', :id => 'nav-new' %>
+            <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
+            <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
+          </span>
         </section>
 
         <section class="nav-extra account">
           <% if user_signed_in? %>
+            <%= link_to "Find friends", '/users', :id => 'nav-friends' %>
             <%= link_to "Account", '/account' %>
             <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
           <% else %>

@@ -32,7 +32,10 @@ class ApplicationController < ActionController::Base
         @p_songs = Song.playlist_order_published(current_user)
       elsif id == '1'
         @p_station = Station.popular
-        @p_songs = Song.playlist_order_rank(current_user)
+        @p_songs = Song.playlist_order_trending(current_user)
+      elsif id == '2'
+        @p_station = Station.trending
+        @p_songs = Song.playlist_order_trending(current_user)
       elsif id == '3'
         dont_paginate = true
         @p_station = Station.current_user_station

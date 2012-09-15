@@ -15,14 +15,6 @@ class ArtistsController < ApplicationController
     end
   end
 
-  def popular
-    @songs = @artist.station.songs.playlist_order_rank(current_user)
-
-    respond_to do |format|
-      format.html { render 'show' }
-    end
-  end
-
   def remixes
     render_type 'remixes'
   end

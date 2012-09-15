@@ -63,24 +63,28 @@ class Station < ActiveRecord::Base
     broadcasts.where(:parent => 'user')
   end
 
-  def self.current_user_inbox_station
-    Station.new(id: 4, title:'Inbox', slug:'inbox')
-  end
-
   def self.current_user_outbox_station
     Station.new(id: 5, title:'Outbox', slug:'outbox')
+  end
+
+  def self.current_user_inbox_station
+    Station.new(id: 4, title:'Inbox', slug:'inbox')
   end
 
   def self.current_user_station
     Station.new(id: 3, title:'My Music Feed', slug:'my-station')
   end
 
+  def self.trending(opts={})
+    p = Station.new(:id => 2, :title => 'Trending Songs', :slug => 'songs')
+  end
+
   def self.popular(opts={})
-    p = Station.new(:id => 1, :title => 'Popular Today', :slug => 'songs')
+    p = Station.new(:id => 1, :title => 'Popular Songs', :slug => 'songs')
   end
 
   def self.newest(opts={})
-    p = Station.new(:id => 0, :title => 'Newest', :slug => 'songs-new')
+    p = Station.new(:id => 0, :title => 'Newest Songs', :slug => 'songs-new')
   end
 
   def image

@@ -1,7 +1,7 @@
 Fusefm::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  root :to => 'songs#index'
+  root :to => 'songs#trending'
 
   # Redirects
   match "/stations/:id", :to => redirect("/%{id}")
@@ -38,6 +38,7 @@ Fusefm::Application.routes.draw do
   match "/l/:id", :to => "listens#show"
   match "/feed", :to => "users#feed", :as => 'user_root'
   match "/fresh", :to => "songs#fresh"
+  match "/popular", :to => "songs#popular"
   match "/songs/:id", :to => "songs#failed", :as => :post
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post
