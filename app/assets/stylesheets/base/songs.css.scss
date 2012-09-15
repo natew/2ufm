@@ -35,8 +35,12 @@
   @include box-sizing(border-box);
 }
 
-$remix-color: #c1a93b;
-$mashup-color: #987edb;
+.role:hover:after {
+  color: #fff;
+}
+
+$remix-color: #d2bc54;
+$mashup-color: #c3b5e9;
 $producer-color: #3b941c;
 $cover-color: #11847f;
 $featured-color: #c54b5f;
@@ -53,28 +57,24 @@ $featured-color: #c54b5f;
 
 .role-remixer {
   color: $remix-color !important;
-  &:hover { color: lighten($remix-color, 12%) !important;}
   &:after { content: "R"; color: $remix-color; background: darken($remix-color, 30%); }
   &:hover:after { content: "Remix"; width: 40px; right: -23px; }
 }
 
 .role-producer {
   color: $producer-color !important;
-  &:hover { color: lighten($producer-color, 12%) !important;}
   &:after { content: "P"; color: darken($producer-color, 5%); background: darken($producer-color, 22%); }
   &:hover:after { content: "Producer"; width: 54px; right: -37px; }
 }
 
 .role-cover {
   color: $cover-color !important;
-  &:hover { color: lighten($cover-color, 12%) !important;}
   &:after { content: "C"; color: $cover-color; background: darken($cover-color, 14%); }
   &:hover:after { content: "Cover"; width: 40px; right: -23px; }
 }
 
 .role-featured {
   color: $featured-color !important;
-  &:hover { color: lighten($featured-color, 12%) !important;}
   &:after { content: "F"; color: darken($featured-color, 5%); background: darken($featured-color, 28%); }
   &:hover:after { content: "Featured"; width: 54px; right: -37px; }
 }
@@ -218,14 +218,6 @@ $song-player-height: 50px;
             }
           }
         }
-      }
-
-      a {
-        color: $heading-color-dark;
-        text-decoration: none;
-        padding: 0 4px;
-        background: rgba(0,0,0,0.1);
-        border-radius: 4px;
       }
     }
 

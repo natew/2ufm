@@ -1231,16 +1231,30 @@ $announce-color: $heading-color;
   }
 }
 
+.playlist h1 a,
+.sub a {
+  color: $heading-color-dark;
+  text-decoration: none;
+  padding: 1px 4px;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+  &:hover {
+    color: #fff !important;
+    background: rgba(0,0,0,0.2);
+  }
+}
+
 .sub {
   font-size: 14px;
-  background: $body-dark;
+  background: #345b52;
   border: 1px solid $body-light;
-  padding: 12px;
+  padding: 8px 12px;
+  margin: -5px 0 12px;
   border-radius: 8px;
-  color: $yellow;
+  color: #fff;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
-  a { color: $yellow;
-    &:hover { color: $light-yellow; } }
 }
 
 .follow-station {
