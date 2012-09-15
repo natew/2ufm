@@ -16,7 +16,7 @@ class StationsController < ApplicationController
     case @station.type
     when 'user'
       @user = User.find(@station.user_id) || not_found
-      @songs = @user.station.songs.playlist_order_broadcasted(current_user).page(params[:page]).per(12)
+      @songs = @user.station.songs.playlist_order_broadcasted.page(params[:page]).per(12)
       @artists = @user.station.artists.has_image.order('random() desc').limit(12)
       @primary = @user
     when 'blog'
@@ -27,7 +27,7 @@ class StationsController < ApplicationController
     when 'artist'
       @artist = Artist.find(@station.artist_id) || not_found
       @blogs = @artist.stations.blog_station.distinct
-      @songs = @artist.station.songs.playlist_order_published(current_user)
+      @songs = @artist.station.songs.playlist_order_published
       @primary = @artist
     end
 

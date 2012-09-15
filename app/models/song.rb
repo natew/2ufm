@@ -11,16 +11,6 @@ class Song < ActiveRecord::Base
 
   SOURCES = %w[direct soundcloud hulkshare]
 
-  SQL = {
-    :posts => %Q{
-        posts.url as post_url,
-        posts.excerpt as post_excerpt,
-      },
-    :listens => %Q{
-        listens.id as listen_id
-      }
-  }
-
   # Regular expressions
   RE = {
     :featured => /(featuring | ?ft\.? |feat\.? |f\. |w\/){1}/i,
@@ -88,7 +78,7 @@ class Song < ActiveRecord::Base
   scope :ranked, where('songs.rank is NOT NULL')
   scope :newest, order('songs.published_at desc')
   scope :oldest, order('songs.published_at asc')
-  scope :within_a_month, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 1.month.ago))
+  scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
 
   # Basic types
   scope :with_authors, joins(:authors)
@@ -106,14 +96,6 @@ class Song < ActiveRecord::Base
   scope :with_sender, joins('INNER JOIN users as sender ON sender.id = shares.sender_id')
   scope :with_receiver, joins('INNER JOIN users as receiver ON receiver.id = shares.receiver_id')
 
-  # User related
-  scope :with_user, lambda { |user|
-    if user
-      id = user.respond_to?('id') ? user.id : user
-      select('listens.id as listen_id').joins("LEFT JOIN listens on listens.song_id = songs.id AND listens.user_id = #{id}") unless user.nil?
-    end
-  }
-
   # Data to select
   scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
   scope :select_with_info, select('songs.*, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post
@@ -123,6 +105,7 @@ class Song < ActiveRecord::Base
   scope :order_broadcasted_by_type, order('broadcasts.created_at desc')
   scope :order_broadcasted, order('broadcasts.created_at desc')
   scope :order_rank, order('songs.rank desc')
+  scope :order_user_broadcasts, order('songs.user_broadcasts_count desc')
   scope :order_published, order('songs.published_at desc')
   scope :order_shared, order('shares.created_at desc')
 
@@ -135,8 +118,9 @@ class Song < ActiveRecord::Base
   scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
   # Scopes for playlist
-  scope :playlist_scope_order_broadcasted_by_type, select_distinct_broadcasts.working.order_broadcasted_by_type.individual
-  scope :playlist_scope_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
+  scope :playlist_order_broadcasted_by_type, select_distinct_broadcasts.working.order_broadcasted_by_type.individual
+  scope :playlist_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
+  scope :playlist_scope_order_popular, order_user_broadcasts.individual.recently
   scope :playlist_scope_order_trending, select_distinct_rank.order_rank.individual
   scope :playlist_scope_order_published, select_songs.order_published.individual
   scope :playlist_scope_order_received, select_shared_songs.select_sender.with_sender.order_shared.individual
@@ -148,7 +132,6 @@ class Song < ActiveRecord::Base
   scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working.limit_inner
   scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working.limit_inner
   scope :grouped_order_trending, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 1').working.limit_inner
-  scope :grouped_order_popular, grouped.group(:matching_id, :rank).order('songs.rank desc').working.within_a_month.limit_inner
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
@@ -172,40 +155,31 @@ class Song < ActiveRecord::Base
     blog_broadcasts_count > 1
   end
 
-  def self.playlist_order_broadcasted(user)
-    playlist_scope_order_broadcasted.with_user(user)
+  def self.playlist_order_oldest
+    Song.where(id: Song.grouped_order_published).playlist_scope_order_published
   end
 
-  def self.playlist_order_broadcasted_by_type(user)
-    playlist_scope_order_broadcasted_by_type.with_user(user)
+  def self.playlist_order_published
+    Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published
   end
 
-  def self.playlist_order_oldest(user)
-    Song.where(id: Song.grouped_order_published).playlist_scope_order_published.with_user(user)
+  def self.playlist_order_trending
+    Song.where(id: Song.grouped_order_trending).playlist_scope_order_trending
   end
 
-  def self.playlist_order_published(user)
-    Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published.with_user(user)
-  end
-
-  def self.playlist_order_trending(user)
-    Song.where(id: Song.grouped_order_trending).playlist_scope_order_trending.with_user(user)
-  end
-
-  def self.playlist_order_popular(user)
-    limit = Song.within_a_month.order(:rank).limit(50).last.user_broadcasts_count
-    Song.where(id: Song.grouped_order_popular).where('songs.rank >= ?', limit).playlist_scope_order_trending.with_user(user)
+  def self.playlist_order_popular
+    Song.playlist_scope_order_popular
   end
 
   def self.user_received_songs(id, offset, limit)
-    Song.joins(:shares).where('shares.receiver_id = ?', id).limit(limit).offset(offset).playlist_scope_order_received.with_user(id)
+    Song.joins(:shares).where('shares.receiver_id = ?', id).limit(limit).offset(offset).playlist_scope_order_received
   end
 
   def self.user_sent_songs(id, offset, limit)
-    Song.joins(:shares).where('shares.sender_id = ?', id).limit(limit).offset(offset).playlist_scope_order_sent.with_user(id)
+    Song.joins(:shares).where('shares.sender_id = ?', id).limit(limit).offset(offset).playlist_scope_order_sent
   end
 
-  def self.user_unread_recevied_songs(id)
+  def self.user_unread_received_songs(id)
     Share.where('shares.receiver_id = ? and shares.read = false', id).count
   end
 
@@ -223,7 +197,6 @@ class Song < ActiveRecord::Base
           ORDER BY maxcreated desc
         )
       SELECT
-        DISTINCT ON (a.maxcreated, s.id)
         a.maxcreated as broadcasted_at,
         s.*,
         blogs.url as blog_url,
@@ -238,8 +211,8 @@ class Song < ActiveRecord::Base
         blog_stations.id as station_id,
         blog_stations.follows_count as station_follows_count,
 
-        #{SQL[:posts]}
-        #{SQL[:listens]}
+        posts.url as post_url,
+        posts.excerpt as post_excerpt
       FROM a
         INNER JOIN
           songs s ON a.song_id = s.id
@@ -255,9 +228,6 @@ class Song < ActiveRecord::Base
           follows on follows.station_id = broadcasts.station_id
         INNER JOIN
           stations on stations.id = a.station_id
-        LEFT JOIN
-          listens on listens.song_id = s.id
-          AND listens.user_id = #{id}
       WHERE s.processed = 't'
         AND s.working = 't'
       ORDER BY

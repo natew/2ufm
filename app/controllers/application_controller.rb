@@ -29,20 +29,20 @@ class ApplicationController < ActionController::Base
       id = params[:id]
       if id == '0'
         @p_station = Station.newest
-        @p_songs = Song.playlist_order_published(current_user)
+        @p_songs = Song.playlist_order_published
       elsif id == '1'
         @p_station = Station.popular
-        @p_songs = Song.playlist_order_trending(current_user)
+        @p_songs = Song.playlist_order_trending
       elsif id == '2'
         @p_station = Station.trending
-        @p_songs = Song.playlist_order_trending(current_user)
+        @p_songs = Song.playlist_order_trending
       elsif id == '3'
         dont_paginate = true
         @p_station = Station.current_user_station
         @p_songs = current_user.following_songs(params[:p].to_i * Yetting.per, Yetting.per)
       else
         @p_station = Station.find_by_slug(id)
-        @p_songs = @p_station.songs.playlist_order_broadcasted(current_user)
+        @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
       @p_songs = @p_songs.limit_page(params[:p]) unless dont_paginate

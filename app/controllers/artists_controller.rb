@@ -42,7 +42,7 @@ class ArtistsController < ApplicationController
   private
 
   def render_type(method)
-    @songs = @artist.station.songs.send(method).playlist_order_broadcasted_by_type(current_user)
+    @songs = @artist.station.songs.send(method).playlist_order_broadcasted_by_type
     @type = method
     @type_updated_at = @songs.first.broadcasted_at if @songs.first.respond_to? :broadcasted_at
 
