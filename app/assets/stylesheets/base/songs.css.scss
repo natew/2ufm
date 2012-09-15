@@ -191,7 +191,7 @@ $song-player-height: 50px;
     }
 
     h1 {
-      margin: -8px 0 -5px $song-art + $song-pad;
+      margin: -6px 0 -2px $song-art + $song-pad;
       line-height: 24px;
       font-weight: 400;
       min-height: $play-button-size + 8;
@@ -210,8 +210,10 @@ $song-player-height: 50px;
 
           a {
             color: #ddd;
+            line-height: 1.2em;
             pointer-events: auto;
             &:hover { color: $link-hover; }
+            &.role {margin-top: 4px;}
           }
         }
 
