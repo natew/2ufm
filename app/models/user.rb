@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def received_songs_notifications
-    Song.user_unread_recevied_songs(id)
+    Song.user_unread_received_songs(id)
   end
 
   def sent_songs(offset=0, limit=18)
