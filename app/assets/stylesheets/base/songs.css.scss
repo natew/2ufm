@@ -89,6 +89,7 @@ $song-player-height: 50px;
 
 .playlist-song {
   clear: both;
+  margin-bottom: 200px;
 
   &.open section .reviews {
     display: block;
@@ -126,6 +127,7 @@ $song-player-height: 50px;
 
     &:hover {
       background: $body-lighter !important;
+      @include box-shadow(0 0 20px $body-lighter);
       .song-controls {
         a, a:before { color: #fff; }
       }
