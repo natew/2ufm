@@ -127,11 +127,10 @@ class Song < ActiveRecord::Base
   scope :playlist_scope_order_sent, select_shared_songs.select_receiver.with_receiver.order_shared.individual
 
   # Grouped Scopes
-  scope :limit_inner, limit(Yetting.per)
-  scope :grouped, where('matching_id is not null').select(:matching_id).working.limit_inner
-  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working.limit_inner
-  scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working.limit_inner
-  scope :grouped_order_trending, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 1').working.limit_inner
+  scope :grouped, where('matching_id is not null').select(:matching_id).working
+  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working
+  scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working
+  scope :grouped_order_trending, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 1').working
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
@@ -156,11 +155,11 @@ class Song < ActiveRecord::Base
   end
 
   def self.playlist_order_oldest
-    Song.where(id: Song.grouped_order_published).playlist_scope_order_published
+    Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published
   end
 
   def self.playlist_order_published
-    Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published
+    Song.where(id: Song.grouped_order_published).playlist_scope_order_published
   end
 
   def self.playlist_order_trending

@@ -23,7 +23,7 @@
 -%>
 
   <div class="song-info">
-    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" %>
+    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" unless Rails.env.development? %>
 
     <h1>
       <%-
@@ -49,7 +49,7 @@
     </div>
   </div>
 
-  <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
+  <%= image_tag song.waveform, :class => 'waveform' if song.waveform? and !Rails.env.development? %>
 
   <div class="reviews">
     <%= render :partial => 'blogs/review', :collection => reviews %>

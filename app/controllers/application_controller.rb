@@ -45,9 +45,13 @@ class ApplicationController < ActionController::Base
         @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
+      logger.info "ASASASAS " + params[:p]
+
       @p_songs = @p_songs.limit_page(params[:p]) unless dont_paginate
 
-      if @p_songs.count > 0
+      logger.info @p_songs.length
+
+      if @p_songs.length > 0
         render :partial => 'stations/playlist', :locals => { :station => @p_station, :songs => @p_songs, :partial => true }
       else
         head 204
