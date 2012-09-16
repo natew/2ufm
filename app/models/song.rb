@@ -197,6 +197,7 @@ class Song < ActiveRecord::Base
           ORDER BY maxcreated desc
         )
       SELECT
+        DISTINCT ON (a.maxcreated, s.id)
         a.maxcreated as broadcasted_at,
         s.*,
         blogs.url as blog_url,
