@@ -513,6 +513,7 @@ function bindNavHover() {
   // Hover binding
   $('.nav-hover').hover(function(e) {
     var el = $(this);
+    fn.log('nav hover', el);
     if (!navHovered[el.attr('class')]) navDropdown(el, false, true);
     navHovered[el.attr('class')] = true;
   }, function() {

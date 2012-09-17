@@ -133,7 +133,11 @@
     </div>
 
     <div id="body">
+      <% if user_signed_in? and current_user.slug == 'swipernoswiping' %>
+        <h1>I'm sorry for mouthing off, but for real, <%= link_to 'lets talk', 'https://www.facebook.com/messages' %>.</h1>
+      <% else %>
       <%= render :template => 'layouts/single' %>
+      <% end %>
     </div>
   </div>
 
