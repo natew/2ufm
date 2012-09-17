@@ -526,10 +526,13 @@ function nearBottom() {
 function bindNavHover() {
   // Hover binding
   $('.nav-hover').hover(function(e) {
-    var el = $(this);
-    fn.log('nav hover', el);
-    if (!navHovered[el.attr('class')]) navDropdown(el, false, true);
-    navHovered[el.attr('class')] = true;
+    var el = $(this),
+        hoveredClass = el.attr('class'),
+        hovered = navHovered[hoveredClass];
+
+    fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
+    if (!hovered) navDropdown(el, false, true);
+    navHovered[hoveredClass] = true;
   }, function() {
     var el = $(this);
     var navHoverInterval = setInterval(function() {
@@ -549,14 +552,12 @@ function bindNavHover() {
 }
 
 function navDropdown(nav, pad, hover) {
-  fn.log(nav, pad);
   var delay = hover ? 100 : 0;
   setTimeout(function() {
     if (nav && nav.length) {
+      fn.log(nav, pad, 'class=', nav.attr('class'));
       if (hover && !nav.is(':hover')) return false;
-      var navIsShare = false;
       if (nav.is('.song-share')) {
-        navIsShare = true;
         updateShare(nav);
       }
 
@@ -574,7 +575,7 @@ function navDropdown(nav, pad, hover) {
           left: left
         });
 
-        if (navIsShare) {
+        if (nav.is('.update-clipboard')) {
           fn.clipboard('share-link', 'relative');
         }
 
@@ -588,6 +589,7 @@ function navDropdown(nav, pad, hover) {
 }
 
 function updateShare(nav) {
+  fn.log('update share nav', nav);
   var id = nav.data('id'),
       section = $('#song-' + id),
       index = section.data('index'),
