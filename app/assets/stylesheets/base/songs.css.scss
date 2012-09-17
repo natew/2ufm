@@ -133,8 +133,18 @@ $song-player-height: 50px;
     margin: 0;
     padding: $song-pad;
     position: relative;
-    border-bottom: 1px solid $body-lighter;
     @include transition(all .1s linear);
+
+    &:before {
+      content: "";
+      position: absolute;
+      display: block;
+      background: $body-lighter;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+    }
 
     &.listened-to {
       background: $body-light;
@@ -326,11 +336,14 @@ $song-player-height: 50px;
       position: absolute;
       top: 0;
       left: 0;
+      bottom: 0;
       width: 100%;
-      height: 100%;
       z-index: 10;
       background: none;
       padding: 0;
+      margin: 0;
+      border-radius: 0;
+      &:hover {background: none;}
     }
 
     .song-controls {
