@@ -390,7 +390,6 @@ $song-player-height: 50px;
 
         &:hover {
           color: #fff;
-          border-color: #555;
           @include linear-gradient(#555, $body-lighter);
         }
       }
