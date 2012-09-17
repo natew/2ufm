@@ -36,7 +36,7 @@
 }
 
 .primary .role:after { top: 12px; }
-.playlist-song { .active, .open { .artist .role:after { top: 12px; } } }
+.playlist-song { .active, .open { .name .role:after { top: 12px; } } }
 
 .role:hover:after {
   color: #fff;
