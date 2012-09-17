@@ -26,7 +26,7 @@ var mp = (function() {
       autoPlay = false,
       hasMoved = false,
       timerInterval,
-      playModes = {0: 'normal', 1: 'shuffle', 2: 'repeat'},
+      playModes = {0: 'normal', 1: 'repeat', 2: 'shuffle'},
       playMode = $.cookie('playmode'),
       curFailures = 0,
       failures = 0,
@@ -208,7 +208,7 @@ var mp = (function() {
 
     next: function next() {
       clearTimeout(playTimeout);
-      if (playMode == 1) { // shuffle
+      if (playMode == 2) { // shuffle
         this.shuffleNext();
         return;
       }
@@ -430,7 +430,7 @@ var mp = (function() {
 
     finish: function finish() {
       fn.log('finished', curSong);
-      if (playMode == 2) player.repeat();
+      if (playMode == 1) player.repeat();
       else player.next();
     },
 
@@ -482,6 +482,7 @@ var mp = (function() {
       curPage = url;
       failures = 0;
       curFailures = 0;
+      fn.log('on playing page?', this.isOnPlayingPage());
       if (this.isOnPlayingPage()) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
@@ -514,9 +515,16 @@ var mp = (function() {
     },
 
     isOnPlayingPage: function isOnPlayingPage() {
-      var playPage = playingPage.replace(/\?.*/, '');
-      fn.log(curPage, playPage);
-      return (curPage == playPage);
+      if (curPage == playingPage) return true;
+
+      var playPageNum = playingPage.match(/\?p=([0-9]+)/),
+          curPageNum = curPage.match(/\?p=([0-9]+)/),
+          playPageBase = playingPage.replace(/\?.*/,''),
+          curPageBase = curPage.replace(/\?.*/,'');
+
+      fn.log(playPageNum, curPageNum, playPageBase, curPageBase);
+
+      return playPageBase == curPageBase && playPageNum && curPageNum && playPageNum[1] <= curPageNum;
     },
 
     playSong: function(index) {
@@ -566,6 +574,10 @@ var mp = (function() {
 
     curSection: function() {
       return curSection;
+    },
+
+    setCurSection: function(section) {
+      curSection = section;
     },
 
     playlist: function() {

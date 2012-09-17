@@ -10,7 +10,7 @@ var page = {
   },
 
   end: function pageEnd(data) {
-    var curPage = window.location.pathname,
+    var curPage = window.location.pathname + window.location.search,
         path = curPage.split('/'),
         tipTimer,
         signedIn = !$('body').is('.signed_out'),

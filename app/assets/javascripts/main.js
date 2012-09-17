@@ -27,7 +27,8 @@ var w = $(window),
     navUnhoveredOnce = false,
     friendsTemplate = $('#friends').html(),
     navbarInterval,
-    playModeEl = $('#player-mode');
+    playModeEl = $('#player-mode'),
+    modeTitles = {'normal': 'Off', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
 
 // Read URL parameters
 var urlParams = {},
@@ -161,13 +162,12 @@ $(function() {
   mpClick('#player-volume', 'toggleVolume');
 
   // Song title click
-  $('#player-song-name a').click(function() {
+  $('#player-song-name a').click(function songNameClick() {
+    fn.log('onplayingpage', mp.isOnPlayingPage());
     $('.tipsy').remove();
     if (mp.isOnPlayingPage()) {
       scrollToCurrentSong();
       return false;
-    } else {
-      scrollToSongAfterLoad = true;
     }
   });
 
@@ -407,7 +407,7 @@ function updatePlayMode(mode) {
   playModeEl
     .removeClass('pictos-normal pictos-shuffle pictos-repeat')
     .addClass('pictos-' + mode)
-    .html(fn.capitalize(mode));
+    .html(fn.capitalize(modeTitles[mode]));
 }
 
 // Bind selectors to callbacks

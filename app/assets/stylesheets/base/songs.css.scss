@@ -37,6 +37,7 @@
 
 .primary .role:after { top: 12px; }
 .playlist-song { .active, .open { .name .role:after { top: 12px; } } }
+header .role:after {top:3px;}
 
 .role:hover:after {
   color: #fff;
