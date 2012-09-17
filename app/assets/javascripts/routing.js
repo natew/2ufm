@@ -14,13 +14,17 @@ var page = {
         path = curPage.split('/'),
         tipTimer,
         signedIn = !$('body').is('.signed_out'),
-        pageFollow;
+        pageFollow,
+        doScrollToTop = true;
 
-    fn.log(curPage, 'signed in?', signedIn);
+    fn.log(curPage);
 
+    // Update likes, follows, listens, and song broadcast counts
     updatePlaylist();
+    resetMorePages();
 
-    $('img').on('error', function(){
+    // Image errors
+    $('.playlist img').on('error', function(){
       var el = $(this);
       el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
     });
@@ -30,11 +34,14 @@ var page = {
 
     fn.detachSpinner();
 
-    // Set page in music player
-    mp.setPage(curPage);
+    // Set page in music player && scroll to current section if found
+    mp.setPage(curPage, function(foundSection) {
+      fn.scrollTo(foundSection);
+      doScrollToTop = false;
+    });
 
     // Scroll to top if we are going to new page
-    if ($('body').scrollTop() > 0)
+    if (doScrollToTop && $('body').scrollTop() > 0)
       fn.scrollToTop();
 
     // Nav highlight

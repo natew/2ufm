@@ -783,10 +783,12 @@ class Song < ActiveRecord::Base
   end
 
   def find_correct_tag_info
-    artist, name = full_name.split(/ [-—] /)
-    self.artist_name = (artist || '').strip
-    self.name = (name || '').strip
-    full_name
+    if artist_name.empty?
+      artist, name = full_name.split(/ [-—] /)
+      self.artist_name = (artist || '').strip
+      self.name = (name || '').strip
+      full_name
+    end
   end
 
   def clean_url

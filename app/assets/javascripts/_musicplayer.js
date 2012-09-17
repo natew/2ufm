@@ -478,16 +478,18 @@ var mp = (function() {
       curPage = url;
     },
 
-    setPage: function setPage(url) {
+    setPage: function setPage(url, callback) {
       curPage = url;
       failures = 0;
       curFailures = 0;
-      if (isPlaying && this.isOnPlayingPage()) {
+      if (this.isOnPlayingPage()) {
         // If we return to the page we started playing from, re-activate current song
         curSection = $(document).find('#song-' + curSongInfo.id);
-        if (curSection) {
+        fn.log('on playing page again, section', curSection, 'isplaying', isPlaying);
+        if (curSection && isPlaying) {
           player.setCurSection('playing');
-          fn.scrollTo(curSection);
+          fn.log(curSection);
+          if (callback) callback(curSection);
         }
       }
       else {
@@ -499,6 +501,8 @@ var mp = (function() {
           autoPlay = false;
         }
       }
+
+      return curSection;
     },
 
     getPage: function () {
@@ -509,8 +513,10 @@ var mp = (function() {
       return listenURL;
     },
 
-    isOnPlayingPage: function() {
-      return (curPage == playingPage.replace(/\?.*/, ''));
+    isOnPlayingPage: function isOnPlayingPage() {
+      var playPage = playingPage.replace(/\?.*/, '');
+      fn.log(curPage, playPage);
+      return (curPage == playPage);
     },
 
     playSong: function(index) {
@@ -543,7 +549,6 @@ var mp = (function() {
     },
 
     toggleVolume: function() {
-      fn.log('TOGGLING VOLUME');
       player.toggleVolume();
     },
 

@@ -36,13 +36,13 @@
 }
 
 .primary .role:after { top: 12px; }
-.playlist-song { .active, .open { .role:after { top: 12px; } } }
+.playlist-song { .active, .open { .artist .role:after { top: 12px; } } }
 
 .role:hover:after {
   color: #fff;
 }
 
-.playlist a,
+.playlist section a,
 .sub a {
   color: $heading-color-dark;
   text-decoration: none;

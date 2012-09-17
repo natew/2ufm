@@ -163,9 +163,12 @@ $(function() {
   // Song title click
   $('#player-song-name a').click(function() {
     $('.tipsy').remove();
-    fn.scrollTo($('section.playing'));
-    if (mp.isOnPlayingPage()) return false;
-    else mp.doScroll();
+    if (mp.isOnPlayingPage()) {
+      scrollToCurrentSong();
+      return false;
+    } else {
+      scrollToSongAfterLoad = true;
+    }
   });
 
   // Play from playlist
@@ -482,6 +485,12 @@ function nextPage(playlist) {
         Accept: "text/page; charset=utf-8",
         "Content-Type": "text/page; charset=utf-8"
       },
+      statusCode: {
+        204: function() {
+          removeNextPage(link);
+          return false;
+        }
+      },
       success: function(data) {
         var playlist = $('#playlist-' + id + '-' + scrollPage);
         link.html('Page ' + scrollPage).addClass('loaded');
@@ -491,10 +500,15 @@ function nextPage(playlist) {
         updatePageURL(scrollPage);
       },
       error: function() {
-        morePages = false;
+        removeNextPage(link);
       }
     })
   }
+}
+
+function removeNextPage(link) {
+  morePages = false;
+  link.remove();
 }
 
 function pjax(url, container) {
@@ -759,4 +773,12 @@ function getNavbar() {
       }
     });
   }
+}
+
+function scrollToCurrentSong() {
+  fn.scrollTo($('section.playing'));
+}
+
+function resetMorePages() {
+  morePages = true;
 }
