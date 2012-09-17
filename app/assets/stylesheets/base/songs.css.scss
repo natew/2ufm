@@ -351,7 +351,7 @@ $song-player-height: 50px;
       position: absolute;
       bottom: 5px;
       right: 0;
-      width: 150px;
+      width: 160px;
 
       &.hover-show a { display: none; }
 
@@ -363,19 +363,23 @@ $song-player-height: 50px;
         text-decoration: none;
         float: right;
         font-size: 14px;
-        padding: 6px;
+        padding: 5px;
         margin: -6px;
         margin-left: 12px;
         font-weight: 400;
         line-height: .9em;
+        color: #fff;
+        border: 1px solid #555;
+        @include transition(all .2s linear);
+        @include linear-gradient(#444, $body-bg);
 
         &:before {
           position: relative;
           font-size: 16px;
           padding: 0 2px 0 0;
-          margin: -4px 4px -4px -2px;
+          margin: -4px 4px -4px 0;
           left: 0;
-          top: -2px;
+          top: -1px;
           width: 14px;
         }
 
@@ -386,7 +390,8 @@ $song-player-height: 50px;
 
         &:hover {
           color: #fff;
-          background: $body-lighter;
+          border-color: #666;
+          @include linear-gradient(#555, $body-lighter)
         }
       }
 
