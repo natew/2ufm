@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def get_song_listens(ids)
-    Listen.where(:song_id => ids, :user_id => id).map(&:song_id)
+    Listen.select([:song_id, :shortcode]).where(:song_id => ids, :user_id => id).group(:song_id, :shortcode)
   end
 
   def get_station_follows(ids)

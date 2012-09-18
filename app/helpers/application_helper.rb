@@ -27,6 +27,24 @@ module ApplicationHelper
     time.strftime("%Y-%m-%d %H:%M:%S GMT%z")
   end
 
+  # based on https://github.com/rails/rails/blob/f78cb5583f77952aa35e063a660a11aad5f8de7f/activesupport/lib/active_support/cache.rb#L486
+  def cache_key(key)
+    return key.cache_key.to_s if key.respond_to?(:cache_key)
+
+    case key
+    when Array
+      if key.size > 1
+        key = key.collect{|element| cache_key(element)}
+      else
+        key = key.first
+      end
+    when Hash
+      key = key.sort_by { |k,_| k.to_s }.collect{|k,v| "#{k}=#{v}"}
+    end
+
+    key.to_param
+  end
+
   def cache_if(condition, name = {}, &block)
     if condition
       cache(name, &block)
