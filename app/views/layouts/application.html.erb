@@ -133,9 +133,7 @@
     </div>
 
     <div id="body">
-      <% if user_signed_in? and current_user.slug == 'swipernoswiping' %>
-        <h1>Hey Nick... when you are ready, <%= link_to 'lets talk', 'https://www.facebook.com/messages' %>.</h1>
-      <% else %>
+      <% if user_signed_in? and current_user.username != 'Swipernoswiping' %>
       <%= render :template => 'layouts/single' %>
       <% end %>
     </div>
