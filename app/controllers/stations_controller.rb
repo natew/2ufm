@@ -15,6 +15,7 @@ class StationsController < ApplicationController
 
     case @station.type
     when 'user'
+      head 500 if params[:id] =~ /swipernoswiping/i
       @user = User.find(@station.user_id) || not_found
       @songs = @user.station.songs.playlist_order_broadcasted.page(params[:page]).per(12)
       @artists = @user.station.artists.has_image.order('random() desc').limit(12)

@@ -718,9 +718,11 @@ function modal(selector) {
       show = $('#overlay,#modal');
 
   if (modalShown || selector === false) {
-    show.attr('class', '');
-    $('body').removeClass('modal-shown');
-    modalShown = false;
+    if (!modal.is('permanent')) {
+      show.attr('class', '');
+      $('body').removeClass('modal-shown');
+      modalShown = false;
+    }
   }
   else {
     modal.html($(selector).clone());
