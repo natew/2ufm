@@ -22,12 +22,16 @@ w.on({
   },
 
   'mp:gotListen': function mpGotListenEvent(event, mp, song) {
-    var listen = 'http://2u.fm' + mp.getListenUrl();
+    var listen = mp.getListenUrl(),
+        listenUrl = 'http://2u.fm/l/' + listen;
+
     // Update url
     // fn.replaceState(listen);
 
+    mp.curSection().attr('data-listen', listen);
+
     // Update share links
-    $('#player-share').data('link', listen);
+    $('#player-share').data('link', listenUrl);
     $('#player-share').data('title', mp.getTitle());
   },
 
