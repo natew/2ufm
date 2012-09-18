@@ -6,8 +6,6 @@ class Listen < ActiveRecord::Base
   validates :song_id, :presence => true
   validates :user_id, :presence => true
 
-  default_scope order('listens.created_at desc')
-
   before_validation :anonymous_user, :on => :create
   before_create :gen_shortcode
   after_create :update_song_play_count, :update_user_online

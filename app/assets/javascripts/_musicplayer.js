@@ -402,7 +402,7 @@ var mp = (function() {
         url: '/listens',
         data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
         success: function playSuccess(data) {
-          listenURL = '/l/'+data;
+          listenURL = data;
           w.trigger('mp:gotListen', player.state());
         },
         dataType: 'html'

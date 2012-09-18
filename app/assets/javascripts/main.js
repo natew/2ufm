@@ -595,7 +595,8 @@ function updateShare(nav) {
       index = section.data('index'),
       playlist = $('#playlist-' + section.data('station')).data('playlist'),
       song = playlist.songs[index],
-      link = 'http://2u.fm/songs/' + section.data('slug'),
+      listen = section.data('listen'),
+      link = 'http://2u.fm/' + (listen ? ('l/' + listen) : ('songs/' + section.data('slug'))),
       title = (song.artist_name || '') + ' - ' + (song.name || ''),
       share = $('#share');
 
@@ -652,11 +653,10 @@ function updateTimes() {
 }
 
 function updateListens() {
-  if (!updateListensIds || updateListensIds.length == 0) return false;
-  var select = '#song-',
-      songs = select + updateListensIds.join(',' + select);
-
-  $(songs).addClass('listened-to');
+  if (!updateListensIds) return false;
+  for(var key in updateListensIds) {
+    $('#song-' + key).addClass('listened-to').attr('data-listen', updateListensIds[key]);
+  }
 }
 
 function updateBroadcasts() {

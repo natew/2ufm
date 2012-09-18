@@ -6,7 +6,6 @@
 
     <nav class="nav-menu">
       <%= nav_link_to 'New', station_path(@artist) %>
-      <%= nav_link_to 'Popular', artist_popular_path(@artist) if @artist.song_count > 9 %>
       <%= nav_link_to 'Originals', artist_originals_path(@artist) if @artist.has_originals? %>
       <%= nav_link_to "Remixes", artist_remixes_path(@artist) if @artist.has_remixes? %>
       <%= nav_link_to "Mashups", artist_mashups_path(@artist) if @artist.has_mashups? %>
