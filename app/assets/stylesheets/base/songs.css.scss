@@ -149,6 +149,7 @@ $song-player-height: 50px;
 
     &.listened-to {
       background: $body-light;
+      @include linear-gradient($body-bg, $body-light);
     }
 
     &:hover {
@@ -158,9 +159,7 @@ $song-player-height: 50px;
       }
     }
 
-    &.open {
-      .reviews { display: block; }
-    }
+    &.open { .reviews { display: block; } }
 
     &.active {
       background: $body-dark !important;
@@ -194,6 +193,10 @@ $song-player-height: 50px;
       a {
         pointer-events: all;
         text-decoration: none;
+      }
+
+      p {
+        color: #ddd;
       }
     }
 
@@ -407,7 +410,13 @@ $song-player-height: 50px;
 
         .remove:hover, .remove:hover:before {
           background: $dark-red;
-          &:before { content: "D"; color: darken($dark-red,10%); }
+          &:before {
+            content: "D";
+            color: darken($dark-red,10%);
+            background: transparent;
+            font-size: 16px;
+            top: 0;
+          }
         }
       }
     }
