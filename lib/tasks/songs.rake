@@ -1,4 +1,11 @@
 namespace :songs do
+  task :move_to_mp3 => :environment do
+    Song.working.each do |song|
+      id = song.id
+      `s3cmd mv s3://media.2u.fm/song_files/#{id}_original. s3://media.2u.fm/song_files/#{id}_original.mp3`
+    end
+  end
+
   task :clear_cache => :environment do
     Rails.cache.clear
   end
