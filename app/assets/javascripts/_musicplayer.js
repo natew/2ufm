@@ -52,7 +52,7 @@ var mp = (function() {
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
   soundManager.useFlashBlock = true;
-  soundManager.debugMode = false;
+  soundManager.debugMode = true;
   soundManager.useHTML5Audio = true;
   soundManager.preferFlash = true;
   soundManager.onready(function() {
@@ -138,11 +138,12 @@ var mp = (function() {
 
           if (playlist && playlistIndex < playlist.songs.length) {
             // Load song
-            fn.log('Song at index '+playlistIndex);
+            fn.log('Song at index ' + playlistIndex);
             curSongInfo = playlist.songs[playlistIndex];
             curSong = soundManager.createSound({
               id:curSongInfo.id,
-              url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
+              serverURL:'rtmp://stdc87bdw3mgp.cloudfront.net/cfx/st',
+              url:'song_files/' + curSongInfo.id + '_original.',
               onplay:events.play,
               onstop:events.stop,
               onpause:events.pause,
