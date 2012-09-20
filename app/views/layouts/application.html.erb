@@ -133,13 +133,8 @@
         </div>
       </div>
 
-      <div id="body">
-        <% if user_signed_in? and current_user.slug == 'swipernoswiping' %>
-          <h1>Hey Nick... when you are ready, <%= link_to 'lets talk', 'https://www.facebook.com/messages' %>.</h1>
-        <% else %>
-        <%= render :template => 'layouts/single' %>
-        <% end %>
-      </div>
+    <div id="body">
+      <%= render :template => 'layouts/single' %>
     </div>
   </div>
 
@@ -177,7 +172,7 @@
   <div id="modal"></div>
 
   <% if !user_signed_in? %>
-    <div id="modal-login" class="hidden">
+    <div id="modal-login" class="hidden permanent">
       <h3>Welcome to 2u.fm!</h3>
       <p class="large"></p>
 

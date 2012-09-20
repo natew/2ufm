@@ -4,7 +4,7 @@ String.prototype.leftPad = function (l, c) { return new Array(l - this.length + 
 
 // Spinner options
 var lastPosition = [0, 0],
-    offset = 25,
+    offset = 0,
     spinner = $('#spinner'),
     spinOpts = {
       lines: 7, // The number of lines to draw
