@@ -50,7 +50,7 @@ var mp = (function() {
   };
 
   // Soundmanager
-  soundManager.url = '/swfs/soundmanager2_flash9.swf';
+  soundManager.url = '/swfs/soundmanager2_debug.swf';
   soundManager.useFlashBlock = true;
   soundManager.debugMode = true;
   soundManager.useHTML5Audio = true;
