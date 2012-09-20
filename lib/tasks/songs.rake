@@ -2,7 +2,8 @@ namespace :songs do
   task :move_to_mp3 => :environment do
     Song.working.each do |song|
       id = song.id
-      Thread.new do |id|
+      Thread.new(id) do |id|
+        puts "Moving #{id}"
         `s3cmd mv s3://media.2u.fm/song_files/#{id}_original. s3://media.2u.fm/song_files/#{id}_original.mp3`
       end
     end
