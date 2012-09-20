@@ -38,106 +38,108 @@
 
 <body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>"<% end %>>
 
-  <header>
-    <div class="page-contain">
-      <h1><%= link_to '2u.fm', '/', :title => '2u.fm, find and share music' %> </h1>
+  <div id="body-wrap">
+    <header>
+      <div class="page-contain">
+        <h1><%= link_to '2u.fm', '/', :title => '2u.fm, find and share music' %> </h1>
 
-      <div id="bar">
-        <div id="player">
-          <div id="player-controls" class="player-buttons">
-            <%= link_to '<span>4</span>'.html_safe, '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
-            <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
-          </div>
-
-          <div id="player-buttons">
-            <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard' %>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music' %>
-            <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
-            <%= link_to 'Off', "", :id => 'player-mode', :class => 'control pictos-repeat' %>
-          </div>
-
-          <div id="player-main">
-
-            <div id="player-meta">
-              <span id="player-song-name"><a title="Return to song" class="tip-n" href="">&nbsp;</a></span>
-              <span id="player-artist-name">&nbsp;</span>
+        <div id="bar">
+          <div id="player">
+            <div id="player-controls" class="player-buttons">
+              <%= link_to '<span>4</span>'.html_safe, '#', :class => 'play pictos control', :id => 'player-play', :title => 'Play/pause' %>
+              <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next pictos control', :id => 'player-next', :title => 'Next song' %>
             </div>
 
-            <div id="player-bottom">
-              <div id="player-progress-bar">
-                <div id="player-progress-grabber"></div>
-                <div id="player-progress-inner-wrap">
-                  <div id="player-progress-position"></div>
-                  <div id="player-progress-loaded"></div>
-                </div>
+            <div id="player-buttons">
+              <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard' %>
+              <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music' %>
+              <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
+              <%= link_to 'Off', "", :id => 'player-mode', :class => 'control pictos-repeat' %>
+            </div>
+
+            <div id="player-main">
+
+              <div id="player-meta">
+                <span id="player-song-name"><a title="Return to song" class="tip-n" href="">&nbsp;</a></span>
+                <span id="player-artist-name">&nbsp;</span>
               </div>
-              <div id="player-timer">0:00</div>
+
+              <div id="player-bottom">
+                <div id="player-progress-bar">
+                  <div id="player-progress-grabber"></div>
+                  <div id="player-progress-inner-wrap">
+                    <div id="player-progress-position"></div>
+                    <div id="player-progress-loaded"></div>
+                  </div>
+                </div>
+                <div id="player-timer">0:00</div>
+              </div>
+              <!-- /player bottom -->
             </div>
-            <!-- /player bottom -->
+            <!-- /player-meta -->
           </div>
-          <!-- /player-meta -->
+          <!-- /player-main -->
         </div>
-        <!-- /player-main -->
+        <!-- /player -->
       </div>
-      <!-- /player -->
-    </div>
-  </header>
+    </header>
 
-  <div id="main-mid">
-    <div id="navbar">
-      <div id="navbar-menus" class="scroll-pane">
-        <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
-          <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
-          <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-        <% end -%>
+    <div id="main-mid">
+      <div id="navbar">
+        <div id="navbar-menus" class="scroll-pane">
+          <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
+            <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
+            <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+          <% end -%>
 
-        <%- if user_signed_in? -%>
-        <section class="nav-user">
-          <h1><%= current_user.username %></h1>
-          <%= link_to ('Profile ' + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
-          <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
-          <span class="smaller">
-            <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
-            <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
-          </span>
-        </section>
-        <%- end -%>
+          <%- if user_signed_in? -%>
+          <section class="nav-user">
+            <h1><%= current_user.username %></h1>
+            <%= link_to ('Profile ' + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
+            <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
+            <span class="smaller">
+              <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
+              <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
+            </span>
+          </section>
+          <%- end -%>
 
-        <section>
-          <%= link_to 'Trending', '/', :id => 'nav-trending' %>
-          <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
-          <span class="smaller">
-            <%= link_to 'Just in', '/fresh', :id => 'nav-new' %>
-            <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
-            <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
-          </span>
-        </section>
+          <section>
+            <%= link_to 'Trending', '/', :id => 'nav-trending' %>
+            <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
+            <span class="smaller">
+              <%= link_to 'Just in', '/fresh', :id => 'nav-new' %>
+              <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
+              <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
+            </span>
+          </section>
 
-        <section class="nav-extra account">
-          <% if user_signed_in? %>
-            <%= link_to "Find friends", '/users', :id => 'nav-friends' %>
-            <%= link_to "Account", '/account' %>
-            <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-          <% else %>
-            <%= link_to 'Login', '#modal-login', :class => 'modal' %>
-          <% end %>
-          <% link_to "About Us", "#", :class => "secondary" %>
-        </section>
+          <section class="nav-extra account">
+            <% if user_signed_in? %>
+              <%= link_to "Find friends", '/users', :id => 'nav-friends' %>
+              <%= link_to "Account", '/account' %>
+              <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+            <% else %>
+              <%= link_to 'Login', '#modal-login', :class => 'modal' %>
+            <% end %>
+            <% link_to "About Us", "#", :class => "secondary" %>
+          </section>
 
-        <section class="stations">
-          <h1 class="collapse">Friends</h1>
-          <div id="stations-inner">
-          </div>
-        </section>
+          <section class="stations">
+            <h1 class="collapse">Friends</h1>
+            <div id="stations-inner">
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
 
-    <div id="body">
-      <% if user_signed_in? and current_user.slug == 'swipernoswiping' %>
-        <h1>Hey Nick... when you are ready, <%= link_to 'lets talk', 'https://www.facebook.com/messages' %>.</h1>
-      <% else %>
-      <%= render :template => 'layouts/single' %>
-      <% end %>
+      <div id="body">
+        <% if user_signed_in? and current_user.slug == 'swipernoswiping' %>
+          <h1>Hey Nick... when you are ready, <%= link_to 'lets talk', 'https://www.facebook.com/messages' %>.</h1>
+        <% else %>
+        <%= render :template => 'layouts/single' %>
+        <% end %>
+      </div>
     </div>
   </div>
 
