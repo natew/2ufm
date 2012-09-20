@@ -28,6 +28,35 @@ p {
 a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
+#body-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+
+  &:before {
+    content: "";
+    display: block;
+    position: fixed;
+    background: $navbar-bg;
+    width: 20000px;
+    right: -20000px;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+#navbar {
+  position: fixed;
+  z-index: 100;
+  top: $header-height;
+  bottom: 0;
+  margin-left: 800px;
+  width: $navbar-width;
+  padding: 20px 0 0 0;
+  @include box-sizing(border-box);
+  @include linear-gradient(left, darken($navbar-bg, 1%), $navbar-bg 2%);
+}
+
 #main-mid {
   padding: $header-height $navbar-width 0 0;
   min-height: 100%;
@@ -72,16 +101,19 @@ h1 span { font-size: 26px; }
 
 
 /* Header */
+$header-width: $width + $navbar-width;
+
 header {
-  min-width: $width - 15;
+  width: $header-width;
   position: fixed;
-  width: 100%;
   top: 0;
-  left: 5px;
+  left: 50%;
+  margin-left: -$header-width/2;
   z-index: 1000;
   height: 1 + $header-height;
   line-height: 1em;
   border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   @include box-sizing(border-box);
   @include box-shadow(0 0 15px rgba(0,0,0,0.8));
   @include linear-gradient($header-light, $header-dark);
@@ -150,7 +182,7 @@ header {
 
 /* BAR */
 #bar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 95px;
   right: 0;
@@ -437,16 +469,6 @@ header {
 }
 
 #navbar {
-  position: fixed;
-  z-index: 1;
-  top: $header-height;
-  right: 0;
-  bottom: 0;
-  width: $navbar-width;
-  padding: 20px 0 0 0;
-  @include box-sizing(border-box);
-  @include linear-gradient(left, darken($navbar-bg, 1%), $navbar-bg 2%);
-
   #navbar-menus {
     overflow: hidden;
     overflow-y: scroll;
