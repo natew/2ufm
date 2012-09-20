@@ -50,9 +50,9 @@ var mp = (function() {
   };
 
   // Soundmanager
-  soundManager.url = '/swfs/soundmanager2_flash9_debug.swf';
+  soundManager.url = '/swfs/soundmanager2_flash9.swf';
   soundManager.useFlashBlock = true;
-  soundManager.debugMode = true;
+  soundManager.debugMode = false;
   soundManager.useHTML5Audio = true;
   soundManager.preferFlash = true;
   soundManager.onready(function() {
@@ -138,13 +138,11 @@ var mp = (function() {
 
           if (playlist && playlistIndex < playlist.songs.length) {
             // Load song
-            fn.log('Song at index ' + playlistIndex);
+            fn.log('Song at index '+playlistIndex);
             curSongInfo = playlist.songs[playlistIndex];
             curSong = soundManager.createSound({
               id:curSongInfo.id,
-              serverURL:'rtmp://stdc87bdw3mgp.cloudfront.net:1935/cfx/st',
-              url:'song_files/' + curSongInfo.id + '_original.mp3',
-              onconnect:events.connect,
+              url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
               onplay:events.play,
               onstop:events.stop,
               onpause:events.pause,
@@ -390,10 +388,6 @@ var mp = (function() {
   // Events
   //
   var events = {
-    connect: function connect(connected) {
-      fn.log(connected);
-    },
-
     play: function play() {
       isPlaying = true;
       pl.player.addClass('loaded');
