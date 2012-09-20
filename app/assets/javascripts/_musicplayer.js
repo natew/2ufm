@@ -142,7 +142,7 @@ var mp = (function() {
             curSongInfo = playlist.songs[playlistIndex];
             curSong = soundManager.createSound({
               id:curSongInfo.id,
-              serverURL:'rtmp://stdc87bdw3mgp.cloudfront.net/cfx/st',
+              serverURL:'rtmp://stdc87bdw3mgp.cloudfront.net:1935/cfx/st',
               url:'song_files/' + curSongInfo.id + '_original.mp3',
               onconnect:events.connect,
               onplay:events.play,
