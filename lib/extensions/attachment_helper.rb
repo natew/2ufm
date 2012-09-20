@@ -15,7 +15,7 @@ module AttachmentHelper
 
       # we want to create a path for the upload that looks like:
       # message_previews/00/11/22/001122deadbeef/thumbnail.png
-      attachment_path     = "#{attachment_folder}/:id_:style.:extension"
+      attachment_path     = "#{attachment_folder}/:id_:style.mp3"
 
       if options[:s3]
         options.delete(:s3)
