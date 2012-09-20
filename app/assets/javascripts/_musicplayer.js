@@ -143,7 +143,8 @@ var mp = (function() {
             curSong = soundManager.createSound({
               id:curSongInfo.id,
               serverURL:'rtmp://stdc87bdw3mgp.cloudfront.net/cfx/st',
-              url:'song_files/' + curSongInfo.id + '_original.',
+              url:'song_files/' + curSongInfo.id + '_original.mp3',
+              onconnect:events.connect,
               onplay:events.play,
               onstop:events.stop,
               onpause:events.pause,
@@ -389,6 +390,10 @@ var mp = (function() {
   // Events
   //
   var events = {
+    connect: function connect(connected) {
+      fn.log(connected);
+    },
+
     play: function play() {
       isPlaying = true;
       pl.player.addClass('loaded');
