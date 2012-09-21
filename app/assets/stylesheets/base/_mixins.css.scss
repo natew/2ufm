@@ -8,7 +8,7 @@ $header-height: 60px;
 $header-shadow: rgba(255,255,255,0.15);
 
 /* body */
-$body-bg: #2f2f2f;
+$body-bg: #272727;
 $body-dark: darken($body-bg,2.5%);
 $body-light: lighten($body-bg,2.5%);
 $body-darker: darken($body-bg,5%);
@@ -42,7 +42,7 @@ $primary-dark: darken($primary,10%);
 
 /*  navbar  */
 $navbar-width: 200px;
-$navbar-bg: #222;
+$navbar-bg: #151515;
 $navbar-active: $primary;
 
 $yellow: #acac04;
