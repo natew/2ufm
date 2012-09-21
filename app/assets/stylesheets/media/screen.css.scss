@@ -1,3 +1,33 @@
+@media only screen and (max-width: 1024px) {
+  header {
+    width: 920px;
+    margin-left: -460px;
+  }
+
+  #body {
+    width: 700px;
+  }
+
+  #navbar {
+    margin-left: 720px;
+  }
+}
+
+@media only screen and (max-width: 768) {
+  header {
+    width: 720px;
+    margin-left: -360px;
+  }
+
+  #body {
+    width: 500px;
+  }
+
+  #navbar {
+    margin-left: 520px;
+  }
+}
+
 /* iPad [portrait + landscape] */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 }

@@ -13,6 +13,9 @@ gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'jquery-rails'
 
+# Performance
+gem 'newrelic_rpm'
+
 # Caching
 gem 'dalli'
 
