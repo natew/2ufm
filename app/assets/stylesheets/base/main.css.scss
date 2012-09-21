@@ -51,7 +51,7 @@ a:hover { color: $link-hover; }
   z-index: 100;
   top: $header-height;
   bottom: 0;
-  margin-left: 800px;
+  margin-left: $width;
   width: $navbar-width;
   padding: 20px 0 0 0;
   @include box-sizing(border-box);
