@@ -19,6 +19,7 @@ body {
   background: $body-bg;
   position: relative;
   font-weight: 300;
+  overflow-x: hidden;
 }
 
 p {
@@ -29,17 +30,17 @@ a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
 #body-wrap {
-  max-width: 1000px;
+  width: 1000px;
   margin: 0 auto;
   position: relative;
 
   &:before {
     content: "";
     display: block;
-    position: fixed;
+    position: absolute;
     background: $navbar-bg;
-    width: 20000px;
-    right: -20000px;
+    width: 200000px;
+    right: -200000px;
     top: 0;
     bottom: 0;
   }
@@ -63,6 +64,11 @@ a:hover { color: $link-hover; }
   height: auto !important;
   height: 100%;
   position: relative;
+}
+
+.page-contain {
+  width: $width + $navbar-width;
+  margin: 0 auto;
 }
 
 /* HEADING AND TEXT STYLES */
@@ -104,16 +110,13 @@ h1 span { font-size: 26px; }
 $header-width: $width + $navbar-width;
 
 header {
-  width: $header-width;
   position: fixed;
   top: 0;
-  left: 50%;
-  margin-left: -$header-width/2;
+  left: 0;
+  right: 0;
   z-index: 1000;
   height: 1 + $header-height;
   line-height: 1em;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
   @include box-sizing(border-box);
   @include box-shadow(0 0 15px rgba(0,0,0,0.8));
   @include linear-gradient($header-light, $header-dark);
@@ -1209,7 +1212,7 @@ $announce-color: $heading-color;
   .image {
     position: absolute;
     top: 0;
-    right: 20px;
+    right: 0;
 
     &.medium {
       width: 128px; height: 128px;
