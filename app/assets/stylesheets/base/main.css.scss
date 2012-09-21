@@ -67,6 +67,7 @@ a:hover { color: $link-hover; }
 }
 
 .page-contain {
+  position: relative;
   width: $width + $navbar-width;
   margin: 0 auto;
 }
@@ -1212,7 +1213,7 @@ $announce-color: $heading-color;
   .image {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 20px;
 
     &.medium {
       width: 128px; height: 128px;

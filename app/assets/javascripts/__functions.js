@@ -155,7 +155,7 @@ var fn = {
         top:  lastPosition[1] + offset
       });
 
-    $(document).bind('mousemove.spinner', function(e){
+    $('body').bind('mousemove.spinner', function(e){
       $('#spinner').css({
           left: e.pageX + offset,
           top:  e.pageY + offset
