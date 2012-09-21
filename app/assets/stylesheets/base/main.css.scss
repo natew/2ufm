@@ -30,7 +30,7 @@ a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
 #body-wrap {
-  width: 1000px;
+  width: $navbar-width + $width;
   margin: 0 auto;
   position: relative;
 
@@ -59,7 +59,7 @@ a:hover { color: $link-hover; }
 }
 
 #main-mid {
-  padding: $header-height $navbar-width 0 0;
+  padding: $header-height 0 0;
   min-height: 100%;
   height: auto !important;
   height: 100%;

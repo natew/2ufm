@@ -149,7 +149,6 @@ $song-player-height: 50px;
 
     &.listened-to {
       background: $body-light;
-      @include linear-gradient($body-bg, $body-light);
     }
 
     &:hover {
