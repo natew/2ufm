@@ -19,7 +19,6 @@ body {
   background: $body-bg;
   position: relative;
   font-weight: 300;
-  overflow-x: hidden;
 }
 
 p {
@@ -33,17 +32,6 @@ a:hover { color: $link-hover; }
   width: $navbar-width + $width;
   margin: 0 auto;
   position: relative;
-
-  &:before {
-    content: "";
-    display: block;
-    position: absolute;
-    background: $navbar-bg;
-    width: 200000px;
-    right: -200000px;
-    top: 0;
-    bottom: 0;
-  }
 }
 
 #navbar {
@@ -55,7 +43,6 @@ a:hover { color: $link-hover; }
   width: $navbar-width;
   padding: 20px 0 0 0;
   @include box-sizing(border-box);
-  @include linear-gradient(left, darken($navbar-bg, 1%), $navbar-bg 2%);
 }
 
 #main-mid {
@@ -518,8 +505,7 @@ header {
 
     &.active {
       color: #fff;
-      background: $body-bg;
-      @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
+      background: $body-lighter;
 
       &:hover {background: $body-bg;}
     }
@@ -721,8 +707,8 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 12px;
-    border: 1px solid $body-lighter;
-    background: $body-bg;
+    border: 1px solid #777;
+    background: #555;
     border-radius: 20px;
     @include transition(all .1s linear);
 
