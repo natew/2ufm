@@ -58,7 +58,7 @@ class SongsController < ApplicationController
     time = Time.now.to_f.to_i
     difference = time - request_time
     # if difference < 5
-      redirect_to Yetting.s3_url + "/song_files/#{params[:id]}_original."
+      redirect_to Yetting.s3_url + "/song_files/#{params[:id]}_original.mp3"
     # else
       # head 403
     # end
