@@ -55,12 +55,12 @@ namespace :deploy do
   end
 
   task :stop, :roles => :app do
-    surun "cd #{current_path}; bundle exec service thin stop && #{dj_script} stop >> /dev/null"
+    surun "cd #{current_path}; bundle exec service thin stop && #{dj_script} stop >/dev/null 2>&1"
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    surun "cd #{current_path}; bundle exec service thin restart && #{dj_script} restart >> /dev/null"
+    surun "cd #{current_path}; bundle exec service thin restart && #{dj_script} restart >/dev/null 2>&1"
   end
 
   task :symlink_attachments do
@@ -74,7 +74,7 @@ namespace :deploy do
   end
 
   task :clear_caches do
-    run_rake "tmp:cache:clear"
+    run_rake "tmp:cache:clear >/dev/null 2>&1"
     # run_rake "songs:clear_cache"
   end
 end
