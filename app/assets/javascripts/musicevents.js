@@ -32,7 +32,7 @@ w.on({
 
     // Update share links
     $('#player-share').data('link', listenUrl);
-    $('#player-share').data('title', mp.getTitle());
+    $('#player-share').data('title', '♫ ' + mp.getTitle());
   },
 
   'mp:play': function mpPlay(event, mp) {
