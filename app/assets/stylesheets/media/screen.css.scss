@@ -1,7 +1,7 @@
 @media only screen and (max-width: 1024px) {
-  header {
-    width: 920px;
-    margin-left: -460px;
+  header .page-contain {
+    width: 90%;
+    min-width: 480px;
   }
 
   #body-wrap {
