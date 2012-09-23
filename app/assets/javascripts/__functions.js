@@ -93,9 +93,9 @@ var fn = {
 
   scrollTo: function(object) {
     var top = object;
-    if (typeof object != 'number') top = object.offset().top - 160
+    if (typeof object != 'number') top = object.offset().top - 100;
 
-    $('html,body').animate({scrollTop: top }, 200);
+    $('html,body').animate({scrollTop: top }, 100);
   },
 
   jQuerize: function(object) {
