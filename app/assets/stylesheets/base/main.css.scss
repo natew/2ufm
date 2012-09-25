@@ -40,18 +40,12 @@ p {
 a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
-#body-wrap {
-  width: $navbar-width + $width;
-  margin: 0 auto;
-  position: relative;
-}
-
 #navbar {
   position: fixed;
   z-index: 100;
   top: $header-height;
   bottom: 0;
-  margin-left: $width;
+  right: 0;
   width: $navbar-width;
   padding: 40px 0 0 0;
   @include box-sizing(border-box);
@@ -60,15 +54,11 @@ a:hover { color: $link-hover; }
 #main-mid {
   padding: $header-height + 16 0 0;
   min-height: 100%;
-  height: auto !important;
-  height: 100%;
   position: relative;
 }
 
 .page-contain {
   position: relative;
-  width: $width + $navbar-width;
-  margin: 0 auto;
 }
 
 /* HEADING AND TEXT STYLES */
@@ -117,7 +107,8 @@ header {
   z-index: 1000;
   height: $header-height;
   line-height: 1em;
-  background: $header-light;
+  background: rgba($header-color,0.93);
+  border-radius: 3px;
   @include box-sizing(border-box);
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));
 
@@ -220,7 +211,7 @@ header {
       span { color: #fff; }
       &:hover span {
         color: #fff;
-        text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        text-shadow: 0 0 15px rgba(255,255,255,0.8);
       }
     }
 
@@ -271,12 +262,13 @@ header {
     }
 
     .next {
-      margin: 14px 0 0 0;
+      margin: 11px 0 0;
       font-size: 26px;
-      width: 30px;
-      height: 30px;
 
-      span { padding: 4px 0 0 5px; }
+      span {
+        padding: 15px;
+        margin: -8px -5px 0;
+      }
     }
   }
 
@@ -424,7 +416,7 @@ header {
       width: 36px;
       text-align: center;
       margin: 0 1px;
-      color: lighten($header-light, 20%);
+      color: #fff;
       float: left;
       text-decoration: none;
 
@@ -439,12 +431,12 @@ header {
         font-size: 24px;
         display: block;
         text-align: center;
-        color: lighten($header-light, 32%);
+        color: #fff;
       }
 
       &:hover, &:hover:before {
         color: #fff;
-        text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        text-shadow: 0 0 15px rgba(255,255,255,0.8);
       }
 
       &.disabled, &.disabled:before {
@@ -480,10 +472,13 @@ header {
     position: relative;
     display: block;
     text-decoration: none;
-    color: #fff;
+    color: #ccc;
     font-weight: 300;
-    font-size: 22px;
+    font-size: 18px;
     padding: 10px;
+    padding-right: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
     margin: 0;
     @include box-sizing(border-box);
     @include transition(all .1s linear);
@@ -494,14 +489,13 @@ header {
     }
 
     &:hover {
-      color: #fff;
-      background: rgba(0,0,0,0.4);
+      font-size: 20px;
     }
 
     &.active {
+      font-size: 22px;
       color: #fff;
-      background: rgba(255,255,255,0.1);
-      &:hover {background: $body-lighter;}
+      background: rgba(0,0,0,0.5);
     }
 
     span {
@@ -637,7 +631,7 @@ header {
 }
 
 #body {
-  width: $width;
+  margin-right: $navbar-width + 20;
   overflow: hidden;
   padding: 10px 0;
   position: relative;
@@ -1249,9 +1243,9 @@ $announce-color: $heading-color;
 .sub {
   font-size: 14px;
   border-bottom: 2px solid #345b52;
-  padding: 8px 12px;
-  margin: 0 0 12px;
-  color: #ddd;
+  padding: 8px 0;
+  margin: -5px 0 12px;
+  color: #fff;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
 

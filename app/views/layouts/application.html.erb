@@ -92,13 +92,11 @@
 
           <%- if user_signed_in? -%>
           <section class="nav-user">
-            <h1><%= current_user.username %></h1>
-            <%= link_to ('Profile ' + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
+            <h1><%=  %></h1>
+            <%= link_to (current_user.username + " " + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
             <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
-            <span class="smaller">
-              <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
-              <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
-            </span>
+            <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
+            <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
           </section>
           <%- end -%>
 
@@ -106,10 +104,8 @@
             <%= link_to 'Just in', '/fresh', :id => 'nav-new' %>
             <%= link_to 'Trending', '/', :id => 'nav-trending' %>
             <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
-            <span class="smaller">
-              <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
-              <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
-            </span>
+            <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
+            <% link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
           </section>
 
           <section class="nav-extra account">

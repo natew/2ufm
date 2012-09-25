@@ -140,7 +140,7 @@ $song-player-height: 50px;
       content: "";
       position: absolute;
       display: block;
-      background: $body-lighter;
+      background: $body-darker;
       bottom: 0;
       left: 0;
       right: 0;
@@ -152,7 +152,7 @@ $song-player-height: 50px;
     }
 
     &:hover {
-      background: $body-lighter !important;
+      background: rgba(255,255,255,0.05);
       .song-controls {
         a, a:before { color: #fff; }
       }
