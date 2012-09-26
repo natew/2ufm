@@ -86,7 +86,7 @@
       <div id="navbar">
         <div id="navbar-menus" class="scroll-pane">
           <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
-            <%= text_field_tag :query, '', :placeholder =>"Search for anything!" %>
+            <%= text_field_tag :query, '', :placeholder =>"Click to search" %>
             <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
           <% end -%>
 
