@@ -45,9 +45,9 @@ a:hover { color: $link-hover; }
   z-index: 100;
   top: $header-height;
   bottom: 0;
-  right: 0;
+  left: 0;
   width: $navbar-width;
-  padding: 40px 0 0 0;
+  padding: 30px 0 0 0;
   background: $navbar-bg;
   @include box-sizing(border-box);
 }
@@ -475,7 +475,7 @@ header {
     color: #ccc;
     font-weight: 300;
     font-size: 16px;
-    padding: 8px 30px 8px 20px;
+    padding: 4px 30px 4px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -488,13 +488,17 @@ header {
     }
 
     &:hover {
-      font-size: 20px;
+      background: rgba(0,0,0,0.5);
+    }
+
+    &:before {
+      padding-left: 5px;
     }
 
     &.active {
       font-size: 22px;
       color: #fff;
-      background: rgba(0,0,0,0.5);
+      background: $body-bg;
     }
 
     span {
@@ -515,15 +519,15 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 0 15px 20px 0;
+    margin: 0 0 20px 0;
 
     &.nav-user {
       img {
-        top: 4px;
-        right: 4px;
+        top: 6px;
+        left: 7px;
         position: absolute;
-        width: 33px;
-        height: 33px;
+        width: 16px;
+        height: 16px;
       }
     }
 
@@ -531,9 +535,9 @@ header {
       padding-bottom: 10px;
 
       a {
-        font-size: 18px;
-        padding-top: 4px;
-        padding-bottom: 4px;
+        color: #aaa;
+        font-size: 14px;
+        padding-left: 20px;
       }
     }
 
@@ -630,7 +634,7 @@ header {
 }
 
 #body {
-  margin-right: $navbar-width;
+  margin-left: $navbar-width;
   overflow: hidden;
   padding: 10px 10px 10px 0;
   position: relative;
@@ -785,7 +789,8 @@ header #second-nav {
 .pictos-volume-on:before {content: ">";}
 .pictos-volume-off:before {content: "<";}
 .pictos-time:before {content: "t";}
-
+.pictos-inbox:before {content: "I";}
+.pictos-globe:before {content: "G";}
 
 #main-mid a[href^="http://"] {
   padding-right: .4em;

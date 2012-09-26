@@ -94,18 +94,18 @@
           <section class="nav-user">
             <h1><%=  %></h1>
             <%= link_to (current_user.username + " " + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
-            <%= link_to 'Feed', '/feed', :id => 'nav-feed' %>
-            <%= link_to 'Following', '/users/following', :id => 'nav-following' %>
-            <%= link_to 'Shares', '/shares/inbox', :id => 'nav-shares' %>
+            <%= link_to 'Feed', '/feed', :id => 'nav-feed', :class => 'pictos-list' %>
+            <%= link_to 'Following', '/users/following', :id => 'nav-following', :class => 'pictos-plus' %>
+            <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox' %>
           </section>
           <%- end -%>
 
           <section>
-            <%= link_to 'Just in', '/fresh', :id => 'nav-new' %>
-            <%= link_to 'Trending', '/', :id => 'nav-trending' %>
-            <%= link_to 'Popular', '/popular', :id => 'nav-popular' %>
-            <%= link_to 'Artists', '/artists', :id => 'nav-artists' %>
-            <% link_to 'Blogs', '/blogs', :id => 'nav-blogs' %>
+            <%= link_to 'Just in', '/fresh', :id => 'nav-new', :class => 'pictos-time' %>
+            <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-globe'  %>
+            <%= link_to 'Popular', '/popular', :id => 'nav-popular', :class => 'pictos-star' %>
+            <%= link_to 'Artists', '/artists', :id => 'nav-artists', :class => 'pictos-users' %>
+            <% link_to 'Blogs', '/blogs', :id => 'nav-blogs', :class => 'pictos-newspaper' %>
           </section>
 
           <section class="nav-extra account">
