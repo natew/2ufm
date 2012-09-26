@@ -686,19 +686,20 @@ $placeholder-color: #999;
 }
 
 #search-form {
-  margin: 0 0 15px 15px;
+  margin: 0 0 15px 0;
   position: relative;
 
   #query {
     border: none;
-    padding: 4px 38px 4px 8px;
-    width: $navbar-width - 50;
+    padding: 4px 30px 4px 8px;
+    width: $navbar-width - 40;
     margin: 0;
     color: $placeholder-color;
     outline: none;
     font-size: 12px;
     background: transparent;
     border-bottom: 1px solid #444;
+    @include box-sizing(border-box);
     @include transition(all .1s linear);
 
     &:hover {
