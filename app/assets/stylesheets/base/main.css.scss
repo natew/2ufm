@@ -132,7 +132,6 @@ header {
 
     a {
       background: url(/images/2ufm.png) no-repeat 0 0;
-      background-color: rgba(0,0,0,0.1);
       width: 90px;
       height: 68px;
       overflow: hidden;
@@ -140,7 +139,7 @@ header {
       display: block;
 
       &:hover {
-        background-color: rgba(0,0,0,0.2);
+        background-color: rgba(0,0,0,0.15);
       }
     }
   }
