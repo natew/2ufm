@@ -48,11 +48,12 @@ a:hover { color: $link-hover; }
   right: 0;
   width: $navbar-width;
   padding: 40px 0 0 0;
+  background: $navbar-bg;
   @include box-sizing(border-box);
 }
 
 #main-mid {
-  padding: $header-height + 16 0 0;
+  padding: $header-height 0 0;
   min-height: 100%;
   position: relative;
 }
@@ -101,14 +102,13 @@ $header-width: $width + $navbar-width;
 
 header {
   position: fixed;
-  top: 10px;
-  left: 10px;
-  right: 10px;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   height: $header-height;
   line-height: 1em;
-  background: rgba($header-color,0.93);
-  border-radius: 3px;
+  background: $header-color;
   @include box-sizing(border-box);
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));
 
@@ -474,9 +474,8 @@ header {
     text-decoration: none;
     color: #ccc;
     font-weight: 300;
-    font-size: 18px;
-    padding: 10px;
-    padding-right: 30px;
+    font-size: 16px;
+    padding: 8px 30px 8px 20px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -631,9 +630,9 @@ header {
 }
 
 #body {
-  margin-right: $navbar-width + 20;
+  margin-right: $navbar-width;
   overflow: hidden;
-  padding: 10px 0;
+  padding: 10px 10px 10px 0;
   position: relative;
   z-index: 2;
 
@@ -684,18 +683,19 @@ $placeholder-color: #999;
 }
 
 #search-form {
-  margin: 0 0 15px 0;
+  margin: 0 0 15px 15px;
   position: relative;
 
   #query {
     border: none;
-    padding: 4px 8px 4px 44px;
+    padding: 4px 38px 4px 8px;
     width: $navbar-width - 50;
     margin: 0;
     color: $placeholder-color;
     outline: none;
     font-size: 12px;
     background: transparent;
+    border-bottom: 1px solid #444;
     @include transition(all .1s linear);
 
     &:hover {
@@ -713,7 +713,7 @@ $placeholder-color: #999;
     pointer-events: none;
     cursor: text;
     position: absolute;
-    left: 15px;
+    right: 15px;
     top: 4px;
     font-size: 20px;
     color: #fff;
