@@ -95,7 +95,7 @@
             <h1><%=  %></h1>
             <%= link_to (current_user.username + " " + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
             <%= link_to 'Feed', '/feed', :id => 'nav-feed', :class => 'pictos-list' %>
-            <%= link_to 'Following', '/users/following', :id => 'nav-following', :class => 'pictos-plus' %>
+            <%= link_to 'Following', '/users/following', :id => 'nav-following', :class => 'pictos-add' %>
             <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox' %>
           </section>
           <%- end -%>
