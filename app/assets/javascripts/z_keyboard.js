@@ -20,11 +20,13 @@ function keyDown(e) {
     // Left
     case 37:
       e.preventDefault();
+      mp.setKeyboardUsed();
       mp.prev();
       break;
     // Right
     case 39:
       e.preventDefault();
+      mp.setKeyboardUsed();
       mp.next();
       break;
     // Space

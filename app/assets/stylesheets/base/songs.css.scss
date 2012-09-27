@@ -136,19 +136,36 @@ $song-player-height: 50px;
     position: relative;
     @include transition(all .1s linear);
 
-    &:before {
-      content: "";
-      position: absolute;
-      display: block;
-      background: $body-darker;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
+    &:nth-child(2n+1) {
+      background: rgba(0,0,0,0.1);
     }
 
     &.listened-to {
-      background-color: rgba(255,255,255,0.02);
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        z-index: 0;
+        height: 30px;
+        background: rgba(255,255,255,0.1);
+      }
+    }
+
+    &.liked {
+      &:after {
+        content: "";
+        display: block;
+        visibility: visible;
+        position: absolute;
+        right: 0;
+        width: 4px;
+        height: 30px;
+        top: 0;
+        z-index: 1;
+        background: $green;
+      }
     }
 
     &:hover {
@@ -161,8 +178,12 @@ $song-player-height: 50px;
     &.open { .reviews { display: block; } }
 
     &.active {
-      background: $body-dark !important;
-      border: 2px solid $primary;
+      background: rgba(255,255,255,0.05) !important;
+      border: 1px solid $primary;
+      border-left: none;
+      border-right: none;
+      z-index: 100;
+      @include box-shadow(0 0 20px rgba(0,0,0,0.5));
     }
 
     &.failed {
