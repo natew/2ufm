@@ -37,7 +37,7 @@
 
 .primary .role:after { top: 12px; }
 .playlist-song { .active, .open { .name .role:after { top: 12px; } } }
-header .role:after {top:2px;}
+header .role:after {top:3px; line-height:10px;}
 
 .role:hover:after {
   color: #fff;
@@ -179,9 +179,6 @@ $song-player-height: 50px;
 
     &.active {
       background: rgba(255,255,255,0.05) !important;
-      border: 1px solid $primary;
-      border-left: none;
-      border-right: none;
       z-index: 100;
       @include box-shadow(0 0 20px rgba(0,0,0,0.5));
     }

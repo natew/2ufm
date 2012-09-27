@@ -130,9 +130,9 @@ header {
     margin: -12px 0 0 -5px;
 
     a {
-      background: url(/images/2ufm.png) no-repeat 0 0;
+      background: url(/images/2ufm.png) no-repeat 0 3px;
       width: 90px;
-      height: 68px;
+      height: $header-height + 10;
       overflow: hidden;
       text-indent: -3000em;
       display: block;
@@ -226,7 +226,7 @@ header {
   }
 
   #player-controls {
-    margin: 1px 0 -4px -2px;
+    margin: 2px 0 -4px -4px;
     float: left;
     width: 100px;
 
@@ -252,11 +252,11 @@ header {
     /* play button */
     .play {
       font-size: 46px;
-      width: 54px;
+      width: 52px;
       height: 50px;
       color: #fff;
 
-      span { padding: 19px 0 0 12px; }
+      span { padding: 21px 0 0 12px; }
     }
 
     .next {
@@ -265,7 +265,7 @@ header {
 
       span {
         padding: 15px;
-        margin: -8px -5px 0;
+        margin: -6px -5px 0;
       }
     }
   }
@@ -274,7 +274,7 @@ header {
     position: absolute;
     top: 0;
     left: 105px;
-    right: $navbar-width + 40;
+    right: $navbar-width + 50;
     height: 100%;
 
     #player-meta {
@@ -282,7 +282,7 @@ header {
       overflow: hidden;
       visibility: hidden;
       margin: 4px 0 0;
-      line-height: 17px;
+      line-height: 19px;
 
       span {
         display: block;
@@ -294,7 +294,7 @@ header {
         z-index: 10;
 
         a {
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 400;
           white-space: nowrap;
           overflow: hidden;
@@ -306,7 +306,7 @@ header {
 
       #player-artist-name {
         color: lighten($header-light, 20%);
-        font-size: 12px;
+        font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
         font-weight: 400;
@@ -315,7 +315,8 @@ header {
         z-index: 9;
 
         a {color: lighten($header-light, 29%) !important;
-          &:hover { color: #fff !important; }}
+          &:hover { color: #fff !important; }
+          &:after { font-size: 9px; } }
       }
 
       a {
@@ -402,7 +403,7 @@ header {
 
   #player-buttons {
     position: absolute;
-    top: 6px;
+    top: 8px;
     width: 200px;
     right: -6px;
 
