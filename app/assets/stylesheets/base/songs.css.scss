@@ -180,7 +180,7 @@ $song-player-height: 50px;
     &.active {
       background: rgba(255,255,255,0.08) !important;
       z-index: 100;
-      @include box-shadow(0 0 15px rgba(0,0,0,0.8));
+      @include box-shadow(0 0 10px rgba(0,0,0,0.6));
     }
 
     &.failed {
@@ -189,7 +189,7 @@ $song-player-height: 50px;
         content: "";
         display: block;
         position: absolute;
-        z-index: 100;
+        z-index: 90;
         top: 0;
         left: 0;
         width: 100%;

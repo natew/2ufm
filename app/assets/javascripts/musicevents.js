@@ -71,8 +71,8 @@ w.on({
               windowTop  = w.scrollTop(),
               windowBot  = windowTop + w.height();
 
-          if (sectionTop < (windowTop + 60)) fn.scrollTo(sectionTop - 100);
-          else if (sectionBot > windowBot) fn.scrollTo(sectionTop - 100);
+          if (sectionTop < (windowTop + 220)) fn.scrollTo(sectionTop - 150);
+          else if (sectionBot > (windowBot - 40)) fn.scrollTo(sectionTop - 120);
         }
       }
     });
