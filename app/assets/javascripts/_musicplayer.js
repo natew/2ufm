@@ -30,7 +30,8 @@ var mp = (function() {
       playMode = $.cookie('playmode'),
       curFailures = 0,
       failures = 0,
-      playTimeout;
+      playTimeout,
+      songs = {};
 
   // Playmode
   playMode = playMode || 0;
@@ -66,6 +67,46 @@ var mp = (function() {
     }
   });
 
+  var dbName = '2ufm';
+
+  // IndexedDB
+  $.indexedDB(dbName, {
+    'schema': {
+      '1': function(versionTransaction) {
+        var catalog = versionTransaction.createObjectStore('files', {
+          'keyPath': 'itemId'
+        });
+      }
+    }
+  })
+  .done(function() {
+    setTimeout(function() {
+      loadTable('songs');
+    }, 100);
+  });
+
+  function loadTable(table) {
+    emptyTable(table);
+    _($.indexedDB(dbName).objectStore(table).each(function(elem){
+      addItem(table, elem.key, elem.value);
+    }));
+  }
+
+  // Sort a table based on an index that is setup
+  function sort(table, key){
+    emptyTable(table);
+    _($.indexedDB(dbName).objectStore(table).index(key).each(function(elem){
+      addItem(table, elem.key, elem.value);
+    }));
+  }
+
+  function emptyDB(table){
+    _($.indexedDB(dbName).objectStore(table).clear());
+  }
+
+  function addItem(table, key, val) {
+    songs[key] = val;
+  }
 
   //
   // Player functions
