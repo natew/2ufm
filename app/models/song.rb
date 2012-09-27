@@ -377,6 +377,7 @@ class Song < ActiveRecord::Base
             tag.title = track.title || tag.title
             tag.genre = track.genres || tag.genre
             tag.artist = track.user.username || tag.artist
+            fix_soundcloud_tagging
           end
 
           # Properties
@@ -392,7 +393,7 @@ class Song < ActiveRecord::Base
           self.genre        = tag.genre
           self.image        = get_album_art(tag)
 
-          find_correct_tag_info
+          fix_empty_artist_tagging
 
           # Detect if they dumped the artist in the name
           split_artists_from_name
@@ -782,13 +783,19 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def find_correct_tag_info
-    if artist_name.empty?
-      artist, name = full_name.split(/ [-—] /)
-      self.artist_name = (artist || '').strip
-      self.name = (name || '').strip
-      full_name
-    end
+  def fix_empty_artist_tagging
+    split_name_tag if artist_name.empty?
+  end
+
+  def fix_soundcloud_tagging
+    split_name_tag if name.match(/ [-—] /)
+  end
+
+  def split_name_tag
+    artist, name = full_name.split(/ [-—] /)
+    self.artist_name = (artist || artist_name || '').strip
+    self.name = (name || '').strip
+    full_name
   end
 
   def clean_url

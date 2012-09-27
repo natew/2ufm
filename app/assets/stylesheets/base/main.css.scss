@@ -45,9 +45,9 @@ a:hover { color: $link-hover; }
   z-index: 100;
   top: $header-height;
   bottom: 0;
-  right: 0;
+  left: 0;
   width: $navbar-width;
-  padding: 40px 0 0 0;
+  padding: 5px 0 0 0;
   background: $navbar-bg;
   @include box-sizing(border-box);
 }
@@ -132,7 +132,6 @@ header {
 
     a {
       background: url(/images/2ufm.png) no-repeat 0 0;
-      background-color: rgba(0,0,0,0.1);
       width: 90px;
       height: 68px;
       overflow: hidden;
@@ -140,7 +139,7 @@ header {
       display: block;
 
       &:hover {
-        background-color: rgba(0,0,0,0.2);
+        background-color: rgba(0,0,0,0.15);
       }
     }
   }
@@ -276,7 +275,7 @@ header {
     position: absolute;
     top: 0;
     left: 105px;
-    right: $navbar-width + 10;
+    right: $navbar-width + 40;
     height: 100%;
 
     #player-meta {
@@ -455,9 +454,9 @@ header {
   }
 
   h1 {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 300;
-    color: #999;
+    color: #666;
     padding: 5px 10px;
     margin: 0;
   }
@@ -474,8 +473,8 @@ header {
     text-decoration: none;
     color: #ccc;
     font-weight: 300;
-    font-size: 16px;
-    padding: 8px 30px 8px 20px;
+    font-size: 13px;
+    padding: 4px 30px 4px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -488,13 +487,17 @@ header {
     }
 
     &:hover {
-      font-size: 20px;
+      background: rgba(0,0,0,0.5);
+    }
+
+    &:before {
+      padding-left: 4px;
+      font-size: 14px;
     }
 
     &.active {
-      font-size: 22px;
       color: #fff;
-      background: rgba(0,0,0,0.5);
+      background: $body-bg;
     }
 
     span {
@@ -515,15 +518,15 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 0 15px 20px 0;
+    margin: 0 0 15px 0;
 
     &.nav-user {
       img {
-        top: 4px;
-        right: 4px;
+        top: 6px;
+        left: 7px;
         position: absolute;
-        width: 33px;
-        height: 33px;
+        width: 16px;
+        height: 16px;
       }
     }
 
@@ -531,9 +534,8 @@ header {
       padding-bottom: 10px;
 
       a {
-        font-size: 18px;
-        padding-top: 4px;
-        padding-bottom: 4px;
+        color: #999;
+        padding-left: 10px;
       }
     }
 
@@ -542,8 +544,9 @@ header {
       position: fixed;
       bottom: 0;
       right: 10px;
-      width: $navbar-width - 10;
-      background: $navbar-bg;
+      width: $navbar-width;
+      background: rgba(0,0,0,0.9);
+      @include box-shadow(0 0 10px rgba(0,0,0,0.5));
 
       &.collapsed {
         height: 24px;
@@ -566,8 +569,7 @@ header {
         margin: 0;
         padding-left: 20px;
         color: #fff;
-        background: $body-dark;
-        @include box-shadow(2px 2px 2px rgba(0,0,0,0.1));
+        background: $navbar-bg;
 
         &:after {
           display: block;
@@ -588,12 +590,12 @@ header {
       a {
         color: #aaa;
         margin-left: 0;
-        margin-right: 10px;
-        padding: 3px 34px 3px 20px;
+        margin-right: 0;
+        padding: 3px 30px 3px 10px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        font-size: 14px;
+        font-size: 12px;
         position: relative;
 
         &:hover {
@@ -607,10 +609,10 @@ header {
 
         img {
           position: absolute;
-          top: 4px;
-          right: 4px;
-          width: 24px;
-          height: 24px;
+          top: 2px;
+          right: 2px;
+          width: 18px;
+          height: 18px;
         }
       }
 
@@ -618,19 +620,11 @@ header {
         color: #fff;
       }
     }
-
-    &.account {
-      a {
-        font-size: 14px;
-        padding-top: 6px;
-        padding-bottom: 6px;
-      }
-    }
   }
 }
 
 #body {
-  margin-right: $navbar-width;
+  margin-left: $navbar-width;
   overflow: hidden;
   padding: 10px 10px 10px 0;
   position: relative;
@@ -683,19 +677,20 @@ $placeholder-color: #999;
 }
 
 #search-form {
-  margin: 0 0 15px 15px;
+  margin: 0 0 15px 0;
   position: relative;
 
   #query {
     border: none;
-    padding: 4px 38px 4px 4px;
-    width: $navbar-width - 50;
+    padding: 4px 4px 4px 26px;
+    width: $navbar-width;
     margin: 0;
     color: $placeholder-color;
     outline: none;
     font-size: 12px;
     background: transparent;
     border-bottom: 1px solid #444;
+    @include box-sizing(border-box);
     @include transition(all .1s linear);
 
     &:hover {
@@ -713,10 +708,10 @@ $placeholder-color: #999;
     pointer-events: none;
     cursor: text;
     position: absolute;
-    right: 15px;
+    left: 6px;
     top: 4px;
-    font-size: 20px;
-    color: #fff;
+    font-size: 16px;
+    color: #999;
     text-shadow: none;
     padding: 0;
     box-shadow: none;
@@ -751,7 +746,7 @@ header #second-nav {
 }
 
 .pictos-play:before {content: "4";}
-.pictos-puase:before {content: "5";}
+.pictos-pause:before {content: "5";}
 .pictos-key:before {content: "K";}
 .pictos-info:before {content: "i";}
 .pictos-write:before {content: "W";}
@@ -766,7 +761,7 @@ header #second-nav {
 .pictos-heart:before {content: "k";}
 .pictos-star:before {content: "S";}
 .pictos-music:before {content: "m";}
-.pictos-add:before {content: "+";}
+.pictos-add:before,  {content: "+";}
 .pictos-remove:before {content: "-";}
 .pictos-share:before {content: "R";}
 .pictos-list:before {content: "l";}
@@ -785,7 +780,8 @@ header #second-nav {
 .pictos-volume-on:before {content: ">";}
 .pictos-volume-off:before {content: "<";}
 .pictos-time:before {content: "t";}
-
+.pictos-inbox:before {content: "I";}
+.pictos-globe:before {content: "G";}
 
 #main-mid a[href^="http://"] {
   padding-right: .4em;
