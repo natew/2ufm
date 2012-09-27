@@ -688,7 +688,7 @@ $placeholder-color: #999;
 
   #query {
     border: none;
-    padding: 4px 38px 4px 8px;
+    padding: 4px 38px 4px 4px;
     width: $navbar-width - 50;
     margin: 0;
     color: $placeholder-color;
@@ -797,6 +797,10 @@ header #second-nav {
     padding: 0 0 0 .3em;
     -webkit-font-smoothing: antialiased;
   }
+}
+
+#main-mid a.no-external:after {
+  display: none;
 }
 
 #share {

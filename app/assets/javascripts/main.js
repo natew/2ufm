@@ -6,6 +6,7 @@ var w = $(window),
     infiniteScrollTimeout,
     debug = false,
     isOnline = $('body.signed_in').length > 0,
+    isAdmin = $('body[data-role="admin"]').length > 0,
     userId = $('body').data('user'),
     modalShown = false,
     navOpen,
@@ -633,9 +634,17 @@ function updatePlaylist() {
     updateFollows();
     updateBroadcasts();
     updateListens();
+
+    if (isAdmin) {
+      $('.playlist.not-loaded section').each(function() {
+        var id = $(this).attr('id').split('-')[1];
+        $('.song-controls', this).append('<a class="no-external" download="'+id+'.mp3" href="http://media.2u.fm/song_files/' + id + '_original.mp3">DL</a>');
+      })
+    }
   }
   updateTimes();
   updateCounts();
+  $('.playlist.not-loaded').removeClass('not-loaded').addClass('loaded');
 }
 
 function updateCounts() {
@@ -645,7 +654,7 @@ function updateCounts() {
 }
 
 function updateTimes() {
-  $('time').each(function() {
+  $('.playlist.not-loaded time').each(function() {
     var el = $(this),
         datetime = new Date(el.attr('datetime')).toRelativeTime();
     el.html(datetime);
@@ -700,7 +709,7 @@ function updateFollows() {
     follows = '.follow-' + updateFollowsIds[0];
   }
 
-  $(follows)
+  $('.playlist.not-loaded ' + follows)
     .attr('title', f.title)
     .data('method', f.method)
     .removeClass('add')
