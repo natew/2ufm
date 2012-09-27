@@ -273,8 +273,8 @@ header {
   #player-main {
     position: absolute;
     top: 0;
-    left: 105px;
-    right: $navbar-width + 50;
+    left: 110px;
+    right: $navbar-width + 60;
     height: 100%;
 
     #player-meta {
@@ -404,14 +404,13 @@ header {
   #player-buttons {
     position: absolute;
     top: 8px;
-    width: 200px;
-    right: -6px;
+    right: 15px;
 
     a {
       display: inline-block;
       font-weight: bold;
       font-size: 10px;
-      padding: 0 5px 0;
+      padding: 0 4px 0;
       width: 36px;
       text-align: center;
       margin: 0 1px;

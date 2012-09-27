@@ -29,7 +29,7 @@ var w = $(window),
     friendsTemplate = $('#friends').html(),
     navbarInterval,
     playModeEl = $('#player-mode'),
-    modeTitles = {'normal': 'Off', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
+    modeTitles = {'normal': 'Normal', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
 
 // Read URL parameters
 var urlParams = {},
