@@ -433,7 +433,7 @@ header {
   #player-buttons {
     position: absolute;
     top: 6px;
-    right: 15px;
+    right: 10px;
 
     a {
       display: inline-block;
@@ -571,10 +571,9 @@ header {
       margin: 0;
       position: fixed;
       bottom: 0;
-      right: 10px;
+      left: 0;
       width: $navbar-width;
       background: rgba(0,0,0,0.9);
-      @include box-shadow(0 0 10px rgba(0,0,0,0.5));
 
       &.collapsed {
         height: 24px;
