@@ -66,7 +66,7 @@ a:hover { color: $link-hover; }
 /* HEADING AND TEXT STYLES */
 
 h1 { font-size: 36px; }
-h2 { font-size: 28px; }
+h2 { font-size: 24px; }
 h3 { font-size: 18px; }
 h4 { font-size: 14px; }
 h5 { font-size: 14px; }
@@ -125,7 +125,7 @@ header {
   /* logo */
   h1 {
     position: absolute;
-    top: 5px;
+    top: 4px;
     left: 0;
     margin: -12px 0 0 -5px;
 
@@ -432,7 +432,7 @@ header {
 
   #player-buttons {
     position: absolute;
-    top: 8px;
+    top: 6px;
     right: 15px;
 
     a {
@@ -453,9 +453,9 @@ header {
         left: auto;
         top: auto;
         float: none;
-        padding: 10px 0 20px 0;
+        padding: 10px 0 22px 0;
         margin: 0 0 -10px 0;
-        font-size: 24px;
+        font-size: 26px;
         display: block;
         text-align: center;
         color: #fff;
@@ -1268,11 +1268,11 @@ $announce-color: $heading-color;
 }
 
 .sub {
-  font-size: 14px;
+  font-size: 16px;
   border-bottom: 2px solid #345b52;
   padding: 8px 20px;
   margin: -5px -20px 12px;
-  color: #fff;
+  color: #ccc;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
 
