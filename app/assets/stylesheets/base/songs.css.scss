@@ -37,7 +37,7 @@
 
 .primary .role:after { top: 12px; }
 .playlist-song { .active, .open { .name .role:after { top: 12px; } } }
-header .role:after {top:2px;}
+header .role:after {top:3px; line-height:10px;}
 
 .role:hover:after {
   color: #fff;
@@ -136,19 +136,36 @@ $song-player-height: 50px;
     position: relative;
     @include transition(all .1s linear);
 
-    &:before {
-      content: "";
-      position: absolute;
-      display: block;
-      background: $body-darker;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
+    &:nth-child(2n+1) {
+      background: rgba(0,0,0,0.1);
     }
 
     &.listened-to {
-      background-color: rgba(255,255,255,0.02);
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        z-index: 0;
+        height: 30px;
+        background: rgba(255,255,255,0.1);
+      }
+    }
+
+    &.liked {
+      &:after {
+        content: "";
+        display: block;
+        visibility: visible;
+        position: absolute;
+        right: 0;
+        width: 4px;
+        height: 30px;
+        top: 0;
+        z-index: 1;
+        background: $green;
+      }
     }
 
     &:hover {
@@ -161,8 +178,9 @@ $song-player-height: 50px;
     &.open { .reviews { display: block; } }
 
     &.active {
-      background: $body-dark !important;
-      border: 2px solid $primary;
+      background: rgba(255,255,255,0.08) !important;
+      z-index: 100;
+      @include box-shadow(0 0 10px rgba(0,0,0,0.6));
     }
 
     &.failed {
@@ -171,7 +189,7 @@ $song-player-height: 50px;
         content: "";
         display: block;
         position: absolute;
-        z-index: 100;
+        z-index: 90;
         top: 0;
         left: 0;
         width: 100%;
@@ -456,8 +474,8 @@ $song-player-height: 50px;
 
 .primary section, section.active {
   min-height: 175px;
-  margin: 0 -10px;
-  padding: 20px;
+  margin: 0 -20px;
+  padding: 30px;
 
   h1, .song-meta {
     margin-left: $song-art-big + $song-pad;

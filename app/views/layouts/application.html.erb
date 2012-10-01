@@ -36,7 +36,7 @@
   </script>
 </head>
 
-<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>"<% end %>>
+<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.role == 'admin' %> data-role="admin"<% end %><% end %>>
 
   <div id="body-wrap">
     <header>
@@ -52,8 +52,8 @@
           <div id="player-buttons">
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard' %>
             <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music' %>
+            <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-repeat' %>
             <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
-            <%= link_to 'Off', "", :id => 'player-mode', :class => 'control pictos-repeat' %>
           </div>
 
           <div id="player-main">

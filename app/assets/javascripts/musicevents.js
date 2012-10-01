@@ -35,7 +35,7 @@ w.on({
     $('#player-share').data('title', mp.getTitle());
   },
 
-  'mp:play': function mpPlay(event, mp) {
+  'mp:played': function mpPlay(event, mp) {
     var song = mp.curSongInfo(),
         playlistItem = $('#player-playlist .song-'+song.id),
         w = $(window),
@@ -57,24 +57,25 @@ w.on({
 
     $('#player-artist-name').html(html_artists || song.artist_name);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
+  },
 
+  'mp:play': function(event, mp) {
+    var section = mp.curSection();
     // Scroll to song
     setTimeout(function() {
-      if (mp.isOnPlayingPage() && !mp.getHasMoved()) {
+      if ( mp.isOnPlayingPage() && (!mp.getHasMoved() || mp.usedKeyboard()) ) {
         fn.log('scroll to song');
-        var section    = $('#song-' + song.id);
-
         if (section.length) {
           var sectionTop = section.offset().top,
               sectionBot = sectionTop + section.height(),
               windowTop  = w.scrollTop(),
               windowBot  = windowTop + w.height();
 
-          if (sectionTop < (windowTop + 60)) fn.scrollTo(sectionTop - 200);
-          else if (sectionBot > windowBot) fn.scrollTo(sectionTop - 200);
+          if (sectionTop < (windowTop + 220)) fn.scrollTo(sectionTop - 150);
+          else if (sectionBot > (windowBot - 40)) fn.scrollTo(sectionTop - 120);
         }
       }
-    }, 100);
+    });
   },
 
   'mp:playlist_end': function playlistEnd(event, mp, song) {

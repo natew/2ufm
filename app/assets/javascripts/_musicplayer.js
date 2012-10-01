@@ -30,7 +30,9 @@ var mp = (function() {
       playMode = $.cookie('playmode'),
       curFailures = 0,
       failures = 0,
-      playTimeout;
+      playTimeout,
+      songs = {},
+      usedKeyboard = false;
 
   // Playmode
   playMode = playMode || 0;
@@ -66,6 +68,46 @@ var mp = (function() {
     }
   });
 
+  // var dbName = '2ufm';
+
+  // // IndexedDB
+  // $.indexedDB(dbName, {
+  //   'schema': {
+  //     '1': function(versionTransaction) {
+  //       var catalog = versionTransaction.createObjectStore('files', {
+  //         'keyPath': 'itemId'
+  //       });
+  //     }
+  //   }
+  // })
+  // .done(function() {
+  //   setTimeout(function() {
+  //     loadTable('songs');
+  //   }, 100);
+  // });
+
+  // function loadTable(table) {
+  //   emptyTable(table);
+  //   _($.indexedDB(dbName).objectStore(table).each(function(elem){
+  //     addItem(table, elem.key, elem.value);
+  //   }));
+  // }
+
+  // // Sort a table based on an index that is setup
+  // function sort(table, key){
+  //   emptyTable(table);
+  //   _($.indexedDB(dbName).objectStore(table).index(key).each(function(elem){
+  //     addItem(table, elem.key, elem.value);
+  //   }));
+  // }
+
+  // function emptyDB(table){
+  //   _($.indexedDB(dbName).objectStore(table).clear());
+  // }
+
+  // function addItem(table, key, val) {
+  //   songs[key] = val;
+  // }
 
   //
   // Player functions
@@ -126,6 +168,7 @@ var mp = (function() {
     play: function play() {
       var self = this;
       self.setCurSection('playing');
+      w.trigger('mp:play', player.state());
       clearTimeout(playTimeout);
       playTimeout = setTimeout(function() {
         if (!smReady) {
@@ -394,7 +437,8 @@ var mp = (function() {
       player.setCurSection('playing');
       player.refresh();
       player.startTimer();
-      w.trigger('mp:play', player.state());
+      w.trigger('mp:played', player.state());
+      usedKeyboard = false;
 
       // Scrobbling
       $.ajax({
@@ -636,8 +680,15 @@ var mp = (function() {
 
     playMode: function() {
       return playModes[playMode];
-    }
+    },
 
+    usedKeyboard: function() {
+      return usedKeyboard;
+    },
+
+    setKeyboardUsed: function() {
+      usedKeyboard = true;
+    }
   };
 
 }(window, mp));

@@ -23,7 +23,7 @@ class Song < ActiveRecord::Base
     :close => /[\)\]\}]/,
     :containers => /[\{\[\(\)\]\}]/i,
     :percents => /(% ?){2,10}/,
-    :remove => /(extended|vip|original|club|vocal) mix|(extended|vip|radio) edit|(on|and|or) (soundcloud|facebook)|(exclusive )?((free )?(download|d\/?l)( free)?)/i,
+    :remove => /(extended|vip|original|club|vocal) mix|(extended|vip|radio) edit|(on|and|or) (soundcloud|facebook)|(exclusive )?((free )?(download|d\/?l)( free)?.*)/i,
     :and => /, | & | and /i,
     :dash_split => /^[^-]* [—-] [^-]*$/
   }
