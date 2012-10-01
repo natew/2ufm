@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     username
   end
 
+  def get_remote_avatar
+    self.avatar = URI.parse(self.avatar_remote_url)
+  end
+
   def avatar_url_provided?
     !self.avatar_remote_url.blank?
   end
@@ -106,7 +110,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first || User.find_by_email(auth.extra.raw_info.email)
     unless user
       info = auth.extra.raw_info
       user = User.create(
