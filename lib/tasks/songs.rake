@@ -11,8 +11,7 @@ namespace :songs do
 
   task :fix_soundcloud_tags => :environment do
     Song.working.soundcloud.each do |song|
-      song.fix_soundcloud_tagging
-      song.save
+      song.fix_tags
     end
   end
 

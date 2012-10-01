@@ -789,14 +789,27 @@ class Song < ActiveRecord::Base
   end
 
   def fix_soundcloud_tagging
-    split_name_tag if name.match(/ [-—] /)
+    split_name_tag
   end
 
   def split_name_tag
+    return false unless name.match(/ [-—] /)
     fix_artist, fix_name = name.split(/ [-—] /)
     self.artist_name = (fix_artist || artist_name || '').strip
     self.name = (fix_name || name || '').strip
     full_name
+  end
+
+  def fix_tags
+    if fix_soundcloud_tagging
+      self.authors.destroy_all
+      parse_artists
+      set_match_name
+      delete_file_if_matching
+      find_matching_songs
+      add_to_stations
+      self.save
+    end
   end
 
   def clean_url
