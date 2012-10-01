@@ -79,7 +79,7 @@ class Song < ActiveRecord::Base
   scope :newest, order('songs.published_at desc')
   scope :oldest, order('songs.published_at asc')
   scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
-  scope :soundcloud, where('songs.source = soundcloud')
+  scope :soundcloud, where(source: 'soundcloud')
 
   # Basic types
   scope :with_authors, joins(:authors)
