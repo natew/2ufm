@@ -803,7 +803,7 @@ class Song < ActiveRecord::Base
   def fix_tags
     if fix_soundcloud_tagging
       self.authors.destroy_all
-      parse_artists
+      find_or_create_artists
       set_match_name
       delete_file_if_matching
       find_matching_songs
