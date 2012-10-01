@@ -792,9 +792,9 @@ class Song < ActiveRecord::Base
   end
 
   def split_name_tag
-    artist, name = full_name.split(/ [-—] /)
-    self.artist_name = (artist || artist_name || '').strip
-    self.name = (name || '').strip
+    fix_artist, fix_name = name.split(/ [-—] /)
+    self.artist_name = (fix_artist || artist_name || '').strip
+    self.name = (fix_name || name || '').strip
     full_name
   end
 
