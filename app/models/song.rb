@@ -378,7 +378,6 @@ class Song < ActiveRecord::Base
             tag.title = track.title || tag.title
             tag.genre = track.genres || tag.genre
             tag.artist = track.user.username || tag.artist
-            fix_soundcloud_tagging
           end
 
           # Properties
@@ -393,6 +392,10 @@ class Song < ActiveRecord::Base
           self.track_number = tag.track.to_i
           self.genre        = tag.genre
           self.image        = get_album_art(tag)
+
+          set_original_tag
+
+          fix_soundcloud_tagging if source == 'soundcloud' and soundcloud_id
 
           fix_empty_artist_tagging
 
@@ -828,6 +831,10 @@ class Song < ActiveRecord::Base
     self.failures = (failures || 0).next
     self.working = false if failures > 10
     self.save
+  end
+
+  def set_original_tag
+    self.original_tag = full_name
   end
 
   private
