@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.page(params[:page]).per(25)
+    @users = User.all
 
     respond_to do |format|
       format.html
