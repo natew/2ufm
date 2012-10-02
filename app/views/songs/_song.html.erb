@@ -1,7 +1,7 @@
 <%- if song.respond_to?('sender_username') -%>
-  <h4 class="song-sender">Sent from <%= link_to song.sender_username, song.sender_station_slug %> <small><%= relative_time(song.sent_at) %></small></h4>
+  <h4 class="song-sender">Sent from <%= link_to song.sender_username, '/' + song.sender_station_slug %> <small><%= relative_time(song.sent_at) %></small></h4>
 <%- elsif song.respond_to?('receiver_username') -%>
-  <h4 class="song-sender">Sent to <%= link_to song.receiver_username, song.receiver_station_slug %> <small><%= relative_time(song.sent_at) %></small></h4>
+  <h4 class="song-sender">Sent to <%= link_to song.receiver_username, '/' + song.receiver_station_slug %> <small><%= relative_time(song.sent_at) %></small></h4>
 <%- end -%>
 
 <%-
