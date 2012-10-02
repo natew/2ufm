@@ -320,14 +320,27 @@ $(function() {
       }
 
       else if (el.is('.login-button')) {
-        var email = $('#login-email').val();
-        if (!fn.validateEmail(email)) {
+        var form = $('#register-form'),
+            email = $('#user_email').val(),
+            username = $('#user_username').val();
+        if (!fn.validateEmail(email) || username.length < 2) {
           e.preventDefault();
-          $('#modal-login-form').addClass('has_errors');
+          $('#register-form').addClass('has_errors');
           return false;
         } else {
-          $('#modal-login-form').removeClass('has_errors');
-          $.post('/set_email', {email: email});
+          form.removeClass('has_errors');
+          $.ajax(
+            type: 'POST',
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function() {
+              $('#modal-login').removeClass('permanent');
+              modal(false);
+            },
+            error: function() {
+              form.addClass('has_errors');
+            }
+          });
         }
       }
 

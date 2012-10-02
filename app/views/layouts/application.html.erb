@@ -116,8 +116,7 @@
 
           <section class="nav-extra account">
             <% if user_signed_in? %>
-              <%= link_to "Add Facebook Friends", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup control', 'data-dimensions' => '800,500' %>
-              <%= link_to "Link Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup control', 'data-dimensions' => '800,500' %>
+              <% link_to "Find friends", '/users', :id => 'nav-friends' %>
               <%= link_to "Account", '/account' %>
               <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
             <% else %>
@@ -176,7 +175,7 @@
   <% if !user_signed_in? %>
     <div id="modal-login" class="hidden permanent">
       <h3>Welcome to 2u.fm!</h3>
-      <p class="large">We're changing music discovery, bringing you music the big guys don't have the minute it comes out.  We're doing social right.  Stop spamming Facebook and keep what you listen to private.  We're remodeling friends in music.  Follow friends.  Follow artists.  Everything is in your feed.</p>
+      <p class="large">We're fixing music discovery.  We're doing social music right.  Stop spamming Facebook, what you listen to is private.  Follow your friends &amp; favorite artists, it's all in your feed.  One-click sharing to your friends - or to social networks.</p>
 
       <div id="loner-login">
         <div class="half inline">

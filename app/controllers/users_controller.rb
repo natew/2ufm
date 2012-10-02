@@ -40,12 +40,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def set_email
-    session[:email_address] = params[:email]
-    logger.info "set email to " + session[:email_address]
-    render :text => ''
-  end
-
   def edit
     return if params[:user].nil?
 
@@ -82,6 +76,10 @@ class UsersController < ApplicationController
     cookies.delete :auth_token
     @user = User.new(params[:user])
     @user.role = 'user'
+
+    # Set session info
+    session[:email_address] = params[:user][:email]
+    logger.info "Set email to " + session[:email_address]
 
     if @user.save
       self.current_user = @user
