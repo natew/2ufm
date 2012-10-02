@@ -323,13 +323,14 @@ $(function() {
         var form = $('#register-form'),
             email = $('#user_email').val(),
             username = $('#user_username').val();
+
         if (!fn.validateEmail(email) || username.length < 2) {
           e.preventDefault();
           $('#register-form').addClass('has_errors');
           return false;
         } else {
           form.removeClass('has_errors');
-          $.ajax(
+          $.ajax({
             type: 'POST',
             url: form.attr('action'),
             data: form.serialize(),
