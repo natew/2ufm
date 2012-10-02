@@ -116,7 +116,8 @@
 
           <section class="nav-extra account">
             <% if user_signed_in? %>
-              <% link_to "Find friends", '/users', :id => 'nav-friends' %>
+              <%= link_to "Add Facebook Friends", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup control', 'data-dimensions' => '800,500' %>
+              <%= link_to "Link Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup control', 'data-dimensions' => '800,500' %>
               <%= link_to "Account", '/account' %>
               <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
             <% else %>
@@ -175,19 +176,9 @@
   <% if !user_signed_in? %>
     <div id="modal-login" class="hidden permanent">
       <h3>Welcome to 2u.fm!</h3>
-      <p class="large"></p>
+      <p class="large">We're changing music discovery, bringing you music the big guys don't have the minute it comes out.  We're doing social right.  Stop spamming Facebook and keep what you listen to private.  We're remodeling friends in music.  Follow friends.  Follow artists.  Everything is in your feed.</p>
 
-      <form id="modal-login-form" class="centered">
-        <label for="login-email">What's your email address?</label>
-        <input type="text" name="login-email" id="login-email" placeholder="user@example.com" />
-      </form>
-
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup control', 'data-dimensions' => '800,500' %>
-      <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup control', 'data-dimensions' => '800,500' %>
-
-      <em>or <%= link_to 'login without a social network', '#loner-login', :class => 'show-hide' %></em>
-
-      <div class="hidden" id="loner-login">
+      <div id="loner-login">
         <div class="half inline">
           <h4>Sign up</h4>
           <%= render :partial => 'registrations/new_form' %>
