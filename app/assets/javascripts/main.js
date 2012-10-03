@@ -88,6 +88,9 @@ $(function() {
   // Logged in
   if (isOnline) {
     $('#share-friends, #stations-inner').dontScrollParent();
+  }
+
+  // Logged out
   else {
     modal('#modal-login');
   }
