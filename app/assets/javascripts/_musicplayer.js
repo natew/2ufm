@@ -114,7 +114,7 @@ var mp = (function() {
   var player = {
     // Play a section
     playSection: function playSection(section) {
-      if (typeof section == 'string') section = $(section);
+      if (typeof section == 'string' || typeof section == 'object') section = $(section);
       if (!section || !section.length) return false;
       if (section.is('.playing')) {
         this.toggle();
