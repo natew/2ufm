@@ -1448,17 +1448,16 @@ ol.mp_list {
 
 .nav-container {
   .title .nav-menu {
-    margin: -8px 0 12px -10px;
+    margin: -8px -20px 12px -20px;
   }
 
   .nav-menu {
     display: block;
     margin: 0;
     overflow: hidden;
-    padding: 6px;
-    padding-right: 128px;
+    padding: 6px 20px;
+    padding-right: 178px;
     background: $body-darker;
-    border-radius: 8px;
 
     &.inline {
       margin-top: -2px;
