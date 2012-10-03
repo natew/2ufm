@@ -86,7 +86,9 @@ $(function() {
   setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
   // Logged in
-  if (!isOnline) {
+  if (isOnline) {
+    $('#share-friends, #stations-inner').dontScrollParent();
+  else {
     modal('#modal-login');
   }
 
@@ -186,13 +188,6 @@ $(function() {
 
   // Online friends
   startGetNavbar();
-
-  // Custom scrollpanes
-  $('#stations-inner').bind('mousewheel DOMMouseScroll', function(e) {
-    var delta = e.wheelDelta || -e.detail;
-    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-    e.preventDefault();
-  });
 
   // Scroll functions
   w .on('scrollstart', function() {

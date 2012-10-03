@@ -11,8 +11,7 @@
 //= require jquery.tipsy
 //= require jquery.pjax
 //= require jquery.cookie
-//= require jquery.scroll
-//= require jquery.indexeddb
+//= require jquery.dontscrollparent
 //= require mustache
 //= require soundmanager2-nodebug-jsmin
 //= require spin
