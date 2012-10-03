@@ -7,7 +7,6 @@ var mp = (function() {
       playlist,
       playlistID,
       playlistIndex,
-      playlistPlayed,
       curPlaylistUrl,
       curSection,
       curSongInfo,
@@ -115,6 +114,7 @@ var mp = (function() {
   var player = {
     // Play a section
     playSection: function playSection(section) {
+      if (typeof section == 'string') section = $(section);
       if (!section || !section.length) return false;
       if (section.is('.playing')) {
         this.toggle();
@@ -136,7 +136,6 @@ var mp = (function() {
       if (curSection.length) {
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
-        playlistPlayed = [];
 
         // Checking to see if first time loaded, or if loading new playlist
         if (typeof playlist === 'undefined' || playlist.id != playlistID) {
@@ -207,7 +206,6 @@ var mp = (function() {
             }
 
             // Play
-            playlistPlayed.push(playlistIndex);
             curSong.play();
             return true;
           }
@@ -268,27 +266,21 @@ var mp = (function() {
     },
 
     shuffleNext: function() {
-      fn.log('shuffle next', this.randomIndex());
-      if (playlistPlayed.length == playlist.songs.length) return this.toPlaylist('next');
-      else if (curSection) return this.playSection($('.playlist:visible section:eq(' + this.randomIndex() + ')'));
-      else this.playSong(this.randomIndex());
+      var nextSections = $('.playlist section:not(.played)'),
+          numNext = nextSections.length;
+
+      if (numNext > 0) {
+        var nextIndex = Math.floor(Math.random() * numNext);
+        this.playSection(nextSections[nextIndex]);
+      } else {
+        fn.log('End of playlist');
+      }
     },
 
     repeat: function() {
       fn.log('repeating');
       curSong.setPosition(0);
       curSong.play();
-    },
-
-    randomIndex: function() {
-      var notunique = 1;
-      while (notunique) {
-        var i = Math.floor((Math.random() * playlist.songs.length));
-        fn.log(i, playlistPlayed, $.inArray(i, playlistPlayed));
-        if ($.inArray(i, playlistPlayed) == -1 || notunique == playlistPlayed) break;
-        notunique++;
-      }
-      return i;
     },
 
     prev: function prev() {
@@ -340,7 +332,7 @@ var mp = (function() {
 
     setCurSection: function setCurSection(status) {
       var statuses = {
-        'playing':  ['paused', 'active playing listened-to'],
+        'playing':  ['paused', 'active playing played listened-to'],
         'paused':   ['playing', 'paused'],
         'inactive': ['paused playing active', '']
       }
