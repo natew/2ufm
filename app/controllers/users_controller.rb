@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def navbar
     only = { :only => [:id, :user_id, :title, :slug] }
     @online = current_user.stations.user_station.with_user.online.limit(5).to_json(only)
-    @offline = current_user.stations.user_station.with_user.not_online.limit(6).to_json(only)
+    @offline = current_user.stations.user_station.with_user.not_online.limit(12).to_json(only)
     @received_songs_notifications = current_user.received_songs_notifications
     render :layout => false
   end
