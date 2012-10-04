@@ -371,8 +371,8 @@ $(function() {
   });
 
   // Body hover binding
-  $('body')
-    .on('mouseenter', '.nav-hover', function(e) {
+  $('.nav-hover').live({
+    mouseenter: function(e) {
       var el = $(this),
           hoveredClass = el.attr('class'),
           hovered = navHovered[hoveredClass];
@@ -380,8 +380,8 @@ $(function() {
       fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
       if (!hovered) navDropdown(el, false, true);
       navHovered[hoveredClass] = true;
-    })
-    .on('mouseleave', '.nav-hover', function() {
+    },
+    mouseleave: function() {
       var el = $(this);
       var navHoverInterval = setInterval(function() {
         if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
@@ -394,10 +394,11 @@ $(function() {
           }
         }
       }, 150);
-    })
-    .on('click', '.nav-hover', function() {
+    },
+    click: function() {
       return false;
-    });
+    }
+  );
 
 
   // Inputs to be auto-selected
