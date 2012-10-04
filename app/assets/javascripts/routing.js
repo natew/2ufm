@@ -94,9 +94,6 @@ var page = {
       });
     }
 
-    // Nav hover
-    bindNavHover();
-
     // Play station
     mpClick('#station-play', 'toggle');
 

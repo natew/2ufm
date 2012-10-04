@@ -238,9 +238,6 @@ $(function() {
     updateShareFriends(null);
   });
 
-  // Bind hovering on nav elements
-  bindNavHover();
-
   // Share click
   $('#share-friends').on('click', 'a', function() {
     var el = $(this);
@@ -373,6 +370,37 @@ $(function() {
     if (!el.is('a,input')) navDropdown(false);
   });
 
+  // Body hover binding
+  $('body')
+    .on('mouseenter', '.nav-hover', function(e) {
+      var el = $(this),
+          hoveredClass = el.attr('class'),
+          hovered = navHovered[hoveredClass];
+
+      fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
+      if (!hovered) navDropdown(el, false, true);
+      navHovered[hoveredClass] = true;
+    })
+    .on('mouseleave', '.nav-hover', function() {
+      var el = $(this);
+      var navHoverInterval = setInterval(function() {
+        if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+          navUnhoveredOnce = true;
+          if (navUnhoveredOnce) {
+            navDropdown(false);
+            clearInterval(navHoverInterval);
+            navHovered[el.attr('class')] = false;
+            navUnhoveredOnce = false;
+          }
+        }
+      }, 150);
+    })
+    .on('click', '.nav-hover', function() {
+      return false;
+    });
+
+
+  // Inputs to be auto-selected
   $('.select-on-click').click(function() {
     $(this).select();
   })
@@ -534,34 +562,6 @@ function pjax(url, container) {
 
 function nearBottom() {
   return w.scrollTop() >= ($(document).height() - $(window).height() - 1400);
-}
-
-function bindNavHover() {
-  // Hover binding
-  $('.nav-hover').hover(function(e) {
-    var el = $(this),
-        hoveredClass = el.attr('class'),
-        hovered = navHovered[hoveredClass];
-
-    fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
-    if (!hovered) navDropdown(el, false, true);
-    navHovered[hoveredClass] = true;
-  }, function() {
-    var el = $(this);
-    var navHoverInterval = setInterval(function() {
-      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-        navUnhoveredOnce = true;
-        if (navUnhoveredOnce) {
-          navDropdown(false);
-          clearInterval(navHoverInterval);
-          navHovered[el.attr('class')] = false;
-          navUnhoveredOnce = false;
-        }
-      }
-    }, 150);
-  }).click(function() {
-    return false;
-  });
 }
 
 function navDropdown(nav, pad, hover) {
