@@ -381,6 +381,7 @@ $(function() {
       if (!hovered) navDropdown(el, false, true);
       navHovered[hoveredClass] = true;
     },
+
     mouseleave: function() {
       var el = $(this);
       var navHoverInterval = setInterval(function() {
@@ -395,10 +396,11 @@ $(function() {
         }
       }, 150);
     },
+
     click: function() {
       return false;
     }
-  );
+  });
 
 
   // Inputs to be auto-selected
