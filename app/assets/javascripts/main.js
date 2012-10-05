@@ -240,7 +240,34 @@ $(function() {
   });
 
   // Bind hovering on nav elements
-  bindNavHover();
+  $('.nav-hover').live({
+    mouseenter: function(e) {
+      var el = $(this),
+          hoveredClass = el.attr('class'),
+          hovered = navHovered[hoveredClass];
+
+      fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
+      if (!hovered) navDropdown(el, false, true);
+      navHovered[hoveredClass] = true;
+    },
+    mouseleave: function() {
+      var el = $(this);
+      var navHoverInterval = setInterval(function() {
+        if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+          navUnhoveredOnce = true;
+          if (navUnhoveredOnce) {
+            navDropdown(false);
+            clearInterval(navHoverInterval);
+            navHovered[el.attr('class')] = false;
+            navUnhoveredOnce = false;
+          }
+        }
+      }, 150);
+    },
+    click: function() {
+      return false;
+    }
+  });
 
   // Share click
   $('#share-friends').on('click', 'a', function() {
@@ -509,34 +536,6 @@ function pjax(url, container) {
 
 function nearBottom() {
   return w.scrollTop() >= ($(document).height() - $(window).height() - 1400);
-}
-
-function bindNavHover() {
-  // Hover binding
-  $('.nav-hover').hover(function(e) {
-    var el = $(this),
-        hoveredClass = el.attr('class'),
-        hovered = navHovered[hoveredClass];
-
-    fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
-    if (!hovered) navDropdown(el, false, true);
-    navHovered[hoveredClass] = true;
-  }, function() {
-    var el = $(this);
-    var navHoverInterval = setInterval(function() {
-      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-        navUnhoveredOnce = true;
-        if (navUnhoveredOnce) {
-          navDropdown(false);
-          clearInterval(navHoverInterval);
-          navHovered[el.attr('class')] = false;
-          navUnhoveredOnce = false;
-        }
-      }
-    }, 150);
-  }).click(function() {
-    return false;
-  });
 }
 
 function navDropdown(nav, pad, hover) {
