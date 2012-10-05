@@ -48,7 +48,6 @@ a:hover { color: $link-hover; }
     bottom: 0;
     left: 0;
     width: $navbar-width;
-    @include box-shadow(inset 0 -5px 5px rgba(0,0,0,0.4));
     @include linear-gradient($navbar-bg, darken($navbar-bg, 10%));
   }
 }
@@ -109,7 +108,6 @@ header {
   line-height: 1em;
   background: $header-color;
   @include box-sizing(border-box);
-  @include box-shadow(0 0 15px rgba(0,0,0,0.5));
 
   &:after {
     visibility: visible;
@@ -658,7 +656,7 @@ header {
   z-index: 2;
 
   #breadcrumbs {
-    border-bottom: 1px solid $body-dark;
+    background: #2e2e2e;
     padding: 6px 20px;
     margin: -10px 0 15px 0;
     font-size: 12px;
@@ -1455,9 +1453,9 @@ ol.mp_list {
     display: block;
     margin: 0;
     overflow: hidden;
-    padding: 6px 20px;
+    padding: 8px 20px;
     padding-right: 178px;
-    background: $body-darker;
+    border-top: 3px solid #444;
 
     &.inline {
       margin-top: -2px;
@@ -1472,7 +1470,8 @@ ol.mp_list {
     a {
       text-decoration: none;
       float: left;
-      padding: 4px 10px;
+      padding: 8px 12px;
+      margin: -8px 0;
       font-size: 16px;
       color: #ccc;
 

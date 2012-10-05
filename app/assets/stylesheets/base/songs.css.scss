@@ -134,11 +134,8 @@ $song-player-height: 50px;
     margin: 0;
     padding: $song-pad;
     position: relative;
+    border-top: 1px solid #444;
     @include transition(all .1s linear);
-
-    &:nth-child(2n+1) {
-      background: rgba(0,0,0,0.1);
-    }
 
     &.listened-to {
       &:before {
