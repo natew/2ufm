@@ -275,6 +275,10 @@ $song-player-height: 50px;
       }
     }
 
+    .song-info {
+      position: relative;
+    }
+
     .song-meta {
       font-size: 12px;
       margin: 0 0 0 $song-art + $song-pad;
@@ -444,8 +448,6 @@ $song-player-height: 50px;
       width: $song-art;
       height: $song-art;
       z-index: 1;
-      top: $song-pad;
-      left: $song-pad;
 
       img {
         width: 100%;
