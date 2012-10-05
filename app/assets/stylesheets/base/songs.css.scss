@@ -277,6 +277,9 @@ $song-player-height: 50px;
 
     .song-info {
       position: relative;
+      /* weird chrome bug, doesnt position inside properly unless we do this */
+      padding: 1px;
+      margin: -1px;
     }
 
     .song-meta {
