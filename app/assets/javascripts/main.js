@@ -188,11 +188,7 @@ $(function() {
   startGetNavbar();
 
   // Custom scrollpanes
-  $('#stations-inner').bind('mousewheel DOMMouseScroll', function(e) {
-    var delta = e.wheelDelta || -e.detail;
-    this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-    e.preventDefault();
-  });
+  $('#stations-inner, #share-friends').dontScrollParent();
 
   // Scroll functions
   w .on('scrollstart', function() {
