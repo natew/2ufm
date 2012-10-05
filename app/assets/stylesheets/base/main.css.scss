@@ -1267,11 +1267,11 @@ $announce-color: $heading-color;
 }
 
 .sub {
-  font-size: 16px;
-  border-bottom: 2px solid #345b52;
-  padding: 8px 20px;
-  margin: -5px -20px 12px;
-  color: #ccc;
+  font-size: 14px;
+  background: #345b52;
+  padding: 8px;
+  margin: -4px 0 12px;
+  color: #ddd;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
 
@@ -1571,6 +1571,8 @@ h2 small { font-size: 55%; }
 #spinner {
   position: absolute;
   z-index: 1000;
+  left: 80px;
+  top: 20px;
 }
 
 

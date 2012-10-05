@@ -353,9 +353,6 @@ $(function() {
   $('body').on('click', function(e) {
     var el = $(e.target);
 
-    // Update last position (for loading spinner)
-    lastPosition = [e.pageX, e.pageY];
-
     // Hide dropdowns on click
     console.log(el, el.is('input'))
     if (!el.is('a,input')) navDropdown(false);

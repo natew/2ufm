@@ -1,5 +1,6 @@
 Fusefm::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  mount MailsViewer::Engine => '/delivered_mails'
 
   root :to => 'songs#trending'
 

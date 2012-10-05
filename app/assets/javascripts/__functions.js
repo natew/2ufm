@@ -149,22 +149,12 @@ var fn = {
   attachSpinner: function() {
     spinner
       .spin(spinOpts)
-      .removeClass('hidden')
-      .css({
-        left: lastPosition[0] + offset,
-        top:  lastPosition[1] + offset
-      });
-
-    $('body').bind('mousemove.spinner', function(e){
-      $('#spinner').css({
-          left: e.pageX + offset,
-          top:  e.pageY + offset
-        });
-    });
+      .removeClass('hidden');
   },
 
   detachSpinner: function() {
-    $(document).unbind('mousemove.spinner');
-    spinner.spin(false).addClass('hidden');
+    spinner
+      .spin(false)
+      .addClass('hidden');
   }
 };
