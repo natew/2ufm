@@ -134,6 +134,7 @@ $song-player-height: 50px;
     margin: 0;
     padding: $song-pad;
     position: relative;
+    overflow: hidden;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
@@ -143,13 +144,13 @@ $song-player-height: 50px;
     &.listened-to {
       &:before {
         content: "";
+        display: block;
         position: absolute;
         top: 0;
-        left: 0;
-        width: 4px;
-        z-index: 0;
-        height: 30px;
-        background: rgba(255,255,255,0.1);
+        left: -12px;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid rgba(255,255,255,0.08);
       }
     }
 
@@ -159,12 +160,12 @@ $song-player-height: 50px;
         display: block;
         visibility: visible;
         position: absolute;
-        right: 0;
-        width: 4px;
-        height: 30px;
         top: 0;
+        right: -12px;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid rgba($green,0.6);
         z-index: 1;
-        background: $green;
       }
     }
 
