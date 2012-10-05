@@ -36,7 +36,7 @@
   </script>
 </head>
 
-<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.role == 'admin' %> data-role="admin"<% end %><% end %>>
+<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
 
   <div id="body-wrap">
     <header>
@@ -175,25 +175,19 @@
   <% if !user_signed_in? %>
     <div id="modal-login" class="hidden permanent">
       <h3>Welcome to 2u.fm!</h3>
-      <p class="large"></p>
+      <p class="large">
+        <em>Discover great music</em>.  Like it, share it &amp; send it.  No Facebook spam.
+        <br />
+        Follow friends, artists &amp; blogs.  It's your music feed - done right.
+      </p>
 
-      <form id="modal-login-form" class="centered">
-        <label for="login-email">What's your email address?</label>
-        <input type="text" name="login-email" id="login-email" placeholder="user@example.com" />
-      </form>
-
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup control', 'data-dimensions' => '800,500' %>
-      <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup control', 'data-dimensions' => '800,500' %>
-
-      <em>or <%= link_to 'login without a social network', '#loner-login', :class => 'show-hide' %></em>
-
-      <div class="hidden" id="loner-login">
-        <div class="half inline">
+      <div id="loner-login">
+        <div class="greater">
           <h4>Sign up</h4>
           <%= render :partial => 'registrations/new_form' %>
         </div>
 
-        <div class="half inline">
+        <div class="lesser inline">
           <h4>Login</h4>
           <%= render :partial => 'sessions/new_form' %>
         </div>

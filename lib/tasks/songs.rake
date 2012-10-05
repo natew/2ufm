@@ -9,6 +9,13 @@ namespace :songs do
     end
   end
 
+  task :fix_soundcloud_tags => :environment do
+    Song.working.soundcloud.each do |song|
+      song.set_original_tag
+      song.fix_tags
+    end
+  end
+
   task :clear_cache => :environment do
     Rails.cache.clear
   end

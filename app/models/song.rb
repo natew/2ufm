@@ -79,6 +79,7 @@ class Song < ActiveRecord::Base
   scope :newest, order('songs.published_at desc')
   scope :oldest, order('songs.published_at asc')
   scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
+  scope :soundcloud, where(source: 'soundcloud')
 
   # Basic types
   scope :with_authors, joins(:authors)
@@ -377,7 +378,6 @@ class Song < ActiveRecord::Base
             tag.title = track.title || tag.title
             tag.genre = track.genres || tag.genre
             tag.artist = track.user.username || tag.artist
-            fix_soundcloud_tagging
           end
 
           # Properties
@@ -392,6 +392,10 @@ class Song < ActiveRecord::Base
           self.track_number = tag.track.to_i
           self.genre        = tag.genre
           self.image        = get_album_art(tag)
+
+          set_original_tag
+
+          fix_soundcloud_tagging if source == 'soundcloud' and soundcloud_id
 
           fix_empty_artist_tagging
 
@@ -788,14 +792,27 @@ class Song < ActiveRecord::Base
   end
 
   def fix_soundcloud_tagging
-    split_name_tag if name.match(/ [-—] /)
+    split_name_tag
   end
 
   def split_name_tag
-    artist, name = full_name.split(/ [-—] /)
-    self.artist_name = (artist || artist_name || '').strip
-    self.name = (name || '').strip
+    return false unless name.match(/ [-—] /)
+    fix_artist, fix_name = name.split(/ [-—] /)
+    self.artist_name = (fix_artist || artist_name || '').strip
+    self.name = (fix_name || name || '').strip
     full_name
+  end
+
+  def fix_tags
+    if fix_soundcloud_tagging
+      self.authors.destroy_all
+      find_or_create_artists
+      set_match_name
+      delete_file_if_matching
+      find_matching_songs
+      add_to_stations
+      self.save
+    end
   end
 
   def clean_url
@@ -814,6 +831,10 @@ class Song < ActiveRecord::Base
     self.failures = (failures || 0).next
     self.working = false if failures > 10
     self.save
+  end
+
+  def set_original_tag
+    self.original_tag = full_name
   end
 
   private

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :set_email]
+  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate]
   before_filter :load_user, :only => [:followers, :following]
 
   def feed
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def navbar
     only = { :only => [:id, :user_id, :title, :slug] }
     @online = current_user.stations.user_station.with_user.online.limit(5).to_json(only)
-    @offline = current_user.stations.user_station.with_user.not_online.limit(6).to_json(only)
+    @offline = current_user.stations.user_station.with_user.not_online.limit(12).to_json(only)
     @received_songs_notifications = current_user.received_songs_notifications
     render :layout => false
   end
@@ -33,17 +33,11 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.page(params[:page]).per(25)
+    @users = User.all
 
     respond_to do |format|
       format.html
     end
-  end
-
-  def set_email
-    session[:email_address] = params[:email]
-    logger.info "set email to " + session[:email_address]
-    render :text => ''
   end
 
   def edit
@@ -82,6 +76,10 @@ class UsersController < ApplicationController
     cookies.delete :auth_token
     @user = User.new(params[:user])
     @user.role = 'user'
+
+    # Set session info
+    session[:email_address] = params[:user][:email]
+    logger.info "Set email to " + session[:email_address]
 
     if @user.save
       self.current_user = @user

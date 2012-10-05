@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include AttachmentHelper
   include SlugExtensions
 
-  ROLES = %w[admin blogowner user]
+  ROLES = %w[admin blogowner dluser user]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
   has_many :shares, :foreign_key => :receiver_id
 
   has_attachment :avatar, styles: { original: ['300x300#', :jpg], medium: ['128x128#', :jpg], small: ['64x64#', :jpg] }, :s3 => Yetting.s3_enabled
-  has_attachment :cover, styles: { medium: ['900x300^'] } # ^ means preserve aspect ratio
 
   acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
 
@@ -48,6 +47,10 @@ class User < ActiveRecord::Base
 
   def title
     username
+  end
+
+  def get_remote_avatar
+    self.avatar = URI.parse(self.avatar_remote_url)
   end
 
   def avatar_url_provided?
@@ -106,7 +109,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first || User.find_by_email(auth.extra.raw_info.email)
     unless user
       info = auth.extra.raw_info
       user = User.create(
@@ -176,6 +179,10 @@ class User < ActiveRecord::Base
 
   def set_station_id
     self.station_id = station.id
+  end
+
+  def can_download?
+   role =~ /dluser|admin/
   end
 
   protected

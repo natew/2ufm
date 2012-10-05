@@ -235,9 +235,12 @@ $(function() {
 
   // Share hover
   $('#player-share').hover(function() {
-    var el = $(this);
+    var el = $(this),
+        curSong = mp.curSongInfo();
     updateShareLinks(el.data('link'), el.data('title'));
-    updateShareFriends(null);
+    updateShareFriends(true);
+    shareSong = curSong.id;
+    shareSongTitle = curSong.name || '';
   });
 
   // Bind hovering on nav elements
@@ -250,7 +253,7 @@ $(function() {
       receiver_id: el.data('user'),
       song_id: shareSong
     }, function() {
-      notice('Sent song to ' + el.text());
+      notice('Sent <b>' + shareSongTitle + '</b> to <b>' + el.text() + '</b>');
     });
 
     return false;
@@ -319,18 +322,6 @@ $(function() {
         return false;
       }
 
-      else if (el.is('.login-button')) {
-        var email = $('#login-email').val();
-        if (!fn.validateEmail(email)) {
-          e.preventDefault();
-          $('#modal-login-form').addClass('has_errors');
-          return false;
-        } else {
-          $('#modal-login-form').removeClass('has_errors');
-          $.post('/set_email', {email: email});
-        }
-      }
-
       else if (el.is('#nav-shares')) {
         el.children('span').remove();
       }
@@ -352,6 +343,9 @@ $(function() {
   // Clicks not on a
   $('body').on('click', function(e) {
     var el = $(e.target);
+
+    // Update last position (for loading spinner)
+    lastPosition = [e.pageX, e.pageY];
 
     // Hide dropdowns on click
     console.log(el, el.is('input'))
@@ -600,6 +594,7 @@ function updateShare(nav) {
 
   fn.log(section, index, playlist, song);
   shareSong = id;
+  shareSongTitle = song.name || '';
   updateShareLinks(link, title);
   updateShareFriends(true);
 }
@@ -735,15 +730,7 @@ function modal(selector) {
     show.addClass('shown').addClass(selector.substring(1));
     $('body').addClass('modal-shown');
     modalShown = true;
-
-    if (selector == '#modal-user') {
-      var login = $('#user_login');
-      if (login.val() != '') {
-        $('#sign-in').focus();
-      } else {
-        $('#user_username').focus();
-      }
-    }
+    $('input:first', modal).focus();
   }
 }
 
