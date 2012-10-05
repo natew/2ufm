@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :set_email]
+  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate]
   before_filter :load_user, :only => [:followers, :following]
 
   def feed

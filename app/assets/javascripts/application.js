@@ -6,11 +6,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.form
 //= require jquery.marcopolo
 //= require jquery.tipsy
 //= require jquery.pjax
 //= require jquery.cookie
+//= require jquery.spin
 //= require jquery.dontscrollparent
 //= require mustache
 //= require soundmanager2-nodebug-jsmin

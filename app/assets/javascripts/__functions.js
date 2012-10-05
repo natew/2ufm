@@ -7,16 +7,17 @@ var lastPosition = [0, 0],
     offset = 25,
     spinner = $('#spinner'),
     spinOpts = {
-      lines: 7, // The number of lines to draw
-      length: 0, // The length of each line
-      width: 4, // The line thickness
-      radius: 6, // The radius of the inner circle
+      lines: 6, // The number of lines to draw
+      length: 2, // The length of each line
+      width: 3, // The line thickness
+      radius: 4, // The radius of the inner circle
+      corners: 0, // The rounding of the lines
       rotate: 0, // The rotation offset
       color: '#fff', // #rgb or #rrggbb
-      speed: 0.8, // Rounds per second
-      trail: 42, // Afterglow percentage
+      speed: 1, // Rounds per second
+      trail: 60, // Afterglow percentage
       shadow: true, // Whether to render a shadow
-      hwaccel: true, // Whether to use hardware acceleration
+      hwaccel: false, // Whether to use hardware acceleration
       className: 'spinner', // The CSS class to assign to the spinner
       zIndex: 2e9, // The z-index (defaults to 2000000000)
       top: 'auto', // Top position relative to parent in px

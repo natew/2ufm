@@ -36,7 +36,7 @@
   </script>
 </head>
 
-<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.role == 'admin' %> data-role="admin"<% end %><% end %>>
+<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
 
   <div id="body-wrap">
     <header>
@@ -175,15 +175,19 @@
   <% if !user_signed_in? %>
     <div id="modal-login" class="hidden permanent">
       <h3>Welcome to 2u.fm!</h3>
-      <p class="large">We're fixing music discovery.  We're doing social music right.  Stop spamming Facebook, what you listen to is private.  Follow your friends &amp; favorite artists, it's all in your feed.  One-click sharing to your friends - or to social networks.</p>
+      <p class="large">
+        <em>Discover great music</em>.  Like it, share it &amp; send it.  No Facebook spam.
+        <br />
+        Follow friends, artists &amp; blogs.  It's your music feed - done right.
+      </p>
 
       <div id="loner-login">
-        <div class="half inline">
+        <div class="greater">
           <h4>Sign up</h4>
           <%= render :partial => 'registrations/new_form' %>
         </div>
 
-        <div class="half inline">
+        <div class="lesser inline">
           <h4>Login</h4>
           <%= render :partial => 'sessions/new_form' %>
         </div>

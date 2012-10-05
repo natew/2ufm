@@ -205,10 +205,7 @@ header {
 
     #player-controls a {
       span { color: #fff; }
-      &:hover span {
-        color: #fff;
-        text-shadow: 0 0 15px rgba(255,255,255,0.8);
-      }
+      &:hover span { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
     }
 
     #player-bottom #player-timer {color: lighten($header-color, 15%);}
@@ -255,6 +252,7 @@ header {
       color: #fff;
 
       span { padding: 21px 0 0 12px; }
+      &:hover span { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
     }
 
     .next {
@@ -658,7 +656,7 @@ header {
   #breadcrumbs {
     background: #2e2e2e;
     padding: 6px 20px;
-    margin: -10px 0 15px 0;
+    margin: -10px 0 10px 0;
     font-size: 12px;
 
     a {
@@ -1031,7 +1029,7 @@ header #second-nav {
 
 #dialog {
   position: fixed;
-  z-index: 1000;
+  z-index: 100000;
   text-align: center;
   background: rgba(0,0,0,0.6);
   color: $light-yellow;
@@ -1204,6 +1202,10 @@ $announce-color: $heading-color;
   color: #999;
   position: relative;
 
+  h1 {
+    margin-top: 10px;
+  }
+
   .image {
     position: absolute;
     top: 0;
@@ -1265,11 +1267,11 @@ $announce-color: $heading-color;
 }
 
 .sub {
-  font-size: 16px;
-  border-bottom: 2px solid #345b52;
-  padding: 8px 20px;
-  margin: -5px -20px 12px;
-  color: #ccc;
+  font-size: 14px;
+  background: #345b52;
+  padding: 8px;
+  margin: -4px 0 12px;
+  color: #ddd;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
 
@@ -1536,6 +1538,18 @@ h2 small { font-size: 55%; }
   float: left;
 }
 
+.greater {
+  width: 65%;
+  float: left;
+}
+
+.lesser {
+  width: 35%;
+  padding: 0 10px;
+  float: left;
+  @include box-sizing(border-box);
+}
+
 .twothirds-wrap {
   width: 100%;
   float: left;
@@ -1569,6 +1583,8 @@ h2 small { font-size: 55%; }
 #spinner {
   position: absolute;
   z-index: 1000;
+  left: 80px;
+  top: 20px;
 }
 
 

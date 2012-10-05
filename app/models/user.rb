@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include AttachmentHelper
   include SlugExtensions
 
-  ROLES = %w[admin blogowner user]
+  ROLES = %w[admin blogowner dluser user]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
@@ -179,6 +179,10 @@ class User < ActiveRecord::Base
 
   def set_station_id
     self.station_id = station.id
+  end
+
+  def can_download?
+   role =~ /dluser|admin/
   end
 
   protected

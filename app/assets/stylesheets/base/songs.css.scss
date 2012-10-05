@@ -135,18 +135,19 @@ $song-player-height: 50px;
     padding: $song-pad;
     position: relative;
     border-top: 1px solid #444;
+    overflow: hidden;
     @include transition(all .1s linear);
 
     &.listened-to {
       &:before {
         content: "";
+        display: block;
         position: absolute;
         top: 0;
-        left: 0;
-        width: 4px;
-        z-index: 0;
-        height: 30px;
-        background: rgba(255,255,255,0.1);
+        left: -12px;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid rgba(255,255,255,0.08);
       }
     }
 
@@ -156,12 +157,12 @@ $song-player-height: 50px;
         display: block;
         visibility: visible;
         position: absolute;
-        right: 0;
-        width: 4px;
-        height: 30px;
         top: 0;
+        right: -12px;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 12px solid rgba($green,0.6);
         z-index: 1;
-        background: $green;
       }
     }
 
@@ -272,6 +273,13 @@ $song-player-height: 50px;
       }
     }
 
+    .song-info {
+      position: relative;
+      /* weird chrome bug, doesnt position inside properly unless we do this */
+      padding: 1px;
+      margin: -1px;
+    }
+
     .song-meta {
       font-size: 12px;
       margin: 0 0 0 $song-art + $song-pad;
@@ -310,6 +318,7 @@ $song-player-height: 50px;
         margin: 0;
         padding: 0;
         float: left;
+        box-shadow: none !important;
 
         span {
           font-size: 14px;
@@ -440,8 +449,6 @@ $song-player-height: 50px;
       width: $song-art;
       height: $song-art;
       z-index: 1;
-      top: $song-pad;
-      left: $song-pad;
 
       img {
         width: 100%;
@@ -472,7 +479,7 @@ $song-player-height: 50px;
 .primary section, section.active {
   min-height: 175px;
   margin: 0 -20px;
-  padding: 30px;
+  padding: 20px;
 
   h1, .song-meta {
     margin-left: $song-art-big + $song-pad;

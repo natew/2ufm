@@ -1,12 +1,10 @@
 <%= form_for(:user, :url => new_user_session_path) do |f| %>
   <div class="clearfix">
-    <%= f.label 'Username or email', :for => :login, :id => 'label-login' %>
-    <%= f.text_field :login %>
+    <%= f.text_field :login, :placeholder => 'Username or email' %>
   </div>
 
   <div class="clearfix">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, :placeholder => 'Password' %>
   </div>
 
   <div class="clearfix">
@@ -16,7 +14,7 @@
   <div class="actions clearfix">
     <%= f.submit "Sign in", :id => "sign-in" %>
     <p>
-      <%= link_to "Forgot your password?", new_user_password_path %>
+      <%= link_to "Forgot login?", new_user_password_path %>
     </p>
   </div>
 <% end %>

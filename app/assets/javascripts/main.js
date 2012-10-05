@@ -86,12 +86,7 @@ $(function() {
   setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
   // Logged in
-  if (isOnline) {
-    $('#share-friends, #stations-inner').dontScrollParent();
-  }
-
-  // Logged out
-  else {
+  if (!isOnline) {
     modal('#modal-login');
   }
 
@@ -192,6 +187,9 @@ $(function() {
   // Online friends
   startGetNavbar();
 
+  // Custom scrollpanes
+  $('#stations-inner, #share-friends').dontScrollParent();
+
   // Scroll functions
   w .on('scrollstart', function() {
       fn.log('start scrolling');
@@ -233,9 +231,42 @@ $(function() {
 
   // Share hover
   $('#player-share').hover(function() {
-    var el = $(this);
+    var el = $(this),
+        curSong = mp.curSongInfo();
     updateShareLinks(el.data('link'), el.data('title'));
-    updateShareFriends(null);
+    updateShareFriends(true);
+    shareSong = curSong.id;
+    shareSongTitle = curSong.name || '';
+  });
+
+  // Bind hovering on nav elements
+  $('.nav-hover').live({
+    mouseenter: function(e) {
+      var el = $(this),
+          hoveredClass = el.attr('class'),
+          hovered = navHovered[hoveredClass];
+
+      fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
+      if (!hovered) navDropdown(el, false, true);
+      navHovered[hoveredClass] = true;
+    },
+    mouseleave: function() {
+      var el = $(this);
+      var navHoverInterval = setInterval(function() {
+        if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+          navUnhoveredOnce = true;
+          if (navUnhoveredOnce) {
+            navDropdown(false);
+            clearInterval(navHoverInterval);
+            navHovered[el.attr('class')] = false;
+            navUnhoveredOnce = false;
+          }
+        }
+      }, 150);
+    },
+    click: function() {
+      return false;
+    }
   });
 
   // Share click
@@ -245,7 +276,7 @@ $(function() {
       receiver_id: el.data('user'),
       song_id: shareSong
     }, function() {
-      notice('Sent song to ' + el.text());
+      notice('Sent <b>' + shareSongTitle + '</b> to <b>' + el.text() + '</b>');
     });
 
     return false;
@@ -314,32 +345,6 @@ $(function() {
         return false;
       }
 
-      else if (el.is('.login-button')) {
-        var form = $('#register-form'),
-            email = $('#user_email').val(),
-            username = $('#user_username').val();
-
-        if (!fn.validateEmail(email) || username.length < 2) {
-          e.preventDefault();
-          $('#register-form').addClass('has_errors');
-          return false;
-        } else {
-          form.removeClass('has_errors');
-          $.ajax({
-            type: 'POST',
-            url: form.attr('action'),
-            data: form.serialize(),
-            success: function() {
-              $('#modal-login').removeClass('permanent');
-              modal(false);
-            },
-            error: function() {
-              form.addClass('has_errors');
-            }
-          });
-        }
-      }
-
       else if (el.is('#nav-shares')) {
         el.children('span').remove();
       }
@@ -370,40 +375,6 @@ $(function() {
     if (!el.is('a,input')) navDropdown(false);
   });
 
-  // Body hover binding
-  $('.nav-hover').live({
-    mouseenter: function(e) {
-      var el = $(this),
-          hoveredClass = el.attr('class'),
-          hovered = navHovered[hoveredClass];
-
-      fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
-      if (!hovered) navDropdown(el, false, true);
-      navHovered[hoveredClass] = true;
-    },
-
-    mouseleave: function() {
-      var el = $(this);
-      var navHoverInterval = setInterval(function() {
-        if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-          navUnhoveredOnce = true;
-          if (navUnhoveredOnce) {
-            navDropdown(false);
-            clearInterval(navHoverInterval);
-            navHovered[el.attr('class')] = false;
-            navUnhoveredOnce = false;
-          }
-        }
-      }, 150);
-    },
-
-    click: function() {
-      return false;
-    }
-  });
-
-
-  // Inputs to be auto-selected
   $('.select-on-click').click(function() {
     $(this).select();
   })
@@ -618,6 +589,7 @@ function updateShare(nav) {
 
   fn.log(section, index, playlist, song);
   shareSong = id;
+  shareSongTitle = song.name || '';
   updateShareLinks(link, title);
   updateShareFriends(true);
 }
@@ -753,15 +725,7 @@ function modal(selector) {
     show.addClass('shown').addClass(selector.substring(1));
     $('body').addClass('modal-shown');
     modalShown = true;
-
-    if (selector == '#modal-user') {
-      var login = $('#user_login');
-      if (login.val() != '') {
-        $('#sign-in').focus();
-      } else {
-        $('#user_username').focus();
-      }
-    }
+    $('input:first', modal).focus();
   }
 }
 

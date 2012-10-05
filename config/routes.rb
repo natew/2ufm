@@ -1,6 +1,10 @@
 Fusefm::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
+  if Rails.env.development?
+    mount MailsViewer::Engine => '/delivered_mails'
+  end
+
   root :to => 'songs#trending'
 
   # Redirects
@@ -48,7 +52,6 @@ Fusefm::Application.routes.draw do
   match '/account', :to => 'users#edit'
   match '/activate/:id/:key', :to => 'users#activate'
   match "/navbar", :to => 'users#navbar'
-  match '/set_email', :to => 'users#set_email'
   match '/share', :to => 'shares#create'
   match '/authorized', :to => 'users#authorized'
 
