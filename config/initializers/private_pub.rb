@@ -1,3 +1,3 @@
 Thread.new do
-  `rackup private_pub.ru -s thin -E production 2>&1 | tee -a log/development.log`
+  `bundle exec thin start --port 9292 --rackup private_pub.ru`
 end
