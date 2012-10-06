@@ -52,15 +52,18 @@ end
 namespace :deploy do
   task :start, :roles => :app do
     surun "cd #{current_path}; bundle exec service thin start && #{dj_script} start"
+    surun "cd #{current_path}; bundle exec service thin start --port 9292 --rackup private_pub.ru"
   end
 
   task :stop, :roles => :app do
     surun "cd #{current_path}; bundle exec service thin stop && #{dj_script} stop >/dev/null 2>&1"
+    surun "cd #{current_path}; bundle exec service thin stop --port 9292 --rackup private_pub.ru"
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
     surun "cd #{current_path}; bundle exec service thin restart && #{dj_script} restart >/dev/null 2>&1"
+    surun "cd #{current_path}; bundle exec service thin restart --port 9292 --rackup private_pub.ru"
   end
 
   task :symlink_attachments do
