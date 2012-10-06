@@ -52,18 +52,18 @@ end
 namespace :deploy do
   task :start, :roles => :app do
     surun "cd #{current_path}; bundle exec service thin start && #{dj_script} start"
-    surun "cd #{current_path}; bundle exec service thin start --port 9292 --rackup private_pub.ru"
+    private_pub.start
   end
 
   task :stop, :roles => :app do
     surun "cd #{current_path}; bundle exec service thin stop && #{dj_script} stop >/dev/null 2>&1"
-    surun "cd #{current_path}; bundle exec service thin stop --port 9292 --rackup private_pub.ru"
+    private_pub.stop
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
     surun "cd #{current_path}; bundle exec service thin restart && #{dj_script} restart >/dev/null 2>&1"
-    surun "cd #{current_path}; bundle exec service thin restart --port 9292 --rackup private_pub.ru"
+    private_pub.restart
   end
 
   task :symlink_attachments do
@@ -79,5 +79,23 @@ namespace :deploy do
   task :clear_caches do
     run_rake "tmp:cache:clear >/dev/null 2>&1"
     # run_rake "songs:clear_cache"
+  end
+end
+
+namespace :private_pub do
+  desc "Start private_pub server"
+  task :start do
+    run "cd #{current_path};RAILS_ENV=production bundle exec rackup private_pub.ru -s thin -E production -D -P tmp/pids/private_pub.pid"
+  end
+
+  desc "Stop private_pub server"
+  task :stop do
+    run "cd #{current_path};if [ -f tmp/pids/private_pub.pid ] && [ -e /proc/$(cat tmp/pids/private_pub.pid) ]; then kill -9 `cat tmp/pids/private_pub.pid`; fi"
+  end
+
+  desc "Restart private_pub server"
+  task :restart do
+    stop
+    start
   end
 end
