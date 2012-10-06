@@ -13,6 +13,10 @@ body, button, input, select, textarea {
   background: #000;
 }
 
+:focus {outline:none;}
+a:active, a:visited { outline: 0; }
+::-moz-focus-inner { border: 0; }
+
 /* Layout */
 html,body {height: 100%;}
 body {
@@ -31,7 +35,7 @@ a:hover { color: $link-hover; }
 #navbar {
   position: fixed;
   z-index: 100;
-  top: $header-height;
+  top: $header-height - 5;
   bottom: 0;
   left: 0;
   width: $navbar-width;
@@ -611,7 +615,7 @@ header {
       #stations-inner {
         overflow-x: hidden;
         overflow-y: scroll;
-        max-height: 250px;
+        height: 150px;
       }
 
       h1 {
@@ -849,7 +853,7 @@ header #second-nav {
 }
 
 #share {
-  width: 162px;
+  width: 163px;
 
   a {
     float: left;

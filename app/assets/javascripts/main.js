@@ -33,7 +33,10 @@ var w = $(window),
     playAfterLoad,
     doPjax = true,
     isTuningIn = typeof(tuneInto) != 'undefined',
-    newCurPage;
+    newCurPage,
+    doc;
+
+doc = ($.browser.chrome || $.browser.safari) ? $('body') : $('html');
 
 // Read URL parameters
 var urlParams = {},
@@ -566,7 +569,7 @@ function navDropdown(nav, pad, hover) {
           padding = pad ? pad : 10,
           target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
           dropdown = $(target).removeClass('hidden').addClass('open'),
-          top = nav.offset().top - $('body').scrollTop() + nav.height() + padding,
+          top = nav.offset().top - doc.scrollTop() + nav.height() + padding,
           left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
 
       // If the nav is not already open
@@ -772,9 +775,13 @@ function getNavbar() {
         }
 
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
-        $('#stations-inner').html(friendsHtml).find('img').load(function() {
-          $(this).removeClass('hidden');
-        });
+        $('#stations-inner')
+          .html(friendsHtml)
+          .jScrollPane()
+          .find('img')
+          .load(function() {
+            $(this).removeClass('hidden');
+          });
         updateShareFriends(friendsHtml);
 
         $('#friends').html(friendsHtml);

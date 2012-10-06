@@ -41,7 +41,7 @@ var fn = {
     return str;
   },
 
-  triggerOnFinish: function(func , timeout) {
+  debounce: function(func , timeout) {
      var timeoutID , timeout = timeout || 200;
      return function () {
         var scope = this , args = arguments;
@@ -51,7 +51,6 @@ var fn = {
         } , timeout );
      }
   },
-
 
   popup: function(url, width, height) {
     var left = (screen.width/2)-(width/2),
