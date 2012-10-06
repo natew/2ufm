@@ -777,7 +777,6 @@ function getNavbar() {
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
         $('#stations-inner')
           .html(friendsHtml)
-          .jScrollPane()
           .find('img')
           .load(function() {
             $(this).removeClass('hidden');
