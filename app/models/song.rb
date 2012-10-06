@@ -383,7 +383,7 @@ class Song < ActiveRecord::Base
           # Properties
           props        = file.audio_properties
           self.bitrate = props.bitrate.to_i
-          self.length  = props.length.to_f
+          self.seconds = props.length.to_f
 
           # Tag
           self.name         = tag.title || ''

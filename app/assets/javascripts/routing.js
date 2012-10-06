@@ -10,18 +10,19 @@ var page = {
   },
 
   end: function pageEnd(data) {
-    var curPage = window.location.pathname + window.location.search,
+    var curPage = newCurPage || window.location.pathname + window.location.search,
         path = curPage.split('/'),
         tipTimer,
         signedIn = !$('body').is('.signed_out'),
         pageFollow,
         doScrollToTop = true;
 
+    newCurPage = null;
     fn.log(curPage);
 
-    // Update likes, follows, listens, and song broadcast counts
     updatePlaylist();
     resetMorePages();
+    playAfterRouting();
 
     // Image errors
     $('.playlist img').on('error', function(){

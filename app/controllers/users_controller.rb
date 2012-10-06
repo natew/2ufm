@@ -1,11 +1,26 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate]
+  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune]
   before_filter :load_user, :only => [:followers, :following]
 
   def feed
     @user_station = Station.current_user_station
     @user_songs = current_user.following_songs
     @has_songs = true if @user_songs.size > 0
+  end
+
+  def tune
+    @id = params[:id]
+    render layout: false
+  end
+
+  def live
+    @live = true
+    @user = User.find_by_slug(params[:id])
+    @subscribe_to = "/listens/#{@user.id}"
+    listen = @user.listens.last
+    song = listen.song
+    listen_seconds_ago = Time.now - listen.created_at
+    @listen = listen if listen_seconds_ago < song.seconds
   end
 
   def navbar

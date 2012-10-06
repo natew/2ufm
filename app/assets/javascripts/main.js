@@ -26,10 +26,14 @@ var w = $(window),
     shareSong,
     navHovered = [],
     navUnhoveredOnce = false,
-    friendsTemplate = $('#friends').html(),
+    friendsTemplate = $('#friends-template').html(),
     navbarInterval,
     playModeEl = $('#player-mode'),
-    modeTitles = {'normal': 'Normal', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
+    modeTitles = {'normal': 'Normal', 'repeat': 'Repeat', 'shuffle': 'Shuffle'},
+    playAfterLoad,
+    doPjax = true,
+    isTuningIn = typeof(tuneInto) != 'undefined',
+    newCurPage;
 
 // Read URL parameters
 var urlParams = {},
@@ -86,8 +90,16 @@ $(function() {
   setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
   // Logged in
-  if (!isOnline) {
+  if (!isOnline && !isTuningIn) {
     modal('#modal-login');
+  }
+
+  if (isTuningIn) {
+    tuneIn(tuneInto, function() {
+      if (typeof(beginListen) != 'undefined') {
+        goToListen(beginListen);
+      }
+    });
   }
 
   // Dialog
@@ -107,15 +119,26 @@ $(function() {
   if (playMode != 'normal') updatePlayMode(playMode);
 
   // html5 pushState
-  $("a:not(.control)").pjax({
-    container: '#body',
-    timeout: 12000
+  $("a:not(.control)").live('click', function(e) {
+    e.preventDefault();
+    if (doPjax) {
+      $.pjax({
+        url: $(this).attr('href'),
+        container: '#body',
+        timeout: 12000
+      });
+    } else {
+      loadPage($(this).attr('href'));
+    }
   });
 
   // Mac app download
   // if (navigator.appVersion.indexOf("Mac") != -1) {
   //   $('#sidebar .announce').addClass('ismac');
   // }
+
+  // Listen sharing auto play
+  playFromParams();
 
   // Hash tag to denote time in songs
   if (window.location.hash) {
@@ -127,15 +150,6 @@ $(function() {
     else if (hash[0] == 'page') {
       // TODO pagination with hash
     }
-  }
-
-  // Listen sharing
-  updateParams.run();
-  if (urlParams['play']) {
-    var song = urlParams['song'];
-    var time = urlParams['time'];
-    var section = $('#song-'+song);
-    mp.playSection(section);
   }
 
   // Tooltips
@@ -717,7 +731,7 @@ function modal(selector) {
       show = $('#overlay,#modal');
 
   if (modalShown || selector === false) {
-    if (!modal.is('permanent')) {
+    if (!modal.children('.permanent').length) {
       show.attr('class', '');
       $('body').removeClass('modal-shown');
       modalShown = false;
@@ -762,6 +776,8 @@ function getNavbar() {
           $(this).removeClass('hidden');
         });
         updateShareFriends(friendsHtml);
+
+        $('#friends').html(friendsHtml);
       }
       else {
         hasNavbar = false;
@@ -776,4 +792,65 @@ function scrollToCurrentSong() {
 
 function resetMorePages() {
   morePages = true;
+}
+
+function playFromParams() {
+  updateParams.run();
+  if (urlParams['play']) {
+    var song = urlParams['song'];
+    var section = $('#song-' + song);
+    mp.playSection(section);
+  }
+}
+
+function playAfterRouting() {
+  if (playAfterLoad) {
+    clickSong(playAfterLoad);
+    playAfterLoad = null;
+  }
+}
+
+function clickSong(id) {
+  $('#song-' + id + ' .play-song').click();
+}
+
+function tuneIn(id, callback) {
+  fn.log(id)
+  loadPage('/tune/' + id, function() {
+    doPjax = false;
+    if (callback) callback.call();
+  });
+}
+
+function tuneOut() {
+  doPjax = true;
+}
+
+function goToListen(listen) {
+  var now = Math.round((new Date()).getTime() / 1000),
+      seconds_past = now - parseInt(listen.created_at_unix, 10);
+
+  if (listen.url.replace(/\?.*/, '') == mp.curPage()) {
+    clickSong(listen.song_id);
+  } else {
+    playAfterLoad = listen.song_id;
+    loadPage(listen.url);
+  }
+}
+
+function loadPage(url, callback) {
+  newCurPage = url;
+  page.start();
+  $.ajax({
+    url: url,
+    dataType: 'html',
+    beforeSend: function(xhr){
+      xhr.setRequestHeader('X-PJAX', 'true')
+    },
+    success: function(data) {
+      $('#body').html(data);
+      page.end();
+      if (callback) callback.call();
+    }
+  });
 }

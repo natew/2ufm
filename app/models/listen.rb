@@ -14,6 +14,14 @@ class Listen < ActiveRecord::Base
     user_id == 0 ? false : true
   end
 
+  def as_json
+    super(methods: [:created_at_unix])
+  end
+
+  def created_at_unix
+    created_at.to_i.to_s
+  end
+
   private
 
   def update_user_online
@@ -39,7 +47,6 @@ class Listen < ActiveRecord::Base
   def update_song_play_count
     return unless song
     song.play_count = song.play_count.next
-    song.set_rank
     song.save
   end
 end

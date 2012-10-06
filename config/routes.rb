@@ -1,9 +1,6 @@
 Fusefm::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-
-  if Rails.env.development?
-    mount MailsViewer::Engine => '/delivered_mails'
-  end
+  mount MailsViewer::Engine => '/delivered_mails' if Rails.env.development?
 
   root :to => 'songs#trending'
 
@@ -38,6 +35,8 @@ Fusefm::Application.routes.draw do
   match '/shares/inbox', :to => 'shares#inbox'
   match '/shares/outbox', :to => 'shares#outbox'
 
+  match "/tune/:id", :to => "users#tune"
+  match "/live/:id", :to => "users#live"
   match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
   match "/feed", :to => "users#feed", :as => 'user_root'

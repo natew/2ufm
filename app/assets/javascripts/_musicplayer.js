@@ -12,7 +12,6 @@ var mp = (function() {
       curSongInfo,
       curSong,
       maxIndex,
-      listenURL,
       isPlaying = false,
       dragging_position = false,
       dragging_percent,
@@ -30,7 +29,8 @@ var mp = (function() {
       curFailures = 0,
       failures = 0,
       playTimeout,
-      usedKeyboard = false;
+      usedKeyboard = false,
+      listenUrl;
 
   // Playmode
   playMode = playMode || 0;
@@ -394,9 +394,16 @@ var mp = (function() {
       $.ajax({
         type: 'POST',
         url: '/listens',
-        data: { listen: { song_id: curSongInfo.id, user_id: $('#current_user').data('id'), url: curPage } },
+        data: {
+          listen: {
+            song_id: curSongInfo.id,
+            user_id: $('#current_user').data('id'),
+            url: curPage,
+            seconds: curSongInfo.seconds
+          }
+        },
         success: function playSuccess(data) {
-          listenURL = data;
+          listenUrl = data;
           w.trigger('mp:gotListen', player.state());
         },
         dataType: 'html'
@@ -505,7 +512,7 @@ var mp = (function() {
     },
 
     getListenUrl: function() {
-      return listenURL;
+      return listenUrl;
     },
 
     isOnPlayingPage: function isOnPlayingPage() {

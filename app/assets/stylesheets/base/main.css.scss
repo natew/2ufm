@@ -266,6 +266,33 @@ header {
     }
   }
 
+  #player-live {
+    position: absolute;
+    bottom: -24px;
+    right: 0;
+
+    a {
+      display: inline-block;
+      color: #fff;
+      padding: 8px 10px;
+      margin: 0;
+      line-height: .7em;
+      font-size: 12px;
+      font-weight: 400;
+      text-decoration: none;
+
+      &#tuner {
+        background: #666;
+        border-bottom-left-radius: 4px;
+        min-width: 160px;
+      }
+
+      &.active {
+        background: $green;
+      }
+    }
+  }
+
   #player-main {
     position: absolute;
     top: 0;
@@ -359,7 +386,6 @@ header {
     bottom: 3px;
     width: 100%;
     height: 13px;
-    overflow: hidden;
 
     &:hover {
       overflow: visible;
@@ -430,6 +456,7 @@ header {
     position: absolute;
     top: 6px;
     right: 10px;
+    width: 184px;
 
     a {
       display: inline-block;
@@ -1350,6 +1377,18 @@ $announce-color: $heading-color;
 
 /* Nav menus */
 
+#friends {
+  width: 160px;
+
+  a {
+    color: #555;
+  }
+
+  .online a {
+    color: #fff;
+  }
+}
+
 $nav-pad: 15px;
 $nav-item-pad: 4px;
 $nav-arrow-size: 5px;
@@ -1363,6 +1402,7 @@ $nav-arrow-size: 5px;
   padding: $nav-item-pad 4px;
   background: rgba(0,0,0,0.9);
   max-width: 250px;
+  max-height: 100%;
   font-weight: bold;
   border-radius: 5px;
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));

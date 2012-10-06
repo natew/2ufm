@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120915140557) do
+ActiveRecord::Schema.define(:version => 20121006195805) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20120915140557) do
   create_table "listens", :force => true do |t|
     t.string   "shortcode"
     t.string   "url"
-    t.integer  "time",       :default => 0
+    t.integer  "seconds",    :default => 0
     t.integer  "song_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -225,7 +225,7 @@ ActiveRecord::Schema.define(:version => 20120915140557) do
     t.integer  "size"
     t.integer  "track_number"
     t.integer  "bitrate"
-    t.integer  "length"
+    t.integer  "seconds"
     t.integer  "matching_id"
     t.integer  "blog_id"
     t.integer  "post_id"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(:version => 20120915140557) do
     t.integer  "comments_count",        :default => 0
     t.string   "image_content_type"
     t.string   "file_file_size"
+    t.string   "original_tag"
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"

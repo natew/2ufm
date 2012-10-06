@@ -51,9 +51,18 @@
 
           <div id="player-buttons">
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard' %>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music' %>
-            <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-repeat' %>
+            <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control pictos-music disabled', :id => 'nav-music' %>
+            <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-normal' %>
             <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
+          </div>
+
+          <div id="player-live">
+            <% live_link_opts = { id: 'tuner', class: 'nav-hover control', 'data-pad' => '20' } %>
+            <%- if @live -%>
+              <%= link_to "Tuned into #{@user.username}", '#friends', { class: 'active' }.merge(live_link_opts) %>
+            <%- else -%>
+              <%= link_to "Live listening off", '#friends', live_link_opts %>
+            <%- end -%>
           </div>
 
           <div id="player-main">
@@ -151,6 +160,9 @@
     <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
   </div>
 
+
+  <!-- Hover menus -->
+
   <div id="player-playlist" class="pop-menu"></div>
   <div id="player-playlist-template" class="hidden">
     <h4>{{station.title}}</h4>
@@ -168,33 +180,36 @@
     <div id="share-friends"></div>
   </div>
 
+  <div id="friends" class="pop-menu">
+  </div>
+
+
   <!-- Modals -->
+
   <div id="overlay" class="shown slow-fade"></div>
   <div id="modal"></div>
 
   <% if !user_signed_in? %>
-    <div id="modal-login" class="hidden permanent">
-      <h3>Welcome to 2u.fm!</h3>
-      <p class="large">
-        <em>Discover great music</em>.  Like it, share it &amp; send it.  No Facebook spam.
-        <br />
-        Follow friends, artists &amp; blogs.  It's your music feed - done right.
-      </p>
+  <div id="modal-login" class="hidden permanent">
+    <h3>Welcome to 2u.fm!</h3>
+    <p class="large">
+      <em>Discover great music</em>.  Like it, share it &amp; send it.  No Facebook spam.
+      <br />
+      Follow friends, artists &amp; blogs.  It's your music feed - done right.
+    </p>
 
-      <div id="loner-login">
-        <div class="greater">
-          <h4>Sign up</h4>
-          <%= render :partial => 'registrations/new_form' %>
-        </div>
-
-        <div class="lesser inline">
-          <h4>Login</h4>
-          <%= render :partial => 'sessions/new_form' %>
-        </div>
+    <div id="loner-login">
+      <div class="greater">
+        <h4>Sign up</h4>
+        <%= render :partial => 'registrations/new_form' %>
       </div>
 
-      <%= link_to 'x', '', :class => 'close-modal control' %>
+      <div class="lesser inline">
+        <h4>Login</h4>
+        <%= render :partial => 'sessions/new_form' %>
+      </div>
     </div>
+  </div>
   <% end %>
 
   <div id="song-dragger" class="pictos">m</div>
@@ -213,7 +228,7 @@
       </dl>
     </div>
 
-    <div id="friends">
+    <div id="friends-template">
       <div class="online">
       {{#online}}
         <%= render :partial => 'users/friend_link' %>
@@ -228,8 +243,8 @@
   <!-- Spinner -->
   <div id="spinner" class="hidden"></div>
   <div id="null"></div>
+  <div id="tunein"></div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>
-
 </body>
 </html>

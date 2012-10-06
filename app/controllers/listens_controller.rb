@@ -4,9 +4,9 @@ class ListensController < ApplicationController
     @song  = Song.find(listen.song_id)
     @user  = User.find(listen.user_id) if listen.has_user?
     sep    = listen.url =~ /\?/ ? '&' : '?'
-    @go    = "http://#{request.host_with_port}#{listen.url}#{sep}play=true&song=#{listen.song_id}&t=#{listen.time}"
+    @go    = "http://#{request.host_with_port}#{listen.url}#{sep}play=true&song=#{listen.song_id}"
 
-    render :show, :layout => false
+    render :show, layout: false
 
     # TODO: Replace the js redirect method to not use redirects
     # WHY: Because someone who visits this URL may want to re-share it again and wont want the ugly URL
@@ -15,12 +15,15 @@ class ListensController < ApplicationController
   end
 
   def create
-    @listen = Listen.new(params[:listen].merge!({user_id: user_signed_in? ? current_user.id : nil}))
-    logger.info @listen
+    @listen = Listen.new(
+      params[:listen].merge!({
+        user_id: user_signed_in? ? current_user.id : nil
+      })
+    )
 
     respond_to do |format|
       if @listen.save
-        format.js { render :text => @listen.shortcode }
+        format.js
       else
         format.js { render :text => @listen.save!, :status => 403 }
       end

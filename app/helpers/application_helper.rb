@@ -173,7 +173,15 @@ end
 class Array
   def to_playlist
     self.map do |s|
-      {:id => s.matching_id, :artist_name => s.artist_name, :name => s.name, :image => s.resolve_image(:small) } if s.processed?
+      if s.processed?
+        {
+          id: s.matching_id,
+          artist_name: s.artist_name,
+          name: s.name,
+          image: s.resolve_image(:small),
+          seconds: s.seconds
+        }
+      end
     end.compact.to_json
   end
 end

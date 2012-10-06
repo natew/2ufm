@@ -37,7 +37,7 @@
 
 #modal {
   z-index: 1001;
-  top: -650px;
+  top: -600px;
   position: fixed;
   left: 50%;
   margin-left: -350px;
@@ -66,10 +66,8 @@
     color: #fff;
     font-size: 22px;
     font-weight: bold;
-    margin: -20px;
+    margin-top: 0;
     margin-bottom: 20px;
-    padding: 12px;
-    background: $body-darker;
 
     small {
       font-size: 50%;
@@ -78,14 +76,21 @@
     }
   }
 
+  h3 {
+    font-weight: 300;
+    margin-top: -5px;
+    font-size: 32px;
+  }
+
   h4 {
     font-size: 14px;
-    padding: 8px 10px;
     font-weight: 400;
     margin: 0 0 10px;
+    padding: 8px;
   }
 
   p {
+    color: #fff;
     font-size: 14px;
     font-weight: 300;
 
@@ -99,6 +104,7 @@
 
 #modal-login {
   form {text-align: left;}
+
   .actions {
     background: none;
     margin-top: 0;
@@ -108,10 +114,18 @@
     p {margin-left: 0;}
     input {float: right;}
   }
+
+  .greater {
+    h4 {background: $primary-dark;}
+    background: #393939;
+    padding: 0 0 20px 0;
+  }
+
   .inline form {
     padding:0 10px;
     input[type="text"] { margin: 0 0 10px 0; }
   }
+
   a.alt { color: #aaa; }
 }
 

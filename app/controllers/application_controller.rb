@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def do_page_request
     return head 204 unless defined? request.headers['HTTP_ACCEPT']
-    logger.debug 'ACCEPT: ' + request.headers['HTTP_ACCEPT']
+    logger.debug 'ACCEPT: ' + (request.headers['HTTP_ACCEPT'] || 'nil')
     if request.headers['HTTP_ACCEPT'] =~ /text\/page/i
       id = params[:id]
       if id == '0'

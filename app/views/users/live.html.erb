@@ -1,0 +1,10 @@
+<div class="whole">
+  <h2>Tuning into <%= @user.username %>...</h2>
+
+  <script type="text/javascript">
+    tuneInto = <%= @user.id %>;
+    <% if @listen %>
+      beginListen = <%= raw @listen.as_json.to_json %>;
+    <% end %>
+  </script>
+</div>

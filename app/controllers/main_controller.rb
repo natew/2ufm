@@ -24,7 +24,6 @@ class MainController < ApplicationController
     )
 
     result = "[#{artists}#{stations}#{songs[0..-2]}]"
-    logger.info result
 
     render :text => result
   end
