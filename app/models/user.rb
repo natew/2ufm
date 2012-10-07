@@ -27,10 +27,10 @@ class User < ActiveRecord::Base
 
   has_attachment :avatar, styles: { original: ['300x300#', :jpg], medium: ['128x128#', :jpg], small: ['64x64#', :jpg] }, :s3 => Yetting.s3_enabled
 
-  acts_as_url :username, :url_attribute => :slug, :allow_duplicates => false
+  acts_as_url :username, sync_url: true, url_attribute: :slug, allow_duplicates: false
 
   before_create :make_station, :set_station_slug, :set_station_id
-  after_update :update_station_title
+  before_update :update_station_title
   before_validation :get_remote_avatar, :if => :avatar_url_provided?
   validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
 
@@ -185,11 +185,15 @@ class User < ActiveRecord::Base
    role =~ /dluser|admin/
   end
 
+
   protected
 
+
   def update_station_title
-    self.station.title = username if self.username_changed?
-    self.station.save
+    if self.username_changed?
+      self.station.title = username
+      self.station.save
+    end
   end
 
   # Devise override for logins

@@ -64,14 +64,18 @@ class UsersController < ApplicationController
 
     current_user.avatar.destroy if params[:avatar]
 
-    if old_pass.blank?
-      current_user.update_without_password(params[:user])
-      flash[:notice] = 'Updated profile!'
-    elsif current_user.valid_password? old_pass
-      current_user.update_with_password(params[:user])
-      flash[:notice] = 'Updated password!'
+    if Station.find_by_slug(params[:user][:username])
+      flash[:error] = 'Station name taken'
     else
-      flash[:notice] = 'Incorrect password.'
+      if old_pass.blank?
+        current_user.update_without_password(params[:user])
+        flash[:notice] = 'Updated profile!'
+      elsif current_user.valid_password? old_pass
+        current_user.update_with_password(params[:user])
+        flash[:notice] = 'Updated password!'
+      else
+        flash[:notice] = 'Incorrect password.'
+      end
     end
   end
 

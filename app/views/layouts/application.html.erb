@@ -102,7 +102,7 @@
           <%- if user_signed_in? -%>
           <section class="nav-user">
             <h1><%= current_user.username %></h1>
-            <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, current_user, :id => 'nav-user' %>
+            <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
             <%= link_to 'Feed', '/feed', :id => 'nav-feed', :class => 'pictos-list' %>
             <%= link_to 'Following', '/users/following', :id => 'nav-following', :class => 'pictos-add' %>
             <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox' %>

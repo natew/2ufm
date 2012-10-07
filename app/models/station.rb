@@ -31,13 +31,14 @@ class Station < ActiveRecord::Base
   attr_accessible :id, :description, :title, :slug, :online
 
   # Slug
-  acts_as_url :title, :url_attribute => :slug, :allow_duplicates => false
+  acts_as_url :title, sync_url: true, url_attribute: :slug, allow_duplicates: false
 
   # Validations
   validates_with SlugValidator
   validates :slug, :uniqueness => true
 
-  after_create :generate_parent_station_slug, :update_user_station
+  after_create :update_user_station
+  after_save :update_parent_station_slug
 
   def to_param
     slug
@@ -135,10 +136,12 @@ class Station < ActiveRecord::Base
     Broadcast.where('song_id = ? and station_id = ?', song_id, id).exists?
   end
 
-  def generate_parent_station_slug
+  def update_parent_station_slug
     if get_parent
-      get_parent.station_slug = slug
-      get_parent.save
+      if get_parent.station_slug != slug
+        get_parent.station_slug = slug
+        get_parent.save
+      end
     else
       puts "No parent!"
     end
