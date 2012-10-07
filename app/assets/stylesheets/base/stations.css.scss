@@ -15,17 +15,11 @@ $station-image-small: $play-button-small;
     margin: 0;
     padding: $station-pad;
     position: relative;
+    border-top: 1px solid #444;
     @include transition(all .1s linear);
-
-    &:nth-child(2n+1) {
-      background: rgba(255,255,255,0.02);
-    }
 
     &:hover {
       background: rgba(0,0,0,0.1);
-
-      .image {visibility: hidden;}
-      .play-button {display: block;}
     }
 
     .station-link {
@@ -85,13 +79,13 @@ $station-image-small: $play-button-small;
 
     .station-follow {
       position: absolute;
-      top: $station-pad;
+      top: $station-pad - 2;
       right: $station-pad;
       z-index: 11;
 
       a {
         font-size: 14px;
-        padding: 5px 10px;
+        padding: 5px 10px 9px;
 
         span {
           font-size: 14px;
@@ -101,10 +95,14 @@ $station-image-small: $play-button-small;
       }
 
       .count {
+        position: absolute;
         font-size: 11px;
-        padding-top: 1px;
-        padding-bottom: 1px;
+        padding: 0;
+        bottom: -20px;
         background: none;
+        width: 100%;
+        text-align: center;
+        @include box-sizing(border-box);
       }
     }
   }
@@ -185,7 +183,7 @@ $station-image-small: $play-button-small;
       font-weight: 600;
       width: 100%;
       z-index: 10;
-      @include dim(60);
+      @include dim(70);
       @include box-sizing(border-box);
     }
   }
@@ -196,7 +194,7 @@ $station-image-small: $play-button-small;
     bottom: 0;
     left: 0;
     margin: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.6);
     color: #fff;
     padding: 0 4px;
     font-size: 11px;

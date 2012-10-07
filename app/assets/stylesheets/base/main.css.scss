@@ -1517,9 +1517,9 @@ ol.mp_list {
     a {
       text-decoration: none;
       float: left;
-      padding: 8px 12px;
+      padding: 8px 10px;
       margin: -8px 0;
-      font-size: 16px;
+      font-size: 14px;
       color: #ccc;
 
       &:first-child {
@@ -1671,15 +1671,13 @@ h2 small { font-size: 55%; }
 }
 
 .image {
-  background: lighten($body-bg,20%);
-  border: 6px solid $body-darker;
   display: block;
 }
 
 .upload-avatar {
   position: absolute;
-  top: 6px;
-  right: 26px;
+  top: 0;
+  right: 20px;
   z-index: 12;
   text-align: center;
   padding: 50px 0 0;
