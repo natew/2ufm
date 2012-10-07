@@ -25,7 +25,7 @@ class ArtistsController < ApplicationController
   end
 
   def remixes_of
-    @songs = artist_remixes_of.playlist_order_broadcasted_by_type
+    @songs = artist_remixes_of.playlist_order_broadcasted
     @type = 'remixed'
     render_show
   end

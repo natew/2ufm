@@ -57,8 +57,17 @@ Fusefm::Application.routes.draw do
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
   # Artists
-  [:remixes_of, :remixes_by, :originals, :popular, :mashups, :covers, :productions, :features].each do |role|
-    match ":id/#{role}", to: "artists\##{role}", as: "artist_#{role}"
+  resources :artists, path: '/' do
+    member do
+      get 'remixes_of'
+      get 'remixes_by'
+      get 'originals'
+      get 'popular'
+      get 'mashups'
+      get 'covers'
+      get 'features'
+      get 'productions'
+    end
   end
 
   # Users
