@@ -1,4 +1,4 @@
-<%- cache ['v1', @artist] do -%>
+<%- cache ['v2', @artist] do -%>
 <div class="nav-container">
   <div class="title">
     <%= image_tag @artist.image.url(:medium), :class => 'image medium' %>
@@ -19,6 +19,6 @@
   </div>
 
   <div class="whole">
-    <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs } %>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs, :cache_val => @type } %>
   </div>
 </div>
