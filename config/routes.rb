@@ -56,6 +56,16 @@ Fusefm::Application.routes.draw do
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
+  # Root level stations access
+  match "/:id", :to => 'stations#show', :as => :station
+  match "/:id", :to => 'stations#show', :as => :artist
+  match "/:id", :to => 'stations#show', :as => :blog
+  match "/:id", :to => 'stations#show', :as => :user
+
+  # Users
+  match '/:id/following', :to => 'users#following', :as => 'user_following'
+  match '/:id/followers', :to => 'users#followers', :as => 'user_followers'
+
   # Artists
   resources :artists, path: '/' do
     member do
@@ -69,14 +79,4 @@ Fusefm::Application.routes.draw do
       get 'productions'
     end
   end
-
-  # Users
-  match '/:id/following', :to => 'users#following', :as => 'user_following'
-  match '/:id/followers', :to => 'users#followers', :as => 'user_followers'
-
-  # Root level stations access
-  match "/:id", :to => 'stations#show', :as => :station
-  match "/:id", :to => 'stations#show', :as => :artist
-  match "/:id", :to => 'stations#show', :as => :blog
-  match "/:id", :to => 'stations#show', :as => :user
 end
