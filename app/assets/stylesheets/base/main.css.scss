@@ -226,7 +226,7 @@ header {
   }
 
   #player-controls {
-    margin: 2px 0 -4px -4px;
+    margin: 1px 0 -4px -4px;
     float: left;
     width: 100px;
 
@@ -261,12 +261,12 @@ header {
     }
 
     .next {
-      margin: 11px 0 0;
+      margin: 6px 0 0;
       font-size: 26px;
 
       span {
-        padding: 15px;
-        margin: -6px -5px 0;
+        padding: 20px;
+        margin: -6px -9px 0;
       }
     }
   }
@@ -596,6 +596,10 @@ header {
       }
     }
 
+    &.account {
+      margin-bottom: 80px;
+    }
+
     &.stations {
       margin: 0;
       position: fixed;
@@ -733,12 +737,12 @@ $placeholder-color: #999;
 }
 
 #search-form {
-  margin: 0 0 15px 0;
+  margin: 0 0 6px 0;
   position: relative;
 
   #query {
     border: none;
-    padding: 4px 4px 6px 26px;
+    padding: 6px 4px 7px 26px;
     width: $navbar-width;
     margin: 0;
     color: $placeholder-color;
@@ -764,7 +768,7 @@ $placeholder-color: #999;
     cursor: text;
     position: absolute;
     left: 6px;
-    top: 4px;
+    top: 5px;
     font-size: 16px;
     color: #999;
     text-shadow: none;
@@ -1302,8 +1306,8 @@ $announce-color: $heading-color;
 .sub {
   font-size: 14px;
   background: #345b52;
-  padding: 8px;
-  margin: -4px 0 12px;
+  padding: 8px 20px;
+  margin: -4px -20px 15px;
   color: #ddd;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
@@ -1404,6 +1408,7 @@ $nav-arrow-size: 5px;
   position: fixed;
   top: 0;
   left: 0;
+  margin-left: -3px;
   z-index: 10000;
   padding: $nav-item-pad 4px;
   background: rgba(0,0,0,0.9);
@@ -1483,7 +1488,7 @@ ol.mp_list {
   z-index: 99999;
   left: 0;
   padding-top: 0;
-  margin: 15px 0 0 -11px;
+  margin: 15px 0 0 -4px;
 
   li {
     list-style: none;
