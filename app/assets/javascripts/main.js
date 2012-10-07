@@ -644,7 +644,7 @@ function updatePlaylist() {
     if (isAdmin) {
       $('.playlist.not-loaded section').each(function() {
         var id = $(this).attr('id').split('-')[1];
-        $('.song-controls', this).append('<a class="no-external" download="'+id+'.mp3" href="http://media.2u.fm/song_files/' + id + '_original.mp3">DL</a>');
+        $('.song-controls', this).append('<a class="no-external control" download="'+id+'.mp3" href="http://media.2u.fm/song_files/' + id + '_original.mp3">DL</a>');
       })
     }
   }
