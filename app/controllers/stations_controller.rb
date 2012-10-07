@@ -13,27 +13,11 @@ class StationsController < ApplicationController
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
 
-    case @station.type
-    when 'user'
-      head 500 if params[:id] =~ /swipernoswiping/i
-      @user = User.find(@station.user_id) || not_found
-      @songs = @user.station.songs.playlist_order_broadcasted.page(params[:page]).per(12)
-      @artists = @user.station.artists.has_image.order('random() desc').limit(12)
-      @primary = @user
-    when 'blog'
-      @blog    = Blog.find(@station.blog_id) || not_found
-      @posts   = @blog.posts.order('created_at desc').limit(8)
-      @artists = @blog.station.artists.order('random() desc').limit(12)
-      @primary = @blog
-    when 'artist'
-      @artist = Artist.find(@station.artist_id) || not_found
-      @blogs = @artist.stations.blog_station.distinct
-      @songs = @artist.station.songs.playlist_order_published
-      @primary = @artist
-    end
-
-    respond_to do |format|
-      format.html { render @station.type.pluralize + '/show' }
-    end
+    # Render different controller
+    controller = (@station.type.capitalize.pluralize + 'Controller').constantize.new
+    controller.request = @_request
+    controller.response = @_response
+    controller.show
+    render :text => controller.response.body
   end
 end

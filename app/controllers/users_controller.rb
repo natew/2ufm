@@ -2,6 +2,18 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune]
   before_filter :load_user, :only => [:followers, :following]
 
+  def show
+    @station = Station.find_by_slug(params[:id]) || not_found
+    @user = User.find(@station.user_id) || not_found
+    @songs = @user.station.songs.playlist_order_broadcasted.page(params[:page]).per(12)
+    @artists = @user.station.artists.has_image.order('random() desc').limit(12)
+    @primary = @user
+
+    respond_to do |format|
+      format.html { render 'show' }
+    end
+  end
+
   def feed
     @user_station = Station.current_user_station
     @user_songs = current_user.following_songs

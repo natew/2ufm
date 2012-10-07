@@ -1,5 +1,5 @@
 class ArtistsController < ApplicationController
-  before_filter :get_artist_info, :except => [:index]
+  before_filter :get_artist_info, :except => [:index, :show]
 
   def index
     if params[:letter]
@@ -15,45 +15,71 @@ class ArtistsController < ApplicationController
     end
   end
 
-  def remixes
-    render_type 'remixes'
+  def show
+    @station = Station.find_by_slug(params[:id]) || not_found
+    @artist = Artist.find(@station.artist_id) || not_found
+    get_artist_extra_info
+    @songs = @artist.station.songs.playlist_order_published
+    @primary = @artist
+    render_show
+  end
+
+  def remixes_of
+    @songs = artist_remixes_of.playlist_order_broadcasted_by_type
+    @type = 'remixed'
+    render_show
+  end
+
+  def remixes_by
+    render_type 'remixer'
   end
 
   def originals
-    render_type 'originals'
+    render_type 'original'
   end
 
   def mashups
-    render_type 'mashups'
+    render_type 'mashup'
   end
 
   def covers
-    render_type 'covers'
+    render_type 'cover'
   end
 
   def features
-    render_type 'featuring'
+    render_type 'featured'
   end
 
   def productions
-    render_type 'productions'
+    render_type 'producer'
   end
 
   private
 
-  def render_type(method)
-    @songs = @artist.station.songs.send(method).playlist_order_broadcasted_by_type
-    @type = method
-    @type_updated_at = @songs.first.broadcasted_at if @songs.first.respond_to? :broadcasted_at
-
-    respond_to do |format|
-      format.html { render 'show' }
-    end
+  def render_type(type)
+    @songs = @artist.station.songs.join_author_and_role(@artist.id, type).playlist_order_broadcasted
+    @type = type
+    render_show
   end
 
   def get_artist_info
     @artist = Artist.find_by_slug(params[:id]) || not_found
-    @blogs = @artist.stations.blog_station.distinct
+    get_artist_extra_info
     @primary = @artist
+  end
+
+  def get_artist_extra_info
+    @blogs = @artist.stations.blog_station.distinct
+    @artist_has_remixes_of = artist_remixes_of.count
+  end
+
+  def artist_remixes_of
+    @artist.station.songs.joins(:authors).where("authors.role = ? and authors.artist_id != ?", 'remixer', @artist.id)
+  end
+
+  def render_show
+    respond_to do |format|
+      format.html { render 'show' }
+    end
   end
 end

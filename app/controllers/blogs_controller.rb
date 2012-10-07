@@ -15,6 +15,17 @@ class BlogsController < ApplicationController
     end
   end
 
+  def show
+    @station = Station.find_by_slug(params[:id]) || not_found
+    @blog    = Blog.find(@station.blog_id) || not_found
+    @posts   = @blog.posts.order('created_at desc').limit(8)
+    @artists = @blog.station.artists.order('random() desc').limit(12)
+    @primary = @blog
+
+    respond_to do |format|
+      format.html { render 'show' }
+    end
+  end
 
   def new
     session[:blog_params] ||= {}

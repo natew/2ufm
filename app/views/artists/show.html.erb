@@ -7,7 +7,8 @@
     <nav class="nav-menu">
       <%= nav_link_to 'New', station_path(@artist) %>
       <%= nav_link_to 'Originals', artist_originals_path(@artist) if @artist.has_originals? %>
-      <%= nav_link_to "Remixes", artist_remixes_path(@artist) if @artist.has_remixes? %>
+      <%= nav_link_to "Remixes", artist_remixes_by_path(@artist) if @artist.has_remixes? %>
+      <%= nav_link_to "Remixed", artist_remixes_of_path(@artist) if @artist_has_remixes_of %>
       <%= nav_link_to "Mashups", artist_mashups_path(@artist) if @artist.has_mashups? %>
       <%= nav_link_to "Covers", artist_covers_path(@artist) if @artist.has_covers? %>
       <%= nav_link_to "Productions", artist_productions_path(@artist) if @artist.has_productions? %>

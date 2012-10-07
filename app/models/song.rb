@@ -66,7 +66,7 @@ class Song < ActiveRecord::Base
 
   # Validations
   validates :url, :presence => true
-  validate :unique_to_blog, :on => :create
+  validate  :unique_to_blog, :on => :create
 
   # Basic Scopes
   scope :unprocessed, where(processed: false)
@@ -82,13 +82,9 @@ class Song < ActiveRecord::Base
   scope :soundcloud, where(source: 'soundcloud')
 
   # Basic types
+  scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
+  scope :join_role, lambda { |role| joins(:authors).where(authors: {role: role}) }
   scope :with_authors, joins(:authors)
-  scope :remixes, with_authors.where('"authors"."role" = \'remixer\'')
-  scope :mashups, with_authors.where('"authors"."role" = \'mashup\'')
-  scope :covers, with_authors.where('"authors"."role" = \'cover\'')
-  scope :featuring, with_authors.where('"authors"."role" = \'featured\'')
-  scope :productions, with_authors.where('"authors"."role" = \'producer\'')
-  scope :originals, with_authors.where('"authors"."role" = \'original\'')
 
   # Joins
   scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id" INNER JOIN blogs on blogs.id = posts.blog_id')
@@ -103,7 +99,6 @@ class Song < ActiveRecord::Base
   scope :individual, select_with_info.with_blog_station_and_post
 
   # Orders
-  scope :order_broadcasted_by_type, order('broadcasts.created_at desc')
   scope :order_broadcasted, order('broadcasts.created_at desc')
   scope :order_rank, order('songs.rank desc')
   scope :order_user_broadcasts, order('songs.user_broadcasts_count desc')
@@ -119,7 +114,6 @@ class Song < ActiveRecord::Base
   scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
   # Scopes for playlist
-  scope :playlist_order_broadcasted_by_type, select_distinct_broadcasts.working.order_broadcasted_by_type.individual
   scope :playlist_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
   scope :playlist_scope_order_popular, order_user_broadcasts.individual.recently
   scope :playlist_scope_order_trending, select_distinct_rank.order_rank.individual

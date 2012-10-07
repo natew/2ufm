@@ -57,13 +57,9 @@ Fusefm::Application.routes.draw do
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
   # Artists
-  match "/:id/remixes", :to => "artists#remixes", :as => "artist_remixes"
-  match "/:id/originals", :to => "artists#originals", :as => "artist_originals"
-  match "/:id/popular", :to => "artists#popular", :as => "artist_popular"
-  match "/:id/mashups", :to => "artists#mashups", :as => "artist_mashups"
-  match "/:id/covers", :to => "artists#covers", :as => "artist_covers"
-  match "/:id/productions", :to => "artists#productions", :as => "artist_productions"
-  match "/:id/features", :to => "artists#features", :as => "artist_features"
+  [:remixes_of, :remixes_by, :originals, :popular, :mashups, :covers, :productions, :features].each do |role|
+    match ":id/#{role}", to: "artists\##{role}", as: "artist_#{role}"
+  end
 
   # Users
   match '/:id/following', :to => 'users#following', :as => 'user_following'
