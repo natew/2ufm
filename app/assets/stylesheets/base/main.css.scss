@@ -111,6 +111,7 @@ header {
   height: $header-height;
   line-height: 1em;
   background: $header-color;
+  @include box-shadow(0 3px 0 rgba(0,0,0,0.2));
   @include box-sizing(border-box);
 
   &:after {
@@ -266,33 +267,6 @@ header {
       span {
         padding: 15px;
         margin: -6px -5px 0;
-      }
-    }
-  }
-
-  #player-live {
-    position: absolute;
-    bottom: -24px;
-    right: 0;
-
-    a {
-      display: inline-block;
-      color: #fff;
-      padding: 8px 10px;
-      margin: 0;
-      line-height: .7em;
-      font-size: 12px;
-      font-weight: 400;
-      text-decoration: none;
-
-      &#tuner {
-        background: #666;
-        border-bottom-left-radius: 4px;
-        min-width: 160px;
-      }
-
-      &.active {
-        background: $green;
       }
     }
   }
@@ -497,6 +471,34 @@ header {
         pointer-events: none;
         color: lighten($header-light,10%);
       }
+    }
+  }
+}
+
+#player-live {
+  position: fixed;
+  top: $header-height;
+  right: 0;
+  z-index: 100;
+
+  a {
+    display: inline-block;
+    color: #fff;
+    padding: 8px 10px;
+    margin: 0;
+    line-height: .7em;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+
+    &#tuner {
+      background: #666;
+      border-bottom-left-radius: 4px;
+      min-width: 160px;
+    }
+
+    &.active {
+      background: $green;
     }
   }
 }

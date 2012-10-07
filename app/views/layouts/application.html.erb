@@ -56,15 +56,6 @@
             <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on', :id => 'player-volume' %>
           </div>
 
-          <div id="player-live">
-            <% live_link_opts = { id: 'tuner', class: 'nav-hover control', 'data-pad' => '20' } %>
-            <%- if @live -%>
-              <%= link_to "Tuned into #{@user.username}", '#friends', { class: 'active' }.merge(live_link_opts) %>
-            <%- else -%>
-              <%= link_to "Live listening off", '#friends', live_link_opts %>
-            <%- end -%>
-          </div>
-
           <div id="player-main">
 
             <div id="player-meta">
@@ -90,6 +81,15 @@
       </div>
       <!-- /player -->
     </header>
+
+    <div id="player-live">
+      <% live_link_opts = { id: 'tuner', class: 'nav-hover control', 'data-pad' => '20' } %>
+      <%- if @live -%>
+        <%= link_to "Tuned into #{@user.username}", '#friends', { class: 'active' }.merge(live_link_opts) %>
+      <%- else -%>
+        <%= link_to "Live listening off", '#friends', live_link_opts %>
+      <%- end -%>
+    </div>
 
     <div id="main-mid">
       <div id="navbar">

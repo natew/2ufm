@@ -504,7 +504,7 @@ class Song < ActiveRecord::Base
   end
 
   def update_waveform
-    self.waveform = generate_waveform
+    self.waveform = generate_waveform(nil)
     self.save
   end
 
