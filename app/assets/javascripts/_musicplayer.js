@@ -54,7 +54,7 @@ var mp = (function() {
   soundManager.useFlashBlock = true;
   soundManager.debugMode = false;
   soundManager.useHTML5Audio = true;
-  soundManager.preferFlash = true;
+  soundManager.preferFlash = false;
   soundManager.onready(function() {
     smReady = true;
     if (delayStart) player.play();
