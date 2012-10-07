@@ -33,6 +33,7 @@ role :db,  domain, :primary => true # This is where Rails migrations will run
 after 'deploy:update', 'deploy:symlink_attachments'
 after 'deploy:update', 'deploy:symlink_tmp'
 after 'deploy:update', 'deploy:clear_caches'
+after 'deploy:update', 'deploy:cleanup'
 
 # Run rake tasks
 def run_rake(task, options={}, &block)
@@ -51,18 +52,18 @@ end
 
 namespace :deploy do
   task :start, :roles => :app do
-    surun "cd #{current_path}; bundle exec thin start -d && #{dj_script} start"
+    surun "cd #{current_path}; bundle exec service thin start && #{dj_script} start"
     private_pub.start
   end
 
   task :stop, :roles => :app do
-    surun "cd #{current_path}; bundle exec thin stop -d && #{dj_script} stop >/dev/null 2>&1"
+    surun "cd #{current_path}; bundle exec service thin stop && #{dj_script} stop >/dev/null 2>&1"
     private_pub.stop
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    surun "cd #{current_path}; bundle exec thin restart -d && #{dj_script} restart >/dev/null 2>&1"
+    surun "cd #{current_path}; bundle exec service thin restart && #{dj_script} restart >/dev/null 2>&1"
     private_pub.restart
   end
 
