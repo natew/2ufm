@@ -38,7 +38,7 @@ class Station < ActiveRecord::Base
   validates :slug, :uniqueness => true
 
   after_create :update_user_station
-  after_save :update_parent_station_slug
+  after_update :update_parent_station_slug
 
   def to_param
     slug
