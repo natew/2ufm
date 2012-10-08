@@ -362,10 +362,6 @@ $(function() {
         showComments(el.attr('href'));
       }
 
-      else if (el.is('#sign-up-button')) {
-        registerUser(el);
-      }
-
       // Always run the below functions
 
       if (el.is('.popup')) {
@@ -390,6 +386,12 @@ $(function() {
     e.preventDefault();
     $($(this).attr('href')).toggleClass('hidden');
     return false;
+  });
+
+  // Signup button
+  $('body').on('click.signup', '#sign-up-button', function(e) {
+    e.preventDefault();
+    registerUser($(this));
   });
 
   // Clicks not on a
@@ -874,16 +876,17 @@ function loadPage(url, callback) {
 }
 
 function registerUser(button) {
-  var form = $('#register-form');
+  var form = $('#modal-login').find('#register-form');
 
   $.ajax({
     url: form.attr('action'),
     type: 'post',
     data: form.serialize(),
     success: function(data) {
-      var new_form = $(data).find('#register-form');
-      if (new_form.length) {
-        form.html(new_form.html());
+      var data = $(data);
+      if (data.find('#error_explanation').length) {
+        fn.log(data.find('#register-form').html());
+        form.html(data.find('#register-form').html());
       } else {
         window.location = button.attr('href');
       }

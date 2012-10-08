@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121006195805) do
+ActiveRecord::Schema.define(:version => 20121008062857) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -324,8 +324,10 @@ ActiveRecord::Schema.define(:version => 20121006195805) do
     t.string   "uid"
     t.string   "avatar_remote_url"
     t.string   "avatar_content_type"
+    t.string   "unconfirmed_email"
   end
 
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
