@@ -211,7 +211,7 @@
 			"file": "app/assets/javascripts/main.js",
 			"settings":
 			{
-				"buffer_size": 21498,
+				"buffer_size": 22617,
 				"line_ending": "Windows"
 			}
 		},
@@ -251,7 +251,7 @@
 			"file": "app/assets/stylesheets/base/main.css.scss",
 			"settings":
 			{
-				"buffer_size": 32102,
+				"buffer_size": 32243,
 				"line_ending": "Windows"
 			}
 		},
@@ -283,7 +283,7 @@
 			"file": "app/controllers/users_controller.rb",
 			"settings":
 			{
-				"buffer_size": 3984,
+				"buffer_size": 3448,
 				"line_ending": "Windows"
 			}
 		},
@@ -299,7 +299,7 @@
 			"file": "app/views/users/show.html.erb",
 			"settings":
 			{
-				"buffer_size": 1765,
+				"buffer_size": 2311,
 				"line_ending": "Windows"
 			}
 		},
@@ -307,7 +307,7 @@
 			"file": "app/models/song.rb",
 			"settings":
 			{
-				"buffer_size": 24913,
+				"buffer_size": 25176,
 				"line_ending": "Windows"
 			}
 		},
@@ -331,7 +331,7 @@
 			"file": "config/routes.rb",
 			"settings":
 			{
-				"buffer_size": 2783,
+				"buffer_size": 2849,
 				"line_ending": "Windows"
 			}
 		}
@@ -591,7 +591,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 94.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"",
@@ -930,15 +930,15 @@
 					"file": "app/assets/javascripts/main.js",
 					"settings":
 					{
-						"buffer_size": 21498,
+						"buffer_size": 22617,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13664,
-								13664
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1070,15 +1070,15 @@
 					"file": "app/assets/stylesheets/base/main.css.scss",
 					"settings":
 					{
-						"buffer_size": 32102,
+						"buffer_size": 32243,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								28140,
-								28140
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1088,7 +1088,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 31320.0,
+						"translation.y": 31047.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1182,15 +1182,15 @@
 					"file": "app/controllers/users_controller.rb",
 					"settings":
 					{
-						"buffer_size": 3984,
+						"buffer_size": 3448,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								584,
-								555
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1238,15 +1238,15 @@
 					"file": "app/views/users/show.html.erb",
 					"settings":
 					{
-						"buffer_size": 1765,
+						"buffer_size": 2311,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								401,
-								401
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1266,15 +1266,15 @@
 					"file": "app/models/song.rb",
 					"settings":
 					{
-						"buffer_size": 24913,
+						"buffer_size": 25176,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3927,
-								3927
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1350,15 +1350,15 @@
 					"file": "config/routes.rb",
 					"settings":
 					{
-						"buffer_size": 2783,
+						"buffer_size": 2849,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2530,
-								2530
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1943,7 +1943,7 @@
 	"show_minimap": false,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 211.0,
 	"status_bar_visible": true
 }

@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
         @p_songs = Song.playlist_order_published
       elsif id == 1
         @p_station = Station.popular
-        @p_songs = Song.playlist_order_trending
+        @p_songs = Song.playlist_order_popular
       elsif id == 2
         @p_station = Station.trending
         @p_songs = Song.playlist_order_trending
@@ -45,8 +45,6 @@ class ApplicationController < ActionController::Base
         @p_station = Station.find_by_slug(id)
         @p_songs = @p_station.songs.playlist_order_broadcasted
       end
-
-      logger.info "ASASASAS " + params[:p]
 
       @p_songs = @p_songs.limit_page(params[:p]) unless dont_paginate
 

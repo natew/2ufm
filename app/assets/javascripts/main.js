@@ -521,13 +521,16 @@ function nextPage(playlist) {
   // Infinite scrolling
   if (morePages && playlist) {
     var link = playlist.next('.next-page').html('Loading...'),
-        playlistInfo = playlist.attr('id').split('-'),
-        id = playlistInfo[1]
+        playlistInfo = playlist.attr('id').split('-');
+
+    // Support negative numbers
+    playlistInfo.length == 4 && playlistInfo.shift();
+
+    var id = playlistInfo[1],
         page = parseInt(playlistInfo[2], 10);
 
     loadingPage = true;
     scrollPage = page + 1;
-
     fn.log(id, scrollPage, mp.getPage());
 
     $.ajax({
