@@ -198,7 +198,14 @@
       Follow friends, artists &amp; blogs.  It's your music feed - done right.
     </p>
 
-    <div id="loner-login">
+    <div id="social-login">
+      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
+      <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup button control', 'data-dimensions' => '800,500' %>
+    </div>
+
+    <em class="split">Don't have friends? <%= link_to 'Login here', '#loner-login', 'data-toggle' => 'hidden' %></em>
+
+    <div id="loner-login" class="hidden">
       <div class="greater">
         <h4>Sign up</h4>
         <%= render :partial => 'registrations/new_form' %>

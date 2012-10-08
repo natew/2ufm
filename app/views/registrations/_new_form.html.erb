@@ -17,9 +17,7 @@
   </div>
 
   <div class="actions">
-    <%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button button control', 'data-dimensions' => '800,500' %>
-    <%= link_to "Sign up with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button button control', 'data-dimensions' => '800,500' %>
-    <% f.submit "Sign up!" %>
+    <%= f.submit "Sign up!", id: 'sign-up-button', href: '/feed' %>
   </div>
 
   <span class="help">We respect your <%= link_to 'privacy', '' %>.</span>

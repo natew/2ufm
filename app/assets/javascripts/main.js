@@ -362,7 +362,7 @@ $(function() {
         showComments(el.attr('href'));
       }
 
-      else if (el.is('.login-button')) {
+      else if (el.is('#sign-up-button')) {
         registerUser(el);
       }
 
@@ -383,6 +383,13 @@ $(function() {
         navDropdown(false);
       }
     }
+  });
+
+  // Toggle hidden areas
+  $('body').on('click.toggle', '[data-toggle="hidden"]', function(e) {
+    e.preventDefault();
+    $($(this).attr('href')).toggleClass('hidden');
+    return false;
   });
 
   // Clicks not on a

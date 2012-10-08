@@ -112,7 +112,14 @@
     padding-bottom: 0;
     a {margin: 0 0 10px 0;}
     p {margin-left: 0;}
-    input {float: right;}
+  }
+
+  .split {
+    display: block;
+    margin: 15px 0;
+    color: #888;
+    font-size: 14px;
+    a {color:#aaa;}
   }
 
   .greater {
@@ -124,6 +131,7 @@
   .inline form {
     padding:0 10px;
     input[type="text"] { margin: 0 0 10px 0; }
+    .actions input {float: right;}
   }
 
   a.alt { color: #aaa; }
