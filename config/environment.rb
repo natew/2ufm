@@ -6,3 +6,4 @@ Fusefm::Application.initialize!
 
 # Page type
 Mime::Type.register "text/page", :page
+Mime::Type.register "text/partial", :partial

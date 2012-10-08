@@ -92,7 +92,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    if request.xml_http_request?
+    if request.xhr?
       unless params[:login].nil?
         if User.count(:conditions => { :login => params[:login] }).zero?
           render :text => 'Username <span>available</span>'
@@ -100,26 +100,6 @@ class UsersController < ApplicationController
           render :text => 'Username <span>already taken</span>'
         end
       end
-    end
-  end
-
-  def create
-    cookies.delete :auth_token
-    @user = User.new(params[:user])
-    @user.role = 'user'
-
-    # Set session info
-    session[:email_address] = params[:user][:email]
-    logger.info "Set email to " + session[:email_address]
-
-    if @user.save
-      self.current_user = @user
-      UserMailer.welcome_email(@user).deliver
-      flash[:notice] = "Welcome!"
-      redirect_to @user
-    else
-      render :action => 'new'
-      flash[:notice] = "Error signing up!"
     end
   end
 

@@ -1,4 +1,4 @@
-<%= form_for(:user, :url => user_registration_path, :id => 'register-form') do |f| %>
+<%= form_for(:user, :url => user_registration_path, :html => {:id => 'register-form'}) do |f| %>
   <%= devise_error_messages! if defined? resource %>
 
   <div class="clearfix">
@@ -17,8 +17,8 @@
   </div>
 
   <div class="actions">
-    <%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button button popup control', 'data-dimensions' => '800,500' %>
-    <%= link_to "Sign up with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button button popup control', 'data-dimensions' => '800,500' %>
+    <%= link_to "Sign up with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button button control', 'data-dimensions' => '800,500' %>
+    <%= link_to "Sign up with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button button control', 'data-dimensions' => '800,500' %>
     <% f.submit "Sign up!" %>
   </div>
 

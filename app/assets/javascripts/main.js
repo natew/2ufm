@@ -362,15 +362,15 @@ $(function() {
         showComments(el.attr('href'));
       }
 
+      else if (el.is('.login-button')) {
+        registerUser(el);
+      }
+
       // Always run the below functions
 
       if (el.is('.popup')) {
         e.preventDefault();
-        var el = $(this),
-            url = el.attr('href'),
-            dimensions = el.data('dimensions').split(',');
-
-        fn.popup(url, dimensions[0], dimensions[1]);
+        popup(el);
         return false;
       }
 
@@ -864,4 +864,31 @@ function loadPage(url, callback) {
       if (callback) callback.call();
     }
   });
+}
+
+function registerUser(button) {
+  var form = $('#register-form');
+
+  $.ajax({
+    url: form.attr('action'),
+    type: 'post',
+    data: form.serialize(),
+    success: function(data) {
+      var new_form = $(data).find('#register-form');
+      if (new_form.length) {
+        form.html(new_form.html());
+      } else {
+        window.location = button.attr('href');
+      }
+    },
+    error: function(data) {
+    }
+  })
+}
+
+function popup(el) {
+  var url = el.attr('href'),
+      dimensions = el.data('dimensions').split(',');
+
+  fn.popup(url, dimensions[0], dimensions[1]);
 }
