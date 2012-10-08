@@ -33,7 +33,6 @@
 
     <% elsif @feed %>
 
-    <h2>Feed</h2>
     <%- if @user.following_songs.size > 0 -%>
       <%= render :partial => 'stations/playlist', :locals => { :station => @user.feed_station, :songs => @user.following_songs, :nolimit => true } %>
     <%- else -%>
