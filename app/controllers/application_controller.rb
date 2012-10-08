@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
         @p_station = Station.trending
         @p_songs = Song.playlist_order_trending
       else
-        @p_station = Station.find_by_slug(id)
+        @p_station = Station.find(id)
         @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
