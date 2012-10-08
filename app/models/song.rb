@@ -484,7 +484,7 @@ class Song < ActiveRecord::Base
   def generate_waveform(path=nil)
     path = open(file_url).path if !path
     # Waveform
-    waveform = Waveform.new(path)
+    waveform = Waveform.new
     waveform_path = Paperclip::Tempfile.new('song_waveform_'+id.to_s+'.png', Rails.root.join('tmp'))
     waveform.generate(waveform_path,
       method: :rms,

@@ -311,14 +311,6 @@ $(function() {
     }
     else {
       if (el.is('.control')) e.preventDefault();
-      if (el.is('.nav:not(.active)')) {
-        navDropdown($(e.target));
-        return false;
-      }
-      else {
-        // Close any dropdowns
-        navDropdown(false);
-      }
 
       // Songs
       if (el.is('.song-link')) {
@@ -366,6 +358,10 @@ $(function() {
         el.children('span').remove();
       }
 
+      else if (el.is('.add-comment')) {
+        showComments(el.attr('href'));
+      }
+
       // Always run the below functions
 
       if (el.is('.popup')) {
@@ -376,6 +372,15 @@ $(function() {
 
         fn.popup(url, dimensions[0], dimensions[1]);
         return false;
+      }
+
+      if (el.is('.nav:not(.active)')) {
+        navDropdown($(e.target));
+        return false;
+      }
+      else {
+        // Close any dropdowns
+        navDropdown(false);
       }
     }
   });
