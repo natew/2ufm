@@ -394,6 +394,13 @@ $(function() {
     registerUser($(this));
   });
 
+  // Tune into friends
+  $('body').on('click.friends', '#friends a', function(e) {
+    e.preventDefault();
+    tuneIn($(this).attr('id').split('-')[1]);
+    return false;
+  })
+
   // Clicks not on a
   $('body').on('click', function(e) {
     var el = $(e.target);
