@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune]
-  before_filter :load_user, :only => [:followers, :following]
+  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune, :feed]
+  before_filter :load_user, :only => [:followers, :following, :feed]
 
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
@@ -15,9 +15,11 @@ class UsersController < ApplicationController
   end
 
   def feed
-    @user_station = Station.current_user_station
-    @user_songs = current_user.following_songs
-    @has_songs = true if @user_songs.size > 0
+    @feed = true
+
+    respond_to do |format|
+      format.html { render 'users/show' }
+    end
   end
 
   def tune

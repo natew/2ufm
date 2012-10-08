@@ -87,6 +87,10 @@ class User < ActiveRecord::Base
     Follow.where(:station_id => ids, :user_id => id).map(&:station_id)
   end
 
+  def feed_station
+    Station.new(id: -station.id, title:"#{username}'s feed", slug:"#{slug}-feed")
+  end
+
   def followers
     Station
     .joins('inner join users on users.station_id = stations.id')

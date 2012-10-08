@@ -39,7 +39,6 @@ Fusefm::Application.routes.draw do
   match "/live/:id", :to => "users#live"
   match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
-  match "/feed", :to => "users#feed", :as => 'user_root'
   match "/fresh", :to => "songs#fresh"
   match "/popular", :to => "songs#popular"
   match "/songs/:id", :to => "songs#failed", :as => :post
@@ -65,6 +64,14 @@ Fusefm::Application.routes.draw do
   # Users
   match '/:id/following', :to => 'users#following', :as => 'user_following'
   match '/:id/followers', :to => 'users#followers', :as => 'user_followers'
+
+  resources :users, path: '/' do
+    member do
+      get 'following'
+      get 'followers'
+      get 'feed'
+    end
+  end
 
   # Artists
   resources :artists, path: '/' do

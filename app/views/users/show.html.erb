@@ -7,8 +7,9 @@
 
     <nav class="nav-menu">
       <%= nav_link_to 'Favorites', @user %>
-      <%= nav_link_to 'Following', user_following_path %>
-      <%= nav_link_to 'Followers', user_followers_path %>
+      <%= nav_link_to 'Feed', feed_user_path(@user) %>
+      <%= nav_link_to 'Following', following_user_path(@user) %>
+      <%= nav_link_to 'Followers', followers_user_path(@user) %>
     </nav>
   <%- end # end cache
   -%>
@@ -29,6 +30,16 @@
         <%= render :partial => 'stations/playlist', :locals => { :station => @user.station, :songs => @songs } %>
       <%- end -%>
     </div>
+
+    <% elsif @feed %>
+
+    <h2>Feed</h2>
+    <%- if @user.following_songs.size > 0 -%>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @user.feed_station, :songs => @user.following_songs, :nolimit => true } %>
+    <%- else -%>
+      <h3><strong>Your feed is empty!</strong> Follow your friends, artists and blogs!</h3>
+      <p>Your feed will automatically fill with the latest songs from all the people you follow</p>
+    <%- end -%>
 
     <% elsif @following %>
 
