@@ -524,7 +524,10 @@ function nextPage(playlist) {
         playlistInfo = playlist.attr('id').split('-');
 
     // Support negative numbers
-    playlistInfo.length == 4 && playlistInfo.shift();
+    if (playlistInfo.length == 4) {
+      playlistInfo.shift();
+      playlistInfo[1] = '-' + playlistInfo[1];
+    }
 
     var id = playlistInfo[1],
         page = parseInt(playlistInfo[2], 10);
