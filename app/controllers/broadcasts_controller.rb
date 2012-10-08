@@ -2,7 +2,7 @@ class BroadcastsController < ApplicationController
   before_filter :authenticate_user!, :clear_cache
 
   def create
-    @broadcast = current_user.station.broadcasts.create(:song_id => params[:song_id])
+    @broadcast = current_user.station.broadcasts.create(song_id: params[:song_id])
     @locals = { :action => 'remove', :id => params[:song_id], :counter => :add }
 
     respond_to do |format|

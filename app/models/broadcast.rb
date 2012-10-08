@@ -1,6 +1,6 @@
 class Broadcast < ActiveRecord::Base
   belongs_to :station, :counter_cache => true
-  belongs_to :song, :primary_key => :matching_id
+  belongs_to :song
 
   validates :song_id, presence: true
   validates :station_id, presence: true
@@ -12,8 +12,25 @@ class Broadcast < ActiveRecord::Base
 
   before_validation :set_parent, :on => :create
   before_save :update_song_rank, :update_station_timestamp
-  after_create :update_counter_cache
-  after_destroy :update_counter_cache
+  after_create :update_counter_cache, :update_station_songs_count
+  after_destroy :update_counter_cache, :update_station_songs_count
+
+  # Update user_broadcasts_count on songs
+  def update_counter_cache
+    matching_songs = Song.where(matching_id:song_id)
+    if matching_songs.length > 0
+      matching_songs.update_all(
+        user_broadcasts_count: song.user_broadcasts.count,
+        blog_broadcasts_count: song.blog_broadcasts.count
+      )
+    end
+  end
+
+  def update_station_songs_count
+    return unless station
+    station.songs_count = station.songs.count
+    station.save
+  end
 
   private
 
@@ -21,21 +38,6 @@ class Broadcast < ActiveRecord::Base
     return unless song
     song.set_rank
     song.save
-  end
-
-  # Update user_broadcasts_count on songs
-  def update_counter_cache
-    matching_song = Song.find(song_id)
-    if matching_song
-      matching_song.user_broadcasts_count = matching_song.user_broadcasts.count
-      matching_song.blog_broadcasts_count = matching_song.blog_broadcasts.count
-      matching_song.save
-    end
-
-    if station
-      station.songs_count = station.songs.count
-      station.save
-    end
   end
 
   def set_parent

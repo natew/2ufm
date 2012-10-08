@@ -1,3 +1,5 @@
+STDOUT.sync = true
+
 namespace :songs do
   task :move_to_mp3 => :environment do
     Song.working.each do |song|
@@ -13,6 +15,13 @@ namespace :songs do
     Song.working.soundcloud.each do |song|
       song.set_original_tag
       song.fix_tags
+    end
+  end
+
+  task :fix_broadcasts => :environment do
+    Broadcast.all.each do |broadcast|
+      print "."
+      broadcast.delay.update_counter_cache
     end
   end
 
