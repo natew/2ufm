@@ -482,19 +482,28 @@ class Song < ActiveRecord::Base
 
   # Generate waveform
   def generate_waveform(path=nil)
-    path = open(file_url).path if !path
-    # Waveform
-    waveform = Waveform.new
-    waveform_path = Paperclip::Tempfile.new('song_waveform_'+id.to_s+'.png', Rails.root.join('tmp'))
-    waveform.generate(waveform_path,
-      method: :rms,
-      width: 1000,
-      height: 200,
-      background_color: :transparent,
-      color: '#000000',
-      force: true
-    )
-    waveform_path
+    mp3_path = open(file_url).path if !path
+    image_path = Paperclip::Tempfile.new('song_waveform_' + id.to_s + '.png', Rails.root.join('tmp'))
+
+    tmp_wav_name = id.to_s + '.wav'
+    tmp_wav = Tempfile.new(tmp_wav_name)
+    ffmpeg_command = "ffmpeg -y -i \"#{mp3_path}\" -f wav \"#{tmp_wav.path}\" > /dev/null 2>&1"
+    logger.info ffmpeg_command
+    `#{ffmpeg_command}`
+
+    if tmp_wav.size > 0
+      Waveform.generate(tmp_wav.path, image_path,
+        method: :rms,
+        width: 1000,
+        height: 200,
+        background_color: :transparent,
+        color: '#000000',
+        force: true
+      )
+      image_path
+    else
+      nil
+    end
   end
 
   def update_waveform
