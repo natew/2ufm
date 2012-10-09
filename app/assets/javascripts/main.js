@@ -37,6 +37,18 @@ var w = $(window),
     newCurPage,
     doc;
 
+//
+// Document.ready
+//
+$(function() {
+  // Dialog
+  hideDialog();
+
+  // Fire initial page load
+  page.start();
+  page.end();
+});
+
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 
 // Read URL parameters
@@ -84,372 +96,359 @@ if (!hideWelcome && !isOnline) {
   }, 4500)
 }
 
-//
-// Document.ready
-//
+// Fade in effect
+$('#overlay').removeClass('shown');
+setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
-$(function() {
-  // Fade in effect
-  $('#overlay').removeClass('shown');
-  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
+// Logged in
+if (!isOnline && !isTuningIn) {
+  modal('#modal-login');
+}
 
-  // Logged in
-  if (!isOnline && !isTuningIn) {
-    modal('#modal-login');
-  }
+if (isTuningIn) {
+  tuneIn(tuneInto, function() {
+    if (typeof(beginListen) != 'undefined') {
+      goToListen(beginListen);
+    }
+  });
+}
 
-  if (isTuningIn) {
-    tuneIn(tuneInto, function() {
-      if (typeof(beginListen) != 'undefined') {
-        goToListen(beginListen);
-      }
+// Get volume init
+if (volume === "0") {
+  // dont ask me why
+  mp.toggleVolume();
+  mp.toggleVolume();
+}
+
+if (playMode != 'normal') updatePlayMode(playMode);
+
+// html5 pushState
+body.on('click', 'a:not(.control)', function(e) {
+  e.preventDefault();
+  if (doPjax) {
+    $.pjax({
+      url: $(this).attr('href'),
+      container: '#body',
+      timeout: 12000
     });
+  } else {
+    loadPage($(this).attr('href'));
   }
+});
 
-  // Dialog
-  hideDialog();
+// Listen sharing auto play
+playFromParams();
 
-  // Fire initial page load
-  page.start();
-  page.end();
-
-  // Get volume init
-  if (volume === "0") {
-    // dont ask me why
-    mp.toggleVolume();
-    mp.toggleVolume();
+// Hash tag to denote time in songs
+if (window.location.hash) {
+  var hash = window.location.hash.split('-');
+  if (hash[0] == 'song') {
+    // TODO time
+    mp.playSection($('.playlist section:first'), time[0]*60 + time[1]);
   }
-
-  if (playMode != 'normal') updatePlayMode(playMode);
-
-  // html5 pushState
-  $("a:not(.control)").live('click', function(e) {
-    e.preventDefault();
-    if (doPjax) {
-      $.pjax({
-        url: $(this).attr('href'),
-        container: '#body',
-        timeout: 12000
-      });
-    } else {
-      loadPage($(this).attr('href'));
-    }
-  });
-
-  // Mac app download
-  // if (navigator.appVersion.indexOf("Mac") != -1) {
-  //   $('#sidebar .announce').addClass('ismac');
-  // }
-
-  // Listen sharing auto play
-  playFromParams();
-
-  // Hash tag to denote time in songs
-  if (window.location.hash) {
-    var hash = window.location.hash.split('-');
-    if (hash[0] == 'song') {
-      // TODO time
-      mp.playSection($('.playlist section:first'), time[0]*60 + time[1]);
-    }
-    else if (hash[0] == 'page') {
-      // TODO pagination with hash
-    }
+  else if (hash[0] == 'page') {
+    // TODO pagination with hash
   }
+}
 
-  // Tooltips
-  $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
-  $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
+// Tooltips
+$('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
+$('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
 
-  // Livesearch
-  $('#query').marcoPolo({
-    url: '/search',
-    selectable: ':not(.unselectable)',
-    formatItem: function (data, $item) {
-      if (data.selectable == 'false') $item.addClass('unselectable');
-      if (data.header == 'true') $item.addClass('unselectable header');
-      return data.name;
-    },
-    onSelect: function (data, $item) {
-      pjax('/'+data.url);
-    }
-  });
+// Livesearch
+$('#query').marcoPolo({
+  url: '/search',
+  selectable: ':not(.unselectable)',
+  formatItem: function (data, $item) {
+    if (data.selectable == 'false') $item.addClass('unselectable');
+    if (data.header == 'true') $item.addClass('unselectable header');
+    return data.name;
+  },
+  onSelect: function (data, $item) {
+    pjax('/'+data.url);
+  }
+});
 
-  // Player controls
-  mpClick('#player-play', 'toggle');
-  mpClick('#player-next', 'next');
-  mpClick('#player-prev', 'prev');
-  mpClick('#player-volume', 'toggleVolume');
+// Player controls
+mpClick('#player-play', 'toggle');
+mpClick('#player-next', 'next');
+mpClick('#player-prev', 'prev');
+mpClick('#player-volume', 'toggleVolume');
 
-  // Song title click
-  $('#player-song-name a').click(function songNameClick() {
-    fn.log('onplayingpage', mp.isOnPlayingPage());
-    $('.tipsy').remove();
-    if (mp.isOnPlayingPage()) {
-      scrollToCurrentSong();
-      return false;
-    }
-  });
-
-  // Play from playlist
-  $('#player-playlist a').live('click',function(e) {
-    e.preventDefault();
-    fn.log('playing from playlist');
-    var song    = $(this),
-        section = $(song.attr('href')),
-        index   = song.data('index');
-
-    if (section.length) mp.playSection(section);
-    else mp.playSong(index);
-  });
-
-  // Online friends
-  startGetNavbar();
-
-  // Custom scrollpanes
-  $('#stations-inner, #share-friends').dontScrollParent();
-
-  // Scroll functions
-  w .on('scrollstart', function() {
-      fn.log('start scrolling');
-      $('.tipsy').remove();
-      $('.pop-menu').removeClass('open');
-      mp.hasMoved(true);
-    })
-    // window.scroll
-    .scroll(function() {
-      // Automatic page loading
-      if (!loadingPage) {
-        clearTimeout(infiniteScrollTimeout);
-        infiniteScrollTimeout = setTimeout(function() {
-          if (nearBottom()) {
-            var lastPlaylist = $('.playlist:visible:last');
-            if (lastPlaylist.length && lastPlaylist.is('.has-more')) nextPage(lastPlaylist);
-          }
-          // decrementPage();
-        }, 20);
-      }
-    });
-
-  // Playlist bar hover
-  var progressBar = $('#player-bottom'),
-      progressHoverTimeout;
-  progressBar.hover(function() {
-    progressHoverTimeout = setTimeout(function() { progressBar.addClass('hover'); }, 300);
-  }, function() {
-    clearTimeout(progressHoverTimeout);
-    progressBar.removeClass('hover');
-  });
-
-  // Close modal
-  $('#overlay').click(function() { modal(false); });
-
-  $('.collapse').click(function() {
-    $(this).parent().toggleClass('collapsed');
-  });
-
-  // Share hover
-  $('#player-share').hover(function() {
-    var el = $(this),
-        curSong = mp.curSongInfo();
-    updateShareLinks(el.data('link'), el.data('title'));
-    updateShareFriends(true);
-    shareSong = curSong.id;
-    shareSongTitle = curSong.name || '';
-  });
-
-  // Bind hovering on nav elements
-  $('.nav-hover').live({
-    mouseenter: function(e) {
-      var el = $(this),
-          hoveredClass = el.attr('class'),
-          hovered = navHovered[hoveredClass];
-
-      fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
-      if (!hovered) navDropdown(el, false, true);
-      navHovered[hoveredClass] = true;
-    },
-    mouseleave: function() {
-      var el = $(this);
-      var navHoverInterval = setInterval(function() {
-        if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-          navUnhoveredOnce = true;
-          if (navUnhoveredOnce) {
-            navDropdown(false);
-            clearInterval(navHoverInterval);
-            navHovered[el.attr('class')] = false;
-            navUnhoveredOnce = false;
-          }
-        }
-      }, 150);
-    },
-    click: function() {
-      return false;
-    }
-  });
-
-  // Share click
-  $('#share-friends').on('click', 'a', function() {
-    var el = $(this);
-    $.post('/share', {
-      receiver_id: el.data('user'),
-      song_id: shareSong
-    }, function() {
-      notice('Sent <b>' + shareSongTitle + '</b> to <b>' + el.text() + '</b>');
-    });
-
+// Song title click
+$('#player-song-name a').click(function songNameClick() {
+  fn.log('onplayingpage', mp.isOnPlayingPage());
+  $('.tipsy').remove();
+  if (mp.isOnPlayingPage()) {
+    scrollToCurrentSong();
     return false;
+  }
+});
+
+// Play from playlist
+$('#player-playlist').on('click', 'a', function(e) {
+  e.preventDefault();
+  fn.log('playing from playlist');
+  var song    = $(this),
+      section = $(song.attr('href')),
+      index   = song.data('index');
+
+  if (section.length) mp.playSection(section);
+  else mp.playSong(index);
+});
+
+// Mac app download
+// if (navigator.appVersion.indexOf("Mac") != -1) {
+//   $('#sidebar .announce').addClass('ismac');
+// }
+
+// Online friends
+startGetNavbar();
+
+// Custom scrollpanes
+$('#stations-inner, #share-friends').dontScrollParent();
+
+// Scroll functions
+w .on('scrollstart', function() {
+    fn.log('start scrolling');
+    $('.tipsy').remove();
+    $('.pop-menu').removeClass('open');
+    mp.hasMoved(true);
+  })
+  // window.scroll
+  .scroll(function() {
+    // Automatic page loading
+    if (!loadingPage) {
+      clearTimeout(infiniteScrollTimeout);
+      infiniteScrollTimeout = setTimeout(function() {
+        if (nearBottom()) {
+          var lastPlaylist = $('.playlist:visible:last');
+          if (lastPlaylist.length && lastPlaylist.is('.has-more')) nextPage(lastPlaylist);
+        }
+        // decrementPage();
+      }, 20);
+    }
   });
 
-  // Link binding
-  body.on('click', 'a', function bodyClick(e) {
-    var el = $(this);
-    fn.log('click', el);
+// Playlist bar hover
+var progressBar = $('#player-bottom'),
+    progressHoverTimeout;
+progressBar.hover(function() {
+  progressHoverTimeout = setTimeout(function() { progressBar.addClass('hover'); }, 300);
+}, function() {
+  clearTimeout(progressHoverTimeout);
+  progressBar.removeClass('hover');
+});
 
-    // Disabled
-    if (el.is('.disabled')) {
+// Close modal
+$('#overlay').click(function() { modal(false); });
+
+$('.collapse').click(function() {
+  $(this).parent().toggleClass('collapsed');
+});
+
+// Share hover
+$('#player-share').hover(function() {
+  var el = $(this),
+      curSong = mp.curSongInfo();
+  updateShareLinks(el.data('link'), el.data('title'));
+  updateShareFriends(true);
+  shareSong = curSong.id;
+  shareSongTitle = curSong.name || '';
+});
+
+// Bind hovering on nav elements
+$('.nav-hover').live({
+  mouseenter: function(e) {
+    var el = $(this),
+        hoveredClass = el.attr('class'),
+        hovered = navHovered[hoveredClass];
+
+    fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
+    if (!hovered) navDropdown(el, false, true);
+    navHovered[hoveredClass] = true;
+  },
+  mouseleave: function() {
+    var el = $(this);
+    var navHoverInterval = setInterval(function() {
+      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+        navUnhoveredOnce = true;
+        if (navUnhoveredOnce) {
+          navDropdown(false);
+          clearInterval(navHoverInterval);
+          navHovered[el.attr('class')] = false;
+          navUnhoveredOnce = false;
+        }
+      }
+    }, 150);
+  },
+  click: function() {
+    return false;
+  }
+});
+
+// Share click
+$('#share-friends').on('click', 'a', function() {
+  var el = $(this);
+  $.post('/share', {
+    receiver_id: el.data('user'),
+    song_id: shareSong
+  }, function() {
+    notice('Sent <b>' + shareSongTitle + '</b> to <b>' + el.text() + '</b>');
+  });
+
+  return false;
+});
+
+// Link binding
+body.on('click', 'a', function bodyClick(e) {
+  var el = $(this);
+  fn.log('click', el);
+
+  // Disabled
+  if (el.is('.disabled')) {
+    e.preventDefault();
+    return false;
+  }
+  else {
+    if (el.is('.control')) e.preventDefault();
+
+    // Songs
+    if (el.is('.song-link')) {
+      fn.log('song link')
+      mp.playSection(el.parent('section'));
+    }
+
+    // Not logged in
+    else if (!isOnline && el.is('.restricted')) {
+      modal('#modal-login');
+      return false;
+    }
+
+    // Modals
+    else if (el.is('.modal')) {
+      modal(e.target.getAttribute('href'));
+      return false;
+    }
+
+    else if (el.is('.play-station')) {
+      mp.setAutoPlay(true);
+    }
+
+    else if (el.is('#player-mode')) {
       e.preventDefault();
+      updatePlayMode(mp.nextPlayMode());
+    }
+
+    else if (el.is('#more-artists')) {
+      var next = $('.artists-shelf li:not(.hidden):lt(5)');
+      if (next.length) next.addClass('hidden')
+      else $('.artists-shelf li').removeClass('hidden');
+    }
+
+    else if (el.is('.close-modal')) {
+      modal(false);
+    }
+
+    else if (el.is('.show-hide')) {
+      $(el.attr('href')).toggleClass('hidden');
+      return false;
+    }
+
+    else if (el.is('#nav-shares')) {
+      el.children('span').remove();
+    }
+
+    else if (el.is('.add-comment')) {
+      showComments(el.attr('href'));
+    }
+
+    // Always run the below functions
+
+    if (el.is('.popup')) {
+      e.preventDefault();
+      popup(el);
+      return false;
+    }
+
+    if (el.is('.nav:not(.active)')) {
+      navDropdown($(e.target));
       return false;
     }
     else {
-      if (el.is('.control')) e.preventDefault();
-
-      // Songs
-      if (el.is('.song-link')) {
-        fn.log('song link')
-        mp.playSection(el.parent('section'));
-      }
-
-      // Not logged in
-      else if (!isOnline && el.is('.restricted')) {
-        modal('#modal-login');
-        return false;
-      }
-
-      // Modals
-      else if (el.is('.modal')) {
-        modal(e.target.getAttribute('href'));
-        return false;
-      }
-
-      else if (el.is('.play-station')) {
-        mp.setAutoPlay(true);
-      }
-
-      else if (el.is('#player-mode')) {
-        e.preventDefault();
-        updatePlayMode(mp.nextPlayMode());
-      }
-
-      else if (el.is('#more-artists')) {
-        var next = $('.artists-shelf li:not(.hidden):lt(5)');
-        if (next.length) next.addClass('hidden')
-        else $('.artists-shelf li').removeClass('hidden');
-      }
-
-      else if (el.is('.close-modal')) {
-        modal(false);
-      }
-
-      else if (el.is('.show-hide')) {
-        $(el.attr('href')).toggleClass('hidden');
-        return false;
-      }
-
-      else if (el.is('#nav-shares')) {
-        el.children('span').remove();
-      }
-
-      else if (el.is('.add-comment')) {
-        showComments(el.attr('href'));
-      }
-
-      // Always run the below functions
-
-      if (el.is('.popup')) {
-        e.preventDefault();
-        popup(el);
-        return false;
-      }
-
-      if (el.is('.nav:not(.active)')) {
-        navDropdown($(e.target));
-        return false;
-      }
-      else {
-        // Close any dropdowns
-        navDropdown(false);
-      }
-    }
-  });
-
-  // Toggle hidden areas
-  body.on('click.toggle', '[data-toggle="hidden"]', function(e) {
-    e.preventDefault();
-    $($(this).attr('href')).toggleClass('hidden');
-    return false;
-  });
-
-  // Signup button
-  body.on('click.signup', '#sign-up-button', function(e) {
-    e.preventDefault();
-    registerUser($(this));
-  });
-
-  // Tune into friends
-  body.on('click.friends', '#friends a', function(e) {
-    e.preventDefault();
-    tuneIn($(this).attr('id').split('-')[1]);
-    return false;
-  });
-
-  // Section toggling
-  body.on('click.nav-menu', '.nav-menu a.control', function(e) {
-    $('.nav-menu a.active').removeClass('active');
-    $(this).addClass('active');
-    $('.nav-container div.active').removeClass('active');
-    sectionActive = $($(this).attr('href')).addClass('active');
-    return false;
-  });
-
-  // Clicks not on a
-  body.on('click', function(e) {
-    var el = $(e.target);
-
-    // Update last position (for loading spinner)
-    lastPosition = [e.pageX, e.pageY];
-
-    // Hide dropdowns on click
-    console.log(el, el.is('input'))
-    if (!el.is('a,input')) navDropdown(false);
-  });
-
-  $('.select-on-click').click(function() {
-    $(this).select();
-  })
-
-  //
-  // Application integration
-  //
-  if (typeof macgap !== 'undefined') {
-    document.addEventListener('play', function() {
-      mp.toggle();
-      showGrowlInfo();
-    }, true);
-    document.addEventListener('prev', function() {
-      mp.prev();
-      showGrowlInfo();
-    }, true);
-    document.addEventListener('next', function() {
-      mp.next();
-      showGrowlInfo();
-    }, true);
-
-    function showGrowlInfo() {
-      var info = mp.curSongInfo();
-      macgap.growl.notify({title: info.artist_name + " - " + info.name, content: 'Now playing'});
+      // Close any dropdowns
+      navDropdown(false);
     }
   }
 });
+
+// Toggle hidden areas
+body.on('click.toggle', '[data-toggle="hidden"]', function(e) {
+  e.preventDefault();
+  $($(this).attr('href')).toggleClass('hidden');
+  return false;
+});
+
+// Signup button
+body.on('click.signup', '#sign-up-button', function(e) {
+  e.preventDefault();
+  registerUser($(this));
+});
+
+// Tune into friends
+body.on('click.friends', '#friends a', function(e) {
+  e.preventDefault();
+  tuneIn($(this).attr('id').split('-')[1]);
+  return false;
+});
+
+// Section toggling
+body.on('click.nav-menu', '.nav-menu a.control', function(e) {
+  $('.nav-menu a.active').removeClass('active');
+  $(this).addClass('active');
+  $('.nav-container div.active').removeClass('active');
+  sectionActive = $($(this).attr('href')).addClass('active');
+  return false;
+});
+
+// Clicks not on a
+body.on('click', function(e) {
+  var el = $(e.target);
+
+  // Update last position (for loading spinner)
+  lastPosition = [e.pageX, e.pageY];
+
+  // Hide dropdowns on click
+  console.log(el, el.is('input'))
+  if (!el.is('a,input')) navDropdown(false);
+});
+
+$('.select-on-click').click(function() {
+  $(this).select();
+})
+
+//
+// Application integration
+//
+if (typeof macgap !== 'undefined') {
+  document.addEventListener('play', function() {
+    mp.toggle();
+    showGrowlInfo();
+  }, true);
+  document.addEventListener('prev', function() {
+    mp.prev();
+    showGrowlInfo();
+  }, true);
+  document.addEventListener('next', function() {
+    mp.next();
+    showGrowlInfo();
+  }, true);
+
+  function showGrowlInfo() {
+    var info = mp.curSongInfo();
+    macgap.growl.notify({title: info.artist_name + " - " + info.name, content: 'Now playing'});
+  }
+}
 
 function notice(message, time) {
   $('#dialog').remove();
