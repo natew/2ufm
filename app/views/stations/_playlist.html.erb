@@ -16,16 +16,15 @@
   single        ||= false
   reviews       ||= nil
   cache_val     ||= nil
+  id_page         = "#{id}-#{page}"
   cache           = cache_key(['v3', station, page, per, partial, single, cache_val])
 
   cache_if(id > 5, cache) do -%>
 
-<div id="playlist-<%= id %>-<%= page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %>" data-key="<%= cache %>"
-  data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id %>-<%= page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
+<div id="playlist-<%= id_page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %>" data-key="<%= cache %>"
+  data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id_page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover, :partial => partial, :single => single, :reviews => reviews } unless songs.nil? %>
 </div>
-
-<%= link_to 'Next Page', '', :class => 'next-page control' if has_more %>
 
 <%-
   end # end cache
@@ -48,9 +47,12 @@
 
 <script type="text/javascript">
   <%- if user_signed_in? -%>
-  updateBroadcastsIds = <%= raw broadcasts %>;
+  broadcastedIds['<%= id_page %>'] = <%= raw broadcasts %>;
+  updateBroadcastsIds = broadcastedIds['<%= id_page %>'];
   updateFollowsIds = <%= raw follows %>;
   updateListensIds = <%= raw listens.to_json %>;
   <%- end -%>
   updateBroadcastsCounts = <%= raw broadcasts_count.to_json %>;
 </script>
+
+<%= link_to 'Next Page', '', :class => 'next-page control' if has_more %>

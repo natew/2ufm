@@ -24,4 +24,5 @@ var w = $(window),
     isTuningIn = typeof(tuneInto) != 'undefined',
     doc,
     navHoverInterval,
-    navHoverActive;
+    navHoverActive,
+    playerBroadcastTemplate = $('#player-buttons .broadcast').html();

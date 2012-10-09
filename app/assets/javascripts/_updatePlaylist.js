@@ -48,7 +48,6 @@ function updateBroadcasts() {
         method: 'delete'
       };
 
-  fn.log(songs);
   $(songs).each(function() {
     var broadcast = $(this).addClass('liked').children('.song-meta').find('.song-controls .broadcast a');
     broadcast

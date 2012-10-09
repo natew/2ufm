@@ -32,7 +32,8 @@
   </script>
 
   <script type="text/javascript">
-    var updateBroadcastsIds, updateFollowsIds, updateListensIds, updateBroadcastsCounts;
+    var updateBroadcastsIds, updateFollowsIds, updateListensIds, updateBroadcastsCounts,
+        broadcastedIds = [];
   </script>
 </head>
 
@@ -50,7 +51,10 @@
           </div>
 
           <div id="player-buttons">
-            <span class="broadcast"><%= render partial: "songs/broadcast", locals: { action: 'add disabled', id: '0', count: 'Like'  } %></span>
+            <span class="broadcast">
+              <%= render partial: "songs/broadcast", locals: { action: 'add', id: '0', count: 'Like', extra_class: 'disabled'  } %>
+              <%= render partial: "songs/broadcast", locals: { action: 'destroy', id: '0', count: 'Unlike'  } %>
+            </span>
             <%= link_to 'Live!', '#friends', id: 'tune-in', class: 'nav-hover control pictos-globe', 'data-pad' => '8' %>
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard', 'data-pad' => '8'  %>
             <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music', 'data-pad' => '8' %>

@@ -466,6 +466,19 @@ header {
     right: 10px;
     width: 184px;
 
+    .broadcast {
+      height: 48px;
+      width: 44px;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      float: left;
+
+      &.remove {
+        .add {display: none;}
+      }
+    }
+
     a {
       display: inline-block;
       font-weight: bold;

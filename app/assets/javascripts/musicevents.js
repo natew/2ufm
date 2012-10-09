@@ -37,14 +37,18 @@ w.on({
 
   'mp:played': function mpPlay(event, mp) {
     var song = mp.curSongInfo(),
-        playlistItem = $('#player-playlist .song-'+song.id),
+        playlistItem = $('#player-playlist .song-' + song.id),
         w = $(window),
         song_url = $('#song-' + song.id + ' .name a').attr('href'),
         curSection = mp.curSection(),
         html_artists = null;
 
+    // Update playlist
     $('#player-playlist a').removeClass('playing');
     playlistItem.addClass('playing');
+
+    // Update broadcast button
+    updateBroadcastButton(mp.playlist().station.id, song.id);
 
     // Update player info
     if (curSection) {
@@ -61,6 +65,7 @@ w.on({
 
   'mp:play': function(event, mp) {
     var section = mp.curSection();
+    $('#player-buttons .broadcast').removeClass('remove');
 
     // Scroll to song
     setTimeout(function() {

@@ -1,8 +1,9 @@
 <%-
   count ||= 0 # When we render this from an ajax call we increment with JS, so no count is necessary
+  extra_class ||= ''
   icon, title, method, path =
     (action == 'add') ?
     ['k','Like this song', :post, "/broadcasts/#{id}"] :
     ['2','Unlike this song', :delete, "/broadcasts/#{id}" ]
 -%>
-<%= link_to count, path, class: "restricted broadcast-song #{action} pictos-heart control", title: title, remote: true, method: method %>
+<%= link_to count, path, class: "restricted broadcast-song #{action} pictos-heart control #{extra_class}", title: title, remote: true, method: method %>

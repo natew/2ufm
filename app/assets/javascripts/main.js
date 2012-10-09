@@ -638,3 +638,27 @@ function bindImageErrors(context) {
     el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
   });
 }
+
+function updateBroadcastButton(station_id, song_id) {
+  if (isOnline) {
+    var i,
+        broadcasts = broadcastedIds[station_id],
+        broadcast = $('#player-buttons .broadcast').removeClass('remove');
+
+    broadcast
+      .children('a')
+      .attr('href', '/broadcasts/' + song_id);
+
+    if (broadcasts) {
+      for (i = 0; i < broadcasts.length; i++) {
+        if (broadcasts[i] === song_id) {
+          broadcast.addClass('remove');
+        }
+      }
+    }
+  }
+}
+
+$('#player-buttons .broadcast a').click(function() {
+  $(this).parent().toggleClass('remove');
+})

@@ -103,7 +103,10 @@ var mp = (function() {
           playingPage = curPage;
 
           // Get new playlist
-          playlist = $('#playlist-' + playlistID).data('playlist');
+          var el = $('#playlist-' + playlistID);
+          playlist = el.data('playlist');
+          broadcasts = el.next('script');
+          fn.log('broadcasts', broadcasts);
 
           // Add indices
           for (var i = 0; i < playlist.songs.length; i++) {
