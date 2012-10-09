@@ -419,7 +419,7 @@ function navDropdown(nav, pad, hover) {
           left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
 
       if (dropdown.is('.right-align')) {
-        left = left - dropdown.outerWidth()/2 + 10;
+        left = left - dropdown.outerWidth()/2 + 45;
       }
 
       // If the nav is not already open

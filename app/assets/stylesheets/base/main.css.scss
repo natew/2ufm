@@ -1461,7 +1461,7 @@ $nav-arrow-size: 5px;
     &:before {
       left: auto;
       margin: 0;
-      right: $nav-arrow-size;
+      right: $nav-arrow-size + 40;
     }
   }
 
