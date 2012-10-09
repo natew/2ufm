@@ -11,6 +11,7 @@ gem 'private_pub'
 
 # Assets
 gem 'bourbon'
+gem 'cocaine', '= 0.3.2'
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
 gem 'jquery-rails'
