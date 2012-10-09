@@ -192,8 +192,8 @@ $('#share-friends').on('click', 'a', function() {
 body.allOn('click', {
   'a': function(e, el) {
     navDropdown(false);
-    if (!this.className.match(/external/)) e.preventDefault();
-    if (!this.className.match(/popup|control/)) {
+    if (!el.is('.external')) e.preventDefault();
+    if (!el.is('.popup,.control')) {
       if (doPjax) {
         $.pjax({
           url: el.attr('href'),
