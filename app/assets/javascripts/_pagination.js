@@ -51,10 +51,12 @@ var pagination = (function(fn, mp) {
           }
         },
         success: function(data) {
+          $(window).trigger('gotPageLoad', data);
           current = playlistPage + 1;
           var playlist = $('#playlist-' + id + '-' + current);
           link.html('Page ' + current).addClass('loaded');
           isLoading = false;
+          bindImageErrors(data);
           link.after(data);
           updatePageURL(current);
           $(window).trigger('pageLoaded');

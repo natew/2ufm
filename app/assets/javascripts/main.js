@@ -612,3 +612,16 @@ function popup(el) {
 
   fn.popup(url, dimensions[0], dimensions[1]);
 }
+
+$(window).on('gotPageLoad', function(e, data) {
+  bindImageErrors(data);
+});
+
+bindImageErrors();
+
+function bindImageErrors(context) {
+  $('img', context || 'body').error(function imgError() {
+    var el = $(this);
+    el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
+  });
+}

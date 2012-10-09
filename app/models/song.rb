@@ -481,8 +481,8 @@ class Song < ActiveRecord::Base
   end
 
   # Generate waveform
-  def generate_waveform(path=nil)
-    mp3_path = open(file_url).path if !path
+  def generate_waveform(mp3_path=nil)
+    mp3_path = open(file_url).path if !mp3_path
     image_path = Paperclip::Tempfile.new('song_waveform_' + id.to_s + '.png', Rails.root.join('tmp'))
 
     tmp_wav_name = id.to_s + '.wav'
@@ -521,18 +521,18 @@ class Song < ActiveRecord::Base
 
   # Parse album art from ID3 tag
   def get_album_art(*args)
-    if args.size.zero?
-      tag = nil
-      open(url) do |song|
+    tag = args.first
+    if !tag
+      open(file_url) do |song|
         tag = TagLib::MPEG::File.new(song.path).id3v2_tag
+        logger.info tag
       end
-    else
-      tag = args.first
     end
 
     begin
       # Save picture
       cover = tag.frame_list('APIC').first
+      logger.info 'cover: ' + cover.to_s
       if cover
         # Save pictures
         filetype = cover.mime_type[/gif|png|jpg|jpeg/i]
@@ -553,6 +553,8 @@ class Song < ActiveRecord::Base
 
   # Write binary pictures
   def write_tempfile(filename, data)
+    logger.info 'Tempfile: ' + filename
+    logger.info 'Size:' + data.size.to_s
     tmp = Paperclip::Tempfile.new(filename, Rails.root.join('tmp'))
     tmp.binmode
     tmp << data

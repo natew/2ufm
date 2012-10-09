@@ -23,12 +23,7 @@ var page = {
     updatePlaylist();
     playAfterRouting();
     spinner.detach();
-
-    // Image errors
-    $('.playlist img').on('error', function(){
-      var el = $(this);
-      el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
-    });
+    bindImageErrors();
 
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);
