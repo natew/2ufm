@@ -12,29 +12,7 @@ $(function() {
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 
-scrollPage = getPage();
 navItems = getNavItems();
-
-// Read URL parameters
-var urlParams = {},
-    updateParams = (function () {
-      function update() {
-        var e,
-            a = /\+/g,  // Regex for replacing addition symbol with a space
-            r = /([^&=]+)=?([^&]*)/g,
-            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
-            q = window.location.search.substring(1);
-
-        while (e = r.exec(q))
-           urlParams[d(e[1])] = d(e[2]);
-      }
-
-      return {
-        run: function() {
-          update();
-        }
-      }
-    })();
 
 // Cookies
 if (!hideWelcome && !isOnline) {
@@ -103,18 +81,6 @@ body.on('click', 'a:not(.control)', function(e) {
 // Listen sharing auto play
 playFromParams();
 
-// Hash tag to denote time in songs
-if (window.location.hash) {
-  var hash = window.location.hash.split('-');
-  if (hash[0] == 'song') {
-    // TODO time
-    mp.playSection($('.playlist section:first'), time[0]*60 + time[1]);
-  }
-  else if (hash[0] == 'page') {
-    // TODO pagination with hash
-  }
-}
-
 // Tooltips
 $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
@@ -148,6 +114,10 @@ $('#player-song-name a').click(function songNameClick() {
   }
 });
 
+function scrollToCurrentSong() {
+  fn.scrollTo($('section.playing'));
+}
+
 // Play from playlist
 $('#player-playlist').on('click', 'a', function(e) {
   e.preventDefault();
@@ -166,36 +136,15 @@ startGetNavbar();
 // Custom scrollpanes
 $('#stations-inner, #share-friends').dontScrollParent();
 
-// Scroll functions
-w .on('scrollstart', function() {
-    fn.log('start scrolling');
-    $('.tipsy').remove();
-    $('.pop-menu').removeClass('open');
-    mp.hasMoved(true);
-  })
-  // window.scroll
-  .scroll(function() {
-    // Automatic page loading
-    if (!loadingPage) {
-      clearTimeout(infiniteScrollTimeout);
-      infiniteScrollTimeout = setTimeout(function() {
-        if (nearBottom()) {
-          var lastPlaylist = $('.playlist:visible:last');
-          if (lastPlaylist.length && lastPlaylist.is('.has-more')) nextPage(lastPlaylist);
-        }
-        // decrementPage();
-      }, 20);
-    }
-  });
-
-// Playlist bar hover
-var progressBar = $('#player-bottom'),
-    progressHoverTimeout;
-progressBar.hover(function() {
-  progressHoverTimeout = setTimeout(function() { progressBar.addClass('hover'); }, 300);
-}, function() {
-  clearTimeout(progressHoverTimeout);
-  progressBar.removeClass('hover');
+// window.scroll
+w.on('scrollstart', function() {
+  fn.log('start scrolling');
+  $('.tipsy').remove();
+  $('.pop-menu').removeClass('open');
+  mp.hasMoved(true);
+})
+.on('pageLoaded', function() {
+  updatePlaylist();
 });
 
 // Close modal
@@ -373,8 +322,7 @@ body.on('click.nav-menu', '.nav-menu a.control', function(e) {
 body.on('click', function(e) {
   var el = $(e.target);
 
-  // Update last position (for loading spinner)
-  lastPosition = [e.pageX, e.pageY];
+  spinner.updatePos(e.pageX, e.pageY);
 
   // Hide dropdowns on click
   if (!el.is('a, input')) navDropdown(false);
@@ -436,93 +384,12 @@ function setNavActive(page) {
   $('.nav-menu a[href="' + page + '"]').addClass('active');
 }
 
-// Reads URL parameters for ?page=X and returns X
-function getPage() {
-  var page = window.location.search.match(/p=([0-9]+)/);
-  return page ? parseInt(page[1],10) : 1;
-}
-
-function updatePageURL(page) {
-  var url = mp.getPage(),
-      page = 'p=' + page,
-      page_regex = /p=[0-9]+/,
-      hash = window.location.hash;
-
-  // Replace old page
-  if (url.match(page_regex)) {
-    url = url.replace(page_regex, page);
-  } else {
-    url += url.match(/\?/) ? '&' + page : '?' + page;
-  }
-
-  url += hash;
-  fn.replaceState(url);
-  mp.updatePage(url);
-}
-
-function nextPage(playlist) {
-  // Infinite scrolling
-  if (morePages && playlist) {
-    var link = playlist.next('.next-page').html('Loading...'),
-        playlistInfo = playlist.attr('id').split('-');
-
-    // Support negative numbers
-    if (playlistInfo.length == 4) {
-      playlistInfo.shift();
-      playlistInfo[1] = '-' + playlistInfo[1];
-    }
-
-    var id = playlistInfo[1],
-        page = parseInt(playlistInfo[2], 10);
-
-    loadingPage = true;
-    scrollPage = page + 1;
-    fn.log(id, scrollPage, mp.getPage());
-
-    $.ajax({
-      url: mp.getPage(),
-      type: 'get',
-      data: 'i=' + id + '&p=' + scrollPage,
-      headers: {
-        Accept: "text/page; charset=utf-8",
-        "Content-Type": "text/page; charset=utf-8"
-      },
-      statusCode: {
-        204: function() {
-          removeNextPage(link);
-          return false;
-        }
-      },
-      success: function(data) {
-        var playlist = $('#playlist-' + id + '-' + scrollPage);
-        link.html('Page ' + scrollPage).addClass('loaded');
-        loadingPage = false;
-        link.after(data);
-        updatePlaylist();
-        updatePageURL(scrollPage);
-      },
-      error: function() {
-        removeNextPage(link);
-      }
-    })
-  }
-}
-
-function removeNextPage(link) {
-  morePages = false;
-  link.remove();
-}
-
 function pjax(url, container) {
   $.pjax({
     url: url,
     container: container || '#body',
     timeout: 12000
   });
-}
-
-function nearBottom() {
-  return w.scrollTop() >= ($(document).height() - $(window).height() - 1400);
 }
 
 function navDropdown(nav, pad, hover) {
@@ -667,23 +534,6 @@ function getNavbar() {
   }
 }
 
-function scrollToCurrentSong() {
-  fn.scrollTo($('section.playing'));
-}
-
-function resetMorePages() {
-  morePages = true;
-}
-
-function playFromParams() {
-  updateParams.run();
-  if (urlParams['play']) {
-    var song = urlParams['song'];
-    var section = $('#song-' + song);
-    mp.playSection(section);
-  }
-}
-
 function playAfterRouting() {
   if (playAfterLoad) {
     clickSong(playAfterLoad);
@@ -720,7 +570,6 @@ function goToListen(listen) {
 }
 
 function loadPage(url, callback) {
-  newCurPage = url;
   page.start();
   $.ajax({
     url: url,

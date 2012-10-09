@@ -6,23 +6,23 @@ var page = {
   start: function pageStart() {
     $('#main-mid .zeroClipboardDiv').remove();
     $('.tipsy').remove();
-    fn.attachSpinner();
+    spinner.attach();
   },
 
   end: function pageEnd(data) {
-    var curPage = newCurPage || window.location.pathname + window.location.search,
+    var curPage = window.location.pathname + window.location.search,
         path = curPage.split('/'),
         tipTimer,
         signedIn = !$('body').is('.signed_out'),
         pageFollow,
         doScrollToTop = true;
 
-    newCurPage = null;
     fn.log(curPage);
 
+    pagination.resetMorePages();
     updatePlaylist();
-    resetMorePages();
     playAfterRouting();
+    spinner.detach();
 
     // Image errors
     $('.playlist img').on('error', function(){
@@ -32,8 +32,6 @@ var page = {
 
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);
-
-    fn.detachSpinner();
 
     // Set page in music player && scroll to current section if found
     mp.setPage(curPage, function(foundSection) {
@@ -82,7 +80,7 @@ var page = {
     }
 
     // Reset page
-    scrollPage = getPage();
+    pagination.updateCurrentPage();
     doneScrolling = false;
   },
 

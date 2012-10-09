@@ -2,29 +2,6 @@ DO_LOGGING = true;
 
 String.prototype.leftPad = function (l, c) { return new Array(l - this.length + 1).join(c || ' ') + this; }
 
-// Spinner options
-var lastPosition = [0, 0],
-    offset = 25,
-    spinner = $('#spinner'),
-    spinOpts = {
-      lines: 6, // The number of lines to draw
-      length: 2, // The length of each line
-      width: 3, // The line thickness
-      radius: 4, // The radius of the inner circle
-      corners: 0, // The rounding of the lines
-      rotate: 0, // The rotation offset
-      color: '#fff', // #rgb or #rrggbb
-      speed: 1, // Rounds per second
-      trail: 60, // Afterglow percentage
-      shadow: true, // Whether to render a shadow
-      hwaccel: false, // Whether to use hardware acceleration
-      className: 'spinner', // The CSS class to assign to the spinner
-      zIndex: 2e9, // The z-index (defaults to 2000000000)
-      top: 'auto', // Top position relative to parent in px
-      left: 'auto' // Left position relative to parent in px
-    };
-
-
 var fn = {
   log: function() {
     if (DO_LOGGING)  {
@@ -144,27 +121,5 @@ var fn = {
       wait = true;
       setTimeout(function() { el.html(text); wait = false; }, 2000);
     });
-  },
-
-  attachSpinner: function() {
-    spinner
-      .spin(spinOpts)
-      .removeClass('hidden')
-      .css({
-        left: lastPosition[0] + offset,
-        top:  lastPosition[1] + offset
-      });
-
-    $('body').bind('mousemove.spinner', function(e){
-      $('#spinner').css({
-          left: e.pageX + offset,
-          top:  e.pageY + offset
-        });
-    });
-  },
-
-  detachSpinner: function() {
-    $(document).unbind('mousemove.spinner');
-    spinner.spin(false).addClass('hidden');
   }
 };
