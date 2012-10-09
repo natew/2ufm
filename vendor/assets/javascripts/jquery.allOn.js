@@ -1,8 +1,9 @@
 $.fn.allOn = function(onEvent, bindings) {
-  console.log(bindings);
+  fn.log(bindings);
   for (var target in bindings) {
-    console.log(target, onEvent);
+    fn.log(target, onEvent, this);
     $(this).on(onEvent, target, function(e) {
+      fn.log('calling', target);
       bindings[target].call(e, $(this));
     });
   }
