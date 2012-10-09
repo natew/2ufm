@@ -27,7 +27,13 @@ class User < ActiveRecord::Base
   has_many :listens
   has_many :shares, :foreign_key => :receiver_id
 
-  has_attachment :avatar, styles: { original: ['300x300#', :jpg], medium: ['128x128#', :jpg], small: ['64x64#', :jpg] }, :s3 => Yetting.s3_enabled
+  has_attachment :avatar,
+    styles: {
+      original: ['300x300#', :jpg],
+      medium: ['128x128#', :jpg],
+      small: ['64x64#', :jpg]
+    },
+    s3: Yetting.s3_enabled
 
   acts_as_url :username, sync_url: true, url_attribute: :slug, allow_duplicates: false
 

@@ -78,8 +78,8 @@ class UsersController < ApplicationController
 
     current_user.avatar.destroy if params[:avatar]
 
-    if Station.find_by_slug(params[:user][:username])
-      flash[:error] = 'Station name taken'
+    if params[:user][:username] != current_user.username and Station.find_by_slug(params[:user][:username])
+      flash[:notice] = 'Station name taken'
     else
       if old_pass.blank?
         current_user.update_without_password(params[:user])
