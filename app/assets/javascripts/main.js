@@ -574,6 +574,8 @@ function goToListen(listen) {
   var now = Math.round((new Date()).getTime() / 1000),
       seconds_past = now - parseInt(listen.created_at_unix, 10);
 
+  mp.ffTo(seconds_past);
+
   if (listen.url.replace(/\?.*/, '') == mp.curPage()) {
     clickSong(listen.song_id);
   } else {

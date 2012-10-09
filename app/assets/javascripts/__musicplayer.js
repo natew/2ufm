@@ -30,7 +30,8 @@ var mp = (function() {
       failures = 0,
       playTimeout,
       usedKeyboard = false,
-      listenUrl;
+      listenUrl,
+      ffTo;
 
   // Playmode
   playMode = playMode || 0;
@@ -648,6 +649,10 @@ var mp = (function() {
 
     setKeyboardUsed: function() {
       usedKeyboard = true;
+    },
+
+    ffTo: function(seconds) {
+      time = seconds;
     }
   };
 
