@@ -176,19 +176,6 @@ $('.nav-hover').live({
   }
 });
 
-function closeHoveredDropdown() {
-  var el = navHoverActive;
-  if (el && !el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-    navUnhoveredOnce = true;
-    if (navUnhoveredOnce) {
-      navDropdown(false);
-      clearInterval(navHoverInterval);
-      navHovered[el.attr('class')] = false;
-      navUnhoveredOnce = false;
-    }
-  }
-}
-
 // Share click
 $('#share-friends').on('click', 'a', function() {
   var el = $(this);
@@ -205,8 +192,7 @@ $('#share-friends').on('click', 'a', function() {
 body.allOn('click', {
   'a': function(e, el) {
     navDropdown(false);
-    if (!this.className.match(/external/)
-      e.preventDefault();
+    if (!this.className.match(/external/)) e.preventDefault();
     if (!this.className.match(/popup|control/)) {
       if (doPjax) {
         $.pjax({
@@ -319,6 +305,17 @@ body.on('click', function(e) {
   // Hide dropdowns on click
   if (!el.is('a, input')) navDropdown(false);
 });
+
+$('#player-buttons .broadcast a').click(function() {
+  $(this).parent().toggleClass('remove');
+});
+
+
+
+
+// functions
+
+
 
 function notice(message, time) {
   $('#dialog').remove();
@@ -640,6 +637,15 @@ function updateBroadcastButton(station_id, song_id) {
   }
 }
 
-$('#player-buttons .broadcast a').click(function() {
-  $(this).parent().toggleClass('remove');
-})
+function closeHoveredDropdown() {
+  var el = navHoverActive;
+  if (el && !el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+    navUnhoveredOnce = true;
+    if (navUnhoveredOnce) {
+      navDropdown(false);
+      clearInterval(navHoverInterval);
+      navHovered[el.attr('class')] = false;
+      navUnhoveredOnce = false;
+    }
+  }
+}
