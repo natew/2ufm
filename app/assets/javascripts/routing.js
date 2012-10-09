@@ -81,23 +81,6 @@ var page = {
         .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
     }
 
-    // Nav toggle
-    var navActive = $('.nav-menu a.active'),
-        sectionActive = $('.nav-container div.active');
-
-    if (navActive.length) {
-      $('.nav-menu a').click(function(e) {
-        navActive.removeClass('active');
-        navActive = $(this).addClass('active');
-        sectionActive.removeClass('active');
-        sectionActive = $($(this).attr('href')).addClass('active');
-        return false;
-      });
-    }
-
-    // Play station
-    mpClick('#station-play', 'toggle');
-
     // Reset page
     scrollPage = getPage();
     doneScrolling = false;

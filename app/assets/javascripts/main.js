@@ -1,5 +1,6 @@
 // Variables
 var w = $(window),
+    body = $('body'),
     songOffsets = [],
     scrollDelayTimeout,
     notScrolling = true,
@@ -7,7 +8,7 @@ var w = $(window),
     debug = false,
     isOnline = $('body.signed_in').length > 0,
     isAdmin = $('body[data-role="admin"]').length > 0,
-    userId = $('body').data('user'),
+    userId = body.data('user'),
     modalShown = false,
     navOpen,
     loadingPage = false,
@@ -36,7 +37,7 @@ var w = $(window),
     newCurPage,
     doc;
 
-doc = ($.browser.chrome || $.browser.safari) ? $('body') : $('html');
+doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 
 // Read URL parameters
 var urlParams = {},
@@ -300,7 +301,7 @@ $(function() {
   });
 
   // Link binding
-  $('body').on('click', 'a', function bodyClick(e) {
+  body.on('click', 'a', function bodyClick(e) {
     var el = $(this);
     fn.log('click', el);
 
@@ -382,27 +383,39 @@ $(function() {
   });
 
   // Toggle hidden areas
-  $('body').on('click.toggle', '[data-toggle="hidden"]', function(e) {
+  body.on('click.toggle', '[data-toggle="hidden"]', function(e) {
     e.preventDefault();
     $($(this).attr('href')).toggleClass('hidden');
     return false;
   });
 
   // Signup button
-  $('body').on('click.signup', '#sign-up-button', function(e) {
+  body.on('click.signup', '#sign-up-button', function(e) {
     e.preventDefault();
     registerUser($(this));
   });
 
   // Tune into friends
-  $('body').on('click.friends', '#friends a', function(e) {
+  body.on('click.friends', '#friends a', function(e) {
     e.preventDefault();
     tuneIn($(this).attr('id').split('-')[1]);
     return false;
-  })
+  });
+
+  // Nav toggle
+  var navActive = $('.nav-menu a.active'),
+      sectionActive = $('.nav-container div.active');
+
+  body.on('click.nav-menu', '.nav-menu a.control', function(e) {
+    navActive.removeClass('active');
+    navActive = $(this).addClass('active');
+    sectionActive.removeClass('active');
+    sectionActive = $($(this).attr('href')).addClass('active');
+    return false;
+  });
 
   // Clicks not on a
-  $('body').on('click', function(e) {
+  body.on('click', function(e) {
     var el = $(e.target);
 
     // Update last position (for loading spinner)
@@ -539,7 +552,7 @@ function nextPage(playlist) {
     $.ajax({
       url: mp.getPage(),
       type: 'get',
-      data: 'id=' + id + '&p=' + scrollPage,
+      data: 'i=' + id + '&p=' + scrollPage,
       headers: {
         Accept: "text/page; charset=utf-8",
         "Content-Type": "text/page; charset=utf-8"
@@ -763,14 +776,14 @@ function modal(selector) {
   if (modalShown || selector === false) {
     if (!modal.children('.permanent').length) {
       show.attr('class', '');
-      $('body').removeClass('modal-shown');
+      body.removeClass('modal-shown');
       modalShown = false;
     }
   }
   else {
     modal.html($(selector).clone());
     show.addClass('shown').addClass(selector.substring(1));
-    $('body').addClass('modal-shown');
+    body.addClass('modal-shown');
     modalShown = true;
     $('input:first', modal).focus();
   }

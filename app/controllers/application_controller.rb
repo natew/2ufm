@@ -23,13 +23,14 @@ class ApplicationController < ActionController::Base
   private
 
   def do_page_request
-    return head 204 unless defined? request.headers['HTTP_ACCEPT']
     logger.debug 'ACCEPT: ' + (request.headers['HTTP_ACCEPT'] || 'nil')
+    return head 204 unless defined? request.headers['HTTP_ACCEPT']
     if request.headers['HTTP_ACCEPT'] =~ /text\/page/i
-      id = params[:id]
+      id = params[:i]
+      logger.debug "Request page id #{id}"
       if id[0] == '-'
         dont_paginate = true
-        user = Station.find(-id).user
+        user = Station.find(id[1..-1]).user
         @p_station = user.feed_station
         @p_songs = user.following_songs(params[:p].to_i * Yetting.per, Yetting.per)
       elsif id == '0'
@@ -43,6 +44,7 @@ class ApplicationController < ActionController::Base
         @p_songs = Song.playlist_order_trending
       else
         @p_station = Station.find(id)
+        logger.debug @p_station.to_yaml
         @p_songs = @p_station.songs.playlist_order_broadcasted
       end
 
