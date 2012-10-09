@@ -197,11 +197,6 @@ $('#player-playlist').on('click', 'a', function(e) {
   else mp.playSong(index);
 });
 
-// Mac app download
-// if (navigator.appVersion.indexOf("Mac") != -1) {
-//   $('#sidebar .announce').addClass('ismac');
-// }
-
 // Online friends
 startGetNavbar();
 
@@ -419,36 +414,12 @@ body.on('click', function(e) {
   lastPosition = [e.pageX, e.pageY];
 
   // Hide dropdowns on click
-  console.log(el, el.is('input'))
-  if (!el.is('a,input')) navDropdown(false);
+  if (!el.is('a, input')) navDropdown(false);
 });
 
-$('.select-on-click').click(function() {
+body.on('click', '.select-on-click', function() {
   $(this).select();
-})
-
-//
-// Application integration
-//
-if (typeof macgap !== 'undefined') {
-  document.addEventListener('play', function() {
-    mp.toggle();
-    showGrowlInfo();
-  }, true);
-  document.addEventListener('prev', function() {
-    mp.prev();
-    showGrowlInfo();
-  }, true);
-  document.addEventListener('next', function() {
-    mp.next();
-    showGrowlInfo();
-  }, true);
-
-  function showGrowlInfo() {
-    var info = mp.curSongInfo();
-    macgap.growl.notify({title: info.artist_name + " - " + info.name, content: 'Now playing'});
-  }
-}
+});
 
 function notice(message, time) {
   $('#dialog').remove();
