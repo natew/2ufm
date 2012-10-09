@@ -214,7 +214,8 @@ body.allOn('click', {
           container: '#body',
           timeout: 12000
         });
-      } else {
+      }
+      else {
         loadPage(el.attr('href'));
       }
     }
@@ -256,7 +257,7 @@ body.allOn('click', {
     el.select();
   },
 
-  '[data-toggle="hidden"]', function(e, el) {
+  '[data-toggle="hidden"]': function(e, el) {
     $(el.attr('href')).toggleClass('hidden');
     return false;
   },
@@ -300,7 +301,7 @@ body.allOn('click', {
 
   '#more-artists': function() {
     var next = $('.artists-shelf li:not(.hidden):lt(5)');
-    if (next.length) next.addClass('hidden')
+    if (next.length) next.addClass('hidden');
     else $('.artists-shelf li').removeClass('hidden');
   },
 
