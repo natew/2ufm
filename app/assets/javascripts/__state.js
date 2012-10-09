@@ -22,4 +22,6 @@ var w = $(window),
     playAfterLoad,
     doPjax = true,
     isTuningIn = typeof(tuneInto) != 'undefined',
-    doc;
+    doc,
+    navHoverInterval,
+    navHoverActive;

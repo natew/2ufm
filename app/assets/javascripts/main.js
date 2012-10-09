@@ -172,27 +172,36 @@ $('.nav-hover').live({
         hovered = navHovered[hoveredClass];
 
     fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
-    if (!hovered) navDropdown(el, false, true);
-    navHovered[hoveredClass] = true;
+    clearInterval(navHoverInterval);
+    closeHoveredDropdown();
+    if (!hovered) {
+      navHoverActive = el;
+      navDropdown(el, false, true);
+      navHovered[hoveredClass] = true;
+    }
   },
   mouseleave: function() {
-    var el = $(this);
-    var navHoverInterval = setInterval(function() {
-      if (!el.is(':hover') && !$(el.attr('href')).is(':hover')) {
-        navUnhoveredOnce = true;
-        if (navUnhoveredOnce) {
-          navDropdown(false);
-          clearInterval(navHoverInterval);
-          navHovered[el.attr('class')] = false;
-          navUnhoveredOnce = false;
-        }
-      }
-    }, 150);
+    navHoverInterval = setInterval(function() {
+      closeHoveredDropdown(navHoverActive);
+    }, 250);
   },
   click: function() {
     return false;
   }
 });
+
+function closeHoveredDropdown() {
+  var el = navHoverActive;
+  if (el && !el.is(':hover') && !$(el.attr('href')).is(':hover')) {
+    navUnhoveredOnce = true;
+    if (navUnhoveredOnce) {
+      navDropdown(false);
+      clearInterval(navHoverInterval);
+      navHovered[el.attr('class')] = false;
+      navUnhoveredOnce = false;
+    }
+  }
+}
 
 // Share click
 $('#share-friends').on('click', 'a', function() {
@@ -408,6 +417,10 @@ function navDropdown(nav, pad, hover) {
           dropdown = $(target).removeClass('hidden').addClass('open'),
           top = nav.offset().top - doc.scrollTop() + nav.height() + padding,
           left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
+
+      if (dropdown.is('.right-align')) {
+        left = left - dropdown.outerWidth()/2 + 10;
+      }
 
       // If the nav is not already open
       if (!(navOpen && navOpen[0] == dropdown[0])) {

@@ -355,7 +355,6 @@ header {
         &:hover {text-decoration: underline; color: #fff !important;}
       }
     }
-
   }
 
   #player-bottom {
@@ -386,8 +385,9 @@ header {
     #player-progress-bar {
       position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
+      left: 30px;
+      right: 30px;
+      z-index: 1;
       bottom: 0;
       overflow: hidden;
       margin: 0;
@@ -430,9 +430,39 @@ header {
     }
   }
 
+  #player-mini-controls {
+    position: absolute;
+    top: -6px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    overflow: hidden;
+
+    a {
+      width: 24px;
+      padding: 22px 0 0;
+      float: left;
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+
+      &:hover {
+        color: #fff;
+      }
+
+      &:before {
+        font-size: 17px;
+      }
+
+      &.post {
+        float: right;
+      }
+    }
+  }
+
   #player-buttons {
     position: absolute;
-    top: 6px;
+    top: 7px;
     right: 10px;
     width: 184px;
 
@@ -497,9 +527,25 @@ header {
       min-width: 160px;
     }
 
+    &#tune-in {
+
+    }
+
     &.active {
       background: $green;
     }
+  }
+}
+
+#friends {
+  width: 160px;
+
+  a {
+    color: #555;
+  }
+
+  .online a {
+    color: #fff;
   }
 }
 
@@ -841,6 +887,7 @@ header #second-nav {
 .pictos-time:before {content: "t";}
 .pictos-inbox:before {content: "I";}
 .pictos-globe:before {content: "G";}
+.pictos-pulse:before {content: "Y";}
 
 #main-mid a[href^="http://"] {
   padding-right: .4em;
@@ -1390,18 +1437,6 @@ $announce-color: $heading-color;
 
 /* Nav menus */
 
-#friends {
-  width: 160px;
-
-  a {
-    color: #555;
-  }
-
-  .online a {
-    color: #fff;
-  }
-}
-
 $nav-pad: 15px;
 $nav-item-pad: 4px;
 $nav-arrow-size: 5px;
@@ -1419,6 +1454,16 @@ $nav-arrow-size: 5px;
   font-weight: bold;
   border-radius: 5px;
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));
+
+  &.right-align {
+    margin-left: 0;
+
+    &:before {
+      left: auto;
+      margin: 0;
+      right: $nav-arrow-size;
+    }
+  }
 
   &.open {
     display: block;
