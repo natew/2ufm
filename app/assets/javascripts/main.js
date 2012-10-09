@@ -402,14 +402,11 @@ $(function() {
     return false;
   });
 
-  // Nav toggle
-  var navActive = $('.nav-menu a.active'),
-      sectionActive = $('.nav-container div.active');
-
+  // Section toggling
   body.on('click.nav-menu', '.nav-menu a.control', function(e) {
-    navActive.removeClass('active');
-    navActive = $(this).addClass('active');
-    sectionActive.removeClass('active');
+    $('.nav-menu a.active').removeClass('active');
+    $(this).addClass('active');
+    $('.nav-container div.active').removeClass('active');
     sectionActive = $($(this).attr('href')).addClass('active');
     return false;
   });

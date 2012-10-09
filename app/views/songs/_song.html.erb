@@ -12,7 +12,7 @@
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
 <%-
-  cache ['v4', song, id, station_id] do
+  cache_if id.to_i > 5, ['v5', song, id, station_id] do
 
     follow_id       = 'station-follow-' + id
     cover         ||= :icon
