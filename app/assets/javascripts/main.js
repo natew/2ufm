@@ -64,20 +64,6 @@ if (volume === "0") {
 
 if (playMode != 'normal') updatePlayMode(playMode);
 
-// html5 pushState
-body.on('click', 'a:not(.control)', function(e) {
-  e.preventDefault();
-  if (doPjax) {
-    $.pjax({
-      url: $(this).attr('href'),
-      container: '#body',
-      timeout: 12000
-    });
-  } else {
-    loadPage($(this).attr('href'));
-  }
-});
-
 // Listen sharing auto play
 playFromParams();
 
@@ -216,115 +202,111 @@ $('#share-friends').on('click', 'a', function() {
   return false;
 });
 
-// Link binding
-body.on('click', 'a', function bodyClick(e) {
-  var el = $(this);
-  fn.log('click', el);
-
-  // Disabled
-  if (el.is('.disabled')) {
-    e.preventDefault();
-    return false;
-  }
-  else {
-    if (el.is('.control')) e.preventDefault();
-
-    // Songs
-    if (el.is('.song-link')) {
-      fn.log('song link')
-      mp.playSection(el.parent('section'));
+body.allOn('click', {
+  'a': function(e, el) {
+    navDropdown(false);
+    if (!this.className.match(/external/)
+      e.preventDefault();
+    if (!this.className.match(/popup|control/)) {
+      if (doPjax) {
+        $.pjax({
+          url: el.attr('href'),
+          container: '#body',
+          timeout: 12000
+        });
+      } else {
+        loadPage(el.attr('href'));
+      }
     }
+  },
 
-    // Not logged in
-    else if (!isOnline && el.is('.restricted')) {
+  '.disabled': function() {
+    return false;
+  },
+
+  '.control': function(e) {
+  },
+
+  '.restricted': function() {
+    if (!isOnline) {
       modal('#modal-login');
       return false;
     }
+  },
 
-    // Modals
-    else if (el.is('.modal')) {
-      modal(e.target.getAttribute('href'));
-      return false;
-    }
+  '.song-link': function(e, el) {
+    mp.playSection(el.parent('section'));
+  },
 
-    else if (el.is('.play-station')) {
-      mp.setAutoPlay(true);
-    }
+  '.modal': function() {
+    modal(e.target.getAttribute('href'));
+    return false;
+  },
 
-    else if (el.is('#player-mode')) {
-      e.preventDefault();
-      updatePlayMode(mp.nextPlayMode());
-    }
+  '.close-modal': function() {
+    modal(false);
+  },
 
-    else if (el.is('#more-artists')) {
-      var next = $('.artists-shelf li:not(.hidden):lt(5)');
-      if (next.length) next.addClass('hidden')
-      else $('.artists-shelf li').removeClass('hidden');
-    }
+  '.popup': function(e, el) {
+    popup(el);
+    return false;
+  },
 
-    else if (el.is('.close-modal')) {
-      modal(false);
-    }
+  '.select-on-click': function(e, el) {
+    el.select();
+  },
 
-    else if (el.is('.show-hide')) {
-      $(el.attr('href')).toggleClass('hidden');
-      return false;
-    }
+  '[data-toggle="hidden"]', function(e, el) {
+    $(el.attr('href')).toggleClass('hidden');
+    return false;
+  },
 
-    else if (el.is('#nav-shares')) {
-      el.children('span').remove();
-    }
+  '.nav:not(.active)': function(e) {
+    navDropdown($(e.target));
+    return false;
+  },
 
-    else if (el.is('.add-comment')) {
-      showComments(el.attr('href'));
-    }
+  '.play-station': function() {
+    mp.setAutoPlay(true);
+  },
 
-    // Always run the below functions
+  '.add-comment': function(e, el) {
+    showComments(el.attr('href'));
+  },
 
-    if (el.is('.popup')) {
-      e.preventDefault();
-      popup(el);
-      return false;
-    }
+  '.nav-menu a.control': function(e, el) {
+    $('.nav-menu a.active').removeClass('active');
+    el.addClass('active');
+    $('.nav-container div.active').removeClass('active');
+    sectionActive = $(el.attr('href')).addClass('active');
+    return false;
+  },
 
-    if (el.is('.nav:not(.active)')) {
-      navDropdown($(e.target));
-      return false;
-    }
-    else {
-      // Close any dropdowns
-      navDropdown(false);
-    }
+  '#friends a': function(e, el) {
+    e.preventDefault();
+    tuneIn(el.attr('id').split('-')[1]);
+    return false;
+  },
+
+  '#sign-up-button': function(e, el) {
+    e.preventDefault();
+    registerUser(el);
+  },
+
+  '#player-mode': function(e) {
+    e.preventDefault();
+    updatePlayMode(mp.nextPlayMode());
+  },
+
+  '#more-artists': function() {
+    var next = $('.artists-shelf li:not(.hidden):lt(5)');
+    if (next.length) next.addClass('hidden')
+    else $('.artists-shelf li').removeClass('hidden');
+  },
+
+  '#nav-shares': function(e, el) {
+    el.children('span').remove();
   }
-});
-
-// Toggle hidden areas
-body.on('click.toggle', '[data-toggle="hidden"]', function(e) {
-  e.preventDefault();
-  $($(this).attr('href')).toggleClass('hidden');
-  return false;
-});
-
-// Signup button
-body.on('click.signup', '#sign-up-button', function(e) {
-  e.preventDefault();
-  registerUser($(this));
-});
-
-// Tune into friends
-body.on('click.friends', '#friends a', function(e) {
-  e.preventDefault();
-  tuneIn($(this).attr('id').split('-')[1]);
-  return false;
-});
-
-// Section toggling
-body.on('click.nav-menu', '.nav-menu a.control', function(e) {
-  $('.nav-menu a.active').removeClass('active');
-  $(this).addClass('active');
-  $('.nav-container div.active').removeClass('active');
-  sectionActive = $($(this).attr('href')).addClass('active');
-  return false;
 });
 
 // Clicks not on a
@@ -335,10 +317,6 @@ body.on('click', function(e) {
 
   // Hide dropdowns on click
   if (!el.is('a, input')) navDropdown(false);
-});
-
-body.on('click', '.select-on-click', function() {
-  $(this).select();
 });
 
 function notice(message, time) {

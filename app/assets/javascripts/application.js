@@ -12,6 +12,7 @@
 //= require jquery.cookie
 //= require jquery.spin
 //= require jquery.dontscrollparent
+//= require jquery.allOn
 //= require mustache
 //= require soundmanager2-nodebug-jsmin
 //= require spin
