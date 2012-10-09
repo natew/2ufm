@@ -26,19 +26,19 @@ class ApplicationController < ActionController::Base
     return head 204 unless defined? request.headers['HTTP_ACCEPT']
     logger.debug 'ACCEPT: ' + (request.headers['HTTP_ACCEPT'] || 'nil')
     if request.headers['HTTP_ACCEPT'] =~ /text\/page/i
-      id = params[:id].to_i
-      if id < 0
+      id = params[:id]
+      if id[0] == '-'
         dont_paginate = true
         user = Station.find(-id).user
         @p_station = user.feed_station
         @p_songs = user.following_songs(params[:p].to_i * Yetting.per, Yetting.per)
-      elsif id == 0
+      elsif id == '0'
         @p_station = Station.newest
         @p_songs = Song.playlist_order_published
-      elsif id == 1
+      elsif id == '1'
         @p_station = Station.popular
         @p_songs = Song.playlist_order_popular
-      elsif id == 2
+      elsif id == '2'
         @p_station = Station.trending
         @p_songs = Song.playlist_order_trending
       else
