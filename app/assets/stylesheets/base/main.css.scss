@@ -729,8 +729,9 @@ header {
           position: absolute;
           top: 2px;
           right: 2px;
-          width: 18px;
-          height: 18px;
+          width: 22px;
+          height: 22px;
+          @include border-radius(16px);
         }
       }
 
@@ -1307,7 +1308,7 @@ $announce-color: $heading-color;
 
   .image {
     position: absolute;
-    top: 0;
+    top: -4px;
     right: 20px;
 
     &.medium {
@@ -1583,9 +1584,9 @@ ol.mp_list {
     a {
       text-decoration: none;
       float: left;
-      padding: 8px 10px;
+      padding: 12px 10px;
       margin: -8px 0;
-      font-size: 14px;
+      font-size: 16px;
       color: #ccc;
 
       &:first-child {
@@ -1738,6 +1739,7 @@ h2 small { font-size: 55%; }
 
 .image {
   display: block;
+  @include border-radius(128px);
 }
 
 .upload-avatar {

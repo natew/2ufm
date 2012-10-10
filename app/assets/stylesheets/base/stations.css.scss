@@ -216,20 +216,19 @@ $station-image-small: $play-button-small;
   padding-right: 40px;
   margin: -20px;
   margin-bottom: 0;
-  height: 96px;
+  height: 114px;
   overflow: hidden;
+
+  img {
+    width: 114px;
+    height: 114px;
+  }
 
   li {
     margin: 0 8px 20px 0;
     @include transition(all .3s linear);
 
-    img {
-      width: 96px;
-      height: 96px;
-    }
-
     strong {
-      font-size: 13px;
       line-height: 1.2em;
     }
   }
