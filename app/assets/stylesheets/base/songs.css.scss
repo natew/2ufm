@@ -200,6 +200,7 @@ $song-player-height: 50px;
     }
 
     .reviews {
+      margin-top: -10px;
       pointer-events: none;
       position: relative;
       z-index: 13;
@@ -328,8 +329,7 @@ $song-player-height: 50px;
 
   .song-meta {
     font-size: 12px;
-    margin: 0 0 0 $song-art + $song-pad;
-    padding: 4px 0 0;
+    margin: 6px 0 0 $song-art + $song-pad;
     color: #888;
     z-index: 12;
     position: relative;
@@ -425,7 +425,7 @@ $song-player-height: 50px;
 
   .song-controls {
     position: absolute;
-    bottom: 5px;
+    top: 0;
     left: 0;
 
     &.hover-show a { display: none; }
@@ -436,8 +436,7 @@ $song-player-height: 50px;
       float: left;
       font-size: 13px;
       padding: 5px 6px;
-      margin: -6px;
-      margin-right: 12px;
+      margin: 0 6px 0 0;
       font-weight: 400;
       line-height: .9em;
       color: #bbb;
