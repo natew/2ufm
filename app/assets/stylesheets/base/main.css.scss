@@ -586,7 +586,7 @@ header {
     text-decoration: none;
     color: #ccc;
     font-weight: 300;
-    font-size: 13px;
+    font-size: 14px;
     padding: 4px 30px 4px;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -749,7 +749,7 @@ header {
   z-index: 2;
 
   #breadcrumbs {
-    background: #2e2e2e;
+    background: $body-light;
     padding: 6px 20px;
     margin: -10px 0 10px 0;
     font-size: 12px;
@@ -1307,9 +1307,8 @@ $announce-color: $heading-color;
 
   .image {
     position: absolute;
-    top: -3px;
+    top: 0;
     right: 20px;
-    border: 3px solid #444;
 
     &.medium {
       width: 128px; height: 128px;
@@ -1568,7 +1567,8 @@ ol.mp_list {
     overflow: hidden;
     padding: 8px 20px;
     padding-right: 178px;
-    border-top: 3px solid #444;
+    border-top: 2px solid #444;
+    @include linear-gradient($body-dark, $body-bg);
 
     &.inline {
       margin-top: -2px;
@@ -1743,7 +1743,7 @@ h2 small { font-size: 55%; }
 .upload-avatar {
   position: absolute;
   top: 0;
-  right: 22px;
+  right: 20px;
   z-index: 12;
   text-align: center;
   padding: 50px 0 0;

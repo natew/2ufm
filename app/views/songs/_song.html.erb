@@ -41,7 +41,7 @@
   <div class="song-meta">
     <div class="song-meta-pre">
       <%= render :partial => 'songs/posted', :locals => { :song => song, :with_follow => with_follow } if show_original  %>
-      <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } %>
+      <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } if with_follow %>
     </div>
 
     <div class="song-controls">
