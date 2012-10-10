@@ -301,6 +301,7 @@ body.allOn('click', {
   },
 
   '#nav-shares': function(e, el) {
+    setShares(0);
     el.children('span').remove();
   }
 });
@@ -509,8 +510,6 @@ function getNavbar() {
     $.getJSON('/navbar.json', function getNavbarCallback(data) {
       fn.log('got', data);
       if (data) {
-        setShares(data['inbox_count']);
-
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
         $('#stations-inner')
           .html(friendsHtml)
@@ -657,9 +656,8 @@ function closeHoveredDropdown() {
 }
 
 function addShare() {
-  alert('adding share');
-  shareCount++;
-  updateShares();
+  setShares(shareCount + 1);
+  fn.log(shareCount);
 }
 
 function setShares(count) {
@@ -672,4 +670,13 @@ function updateShares() {
     $('#nav-shares span').remove();
     $('#nav-shares').append('<span>' + shareCount + '</span>');
   }
+}
+
+function addSubscriber() {
+  fn.log('add subscriber');
+  var el = $('#player-live a'),
+      count = el.attr('data-count'),
+      countInt = parseInt(count, 10) + 1;
+
+  el.attr('data-count', countInt).html(el.html().replace(count, countInt));
 }

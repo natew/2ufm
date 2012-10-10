@@ -1,1 +1,5 @@
+<% publish_to("/subscriptions/#{@id}") do %>
+  addSubscriber();
+<% end %>
+
 <%= h subscribe_to("/listens/#{@id}") %>

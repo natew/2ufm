@@ -614,14 +614,16 @@ header {
     }
 
     span {
-      padding: 2px 6px;
-      margin: -2px 0 0;
+      position: absolute;
+      padding: 0 6px;
+      top: 4px;
+      right: 10px;
       font-size: 12px;
       color: #fff;
       background: #6a0007;
       float: right;
       text-align: center;
-      min-width: 24px;
+      min-width: 22px;
       border-radius: 20px;
       @include box-sizing(border-box);
     }
@@ -1305,8 +1307,9 @@ $announce-color: $heading-color;
 
   .image {
     position: absolute;
-    top: 0;
+    top: -3px;
     right: 20px;
+    border: 3px solid #444;
 
     &.medium {
       width: 128px; height: 128px;

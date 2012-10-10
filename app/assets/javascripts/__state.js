@@ -26,4 +26,4 @@ var w = $(window),
     navHoverInterval,
     navHoverActive,
     playerBroadcastTemplate = $('#player-buttons .broadcast').html(),
-    shareCount;
+    shareCount = 0;
