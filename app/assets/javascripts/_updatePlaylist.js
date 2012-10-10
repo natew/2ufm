@@ -49,7 +49,7 @@ function updateBroadcasts() {
       };
 
   $(songs).each(function() {
-    var broadcast = $(this).addClass('liked').children('.song-meta').find('.song-controls .broadcast a');
+    var broadcast = $(this).addClass('liked').children('.broadcast').children('a');
     broadcast
       .attr('title', b.title)
       .data('method', b.method)
