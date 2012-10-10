@@ -179,7 +179,7 @@ $station-image-small: $play-button-small;
       padding: 4px;
       display: block;
       position: absolute;
-      top: 0;
+      bottom: 0;
       font-weight: 600;
       width: 100%;
       z-index: 10;
@@ -189,6 +189,7 @@ $station-image-small: $play-button-small;
   }
 
   p {
+    display: none;
     position: absolute;
     display: inline-block;
     bottom: 0;
