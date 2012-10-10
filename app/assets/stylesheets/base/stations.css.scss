@@ -216,12 +216,12 @@ $station-image-small: $play-button-small;
   padding-right: 40px;
   margin: -20px;
   margin-bottom: 0;
-  height: 114px;
+  height: 92px;
   overflow: hidden;
 
   img {
-    width: 114px;
-    height: 114px;
+    width: 92px;
+    height: 92px;
   }
 
   li {
@@ -230,6 +230,8 @@ $station-image-small: $play-button-small;
 
     strong {
       line-height: 1.2em;
+      font-size: 12px;
+      font-weight: 400;
     }
   }
 }

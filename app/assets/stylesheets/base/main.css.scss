@@ -1346,21 +1346,32 @@ $announce-color: $heading-color;
   }
 
   .title-nav {
-    padding: 0;
+    position: absolute;
     margin: 10px 0 0;
+    top: 0;
+    right: 160px;
 
     ul { margin-top: 14px; }
     li {
       list-style: none;
       padding: 0;
-      margin-right: 6px;
-      float: left;
-      display: block;
 
       &.right {
         margin-left: 6px;
         margin-right: 0;
         float: right;
+      }
+
+      a {
+        float: right;
+      }
+
+      .count {
+        float: left;
+        padding: 4px;
+        margin-right: 8px;
+        font-size: 16px;
+        font-weight: normal;
       }
     }
   }
