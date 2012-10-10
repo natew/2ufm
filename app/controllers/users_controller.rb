@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def live
     @live = true
-    @user = User.find_by_username(params[:id])
+    @user = User.find_by_slug(params[:id])
     @subscribe_to = "/listens/#{@user.id}"
     listen = @user.listens.last
     song = listen.song

@@ -37,6 +37,7 @@ Fusefm::Application.routes.draw do
 
   match "/tune/:id", :to => "users#tune"
   match "/live/:id", :to => "users#live"
+  match "/@:id", :to => "users#live"
   match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
   match "/fresh", :to => "songs#fresh"
