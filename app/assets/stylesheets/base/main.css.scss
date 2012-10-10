@@ -906,7 +906,7 @@ header #second-nav {
 
   &:after {
     content: "A";
-    display: block;
+    display: inline-block;
     font-family: 'Pictos';
     padding: 0 0 0 .3em;
     -webkit-font-smoothing: antialiased;
@@ -1743,7 +1743,7 @@ h2 small { font-size: 55%; }
 .upload-avatar {
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 22px;
   z-index: 12;
   text-align: center;
   padding: 50px 0 0;

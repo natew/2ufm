@@ -115,7 +115,6 @@ class Song < ActiveRecord::Base
 
   # Scopes for playlist
   scope :playlist_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
-  scope :playlist_scope_order_popular, order_user_broadcasts.individual.recently
   scope :playlist_scope_order_trending, select_distinct_rank.order_rank.individual
   scope :playlist_scope_order_published, select_songs.order_published.individual
   scope :playlist_scope_order_received, select_shared_songs.select_sender.with_sender.order_shared.individual
@@ -125,7 +124,7 @@ class Song < ActiveRecord::Base
   scope :grouped, where('matching_id is not null').select(:matching_id).working
   scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working
   scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working
-  scope :grouped_order_trending, grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > 1').working
+  scope :grouped_order_trending, lambda { |min| grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > ?', min).working }
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
@@ -158,11 +157,11 @@ class Song < ActiveRecord::Base
   end
 
   def self.playlist_order_trending
-    Song.where(id: Song.grouped_order_trending).playlist_scope_order_trending
+    Song.where(id: Song.grouped_order_trending(1)).playlist_scope_order_trending
   end
 
   def self.playlist_order_popular
-    Song.playlist_scope_order_popular
+    Song.where(id: Song.grouped_order_trending(4)).playlist_scope_order_trending
   end
 
   def self.user_received_songs(id, offset, limit)
