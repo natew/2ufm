@@ -14,7 +14,9 @@
   <%- end # end cache
   -%>
 
-    <%= render :partial => 'shared/actions', :locals => { :station => @user.station } %>
+    <% own_station = user_signed_in? and @user.id == current_user.id %>
+    <%= render :partial => 'shared/actions', :locals => { :station => @user.station } unless own_station  %>
+    <% if own_station %><br /><% end %>
   </div>
 
   <div class="whole">
