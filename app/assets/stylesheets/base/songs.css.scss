@@ -50,7 +50,7 @@ header .role:after {top:3px; line-height:10px;}
   padding: 1px 4px;
   margin-top: -1px;
   margin-bottom: -1px;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0,0,0,0.06);
   border-radius: 4px;
   &:hover {
     color: #fff !important;
@@ -219,253 +219,273 @@ $song-player-height: 50px;
     .stats {
       display: none;
     }
+  }
 
-    h1 {
-      margin: -6px 0 -2px $song-art + $song-pad;
-      line-height: 24px;
+  .broadcast {
+    top: $song-pad;
+    right: $song-pad;
+    position: absolute;
+    z-index: 11;
+
+    a {
+      font-size: 18px;
+      padding: 1px 8px 2px;
+      padding-right: 30px;
+      line-height: 0.9em;
       font-weight: 400;
-      min-height: $play-button-size + 8;
 
-      span {
-        display: block;
-
-        &.artist {
-          font-weight: 300;
-          margin: 0 0 0 -4px;
-          display: inline-block;
-          font-size: 18px;
-          position: relative;
-          z-index: 12;
-          pointer-events: none;
-
-          a {
-            color: #ddd;
-            line-height: 1.2em;
-            pointer-events: auto;
-            &:hover { color: $link-hover; }
-            &.role {margin-top: 4px;}
-          }
-        }
-
-        &.name {
-          font-size: 18px;
-          margin: 5px 0;
-          font-weight: 400;
-          position: relative;
-          z-index: 11;
-          pointer-events: none;
-
-          a { color: #fff;
-            &:hover { color: $link-hover; }
-          }
-
-          em {
-            font-weight: 300;
-            font-style: normal;
-            font-size: 16px;
-            color: #aaa;
-
-            a {
-              color: #aaa;
-              pointer-events: auto;
-            }
-          }
-        }
-      }
-    }
-
-    .song-info {
-      position: relative;
-      /* weird chrome bug, doesnt position inside properly unless we do this */
-      padding: 1px;
-      margin: -1px;
-    }
-
-    .song-meta {
-      font-size: 12px;
-      margin: 0 0 0 $song-art + $song-pad;
-      padding: 4px 0 0;
-      color: #888;
-      z-index: 12;
-      position: relative;
-      pointer-events: none;
-
-      .song-meta-pre {
-        float: left;
+      &:hover {
+        color: #fff;
+        background: $like-color;
+        &:before { color: #fff; }
       }
 
-      a {pointer-events: all;}
-
-      .song-follow {
-        display: inline;
-      }
-
-      .follow-station-wrap {
-        white-space: nowrap;
-        position: relative;
-        display: inline-block;
-        padding: 1px 3px;
-        margin: 0 1px -8px;
-
-        a {
-          font-weight: 400;
-        }
-      }
-
-      .follow-station {
-        display: inline;
-        background: none;
-        border: none;
-        margin: 0;
+      &:before {
+        position: absolute;
+        font-size: 20px;
+        top: 6px;
+        right: 6px;
         padding: 0;
-        float: left;
-        box-shadow: none !important;
-
-        span {
-          font-size: 14px;
-          margin: -1px 0 -1px -2px;
-          line-height: 1.6em;
-          padding-right: 4px;
-          color: #bbb;
-          -webkit-font-smoothing: antialiased;
-        }
-
-        &.remove span {
-          color: $green;
-          &:hover { color: $red; }
-        }
-        strong {display: none;}
+        color: #666;
+        left: auto;
       }
 
-      .count {display:none;}
+      &.remove {
+        &:before { color: $like-color; }
+      }
 
-      a {
-        color: #bbb;
-        text-decoration: none;
+      &.remove:hover, &.remove:hover:before {
+        background: $dark-red;
+        &:before {
+          content: "D";
+          color: darken($dark-red,10%);
+          background: transparent;
+        }
+      }
+    }
+  }
+
+  h1 {
+    margin: -6px 40px -2px $song-art + $song-pad;
+    line-height: 24px;
+    font-weight: 400;
+    min-height: $play-button-size + 8;
+
+    span {
+      display: block;
+
+      &.artist {
+        font-weight: 300;
+        margin: 0 0 0 -4px;
+        display: inline-block;
+        font-size: 18px;
         position: relative;
         z-index: 12;
+        pointer-events: none;
 
-        &:hover, &:hover span {
-          color: #fff;
+        a {
+          color: #ddd;
+          line-height: 1.2em;
+          pointer-events: auto;
+          &:hover { color: $link-hover; }
+          &.role {margin-top: 4px;}
         }
       }
 
-      .comments {
-        color: #ccc;
-        font-weight: normal;
-        margin: 6px 0 0 6px;
-        padding-left: 15px;
-
-        &:before { top:0; left:0; }
-      }
-    }
-
-    .song-link {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      z-index: 10;
-      background: none;
-      padding: 0;
-      margin: 0;
-      border-radius: 0;
-      &:hover {background: none;}
-    }
-
-    .song-controls {
-      position: absolute;
-      bottom: 5px;
-      right: 0;
-      width: 190px;
-
-      &.hover-show a { display: none; }
-
-      span {
-        float: right;
-      }
-
-      a {
-        text-decoration: none;
-        float: right;
-        font-size: 13px;
-        padding: 5px 6px;
-        margin: -6px;
-        margin-left: 12px;
+      &.name {
+        font-size: 18px;
+        margin: 5px 0;
         font-weight: 400;
-        line-height: .9em;
-        color: #fff;
-        border: 1px solid #252525;
-        @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.15));
-        @include transition(all .2s linear);
-        @include linear-gradient(#444, $body-bg);
+        position: relative;
+        z-index: 11;
+        pointer-events: none;
 
-        &:before {
-          position: relative;
-          font-size: 14px;
-          padding: 0 2px 0 0;
-          margin: -4px 3px -4px 0;
-          left: 0;
-          top: -1px;
-          width: 14px;
+        a { color: #fff;
+          &:hover { color: $link-hover; }
         }
 
-        &.pictos-comment:before {
-          top: -1px;
-        }
+        em {
+          font-weight: 300;
+          font-style: normal;
+          font-size: 16px;
+          color: #aaa;
 
-        &:hover {
-          color: #fff;
-          @include linear-gradient(#555, $body-lighter);
-        }
-      }
-
-      .broadcast {
-        a:hover {
-          color: #fff;
-          background: $like-color;
-          &:before { color: #fff; }
-        }
-
-        .remove {
-          &:before { color: $like-color; }
-        }
-
-        .remove:hover, .remove:hover:before {
-          background: $dark-red;
-          &:before {
-            content: "D";
-            color: darken($dark-red,10%);
-            background: transparent;
-            font-size: 16px;
-            top: 0;
+          a {
+            color: #aaa;
+            pointer-events: auto;
           }
         }
       }
     }
+  }
 
-    .song-art {
-      position: absolute;
-      width: $song-art;
-      height: $song-art;
-      z-index: 1;
+  .song-info {
+    position: relative;
+    /* weird chrome bug, doesnt position inside properly unless we do this */
+    padding: 1px;
+    margin: -1px;
+  }
 
-      img {
-        width: 100%;
-        height: 100%;
+  .song-meta {
+    font-size: 12px;
+    margin: 0 0 0 $song-art + $song-pad;
+    padding: 4px 0 0;
+    color: #888;
+    z-index: 12;
+    position: relative;
+    pointer-events: none;
+
+    .song-meta-pre {
+      float: right;
+    }
+
+    a {pointer-events: all;}
+
+    .song-follow {
+      display: inline;
+    }
+
+    .follow-station-wrap {
+      white-space: nowrap;
+      position: relative;
+      display: inline-block;
+      padding: 1px 3px;
+      margin: 0 1px -8px;
+
+      a {
+        font-weight: 400;
       }
     }
 
-    .waveform {
-      display: none;
-      clear: both;
-      position: relative;
-      height: 80px;
-      margin: 10px 0 -20px 0;
-      width: 100%;
-      z-index: 9;
+    .follow-station {
+      display: inline;
+      background: none;
+      border: none;
+      margin: 0;
+      padding: 0;
+      float: left;
+      box-shadow: none !important;
+
+      span {
+        font-size: 14px;
+        margin: -1px 0 -1px -2px;
+        line-height: 1.6em;
+        padding-right: 4px;
+        color: #bbb;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      &.remove span {
+        color: $green;
+        &:hover { color: $red; }
+      }
+      strong {display: none;}
     }
+
+    .count {display:none;}
+
+    a {
+      color: #bbb;
+      text-decoration: none;
+      position: relative;
+      z-index: 12;
+
+      &:hover, &:hover span {
+        color: #fff;
+      }
+    }
+
+    .comments {
+      color: #ccc;
+      font-weight: normal;
+      margin: 6px 0 0 6px;
+      padding-left: 15px;
+
+      &:before { top:0; left:0; }
+    }
+  }
+
+  .song-posted {
+    display: inline-block;
+  }
+
+  .song-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    background: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    &:hover {background: none;}
+  }
+
+  .song-controls {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+
+    &.hover-show a { display: none; }
+    span { float: left; }
+
+    a {
+      text-decoration: none;
+      float: left;
+      font-size: 13px;
+      padding: 5px 6px;
+      margin: -6px;
+      margin-right: 12px;
+      font-weight: 400;
+      line-height: .9em;
+      color: #fff;
+      border: 1px solid #252525;
+      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.15));
+      @include transition(all .2s linear);
+      @include linear-gradient(#444, $body-bg);
+
+      &:before {
+        position: relative;
+        font-size: 14px;
+        padding: 0 2px;
+        float: right;
+        top: 0;
+        width: 14px;
+      }
+
+      &.pictos-comment:before {
+        top: -1px;
+      }
+
+      &:hover {
+        color: #fff;
+        @include linear-gradient(#555, $body-lighter);
+      }
+    }
+  }
+
+  .song-art {
+    position: absolute;
+    width: $song-art;
+    height: $song-art;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .waveform {
+    display: none;
+    clear: both;
+    position: relative;
+    height: 80px;
+    margin: 10px 0 -20px 0;
+    width: 100%;
+    z-index: 9;
   }
 }
 
