@@ -1,0 +1,4 @@
+<%= @share.receiver_id %>
+<% publish_to "/shares/#{@share.receiver_id}" do %>
+  addShare();
+<% end %>

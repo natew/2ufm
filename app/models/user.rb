@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   has_one  :station, :dependent => :destroy
+  has_one  :privacy, :dependent => :destroy
   has_many :activities, :dependent => :destroy
   has_many :follows
   has_many :stations, :through => :follows
@@ -37,7 +38,7 @@ class User < ActiveRecord::Base
 
   acts_as_url :username, sync_url: true, url_attribute: :slug, allow_duplicates: false
 
-  before_create :make_station, :set_station_slug, :set_station_id
+  before_create :make_station, :make_privacy, :set_station_slug, :set_station_id
   before_update :update_station_title
   before_validation :get_remote_avatar, :if => :avatar_url_provided?
   validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
@@ -181,12 +182,20 @@ class User < ActiveRecord::Base
     follows.where(:station_id => id).exists?
   end
 
+  def is_following?(user)
+    follows.where(station_id: user.station_id).exists?
+  end
+
   def to_playlist_json
     self.to_json(:only => [:id, :slug, :name])
   end
 
   def make_station
     self.create_station(title:username)
+  end
+
+  def make_privacy
+    self.create_privacy
   end
 
   def set_station_id

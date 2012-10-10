@@ -13,6 +13,7 @@ $(function() {
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 
 navItems = getNavItems();
+setShares($('#nav-shares').attr('data-shares'));
 
 // Cookies
 if (!hideWelcome && !isOnline) {
@@ -179,11 +180,19 @@ $('.nav-hover').live({
 // Share click
 $('#share-friends').on('click', 'a', function() {
   var el = $(this);
-  $.post('/share', {
-    receiver_id: el.data('user'),
-    song_id: shareSong
-  }, function() {
-    notice('Sent <b>' + shareSongTitle + '</b> to <b>' + el.text() + '</b>');
+  $.ajax({
+    type: 'post',
+    url: '/share',
+    data: {
+      receiver_id: el.data('user'),
+      song_id: shareSong
+    },
+    success: function() {
+      notice('Sent <b>' + shareSongTitle + '</b> to <b>' + el.text() + '</b>');
+    },
+    error: function(xhr) {
+      notice(xhr.responseText.replace('{{user}}', el.text()));
+    }
   });
 
   return false;
@@ -358,6 +367,7 @@ function getNavItems() {
 }
 
 function setNavActive(page) {
+  page = page.replace(/\?.*/, '');
   // Update #navbar
   fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');
@@ -499,11 +509,7 @@ function getNavbar() {
     $.getJSON('/navbar.json', function getNavbarCallback(data) {
       fn.log('got', data);
       if (data) {
-        var inbox_count = parseInt(data['inbox_count'],10);
-        if (inbox_count > 0) {
-          $('#nav-shares span').remove();
-          $('#nav-shares').append('<span>' + inbox_count + '</span>');
-        }
+        setShares(data['inbox_count']);
 
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
         $('#stations-inner')
@@ -647,5 +653,23 @@ function closeHoveredDropdown() {
       navHovered[el.attr('class')] = false;
       navUnhoveredOnce = false;
     }
+  }
+}
+
+function addShare() {
+  alert('adding share');
+  shareCount++;
+  updateShares();
+}
+
+function setShares(count) {
+  shareCount = parseInt(count,10);
+  updateShares();
+}
+
+function updateShares() {
+  if (shareCount > 0) {
+    $('#nav-shares span').remove();
+    $('#nav-shares').append('<span>' + shareCount + '</span>');
   }
 }

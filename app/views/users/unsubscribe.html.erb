@@ -1,0 +1,15 @@
+<div class="whole">
+  <% if @success %>
+    <h2>Unsubscribed!</h2>
+    <p class="sub">
+      You've been unsubscribed from future <%= params[:type] %> emails.
+    </p>
+  <% else %>
+    <p>There was an error unsubscribing you.  Either the link you clicked was incrorect of there was an error.</p>
+    <p>Please <%= link_to 'contact us', 'mailto:support@2u.fm' %> and we will take care of it.</p>
+  <% end %>
+
+  <p>But, maybe you'd still like to listen to some great music!</p>
+
+  <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs, :classname => 'open' } %>
+</div>

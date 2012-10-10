@@ -52,6 +52,7 @@ Fusefm::Application.routes.draw do
   match "/navbar", :to => 'users#navbar'
   match '/share', :to => 'shares#create'
   match '/authorized', :to => 'users#authorized'
+  match '/unsubscribe/:type/:key', to: 'users#unsubscribe'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

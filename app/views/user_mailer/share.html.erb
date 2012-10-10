@@ -1,0 +1,10 @@
+<html><body>
+  <p>Hello, <strong><%= @receiver.full_name %></strong>,</p>
+
+  <p>
+    <strong><%= @sender.full_name %> is sent you a song on 2u.fm!</strong>
+    You should <%= link_to 'give it a listen', '/inbox' %>!
+  </p>
+
+  <%= render 'signature' %>
+</body></html>

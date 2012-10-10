@@ -17,10 +17,13 @@ class SharesController < ApplicationController
   def create
     @share = Share.new(sender_id: current_user.id, receiver_id: params[:receiver_id], song_id: params[:song_id])
 
-    if @share.save!
-      head 200
+    if @share.save
+      UserMailer.share_email(current_user, @share.receiver).deliver
+      respond_to do |format|
+        format.js
+      end
     else
-      head 500
+      render status: 500, text: @share.errors.full_messages.to_sentence
     end
   end
 

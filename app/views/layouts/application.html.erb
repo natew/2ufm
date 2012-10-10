@@ -55,9 +55,9 @@
               <%= render partial: "songs/broadcast", locals: { action: 'add', id: '0', count: 'Like', extra_class: 'disabled'  } %>
               <%= render partial: "songs/broadcast", locals: { action: 'destroy', id: '0', count: 'Unlike'  } %>
             </span>
-            <%= link_to 'Live!', '#friends', id: 'tune-in', class: 'nav-hover control pictos-globe', 'data-pad' => '8' %>
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard', 'data-pad' => '8'  %>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav control pictos-music disabled', :id => 'nav-music', 'data-pad' => '8' %>
+            <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control pictos-music disabled', :id => 'nav-music', 'data-pad' => '8' %>
+            <%= link_to 'Live!', '#friends', id: 'tune-in', class: 'nav-hover control pictos-globe', 'data-pad' => '18' %>
           </div>
 
           <div id="player-main">
@@ -71,6 +71,9 @@
               <div id="player-mini-controls">
                 <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on tip', :id => 'player-volume', title: 'Volume' %>
                 <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-normal post tip', title: 'Play mode' %>
+              </div>
+              <div id="player-live">
+                <%= link_to '0 people listening' %>
               </div>
               <div id="player-progress-bar">
                 <div id="player-progress-grabber"></div>
@@ -104,7 +107,7 @@
             <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
             <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
             <%= link_to 'Following', '/users/following', :id => 'nav-following', :class => 'pictos-add' %>
-            <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox' %>
+            <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
           </section>
           <%- end -%>
 
@@ -172,14 +175,14 @@
     {{/songs}}
   </div>
 
-  <div id="share" class="pop-menu right-align">
+  <div id="share" class="pop-menu">
     <%= link_to image_tag('/images/facebook.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
     <%= link_to image_tag('/images/twitter.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
     <span id="share-link-container"><%= link_to "j", '', :id => 'share-link', :class => 'control pictos tip', :title => "Copy link to clipboard", 'data-click' => '3' %></span>
     <div id="share-friends"></div>
   </div>
 
-  <div id="friends" class="pop-menu">
+  <div id="friends" class="pop-menu right-align">
   </div>
 
 
@@ -252,5 +255,11 @@
   <div id="tunein"></div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>
+
+  <%- if user_signed_in? -%>
+    <%= subscribe_to "/subscriptions/#{current_user.id}" %>
+    <%= subscribe_to "/shares/#{current_user.id}" %>
+  end
+  <%- end -%>
 </body>
 </html>

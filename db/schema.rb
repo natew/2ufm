@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008062857) do
+ActiveRecord::Schema.define(:version => 20121010023411) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -161,6 +161,17 @@ ActiveRecord::Schema.define(:version => 20121008062857) do
     t.string   "image_updated_at"
     t.datetime "published_at"
     t.string   "excerpt"
+  end
+
+  create_table "privacies", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "mail_all",          :default => true
+    t.boolean  "mail_follows",      :default => true
+    t.boolean  "mail_shares",       :default => true
+    t.boolean  "mail_friend_joins", :default => true
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "broadcasting",      :default => true
   end
 
   create_table "rails_admin_histories", :force => true do |t|

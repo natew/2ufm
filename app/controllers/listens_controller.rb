@@ -25,7 +25,7 @@ class ListensController < ApplicationController
       if @listen.save
         format.js
       else
-        format.js { render :text => @listen.save!, :status => 403 }
+        format.js { render text: @listen.save!, status: 403 }
       end
     end
   end

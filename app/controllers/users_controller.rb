@@ -41,7 +41,6 @@ class UsersController < ApplicationController
     only = { :only => [:id, :user_id, :title, :slug] }
     @online = current_user.stations.user_station.with_user.online.limit(5).to_json(only)
     @offline = current_user.stations.user_station.with_user.not_online.limit(12).to_json(only)
-    @received_songs_notifications = current_user.received_songs_notifications
     render :layout => false
   end
 
@@ -102,6 +101,17 @@ class UsersController < ApplicationController
           render :text => 'Username <span>already taken</span>'
         end
       end
+    end
+  end
+
+  def unsubscribe
+    @user = User.find_by_confirmation_token(params[:key])
+    @popular = Station.popular
+    @popular_songs = Song.playlist_order_popular
+
+    if @user
+      @user.privacy.unsubscribe(params[:type].pluralize)
+      @success = true
     end
   end
 

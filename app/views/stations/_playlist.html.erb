@@ -21,8 +21,6 @@
 
   cache_if(id > 5, cache) do -%>
 
-<%= songs.count %>
-
 <div id="playlist-<%= id_page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %>" data-key="<%= cache %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id_page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
   <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover, :partial => partial, :single => single, :reviews => reviews } unless songs.nil? %>
