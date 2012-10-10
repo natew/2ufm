@@ -19,7 +19,7 @@ class ArtistsController < ApplicationController
     @station = Station.find_by_slug(params[:id]) || not_found
     @artist = Artist.find(@station.artist_id) || not_found
     get_artist_extra_info
-    @songs = @artist.station.songs.playlist_order_published
+    @songs = @artist.station.songs.playlist_order_broadcasted
     @primary = @artist
     render_show
   end
