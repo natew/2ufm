@@ -15,7 +15,7 @@ function buildPrivatePub(doc) {
           self.connecting = true;
           var script = doc.createElement("script");
           script.type = "text/javascript";
-          script.src = "http://2u.fm/faye.js";
+          script.src = "http://2u.fm/faye.js"; //self.subscriptions.server
           script.onload = self.connectToFaye;
           doc.documentElement.appendChild(script);
         }
@@ -23,7 +23,7 @@ function buildPrivatePub(doc) {
     },
 
     connectToFaye: function() {
-      self.fayeClient = new Faye.Client("http://2u.fm/faye");
+      self.fayeClient = new Faye.Client("http://2u.fm/faye"); //self.subscriptions.server
       self.fayeClient.addExtension(self.fayeExtension);
       for (var i=0; i < self.fayeCallbacks.length; i++) {
         self.fayeCallbacks[i](self.fayeClient);
