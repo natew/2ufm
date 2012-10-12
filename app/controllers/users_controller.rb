@@ -30,11 +30,15 @@ class UsersController < ApplicationController
   def live
     @live = true
     @user = User.find_by_slug(params[:id])
-    @subscribe_to = "/listens/#{@user.id}"
-    listen = @user.listens.last
-    song = listen.song
-    listen_seconds_ago = Time.now - listen.created_at
-    @listen = listen if listen_seconds_ago < song.seconds
+    if @user
+      @subscribe_to = "/listens/#{@user.id}"
+      listen = @user.listens.last
+      song = listen.song
+      listen_seconds_ago = Time.now - listen.created_at
+      @listen = listen if listen_seconds_ago < song.seconds
+    else
+      render status: 404
+    end
   end
 
   def navbar

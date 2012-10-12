@@ -1,28 +1,17 @@
 var pagination = (function(fn, mp) {
-  var pageLoadTimeout,
-      isLoading = false,
+  var isLoading = false,
       hasMore = true,
       current = getPage(),
       offsets = [];
 
-  $(window).scroll(function() {
-    // Automatic page loading
-    if (!isLoading) {
-      clearTimeout(pageLoadTimeout);
-      pageLoadTimeout = setTimeout(function() {
-        if (nearBottom()) {
-          var lastPlaylist = $('.playlist:visible:last');
-          if (lastPlaylist.length && lastPlaylist.is('.has-more'))
-            nextPage(lastPlaylist);
-        }
-      }, 10);
-    }
-  });
+  function nextPage() {
+    if (!nearBottom()) return;
 
-  function nextPage(playlist) {
+    var playlist = $('.playlist:visible:last');
+
     // Infinite scrolling
-    if (hasMore && playlist) {
-      var link = playlist.next('.next-page').html('Loading...'),
+    if (hasMore && playlist.length && playlist.is('.has-more')) {
+      var link = playlist.next().next('.next-page').html('Loading...'),
           playlistInfo = playlist.attr('id').split('-');
 
       // Support negative numbers
@@ -46,6 +35,7 @@ var pagination = (function(fn, mp) {
         },
         statusCode: {
           204: function() {
+            fn.log('no more pages');
             removeNextPage(link);
             return false;
           }
@@ -62,14 +52,16 @@ var pagination = (function(fn, mp) {
           $(window).trigger('pageLoaded');
         },
         error: function() {
-          removeNextPage(link);
+          playlist.addClass('load-page-error');
+          isLoading = false;
+          link.html('Error loading next page');
         }
       })
     }
   }
 
   function nearBottom() {
-    return w.scrollTop() >= ($(document).height() - $(window).height() - 1200);
+    return $(window).scrollTop() >= ($(document).height() - $(window).height() - 1200);
   }
 
   // Reads URL parameters for ?page=X and returns X
@@ -112,6 +104,14 @@ var pagination = (function(fn, mp) {
 
     resetMorePages: function() {
       resetMorePages();
+    },
+
+    loadNext: function() {
+      nextPage();
+    },
+
+    isLoading: function() {
+      return isLoading;
     }
   }
 }(fn, mp));

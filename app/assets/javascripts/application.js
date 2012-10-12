@@ -18,5 +18,5 @@
 //= require spin
 //= require ZeroClipboard
 //= require relativetime
-//= require private_pub
+//= require danthes
 //= require_tree .

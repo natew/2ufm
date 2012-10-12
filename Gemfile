@@ -7,7 +7,8 @@ gem 'sqlite3'
 gem 'yettings'
 gem 'thin'
 
-gem 'private_pub'
+#gem 'private_pub'
+gem 'danthes', github: 'simonoff/danthes'
 
 # Assets
 gem 'bourbon'

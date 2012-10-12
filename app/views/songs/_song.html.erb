@@ -23,7 +23,7 @@
 -%>
 
   <div class="song-info">
-    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" %>
+    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" unless Rails.env.development? %>
 
     <h1>
       <%-

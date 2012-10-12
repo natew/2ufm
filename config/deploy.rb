@@ -25,8 +25,8 @@ set :rails_env, "production"
 set :keep_releases, 3
 set :dj_workers, 3
 set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
-set :private_pub_start, "RAILS_ENV=production bundle exec rackup private_pub.ru -s thin -E production -D -P tmp/pids/private_pub.pid"
-set :private_pub_stop, "if [ -f tmp/pids/private_pub.pid ] && [ -e /proc/$(cat tmp/pids/private_pub.pid) ]; then kill -9 `cat tmp/pids/private_pub.pid`; fi"
+set :danthes_start, "RAILS_ENV=production bundle exec rackup danthes.ru -s thin -E production -D -P tmp/pids/danthes.pid"
+set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/danthes.pid) ]; then kill -9 `cat tmp/pids/danthes.pid`; fi"
 
 role :web, domain
 role :app, domain
@@ -54,19 +54,19 @@ end
 
 namespace :deploy do
   task :start, :roles => :app do
-    surun "cd #{current_path}; bundle exec service thin start && #{private_pub_start} && #{dj_script} start"
-    #private_pub.start
+    surun "cd #{current_path}; bundle exec service thin start && #{danthes_start} && #{dj_script} start"
+    #danthes.start
   end
 
   task :stop, :roles => :app do
-    surun "cd #{current_path}; bundle exec service thin stop && #{private_pub_stop} && #{dj_script} stop >/dev/null 2>&1"
-    #private_pub.stop
+    surun "cd #{current_path}; bundle exec service thin stop && #{danthes_stop} && #{dj_script} stop >/dev/null 2>&1"
+    #danthes.stop
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    surun "cd #{current_path}; bundle exec service thin restart && #{private_pub_stop} && #{private_pub_start} && #{dj_script} restart >/dev/null 2>&1"
-    #private_pub.restart
+    surun "cd #{current_path}; bundle exec service thin restart && #{danthes_stop} && #{danthes_start} && #{dj_script} restart >/dev/null 2>&1"
+    #danthes.restart
   end
 
   task :symlink_attachments do
@@ -85,18 +85,18 @@ namespace :deploy do
   end
 end
 
-namespace :private_pub do
-  desc "Start private_pub server"
+namespace :danthes do
+  desc "Start danthes server"
   task :start do
-    run ""
+    run "cd #{current_path}; #{danthes_start}"
   end
 
-  desc "Stop private_pub server"
+  desc "Stop danthes server"
   task :stop do
-    run "cd #{current_path};if [ -f tmp/pids/private_pub.pid ] && [ -e /proc/$(cat tmp/pids/private_pub.pid) ]; then kill -9 `cat tmp/pids/private_pub.pid`; fi"
+    run "cd #{current_path}; #{danthes_stop}"
   end
 
-  desc "Restart private_pub server"
+  desc "Restart danthes server"
   task :restart do
     stop
     start

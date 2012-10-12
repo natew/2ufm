@@ -35,6 +35,13 @@ GIT
   specs:
     stringex (1.4.0)
 
+GIT
+  remote: git://github.com/simonoff/danthes.git
+  revision: 9475faf5a2baf257f2363dd6e8124b9d18761dd8
+  specs:
+    danthes (1.0.3)
+      faye (>= 0.8.0)
+
 GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
@@ -147,7 +154,7 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
-    faye (0.8.5)
+    faye (0.8.6)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
       eventmachine (>= 0.12.0)
@@ -254,8 +261,6 @@ GEM
     plucky (0.5.2)
       mongo (~> 1.5)
     polyglot (0.3.3)
-    private_pub (1.0.3)
-      faye
     quiet_assets (1.0.1)
       railties (~> 3.1)
     rack (1.4.1)
@@ -375,6 +380,7 @@ DEPENDENCIES
   curb
   daemons
   dalli
+  danthes!
   database_cleaner
   delayed_job_active_record
   devise
@@ -396,7 +402,6 @@ DEPENDENCIES
   omniauth-twitter
   paperclip (~> 3.0)
   pg
-  private_pub
   quiet_assets
   rails (= 3.2.6)
   rails_admin

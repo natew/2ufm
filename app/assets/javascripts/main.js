@@ -1,3 +1,5 @@
+Danthes.debug = true;
+
 //
 // Document.ready
 //
@@ -132,6 +134,16 @@ w.on('scrollstart', function() {
 })
 .on('pageLoaded', function() {
   updatePlaylist();
+});
+
+w.scroll(function() {
+  // Automatic page loading
+  if (!pagination.isLoading()) {
+    clearTimeout(pageLoadTimeout);
+    pageLoadTimeout = setTimeout(function() {
+      pagination.loadNext();
+    }, 10);
+  }
 });
 
 // Close modal
@@ -610,6 +622,7 @@ function popup(el) {
 }
 
 $(window).on('gotPageLoad', function(e, data) {
+  fn.log('got page load', data);
   bindImageErrors(data);
 });
 
