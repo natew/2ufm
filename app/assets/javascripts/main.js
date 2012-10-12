@@ -10,6 +10,8 @@ $(function() {
   // Fire initial page load
   page.start();
   page.end();
+
+  resumePlaying();
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
@@ -48,14 +50,6 @@ setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 // Logged in
 if (!isOnline && !isTuningIn) {
   modal('#modal-login');
-}
-
-if (isTuningIn) {
-  tuneIn(tuneInto, function() {
-    if (typeof(beginListen) != 'undefined') {
-      goToListen(beginListen);
-    }
-  });
 }
 
 // Get volume init
@@ -540,57 +534,8 @@ function getNavbar() {
   }
 }
 
-function playAfterRouting() {
-  if (playAfterLoad) {
-    clickSong(playAfterLoad);
-    playAfterLoad = null;
-  }
-}
-
 function clickSong(id) {
   $('#song-' + id + ' .play-song').click();
-}
-
-function tuneIn(id, callback) {
-  fn.log(id)
-  loadPage('/tune/' + id, function() {
-    doPjax = false;
-    if (callback) callback.call();
-  });
-}
-
-function tuneOut() {
-  doPjax = true;
-}
-
-function goToListen(listen) {
-  var now = Math.round((new Date()).getTime() / 1000),
-      seconds_past = now - parseInt(listen.created_at_unix, 10);
-
-  mp.ffTo(seconds_past);
-
-  if (listen.url.replace(/\?.*/, '') == mp.curPage()) {
-    clickSong(listen.song_id);
-  } else {
-    playAfterLoad = listen.song_id;
-    loadPage(listen.url);
-  }
-}
-
-function loadPage(url, callback) {
-  page.start();
-  $.ajax({
-    url: url,
-    dataType: 'html',
-    beforeSend: function(xhr){
-      xhr.setRequestHeader('X-PJAX', 'true')
-    },
-    success: function(data) {
-      $('#body').html(data);
-      page.end();
-      if (callback) callback.call();
-    }
-  });
 }
 
 function registerUser(button) {
@@ -692,4 +637,18 @@ function addSubscriber() {
       countInt = parseInt(count, 10) + 1;
 
   el.attr('data-count', countInt).html(el.html().replace(count, countInt));
+}
+
+function resumePlaying() {
+  fn.log(isOnline, beginListen, beginListen.url);
+  if (isOnline && beginListen && mp.isOnPlayingPage(beginListen.url)) {
+    now = Math.ceil((new Date()).getTime() / 1000),
+          seconds_past = now - parseInt(beginListen.created_at_unix, 10);
+
+    // If we're not within the last 5 seconds of a song
+    if (seconds_past < beginListen.seconds - 5) {
+      mp.startedAt(beginListen.created_at_unix);
+      clickSong(beginListen.song_id);
+    }
+  }
 }

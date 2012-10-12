@@ -1,0 +1,14 @@
+@import "mixins.css.scss";
+
+body.live {
+  #player-controls a,
+  #player-mode,
+  #nav-music {
+    pointer-events: none;
+    color: $header-light;
+  }
+
+  #player-progress-grabber {
+    pointer-events: none;
+  }
+}

@@ -1,4 +1,4 @@
 <%= @listen.shortcode %>
 <% publish_to "/listens/#{@listen.user_id}" do %>
-  goToListen(<%= raw @listen.as_json.to_json %>);
+  listenCreatePublish(<%= raw @listen.as_json.to_json %>);
 <% end %>

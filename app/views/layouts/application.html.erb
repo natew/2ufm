@@ -34,6 +34,12 @@
   <script type="text/javascript">
     var updateBroadcastsIds, updateFollowsIds, updateListensIds, updateBroadcastsCounts,
         broadcastedIds = [];
+
+    <%- if user_signed_in? -%>
+      beginListen = <%= raw current_user.listens.last.as_json.to_json %>;
+    <%- else -%>
+      beginListen = false;
+    <%- end -%>
   </script>
 </head>
 

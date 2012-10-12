@@ -88,10 +88,6 @@ var pagination = (function(fn, mp) {
     mp.updatePage(url);
   }
 
-  function resetMorePages() {
-    hasMore = true;
-  }
-
   function removeNextPage(link) {
     hasMore = false;
     link.remove();
@@ -102,8 +98,8 @@ var pagination = (function(fn, mp) {
       current = getPage();
     },
 
-    resetMorePages: function() {
-      resetMorePages();
+    restart: function() {
+      hasMore = true;
     },
 
     loadNext: function() {

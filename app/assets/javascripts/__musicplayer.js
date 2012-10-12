@@ -31,7 +31,8 @@ var mp = (function() {
       playTimeout,
       usedKeyboard = false,
       listenUrl,
-      ffTo;
+      startedAt,
+      isLive;
 
   // Playmode
   playMode = playMode || 0;
@@ -156,7 +157,8 @@ var mp = (function() {
               whileplaying:events.whileplaying,
               onmetadata:events.metadata,
               onload:events.onload,
-              volume:volume
+              volume:volume,
+              stream:(startedAt ? false : true)
             });
 
             fn.log(curSongInfo, curSong.url);
@@ -210,6 +212,8 @@ var mp = (function() {
     },
 
     next: function next() {
+      if (isLive) return;
+
       clearTimeout(playTimeout);
       if (playMode == 2) { // shuffle
         this.shuffleNext();
@@ -246,6 +250,8 @@ var mp = (function() {
     },
 
     prev: function prev() {
+      if (isLive) return;
+
       // Prev section, or prev song, or prev playlist
       if (curSection) return this.playSection(curSection.prev());
       else if (curSongInfo.index > 0) this.playSong(curSongInfo.index - 1);
@@ -440,10 +446,20 @@ var mp = (function() {
     },
 
     whileloading: function whileloading() {
-      function doWork() {
-        pl.loaded.css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
+      pl.loaded.css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
+
+      // Waiting to fast forward to right position
+      if (startedAt) {
+        var now = Math.ceil((new Date()).getTime() / 1000),
+            seconds_past = now - parseInt(startedAt, 10);
+
+            fn.log(startedAt, seconds_past, this.duration / 1000)
+        if (this.duration / 1000 >= seconds_past) {
+          this.setPosition(seconds_past * 1000);
+          this.play();
+          startedAt = null;
+        }
       }
-      doWork.apply(this);
     },
 
     whileplaying: function whileplaying() {
@@ -519,12 +535,13 @@ var mp = (function() {
       return listenUrl;
     },
 
-    isOnPlayingPage: function isOnPlayingPage() {
-      if (curPage == playingPage) return true;
+    isOnPlayingPage: function isOnPlayingPage(url) {
+      var page = url || playingPage;
+      if (curPage == page) return true;
 
-      var playPageNum = playingPage.match(/\?p=([0-9]+)/),
+      var playPageNum = page.match(/\?p=([0-9]+)/),
           curPageNum = curPage.match(/\?p=([0-9]+)/),
-          playPageBase = playingPage.replace(/\?.*/,''),
+          playPageBase = page.replace(/\?.*/,''),
           curPageBase = curPage.replace(/\?.*/,'');
 
       fn.log(playPageNum, curPageNum, playPageBase, curPageBase);
@@ -583,6 +600,10 @@ var mp = (function() {
 
     setCurSection: function(section) {
       curSection = section;
+    },
+
+    load: function() {
+      player.load();
     },
 
     playlist: function() {
@@ -651,8 +672,12 @@ var mp = (function() {
       usedKeyboard = true;
     },
 
-    ffTo: function(seconds) {
-      time = seconds;
+    startedAt: function(timestamp) {
+      startedAt = timestamp;
+    },
+
+    setLive: function(val) {
+      isLive = val;
     }
   };
 

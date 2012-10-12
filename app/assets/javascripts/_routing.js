@@ -9,8 +9,8 @@ var page = {
     spinner.attach();
   },
 
-  end: function pageEnd(data) {
-    var curPage = window.location.pathname + window.location.search,
+  end: function pageEnd() {
+    var curPage = fakeUrl || window.location.pathname + window.location.search,
         path = curPage.split('/'),
         tipTimer,
         signedIn = !$('body').is('.signed_out'),
@@ -19,9 +19,8 @@ var page = {
 
     fn.log(curPage);
 
-    pagination.resetMorePages();
+    pagination.restart();
     updatePlaylist();
-    playAfterRouting();
     spinner.detach();
     bindImageErrors();
 

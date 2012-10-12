@@ -6,6 +6,8 @@
       tuneInto = <%= @user.id %>;
       <% if @listen %>
         beginListen = <%= raw @listen.as_json.to_json %>;
+      <% else %>
+        beginListen = false;
       <% end %>
     </script>
   <% else %>
