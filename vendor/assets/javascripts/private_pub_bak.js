@@ -23,7 +23,7 @@ function buildPrivatePub(doc) {
     },
 
     connectToFaye: function() {
-      self.fayeClient = new Faye.Client("http://2u.fm/faye"); //self.subscriptions.server
+      self.fayeClient = new Faye.Client("http://now.2u.fm:9200/faye"); //self.subscriptions.server
       self.fayeClient.addExtension(self.fayeExtension);
       for (var i=0; i < self.fayeCallbacks.length; i++) {
         self.fayeCallbacks[i](self.fayeClient);
