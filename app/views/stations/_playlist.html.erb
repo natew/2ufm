@@ -17,7 +17,7 @@
   reviews       ||= nil
   cache_val     ||= nil
   id_page         = "#{id}-#{page}"
-  cache           = cache_key(['v3', station, page, per, partial, single, cache_val])
+  cache           = cache_key(['v4', station, page, per, partial, single, cache_val])
 
   cache_if(id > 5, cache) do -%>
 
@@ -28,6 +28,11 @@
 
 <%-
   end # end cache
+-%>
+
+<%= link_to 'Next Page', '', :class => 'next-page control' if has_more %>
+
+<%-
 
   # update non-cached values
   # broadcasts, follows, listens, counts
@@ -54,5 +59,3 @@
   <%- end -%>
   updateBroadcastsCounts = <%= raw broadcasts_count.to_json %>;
 </script>
-
-<%= link_to 'Next Page', '', :class => 'next-page control' if has_more %>

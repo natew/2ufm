@@ -567,7 +567,6 @@ function popup(el) {
 }
 
 $(window).on('gotPageLoad', function(e, data) {
-  fn.log('got page load', data);
   bindImageErrors(data);
 });
 

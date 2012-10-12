@@ -11,7 +11,7 @@ var pagination = (function(fn, mp) {
 
     // Infinite scrolling
     if (hasMore && playlist.length && playlist.is('.has-more')) {
-      var link = playlist.next().next('.next-page').html('Loading...'),
+      var link = playlist.next('.next-page').html('Loading...'),
           playlistInfo = playlist.attr('id').split('-');
 
       // Support negative numbers
