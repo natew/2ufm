@@ -122,6 +122,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
+    logger.info auth
     user = User.where(:provider => auth.provider, :uid => auth.uid).first || User.find_by_email(auth.extra.raw_info.email)
     unless user
       info = auth.extra.raw_info
@@ -130,7 +131,7 @@ class User < ActiveRecord::Base
         full_name: info.name,
         provider: auth.provider,
         uid: auth.uid,
-        email: session[:user_email] || info.email,
+        email: info.email,
         password: Devise.friendly_token[0,20]
       )
       user.skip_confirmation!
@@ -140,6 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_twitter_oauth(auth, signed_in_resource=nil, session=nil)
+    logger.info auth
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     unless user
       info = auth.extra.raw_info
@@ -147,7 +149,7 @@ class User < ActiveRecord::Base
         username: info.screen_name,
         provider: auth.provider,
         uid: auth.uid,
-        email: session[:user_email] || session[:email_address],
+        email: info.email,
         location: info.location,
         bio: info.description,
         full_name: info.name,
