@@ -44,7 +44,7 @@ window.Danthes = class Danthes
         unless Faye?
           script = document.createElement 'script'
           script.type = 'text/javascript'
-          script.src = "#{@server}/client.js"
+          script.src = "http://now.2u.fm/client.js"
           script.id = "faye-connection-script"
           complete = false
           script.onload = script.onreadystatechange = () =>
