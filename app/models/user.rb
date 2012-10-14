@@ -129,6 +129,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
+    logger.info auth
     user = User.where(:provider => auth.provider, :uid => auth.uid).first || User.find_by_email(auth.extra.raw_info.email)
     unless user
       info = auth.extra.raw_info
