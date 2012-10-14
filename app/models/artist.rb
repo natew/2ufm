@@ -84,7 +84,9 @@ class Artist < ActiveRecord::Base
 
   def update_genres
     logger.info "#{id} - #{name}"
-    get_genres.each do |add_genre|
+    got_genres = get_genres
+    return unless got_genres
+    got_genres.each do |add_genre|
       genre = Genre.find_by_name(add_genre)
       begin
         self.genres << genre if genre
