@@ -46,6 +46,7 @@ class Artist < ActiveRecord::Base
   end
 
   def get_info
+    delay(:priority => 5).update_genres
     delay(:priority => 6).get_discogs_info
   end
 
@@ -58,25 +59,30 @@ class Artist < ActiveRecord::Base
     url_name = Rack::Utils.escape(name)
     url = "http://developer.echonest.com/api/v4/artist/search?api_key=#{Yetting.echonest_api_key}&name=#{url_name}"
     echo_artist = HTTParty.get(url)
-    if echo_artist
-      id = echo_artist['response']['artists'][0]['id']
-      if id
-        terms_url = "http://developer.echonest.com/api/v4/artist/terms?api_key=#{Yetting.echonest_api_key}&id=#{id}&format=json"
-        echo_terms = HTTParty.get(terms_url)
-        if echo_terms
-          logger.info echo_terms
-          echo_terms['response']['terms'].each do |term|
-            genres.push Genre.map_name(term['name']).titleize unless term['frequency'] < 0.1 or term['weight'] < 0.25
-          end
-        end
-      end
+    logger.info echo_artist
+    return unless echo_artist
+    echo_artist_response = echo_artist['response']
+    return unless echo_artist_response
+    artists = echo_artist_response['artists']
+    return unless artists
+    first_artist = artists[0]
+    return unless first_artist
+    id = first_artist['id']
+    terms_url = "http://developer.echonest.com/api/v4/artist/terms?api_key=#{Yetting.echonest_api_key}&id=#{id}&format=json"
+    echo_terms = HTTParty.get(terms_url)
+    return unless echo_terms
+    logger.info echo_terms
+    echo_terms_response = echo_terms['response']
+    return unless echo_terms_response
+    terms = echo_terms_response['terms']
+    return unless terms
+    terms.each do |term|
+      genres.push Genre.map_name(term['name']).titleize unless term['frequency'] < 0.1 or term['weight'] < 0.25
     end
-    genres
   end
 
   def update_genres
-    genres = get_genres
-    genres.each do |add_genre|
+    get_genres.each do |add_genre|
       genre = Genre.find_by_name(add_genre)
       self.genres << genre if genre
     end
