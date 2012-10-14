@@ -267,7 +267,7 @@ $song-player-height: 50px;
 
   h3 {
     margin: -6px 0 -2px $song-art + $song-pad;
-    line-height: 24px;
+    line-height: 25px;
     font-weight: 400;
     min-height: $play-button-size + 8;
 
@@ -566,10 +566,22 @@ $song-player-height: 50px;
 }
 
 #body .reviews {
-  div {
-    margin: 20px 0 -20px 0;
+  background: rgba(0,0,0,0.05);
+  margin: -$song-pad;
+  margin-top: 5px;
+  padding: $song-pad;
+  padding-bottom: 0;
 
-    h3 {
+  div {
+    margin: 0 0 $song-pad 0;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    h4 {
+      background: none;
+      padding: 0;
       font-size: 14px;
       margin: 0 0 6px 0;
       color: #999;
