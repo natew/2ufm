@@ -25,7 +25,7 @@
   <div class="song-info">
     <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" unless Rails.env.development? %>
 
-    <h1>
+    <h3>
       <%-
         links = author_links(song.authors)
         if links[:original].length > 0
@@ -33,7 +33,7 @@
       <span class="artist"><%= links[:original] %></span>
       <% end %>
       <span class="name"><%= tagged_song_name(song.name) %> <em><%= links[:other] %></em></span>
-    </h1>
+    </h3>
   </div>
 
   <span class="broadcast"><%= broadcast_song(song) %></span>

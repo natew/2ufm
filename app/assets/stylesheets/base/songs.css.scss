@@ -265,7 +265,7 @@ $song-player-height: 50px;
     }
   }
 
-  h1 {
+  h3 {
     margin: -6px 0 -2px $song-art + $song-pad;
     line-height: 24px;
     font-weight: 400;
@@ -499,7 +499,7 @@ $song-player-height: 50px;
   margin: 0 -20px;
   padding: 25px;
 
-  h1, .song-meta {
+  h3, .song-meta {
     margin-left: $song-art-big + $song-pad;
     margin-top: -5px;
     span { line-height: 1.4em;
