@@ -79,12 +79,18 @@ class Artist < ActiveRecord::Base
     terms.each do |term|
       genres.push Genre.map_name(term['name']).titleize unless term['frequency'] < 0.1 or term['weight'] < 0.25
     end
+    genres
   end
 
   def update_genres
+    logger.info "#{id} - #{name}"
     get_genres.each do |add_genre|
       genre = Genre.find_by_name(add_genre)
-      self.genres << genre if genre
+      begin
+        self.genres << genre if genre
+      rescue ActiveRecord::RecordNotUnique => e
+        logger.error "Already exists"
+      end
     end
     self.genres
   end
