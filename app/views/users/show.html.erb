@@ -1,8 +1,10 @@
 <div class="nav-container">
   <div class="title">
-  <%= link_to 'Upload Avatar', '/account', :class => 'upload-avatar' if user_signed_in? and @user.id == current_user.id and !current_user.avatar.exists? %>
-  <%- cache ['v1', @user, 'header'] do -%>
-    <%= image_tag @user.avatar.url(:medium), :class => 'image medium' %>
+    <div class="image">
+      <%= image_tag @user.avatar.url(:medium), :class => 'medium' %>
+      <%= link_to 'Upload Avatar', '/account', :class => 'upload-avatar' if user_signed_in? and @user.id == current_user.id %>
+    </div>
+
     <h1 class="icon"><%= @user.username %></h1>
 
     <nav class="nav-menu">
@@ -11,8 +13,6 @@
       <%= nav_link_to 'Following', following_user_path(@user) %>
       <%= nav_link_to 'Followers', followers_user_path(@user) %>
     </nav>
-  <%- end # end cache
-  -%>
 
     <%= render :partial => 'shared/actions', :locals => { :station => @user.station }  %>
   </div>

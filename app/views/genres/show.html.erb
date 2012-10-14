@@ -1,0 +1,6 @@
+<div class="whole">
+  <h1><%= @genre.name %></h1>
+  <%= render 'genres/nav' %>
+
+  <%= render partial: 'stations/playlist', locals: { station: @genre_station, songs: @genre_songs } %>
+</div>

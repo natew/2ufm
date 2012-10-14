@@ -6,13 +6,6 @@ if (isTuningIn) {
   });
 }
 
-if (isOnline) {
-  fn.log('subscribing');
-  Danthes.subscribe('/meta/connect', function metaSubscribe(data, channel) {
-    fn.log(data, channel);
-  });
-}
-
 // Begin listening to a station
 function tuneIn(id, callback) {
   fn.log(id);
@@ -26,6 +19,14 @@ function tuneIn(id, callback) {
 
 function tuneOut() {
   doPjax = true;
+}
+
+function sendAction(action) {
+  $.ajax({
+    type: 'post',
+    url: '/actions',
+    data: 'action=' + action
+  });
 }
 
 // create.js.erb callback for faye

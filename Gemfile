@@ -7,7 +7,6 @@ gem 'sqlite3'
 gem 'yettings'
 gem 'thin'
 
-#gem 'private_pub'
 gem 'danthes', github: 'simonoff/danthes'
 
 # Assets
@@ -25,7 +24,6 @@ gem 'devise'
 gem 'cancan'
 gem 'aws-ses', '~> 0.4.4', require: 'aws/ses'
 gem 'omniauth-facebook'
-gem 'omniauth-twitter'
 gem 'koala'
 
 # Admin

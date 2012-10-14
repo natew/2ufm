@@ -30,6 +30,8 @@ Fusefm::Application.routes.draw do
   resources :artists, :only => [:index]
   resources :comments, :only => [:create]
   resources :listens, :only => [:create, :show]
+  resources :actions, only: [:create]
+  resources :genres, only: [:index, :show]
 
   resources :shares, :only => [:create]
   match '/shares/inbox', :to => 'shares#inbox'
@@ -55,6 +57,7 @@ Fusefm::Application.routes.draw do
   match '/authorized', :to => 'users#authorized'
   match '/unsubscribe/:type/:key', to: 'users#unsubscribe'
   match '/user_genres', to: 'users#genres'
+  match '/find_friends', to: 'users#find_friends'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

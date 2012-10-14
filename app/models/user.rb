@@ -106,6 +106,10 @@ class User < ActiveRecord::Base
     .where('follows.station_id = ?', station_id)
   end
 
+  def following
+    self.stations.where('stations.user_id is not null')
+  end
+
   def image
     avatar
   end

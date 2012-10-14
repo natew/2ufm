@@ -1,0 +1,7 @@
+<div class="whole">
+  <h2>Genre Stations</h2>
+
+  <%= render 'genres/list' %>
+
+  <%= render :partial => 'stations/playlist', :locals => { :station => @genre_station } %>
+</div>

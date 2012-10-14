@@ -1,7 +1,7 @@
 <%- cache ['v1', @blog] do -%>
 <div class="title">
   <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
-  <h1><%= @blog.name %> <span><%= link_to '', @blog.url, :target => '_blank' %></span></h1>
+  <h1 class="icon"><%= @blog.name %> <span><%= link_to '', @blog.url, :target => '_blank' %></span></h1>
   <p><%= @blog.description %></p>
 <%- end -%>
 

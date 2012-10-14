@@ -80,6 +80,7 @@ class Song < ActiveRecord::Base
   scope :oldest, order('songs.published_at asc')
   scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
   scope :soundcloud, where(source: 'soundcloud')
+  scope :time_limited, where('songs.seconds < ?', 600)
 
   # Basic types
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
@@ -96,7 +97,7 @@ class Song < ActiveRecord::Base
   # Data to select
   scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
   scope :select_with_info, select('songs.*, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post
-  scope :individual, select_with_info.with_blog_station_and_post
+  scope :individual, select_with_info.with_blog_station_and_post.time_limited
 
   # Orders
   scope :order_broadcasted, order('broadcasts.created_at desc')
@@ -174,6 +175,16 @@ class Song < ActiveRecord::Base
 
   def self.user_unread_received_songs(id)
     Share.where('shares.receiver_id = ? and shares.read = false', id).count
+  end
+
+  def self.by_genre(genre)
+    Song
+      .joins('inner join broadcasts on broadcasts.song_id = songs.id')
+      .joins('inner join stations as ss on ss.id = broadcasts.station_id')
+      .joins('inner join artists on artists.station_slug = ss.slug')
+      .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
+      .joins('inner join genres on genres.id = artists_genres.genre_id')
+      .where('genres.id = ?', genre.id)
   end
 
   def self.user_following_songs(id, offset, limit)

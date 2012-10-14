@@ -412,6 +412,7 @@ function setNavActive(page) {
   fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');
   var newNavActive = navItems[page];
+  if (!newNavActive) newNavActive = navItems['/' + page.split('/')[1]];
   if (newNavActive) navActive = newNavActive.addClass('active');
 
   // Update .nav-menu

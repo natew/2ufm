@@ -393,31 +393,11 @@ var mp = (function() {
   var events = {
     play: function play() {
       isPlaying = true;
-      pl.player.addClass('loaded');
       player.setCurSection('playing');
       player.refresh();
       player.startTimer();
       w.trigger('mp:played', player.state());
       usedKeyboard = false;
-
-      // Scrobbling
-      $.ajax({
-        type: 'POST',
-        url: '/listens',
-        data: {
-          listen: {
-            song_id: curSongInfo.id,
-            user_id: $('#current_user').data('id'),
-            url: curPage,
-            seconds: curSongInfo.seconds
-          }
-        },
-        success: function playSuccess(data) {
-          listenUrl = data;
-          w.trigger('mp:gotListen', player.state());
-        },
-        dataType: 'html'
-      });
     },
 
     stop: function stop() {
@@ -472,7 +452,29 @@ var mp = (function() {
     },
 
     onload: function onload(success) {
-      if (!success) {
+      if (success) {
+        pl.player.addClass('loaded');
+        // Scrobbling
+        $.ajax({
+          type: 'POST',
+          url: '/listens',
+          data: {
+            listen: {
+              song_id: curSongInfo.id,
+              user_id: $('#current_user').data('id'),
+              url: curPage,
+              seconds: curSongInfo.seconds
+            }
+          },
+          success: function playSuccess(data) {
+            listenUrl = data;
+            w.trigger('mp:gotListen', player.state());
+          },
+          dataType: 'html'
+        });
+      }
+      // Failure
+      else {
         fn.log('failure', success);
         curFailures++;
         failures++;

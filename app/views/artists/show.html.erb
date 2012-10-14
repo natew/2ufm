@@ -1,8 +1,8 @@
-<%- cache ['v2', @artist] do -%>
+<%- cache ['v3', @artist] do -%>
 <div class="nav-container">
   <div class="title">
     <%= image_tag @artist.image.url(:medium), :class => 'image medium' %>
-    <h1><%= @artist.name %> <span><%= render :partial => 'shared/link', :locals => { :slug => @artist.station.slug } %></span></h1>
+    <h1 class="icon"><%= @artist.name %> <span><%= render :partial => 'shared/link', :locals => { :slug => @artist.station.slug } %></span></h1>
 
     <nav class="nav-menu">
       <%= nav_link_to 'New', station_path(@artist) %>
@@ -19,6 +19,16 @@
   </div>
 
   <div class="whole">
+    <%
+      cache ['v1', @artist, @artist.genres] do
+        if @artist.genres.count %>
+          <h3 class="horizontal">Genres:</h3>
+          <ul class="genres horizontal">
+            <%= render @artist.genres %>
+          </ul>
+    <%  end
+      end %>
+
     <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs, :cache_val => @type } %>
   </div>
 </div>

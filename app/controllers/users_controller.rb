@@ -25,6 +25,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def find_friends
+  end
+
   def feed
     @feed = true
 
@@ -55,14 +58,15 @@ class UsersController < ApplicationController
   def navbar
     only = { :only => [:id, :user_id, :title, :slug] }
     max = 20
-    @online = current_user.stations.user_station.with_user.online.limit(max).to_json(only)
-    max -= @online.size
+    online = current_user.stations.user_station.with_user.online.limit(max)
+    max -= online.size
+    @online = online.to_json(only)
     @offline = current_user.stations.user_station.with_user.not_online.limit(max).to_json(only) if max > 0
     render :layout => false
   end
 
   def following
-    @following = @user.stations
+    @following = @user.following
 
     respond_to do |format|
       format.html { render 'users/show' }

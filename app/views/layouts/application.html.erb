@@ -113,7 +113,6 @@
             <h1><%= current_user.username %></h1>
             <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
             <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
-            <%= link_to 'Following', '/users/following', :id => 'nav-following', :class => 'pictos-add' %>
             <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
           </section>
           <%- end -%>
@@ -127,14 +126,14 @@
 
           <section>
             <h1>Browse</h1>
+            <%= link_to 'Genres', '/genres', :id => 'nav-genres', :class => 'pictos-lense' %>
             <%= link_to 'Artists', '/artists', :id => 'nav-artists', :class => 'pictos-users' %>
             <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs', :class => 'pictos-newspaper' %>
-            <%= link_to 'Users', '/users', :id => 'nav-users', :class => 'pictos-user' %>
           </section>
 
           <section class="nav-extra account">
             <% if user_signed_in? %>
-              <% link_to "Find friends", '/users', :id => 'nav-friends' %>
+              <%= link_to "Find friends", '/find_friends', class: 'nav-menu', id: 'nav-friends' %>
               <%= link_to "Account", '/account' %>
               <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
             <% else %>
@@ -233,10 +232,6 @@
   <div id="tunein"></div>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>
-
-  <%- if user_signed_in? -%>
-    <%= subscribe_to "/subscriptions/#{current_user.id}" %>
-    <%= subscribe_to "/shares/#{current_user.id}" %>
-  <%- end -%>
+  <%= subscribe_to "/users/#{current_user.id}" if user_signed_in? %>
 </body>
 </html>
