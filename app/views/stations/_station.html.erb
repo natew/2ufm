@@ -1,12 +1,14 @@
 <%-
-  nofollow ||= false
-  size ||= :small
-  nocache ||= false
+  nofollow    ||= false
+  size        ||= :small
+  nocache     ||= false
+  title       ||= station.title
+  just_follow ||= false
 -%>
 
 <section>
   <div class="station-info">
-    <h4><%= station.title %></h4>
+    <h4><%= title %></h4>
     <span><%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
   </div>
   <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
@@ -15,5 +17,5 @@
     <%= follow_station(station.id, station.follows_count, :nocache => nocache) %>
   </div>
   <%- end -%>
-  <%= link_to '', station_path(station), :class => 'station-link' %>
+  <%= link_to '', station_path(station), :class => 'station-link' unless just_follow %>
 </section>

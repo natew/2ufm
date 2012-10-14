@@ -1029,6 +1029,21 @@ header #second-nav {
   }
 }
 
+#modal-new-user {
+  input {
+    margin: 0 0 20px 0;
+    width: 100%;
+    @include box-sizing(border-box);
+  }
+}
+
+.friends-list {
+  margin: 0 0 20px 0;
+  max-height: 350px;
+  overflow: scroll;
+  text-align: left;
+}
+
 #more-artists {
   position: absolute;
   top: 20px;
@@ -1128,21 +1143,17 @@ header #second-nav {
 
 #dialog {
   position: fixed;
-  z-index: 100000;
+  z-index: 220;
   text-align: center;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.8);
   color: $light-yellow;
   width: 100%;
-  line-height: 2.9em;
-  margin: -10px 0 0 -20px;
+  padding: 10px 0;
+  margin: 0;
+  top: $header-height;
   left: 0;
   font-size: 18px;
-  width: 110%;
   overflow: hidden;
-
-  &.alert {
-    text-shadow: 0 -1px 0 #a84a43;
-  }
 }
 
 
@@ -1306,6 +1317,7 @@ $announce-color: $heading-color;
   }
 
   .image {
+    border: 2px solid $body-light;
     position: absolute;
     top: -4px;
     right: 20px;
@@ -1709,6 +1721,11 @@ h2 small { font-size: 55%; }
   top: 20px;
 }
 
+.separator {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+}
 
 /* Image Covers */
 .cover-tiny {

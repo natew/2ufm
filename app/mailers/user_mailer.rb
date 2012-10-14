@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
     @followee = followee
     @unsubscribe_type = 'follow'
     set_unsubscribe_key(@followee)
-    mail(to: @followee.email, subject: "#{follower.full_name} is now following you on 2u.fm") do |format|
+    mail(to: @followee.email, subject: "#{@follower.full_name} is now following you on 2u.fm") do |format|
       format.html { render 'follow' }
     end
   end

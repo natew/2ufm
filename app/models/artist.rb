@@ -11,6 +11,7 @@ class Artist < ActiveRecord::Base
   has_many   :stations, :through => :broadcasts
   has_many   :authors, :dependent => :destroy
   has_many   :songs, :through => :authors, :extend => SongExtensions
+  has_and_belongs_to_many :genres
 
   acts_as_url :name, :url_attribute => :slug, :allow_duplicates => false
 
@@ -50,6 +51,36 @@ class Artist < ActiveRecord::Base
 
   def station_songs_count
     station.songs_count
+  end
+
+  def get_genres
+    genres = []
+    url_name = Rack::Utils.escape(name)
+    url = "http://developer.echonest.com/api/v4/artist/search?api_key=#{Yetting.echonest_api_key}&name=#{url_name}"
+    echo_artist = HTTParty.get(url)
+    if echo_artist
+      id = echo_artist['response']['artists'][0]['id']
+      if id
+        terms_url = "http://developer.echonest.com/api/v4/artist/terms?api_key=#{Yetting.echonest_api_key}&id=#{id}&format=json"
+        echo_terms = HTTParty.get(terms_url)
+        if echo_terms
+          logger.info echo_terms
+          echo_terms['response']['terms'].each do |term|
+            genres.push Genre.map_name(term['name']).titleize unless term['frequency'] < 0.1 or term['weight'] < 0.25
+          end
+        end
+      end
+    end
+    genres
+  end
+
+  def update_genres
+    genres = get_genres
+    genres.each do |add_genre|
+      genre = Genre.find_by_name(add_genre)
+      self.genres << genre if genre
+    end
+    self.genres
   end
 
   def get_discogs_info

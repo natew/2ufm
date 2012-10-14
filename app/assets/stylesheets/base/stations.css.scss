@@ -9,6 +9,7 @@ $station-image: $play-button-size;
 $station-image-small: $play-button-small;
 
 .stations {
+  position: relative;
   margin: 0 0 25px 0;
 
   section {

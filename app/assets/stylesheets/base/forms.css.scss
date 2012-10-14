@@ -244,12 +244,12 @@ button {
     padding: 0 4px;
   }
 
-  &.grey {
+  &.alt {
     border-color: #555;
     background: #222;
 
     &:hover {
-      @include linear-gradient(#aaa,#777);
+      background: #333;
     }
   }
 
@@ -302,8 +302,13 @@ button {
 
 .button {
   margin: 0;
-  display: block;
+  display: inline-block;
   text-align: center;
+
+  &.big {
+    font-size: 16px;
+    padding: 8px 20px 12px;
+  }
 }
 
 .actions .input-submit {

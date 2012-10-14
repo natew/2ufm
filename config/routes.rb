@@ -54,6 +54,7 @@ Fusefm::Application.routes.draw do
   match '/share', :to => 'shares#create'
   match '/authorized', :to => 'users#authorized'
   match '/unsubscribe/:type/:key', to: 'users#unsubscribe'
+  match '/user_genres', to: 'users#genres'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

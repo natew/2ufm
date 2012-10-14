@@ -1,0 +1,34 @@
+<div id="modal-login" class="permanent">
+  <h3>Welcome to 2u.fm!</h3>
+  <div id="login-promo">
+    <p class="large">
+      <img id="octo-dj" src="/images/octo_dj.png" />
+      <strong>Discover great new music</strong>.
+      This is music sharing done right.
+      Follow friends, artists &amp; top music blogs.
+    </p>
+
+    <p>
+      We aren't Spotify or Pandora.  We bring you music before it's released.  We have all the remixes, mashups, and bootlegs.  Listen to it live with your friends.
+    </p>
+
+    <p style="clear:both;"><b>It's a different type of social music.</b>  And don't worry, we don't spam your Facebook.</p>
+  </div>
+
+  <div id="loner-login" class="hidden">
+    <div class="greater">
+      <h4>Sign up</h4>
+      <%= render :partial => 'registrations/new_form' %>
+    </div>
+
+    <div class="lesser inline">
+      <h4>Login</h4>
+      <%= render :partial => 'sessions/new_form' %>
+    </div>
+  </div>
+
+  <div class="modal-actions">
+    <span class="afterthought">Or try it <%= link_to 'without facebook.', '#loner-login, #login-promo', class: 'control', 'data-toggle' => 'hidden' %></span>
+    <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'right facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
+  </div>
+</div>

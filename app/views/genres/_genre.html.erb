@@ -1,1 +1,5 @@
-<li><%= link_to genre.name, genre %></li>
+<%
+  control ||= false
+  classes   = control ? 'control' : ''
+%>
+<li><%= link_to genre.name, genre, class: classes, 'data-id' => genre.id %></li>

@@ -3,7 +3,7 @@
 	[
 		{
 			"path": "/Users/macbook/Sites/fusefm",
-      "folder_exclude_patterns": ["tmp", "log", "vendor/macgap", "public"]
+      "folder_exclude_patterns": ["tmp", "log", "vendor/macgap"]
 		}
 	]
 }

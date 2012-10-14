@@ -6,6 +6,13 @@ if (isTuningIn) {
   });
 }
 
+if (isOnline) {
+  fn.log('subscribing');
+  Danthes.subscribe('/meta/connect', function metaSubscribe(data, channel) {
+    fn.log(data, channel);
+  });
+}
+
 // Begin listening to a station
 function tuneIn(id, callback) {
   fn.log(id);

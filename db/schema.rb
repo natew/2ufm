@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010023411) do
+ActiveRecord::Schema.define(:version => 20121014042151) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20121010023411) do
     t.string   "image_content_type"
   end
 
+  create_table "artists_genres", :force => true do |t|
+    t.integer "genre_id"
+    t.integer "artist_id"
+  end
+
+  add_index "artists_genres", ["genre_id", "artist_id"], :name => "index_artists_genres_on_genre_id_and_artist_id", :unique => true
+
   create_table "authors", :force => true do |t|
     t.integer "artist_id"
     t.integer "song_id"
@@ -73,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20121010023411) do
     t.integer "blog_id"
     t.integer "genre_id"
   end
+
+  add_index "blogs_genres", ["genre_id", "blog_id"], :name => "index_blogs_genres_on_genre_id_and_blog_id", :unique => true
 
   create_table "broadcasts", :force => true do |t|
     t.integer  "station_id"
@@ -133,6 +142,13 @@ ActiveRecord::Schema.define(:version => 20121010023411) do
     t.integer "genre_id"
     t.integer "station_id"
   end
+
+  create_table "genres_users", :force => true do |t|
+    t.integer "genre_id"
+    t.integer "user_id"
+  end
+
+  add_index "genres_users", ["user_id", "genre_id"], :name => "index_genres_users_on_user_id_and_genre_id", :unique => true
 
   create_table "listens", :force => true do |t|
     t.string   "shortcode"
@@ -336,6 +352,10 @@ ActiveRecord::Schema.define(:version => 20121010023411) do
     t.string   "avatar_remote_url"
     t.string   "avatar_content_type"
     t.string   "unconfirmed_email"
+    t.string   "oauth_token"
+    t.string   "gender"
+    t.boolean  "first_time",                            :default => true
+    t.string   "facebook_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

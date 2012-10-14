@@ -1,5 +1,19 @@
 # Application Helper
 module ApplicationHelper
+  def user_body_classes
+    if user_signed_in?
+      classes = ['signed_in']
+      classes.push 'new_user' if current_user.first_time?
+    else
+      classes = ['signed_out']
+    end
+    classes.join(' ')
+  end
+
+  def get_friends
+
+  end
+
   # Station follow
   def follow_station(id, follows_count, options={})
     action = "add"

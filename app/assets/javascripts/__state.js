@@ -1,7 +1,8 @@
 // Variables
 var w = $(window),
     body = $('body'),
-    isOnline = $('body.signed_in').length > 0,
+    isOnline = body.is('.signed_in'),
+    isNewUser = body.is('.new_user'),
     isAdmin = $('body[data-role="admin"]').length > 0,
     userId = body.data('user'),
     modalShown = false,

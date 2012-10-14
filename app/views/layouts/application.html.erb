@@ -43,7 +43,7 @@
   </script>
 </head>
 
-<body class="<%= user_signed_in? ? 'signed_in' : 'signed_out' %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
+<body class="<%= user_body_classes %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
 
   <div id="body-wrap">
     <header>
@@ -78,9 +78,6 @@
                 <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on tip', :id => 'player-volume', title: 'Volume' %>
                 <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-normal post tip', title: 'Play mode' %>
               </div>
-              <div id="player-live">
-                <%= link_to '0 people listening', '', 'data-count' => '0' %>
-              </div>
               <div id="player-progress-bar">
                 <div id="player-progress-grabber"></div>
                 <div id="player-progress-inner-wrap">
@@ -98,6 +95,10 @@
       </div>
       <!-- /player -->
     </header>
+
+    <div id="player-live">
+      <%= link_to '0 people listening to you', '', 'data-count' => '0' %>
+    </div>
 
     <div id="main-mid">
       <div id="navbar">
@@ -119,8 +120,8 @@
 
           <section>
             <h1>Songs</h1>
-            <%= link_to 'Just in', '/fresh', :id => 'nav-new', :class => 'pictos-time' %>
             <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
+            <%= link_to 'Just in', '/fresh', :id => 'nav-new', :class => 'pictos-time' %>
             <%= link_to 'Popular', '/popular', :id => 'nav-popular', :class => 'pictos-star' %>
           </section>
 
@@ -188,8 +189,7 @@
     <div id="share-friends"></div>
   </div>
 
-  <div id="friends" class="pop-menu right-align">
-  </div>
+  <div id="friends" class="pop-menu right-align"></div>
 
 
   <!-- Modals -->
@@ -197,65 +197,37 @@
   <div id="overlay" class="shown slow-fade"></div>
   <div id="modal"></div>
 
-  <% if !user_signed_in? %>
-  <div id="modal-login" class="hidden permanent">
-    <h3>Welcome to 2u.fm!</h3>
-    <p class="large">
-      <em>Discover great music</em>.  Like it, share it &amp; send it.  No Facebook spam.
-      <br />
-      Follow friends, artists &amp; blogs.  It's your music feed - done right.
-    </p>
-
-    <div id="social-login">
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
-      <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter), :class => 'twitter-button login-button popup button control', 'data-dimensions' => '800,500' %>
-    </div>
-
-    <em class="split">Don't have friends? <%= link_to 'Login here', '#loner-login', 'data-toggle' => 'hidden' %></em>
-
-    <div id="loner-login" class="hidden">
-      <div class="greater">
-        <h4>Sign up</h4>
-        <%= render :partial => 'registrations/new_form' %>
-      </div>
-
-      <div class="lesser inline">
-        <h4>Login</h4>
-        <%= render :partial => 'sessions/new_form' %>
-      </div>
-    </div>
-  </div>
-  <% end %>
-
-  <div id="song-dragger" class="pictos">m</div>
-
   <div class="hidden">
-    <div id="help">
-      <h3>Help</h3>
-      <p>Welcome to 2u.fm!  We are collectors of the latest and greatest music from all around the web.  We find new music and sort it all out so you can sit back and enjoy.  Check out our <strong><%= link_to 'popular', '/popular' %></strong>, <strong><%= link_to 'genre', '/genres' %></strong>, and <strong><%= link_to 'artist', '/artists' %></strong> stations to get a start.
-      </p>
+    <% if !user_signed_in? %>
+      <%= render 'modals/login' %>
+    <% else %>
 
-      <h4>Keyboard Shortcuts</h4>
-      <dl>
-        <dt>Space</dt><dd>Pause / Play</dd>
-        <dt>Enter</dt><dd>Play highlighted song</dd>
-        <dt>Arrow keys</dt><dd>Next / Prev</dd>
-      </dl>
-    </div>
+      <% if current_user.provider != 'facebook' %>
+
+        <div id="modal-new-user" class="center">
+          <h3>Please update your account</h3>
+          <%= link_to "Link account to Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
+        </div>
+
+      <% elsif current_user.first_time? %>
+        <%= render 'modals/new_user' %>
+      <% end %>
+    <% end %>
 
     <div id="friends-template">
       <div class="online">
       {{#online}}
-        <%= render :partial => 'users/friend_link' %>
+        <%= render partial: 'users/friend_link' %>
       {{/online}}
       </div>
       {{#offline}}
-        <%= render :partial => 'users/friend_link' %>
+        <%= render partial: 'users/friend_link' %>
       {{/offline}}
     </div>
   </div>
 
-  <!-- Spinner -->
+  <!-- Others -->
+  <div id="song-dragger" class="pictos">m</div>
   <div id="spinner" class="hidden"></div>
   <div id="null"></div>
   <div id="tunein"></div>
@@ -265,7 +237,6 @@
   <%- if user_signed_in? -%>
     <%= subscribe_to "/subscriptions/#{current_user.id}" %>
     <%= subscribe_to "/shares/#{current_user.id}" %>
-  end
   <%- end -%>
 </body>
 </html>

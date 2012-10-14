@@ -1,0 +1,57 @@
+<div id="modal-new-user" class="section-container permanent">
+  <div id="new-user-friends" class="section">
+    <h3>Step 1: Follow friends</h3>
+
+    <% if false %>
+      <p class="large">We've found a few of your friends already using 2u!</p>
+      <div class="stations friends-list">
+        <%= render partial: 'users/facebook_friend', collection: current_user.facebook_friends %>
+      </div>
+    <% else %>
+      <p class="large">Aw :( None of your friends are on 2u yet!</p>
+      <p>
+        <strong>Look at you, early adopter.</strong>  You're a pioneer.  You like the new and improved!  You have what it takes to make this your new music spot.  No one likes to listen to music alone!
+      </p>
+      <p>Let your buddies know that you've found a ridiculously cool new music sharing site!</p>
+
+      <div class="center">
+      <%= link_to 'Invite Friends', "http://www.facebook.com/sharer.php?u=http://2u.fm&t=#{URI.escape('I\'m getting the best new music from 2u.fm!')}", class: 'facebook-button button big popup', 'data-dimensions' => '600x400' %>
+      <em> &nbsp; or &nbsp; </em>
+      <%= link_to 'Share Profile', "http://www.facebook.com/sharer.php?u=http://2u.fm/#{current_user.station_slug}&t=#{URI.escape('Check out my favorite music on 2u.fm.')}", class: 'facebook-button button big popup', 'data-dimensions' => '600x400' %>
+    </div>
+
+    <% end %>
+
+    <div class="modal-actions">
+      <%= link_to 'Next &raquo;'.html_safe, '#new-user-friends, #new-user-genres', class: 'button control', 'data-toggle' => 'hidden' %>
+    </div>
+  </div>
+
+  <div id="new-user-genres" class="section hidden">
+    <h3>Step 2: Pick Genres</h3>
+
+    <ul class="genres multi-select">
+      <%= render partial: Genre.all, locals: { control: true } %>
+    </ul>
+
+    <div class="modal-actions">
+      <%= link_to 'Next &raquo;'.html_safe, '#new-user-genres, #new-user-artists', id: 'genres-next', class: 'button control', 'data-toggle' => 'hidden' %>
+      <%= link_to '&laquo; Back'.html_safe, '#new-user-friends, #new-user-genres', class: 'button alt control', 'data-toggle' => 'hidden' %>
+    </div>
+  </div>
+
+  <div id="new-user-artists" class="section hidden">
+    <h3>Step 3: Recommended Artists</h3>
+    <p class="large">
+      Finding artists we think you'll like to follow...
+    </p>
+
+    <div class="stations loading">
+    </div>
+
+    <div class="modal-actions">
+      <%= link_to 'All done!', feed_user_path(current_user), class: 'button modal-close' %>
+      <%= link_to '&laquo; Back'.html_safe, '#new-user-artists, #new-user-genres', class: 'button alt control', 'data-toggle' => 'hidden' %>
+    </div>
+  </div>
+</div>

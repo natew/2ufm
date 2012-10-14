@@ -52,6 +52,32 @@ if (!isOnline && !isTuningIn) {
   modal('#modal-login');
 }
 
+if (isNewUser) {
+  modal('#modal-new-user');
+
+  $('#genres-next').click(function() {
+    var genres = [];
+    $('#new-user-genres .genres a.selected').each(function(){
+      genres.push($(this).attr('data-id'));
+    });
+
+    if (genres.length) {
+      $('#modal-new-user').removeClass('permanent');
+      $.ajax({
+        type: 'post',
+        url: '/user_genres',
+        data: 'genres=' + genres.join(','),
+        success: function(data) {
+          $('#new-user-artists .stations').removeClass('loading').html(data);
+        }
+      });
+    } else {
+      notice('No genres selected... You gotta like something, right?!');
+      return false;
+    }
+  });
+}
+
 // Get volume init
 if (volume === "0") {
   // dont ask me why
@@ -205,23 +231,6 @@ $('#share-friends').on('click', 'a', function() {
 });
 
 body.allOn('click', {
-  'a': function(e, el) {
-    navDropdown(false);
-    if (!this.className.match(/external/)) e.preventDefault();
-    if (!this.className.match(/popup|control/)) {
-      if (doPjax) {
-        $.pjax({
-          url: el.attr('href'),
-          container: '#body',
-          timeout: 12000
-        });
-      }
-      else {
-        loadPage(el.attr('href'));
-      }
-    }
-  },
-
   '.disabled': function() {
     return false;
   },
@@ -245,7 +254,7 @@ body.allOn('click', {
     return false;
   },
 
-  '.close-modal': function() {
+  '.modal-close': function() {
     modal(false);
   },
 
@@ -259,7 +268,14 @@ body.allOn('click', {
   },
 
   '[data-toggle="hidden"]': function(e, el) {
+    fn.log('toggle');
+    e.preventDefault();
     $(el.attr('href')).toggleClass('hidden');
+    return false;
+  },
+
+  '.multi-select a': function(e, el) {
+    el.toggleClass('selected');
     return false;
   },
 
@@ -312,6 +328,25 @@ body.allOn('click', {
   }
 });
 
+body.allOn('click', {
+  'a': function(e, el) {
+    navDropdown(false);
+    if (!this.className.match(/external/)) e.preventDefault();
+    if (!this.className.match(/popup|control/)) {
+      if (doPjax) {
+        $.pjax({
+          url: el.attr('href'),
+          container: '#body',
+          timeout: 12000
+        });
+      }
+      else {
+        loadPage(el.attr('href'));
+      }
+    }
+  }
+});
+
 // Clicks not on a
 body.on('click', function(e) {
   var el = $(e.target);
@@ -331,11 +366,9 @@ $('#player-buttons .broadcast a').click(function() {
 
 // functions
 
-
-
 function notice(message, time) {
   $('#dialog').remove();
-  $('<div id="dialog">' + message + '</div>').prependTo('#body');
+  $('<div id="dialog">' + message + '</div>').prependTo('body');
   hideDialog(time);
 }
 

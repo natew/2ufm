@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
          :reconfirmable => true
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location
+  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location, :oauth_token, :gender, :facebook_id, :first_time
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :songs, :through => :stations, :extend => SongExtensions
   has_many :listens
   has_many :shares, :foreign_key => :receiver_id
+  has_and_belongs_to_many :genres
 
   has_attachment :avatar,
     styles: {
@@ -121,6 +122,12 @@ class User < ActiveRecord::Base
     username
   end
 
+  def facebook_friends
+    friends = Koala::Facebook::API.new(oauth_token).get_connections('me', 'friends')
+    friend_ids = friends.map { |friend| friend['id'] }
+    User.where('users.facebook_id in (?)', friend_ids)
+  end
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first || User.find_by_email(auth.extra.raw_info.email)
     unless user
@@ -130,34 +137,37 @@ class User < ActiveRecord::Base
         full_name: info.name,
         provider: auth.provider,
         uid: auth.uid,
-        email: session[:user_email] || info.email,
-        password: Devise.friendly_token[0,20]
+        email: info.email,
+        avatar_remote_url: auth.info.image,
+        password: Devise.friendly_token[0,20],
+        oauth_token: auth.credentials.token,
+        gender: info.gender,
+        location: info.location.name,
+        facebook_id: info.id
       )
       user.skip_confirmation!
       user.save!
+    else
+      user.update_attributes(oauth_token: auth.credentials.token) if auth.credentials.token != user.oauth_token
     end
     user
   end
 
-  def self.find_for_twitter_oauth(auth, signed_in_resource=nil, session=nil)
-    user = User.where(:provider => auth.provider, :uid => auth.uid).first
-    unless user
-      info = auth.extra.raw_info
-      user = User.create(
-        username: info.screen_name,
-        provider: auth.provider,
-        uid: auth.uid,
-        email: session[:user_email] || session[:email_address],
-        location: info.location,
-        bio: info.description,
-        full_name: info.name,
-        avatar_remote_url: info.profile_image_url,
-        password: Devise.friendly_token[0,20]
-      )
-      user.skip_confirmation!
-      user.save!
-    end
-    user
+  def update_for_facebook_oauth(auth)
+    info = auth.extra.raw_info
+    self.update_attributes(
+      full_name: info.name,
+      provider: auth.provider,
+      uid: auth.uid,
+      avatar_remote_url: auth.info.image,
+      oauth_token: auth.credentials.token,
+      gender: info.gender,
+      location: info.location.name,
+      facebook_id: info.id
+    )
+    self.skip_confirmation!
+    self.save!
+    self
   end
 
   def self.new_with_session(params, session)
@@ -172,6 +182,17 @@ class User < ActiveRecord::Base
     # users_station = user.station_id
     # Follow.where(user_id: user.id, station_id: )
     # Follow.where(user_id: , station_id: )
+  end
+
+  def set_genres(genres_list)
+    self.genres.destroy_all
+    added = []
+    genres_list.each do |add_genre|
+      genre = Genre.find(add_genre)
+      self.genres << genre if genre
+      added.push genre.id
+    end
+    added
   end
 
   def broadcasted_song?(song)

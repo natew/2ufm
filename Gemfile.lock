@@ -389,6 +389,7 @@ DEPENDENCIES
   ffmpeg
   foreman
   hashie
+  httparty
   jquery-rails
   kaminari
   koala
