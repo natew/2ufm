@@ -79,6 +79,7 @@ if (isNewUser) {
 }
 
 // Get volume init
+fn.log('vol', volume);
 if (volume === "0") {
   // dont ask me why
   mp.toggleVolume();
