@@ -56,8 +56,8 @@ class UsersController < ApplicationController
     only = { :only => [:id, :user_id, :title, :slug] }
     max = 20
     @online = current_user.stations.user_station.with_user.online.limit(max).to_json(only)
-    max = max - @online.size
-    @offline = current_user.stations.user_station.with_user.not_online.limit(max).to_json(only) unless max.zero?
+    max -= @online.size
+    @offline = current_user.stations.user_station.with_user.not_online.limit(max).to_json(only) if max > 0
     render :layout => false
   end
 
