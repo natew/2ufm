@@ -1,13 +1,13 @@
 class Genre < ActiveRecord::Base
   default_scope order('name')
 
-  has_and_belongs_to_many :blogs
-  has_and_belongs_to_many :users
-  has_and_belongs_to_many :artists
+  #has_and_belongs_to_many :blogs
+  #has_and_belongs_to_many :users
+  #has_and_belongs_to_many :artists
 
   acts_as_url :name, :url_attribute => :slug
 
-  validates :name, :presence => true
+  validates :name, presence: true, uniqueness: true
 
   before_create :map_name
 
