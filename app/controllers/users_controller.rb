@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   end
 
   def find_friends
+    @facebook_friends = current_user.facebook_friends
   end
 
   def feed

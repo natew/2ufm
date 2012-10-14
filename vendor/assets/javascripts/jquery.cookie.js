@@ -34,6 +34,7 @@
       }
 
       value = String(value);
+      options.path = '/';
 
       return (document.cookie = [
         encodeURIComponent(key), '=', options.raw ? value : encodeURIComponent(value),

@@ -566,14 +566,10 @@ $song-player-height: 50px;
 }
 
 #body .reviews {
-  background: rgba(0,0,0,0.05);
-  margin: -$song-pad;
-  margin-top: 5px;
-  padding: $song-pad;
-  padding-bottom: 0;
+  margin-top: 10px;
 
   div {
-    margin: 0 0 $song-pad 0;
+    margin: 0;
 
     p {
       margin-bottom: 0;

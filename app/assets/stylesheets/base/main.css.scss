@@ -124,10 +124,11 @@ header {
     content: "";
     position: absolute;
     display: block;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    height: 1px;
+    height: 3px;
+    background: rgba(0,0,0,0.1);
   }
 
   /* logo */
@@ -232,7 +233,7 @@ header {
 }
 
 #player-controls {
-  margin: 1px 0 -4px -4px;
+  margin: 0 0 -4px -4px;
   float: left;
   width: 100px;
 
@@ -289,7 +290,7 @@ header {
     overflow: hidden;
     visibility: hidden;
     margin: 2px 0 0;
-    line-height: 19px;
+    line-height: 17px;
 
     &:before, &:after {
       display: block;
@@ -363,10 +364,10 @@ header {
 #player-bottom {
   clear: both;
   position: absolute;
-  bottom: 3px;
+  bottom: 6px;
   left: -10px;
   right: -10px;
-  height: 13px;
+  height: 14px;
 
   &:hover {
     overflow: visible;
@@ -436,7 +437,7 @@ header {
 
 #player-mini-controls {
   position: absolute;
-  top: -8px;
+  top: -5px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -466,7 +467,7 @@ header {
 
 #player-buttons {
   position: absolute;
-  top: 7px;
+  top: 5px;
   right: 0;
   width: 196px;
 
