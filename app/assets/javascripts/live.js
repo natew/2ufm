@@ -6,6 +6,25 @@ if (isTuningIn) {
   });
 }
 
+function tuneInTip() {
+  $('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5});
+}
+tuneInTip();
+
+$('#tune-in').click(function() {
+  var el = $(this);
+  el.toggleClass('live');
+
+  if (el.is('.live')) {
+    el.attr('title', 'Turn off live listening').html('On');
+  } else {
+    el.attr('title', 'Turn on live listening').html('Off');
+  }
+
+  $('.tipsy').remove();
+  tuneInTip();
+})
+
 // Begin listening to a station
 function tuneIn(id, callback) {
   fn.log(id);

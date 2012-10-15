@@ -62,8 +62,8 @@
               <%= render partial: "songs/broadcast", locals: { action: 'destroy', id: '0', count: 'Unlike'  } %>
             </span>
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard', 'data-pad' => '8'  %>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control pictos-music disabled', :id => 'nav-music', 'data-pad' => '8' %>
-            <%= link_to 'Live!', '#friends', id: 'tune-in', class: 'nav-hover control pictos-globe', 'data-pad' => '18' %>
+            <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control pictos-list disabled', :id => 'nav-music', 'data-pad' => '8' %>
+            <%= link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control pictos-globe tip-e', 'data-pad' => '18', title: 'Turn on live listening' %>
           </div>
 
           <div id="player-main">
@@ -76,7 +76,7 @@
             <div id="player-bottom">
               <div id="player-mini-controls">
                 <%= link_to 'Sound', '#', :class => 'volume control pictos-volume-on tip', :id => 'player-volume', title: 'Volume' %>
-                <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-normal post tip', title: 'Play mode' %>
+                <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control pictos-normal post tip', title: 'Play in order' %>
               </div>
               <div id="player-progress-bar">
                 <div id="player-progress-grabber"></div>
@@ -119,14 +119,14 @@
 
           <section>
             <h1>Songs</h1>
-            <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
             <%= link_to 'Just in', '/fresh', :id => 'nav-new', :class => 'pictos-time' %>
+            <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
             <%= link_to 'Popular', '/popular', :id => 'nav-popular', :class => 'pictos-star' %>
           </section>
 
           <section>
             <h1>Browse</h1>
-            <%= link_to 'Genres', '/genres', :id => 'nav-genres', :class => 'pictos-lense' %>
+            <%= link_to 'Genres', '/genres', :id => 'nav-genres', :class => 'pictos-music' %>
             <%= link_to 'Artists', '/artists', :id => 'nav-artists', :class => 'pictos-users' %>
             <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs', :class => 'pictos-newspaper' %>
           </section>

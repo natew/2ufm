@@ -191,6 +191,8 @@ $('.nav-hover').live({
         hoveredClass = el.attr('class'),
         hovered = navHovered[hoveredClass];
 
+    if (el.is('.hover-off')) return false;
+
     fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
     clearInterval(navHoverInterval);
     closeHoveredDropdown();
@@ -383,10 +385,17 @@ function hideDialog(time) {
 }
 
 function updatePlayMode(mode) {
-  playModeEl
+  var modeHTML = {'normal': 'Normal', 'repeat': 'Repeat', 'shuffle': 'Shuffle'},
+      modeTitles = {'normal': 'Play in order', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
+
+  $('#player-mode')
     .removeClass('pictos-normal pictos-shuffle pictos-repeat')
     .addClass('pictos-' + mode)
-    .html(fn.capitalize(modeTitles[mode]));
+    .html(fn.capitalize(modeHTML[mode]))
+    .attr('title', modeTitles[mode]);
+
+  $('.tipsy').remove();
+  $('#player-mode').trigger('mouseenter');
 }
 
 // Bind selectors to callbacks

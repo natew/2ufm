@@ -449,14 +449,14 @@ header {
     padding: 28px 0 0;
     float: left;
     color: rgba(255,255,255,0.8);
-    font-size: 16px;
+    font-size: 18px;
 
     &:hover {
       color: #fff;
     }
 
     &:before {
-      font-size: 16px;
+      font-size: 18px;
     }
 
     &.post {
@@ -467,7 +467,7 @@ header {
 
 #player-buttons {
   position: absolute;
-  top: 5px;
+  top: 6px;
   right: 0;
   width: 196px;
 
@@ -496,17 +496,6 @@ header {
     float: left;
     text-decoration: none;
 
-    &#tune-in {
-      background: rgba(255,255,255,0.2);
-      padding: 9px 0 10px;
-      margin: -9px -6px 0 4px;
-      width: 55px;
-
-      &:hover {
-        background: rgba(0,0,0,0.3);
-      }
-    }
-
     &:before {
       display: block;
       position: relative;
@@ -531,6 +520,24 @@ header {
       color: lighten($header-light,10%);
     }
   }
+
+  #tune-in {
+    padding: 8px 0 10px;
+    margin: -10px -6px 0 4px;
+    width: 55px;
+    color: lighten($header-color, 25%);
+    background: rgba(0,0,0,0.1);
+
+    &:hover { background: rgba(0,0,0,0.05); }
+    &:before { color: lighten($header-color, 25%); }
+
+    &.live {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      &:before { color:#fff; }
+      &:hover { background: rgba(255,255,255,0.3); }
+    }
+  }
 }
 
 #player-live {
@@ -548,8 +555,8 @@ header {
     font-size: 12px;
     font-weight: 400;
     text-decoration: none;
-    background: rgba(0,0,0,0.5);
     border-bottom-left-radius: 4px;
+    background: rgba(0,0,0,0.5);
   }
 }
 
@@ -573,9 +580,9 @@ header {
   }
 
   h1 {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 300;
-    color: #666;
+    color: #777;
     padding: 5px 10px;
     margin: 0;
   }
@@ -610,7 +617,7 @@ header {
     }
 
     &:before {
-      padding-left: 4px;
+      padding-left: 5px;
       font-size: 14px;
     }
 
@@ -895,7 +902,6 @@ header #second-nav {
 .pictos-comments:before {content: "q";}
 .pictos-shuffle:before {content: ";";}
 .pictos-repeat:before {content: "r";}
-.pictos-normal:before {content: "l";}
 .pictos-link:before {content: "j";}
 .pictos-clock:before {content: "t";}
 .pictos-cart:before {content: "$";}
@@ -907,6 +913,9 @@ header #second-nav {
 .pictos-globe:before {content: "G";}
 .pictos-pulse:before {content: "Y";}
 .pictos-lense:before {content: "L";}
+.pictos-forward:before {content: "]";}
+.pictos-period:before,
+.pictos-normal:before {content: ".";}
 
 #main-mid a[href^="http://"] {
   padding-right: .4em;
