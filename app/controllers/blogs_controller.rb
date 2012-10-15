@@ -24,6 +24,7 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       format.html { render 'show' }
+      format.page { render_page @blog.station }
     end
   end
 

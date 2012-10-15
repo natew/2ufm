@@ -6,6 +6,7 @@ class SongsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @popular.to_playlist_json }
+      format.page { render_page @popular, @popular_songs }
     end
   end
 
@@ -16,6 +17,7 @@ class SongsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @trending.to_playlist_json }
+      format.page { render_page @trending, @trending_songs }
     end
   end
 
@@ -25,6 +27,7 @@ class SongsController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.page { render_page @just_in_station, @just_in_songs }
     end
   end
 

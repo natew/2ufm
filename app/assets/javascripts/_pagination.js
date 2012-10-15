@@ -30,8 +30,7 @@ var pagination = (function(fn, mp) {
         type: 'get',
         data: 'i=' + id + '&p=' + (playlistPage + 1),
         headers: {
-          Accept: "text/page; charset=utf-8",
-          "Content-Type": "text/page; charset=utf-8"
+          Accept: "text/page"
         },
         statusCode: {
           204: function() {

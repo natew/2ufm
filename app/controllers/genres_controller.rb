@@ -10,6 +10,7 @@ class GenresController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.page { render_page(@genre_station, @genre_songs) }
     end
   end
 end

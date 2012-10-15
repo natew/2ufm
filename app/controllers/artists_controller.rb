@@ -80,6 +80,7 @@ class ArtistsController < ApplicationController
   def render_show
     respond_to do |format|
       format.html { render 'show' }
+      format.page { render_page @artist.station, @songs }
     end
   end
 end
