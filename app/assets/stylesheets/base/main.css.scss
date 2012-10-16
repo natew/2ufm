@@ -1,7 +1,7 @@
 @import "mixins.css.scss";
 
 * { -webkit-tap-highlight-color: rgba(0,0,0,0); }
-body, button, input, select, textarea {
+body, button, input, select, textarea, #navbar h1 {
   font: 13px/21px 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #bbb;
 }
@@ -39,7 +39,7 @@ a:hover { color: $link-hover; }
   bottom: 0;
   left: 0;
   width: $navbar-width;
-  padding: 5px 0 0 0;
+  padding: 40px 0 0 0;
   background: $navbar-bg;
   @include box-sizing(border-box);
 
@@ -592,7 +592,7 @@ header {
   }
 
   h1 {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 300;
     color: #777;
     padding: 5px 10px;
@@ -612,7 +612,7 @@ header {
     color: #ccc;
     font-weight: 300;
     font-size: 14px;
-    padding: 4px 30px 4px;
+    padding: 4px 12px 4px 31px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -631,11 +631,13 @@ header {
     &:before {
       padding-left: 5px;
       font-size: 14px;
+      color: #999;
     }
 
     &.active {
       color: #fff;
       background: $body-bg;
+      &:before { color:#fff; }
     }
 
     span {
@@ -658,22 +660,23 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 0 0 15px 0;
+    margin: 10px 0 0 0;
 
     &.nav-user {
       img {
-        top: 6px;
-        left: 7px;
+        top: 7px;
+        left: 9px;
         position: absolute;
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
       }
     }
 
     &.nav-extra {
-      padding-bottom: 10px;
+      margin-top: 20px;
 
       a {
+        font-size: 12px;
         color: #999;
         padding-left: 10px;
       }
@@ -821,7 +824,10 @@ $placeholder-color: #999;
 
 #search-form {
   margin: 0 0 6px 0;
-  position: relative;
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  z-index: 200;
 
   #query {
     border: none;
@@ -831,9 +837,13 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 12px;
-    background: rgba(0,0,0,0.2);
+    background: darken($navbar-bg, 10%);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
+
+    &.focused {
+      width: $navbar-width * 2;
+    }
 
     &:hover {
       color: #fff;
@@ -1592,7 +1602,7 @@ ol.mp_list {
   z-index: 99999;
   left: 0;
   padding-top: 0;
-  margin: 15px 0 0 -4px;
+  margin: 15px 0 0 10px;
 
   li {
     list-style: none;

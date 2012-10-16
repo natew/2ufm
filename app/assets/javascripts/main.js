@@ -96,18 +96,25 @@ $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
 
 // Livesearch
-$('#query').marcoPolo({
-  url: '/search',
-  selectable: ':not(.unselectable)',
-  formatItem: function (data, $item) {
-    if (data.selectable == 'false') $item.addClass('unselectable');
-    if (data.header == 'true') $item.addClass('unselectable header');
-    return data.name;
-  },
-  onSelect: function (data, $item) {
-    pjax('/'+data.url);
-  }
-});
+$('#query')
+  .focus(function() {
+    $(this).addClass('focused');
+  })
+  .blur(function() {
+    $(this).removeClass('focused');
+  })
+  .marcoPolo({
+    url: '/search',
+    selectable: ':not(.unselectable)',
+    formatItem: function (data, $item) {
+      if (data.selectable == 'false') $item.addClass('unselectable');
+      if (data.header == 'true') $item.addClass('unselectable header');
+      return data.name;
+    },
+    onSelect: function (data, $item) {
+      pjax('/'+data.url);
+    }
+  });
 
 // Player controls
 mpClick('#player-play', 'toggle');

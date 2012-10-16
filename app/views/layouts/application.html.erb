@@ -101,13 +101,13 @@
     </div>
 
     <div id="main-mid">
+      <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
+        <%= text_field_tag :query, '', :placeholder =>"Click to search" %>
+        <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
+      <% end -%>
+
       <div id="navbar">
         <div id="navbar-menus">
-          <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
-            <%= text_field_tag :query, '', :placeholder =>"Click to search" %>
-            <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
-          <% end -%>
-
           <%- if user_signed_in? -%>
           <section class="nav-user">
             <h1><%= current_user.username %></h1>
