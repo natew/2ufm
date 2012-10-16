@@ -6,14 +6,14 @@
   </p>
 
   <p>
-    <strong><%= link_to "#{@song.full_name}", 'http://2u.fm/inbox' %></strong>
+    <strong><%= link_to "#{@song.full_name}", 'http://2u.fm/shares/inbox' %></strong>
   </p>
 
   <p>
     <%= image_tag 'http://2u.fm/' + @song.image(:medium) if @song.image? %>
 
   <p>
-    Check it out in <%= link_to 'your inbox', 'http://2u.fm/inbox' %>!
+    Check it out in <%= link_to 'your inbox', 'http://2u.fm/shares/inbox' %>!
   </p>
 
   <%= render 'signature' %>
