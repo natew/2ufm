@@ -10,7 +10,7 @@
   </p>
 
   <p>
-    <%= image_tag 'http://2u.fm/' + @song.image(:medium).url if @song.image.exists? %>
+    <%= image_tag 'http://2u.fm/' + @song.image(:medium) if @song.image? %>
 
   <p>
     Check it out in <%= link_to 'your inbox', 'http://2u.fm/inbox' %>!
