@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
   end
 
   def first_name
-    full_name.split(' ')[1] if full_name
+    full_name.split(' ')[0] if full_name
   end
 
   def name
