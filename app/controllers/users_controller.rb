@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     @live = true
     @user = User.find_by_slug(params[:id])
     if @user
-      if @user.privacies.broadcasting
+      if @user.privacy.broadcasting
         @subscribe_to = "/listens/#{@user.id}"
         listen = @user.listens.last
         song = listen.song
