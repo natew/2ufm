@@ -310,12 +310,6 @@ body.allOn('click', {
     return false;
   },
 
-  '#friends a': function(e, el) {
-    e.preventDefault();
-    tuneIn(el.attr('id').split('-')[1]);
-    return false;
-  },
-
   '#sign-up-button': function(e, el) {
     e.preventDefault();
     registerUser(el);
@@ -661,32 +655,6 @@ function closeHoveredDropdown() {
       navUnhoveredOnce = false;
     }
   }
-}
-
-function addShare() {
-  setShares(shareCount + 1);
-  fn.log(shareCount);
-}
-
-function setShares(count) {
-  shareCount = parseInt(count,10);
-  updateShares();
-}
-
-function updateShares() {
-  if (shareCount > 0) {
-    $('#nav-shares span').remove();
-    $('#nav-shares').append('<span>' + shareCount + '</span>');
-  }
-}
-
-function addSubscriber() {
-  fn.log('add subscriber');
-  var el = $('#player-live a'),
-      count = el.attr('data-count'),
-      countInt = parseInt(count, 10) + 1;
-
-  el.attr('data-count', countInt).html(el.html().replace(count, countInt));
 }
 
 function resumePlaying() {

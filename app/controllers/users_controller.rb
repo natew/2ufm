@@ -48,11 +48,13 @@ class UsersController < ApplicationController
     @live = true
     @user = User.find_by_slug(params[:id])
     if @user
-      @subscribe_to = "/listens/#{@user.id}"
-      listen = @user.listens.last
-      song = listen.song
-      listen_seconds_ago = Time.now - listen.created_at
-      @listen = listen if listen_seconds_ago < song.seconds
+      if @user.privacies.broadcasting
+        @subscribe_to = "/listens/#{@user.id}"
+        listen = @user.listens.last
+        song = listen.song
+        listen_seconds_ago = Time.now - listen.created_at
+        @listen = listen if listen_seconds_ago < song.seconds
+      end
     else
       render status: 404
     end

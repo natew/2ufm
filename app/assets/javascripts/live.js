@@ -13,7 +13,8 @@ tuneInTip();
 
 $('#tune-in').click(function() {
   var el = $(this);
-  el.toggleClass('live');
+  el.toggleClass('live hover-off');
+  el.trigger('mouseleave').trigger('mousenter');
 
   if (el.is('.live')) {
     el.attr('title', 'Turn off live listening').html('On');
@@ -23,6 +24,12 @@ $('#tune-in').click(function() {
 
   $('.tipsy').remove();
   tuneInTip();
+});
+
+$('body').on('click', '#friends a', function(e) {
+  e.preventDefault();
+  tuneIn($(this).attr('id').split('-')[1]);
+  return false;
 })
 
 // Begin listening to a station
@@ -76,4 +83,34 @@ function loadPage(url, callback) {
       if (callback) callback.call();
     }
   });
+}
+
+function addShare() {
+  setShares(shareCount + 1);
+  fn.log(shareCount);
+}
+
+function setShares(count) {
+  shareCount = parseInt(count,10);
+  updateShares();
+}
+
+function updateShares() {
+  if (shareCount > 0) {
+    $('#nav-shares span').remove();
+    $('#nav-shares').append('<span>' + shareCount + '</span>');
+  }
+}
+
+function addSubscriber() {
+  fn.log('add subscriber');
+  var el = $('#player-live a'),
+      count = el.attr('data-count'),
+      countInt = parseInt(count, 10) + 1,
+      pluralized = countInt === 1 ? ' person listening' : ' people listening';
+
+  $('#player-live').addClass('subscribed');
+  el
+    .attr('data-count', countInt)
+    .html(countInt + pluralized);
 }
