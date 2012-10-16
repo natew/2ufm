@@ -278,9 +278,12 @@ body.allOn('click', {
   },
 
   '[data-toggle]': function(e, el) {
-    e.preventDefault();
     $(el.attr('href')).toggleClass(el.attr('data-toggle'));
-    return false;
+  },
+
+  '[data-toggle-html]': function(e, el) {
+    var newhtml = el.attr('data-toggle-html');
+    el.attr('data-toggle-html', el.html()).html(newhtml);
   },
 
   '.multi-select a': function(e, el) {

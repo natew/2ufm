@@ -46,7 +46,7 @@
 
     <div class="song-controls">
       <% link_to '0', '#song-' + id, :class => 'add-comment pictos-comment control restricted' %>
-      <%= link_to 'More', '#song-' + id, :class => 'control', 'data-toggle' => 'open' %>
+      <%= link_to '}', '#song-' + id, :class => 'control pictos', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
       <%= link_to 'Share', '#share', :class => 'nav-hover song-share restricted control update-clipboard', 'data-pad' => '16', 'data-id' => id %>
       <%= link_to 'Buy', '#buy', :class => 'nav-hover control', 'data-pad' => '16' %>
     </div>

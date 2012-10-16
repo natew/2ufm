@@ -522,6 +522,11 @@ $song-player-height: 50px;
   }
 }
 
+section.open {
+  margin: 0;
+  padding: $song-pad;
+}
+
 
 .plays {
   margin: 0 0 25px 0;
