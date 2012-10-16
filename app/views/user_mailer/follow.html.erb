@@ -1,9 +1,9 @@
 <html><body>
-  <p>Hello, <strong><%= @followee.full_name %></strong>,</p>
+  <p>Hello <%= @followee.first_name %></strong>,</p>
 
   <p>
     <strong><%= @follower.full_name %> is now following you on 2u.fm!</strong>
-    If you'd like to follow them back, <%= link_to 'check out their profile', '/' + @follower.station_slug %>.
+    If you'd like to follow them back, <%= link_to 'check out their profile', 'http://2u.fm/' + @follower.station_slug %>.
   </p>
 
   <%= render 'signature' %>

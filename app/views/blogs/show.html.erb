@@ -10,5 +10,16 @@
 
 <div class="whole">
   <%= render 'stations/artists' %>
+
+  <%
+    cache ['v1', @blog, @blog.genres] do
+      if @blog.genres.count > 0 %>
+        <h3 class="horizontal">Genres:</h3>
+        <ul class="genres horizontal">
+          <%= render @blog.genres %>
+        </ul>
+  <%  end
+    end %>
+
   <%= render :partial => 'stations/playlist', :locals => { :station => @blog.station } %>
 </div>

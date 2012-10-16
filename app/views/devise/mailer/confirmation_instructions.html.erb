@@ -2,4 +2,6 @@
 
 <p>You can confirm your account through the link below:</p>
 
-<p><%= link_to 'Confirm my account', '/confirm/' + @resource.confirmation_token %></p>
+<p><%= link_to 'Confirm my account', 'http://2u.fm/confirm/' + @resource.confirmation_token %></p>
+
+<%= render 'user_mailer/signature' %>

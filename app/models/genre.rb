@@ -11,7 +11,7 @@ class Genre < ActiveRecord::Base
 
   before_create :map_name
 
-  attr_accessible :name
+  attr_accessible :name, :blog_ids
 
   ALTERNATIVE_NAMES = {
     'drum and bass' => 'Drum & Bass',

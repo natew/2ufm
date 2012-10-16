@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
 
   def get_remote_avatar
     self.avatar = URI.parse(self.avatar_remote_url)
+    self.avatar_remote_url = nil
   end
 
   def avatar_url_provided?
@@ -120,6 +121,10 @@ class User < ActiveRecord::Base
 
   def role?(type)
     role == type.to_s
+  end
+
+  def first_name
+    full_name.split(' ')[0] if full_name
   end
 
   def name

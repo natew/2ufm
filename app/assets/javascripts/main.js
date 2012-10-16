@@ -96,18 +96,25 @@ $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
 
 // Livesearch
-$('#query').marcoPolo({
-  url: '/search',
-  selectable: ':not(.unselectable)',
-  formatItem: function (data, $item) {
-    if (data.selectable == 'false') $item.addClass('unselectable');
-    if (data.header == 'true') $item.addClass('unselectable header');
-    return data.name;
-  },
-  onSelect: function (data, $item) {
-    pjax('/'+data.url);
-  }
-});
+$('#query')
+  .focus(function() {
+    $(this).addClass('focused');
+  })
+  .blur(function() {
+    $(this).removeClass('focused');
+  })
+  .marcoPolo({
+    url: '/search',
+    selectable: ':not(.unselectable)',
+    formatItem: function (data, $item) {
+      if (data.selectable == 'false') $item.addClass('unselectable');
+      if (data.header == 'true') $item.addClass('unselectable header');
+      return data.name;
+    },
+    onSelect: function (data, $item) {
+      pjax('/'+data.url);
+    }
+  });
 
 // Player controls
 mpClick('#player-play', 'toggle');
@@ -299,12 +306,6 @@ body.allOn('click', {
     el.addClass('active');
     $('.nav-container div.active').removeClass('active');
     sectionActive = $(el.attr('href')).addClass('active');
-    return false;
-  },
-
-  '#friends a': function(e, el) {
-    e.preventDefault();
-    tuneIn(el.attr('id').split('-')[1]);
     return false;
   },
 
@@ -653,32 +654,6 @@ function closeHoveredDropdown() {
       navUnhoveredOnce = false;
     }
   }
-}
-
-function addShare() {
-  setShares(shareCount + 1);
-  fn.log(shareCount);
-}
-
-function setShares(count) {
-  shareCount = parseInt(count,10);
-  updateShares();
-}
-
-function updateShares() {
-  if (shareCount > 0) {
-    $('#nav-shares span').remove();
-    $('#nav-shares').append('<span>' + shareCount + '</span>');
-  }
-}
-
-function addSubscriber() {
-  fn.log('add subscriber');
-  var el = $('#player-live a'),
-      count = el.attr('data-count'),
-      countInt = parseInt(count, 10) + 1;
-
-  el.attr('data-count', countInt).html(el.html().replace(count, countInt));
 }
 
 function resumePlaying() {

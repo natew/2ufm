@@ -11,9 +11,9 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def share_email(sender, receiver)
+  def share_email(sender, receiver, song)
     logger.info receiver.id
-    @sender, @receiver = sender, receiver
+    @sender, @receiver, @song = sender, receiver, song
     set_unsubscribe_key(@receiver)
     @unsubscribe_type = 'share'
     mail(to: @receiver.email, subject: "#{sender.full_name} sent you a song on 2u.fm") do |format|

@@ -9,3 +9,5 @@ vendor/psds/*
 public/attachments
 vendor/attachmentdumps/*
 vendor/dbdumps/*
+2u.sublime-project
+2u.sublime-workspace
