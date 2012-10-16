@@ -107,10 +107,6 @@ $song-player-height: 50px;
   clear: both;
   margin-bottom: 200px;
 
-  &.open section .reviews {
-    display: block;
-  }
-
   h4 {
     background: $body-dark;
     padding: 8px;
@@ -172,8 +168,6 @@ $song-player-height: 50px;
         a, a:before { color: #fff; }
       }
     }
-
-    &.open { .reviews { display: block; } }
 
     &.active {
       border-top: 2px solid #555;
@@ -494,7 +488,7 @@ $song-player-height: 50px;
   margin: -5px 0 0;
 }
 
-.primary section, section.active {
+.primary section, section.active, section.open {
   min-height: 175px;
   margin: 0 -20px;
   padding: 25px;

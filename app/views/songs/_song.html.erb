@@ -12,7 +12,7 @@
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
 <%-
-  cache_if id.to_i > 5, ['v6', song, id, station_id] do
+  cache_if id.to_i > 5, ['v7', song, id, station_id] do
 
     follow_id       = 'station-follow-' + id
     cover         ||= :icon
@@ -46,7 +46,9 @@
 
     <div class="song-controls">
       <% link_to '0', '#song-' + id, :class => 'add-comment pictos-comment control restricted' %>
+      <%= link_to 'More', '#song-' + id, :class => 'control', 'data-toggle' => 'open' %>
       <%= link_to 'Share', '#share', :class => 'nav-hover song-share restricted control update-clipboard', 'data-pad' => '16', 'data-id' => id %>
+      <%= link_to 'Buy', '#buy', :class => 'nav-hover control', 'data-pad' => '16' %>
     </div>
   </div>
 

@@ -270,10 +270,9 @@ body.allOn('click', {
     el.select();
   },
 
-  '[data-toggle="hidden"]': function(e, el) {
-    fn.log('toggle');
+  '[data-toggle]': function(e, el) {
     e.preventDefault();
-    $(el.attr('href')).toggleClass('hidden');
+    $(el.attr('href')).toggleClass(el.attr('data-toggle'));
     return false;
   },
 
