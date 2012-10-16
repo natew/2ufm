@@ -502,6 +502,10 @@ $song-player-height: 50px;
     }
   }
 
+  .song-more {
+    display: none;
+  }
+
   .song-art {
     width: $song-art-big;
     height: $song-art-big;
