@@ -2,8 +2,18 @@
   <p>Hello, <strong><%= @receiver.full_name %></strong>,</p>
 
   <p>
-    <strong><%= @sender.full_name %> is sent you a song on 2u.fm!</strong>
-    You should <%= link_to 'give it a listen', '/inbox' %>!
+    <strong><%= @sender.full_name %> shared a song with you on 2u.fm!</strong>
+  </p>
+
+  <p>
+    <strong><%= link_to "#{@song.full_name}", '/inbox' %></strong>
+  </p>
+
+  <p>
+    <%= image_tag @song.image(:medium) %>
+
+  <p>
+    Check it out in <%= link_to 'your inbox', '/inbox' %>!
   </p>
 
   <%= render 'signature' %>

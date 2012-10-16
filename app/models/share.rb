@@ -1,6 +1,7 @@
 class Share < ActiveRecord::Base
   belongs_to :sender, :class_name => "User"
   belongs_to :receiver, :class_name => "User"
+  belongs_to :song
 
   validates :song_id,
     presence: true,
@@ -14,8 +15,8 @@ class Share < ActiveRecord::Base
   private
 
   def is_sent_to_friend
-    if !receiver.is_following?(sender)
-      errors.add(:base, 'User must be following you')
-    end
+    # if !receiver.is_following?(sender)
+    #   errors.add(:base, 'User must be following you')
+    # end
   end
 end
