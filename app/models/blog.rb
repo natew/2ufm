@@ -30,7 +30,7 @@ class Blog < ActiveRecord::Base
   attr_writer :current_step
 
   # Whitelist mass-assignment attributes
-  attr_accessible :name, :url, :description, :image, :feed_url
+  attr_accessible :name, :url, :description, :image, :feed_url, :genre_ids
 
   # Scopes
   scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
