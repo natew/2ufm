@@ -152,7 +152,7 @@ class User < ActiveRecord::Base
         password: Devise.friendly_token[0,20],
         oauth_token: auth.credentials.token,
         gender: info.gender,
-        location: info.location ? info.location.name || '',
+        location: info.location ? info.location.name : '',
         facebook_id: info.id
       )
       user.skip_confirmation!
