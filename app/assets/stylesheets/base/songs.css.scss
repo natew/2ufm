@@ -36,7 +36,7 @@
 }
 
 .primary .role:after { top: 12px; }
-.playlist-song { .active, .open { .name .role:after { top: 12px; } } }
+.playlist-song .active .name .role:after { top: 12px; }
 header .role:after {top:3px; line-height:10px;}
 
 .role:hover:after {
@@ -488,7 +488,7 @@ $song-player-height: 50px;
   margin: -5px 0 0;
 }
 
-.primary section, section.active, section.open {
+.primary section, section.active {
   min-height: 175px;
   margin: 0 -20px;
   padding: 25px;
@@ -502,29 +502,26 @@ $song-player-height: 50px;
     }
   }
 
-  .broadcast {
-    top: 25px;
-    right: 25px;
-  }
-
-  .reviews {
-    display: block;
-    font-weight: 300;
-  }
-
   .song-art {
     width: $song-art-big;
     height: $song-art-big;
   }
 
-  .waveform {
-    display: block;
+  .broadcast {
+    top: 25px;
+    right: 25px;
   }
 }
 
+section.active, .primary section,
 section.open {
-  margin: 0;
-  padding: $song-pad;
+  .reviews {
+    display: block;
+  }
+
+  .waveform {
+    display: block;
+  }
 }
 
 
