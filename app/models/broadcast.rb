@@ -15,6 +15,8 @@ class Broadcast < ActiveRecord::Base
   after_create :update_counter_cache, :update_station_songs_count
   after_destroy :update_counter_cache, :update_station_songs_count
 
+  attr_accessible :song_id, :station_id
+
   # Update user_broadcasts_count on songs
   def update_counter_cache
     matching_songs = Song.where(matching_id:song_id)

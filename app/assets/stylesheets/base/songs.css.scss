@@ -325,7 +325,6 @@ $song-player-height: 50px;
     margin: 5px 0 -5px $song-art + $song-pad;
     color: #888;
     z-index: 12;
-    position: relative;
     pointer-events: none;
 
     .song-meta-pre {
@@ -417,10 +416,6 @@ $song-player-height: 50px;
   }
 
   .song-controls {
-    position: absolute;
-    top: 0;
-    left: 0;
-
     &.hover-show a { display: none; }
     span { float: left; }
 
@@ -452,8 +447,15 @@ $song-player-height: 50px;
 
       &:hover {
         color: #fff;
-        @include linear-gradient(#555, $body-lighter);
+        background: #555;
       }
+    }
+
+    .song-more {
+      position: absolute;
+      top: $song-art - 7;
+      left: $song-pad;
+      background: none;
     }
   }
 

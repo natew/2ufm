@@ -43,6 +43,7 @@ gem 'feedzirra', github: 'NateW/feedzirra'
 # APIs
 gem 'soundcloud', github: 'andrejj/soundcloud-ruby'
 gem 'httparty'
+gem 'youtube_it'
 #gem 'ruby-echonest', :git => 'git://github.com/NateW/ruby-echonest.git'
 
 # Jobs

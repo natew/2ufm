@@ -53,6 +53,7 @@ var pagination = (function(fn, mp) {
         error: function() {
           playlist.addClass('load-page-error');
           isLoading = false;
+          hasMore = false;
           link.html('Error loading next page');
         }
       })

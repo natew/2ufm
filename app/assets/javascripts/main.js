@@ -103,6 +103,9 @@ $('#query')
   .blur(function() {
     $(this).removeClass('focused');
   })
+  .keyup(function(e) {
+    if (e.keyCode == 27) $(this).blur();
+  })
   .marcoPolo({
     url: '/search',
     selectable: ':not(.unselectable)',
@@ -671,4 +674,8 @@ function resumePlaying() {
       clickSong(beginListen.song_id);
     }
   }
+}
+
+function toYoutubeSearch(string) {
+  return string.replace(' ', '+').replace(/[^a-zA-Z0-9+]/, "");
 }
