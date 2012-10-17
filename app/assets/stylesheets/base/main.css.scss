@@ -1363,7 +1363,6 @@ $announce-color: $heading-color;
   }
 
   .image {
-    border: 2px solid #444;
     position: absolute;
     top: -10px;
     right: 20px;
@@ -1624,7 +1623,6 @@ ol.mp_list {
     padding: 8px 20px 8px 10px;
     padding-right: 178px;
     border-top: 2px solid #444;
-    @include linear-gradient($body-dark, $body-bg);
 
     &.inline {
       margin-top: -2px;
