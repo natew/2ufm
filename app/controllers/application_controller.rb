@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
     if songs.length > 0
       self.formats = [:html]
-      render partial: 'stations/playlist', locals: { station: station, songs: songs, partial: paginate }
+      render partial: 'stations/playlist', locals: { station: station, songs: songs, partial: !paginate }
     else
       head 204
     end

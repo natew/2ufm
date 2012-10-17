@@ -103,6 +103,9 @@ $('#query')
   .blur(function() {
     $(this).removeClass('focused');
   })
+  .keyup(function(e) {
+    if (e.keyCode == 27) $(this).blur();
+  })
   .marcoPolo({
     url: '/search',
     selectable: ':not(.unselectable)',
