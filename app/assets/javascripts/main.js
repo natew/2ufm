@@ -672,3 +672,7 @@ function resumePlaying() {
     }
   }
 }
+
+function toYoutubeSearch(string) {
+  return string.replace(' ', '+').replace(/[^a-zA-Z0-9+]/, "");
+}
