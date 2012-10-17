@@ -17,14 +17,26 @@ class BlogsController < ApplicationController
 
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
+    @songs   = @station.songs.playlist_order_newest
     @blog    = Blog.find(@station.blog_id) || not_found
-    @posts   = @blog.posts.order('created_at desc').limit(8)
     @artists = @blog.station.artists.order('random() desc').limit(12)
     @primary = @blog
 
     respond_to do |format|
       format.html { render 'show' }
-      format.page { render_page @blog.station }
+      format.page { render_page @station, @songs }
+    end
+  end
+
+  def popular
+    @station = Station.find_by_slug(params[:id]) || not_found
+    @songs   = @station.songs.playlist_order_rank
+    @blog    = Blog.find(@station.blog_id) || not_found
+    @primary = @blog
+
+    respond_to do |format|
+      format.html { render 'show' }
+      format.page { render_page @station, @songs }
     end
   end
 

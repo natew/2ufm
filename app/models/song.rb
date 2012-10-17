@@ -111,10 +111,13 @@ class Song < ActiveRecord::Base
   scope :select_shared_songs, select('DISTINCT ON (shares.created_at, songs.matching_id) songs.*')
   scope :select_sender, select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at')
   scope :select_receiver, select('receiver.username as receiver_username, receiver.station_slug as receiver_station_slug, shares.created_at as sent_at')
-  scope :select_distinct_broadcasts, select('DISTINCT ON (songs.matching_id, broadcasts.created_at) songs.*').select('broadcasts.created_at as broadcasted_at')
+  scope :select_distinct_broadcasts, select('DISTINCT ON (broadcasts.created_at, songs.matching_id) songs.*').select('broadcasts.created_at as broadcasted_at')
+  scope :select_distinct_newest, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
   scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
 
   # Scopes for playlist
+  scope :playlist_order_rank, select_distinct_rank.working.order_rank.individual
+  scope :playlist_order_newest, select_distinct_newest.working.order_published.individual
   scope :playlist_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
   scope :playlist_scope_order_trending, select_distinct_rank.order_rank.individual
   scope :playlist_scope_order_published, select_songs.order_published.individual

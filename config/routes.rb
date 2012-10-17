@@ -22,12 +22,9 @@ Fusefm::Application.routes.draw do
 
   resources :songs, :only => [:index, :show]
   resources :genres, :only => [:show]
-  resources :blogs, :except => [:show]
-  resources :users, :except => [:show]
   resources :follows, :only => [:create, :destroy]
   resources :broadcasts, :only => [:create, :destroy]
   resources :comments, :only => [:create, :destroy]
-  resources :artists, :only => [:index]
   resources :comments, :only => [:create]
   resources :listens, :only => [:create, :show]
   resources :actions, only: [:create]
@@ -76,6 +73,12 @@ Fusefm::Application.routes.draw do
       get 'following'
       get 'followers'
       get 'feed'
+    end
+  end
+
+  resources :blogs, path: '/' do
+    member do
+      get 'popular'
     end
   end
 
