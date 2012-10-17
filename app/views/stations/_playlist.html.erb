@@ -9,7 +9,7 @@
   paginate        = (paginate == false || style == 'mini') ? false : true
   per           ||= Yetting.per
   songs         ||= station.songs.playlist_order_broadcasted
-  songs           = songs.limit_full(page, per) unless part_or_nolim
+  #songs           = songs.limit_full(page, per) unless part_or_nolim
   has_more        = songs.length == (part_or_nolim ? per : (page*per))
   classname     ||= ''
   cover         ||= 'icon'

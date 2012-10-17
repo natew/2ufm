@@ -35,7 +35,10 @@ class ArtistsController < ApplicationController
   end
 
   def originals
-    render_type 'original'
+    @songs = @artist.station.songs.join_author_and_role(@artist.id, 'original').where(original_song: true).playlist_order_broadcasted
+    @type = 'original'
+    render_show
+    # render_type 'original'
   end
 
   def mashups

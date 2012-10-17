@@ -670,10 +670,16 @@ class Song < ActiveRecord::Base
 
   def find_matching_songs
     return unless working
+
     matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", to_searchable(artist_name), to_searchable(match_name)).oldest.first
     self.matching_id = matching_song ? matching_song.id : id
     return false unless matching_song
-    # Update songs counts
+
+    # Update any join table info
+    self.broadcasts.update_all(song_id: matching_id)
+    self.shares.update_all(song_id: matching_id)
+
+    # Update existing matching songs
     existing_matching_songs = Song.where(matching_id: matching_id)
     count = existing_matching_songs.size + 1
     existing_matching_songs.update_all(matching_count: count)
@@ -693,13 +699,26 @@ class Song < ActiveRecord::Base
     Song.where(matching_id:id)
   end
 
+  def fix_broadcasts
+    if id != matching_id
+      Broadcast.where('song_id = ?', id).each do |b|
+        existing = Broadcast.where(song_id: matching_id, station_id: b.station_id)
+        if existing
+          b.destroy
+        else
+          b.update_attributes(song_id: matching_id)
+        end
+      end
+    end
+  end
+
   def find_or_create_artists
     if working?
       artists = parse_artists
       if !artists.empty?
         original = true
         artists.each do |name,role|
-          original = [:remixer, :mashup, :cover].include? role
+          original = false if [:remixer, :mashup, :cover].include? role
 
           # Find or create artist
           match = Artist.where("name ILIKE (?)", name).first
@@ -716,6 +735,11 @@ class Song < ActiveRecord::Base
         self.working = false
       end
     end
+  end
+
+  def determine_if_original
+    self.original_song = artists.where('authors.role in (?)', [:remixer, :mashup, :cover]).count == 0
+    self.save
   end
 
   def rescan_artists

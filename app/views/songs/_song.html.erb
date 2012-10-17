@@ -12,7 +12,7 @@
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
 <%-
-  cache_if id.to_i > 5, ['v8', song, id, station_id] do
+  cache_if id.to_i > 5, ['v9', song, id, station_id] do
 
     follow_id       = 'station-follow-' + id
     cover         ||= :icon
@@ -23,7 +23,7 @@
 -%>
 
   <div class="song-info">
-    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" unless Rails.env.development? %>
+    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" %>
 
     <h3>
       <%-
