@@ -1024,6 +1024,10 @@ header #second-nav {
       text-overflow: ellipsis;
       white-space: nowrap;
 
+      &.tune-in {
+        display: none;
+      }
+
       img {display: none;}
     }
   }
