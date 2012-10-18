@@ -156,10 +156,10 @@ $('#player-playlist').on('click', 'a', function(e) {
 startGetNavbar();
 
 // Custom scrollpanes
-$('#stations-inner, #share-friends').dontScrollParent();
+$('#share-friends').dontScrollParent();
 
 // window.scroll
-$(window).on('scrollstart', function() {
+w.on('scrollstart', function() {
   $('.tipsy').remove();
   $('.pop-menu').removeClass('open');
   mp.hasMoved(true);
@@ -178,12 +178,17 @@ w.scroll(function() {
   }
 });
 
+w.resize(fn.debounce(windowResize, 20));
+windowResize();
+function windowResize() {
+  $('#navbar-friends-inner').css({
+    'height': ($('body').height() - $('#navbar-menus').height())
+  })
+  .dontScrollParent();
+}
+
 // Close modal
 $('#overlay').click(function() { modal(false); });
-
-$('.collapse').click(function() {
-  $(this).parent().toggleClass('collapsed');
-});
 
 // Share hover
 $('#player-share').hover(function() {
@@ -576,7 +581,7 @@ function getNavbar() {
       fn.log('got', data);
       if (data) {
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
-        $('#stations-inner')
+        $('#navbar-friends-inner')
           .html(friendsHtml)
           .find('img')
           .load(function() {

@@ -133,21 +133,19 @@
 
           <section class="nav-extra account">
             <% if user_signed_in? %>
-              <%= link_to "Find friends", '/find_friends', id: 'nav-friends' %>
               <%= link_to "Account", '/account' %>
               <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
             <% else %>
               <%= link_to 'Login', '#modal-login', :class => 'modal' %>
             <% end %>
-            <% link_to "About Us", "#", :class => "secondary" %>
-          </section>
-
-          <section class="stations">
-            <h1 class="collapse">Friends</h1>
-            <div id="stations-inner">
-            </div>
+            <%= link_to "About", "#", :class => "secondary control" %>
           </section>
         </div>
+
+        <section id="navbar-friends">
+          <div id="navbar-friends-inner">
+          </div>
+        </section>
       </div>
 
       <div id="body">
@@ -232,6 +230,7 @@
     <% end %>
 
     <div id="friends-template">
+      <h1>Friends</h1>
       <div class="online">
       {{#online}}
         <%= render partial: 'users/friend_link' %>
@@ -240,6 +239,7 @@
       {{#offline}}
         <%= render partial: 'users/friend_link' %>
       {{/offline}}
+      <%= link_to "Find friends", '/find_friends', id: 'nav-friends', class:'friend-link' %>
     </div>
   </div>
 
