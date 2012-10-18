@@ -131,8 +131,8 @@ class Song < ActiveRecord::Base
   scope :grouped_order_trending, lambda { |min| grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > ?', min).working }
 
   # Scopes for pagination
-  scope :limit_page, lambda { |page| page(page).per(Yetting.per) }
-  scope :limit_full, lambda { |page, per| limit(page * per) }
+  scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
+  scope :limit_full, lambda { |page| limit(page * Yetting.per) }
 
   before_create :set_source, :get_real_url, :clean_url
   after_create :delayed_scan_and_save, :set_rank
