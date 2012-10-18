@@ -42,6 +42,7 @@
     stations = stations | songs.map(&:following_station_id).uniq if songs.first.respond_to? :following_station_id
     broadcasts = current_user.get_song_broadcasts(ids) || []
     follows = current_user.get_station_follows(stations) || []
+    friend_broadcasts = current_user.get_friend_broadcasts(ids)
     listens = {}
     current_user.get_song_listens(ids).each { |l| listens[l.song_id] = l.shortcode }
   end
@@ -56,6 +57,7 @@
   updateBroadcastsIds = broadcastedIds['<%= id_page %>'];
   updateFollowsIds = <%= raw follows %>;
   updateListensIds = <%= raw listens.to_json %>;
+  updateFriendBroadcastIds = <%= raw friend_broadcasts.to_json %>;
   <%- end -%>
   updateBroadcastsCounts = <%= raw broadcasts_count.to_json %>;
 </script>

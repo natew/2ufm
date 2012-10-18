@@ -96,6 +96,25 @@ class User < ActiveRecord::Base
     Follow.where(:station_id => ids, :user_id => id).map(&:station_id)
   end
 
+  def get_friend_broadcasts(ids)
+    friends = {}
+    Song
+      .select("songs.id, string_agg(u.full_name, ', ') as friend_names")
+      .where('songs.id in (?)', ids)
+      .where('me.id = ?', id)
+      .group('songs.id')
+      .joins('inner join broadcasts b on b.song_id = songs.id')
+      .joins('inner join stations s on s.id = b.station_id')
+      .joins('inner join users u on u.station_slug = s.slug')
+      .joins('inner join follows f on f.station_id = s.id')
+      .joins('inner join users me on me.id = f.user_id')
+      .each do |song|
+        friends[song.id] = song.friend_names if song.friend_names
+      end
+
+    friends
+  end
+
   def feed_station
     Station.new(id: -station.id, title:"#{username}'s feed", slug:"#{slug}-feed")
   end
