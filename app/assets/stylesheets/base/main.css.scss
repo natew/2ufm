@@ -32,30 +32,6 @@ p {
 a { color: $link-color; @include transition(color .1s linear); }
 a:hover { color: $link-hover; }
 
-#navbar {
-  position: fixed;
-  z-index: 100;
-  top: $header-height - 5;
-  bottom: 0;
-  left: 0;
-  width: $navbar-width;
-  padding: 40px 0 0 0;
-  background: $navbar-bg;
-  @include box-sizing(border-box);
-
-  &:before {
-    content: "";
-    display: block;
-    position: fixed;
-    z-index: 0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: $navbar-width;
-    @include linear-gradient($navbar-bg, darken($navbar-bg, 10%));
-  }
-}
-
 #main-mid {
   padding: $header-height 0 0;
   min-height: 100%;
@@ -251,7 +227,7 @@ header {
 }
 
 #player-controls {
-  margin: 0 0 -4px -4px;
+  margin: 1px 0 -4px -4px;
   float: left;
   width: 100px;
 
@@ -300,7 +276,7 @@ header {
   position: absolute;
   top: 0;
   left: 110px;
-  right: $navbar-width + 75;
+  right: $navbar-width + 80;
   height: 100%;
 
   #player-meta {
@@ -466,11 +442,12 @@ header {
     width: 24px;
     padding: 28px 0 0;
     float: left;
-    color: rgba(255,255,255,0.8);
+    color: #fff;
+    opacity: 0.6;
     font-size: 18px;
 
     &:hover {
-      color: #fff;
+      opacity: 0.8;
     }
 
     &:before {
@@ -597,10 +574,32 @@ header {
 }
 
 #navbar {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: $navbar-width;
+  padding: 0;
+  background: $navbar-bg;
+  @include box-sizing(border-box);
+
+  &:before {
+    content: "";
+    display: block;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: $navbar-width;
+    @include linear-gradient($navbar-bg, darken($navbar-bg, 10%));
+  }
+
   #navbar-menus {
+    padding-top: $header-height + 35px;
     overflow: hidden;
     overflow-y: scroll;
-    height: 100%;
   }
 
   h1 {
@@ -624,7 +623,7 @@ header {
     color: #ccc;
     font-weight: 300;
     font-size: 14px;
-    padding: 4px 12px 4px 31px;
+    padding: 4px 12px 4px 30px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -672,7 +671,7 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 10px 0 0 0;
+    margin: 5px 0 0 0;
 
     &.nav-user {
       img {
@@ -685,71 +684,35 @@ header {
     }
 
     &.nav-extra {
-      margin-top: 20px;
+      margin-top: 10px;
 
       a {
         font-size: 12px;
-        color: #999;
         padding-left: 10px;
       }
     }
 
-    &.account {
-      margin-bottom: 80px;
-    }
+    &#navbar-friends {
+      border-top: 1px solid $body-bg;
 
-    &.stations {
-      margin: 0;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: $navbar-width;
-      background: rgba(0,0,0,0.9);
-
-      &.collapsed {
-        height: 24px;
-        overflow: hidden;
-
-        h1:after {
-          content: "+";
-          bottom: 6px;
-        }
-      }
-
-      #stations-inner {
+      #navbar-friends-inner {
         overflow-x: hidden;
         overflow-y: scroll;
-        max-height: 250px;
       }
 
-      h1 {
+      div {
         position: relative;
-        margin: 0;
-        padding-left: 10px;
-        color: #fff;
-        background: $navbar-bg;
-
-        &:after {
-          display: block;
-          content: "_";
-          position: absolute;
-          bottom: 12px;
-          right: 14px;
-          font-size: 20px;
-          font-weight: bold;
-        }
-
-        &:hover {
-          background: $body-bg;
-          cursor: pointer;
-        }
       }
 
-      a {
+      #nav-friends {
+        color: #777;
+      }
+
+      .friend-link {
         color: #aaa;
         margin-left: 0;
         margin-right: 0;
-        padding: 3px 30px 3px 10px;
+        padding: 3px 20px 3px 10px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -764,18 +727,23 @@ header {
           background: $primary;
           color: #fff;
         }
+      }
 
-        img {
-          position: absolute;
-          top: 2px;
-          right: 2px;
-          width: 22px;
-          height: 22px;
-        }
+      .tune-in {
+        display: none;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        padding: 3px 5px;
+        font-size: 11px;
+        color: #888;
+        font-style: normal;
       }
 
       .online a {
         color: #fff;
+        &.tune-in { display: block; }
       }
     }
   }
@@ -1014,6 +982,10 @@ header #second-nav {
       text-overflow: ellipsis;
       white-space: nowrap;
 
+      &.tune-in, &#nav-friends {
+        display: none;
+      }
+
       img {display: none;}
     }
   }
@@ -1089,7 +1061,6 @@ header #second-nav {
 
 .friends-list {
   margin: 0 0 20px 0;
-  max-height: 350px;
   overflow: scroll;
   text-align: left;
 }
@@ -1363,6 +1334,7 @@ $announce-color: $heading-color;
   position: relative;
 
   h1 {
+    margin-top: 5px;
     margin-bottom: 10px;
 
     &.icon {margin-right: 300px;}
@@ -1370,7 +1342,7 @@ $announce-color: $heading-color;
 
   .image {
     position: absolute;
-    top: -10px;
+    top: 0;
     right: 20px;
     z-index: 10;
   }
@@ -1425,6 +1397,89 @@ $announce-color: $heading-color;
     }
   }
 }
+
+.nav-meta {
+  padding: 3px 0;
+  margin: -15px 0 10px -14px;
+  overflow: hidden;
+  list-style: none;
+
+  li {
+    padding: 3px 15px;
+    margin: 0 0 0 -1px;
+    float: left;
+    position: relative;
+
+    &:before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      left: 0;
+      width: 1px;
+      background: $body-lighter;
+    }
+  }
+}
+
+.nav-menu {
+  display: block;
+  margin: -8px -20px 12px -20px;
+  overflow: hidden;
+  padding: 8px 20px 8px 10px;
+  padding-right: 178px;
+  border-top: 2px solid #444;
+
+  &.inline {
+    margin-top: -2px;
+  }
+
+  &.right {
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    float: left;
+    padding: 12px 10px;
+    margin: -8px 0;
+    font-size: 16px;
+    color: #ccc;
+
+    &:first-child {
+      border: none;
+    }
+
+    &.active {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    &:hover {
+      color: $link-hover;
+    }
+  }
+}
+
+h2.nav-menu {
+  margin-bottom: 4px;
+  margin-left: -10px;
+  margin-top: 0;
+}
+
+.section {
+  clear: both;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+h2 small { font-size: 55%; }
 
 .sub {
   font-size: 14px;
@@ -1622,65 +1677,6 @@ ol.mp_list {
   }
 }
 
-.nav-container {
-  .nav-menu {
-    display: block;
-    margin: -8px -20px 12px -20px;
-    overflow: hidden;
-    padding: 8px 20px 8px 10px;
-    padding-right: 178px;
-    border-top: 2px solid #444;
-
-    &.inline {
-      margin-top: -2px;
-    }
-
-    &.right {
-      position: absolute;
-      top: 0;
-      right: 20px;
-    }
-
-    a {
-      text-decoration: none;
-      float: left;
-      padding: 12px 10px;
-      margin: -8px 0;
-      font-size: 16px;
-      color: #ccc;
-
-      &:first-child {
-        border: none;
-      }
-
-      &.active {
-        color: #fff;
-        font-weight: bold;
-      }
-
-      &:hover {
-        color: $link-hover;
-      }
-    }
-  }
-
-  h2.nav-menu {
-    margin-bottom: 4px;
-    margin-left: -10px;
-    margin-top: 0;
-  }
-
-  .section {
-    clear: both;
-    display: none;
-
-    &.active {
-      display: block;
-    }
-  }
-}
-
-h2 small { font-size: 55%; }
 
 /* PAGE LAYOUT */
 .third, .twothirds,

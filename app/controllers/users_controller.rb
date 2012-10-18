@@ -34,8 +34,11 @@ class UsersController < ApplicationController
     @feed = true
 
     respond_to do |format|
-      format.html { render 'users/show' }
-      format.page { render_page @user.feed_station, @user.following_songs(params[:p].to_i * Yetting.per, Yetting.per), false }
+      format.html do
+        @feed_songs = @user.following_songs(params[:p] || 1)
+        render 'users/show'
+      end
+      format.page { render_page @user.feed_station, @user.following_songs(params[:p], true), true }
     end
   end
 
@@ -61,12 +64,12 @@ class UsersController < ApplicationController
   end
 
   def navbar
-    only = { :only => [:id, :user_id, :title, :slug] }
+    only = { :only => [:id, :user_id, :full_name, :title, :slug] }
     max = 20
-    online = current_user.stations.user_station.with_user.online.limit(max)
-    max -= online.size
+    online = current_user.stations.select_for_navbar.user_station.with_user.online.limit(max)
+    max -= online.length
     @online = online.to_json(only)
-    @offline = current_user.stations.user_station.with_user.not_online.limit(max).to_json(only) if max > 0
+    @offline = current_user.stations.select_for_navbar.user_station.with_user.not_online.limit(max).to_json(only) if max > 0
     render :layout => false
   end
 
@@ -103,7 +106,7 @@ class UsersController < ApplicationController
 
     current_user.avatar.destroy if params[:avatar]
 
-    if params[:user][:username] != current_user.username and Station.find_by_slug(params[:user][:username])
+    if params[:user][:username] and params[:user][:username] != current_user.username and Station.find_by_slug(params[:user][:username])
       flash[:notice] = 'Station name taken'
     else
       if old_pass.blank?

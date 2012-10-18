@@ -5,6 +5,7 @@ function updatePlaylist() {
     updateFollows();
     updateBroadcasts();
     updateListens();
+    updateFriendBroadcasts();
 
     if (isAdmin) {
       $('.playlist.not-loaded section').each(function() {
@@ -42,20 +43,22 @@ function updateListens() {
 function updateBroadcasts() {
   if (!updateBroadcastsIds || updateBroadcastsIds.length == 0) return false;
   var select = '#song-',
-      songs = select + updateBroadcastsIds.join(',' + select),
-      b = {
-        title: 'Unlike this song',
-        method: 'delete'
-      };
+      songs = select + updateBroadcastsIds.join(',' + select);
 
   $(songs).each(function() {
     var broadcast = $(this).addClass('liked').children('.broadcast').children('a');
     broadcast
-      .attr('title', b.title)
-      .data('method', b.method)
+      .data('method', 'delete')
       .removeClass('add')
       .addClass('remove');
   });
+}
+
+function updateFriendBroadcasts() {
+  if (typeof(updateFriendBroadcastIds) === 'undefined') return false;
+  for (var sid in updateFriendBroadcastIds) {
+    $('#song-' + sid + ' .broadcast a').attr('title', 'Liked by ' + updateFriendBroadcastIds[sid]);
+  }
 }
 
 function updateFollows() {

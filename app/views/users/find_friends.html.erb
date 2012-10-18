@@ -1,7 +1,10 @@
-
+<% if @facebook_friends %>
 <div class="whole">
   <h2>Friends from Facebook</h2>
   <div class="stations friends-list">
     <%= render partial: 'users/facebook_friend', collection: @facebook_friends %>
   </div>
 </div>
+<% else %>
+  <%= link_to "Link with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
+<% end %>

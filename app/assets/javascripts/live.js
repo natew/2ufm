@@ -6,11 +6,6 @@ if (isTuningIn) {
   });
 }
 
-function tuneInTip() {
-  $('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5});
-}
-tuneInTip();
-
 $('#tune-in').click(function() {
   var el = $(this);
   el.toggleClass('live hover-off');
@@ -23,7 +18,6 @@ $('#tune-in').click(function() {
   }
 
   $('.tipsy').remove();
-  tuneInTip();
 });
 
 $('body').on('click', '#friends a', function(e) {

@@ -165,6 +165,7 @@ $station-image-small: $play-button-small;
     float: left;
     margin: 0 15px 15px 0;
     position: relative;
+    @include transition(all ease-in 1s);
 
     a {
       text-decoration: none;

@@ -7,7 +7,7 @@
 
 <div class="whole">
   <%- if @has_songs -%>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @inbox_station, :songs => @inbox_songs, :nolimit => true } %>
+    <%= render :partial => 'stations/playlist', :locals => { :station => @inbox_station, :songs => @inbox_songs, :already_limited => true } %>
   <%- else -%>
     <h3>No one has shared songs with you yet :(</h3>
     <p>Your inbox will show you songs other users have sent to you!</p>

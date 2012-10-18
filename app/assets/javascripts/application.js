@@ -11,6 +11,7 @@
 //= require jquery.pjax
 //= require jquery.cookie
 //= require jquery.spin
+//= require jquery.scroll
 //= require jquery.dontscrollparent
 //= require jquery.allOn
 //= require mustache

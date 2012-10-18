@@ -68,20 +68,26 @@ class User < ActiveRecord::Base
     !self.avatar_remote_url.blank?
   end
 
-  def following_songs(offset=0, limit=18)
-    Song.user_following_songs(id, offset, limit)
+  def received_songs(page)
+    page ||= 1
+    Song.joins(:shares).where('shares.receiver_id = ?', id).playlist_scope_order_received.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
   end
 
-  def received_songs(offset=0, limit=18)
-    Song.user_received_songs(id, offset, limit)
+  def sent_songs(page)
+    page ||= 1
+    Song.joins(:shares).where('shares.sender_id = ?', id).playlist_scope_order_sent.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
+  end
+
+  def following_songs(page=1, single=false)
+    if single
+      Song.user_following_songs(id, page.to_i * Yetting.per, Yetting.per)
+    else
+      Song.user_following_songs(id, 0, page.to_i * Yetting.per)
+    end
   end
 
   def received_songs_notifications
     Song.user_unread_received_songs(id)
-  end
-
-  def sent_songs(offset=0, limit=18)
-    Song.user_sent_songs(id, offset, limit)
   end
 
   def get_song_broadcasts(ids)
@@ -94,6 +100,25 @@ class User < ActiveRecord::Base
 
   def get_station_follows(ids)
     Follow.where(:station_id => ids, :user_id => id).map(&:station_id)
+  end
+
+  def get_friend_broadcasts(ids)
+    friends = {}
+    Song
+      .select("songs.id, string_agg(u.full_name, ', ') as friend_names")
+      .where('songs.id in (?)', ids)
+      .where('me.id = ?', id)
+      .group('songs.id')
+      .joins('inner join broadcasts b on b.song_id = songs.id')
+      .joins('inner join stations s on s.id = b.station_id')
+      .joins('inner join users u on u.station_slug = s.slug')
+      .joins('inner join follows f on f.station_id = s.id')
+      .joins('inner join users me on me.id = f.user_id')
+      .each do |song|
+        friends[song.id] = song.friend_names if song.friend_names
+      end
+
+    friends
   end
 
   def feed_station
@@ -132,9 +157,11 @@ class User < ActiveRecord::Base
   end
 
   def facebook_friends
-    friends = Koala::Facebook::API.new(oauth_token).get_connections('me', 'friends')
-    friend_ids = friends.map { |friend| friend['id'] }
-    User.where('users.facebook_id in (?)', friend_ids)
+    if oauth_token
+      friends = Koala::Facebook::API.new(oauth_token).get_connections('me', 'friends')
+      friend_ids = friends.map { |friend| friend['id'] }
+      User.where('users.facebook_id in (?)', friend_ids)
+    end
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)

@@ -12,8 +12,8 @@ class Broadcast < ActiveRecord::Base
 
   before_validation :set_parent, :on => :create
   before_save :update_song_rank, :update_station_timestamp
-  after_create :update_counter_cache, :update_station_songs_count
-  after_destroy :update_counter_cache, :update_station_songs_count
+  after_create :delayed_update_counter_cache, :delayed_update_station_songs_count
+  after_destroy :delayed_update_counter_cache, :delayed_update_station_songs_count
 
   attr_accessible :song_id, :station_id
 
@@ -28,10 +28,18 @@ class Broadcast < ActiveRecord::Base
     end
   end
 
+  def delayed_update_counter_cache
+    delay.update_counter_cache
+  end
+
   def update_station_songs_count
     return unless station
     station.songs_count = station.songs.count
     station.save
+  end
+
+  def delayed_update_station_songs_count
+    delay.update_station_songs_count
   end
 
   private

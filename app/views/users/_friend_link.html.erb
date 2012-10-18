@@ -1,2 +1,6 @@
-<a href="/{{slug}}" id="friend-{{id}}" data-user="{{user_id}}">{{title}}</a>
-<!-- <img class="hidden" src="http://s3.amazonaws.com/media.2u.fm/user_avatars/{{user_id}}_small.jpg" /> -->
+{{#full_name}}
+<div>
+  <a class="friend-link" href="/{{slug}}" id="friend-{{id}}" data-user="{{user_id}}">{{full_name}}</a>
+  <a class="tune-in tip-w" title="Tune into @{{title}}" href="/@{{slug}}">@</a>
+</div>
+{{/full_name}}

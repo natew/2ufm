@@ -125,6 +125,37 @@
       background: rgba(0,0,0,0.2);
     }
   }
+
+  .friends-list {
+    max-height: 350px;
+  }
+
+  .greater {
+    h4 {
+      padding: 10px;
+      margin-top: 0;
+      background: $primary-dark;}
+    background: #393939;
+    padding: 0 0 20px 0;
+  }
+
+  .lesser h4 {margin-top: 0;}
+  .inline form {
+    padding:0 10px;
+    input[type="text"] { margin: 0 0 10px 0; }
+    .actions input {float: right;}
+  }
+
+  form {text-align: left;}
+
+  .actions {
+    background: none;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    a {margin: 0 0 10px 0;}
+    p {margin-left: 0;}
+  }
 }
 
 .modal-actions {
@@ -152,16 +183,6 @@
 }
 
 #modal-login {
-  form {text-align: left;}
-
-  .actions {
-    background: none;
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    a {margin: 0 0 10px 0;}
-    p {margin-left: 0;}
-  }
 
   .split {
     display: block;
@@ -174,22 +195,6 @@
   #octo-dj {
     width: 282px;
     float: right;
-  }
-
-  .greater {
-    h4 {
-      padding: 10px;
-      margin-top: 0;
-      background: $primary-dark;}
-    background: #393939;
-    padding: 0 0 20px 0;
-  }
-
-  .lesser h4 {margin-top: 0;}
-  .inline form {
-    padding:0 10px;
-    input[type="text"] { margin: 0 0 10px 0; }
-    .actions input {float: right;}
   }
 
   a.alt { color: #aaa; }

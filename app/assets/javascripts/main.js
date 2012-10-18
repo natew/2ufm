@@ -52,7 +52,7 @@ if (!isOnline && !isTuningIn) {
   modal('#modal-login');
 }
 
-if (isNewUser) {
+if ($('#modal-new-user').length) {
   modal('#modal-new-user');
 
   $('#genres-next').click(function() {
@@ -92,8 +92,10 @@ if (playMode != 'normal') updatePlayMode(playMode);
 playFromParams();
 
 // Tooltips
-$('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
+$('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
+$('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5, live: true});
+$('.tip-w:not(.disabled)').tipsy({gravity: 'w', offset: 5, live: true});
 
 // Livesearch
 $('#query')
@@ -154,11 +156,10 @@ $('#player-playlist').on('click', 'a', function(e) {
 startGetNavbar();
 
 // Custom scrollpanes
-$('#stations-inner, #share-friends').dontScrollParent();
+$('#share-friends').dontScrollParent();
 
 // window.scroll
 w.on('scrollstart', function() {
-  fn.log('start scrolling');
   $('.tipsy').remove();
   $('.pop-menu').removeClass('open');
   mp.hasMoved(true);
@@ -177,12 +178,17 @@ w.scroll(function() {
   }
 });
 
+w.resize(fn.debounce(windowResize, 20));
+windowResize();
+function windowResize() {
+  $('#navbar-friends-inner').css({
+    'height': ($('body').height() - $('#navbar-menus').height() - 140)
+  })
+  .dontScrollParent();
+}
+
 // Close modal
 $('#overlay').click(function() { modal(false); });
-
-$('.collapse').click(function() {
-  $(this).parent().toggleClass('collapsed');
-});
 
 // Share hover
 $('#player-share').hover(function() {
@@ -220,6 +226,10 @@ $('.nav-hover').live({
   click: function() {
     return false;
   }
+});
+
+$(window).bind('popstate', function(event) {
+  fn.log(event);
 });
 
 // Share click
@@ -375,19 +385,23 @@ $('#player-buttons .broadcast a').click(function() {
 
 // functions
 
+var dialogTimeout;
 function notice(message, time) {
+  clearTimeout(dialogTimeout);
   $('#dialog').remove();
   $('<div id="dialog">' + message + '</div>').prependTo('body');
   hideDialog(time);
 }
 
 function hideDialog(time) {
-  time = time || 3;
-  setTimeout(function () {
-    $('#dialog').animate({opacity:'0'}, 500, function() {
-      $(this).hide();
-    });
-  }, time * 1000);
+  dialogTimeout = setTimeout(
+    function () {
+      $('#dialog').fadeOut(200, function() {
+        $(this).remove();
+      });
+    },
+    (time || 3) * 1000
+  );
 }
 
 function updatePlayMode(mode) {
@@ -567,7 +581,7 @@ function getNavbar() {
       fn.log('got', data);
       if (data) {
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
-        $('#stations-inner')
+        $('#navbar-friends-inner')
           .html(friendsHtml)
           .find('img')
           .load(function() {
