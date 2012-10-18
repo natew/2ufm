@@ -95,6 +95,7 @@ playFromParams();
 $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
 $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5, live: true});
+$('.tip-w:not(.disabled)').tipsy({gravity: 'w', offset: 5, live: true});
 
 // Livesearch
 $('#query')
@@ -158,8 +159,7 @@ startGetNavbar();
 $('#stations-inner, #share-friends').dontScrollParent();
 
 // window.scroll
-w.on('scrollstart', function() {
-  fn.log('start scrolling');
+$(window).on('scrollstart', function() {
   $('.tipsy').remove();
   $('.pop-menu').removeClass('open');
   mp.hasMoved(true);

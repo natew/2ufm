@@ -23,6 +23,7 @@ var page = {
     updatePlaylist();
     spinner.detach();
     bindImageErrors();
+    mp.hasMoved(false);
 
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);

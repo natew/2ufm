@@ -746,11 +746,15 @@ header {
         }
       }
 
-      a {
-        color: #ccc;
+      div {
+        position: relative;
+      }
+
+      .friend-link {
+        color: #aaa;
         margin-left: 0;
         margin-right: 0;
-        padding: 3px 10px 3px 10px;
+        padding: 3px 20px 3px 10px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -765,16 +769,23 @@ header {
           background: $primary;
           color: #fff;
         }
+      }
 
-        em {
-          font-size: 11px;
-          color: #999;
-          font-style: normal;
-        }
+      .tune-in {
+        display: none;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        padding: 3px 5px;
+        font-size: 11px;
+        color: #888;
+        font-style: normal;
       }
 
       .online a {
         color: #fff;
+        &.tune-in { display: block; }
       }
     }
   }
