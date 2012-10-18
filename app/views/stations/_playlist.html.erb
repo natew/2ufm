@@ -16,7 +16,7 @@
   reviews          ||= nil
   cache_val        ||= nil
   id_page            = "#{id}-#{page}"
-  cache              = cache_key(['v4', station, page, per, already_limited, page_request, single, cache_val])
+  cache              = cache_key(['v5', station, page, per, already_limited, page_request, single, cache_val])
 
   cache_if(id > 5, cache) do -%>
 
