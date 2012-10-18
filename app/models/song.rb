@@ -168,14 +168,6 @@ class Song < ActiveRecord::Base
     Song.where(id: Song.grouped_order_trending(4)).playlist_scope_order_trending
   end
 
-  def self.user_received_songs(id, offset, limit)
-    Song.joins(:shares).where('shares.receiver_id = ?', id).limit(limit).offset(offset).playlist_scope_order_received
-  end
-
-  def self.user_sent_songs(id, offset, limit)
-    Song.joins(:shares).where('shares.sender_id = ?', id).limit(limit).offset(offset).playlist_scope_order_sent
-  end
-
   def self.user_unread_received_songs(id)
     Share.where('shares.receiver_id = ? and shares.read = false', id).count
   end

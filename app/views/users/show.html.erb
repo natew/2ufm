@@ -38,8 +38,8 @@
 
     <% elsif @feed %>
 
-    <%- if @user.following_songs.size > 0 -%>
-      <%= render :partial => 'stations/playlist', :locals => { :station => @user.feed_station, :songs => @user.following_songs, :nolimit => true } %>
+    <%- if @feed_songs.length > 0 -%>
+      <%= render :partial => 'stations/playlist', :locals => { :station => @user.feed_station, :songs => @feed_songs, :already_limited => true } %>
     <%- else -%>
       <h3><strong>Your feed is empty!</strong> Follow your friends, artists and blogs!</h3>
       <p>Your feed will automatically fill with the latest songs from all the people you follow</p>

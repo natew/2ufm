@@ -19,16 +19,15 @@ class ApplicationController < ActionController::Base
     user_signed_in? and current_user.is_admin?
   end
 
-  def render_page(station, songs=nil, paginate=true)
+  def render_page(station, songs=nil, already_limited=false)
     # return head 204 unless defined? request.headers['HTTP_ACCEPT']
 
-    logger.info "paginate #{paginate}"
     songs ||= station.songs.playlist_order_broadcasted
-    songs   = songs.limit_page(params[:p]) if paginate
+    songs   = songs.limit_page(params[:p]) unless already_limited
 
     if songs.length > 0
       self.formats = [:html]
-      render partial: 'stations/playlist', locals: { station: station, songs: songs, partial: !paginate }
+      render partial: 'stations/playlist', locals: { station: station, songs: songs, page_request: true, already_limited: already_limited }
     else
       head 204
     end

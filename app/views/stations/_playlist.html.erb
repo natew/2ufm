@@ -1,29 +1,28 @@
 <%-
-  style         ||= 'song'
-  nolimit       ||= false
-  partial       ||= false
-  part_or_nolim   = partial || nolimit
-  station       ||= Station.new
-  id              = station.id || 0
-  page            = (params[:p] || 1).to_i
-  paginate        = (paginate == false || style == 'mini') ? false : true
-  per           ||= Yetting.per
-  songs         ||= station.songs.playlist_order_broadcasted
-  songs           = songs.limit_full(page, per) unless part_or_nolim
-  has_more        = songs.length == (part_or_nolim ? per : (page*per))
-  classname     ||= ''
-  cover         ||= 'icon'
-  single        ||= false
-  reviews       ||= nil
-  cache_val     ||= nil
-  id_page         = "#{id}-#{page}"
-  cache           = cache_key(['v4', station, page, per, partial, single, cache_val])
+  style            ||= 'song'
+  station          ||= Station.new
+  id                 = station.id || 0
+  page_request     ||= false
+  already_limited  ||= false
+  page               = (params[:p] || 1).to_i
+  paginate           = (paginate == false || style == 'mini') ? false : true
+  per              ||= Yetting.per
+  songs            ||= station.songs.playlist_order_broadcasted
+  songs              = songs.limit_full(page, per) unless already_limited
+  has_more           = songs.length == (page_request ? per : (page * per))
+  classname        ||= ''
+  cover            ||= 'icon'
+  single           ||= false
+  reviews          ||= nil
+  cache_val        ||= nil
+  id_page            = "#{id}-#{page}"
+  cache              = cache_key(['v4', station, page, per, already_limited, page_request, single, cache_val])
 
   cache_if(id > 5, cache) do -%>
 
 <div id="playlist-<%= id_page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %>" data-key="<%= cache %>"
   data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id_page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
-  <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover, :partial => partial, :single => single, :reviews => reviews } unless songs.nil? %>
+  <%= render :partial => "songs/#{style}", :collection => songs, :locals => { :station_id => id, :page => page, :cover => cover, :partial => page_request, :single => single, :reviews => reviews } unless songs.nil? %>
 </div>
 
 <%-

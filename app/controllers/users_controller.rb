@@ -34,8 +34,11 @@ class UsersController < ApplicationController
     @feed = true
 
     respond_to do |format|
-      format.html { render 'users/show' }
-      format.page { render_page @user.feed_station, @user.following_songs(params[:p].to_i * Yetting.per, Yetting.per), false }
+      format.html do
+        @feed_songs = @user.following_songs(params[:p] || 1)
+        render 'users/show'
+      end
+      format.page { render_page @user.feed_station, @user.following_songs(params[:p], true), true }
     end
   end
 

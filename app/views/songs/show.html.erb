@@ -6,12 +6,12 @@
   <div class="whole">
     <%- if @similar_songs.size > 0 %>
       <h3>Similar Songs</h3>
-      <%= render :partial => 'stations/playlist', :locals => { :songs => @similar_songs, :paginate => false, :classname => 'similar-songs' } %>
+      <%= render :partial => 'stations/playlist', :locals => { :songs => @similar_songs, paginate: false, :classname => 'similar-songs' } %>
     <%- end -%>
 
     <%- if @blogs_songs.size > 0 %>
       <h3>Top songs by blogs that posted this song</h3>
-      <%= render :partial => 'stations/playlist', :locals => { :songs => @blogs_songs, :paginate => false } %>
+      <%= render :partial => 'stations/playlist', :locals => { :songs => @blogs_songs, paginate: false } %>
     <%- end -%>
   </div>
 

@@ -68,20 +68,26 @@ class User < ActiveRecord::Base
     !self.avatar_remote_url.blank?
   end
 
-  def following_songs(offset=0, limit=18)
-    Song.user_following_songs(id, offset, limit)
+  def received_songs(page)
+    page ||= 1
+    Song.joins(:shares).where('shares.receiver_id = ?', id).playlist_scope_order_received.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
   end
 
-  def received_songs(offset=0, limit=18)
-    Song.user_received_songs(id, offset, limit)
+  def sent_songs(page)
+    page ||= 1
+    Song.joins(:shares).where('shares.sender_id = ?', id).playlist_scope_order_sent.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
+  end
+
+  def following_songs(page=1, single=false)
+    if single
+      Song.user_following_songs(id, page.to_i * Yetting.per, Yetting.per)
+    else
+      Song.user_following_songs(id, 0, page.to_i * Yetting.per)
+    end
   end
 
   def received_songs_notifications
     Song.user_unread_received_songs(id)
-  end
-
-  def sent_songs(offset=0, limit=18)
-    Song.user_sent_songs(id, offset, limit)
   end
 
   def get_song_broadcasts(ids)

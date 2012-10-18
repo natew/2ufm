@@ -521,8 +521,10 @@ $song-player-height: 50px;
   }
 }
 
-section.active, .primary section,
-section.open {
+section.active,
+section.open,
+.open section,
+.primary section {
   .reviews {
     display: block;
   }
@@ -530,6 +532,10 @@ section.open {
   .waveform {
     display: block;
   }
+}
+
+.open section .song-more {
+  display: none;
 }
 
 
