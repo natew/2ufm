@@ -176,7 +176,6 @@ class User < ActiveRecord::Base
       facebook_id: info.id
     )
     self.skip_confirmation!
-    self.save!
     self
   end
 
