@@ -92,8 +92,9 @@ if (playMode != 'normal') updatePlayMode(playMode);
 playFromParams();
 
 // Tooltips
-$('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});
+$('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
+$('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5, live: true});
 
 // Livesearch
 $('#query')
