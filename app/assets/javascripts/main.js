@@ -223,6 +223,10 @@ $('.nav-hover').live({
   }
 });
 
+$(window).bind('popstate', function(event) {
+  fn.log(event);
+});
+
 // Share click
 $('#share-friends').on('click', 'a', function() {
   var el = $(this);

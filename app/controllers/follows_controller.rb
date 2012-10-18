@@ -6,7 +6,7 @@ class FollowsController < ApplicationController
     @follow  = current_user.follows.create(:station_id => @station.id)
     @locals  = { :action => 'remove', :id => @station.id, :count => @station.follows_count+1, :changed => true }
 
-    UserMailer.follow_email(current_user, @station.user).deliver if @station.user
+    UserMailer.delay.follow_email(current_user, @station.user) if @station.user
 
     respond_to do |format|
       format.js { render :partial => 'follow' }
