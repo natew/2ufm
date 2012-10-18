@@ -52,7 +52,7 @@ if (!isOnline && !isTuningIn) {
   modal('#modal-login');
 }
 
-if (isNewUser) {
+if ($('#modal-new-user').length) {
   modal('#modal-new-user');
 
   $('#genres-next').click(function() {

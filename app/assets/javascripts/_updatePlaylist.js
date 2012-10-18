@@ -55,7 +55,7 @@ function updateBroadcasts() {
 }
 
 function updateFriendBroadcasts() {
-  if (!updateFriendBroadcastIds) return false;
+  if (typeof(updateFriendBroadcastIds) === 'undefined') return false;
   for (var sid in updateFriendBroadcastIds) {
     $('#song-' + sid + ' .broadcast a').attr('title', 'Liked by ' + updateFriendBroadcastIds[sid]);
   }

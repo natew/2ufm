@@ -208,21 +208,22 @@
       <%= render 'modals/login' %>
     <% else %>
 
-      <% if current_user.full_name.blank? %>
+      <% if current_user.full_name == '' %>
 
-        <div id="modal-new-user" class="center">
+        <div id="modal-new-user">
           <h3>Please enter your name</h3>
-          <%= form_for current_user, :url => { :action => :edit }, :html => { :multipart => true } do |f| %>
-            <div class="clearfix">
-              <%= label :user, :full_name, 'Full Name', :class => 'inline' %>
-              <%= f.text_field :full_name %>
-            </div>
-            <div class="modal-actions">
-              <%= submit_tag 'Update', :class => 'submitbutton inline' %>
-              <em>or</em>
-              <%= link_to "Link with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
-            </div>
-          <% end %>
+          <div class="inline">
+            <%= form_tag '/account' do %>
+              <div class="clearfix">
+                <%= label :user, :full_name, 'Full Name', :class => 'inline' %>
+                <%= text_field_tag 'user[full_name]' %>
+              </div>
+
+              <div class="actions">
+                <%= submit_tag 'Update', :class => 'right' %>
+              </div>
+            <% end %>
+          </div>
         </div>
 
       <% elsif current_user.first_time? %>

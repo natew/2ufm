@@ -151,9 +151,11 @@ class User < ActiveRecord::Base
   end
 
   def facebook_friends
-    friends = Koala::Facebook::API.new(oauth_token).get_connections('me', 'friends')
-    friend_ids = friends.map { |friend| friend['id'] }
-    User.where('users.facebook_id in (?)', friend_ids)
+    if oauth_token
+      friends = Koala::Facebook::API.new(oauth_token).get_connections('me', 'friends')
+      friend_ids = friends.map { |friend| friend['id'] }
+      User.where('users.facebook_id in (?)', friend_ids)
+    end
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, session=nil)
