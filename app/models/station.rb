@@ -26,6 +26,7 @@ class Station < ActiveRecord::Base
   scope :not_online, where('online < ?', 6.minutes.ago).ordered_online
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
   scope :with_user, joins(:user)
+  scope :select_for_navbar, select('users.full_name as full_name, stations.id, stations.user_id, stations.title, stations.slug')
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug, :online
