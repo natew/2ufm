@@ -380,19 +380,23 @@ $('#player-buttons .broadcast a').click(function() {
 
 // functions
 
+var dialogTimeout;
 function notice(message, time) {
+  clearTimeout(dialogTimeout);
   $('#dialog').remove();
   $('<div id="dialog">' + message + '</div>').prependTo('body');
   hideDialog(time);
 }
 
 function hideDialog(time) {
-  time = time || 3;
-  setTimeout(function () {
-    $('#dialog').animate({opacity:'0'}, 500, function() {
-      $(this).hide();
-    });
-  }, time * 1000);
+  dialogTimeout = setTimeout(
+    function () {
+      $('#dialog').fadeOut(200, function() {
+        $(this).remove();
+      });
+    },
+    (time || 3) * 1000
+  );
 }
 
 function updatePlayMode(mode) {

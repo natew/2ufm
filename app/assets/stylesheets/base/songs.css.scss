@@ -455,7 +455,9 @@ $song-player-height: 50px;
       position: absolute;
       top: $song-art - 7;
       left: $song-pad;
-      background: none;
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
     }
   }
 
