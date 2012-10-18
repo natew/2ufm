@@ -5,7 +5,12 @@
       <%= link_to 'Upload Avatar', '/account', :class => 'upload-avatar' if user_signed_in? and @user.id == current_user.id %>
     </div>
 
-    <h1 class="icon"><%= @user.username %></h1>
+    <h1 class="icon"><%= @user.full_name %></h1>
+    <ul class="nav-meta">
+      <li><%= link_to '@' + @user.username, '/@' + @user.username %></li>
+      <li><%= pluralize @user.station.songs_count, 'song' %></li>
+      <li><%= pluralize @user.followers.count, 'follower' %></li>
+    </ul>
 
     <nav class="nav-menu">
       <%= nav_link_to 'Favorites', @user %>

@@ -1363,6 +1363,7 @@ $announce-color: $heading-color;
   position: relative;
 
   h1 {
+    margin-top: 5px;
     margin-bottom: 10px;
 
     &.icon {margin-right: 300px;}
@@ -1370,7 +1371,7 @@ $announce-color: $heading-color;
 
   .image {
     position: absolute;
-    top: -10px;
+    top: 0;
     right: 20px;
     z-index: 10;
   }
@@ -1425,6 +1426,89 @@ $announce-color: $heading-color;
     }
   }
 }
+
+.nav-meta {
+  padding: 3px 0;
+  margin: -15px 0 10px -14px;
+  overflow: hidden;
+  list-style: none;
+
+  li {
+    padding: 3px 15px;
+    margin: 0 0 0 -1px;
+    float: left;
+    position: relative;
+
+    &:before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      left: 0;
+      width: 1px;
+      background: $body-lighter;
+    }
+  }
+}
+
+.nav-menu {
+  display: block;
+  margin: -8px -20px 12px -20px;
+  overflow: hidden;
+  padding: 8px 20px 8px 10px;
+  padding-right: 178px;
+  border-top: 2px solid #444;
+
+  &.inline {
+    margin-top: -2px;
+  }
+
+  &.right {
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    float: left;
+    padding: 12px 10px;
+    margin: -8px 0;
+    font-size: 16px;
+    color: #ccc;
+
+    &:first-child {
+      border: none;
+    }
+
+    &.active {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    &:hover {
+      color: $link-hover;
+    }
+  }
+}
+
+h2.nav-menu {
+  margin-bottom: 4px;
+  margin-left: -10px;
+  margin-top: 0;
+}
+
+.section {
+  clear: both;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+h2 small { font-size: 55%; }
 
 .sub {
   font-size: 14px;
@@ -1622,65 +1706,6 @@ ol.mp_list {
   }
 }
 
-.nav-container {
-  .nav-menu {
-    display: block;
-    margin: -8px -20px 12px -20px;
-    overflow: hidden;
-    padding: 8px 20px 8px 10px;
-    padding-right: 178px;
-    border-top: 2px solid #444;
-
-    &.inline {
-      margin-top: -2px;
-    }
-
-    &.right {
-      position: absolute;
-      top: 0;
-      right: 20px;
-    }
-
-    a {
-      text-decoration: none;
-      float: left;
-      padding: 12px 10px;
-      margin: -8px 0;
-      font-size: 16px;
-      color: #ccc;
-
-      &:first-child {
-        border: none;
-      }
-
-      &.active {
-        color: #fff;
-        font-weight: bold;
-      }
-
-      &:hover {
-        color: $link-hover;
-      }
-    }
-  }
-
-  h2.nav-menu {
-    margin-bottom: 4px;
-    margin-left: -10px;
-    margin-top: 0;
-  }
-
-  .section {
-    clear: both;
-    display: none;
-
-    &.active {
-      display: block;
-    }
-  }
-}
-
-h2 small { font-size: 55%; }
 
 /* PAGE LAYOUT */
 .third, .twothirds,
