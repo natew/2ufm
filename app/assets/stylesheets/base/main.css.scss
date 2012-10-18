@@ -982,7 +982,7 @@ header #second-nav {
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      &.tune-in {
+      &.tune-in, &#nav-friends {
         display: none;
       }
 

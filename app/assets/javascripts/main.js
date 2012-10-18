@@ -182,7 +182,7 @@ w.resize(fn.debounce(windowResize, 20));
 windowResize();
 function windowResize() {
   $('#navbar-friends-inner').css({
-    'height': ($('body').height() - $('#navbar-menus').height())
+    'height': ($('body').height() - $('#navbar-menus').height() - 140)
   })
   .dontScrollParent();
 }
