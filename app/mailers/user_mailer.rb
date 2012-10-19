@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "dontreply@2u.fm"
+  default :from => "\"2u.fm\" <dontreply@2u.fm>"
 
   def follow_email(user, followee)
     @follower = user
