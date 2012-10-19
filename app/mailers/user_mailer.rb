@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "dontreply@2u.fm"
+  default :from => "\"2u.fm\" <dontreply@2u.fm>"
 
   def follow_email(user, followee)
     @follower = user
@@ -11,9 +11,8 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def share_email(sender, receiver, song)
-    logger.info receiver.id
-    @sender, @receiver, @song = sender, receiver, song
+  def share_email(sender, share)
+    @sender, @receiver, @song = sender, share.receiver, share.song
     set_unsubscribe_key(@receiver)
     @unsubscribe_type = 'share'
     mail(to: @receiver.email, subject: "#{sender.full_name} sent you a song on 2u.fm") do |format|

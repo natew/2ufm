@@ -13,7 +13,6 @@ var page = {
     var curPage = fakeUrl || window.location.pathname + window.location.search,
         path = curPage.split('/'),
         tipTimer,
-        signedIn = !$('body').is('.signed_out'),
         pageFollow,
         doScrollToTop = true;
 
@@ -66,13 +65,6 @@ var page = {
 
     // Styling for inputs
     $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
-
-    // Disable AJAX stuff signed out
-    if (signedIn) {
-      $('.remove')
-        .live('mouseenter', function() { $('span',this).html('D'); })
-        .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
-    }
 
     // Reset page
     pagination.updateCurrentPage();

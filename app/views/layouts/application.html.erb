@@ -108,38 +108,40 @@
 
       <div id="navbar">
         <div id="navbar-menus">
-          <%- if user_signed_in? -%>
-          <section class="nav-user">
-            <h1><%= current_user.username %></h1>
-            <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
-            <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
-            <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
-          </section>
-          <%- end -%>
+          <div id="navbar-menus-inner">
+            <%- if user_signed_in? -%>
+            <section class="nav-user">
+              <h1><%= current_user.username %></h1>
+              <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
+              <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
+              <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
+            </section>
+            <%- end -%>
 
-          <section>
-            <h1>Songs</h1>
-            <%= link_to 'Just in', '/fresh', :id => 'nav-new', :class => 'pictos-time' %>
-            <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
-            <%= link_to 'Popular', '/popular', :id => 'nav-popular', :class => 'pictos-star' %>
-          </section>
+            <section>
+              <h1>Songs</h1>
+              <%= link_to 'Just in', '/fresh', :id => 'nav-new', :class => 'pictos-time' %>
+              <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
+              <%= link_to 'Popular', '/popular', :id => 'nav-popular', :class => 'pictos-star' %>
+            </section>
 
-          <section>
-            <h1>Browse</h1>
-            <%= link_to 'Genres', '/genres', :id => 'nav-genres', :class => 'pictos-music' %>
-            <%= link_to 'Artists', '/artists', :id => 'nav-artists', :class => 'pictos-users' %>
-            <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs', :class => 'pictos-newspaper' %>
-          </section>
+            <section>
+              <h1>Browse</h1>
+              <%= link_to 'Genres', '/genres', :id => 'nav-genres', :class => 'pictos-music' %>
+              <%= link_to 'Artists', '/artists', :id => 'nav-artists', :class => 'pictos-users' %>
+              <%= link_to 'Blogs', '/blogs', :id => 'nav-blogs', :class => 'pictos-newspaper' %>
+            </section>
 
-          <section class="nav-extra account">
-            <% if user_signed_in? %>
-              <%= link_to "Account", '/account' %>
-              <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
-            <% else %>
-              <%= link_to 'Login', '#modal-login', :class => 'modal' %>
-            <% end %>
-            <%= link_to "About", "#", :class => "secondary control" %>
-          </section>
+            <section class="nav-extra account">
+              <% if user_signed_in? %>
+                <%= link_to "Account", '/account' %>
+                <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
+              <% else %>
+                <%= link_to 'Login', '#modal-login', :class => 'modal' %>
+              <% end %>
+              <%= link_to "About", "#", :class => "secondary control" %>
+            </section>
+          </div>
         </div>
 
         <section id="navbar-friends">
@@ -207,7 +209,7 @@
       <%= render 'modals/login' %>
     <% else %>
 
-      <% if current_user.full_name == '' %>
+      <% if current_user.full_name.nil? or current_user.full_name == '' %>
 
         <div id="modal-new-user">
           <h3>Please enter your name</h3>
