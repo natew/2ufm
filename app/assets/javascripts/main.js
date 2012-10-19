@@ -13,7 +13,40 @@ $(function() {
 
   resumePlaying();
 
+  // Fade in effect
   $('#overlay').removeClass('shown');
+  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
+
+  // Logged in
+  if (!isOnline && !isTuningIn) {
+    modal('#modal-login');
+  }
+
+  if ($('#modal-new-user').length) {
+    modal('#modal-new-user');
+
+    $('#genres-next').click(function() {
+      var genres = [];
+      $('#new-user-genres .genres a.selected').each(function(){
+        genres.push($(this).attr('data-id'));
+      });
+
+      if (genres.length) {
+        $('#modal-new-user').removeClass('permanent');
+        $.ajax({
+          type: 'post',
+          url: '/user_genres',
+          data: 'genres=' + genres.join(','),
+          success: function(data) {
+            $('#new-user-artists .stations').removeClass('loading').html(data);
+          }
+        });
+      } else {
+        notice('No genres selected... You gotta like something, right?!');
+        return false;
+      }
+    });
+  }
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
@@ -49,41 +82,6 @@ if (isOnline) {
   $('.remove')
     .live('mouseenter', function() { $('span',this).html('D'); })
     .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
-}
-
-// Fade in effect
-
-setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
-
-// Logged in
-if (!isOnline && !isTuningIn) {
-  modal('#modal-login');
-}
-
-if ($('#modal-new-user').length) {
-  modal('#modal-new-user');
-
-  $('#genres-next').click(function() {
-    var genres = [];
-    $('#new-user-genres .genres a.selected').each(function(){
-      genres.push($(this).attr('data-id'));
-    });
-
-    if (genres.length) {
-      $('#modal-new-user').removeClass('permanent');
-      $.ajax({
-        type: 'post',
-        url: '/user_genres',
-        data: 'genres=' + genres.join(','),
-        success: function(data) {
-          $('#new-user-artists .stations').removeClass('loading').html(data);
-        }
-      });
-    } else {
-      notice('No genres selected... You gotta like something, right?!');
-      return false;
-    }
-  });
 }
 
 // Get volume init

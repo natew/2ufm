@@ -97,6 +97,7 @@
   }
 
   .section {
+    display: block;
     @include transition(all linear .3s);
 
     &.hidden {

@@ -51,6 +51,7 @@ function sendAction(action) {
 
 // create.js.erb callback for faye
 function listenCreatePublish(listen) {
+  fn.log("Listen publish", listen, "on playing page = ", mp.isOnPlayingPage());
   mp.startedAt(listen.created_at_unix);
 
   if (mp.isOnPlayingPage()) {
