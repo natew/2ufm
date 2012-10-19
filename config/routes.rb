@@ -20,15 +20,18 @@ Fusefm::Application.routes.draw do
 
   match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
 
-  resources :songs, :only => [:index, :show]
-  resources :genres, :only => [:show]
-  resources :follows, :only => [:create, :destroy]
-  resources :broadcasts, :only => [:create, :destroy]
-  resources :comments, :only => [:create, :destroy]
-  resources :comments, :only => [:create]
-  resources :listens, :only => [:create, :show]
+  resources :songs, only: [:index, :show]
+  resources :genres, only: [:show]
+  resources :follows, only: [:create, :destroy]
+  resources :broadcasts, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
+  resources :comments, only: [:create]
+  resources :listens, only: [:create, :show]
   resources :actions, only: [:create]
   resources :genres, only: [:index, :show]
+  resources :artists, only: [:index]
+  resources :blogs, only: [:index]
+  resources :users, only: [:index]
 
   resources :shares, :only => [:create]
   match '/shares/inbox', :to => 'shares#inbox'

@@ -12,6 +12,8 @@ $(function() {
   page.end();
 
   resumePlaying();
+
+  $('#overlay').removeClass('shown');
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
@@ -43,8 +45,14 @@ if (!hideWelcome && !isOnline) {
   }, 4500)
 }
 
+if (isOnline) {
+  $('.remove')
+    .live('mouseenter', function() { $('span',this).html('D'); })
+    .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
+}
+
 // Fade in effect
-$('#overlay').removeClass('shown');
+
 setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
 // Logged in
@@ -180,11 +188,14 @@ w.scroll(function() {
 
 w.resize(fn.debounce(windowResize, 20));
 windowResize();
+
 function windowResize() {
-  $('#navbar-friends-inner').css({
-    'height': ($('body').height() - $('#navbar-menus').height() - 140)
-  })
-  .dontScrollParent();
+  $('#navbar-friends-inner')
+    .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 37) })
+    .dontScrollParent();
+
+  $('#navbar-menus')
+    .css({ 'height': Math.min($('body').height(), $('#navbar-menus-inner').outerHeight()) })
 }
 
 // Close modal
