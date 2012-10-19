@@ -207,7 +207,7 @@
       <%= render 'modals/login' %>
     <% else %>
 
-      <% if current_user.full_name == '' %>
+      <% if current_user.full_name.nil? or current_user.full_name == '' %>
 
         <div id="modal-new-user">
           <h3>Please enter your name</h3>
