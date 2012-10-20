@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <%= image_tag song.waveform, :class => 'waveform' if song.waveform? and !Rails.env.development? %>
+  <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
 
   <div class="reviews">
     <%= render :partial => 'blogs/review', :collection => reviews %>

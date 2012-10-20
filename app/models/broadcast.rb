@@ -15,7 +15,7 @@ class Broadcast < ActiveRecord::Base
   after_create :delayed_update_counter_cache, :delayed_update_station_songs_count
   after_destroy :delayed_update_counter_cache, :delayed_update_station_songs_count
 
-  attr_accessible :song_id, :station_id
+  attr_accessible :song_id, :station_id, :created_at
 
   # Update user_broadcasts_count on songs
   def update_counter_cache
