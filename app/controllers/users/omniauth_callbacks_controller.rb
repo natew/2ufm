@@ -6,7 +6,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       if !@user.facebook_id.blank?
         flash[:notice] = "Facebook successfully linked!"
-        redirect_to '/authorized'
+        redirect_to '/do/authorized'
       else
         flash[:notice] = "Error linking facebook!"
         redirect_to '/'

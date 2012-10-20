@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
   has_many :shares, :foreign_key => :receiver_id
   has_and_belongs_to_many :genres
 
+  scope :with_privacy, joins(:privacy)
+  scope :receives_digests, where('privacies.receives_digests = ?', true)
+
   has_attachment :avatar,
     styles: {
       original: ['300x300#', :jpg],

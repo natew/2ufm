@@ -120,9 +120,9 @@
 
             <section>
               <h1>Songs</h1>
-              <%= link_to 'Just in', '/fresh', :id => 'nav-new', :class => 'pictos-time' %>
+              <%= link_to 'Just in', songs_fresh_path, :id => 'nav-new', :class => 'pictos-time' %>
               <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
-              <%= link_to 'Popular', '/popular', :id => 'nav-popular', :class => 'pictos-star' %>
+              <%= link_to 'Popular', songs_popular_path, :id => 'nav-popular', :class => 'pictos-star' %>
             </section>
 
             <section>
@@ -134,12 +134,12 @@
 
             <section class="nav-extra account">
               <% if user_signed_in? %>
-                <%= link_to "Account", '/account' %>
+                <%= link_to "Account", user_account_path %>
                 <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'control' %>
               <% else %>
                 <%= link_to 'Login', '#modal-login', :class => 'modal' %>
               <% end %>
-              <%= link_to "About", "#", :class => "secondary control" %>
+              <%= link_to "About", "/about", :class => "secondary control" %>
             </section>
           </div>
         </div>
@@ -157,18 +157,18 @@
     </div>
   </div>
 
+  <% if !user_signed_in? %>
   <div id="welcome">
     <small>What is 2u.fm?</small>
     <section>
-      <h1>All the best new music from across the web.</h1>
-      <h1>The easiest way to find and share music with your friends.</h1>
-      <h1>A place to discover and follow new artists and songs.</h1>
-      <h1>Music + social, without cluttering up your other profiles.</h1>
+      <h1>Up to the minute songs from music blogs around the web.</h1>
+      <h1>The easiest way to share and listen to music with your friends.</h1>
+      <h1>Follow artists you love and and fill your feed with their newest music.</h1>
     </section>
-    <%= link_to 'Learn More', '/tour', :class => 'button add' %>
+    <% link_to 'Learn More', '/go/tour', :class => 'button add' %>
     <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
   </div>
-
+  <% end %>
 
   <!-- Hover menus -->
 
@@ -196,6 +196,10 @@
     <%= link_to 'eMusic', 'http://emusic.com', :class => 'control popup', 'data-dimensions' => '800,400', 'data-link' => '' %>
   </div>
 
+  <div id="add-to-playlist" class="pop-menu">
+
+  </div>
+
   <div id="friends" class="pop-menu right-align"></div>
 
 
@@ -214,7 +218,7 @@
         <div id="modal-new-user">
           <h3>Please enter your name</h3>
           <div class="inline">
-            <%= form_tag '/account' do %>
+            <%= form_tag user_account_path do %>
               <div class="clearfix">
                 <%= label :user, :full_name, 'Full Name', :class => 'inline' %>
                 <%= text_field_tag 'user[full_name]' %>
@@ -241,7 +245,7 @@
       {{#offline}}
         <%= render partial: 'users/friend_link' %>
       {{/offline}}
-      <%= link_to "Find friends", '/find_friends', id: 'nav-friends', class:'friend-link' %>
+      <%= link_to "Find friends", users_friends_path, id: 'nav-friends', class:'friend-link' %>
     </div>
   </div>
 

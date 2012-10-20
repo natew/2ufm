@@ -3,6 +3,8 @@ class Share < ActiveRecord::Base
   belongs_to :receiver, :class_name => "User"
   belongs_to :song
 
+  scope :within_last_day, where('created_at >= ?', 1.day.ago)
+
   validates :song_id,
     presence: true,
     uniqueness: {

@@ -1,17 +1,15 @@
 class ListensController < ApplicationController
   def show
-    listen = Listen.find_by_shortcode(params[:id])
-    @song  = Song.find(listen.song_id)
-    @user  = User.find(listen.user_id) if listen.has_user?
-    sep    = listen.url =~ /\?/ ? '&' : '?'
-    @go    = "http://#{request.host_with_port}#{listen.url}#{sep}play=true&song=#{listen.song_id}"
+    @listen = Listen.find_by_shortcode(params[:id])
 
-    render :show, layout: false
+    controller_name = 'StationsController'
 
-    # TODO: Replace the js redirect method to not use redirects
-    # WHY: Because someone who visits this URL may want to re-share it again and wont want the ugly URL
-    # HOW: Store controller, action, params into the listens rather than url, then just call this here:
-    # render_component :controller=> 'different', :action => 'action', :params => params
+    # Render different controller
+    controller = (controller_name).constantize.new
+    controller.request = @_request
+    controller.response = @_response
+    controller.show
+    render :text => controller.response.body
   end
 
   def create

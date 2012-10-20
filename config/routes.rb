@@ -42,22 +42,23 @@ Fusefm::Application.routes.draw do
   match "/@:id", :to => "users#live"
   match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
-  match "/fresh", :to => "songs#fresh"
-  match "/popular", :to => "songs#popular"
+  match "/songs/fresh", :to => "songs#fresh", :as => 'songs_fresh'
+  match "/songs/popular", :to => "songs#popular", :as => 'songs_popular'
   match "/songs/:id", :to => "songs#failed", :as => :post
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post
   match "/search", :to => 'main#search'
   match "/loading", :to => 'main#loading'
-  match '/mac', :to => 'main#mac'
-  match '/account', :to => 'users#edit'
+  match '/dl/mac', :to => 'main#mac'
+  match '/my/account', :to => 'users#edit', :as => 'user_account'
+  match '/my/privacy', :to => 'users#privacy', :as => 'user_privacy'
   match '/activate/:id/:key', :to => 'users#activate'
   match "/navbar", :to => 'users#navbar'
   match '/share', :to => 'shares#create'
-  match '/authorized', :to => 'users#authorized'
   match '/unsubscribe/:type/:key', to: 'users#unsubscribe'
-  match '/user_genres', to: 'users#genres'
-  match '/find_friends', to: 'users#find_friends'
+  match '/my/genres', to: 'users#genres'
+  match '/my/friends', to: 'users#find_friends', :as => 'users_friends'
+  match '/do/authorized', to: 'main#authorized'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
@@ -67,9 +68,14 @@ Fusefm::Application.routes.draw do
   match "/:id", :to => 'stations#show', :as => :blog
   match "/:id", :to => 'stations#show', :as => :user
 
-  # Users
-  match '/:id/following', :to => 'users#following', :as => 'user_following'
-  match '/:id/followers', :to => 'users#followers', :as => 'user_followers'
+  resources :main, path: '/us' do
+    member do
+      get 'about'
+      get 'legal'
+      get 'privacy'
+      get 'contact'
+    end
+  end
 
   resources :users, path: '/' do
     member do

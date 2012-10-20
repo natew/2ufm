@@ -35,7 +35,7 @@ $(function() {
         $('#modal-new-user').removeClass('permanent');
         $.ajax({
           type: 'post',
-          url: '/user_genres',
+          url: '/my/genres',
           data: 'genres=' + genres.join(','),
           success: function(data) {
             $('#new-user-artists .stations').removeClass('loading').html(data);
@@ -278,6 +278,7 @@ body.allOn('click', {
   },
 
   '.song-link': function(e, el) {
+    if (mp.isLive()) return;
     mp.playSection(el.parent('section'));
   },
 

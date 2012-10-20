@@ -1,6 +1,11 @@
-<p>See you on <strong><a href="http://2u.fm">2u.fm</a></strong>!</p>
 
-<p style="font-size:11px; color:#999;">
-  Adjust your <%= link_to 'privacy settings', 'http://2u.fm/account' %> or
-  <%= link_to 'unsubscribe', "http://2u.fm/unsubscribe/#{@unsubscribe_type}/#{@unsubscribe_key}" %>.
-</p>
+<div style="margin:25px 0 0; padding:15px; border-top:1px solid #ccc; background:#eee; color:#555;">
+  <p style="font-size:16px;">See you on <strong><a href="http://2u.fm">2u.fm</a></strong>!</p>
+
+  <br />
+
+  <p style="font-size:11px; color:#999;">
+    Adjust your <%= link_to 'privacy settings', 'http://2u.fm/my/account', style: 'color:#777;' %> or
+    You can switch to receive <%= link_to 'daily digests', 'http://2u.fm/' %> instead.  Or <%= link_to 'unsubscribe', "http://2u.fm/unsubscribe/#{@unsubscribe_type}/#{@unsubscribe_key}", style: 'color:#777;' %> from these types of emails.
+  </p>
+</div>

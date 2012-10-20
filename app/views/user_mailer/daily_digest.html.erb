@@ -1,0 +1,23 @@
+<html><body>
+  <p>Hello <%= @user.first_name %></strong>,</p>
+
+  <p>
+    <strong>You had <%= pluralize @shares.count, 'share' %> and <%= pluralize @follows.count, 'follow' %> in the last day.</strong>
+  </p>
+
+<%
+  if @shares
+    render 'section' do %>
+      <%= render 'share', collection: @shares %>
+<%  end
+  end %>
+
+<%
+  if @follows
+    render 'section' do %>
+      <%= render 'follow', collection: @follows %>
+<%  end
+  end %>
+
+  <%= render 'signature' %>
+</body></html>

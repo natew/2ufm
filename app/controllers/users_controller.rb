@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     added_genres = current_user.set_genres(params[:genres].split(','))
     if added_genres.size > 0
       current_user.update_attributes(first_time:false)
-      @artists_stations = Station.where(slug: Artist.joins(:genres).where(genres: { id: added_genres }).map(&:station_slug)).limit(50)
+      @artists_stations = Station.where(slug: Artist.joins(:genres).where(genres: { id: added_genres }).map(&:station_slug)).order('stations.songs_count desc').limit(50)
       render partial: 'users/recommended_artists'
     else
       head 500
@@ -135,10 +135,10 @@ class UsersController < ApplicationController
 
   def unsubscribe
     @user = User.find_by_confirmation_token(params[:key])
-    @popular = Station.popular
-    @popular_songs = Song.playlist_order_popular
 
     if @user
+      @popular = Station.popular
+      @popular_songs = Song.playlist_order_popular
       @user.privacy.unsubscribe(params[:type].pluralize)
       @success = true
     end

@@ -1,5 +1,5 @@
 class MainController < ApplicationController
-  def stations
+  def about
   end
 
   def search

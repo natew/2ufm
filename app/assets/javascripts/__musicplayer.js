@@ -32,7 +32,9 @@ var mp = (function() {
       usedKeyboard = false,
       listenUrl,
       startedAt,
-      isLive;
+      isLive,
+      played = [],
+      justStarted;
 
   // Playmode
   playMode = playMode || 0;
@@ -91,7 +93,7 @@ var mp = (function() {
 
     // Load playlist
     load: function load() {
-      fn.log(curSection);
+      fn.log('loading', curSection);
       if (!curSection) curSection = $('.playlist:visible section:first');
       if (curSection.length) {
         playlistIndex = curSection.data('index');
@@ -117,6 +119,7 @@ var mp = (function() {
 
           maxIndex = i;
           curPlaylistUrl = curPage;
+          played = [];
 
           // Callback
           w.trigger('mp:load', player.state());
@@ -143,7 +146,7 @@ var mp = (function() {
 
           if (playlist && playlistIndex < playlist.songs.length) {
             // Load song
-            fn.log('Song at index '+playlistIndex);
+            fn.log();
             curSongInfo = playlist.songs[playlistIndex];
             curSong = soundManager.createSound({
               id:curSongInfo.id,
@@ -161,7 +164,13 @@ var mp = (function() {
               stream:(startedAt ? false : true)
             });
 
-            fn.log(curSongInfo, curSong.url);
+            fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
+
+            played.push(playlistIndex);
+            justStarted = true;
+            setTimeout(function() {
+              justStarted = false;
+            }, 1000);
 
             // If we have a time set
             if (time > 0) {
@@ -206,6 +215,11 @@ var mp = (function() {
       }
     },
 
+    rewind: function rewind() {
+      this.stop();
+      this.play();
+    },
+
     toggle: function toggle() {
       if (isPlaying) this.pause();
       else this.play();
@@ -221,14 +235,12 @@ var mp = (function() {
       }
 
       // Next section, or next song, or next playlist
-      if (curSection && curSection.next().attr('id')) return this.playSection(curSection.next());
-      else if ((curSongInfo.index + 1) < maxIndex) {
-        fn.log('playnext')
+      if (curSection && curSection.next().attr('id'))
+        return this.playSection(curSection.next());
+      else if ((curSongInfo.index + 1) < maxIndex)
         this.playSong(curSongInfo.index + 1);
-      }
-      else {
+      else
         return this.toPlaylist('next');
-      }
     },
 
     shuffleNext: function() {
@@ -251,11 +263,13 @@ var mp = (function() {
 
     prev: function prev() {
       if (isLive) return;
-
-      // Prev section, or prev song, or prev playlist
-      if (curSection) return this.playSection(curSection.prev());
-      else if (curSongInfo.index > 0) this.playSong(curSongInfo.index - 1);
-      else return this.toPlaylist('prev');
+      if (justStarted) {
+        var prev = played.pop();
+        if (prev) return this.playSong(prev);
+        else return this.toPlaylist('prev');
+      } else {
+        this.rewind();
+      }
     },
 
     toPlaylist: function toPlaylist(direction) {
@@ -680,6 +694,10 @@ var mp = (function() {
 
     setLive: function(val) {
       isLive = val;
+    },
+
+    isLive: function() {
+      return isLive;
     }
   };
 

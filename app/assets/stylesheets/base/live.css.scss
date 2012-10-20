@@ -9,7 +9,9 @@ body.live {
     color: $header-light !important;
   }
 
-  #player-progress-grabber {
-    pointer-events: none;
+  #player-progress-grabber,
+  .song-link,
+  #player-playlist a {
+    pointer-events: none !important;
   }
 }
