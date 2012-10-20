@@ -869,6 +869,8 @@ class Song < ActiveRecord::Base
     open(file_url) do |song|
       TagLib::MPEG::File.open(song.path) do |taglib|
         set_tags(taglib)
+        self.file = song
+        self.save
       end
     end
   end
