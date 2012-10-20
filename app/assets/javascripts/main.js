@@ -16,9 +16,7 @@ $(function() {
   $('#overlay').click(function() { modal(false); });
 
   // Fade in effect
-  fn.log("ASASASAS?", $('#overlay'));
   $('#overlay').removeClass('shown');
-  setTimeout(function() { $('#overlay').removeClass('slow-fade shown') }, 500);
 
   // Logged in
   if (!isOnline && !isTuningIn) {
