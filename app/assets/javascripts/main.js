@@ -1,5 +1,4 @@
 Danthes.debug = true;
-
 //
 // Document.ready
 //
@@ -13,9 +12,11 @@ $(function() {
 
   resumePlaying();
 
+  // Close modal
+  $('#overlay').click(function() { modal(false); });
+
   // Fade in effect
   $('#overlay').removeClass('shown');
-  setTimeout(function() { $('#overlay').removeClass('slow-fade') }, 500);
 
   // Logged in
   if (!isOnline && !isTuningIn) {
@@ -195,9 +196,6 @@ function windowResize() {
   $('#navbar-menus')
     .css({ 'height': Math.min($('body').height(), $('#navbar-menus-inner').outerHeight()) })
 }
-
-// Close modal
-$('#overlay').click(function() { modal(false); });
 
 // Share hover
 $('#player-share').hover(function() {

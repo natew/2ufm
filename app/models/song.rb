@@ -260,7 +260,7 @@ class Song < ActiveRecord::Base
   end
 
   def file_url
-    file.present? ? file.url : absolute_url || url
+    (Yetting.s3_enabled and file.present?) ? file.url.gsub(/\?.*/,'') : (absolute_url || url)
   end
 
   def original_artists
@@ -352,7 +352,14 @@ class Song < ActiveRecord::Base
     end
   end
 
-  # Read ID3 Tag and generally collect information on the song
+  def scan_file_and_save
+    process
+  end
+
+  def delayed_scan_file_and_save
+    delay.process
+  end
+
   def scan_and_save
     if !url.nil?
       begin
@@ -373,74 +380,9 @@ class Song < ActiveRecord::Base
             end
         }) do |song|
           # Set file
-          self.file = song if Yetting.s3_enabled
-
-          logger.info "Getting song information"
-          file = TagLib::MPEG::File.new(song.path)
-          tag = file.id3v2_tag
-
-          # Soundcloud info
-          if source == 'soundcloud' and soundcloud_id
-            client = Soundcloud.new(:client_id => soundcloud_key)
-            track = client.get("/tracks/#{soundcloud_id}")
-            tag.title = track.title || tag.title
-            tag.genre = track.genres || tag.genre
-            tag.artist = track.user.username || tag.artist
-          end
-
-          # Properties
-          props        = file.audio_properties
-          self.bitrate = props.bitrate.to_i
-          self.seconds = props.length.to_f
-
-          # Tag
-          self.name         = tag.title || ''
-          self.artist_name  = tag.artist || ''
-          self.album_name   = tag.album
-          self.track_number = tag.track.to_i
-          self.genre        = tag.genre
-          self.image        = get_album_art(tag)
-
-          set_original_tag
-
-          fix_soundcloud_tagging if source == 'soundcloud' and soundcloud_id
-
-          fix_empty_artist_tagging
-
-          # Detect if they dumped the artist in the name
-          split_artists_from_name
-
-          # Working if we have name or artist name at least
-          self.working = !name.blank? and !artist_name.blank?
-
-          # Parse artists and determine if original song
-          # Re-determines if its working or not
-          find_or_create_artists
-
-          # Update info if we have processed this song
-          if working? and !processed?
-            # Waveform
-            if waveform_file_name.nil?
-              logger.info "Generating waveform..."
-              self.waveform = generate_waveform(song.path)
-            end
-
-            set_match_name
-            find_matching_songs
-            delete_file_if_matching
-            add_to_stations
-
-            # Slug & Processed
-            self.slug = full_name.to_url
-            self.processed = true
-
-            logger.info "Processed #{id} working!"
-          else
-            logger.info "Processed #{id} (no information)"
-          end
-
-          # Save
-          self.save!
+          self.file = song
+          self.save
+          process
         end
       rescue Exception => e
         # self.processed = false
@@ -460,6 +402,78 @@ class Song < ActiveRecord::Base
     end
   end
 
+  # Read ID3 Tag and generally collect information on the song
+  def process
+    logger.info "Getting song information"
+    TagLib::MPEG::File.open(file.path) do |taglib|
+      tag = taglib.id3v2_tag
+
+      # Soundcloud info
+      if source == 'soundcloud' and soundcloud_id
+        client = Soundcloud.new(:client_id => soundcloud_key)
+        track = client.get("/tracks/#{soundcloud_id}")
+        title = track.title || tag.title
+        genre = track.genres || tag.genre
+        artist = track.user.username || tag.artist
+      end
+
+      # Properties
+      props        = taglib.audio_properties
+      self.bitrate = props.bitrate.to_i
+      self.seconds = props.length.to_f
+
+      # Tag
+      self.name         = title || tag.title || ''
+      self.artist_name  = artist || tag.artist || ''
+      self.album_name   = tag.album
+      self.track_number = tag.track.to_i
+      self.genre        = genre || tag.genre
+      self.image        = get_album_art(tag)
+    end
+
+    set_original_tag
+
+    fix_soundcloud_tagging if source == 'soundcloud' and soundcloud_id
+
+    fix_empty_artist_tagging
+
+    # Detect if they dumped the artist in the name
+    split_artists_from_name
+
+    # Working if we have name or artist name at least
+    self.working = !name.blank? and !artist_name.blank?
+
+    # Parse artists and determine if original song
+    # Re-determines if its working or not
+    find_or_create_artists
+
+    # Update info if we have processed this song
+    if working? and !processed?
+      # Waveform
+      if waveform_file_name.nil?
+        logger.info "Generating waveform..."
+        self.waveform = generate_waveform(file.path)
+      end
+
+      fix_empty_soundcloud_tags
+      set_match_name
+      find_matching_songs
+      delete_file_if_matching
+      add_to_stations
+
+      # Slug & Processed
+      self.slug = full_name.to_url
+      self.processed = true
+
+      logger.info "Processed #{id} working!"
+    else
+      logger.info "Processed #{id} (no information)"
+    end
+
+    # Save
+    self.save!
+  end
+
   def delete_file_if_matching
     self.file.clear if matching_id != id
   end
@@ -475,12 +489,15 @@ class Song < ActiveRecord::Base
 
   def get_file
     begin
-      get_real_url
-      io = open(file_url, :content_length_proc => lambda { |content_length|
+      get_url = get_real_url || url
+      logger.info "Getting #{get_url}"
+      io = open(get_url, :content_length_proc => lambda { |content_length|
         raise "Too Big" if content_length > Yetting.file_size_limit
       })
 
       if io
+        logger.info "Got file"
+        self.file.destroy
         self.file = io
         self.save
       end
@@ -846,7 +863,36 @@ class Song < ActiveRecord::Base
     full_name
   end
 
-  def fix_tags
+  def fix_empty_soundcloud_tags_from_url
+    return unless working?
+    get_real_url
+    open(file_url) do |song|
+      TagLib::MPEG::File.open(song.path) do |taglib|
+        set_tags(taglib)
+        self.file = song
+        self.save
+      end
+    end
+  end
+
+  def fix_empty_soundcloud_tags
+    if source == 'soundcloud' and soundcloud_id
+      TagLib::MPEG::File.open(file.path) do |taglib|
+        set_tags(taglib)
+      end
+    end
+  end
+
+  def set_tags(taglib)
+    tag = taglib.id3v2_tag
+    tag.title = name
+    tag.artist = artist_name
+    tag.genre = genre
+    taglib.save
+    logger.info "Fixed tags #{full_name}"
+  end
+
+  def fix_artist_tags
     if fix_soundcloud_tagging
       self.authors.destroy_all
       find_or_create_artists

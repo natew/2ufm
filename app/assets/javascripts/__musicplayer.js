@@ -555,14 +555,18 @@ var mp = (function() {
       var page = url || playingPage;
       if (curPage == page) return true;
 
-      var playPageNum = page.match(/\?p=([0-9]+)/),
-          curPageNum = curPage.match(/\?p=([0-9]+)/),
-          playPageBase = page.replace(/\?.*/,''),
-          curPageBase = curPage.replace(/\?.*/,'');
+      if (page) {
+        var playPageNum = page.match(/\?p=([0-9]+)/),
+            curPageNum = curPage.match(/\?p=([0-9]+)/),
+            playPageBase = page.replace(/\?.*/,''),
+            curPageBase = curPage.replace(/\?.*/,'');
 
-      fn.log(playPageNum, curPageNum, playPageBase, curPageBase);
+        fn.log(playPageNum, curPageNum, playPageBase, curPageBase);
 
-      return playPageBase == curPageBase && playPageNum && curPageNum && playPageNum[1] <= curPageNum;
+        return playPageBase == curPageBase && playPageNum && curPageNum && playPageNum[1] <= curPageNum;
+      }
+
+      return false;
     },
 
     playSong: function(index) {

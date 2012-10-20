@@ -61,7 +61,7 @@ var page = {
           navDropdown(false);
         }
       }, 50);
-    })
+    });
 
     // Styling for inputs
     $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
