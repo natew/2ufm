@@ -49,6 +49,12 @@ $(function() {
       }
     });
   }
+
+  // Listen playing
+  if (listen) {
+    // mp.startedAt(listen.created_at_unix);
+    clickSong(listen.song_id);
+  }
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
@@ -87,14 +93,14 @@ if (isOnline) {
 }
 
 // Get volume init
-fn.log('vol', volume);
-if (volume === "0") {
+if (mp.volume() === "0") {
   // dont ask me why
   mp.toggleVolume();
   mp.toggleVolume();
 }
 
-if (playMode != 'normal') updatePlayMode(playMode);
+if (mp.playMode() != 'normal')
+  updatePlayMode(mp.playMode());
 
 // Listen sharing auto play
 playFromParams();
@@ -217,7 +223,7 @@ $('.nav-hover').live({
 
     if (el.is('.hover-off')) return false;
 
-    fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
+    // fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
     clearInterval(navHoverInterval);
     closeHoveredDropdown();
     if (!hovered) {
@@ -471,7 +477,7 @@ function navDropdown(nav, pad, hover) {
   var delay = hover ? 100 : 0;
   setTimeout(function() {
     if (nav && nav.length) {
-      fn.log(nav, pad, 'class=', nav.attr('class'));
+      // fn.log(nav, pad, 'class=', nav.attr('class'));
       if (hover && !nav.is(':hover')) return false;
       if (nav.is('.song-share')) {
         updateShare(nav);
@@ -516,7 +522,7 @@ function updateShare(nav) {
       playlist = $('#playlist-' + section.data('station')).data('playlist'),
       song = playlist.songs[index],
       listen = section.data('listen'),
-      link = 'http://2u.fm/' + (listen ? ('l/' + listen) : ('songs/' + section.data('slug'))),
+      link = 'http://' + location.host + '/' + (listen ? ('l/' + listen) : ('songs/' + section.data('slug'))),
       title = (song.artist_name || '') + ' - ' + (song.name || ''),
       share = $('#share');
 

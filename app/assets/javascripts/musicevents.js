@@ -23,7 +23,7 @@ w.on({
 
   'mp:gotListen': function mpGotListenEvent(event, mp, song) {
     var listen = mp.getListenUrl(),
-        listenUrl = 'http://2u.fm/l/' + listen;
+        listenUrl = 'http://' + location.host + '/l/' + listen;
 
     // Update url
     // fn.replaceState(listen);
@@ -70,8 +70,8 @@ w.on({
     // Scroll to song
     setTimeout(function() {
       if ( mp.isOnPlayingPage() && (!mp.getHasMoved() || mp.usedKeyboard()) ) {
-        fn.log('scroll to song');
-        if (section.length) {
+        fn.log('scroll to song', section);
+        if (section && section.length) {
           var sectionTop = section.offset().top,
               sectionBot = sectionTop + section.height(),
               windowTop  = w.scrollTop(),

@@ -4,7 +4,7 @@ class SongsController < ApplicationController
     @popular_songs = Song.playlist_order_popular
 
     respond_to do |format|
-      format.html
+      format.html { render 'popular' }
       format.json { render :json => @popular.to_playlist_json }
       format.page { render_page @popular, @popular_songs }
     end
@@ -15,7 +15,7 @@ class SongsController < ApplicationController
     @trending_songs = Song.playlist_order_trending
 
     respond_to do |format|
-      format.html
+      format.html { render 'trending' }
       format.json { render :json => @trending.to_playlist_json }
       format.page { render_page @trending, @trending_songs }
     end
@@ -26,7 +26,7 @@ class SongsController < ApplicationController
     @just_in_songs = Song.playlist_order_published
 
     respond_to do |format|
-      format.html
+      format.html { render 'fresh' }
       format.page { render_page @just_in_station, @just_in_songs }
     end
   end

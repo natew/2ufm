@@ -255,6 +255,14 @@
   <div id="null"></div>
   <div id="tunein"></div>
 
+    <script type="text/javascript">
+      <%- if params[:listen] -%>
+        var listen = <%= raw params[:listen] %>;
+      <%- else -%>
+        var listen;
+      <%- end -%>
+    </script>
+
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>
   <%= subscribe_to "/users/#{current_user.id}" if user_signed_in? %>
 </body>

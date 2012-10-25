@@ -14,7 +14,7 @@ class Listen < ActiveRecord::Base
     user_id == 0 ? false : true
   end
 
-  def as_json
+  def as_json(options={})
     super(methods: [:created_at_unix])
   end
 

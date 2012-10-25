@@ -255,13 +255,13 @@ button {
 
   /* Keep above .remove, .remove.first-hover needs precedence */
   &.remove:hover {
-    @include linear-gradient(#c40e0e, #970808);
+    background-color: #970808;
     border-color: #970808;
   }
 
   &.remove,
   &.remove.first-hover {
-    @include linear-gradient($light-green, $green);
+    background-color: $green;
     border-color: #239708;
     border-width: 2px;
     margin: 0;
@@ -269,11 +269,11 @@ button {
 
   &.add {
     color: #fff;
-    @include linear-gradient($light-green,$green);
+    background-color: $green;
     span { color: #fff; }
 
     &:hover {
-      @include linear-gradient(lighten($light-green,4%),lighten($green,4%));
+      background-color: lighten($green,4%);
     }
   }
 

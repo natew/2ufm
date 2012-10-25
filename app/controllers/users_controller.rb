@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune, :feed]
-  before_filter :load_user, :only => [:followers, :following, :feed]
+  before_filter :load_user, :only => [:followers, :following]
 
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
@@ -31,6 +31,8 @@ class UsersController < ApplicationController
   end
 
   def feed
+    @user = User.find_by_slug(params[:id]) || current_user
+    @primary = @user
     @feed = true
 
     respond_to do |format|

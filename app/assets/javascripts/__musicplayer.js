@@ -24,6 +24,9 @@ var mp = (function() {
       autoPlay = false,
       hasMoved = false,
       timerInterval,
+      NORMAL = 0,
+      REPEAT = 1,
+      SHUFFLE = 2,
       playModes = {0: 'normal', 1: 'repeat', 2: 'shuffle'},
       playMode = $.cookie('playmode'),
       curFailures = 0,
@@ -37,7 +40,7 @@ var mp = (function() {
       justStarted;
 
   // Playmode
-  playMode = playMode || 0;
+  playMode = playMode || NORMAL;
 
   // Elements
   var pl = {
@@ -148,7 +151,6 @@ var mp = (function() {
 
           if (playlist && playlistIndex < playlist.songs.length) {
             // Load song
-            fn.log();
             curSongInfo = playlist.songs[playlistIndex];
             curSong = soundManager.createSound({
               id:curSongInfo.id,
@@ -165,6 +167,11 @@ var mp = (function() {
               volume:volume,
               stream:(startedAt ? false : true)
             });
+
+            if (!curSection) {
+              var foundSection = $('#playlist-' + playlist.id + ' #song-' + curSongInfo.id);
+              if (foundSection.length) curSection = foundSection;
+            }
 
             fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
 
@@ -231,7 +238,7 @@ var mp = (function() {
       if (isLive) return;
 
       clearTimeout(playTimeout);
-      if (playMode == 2) { // shuffle
+      if (playMode == SHUFFLE) {
         this.shuffleNext();
         return;
       }
@@ -257,18 +264,24 @@ var mp = (function() {
       }
     },
 
-    repeat: function() {
-      fn.log('repeating');
-      curSong.setPosition(0);
-      curSong.play();
-    },
-
     prev: function prev() {
+      fn.log('isLive', isLive, 'justStarted', justStarted, 'playmode', playMode, 'index', curSongInfo.index);
       if (isLive) return;
       if (justStarted) {
-        var prev = played.pop();
-        if (prev) return this.playSong(prev);
-        else return this.toPlaylist('prev');
+        if (playMode == SHUFFLE) {
+          var prev = played.pop();
+          if (prev) return this.playSong(prev);
+        }
+        else {
+          if (curSection) {
+            var prev = curSection.prev();
+            if (prev.length) return this.playSection(prev);
+          }
+          else if (curSongInfo.index > 0)
+            return this.playSong(curSongInfo.index - 1);
+        }
+
+        return this.toPlaylist('prev');
       } else {
         this.rewind();
       }
@@ -287,12 +300,13 @@ var mp = (function() {
         this.playSection(nextSection);
         return true;
       } else {
-        var next = $('#' + $('.playlist-song section.active').parent().attr('id')).next().next();
-        if (next.length) this.playSection(next)
-        else {
-          curSection = null;
-          return false;
+        if (fw) {
+          var next = $('#' + $('.playlist-song section.active').parent().attr('id')).next().next();
+          if (next.length) this.playSection(next);
         }
+
+        curSection = null;
+        return false;
       }
     },
 
@@ -437,7 +451,7 @@ var mp = (function() {
 
     finish: function finish() {
       fn.log('finished', curSong);
-      if (playMode == 1) player.repeat();
+      if (playMode == REPEAT) player.rewind();
       else player.next();
     },
 
@@ -468,6 +482,7 @@ var mp = (function() {
     },
 
     onload: function onload(success) {
+      fn.log(success);
       if (success) {
         pl.player.addClass('loaded');
         // Scrobbling

@@ -152,6 +152,18 @@ class Song < ActiveRecord::Base
     blog_broadcasts_count > 1
   end
 
+  def self.song_page(songs, song_id)
+    sql = songs.to_sql
+    order_by_index = sql.rindex(/(order by .*)/i)
+    order_by = sql[order_by_index..-1]
+    row_sql = songs.select("ROW_NUMBER() over(#{order_by}) AS rn").select('songs.id as my_id').to_sql
+    row = Song.find_by_sql("SELECT rn, my_id FROM (#{row_sql}) x where x.my_id = #{song_id}")[0].rn.to_i
+    logger.info row
+    page = row / Yetting.per
+    logger.info page
+    songs.offset(page * Yetting.per).limit(Yetting.per)
+  end
+
   def self.playlist_order_oldest
     Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published
   end
