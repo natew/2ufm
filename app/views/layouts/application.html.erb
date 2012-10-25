@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>2u.fm</title>
-
   <!-- Meta -->
   <meta charset="utf-8">
   <%= csrf_meta_tag %>
@@ -12,10 +10,13 @@
   <%- if params[:listen]
       @listen_song = Song.find(params[:listen_song_id])
     -%>
+    <title><%= @listen_song.full_name %> | 2u.fm</title>
     <!-- OpenGraph -->
     <meta property="og:title" content="<%= @listen_song.full_name %>" />
     <meta property="og:description" content="Listen now on 2u.fm" />
     <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
+  <%- else -%>
+    <title>2u.fm</title>
   <%- end -%>
 
   <!-- TODO: remove -->
