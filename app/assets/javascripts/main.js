@@ -713,18 +713,22 @@ function toYoutubeSearch(string) {
 
 function setupFixedTitles() {
   var fixedTitlesInterval,
-      isFixed = false;
+      isFixed = false,
+      title = $('.title'),
+      titleClone = $('.title').clone().addClass('fixed').appendTo('#body');
 
+  clearInterval(fixedTitlesInterval);
   w.on('scrollstart', function() {
     fixedTitlesInterval = setInterval(function() {
-      fn.log('scrollcheck', doc.scrollTop(), isFixed);
       if (doc.scrollTop() > 100) {
         if (!isFixed) {
-          $('.title').addClass('fixed');
+          title.addClass('invisible');
+          titleClone.removeClass('hidden');
           isFixed = true;
         }
       } else {
-        $('.title').removeClass('fixed');
+        title.removeClass('invisible');
+        titleClone.addClass('hidden');
         isFixed = false;
       }
     }, 50);

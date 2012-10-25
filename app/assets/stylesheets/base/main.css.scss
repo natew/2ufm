@@ -1336,6 +1336,10 @@ $announce-color: $heading-color;
   color: #999;
   position: relative;
 
+  &.invisible {
+    visibility: hidden;
+  }
+
   h1 {
     margin-top: 5px;
     margin-bottom: 10px;

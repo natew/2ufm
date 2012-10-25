@@ -23,6 +23,7 @@ var page = {
     spinner.detach();
     bindImageErrors();
     mp.hasMoved(false);
+    setupFixedTitles();
 
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);
