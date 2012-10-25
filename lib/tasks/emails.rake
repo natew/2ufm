@@ -1,5 +1,5 @@
 namespace :emails do
-  namescape :send do
+  namespace :send do
     task :daily_digest => :environment do
       puts 'Sending daily digest'
       User.with_privacy.receives_digests.each do |user|

@@ -101,6 +101,7 @@ var mp = (function() {
 
         // Checking to see if first time loaded, or if loading new playlist
         if (typeof playlist === 'undefined' || playlist.id != playlistID) {
+          if (playlist) fn.log(playlist.id, playlistID);
           fn.log('loading', playlistIndex, playlistID);
 
           // Remember this page
@@ -109,6 +110,7 @@ var mp = (function() {
           // Get new playlist
           var el = $('#playlist-' + playlistID);
           playlist = el.data('playlist');
+          playlist.id = playlistID;
           broadcasts = el.next('script');
           fn.log('broadcasts', broadcasts);
 
@@ -702,6 +704,10 @@ var mp = (function() {
 
     isLive: function() {
       return isLive;
+    },
+
+    getPlayed: function() {
+      return played;
     }
   };
 

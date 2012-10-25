@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "\"2u.fm\" <dontreply@2u.fm>"
+  default :from => "\"2u.fm\" <noreply@2u.fm>"
 
   def follow(user, followee)
     return if !followee.privacy.mail_follows or followee.privacy.receives_digests

@@ -23,6 +23,8 @@ body {
   background: $body-bg;
   position: relative;
   font-weight: 300;
+  max-width: $max-width;
+  min-width: $min-width;
 }
 
 p {
@@ -80,8 +82,6 @@ h1, h2, h3, h4, h5 {
 h1 span { font-size: 26px; }
 
 /* Header */
-$header-width: $width + $navbar-width;
-
 header {
   position: fixed;
   top: 0;
@@ -89,6 +89,7 @@ header {
   right: 0;
   z-index: 1000;
   height: $header-height;
+  min-width: $min-width;
   line-height: 1em;
   background: $header-color;
   @include box-shadow(0 3px 0 rgba(0,0,0,0.2));
@@ -178,7 +179,6 @@ header {
   left: 90px;
   right: 0;
   z-index: 0;
-  min-width: $width - 40;
   height: $header-height;
 }
 
@@ -613,14 +613,8 @@ header {
     font-size: 12px;
     font-weight: 300;
     color: #777;
-    padding: 5px 10px;
+    padding: 3px 10px;
     margin: 0;
-  }
-
-  .smaller a {
-    font-size: 18px;
-    padding-top: 8px;
-    padding-bottom: 8px;
   }
 
   a {
@@ -630,7 +624,7 @@ header {
     color: #ccc;
     font-weight: 300;
     font-size: 14px;
-    padding: 4px 12px 4px 30px;
+    padding: 4px 12px 4px 31px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -639,7 +633,6 @@ header {
 
     &.secondary {
       color: #777;
-      font-size: 12px;
     }
 
     &:hover {
@@ -679,76 +672,80 @@ header {
     position: relative;
     z-index: 1;
     margin: 5px 0 0 0;
+  }
 
-    &.nav-user {
-      img {
-        top: 7px;
-        left: 9px;
-        position: absolute;
-        width: 14px;
-        height: 14px;
-      }
+  .nav-user {
+    img {
+      top: 7px;
+      left: 9px;
+      position: absolute;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .nav-extra {
+    margin-top: 10px;
+    a { padding-left: 10px; }
+  }
+
+  #navbar-friends {
+    margin-top: 10px;
+    border-top: 1px solid $body-dark;
+    width: $navbar-width + 20;
+    background: rgba(0,0,0,0.1);
+
+    h1 {
+      background: rgba(0,0,0,0.1);
+      font-weight: bold;
+      margin-bottom: 4px;
     }
 
-    &.nav-extra {
-      margin-top: 10px;
-
-      a {
-        font-size: 12px;
-        padding-left: 10px;
-      }
+    #navbar-friends-inner {
+      overflow-x: hidden;
+      overflow-y: scroll;
     }
 
-    &#navbar-friends {
-      border-top: 1px solid $body-bg;
-      width: $navbar-width + 20;
+    div {
+      position: relative;
+    }
 
-      #navbar-friends-inner {
-        overflow-x: hidden;
-        overflow-y: scroll;
-      }
+    #nav-friends {
+      color: #777;
+    }
 
-      div {
-        position: relative;
-      }
+    .friend-link {
+      color: #aaa;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 3px 20px 3px 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 12px;
+      position: relative;
 
-      #nav-friends {
-        color: #777;
-      }
-
-      .friend-link {
-        color: #aaa;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 3px 20px 3px 10px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        font-size: 12px;
-        position: relative;
-
-        &.active {
-          background: $primary;
-          color: #fff;
-        }
-      }
-
-      .tune-in {
-        display: none;
-        position: absolute;
-        z-index: 100;
-        top: 0;
-        right: 20px;
-        padding: 3px 5px;
-        font-size: 11px;
-        color: #888;
-        font-style: normal;
-      }
-
-      .online a {
+      &.active {
+        background: $primary;
         color: #fff;
-        &.tune-in { display: block; }
       }
+    }
+
+    .tune-in {
+      display: none;
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      right: 20px;
+      padding: 3px 5px;
+      font-size: 11px;
+      color: #888;
+      font-style: normal;
+    }
+
+    .online a {
+      color: #fff;
+      &.tune-in { display: block; }
     }
   }
 }
@@ -761,7 +758,7 @@ header {
   z-index: 2;
 
   #breadcrumbs {
-    background: $body-light;
+    background: lighten($body-dark, 1%);
     padding: 6px 20px;
     margin: -10px 0 10px 0;
     font-size: 12px;
@@ -821,7 +818,7 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 12px;
-    background: darken($navbar-bg, 10%);
+    background: darken($navbar-bg, 5%);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
@@ -1404,7 +1401,7 @@ $announce-color: $heading-color;
 
 .nav-meta {
   padding: 3px 0;
-  margin: -15px 0 10px -14px;
+  margin: -12px 0 12px -14px;
   overflow: hidden;
   list-style: none;
 
@@ -1413,6 +1410,7 @@ $announce-color: $heading-color;
     margin: 0 0 0 -1px;
     float: left;
     position: relative;
+    color: #888;
 
     &:before {
       display: block;
@@ -1433,7 +1431,7 @@ $announce-color: $heading-color;
   overflow: hidden;
   padding: 8px 20px 8px 10px;
   padding-right: 178px;
-  border-top: 2px solid #444;
+  background: $body-dark;
 
   &.inline {
     margin-top: -2px;
@@ -1518,7 +1516,9 @@ h2 small { font-size: 55%; }
   display: inline-block;
   margin: 0 20px 20px 0;
   background: rgba(0,0,0,0.1);
-  padding: 0 20px;
+  padding: 0 5px 0 20px;
+  width: 100%;
+  @include box-sizing(border-box);
 
   li {
     float: left;
@@ -1528,7 +1528,7 @@ h2 small { font-size: 55%; }
       float: left;
       padding: 7px;
       line-height: 1.4em;
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 300;
       text-decoration: none;
       color: #fff;

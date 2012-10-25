@@ -24,6 +24,7 @@ $(function() {
   }
 
   if ($('#modal-new-user').length) {
+    fn.log('asd')
     modal('#modal-new-user');
 
     $('#genres-next').click(function() {
@@ -685,7 +686,7 @@ function closeHoveredDropdown() {
 }
 
 function resumePlaying() {
-  fn.log(isOnline, beginListen, beginListen.url);
+  fn.log(isOnline, beginListen);
   if (isOnline && beginListen && mp.isOnPlayingPage(beginListen.url)) {
     now = Math.ceil((new Date()).getTime() / 1000),
           seconds_past = now - parseInt(beginListen.created_at_unix, 10);

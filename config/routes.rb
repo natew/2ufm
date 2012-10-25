@@ -20,6 +20,9 @@ Fusefm::Application.routes.draw do
 
   match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
 
+  match "/songs/fresh", :to => "songs#fresh", :as => 'songs_fresh'
+  match "/songs/popular", :to => "songs#popular", :as => 'songs_popular'
+
   resources :songs, only: [:index, :show]
   resources :genres, only: [:show]
   resources :follows, only: [:create, :destroy]
@@ -42,8 +45,6 @@ Fusefm::Application.routes.draw do
   match "/@:id", :to => "users#live"
   match "/play/:id", :to => "songs#play"
   match "/l/:id", :to => "listens#show"
-  match "/songs/fresh", :to => "songs#fresh", :as => 'songs_fresh'
-  match "/songs/popular", :to => "songs#popular", :as => 'songs_popular'
   match "/songs/:id", :to => "songs#failed", :as => :post
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post
@@ -68,7 +69,7 @@ Fusefm::Application.routes.draw do
   match "/:id", :to => 'stations#show', :as => :blog
   match "/:id", :to => 'stations#show', :as => :user
 
-  resources :main, path: '/us' do
+  resources :main, only:[], path: '/us' do
     member do
       get 'about'
       get 'legal'
@@ -77,7 +78,7 @@ Fusefm::Application.routes.draw do
     end
   end
 
-  resources :users, path: '/' do
+  resources :users, only:[], path: '/' do
     member do
       get 'following'
       get 'followers'
@@ -85,14 +86,14 @@ Fusefm::Application.routes.draw do
     end
   end
 
-  resources :blogs, path: '/' do
+  resources :blogs, only:[], path: '/' do
     member do
       get 'popular'
     end
   end
 
   # Artists
-  resources :artists, path: '/' do
+  resources :artists, only:[], path: '/' do
     member do
       get 'remixes_of'
       get 'remixes_by'

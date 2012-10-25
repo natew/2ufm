@@ -49,8 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || session[:return_to]
-    session[:return_to] = nil
+    stored_location_for(resource) || session[:return_to] || '/'
   end
 
   # Overwriting the sign_out redirect path method
