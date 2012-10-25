@@ -523,14 +523,13 @@ $song-player-height: 50px;
 
 section.active,
 section.open,
-.open section,
 .primary section {
   .reviews {
     display: block;
   }
 
   .waveform {
-    display: block;
+    display: block !important;
   }
 }
 
