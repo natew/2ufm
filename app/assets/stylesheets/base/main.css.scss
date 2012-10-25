@@ -1413,7 +1413,7 @@ $announce-color: $heading-color;
   z-index: 300;
   padding-top: 10px;
   padding-bottom: 10px;
-  background: rgba($body-light, 0.85);
+  background: rgba($body-light, 0.92);
   @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
 
   .nav-meta {
