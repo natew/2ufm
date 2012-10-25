@@ -573,6 +573,29 @@ header {
   }
 }
 
+/* navbar fade in colors */
+#navbar {
+  h1 {color: #4c4c4c;}
+  a  {color: #777777;
+    &.secondary  { color: #4c4c4c; }
+    &:before     { color: #6c6c6c; } }
+  #navbar-friends {
+    .friend-link { color: #7f7f7f; }
+    .online a    { color: #e0e0e0; }
+    .tune-in     { color: #5a5a5a; } }
+}
+
+#navbar:hover {
+  h1 {color: #777;}
+  a  {color: #ccc;
+    &.secondary  { color: #777; }
+    &:before     { color: #999; } }
+  #navbar-friends {
+    .friend-link { color: #aaa; }
+    .online a    { color: #fff; }
+    .tune-in     { color: #888; } }
+}
+
 #navbar {
   position: fixed;
   z-index: 100;
@@ -612,7 +635,6 @@ header {
   h1 {
     font-size: 12px;
     font-weight: 300;
-    color: #777;
     padding: 3px 10px;
     margin: 0;
   }
@@ -621,7 +643,6 @@ header {
     position: relative;
     display: block;
     text-decoration: none;
-    color: #ccc;
     font-weight: 300;
     font-size: 14px;
     padding: 4px 12px 4px 31px;
@@ -631,18 +652,10 @@ header {
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
-    &.secondary {
-      color: #777;
-    }
-
-    &:hover {
-      background: rgba(0,0,0,0.5);
-    }
-
+    &:hover { background: rgba(0,0,0,0.5); }
     &:before {
       padding-left: 5px;
       font-size: 14px;
-      color: #999;
     }
 
     &.active {
@@ -706,16 +719,10 @@ header {
       overflow-y: scroll;
     }
 
-    div {
-      position: relative;
-    }
-
-    #nav-friends {
-      color: #777;
-    }
+    div { position: relative; }
+    #nav-friends { color: #777; }
 
     .friend-link {
-      color: #aaa;
       margin-left: 0;
       margin-right: 0;
       padding: 3px 20px 3px 10px;
@@ -731,6 +738,7 @@ header {
       }
     }
 
+    .online .tune-in { display: block; }
     .tune-in {
       display: none;
       position: absolute;
@@ -739,13 +747,7 @@ header {
       right: 20px;
       padding: 3px 5px;
       font-size: 11px;
-      color: #888;
       font-style: normal;
-    }
-
-    .online a {
-      color: #fff;
-      &.tune-in { display: block; }
     }
   }
 }
