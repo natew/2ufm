@@ -1344,6 +1344,7 @@ $announce-color: $heading-color;
     margin-top: 5px;
     margin-bottom: 10px;
 
+    &:hover { cursor: pointer; }
     &.icon {margin-right: 300px;}
   }
 
@@ -1413,7 +1414,7 @@ $announce-color: $heading-color;
   z-index: 300;
   padding-top: 10px;
   padding-bottom: 10px;
-  background: rgba($body-dark, 0.95);
+  background: $body-dark;
   @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
 
   .nav-meta {

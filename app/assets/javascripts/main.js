@@ -715,6 +715,10 @@ function setupFixedTitles() {
       title = $('.title'),
       titleClone = $('.title').clone().addClass('fixed hidden').appendTo('#body');
 
+  $('h1', titleClone).click(function() {
+    fn.scrollToTop();
+  });
+
   clearInterval(fixedTitlesInterval);
   w.on('scrollstart', function() {
     fixedTitlesInterval = setInterval(function() {
