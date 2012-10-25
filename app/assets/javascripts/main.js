@@ -62,8 +62,6 @@ doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 navItems = getNavItems();
 setShares($('#nav-shares').attr('data-shares'));
 
-setupFixedTitles();
-
 // Cookies
 if (!hideWelcome && !isOnline) {
   var h1s = $('#welcome h1'),

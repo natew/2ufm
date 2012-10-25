@@ -1413,8 +1413,8 @@ $announce-color: $heading-color;
   z-index: 300;
   padding-top: 10px;
   padding-bottom: 10px;
-  background: rgba($body-light, 0.95);
-  @include box-shadow(0 2px 0 rgba(0,0,0,0.5));
+  background: rgba($body-light, 0.85);
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
 
   .nav-meta {
     display: none;
@@ -1428,11 +1428,11 @@ $announce-color: $heading-color;
 
   #page-follow {
     top: 10px;
-    right: 115px;
+    right: 110px;
   }
 
   .nav-menu {
-    margin: 0;
+    margin: 0 -10px;
     padding-left: 0;
     padding-right: 0;
     background: none;
@@ -1449,8 +1449,8 @@ $announce-color: $heading-color;
   }
 
   .medium {
-    width: 78px;
-    height: 78px;
+    width: 76px;
+    height: 76px;
   }
 }
 
