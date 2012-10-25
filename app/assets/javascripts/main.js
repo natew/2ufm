@@ -717,8 +717,10 @@ function setupFixedTitles() {
 
   w.scrollstart(function() {
     fixedTitlesInterval = setInterval(function() {
-      if ($('html,body').scrollTop() > 100 && !isFixed) {
+      fn.log('scrollcheck');
+      if (doc.scrollTop() > 100 && !isFixed) {
         $('.title').addClass('fixed');
+        isFixed = true;
       } else {
         $('.title').removeClass('fixed');
       }
