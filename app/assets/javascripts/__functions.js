@@ -71,7 +71,7 @@ var fn = {
   scrollTo: function(object) {
     var top = object;
     if (typeof object != 'number') {
-      var pad = $('.title.fixed').length ? 200 : 85;
+      var pad = $('.title.fixed').length ? 185 : 85;
       top = object.offset().top - pad;
     }
 
