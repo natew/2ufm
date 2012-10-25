@@ -59,7 +59,7 @@ Fusefm::Application.routes.draw do
   match '/unsubscribe/:type/:key', to: 'users#unsubscribe'
   match '/my/genres', to: 'users#genres'
   match '/my/friends', to: 'users#find_friends', :as => 'users_friends'
-  match '/do/authorized', to: 'main#authorized'
+  match '/do/authorized', to: 'users#authorized'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
