@@ -1401,6 +1401,42 @@ $announce-color: $heading-color;
   }
 }
 
+.title.fixed {
+  position: fixed;
+  top: $header-height;
+  left: $navbar-width;
+  right: 0;
+  z-index: 100;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: rgba($body-light, 0.95);
+  @include box-shadow(0 0 4px rgba(0,0,0,0.2));
+
+  .nav-meta {
+    display: none;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .nav-menu {
+    margin: 0;
+    background: none;
+
+    a {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      font-size: 14px;
+    }
+  }
+
+  .medium {
+    width: 64px;
+    height: 64px;
+  }
+}
+
 .nav-meta {
   padding: 3px 0;
   margin: -12px 0 12px -14px;

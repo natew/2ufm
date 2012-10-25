@@ -62,6 +62,8 @@ doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 navItems = getNavItems();
 setShares($('#nav-shares').attr('data-shares'));
 
+setupFixedTitles();
+
 // Cookies
 if (!hideWelcome && !isOnline) {
   var h1s = $('#welcome h1'),
@@ -707,4 +709,23 @@ function resumePlaying() {
 
 function toYoutubeSearch(string) {
   return string.replace(' ', '+').replace(/[^a-zA-Z0-9+]/, "");
+}
+
+function setupFixedTitles() {
+  var fixedTitlesInterval,
+      isFixed = false;
+
+  w.scrollstart(function() {
+    fixedTitlesInterval = setInterval(function() {
+      if ($('html,body').scrollTop() > 100 && !isFixed) {
+        $('.title').addClass('fixed');
+      } else {
+        $('.title').removeClass('fixed');
+      }
+    }, 50);
+  });
+
+  w.scrollstop(function() {
+    clearInterval(fixedTitlesInterval);
+  });
 }
