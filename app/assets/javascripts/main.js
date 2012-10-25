@@ -715,7 +715,7 @@ function setupFixedTitles() {
   var fixedTitlesInterval,
       isFixed = false;
 
-  w.scrollstart(function() {
+  w.on('scrollstart', function() {
     fixedTitlesInterval = setInterval(function() {
       fn.log('scrollcheck');
       if (doc.scrollTop() > 100 && !isFixed) {
@@ -727,7 +727,7 @@ function setupFixedTitles() {
     }, 50);
   });
 
-  w.scrollstop(function() {
+  w.on('scrollstop', function() {
     clearInterval(fixedTitlesInterval);
   });
 }
