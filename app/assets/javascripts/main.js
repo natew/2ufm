@@ -715,7 +715,7 @@ function setupFixedTitles() {
   var fixedTitlesInterval,
       isFixed = false,
       title = $('.title'),
-      titleClone = $('.title').clone().addClass('fixed').appendTo('#body');
+      titleClone = $('.title').clone().addClass('fixed hidden').appendTo('#body');
 
   clearInterval(fixedTitlesInterval);
   w.on('scrollstart', function() {
