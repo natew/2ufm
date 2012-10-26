@@ -39,7 +39,8 @@ var pagination = (function(fn, mp) {
             return false;
           }
         },
-        success: function(data) {
+        success: function nextPageSuccess(data) {
+          fn.log(data);
           $(window).trigger('gotPageLoad', data);
           current = playlistPage + 1;
           var playlist = $('#playlist-' + id + '-' + current);
@@ -66,21 +67,19 @@ var pagination = (function(fn, mp) {
 
   // Reads URL parameters for ?page=X and returns X
   function getPage() {
-    var page = window.location.search.match(/p=([0-9]+)/);
+    var page = window.location.search.match(/p-([0-9]+)/);
     return page ? parseInt(page[1],10) : 1;
   }
 
   function updatePageURL(page) {
     var url = mp.getPage(),
-        page = 'p=' + page,
-        page_regex = /p=[0-9]+/,
+        page = 'p-' + page,
+        page_regex = /p-[0-9]+/,
         hash = window.location.hash;
 
     // Replace old page
     if (url.match(page_regex)) {
       url = url.replace(page_regex, page);
-    } else {
-      url += url.match(/\?/) ? '&' + page : '?' + page;
     }
 
     url += hash;

@@ -5,6 +5,7 @@ require 'net/http'
 require 'taglib'
 require 'tempfile'
 require 'soundcloud'
+require 'securerandom'
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
@@ -57,12 +58,13 @@ class Song < ActiveRecord::Base
   has_many   :shares
 
   # Comments
-  acts_as_commentable
+  # acts_as_commentable
 
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
-  has_attachment :file, :s3 => Yetting.s3_enabled, :filename => ":id_:style.mp3"
+  has_attachment :file, :s3 => false, :filename => ":id_:style.mp3" # Yetting.s3_enabled
+  has_attachment :compressed_file, :dreamhost => Yetting.dreamhost_enabled, :filename => ":file_key.mp3"
 
   # Validations
   validates :url, :presence => true
@@ -134,7 +136,7 @@ class Song < ActiveRecord::Base
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
   scope :limit_full, lambda { |page| limit(page * Yetting.per) }
 
-  before_create :set_source, :get_real_url, :clean_url
+  before_create :set_source, :get_real_url, :clean_url, :set_file_key
   after_create :delayed_scan_and_save, :set_rank
 
   # Whitelist mass-assignment attributes
@@ -393,6 +395,7 @@ class Song < ActiveRecord::Base
         }) do |song|
           # Set file
           self.file = song
+          self.compressed_file = compress_mp3(song.path)
           self.save
           process
         end
@@ -422,11 +425,11 @@ class Song < ActiveRecord::Base
 
       # Soundcloud info
       if source == 'soundcloud' and soundcloud_id
-        client = Soundcloud.new(:client_id => soundcloud_key)
+        client = Soundcloud.new(:client_id => Yetting.soundcloud_key)
         track = client.get("/tracks/#{soundcloud_id}")
-        title = track.title || tag.title
-        genre = track.genres || tag.genre
-        artist = track.user.username || tag.artist
+        title = track.title
+        genre = track.genres
+        artist = track.user.username
       end
 
       # Properties
@@ -509,9 +512,9 @@ class Song < ActiveRecord::Base
 
       if io
         logger.info "Got file"
-        self.file.destroy
-        self.file = io
-        self.save
+        io
+      else
+        nil
       end
     rescue Exception => e
       logger.error "Exception getting file: #{e.message}"
@@ -521,6 +524,30 @@ class Song < ActiveRecord::Base
 
   def delayed_get_file
     delay(:priority => 2).get_file
+  end
+
+  def compress_mp3(mp3_path=nil)
+    mp3_path = open(file_url).path if !mp3_path
+    compressed = Paperclip::Tempfile.new("song_#{id}_compressed.mp3", Rails.root.join('tmp'))
+    ffmpeg_command = "ffmpeg -i \"#{mp3_path}\" -acodec libmp3lame -ac 2 -ab #{Yetting.file_compression}k -ar 44100 \"#{compressed.path}\" > /dev/null 2>&1"
+    logger.info ffmpeg_command
+    `#{ffmpeg_command}`
+
+    if compressed.size > 0
+      compressed
+    else
+      nil
+    end
+  end
+
+  def set_compressed_file
+    file = get_file
+    self.compressed_file = compress_mp3(file.path)
+    self.save
+  end
+
+  def delayed_set_compressed_file
+    delay.set_compressed_file
   end
 
   # Generate waveform
@@ -627,7 +654,7 @@ class Song < ActiveRecord::Base
     when 'soundcloud'
       begin
         # init soundcloud
-        client = Soundcloud.new(:client_id => soundcloud_key)
+        client = Soundcloud.new(:client_id => Yetting.soundcloud_key)
 
         # find track id
         begin
@@ -642,7 +669,7 @@ class Song < ActiveRecord::Base
           # get track url
           logger.info "Found track ID #{track_id}"
           track = client.get('/tracks/' + track_id.to_s)
-          curl_redirect = `curl -I "#{track.stream_url}?client_id=#{soundcloud_key}"`
+          curl_redirect = `curl -I "#{track.stream_url}?client_id=#{Yetting.soundcloud_key}"`
           logger.info "Curl redirect headers\n #{curl_redirect}"
           final_url = curl_redirect.match(/Location: (.*)\r/)[1]
 
@@ -938,11 +965,14 @@ class Song < ActiveRecord::Base
     self.original_tag = full_name
   end
 
-  private
-
-  def soundcloud_key
-    '35ececaff5ccc122375738961cd6d1dc'
+  def set_file_key
+    while true
+      self.file_key = SecureRandom.hex(16)
+      break unless Song.find_by_file_key(file_key)
+    end
   end
+
+  private
 
   def unique_to_blog
     if Song.where('url = ? and blog_id = ? and id != ?', url, blog_id, id).count > 0

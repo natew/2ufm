@@ -18,12 +18,16 @@ module AttachmentHelper
       filename            = options[:filename] || ":id_:style.:extension"
       attachment_path     = "#{attachment_folder}/#{filename}"
 
-      if options[:s3]
+      if options[:s3] || options[:dreamhost]
         options.delete(:s3)
         options[:path]           ||= attachment_path
         options[:storage]        ||= :s3
         options[:s3_credentials] ||= File.join(Rails.root, 'config', 'amazon_s3.yml')
         options[:bucket]         ||= Rails.env.production? ? 'media.2u.fm' : '2u-songs-development'
+
+        if options[:dreamhost]
+          options[:s3_credentials] = File.join(Rails.root, 'config', 'dreamhost_s3.yml')
+        end
       else
         # For local Dev/Test envs, use the default filesystem, but separate the environments
         # into different folders, so you can delete test files without breaking dev files.

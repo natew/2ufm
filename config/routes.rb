@@ -20,8 +20,8 @@ Fusefm::Application.routes.draw do
 
   match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
 
-  match "/songs/fresh", :to => "songs#fresh", :as => 'songs_fresh'
-  match "/songs/popular", :to => "songs#popular", :as => 'songs_popular'
+  match "/songs/fresh(/p-:p)", :to => "songs#fresh", :as => 'songs_fresh'
+  match "/songs/popular(/p-:p)", :to => "songs#popular", :as => 'songs_popular'
 
   resources :songs, only: [:index, :show]
   resources :genres, only: [:show]
@@ -64,7 +64,7 @@ Fusefm::Application.routes.draw do
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
   # Root level stations access
-  match "/:id", :to => 'stations#show', :as => :station
+  match "/:id(/p-:p)", :to => 'stations#show', :as => :station
   match "/:id", :to => 'stations#show', :as => :artist
   match "/:id", :to => 'stations#show', :as => :blog
   match "/:id", :to => 'stations#show', :as => :user

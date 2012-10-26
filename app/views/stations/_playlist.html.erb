@@ -9,11 +9,18 @@
   page               = (params[:p] || 1).to_i
   paginate           = (paginate == false || style == 'mini') ? false : true
   songs            ||= station.songs.playlist_order_broadcasted
+
+  if !page_request and !already_limited
+    total_songs      = songs.count
+    total_pages      = total_songs / per + (total_songs % per ? 1 : 0)
+  end
+
   if listen_song
     songs            = Song.song_page(songs, listen_song.to_i) unless already_limited
   else
-    songs            = songs.limit_full(page) unless already_limited or page_request
+    songs            = songs.limit_page(page) unless already_limited or page_request
   end
+
   has_more           = songs.length == (page_request ? per : (page * per))
   classname        ||= ''
   cover            ||= 'icon'
@@ -23,6 +30,40 @@
   id_page            = "#{id}-#{page}"
   cache              = cache_key(['v5', station, page, per, already_limited, page_request, single, cache_val])
 -%>
+
+<%- if !page_request and !already_limited and total_pages > 1
+      path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
+      between = 4
+      more_low = page > between + 1
+      more_high = (page + between) < total_pages
+  -%>
+  <div class="pagination">
+    <h5>Pages:</h5>
+    <div class="table-wrap">
+      <table>
+        <tr>
+        <% if more_low -%>
+          <td><%= link_to "1", "#{path}/p-1" %></td>
+          <% if page > between + 2 %><td class="page-sep">...</td><% end %>
+        <% end -%>
+        <% [page - between, 1].max.upto(page - 1).each do |curpage| -%>
+          <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
+        <% end -%>
+        <td class="page-current"><%= page %></td>
+        <% if total_pages
+            (page+1).upto( [page + between, total_pages].min ).each do |curpage| -%>
+              <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
+        <% end -%>
+        <% if more_high -%>
+          <td class="page-sep">...</td>
+          <td><%= link_to total_pages, "#{path}/p-#{total_pages}" %></td>
+        <% end -%>
+      <% end -%>
+        </tr>
+      </table>
+    </div>
+  </div>
+<%- end -%>
 
 <%- cache_if(id > 5, cache) do -%>
   <div id="playlist-<%= id_page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %>" data-key="<%= cache %>"
