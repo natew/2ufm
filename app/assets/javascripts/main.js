@@ -522,12 +522,12 @@ function updateShare(nav) {
       index = section.data('index'),
       playlist = $('#playlist-' + section.data('station')).data('playlist'),
       song = playlist.songs[index],
-      listen = section.data('listen'),
+      listen = section.attr('data-listen'),
       link = 'http://' + location.host + '/' + (listen ? ('l/' + listen) : ('songs/' + section.data('slug'))),
       title = (song.artist_name || '') + ' - ' + (song.name || ''),
       share = $('#share');
 
-  fn.log(section, index, playlist, song);
+  fn.log(section, index, playlist, song, listen);
   shareSong = id;
   shareSongTitle = song.name || '';
   updateShareLinks(link, title);
