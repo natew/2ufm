@@ -34,6 +34,7 @@
 
 <%- if !page_request and !already_limited and total_pages > 1
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
+      path = '' if path == '/'
       between = 4
       more_high = (page + between) < total_pages
   -%>
@@ -42,7 +43,7 @@
     <div class="table-wrap">
       <table>
         <tr>
-          <% if page != 1 %><td><%= link_to "1", "#{path}" %></td><% end %>
+          <% if page != 1 %><td><%= link_to "1", "#{path}/" %></td><% end %>
           <% if page > between + 2 %><td class="page-sep">...</td><% end %>
           <% [page - between, 2].max.upto(page - 1).each do |curpage| -%>
             <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>

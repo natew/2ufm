@@ -20,6 +20,7 @@ Fusefm::Application.routes.draw do
 
   match 'confirm/:confirmation_token', :to => 'confirmations#show', :as => 'user_confirm'
 
+  match "/p-:p", :to => "songs#trending"
   match "/songs/fresh(/p-:p)", :to => "songs#fresh", :as => 'songs_fresh'
   match "/songs/popular(/p-:p)", :to => "songs#popular", :as => 'songs_popular'
 
