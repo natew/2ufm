@@ -575,8 +575,8 @@ header {
 
 /* navbar fade in colors */
 #navbar {
-  h1 {color: #4c4c4c;}
-  a  {color: #777777;
+  h1 {color: #777;}
+  a  {color: #9e9e9e;
     &.secondary  { color: #4c4c4c; }
     &:before     { color: #6c6c6c; } }
   #navbar-friends {
@@ -645,7 +645,7 @@ header {
     text-decoration: none;
     font-weight: 300;
     font-size: 14px;
-    padding: 4px 12px 4px 31px;
+    padding: 4px 12px 4px 30px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -689,11 +689,11 @@ header {
 
   .nav-user {
     img {
-      top: 7px;
-      left: 9px;
+      top: 8px;
+      left: 10px;
       position: absolute;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
     }
   }
 
@@ -1068,18 +1068,6 @@ header #second-nav {
   text-align: left;
 }
 
-#more-artists {
-  position: absolute;
-  top: 90px;
-  right: 130px;
-  font-size: 22px;
-  color: #fff;
-
-  &:hover {
-    @include box-shadow(none !important);
-  }
-}
-
 
 /* Welcome */
 #welcome {
@@ -1344,7 +1332,6 @@ $announce-color: $heading-color;
     margin-top: 5px;
     margin-bottom: 10px;
 
-    &:hover { cursor: pointer; }
     &.icon {margin-right: 300px;}
   }
 
@@ -1417,14 +1404,14 @@ $announce-color: $heading-color;
   background: $body-dark;
   @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
 
-  .nav-meta {
-    display: none;
-  }
+  .nav-meta,
+  .genres-list { display: none; }
 
-  h1 {
+  h1, h2 {
     font-size: 32px;
     margin-bottom: 0;
     margin-top: 0;
+    &:hover { cursor: pointer; }
   }
 
   #page-follow {
@@ -1487,7 +1474,7 @@ $announce-color: $heading-color;
   overflow: hidden;
   padding: 8px 20px 8px 10px;
   padding-right: 178px;
-  background: $body-dark;
+  background: $body-darker;
 
   &.inline {
     margin-top: -2px;
@@ -1502,7 +1489,7 @@ $announce-color: $heading-color;
   a {
     text-decoration: none;
     float: left;
-    padding: 12px 10px;
+    padding: 10px;
     margin: -8px 0;
     font-size: 16px;
     color: #ccc;
@@ -1746,7 +1733,8 @@ $nav-arrow-size: 5px;
   }
 
   a {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.05);
+    border-radius: 5px;
   }
 
   a, .page-sep, .page-current {

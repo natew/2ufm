@@ -10,6 +10,7 @@ class ListensController < ApplicationController
     # Pass through listen
     params[:listen_song_id] = @listen.song_id
     params[:listen] = @listen.to_json
+    params[:route] = url_for(route)
 
     # Render controller
     controller_name = "#{route[:controller]}_controller".camelize.constantize

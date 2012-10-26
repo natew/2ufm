@@ -86,7 +86,7 @@ Fusefm::Application.routes.draw do
     end
   end
 
-  resources :blogs, only:[], path: '/' do
+  resources :blogs, only:[:new], path: '/' do
     member do
       get 'popular'
     end

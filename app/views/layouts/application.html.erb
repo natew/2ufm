@@ -267,9 +267,10 @@
 
     <script type="text/javascript">
       <%- if params[:listen] -%>
-        var listen = <%= raw params[:listen] %>;
+        var listen = <%= raw params[:listen] %>,
+            route = "<%= params[:route] %>";
       <%- else -%>
-        var listen;
+        var listen, route;
       <%- end -%>
     </script>
 

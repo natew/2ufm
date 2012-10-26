@@ -53,6 +53,7 @@ $(function() {
   // Listen playing
   if (listen) {
     // mp.startedAt(listen.created_at_unix);
+    fn.replaceState(route);
     clickSong(listen.song_id);
   }
 });
@@ -715,7 +716,7 @@ function setupFixedTitles() {
       title = $('.title'),
       titleClone = $('.title').clone().addClass('fixed hidden').appendTo('#body');
 
-  $('h1', titleClone).click(function() {
+  $('h1, h2', titleClone).click(function() {
     fn.scrollToTop();
   });
 

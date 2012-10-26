@@ -216,8 +216,8 @@ $station-image-small: $play-button-small;
 
 .shelf.horizontal {
   padding: 20px;
-  padding-right: 150px;
-  margin: -40px -20px 0;
+  padding-right: 32px;
+  margin: -30px -20px 0;
   height: 92px;
   overflow: hidden;
 
@@ -243,6 +243,18 @@ $station-image-small: $play-button-small;
     font-size: 16px;
     padding: 8px;
     @include dim(80);
+  }
+}
+
+#more-artists {
+  position: absolute;
+  top: 90px;
+  right: 30px;
+  font-size: 22px;
+  color: #fff;
+
+  &:hover {
+    @include box-shadow(none !important);
   }
 }
 

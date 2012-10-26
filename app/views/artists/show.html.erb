@@ -1,8 +1,10 @@
-<%- cache ['v3', @artist] do -%>
+<%- cache ['v3', @artist, @artist.genres] do -%>
 <div class="nav-container">
   <div class="title">
     <%= image_tag @artist.image.url(:medium), :class => 'image medium' %>
     <h1 class="icon"><%= @artist.name %> <span><%= render :partial => 'shared/link', :locals => { :slug => @artist.station.slug } %></span></h1>
+
+    <%= render partial: 'genres/horizontal_list', locals: { genres: @artist.genres } %>
 
     <nav class="nav-menu">
       <%= nav_link_to 'New', station_path(@artist) %>
@@ -19,10 +21,6 @@
   </div>
 
   <div class="whole">
-    <% cache ['v1', @artist, @artist.genres] do %>
-      <%= render partial: 'genres/horizontal_list', locals: { genres: @artist.genres } %>
-    <% end %>
-
     <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs, :cache_val => @type } %>
   </div>
 </div>
