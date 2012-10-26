@@ -86,8 +86,12 @@ module ApplicationHelper
   end
 
   def nav_link_to(title, path)
-    class_active = current_page?(path) ? 'active' : ''
+    class_active = on_current_page?(path) ? 'active' : ''
     link_to title, path, :class => class_active
+  end
+
+  def on_current_page?(resource)
+    url_for(resource) == request.path.gsub(/\/p-[0-9]+/, '')
   end
 
   # Render artists for a song

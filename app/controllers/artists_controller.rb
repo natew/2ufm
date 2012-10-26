@@ -73,7 +73,7 @@ class ArtistsController < ApplicationController
 
   def get_artist_extra_info
     @blogs = @artist.stations.blog_station.distinct
-    @artist_has_remixes_of = artist_remixes_of.count
+    @artist_has_remixes_of = artist_remixes_of.count > 0
   end
 
   def artist_remixes_of

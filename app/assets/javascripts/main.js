@@ -453,7 +453,7 @@ function getNavItems() {
 }
 
 function setNavActive(page) {
-  page = page.replace(/\?.*/, '');
+  page = page.replace(/\/p-[0-9]+.*/, '');
   // Update #navbar
   fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');

@@ -1474,7 +1474,7 @@ $announce-color: $heading-color;
   overflow: hidden;
   padding: 8px 20px 8px 10px;
   padding-right: 178px;
-  background: $body-darker;
+  background: darken($body-dark, 2%);
 
   &.inline {
     margin-top: -2px;
@@ -1711,12 +1711,13 @@ $nav-arrow-size: 5px;
   position: relative;
   clear: both;
   margin: 0 0 5px 0;
+  font-size: 11px;
 
   h5 {
-    padding: 8px 0;
+    padding: 5px 0;
     margin: 0;
     font-size: 12px;
-    color: #999;
+    color: #888;
   }
 
   .table-wrap {
@@ -1732,16 +1733,20 @@ $nav-arrow-size: 5px;
     table-layout: fixed;
   }
 
-  a {
-    background: rgba(0,0,0,0.05);
+  td {
+    padding: 0 2px;
+  }
+
+  a, span {
+    background: rgba(0,0,0,0.03);
     border-radius: 5px;
   }
 
-  a, .page-sep, .page-current {
+  a, span, .page-sep {
     width: 100%;
     display: inline-block;
     text-align: center;
-    padding: 5px 0;
+    padding: 2px 0;
     text-decoration: none;
   }
 
@@ -1749,9 +1754,10 @@ $nav-arrow-size: 5px;
     background: rgba(0,0,0,0.1);
   }
 
-  .page-current {
+  .page-current span {
     font-weight: bold;
-    background: $body-bg;
+    color: #fff;
+    background: none;
   }
 }
 
