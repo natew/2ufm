@@ -85,7 +85,7 @@
     follows = current_user.get_station_follows(stations) || []
     friend_broadcasts = current_user.get_friend_broadcasts(ids)
     listens = {}
-    current_user.get_song_listens(ids).each { |l| listens[l.song_id] = l.shortcode }
+    current_user.get_song_listens(songs: ids, url: request.fullpath).each { |l| listens[l.song_id] = l.shortcode }
   end
 
   broadcasts_count = {}

@@ -97,8 +97,9 @@ class User < ActiveRecord::Base
     Broadcast.where(:song_id => ids, :station_id => station_id).map(&:song_id)
   end
 
-  def get_song_listens(ids)
-    Listen.select([:song_id, :shortcode]).where(:song_id => ids, :user_id => id).group(:song_id, :shortcode)
+  def get_song_listens(options)
+    like_url = options[:url].gsub(/\?.*/,'') + '%'
+    Listen.select([:song_id, :shortcode]).where(song_id: options[:songs], user_id: id).where('listens.url ILIKE (?)', like_url).group(:song_id, :shortcode)
   end
 
   def get_station_follows(ids)

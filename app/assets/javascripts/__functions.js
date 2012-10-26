@@ -70,7 +70,10 @@ var fn = {
 
   scrollTo: function(object) {
     var top = object;
-    if (typeof object != 'number') top = object.offset().top - 85;
+    if (typeof object != 'number') {
+      var pad = $('.title.fixed').length ? 170 : 85;
+      top = object.offset().top - pad;
+    }
 
     $('html,body').animate({scrollTop: top }, 100);
   },

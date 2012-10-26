@@ -708,3 +708,35 @@ function resumePlaying() {
 function toYoutubeSearch(string) {
   return string.replace(' ', '+').replace(/[^a-zA-Z0-9+]/, "");
 }
+
+function setupFixedTitles() {
+  var fixedTitlesInterval,
+      isFixed = false,
+      title = $('.title'),
+      titleClone = $('.title').clone().addClass('fixed hidden').appendTo('#body');
+
+  $('h1', titleClone).click(function() {
+    fn.scrollToTop();
+  });
+
+  clearInterval(fixedTitlesInterval);
+  w.on('scrollstart', function() {
+    fixedTitlesInterval = setInterval(function() {
+      if (doc.scrollTop() > 100) {
+        if (!isFixed) {
+          title.addClass('invisible');
+          titleClone.removeClass('hidden');
+          isFixed = true;
+        }
+      } else {
+        title.removeClass('invisible');
+        titleClone.addClass('hidden');
+        isFixed = false;
+      }
+    }, 50);
+  });
+
+  w.on('scrollstop', function() {
+    clearInterval(fixedTitlesInterval);
+  });
+}
