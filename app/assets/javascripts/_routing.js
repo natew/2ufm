@@ -24,6 +24,7 @@ var page = {
     bindImageErrors();
     mp.hasMoved(false);
     setupFixedTitles();
+    pagination.updateCurrentPage();
 
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);
@@ -66,10 +67,6 @@ var page = {
 
     // Styling for inputs
     $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
-
-    // Reset page
-    pagination.updateCurrentPage();
-    doneScrolling = false;
   },
 
   error: function(xhr) {

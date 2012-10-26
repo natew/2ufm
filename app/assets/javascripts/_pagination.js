@@ -6,7 +6,6 @@ var pagination = (function(fn, mp) {
 
   function nextPage() {
     if (!nearBottom()) return;
-
     var playlist = $('.playlist:visible:last');
 
     // Infinite scrolling
@@ -24,11 +23,12 @@ var pagination = (function(fn, mp) {
           playlistPage = parseInt(playlistInfo[2], 10);
 
       isLoading = true;
+      current = playlistPage + 1;
+      updatePageURL(current);
 
       $.ajax({
         url: mp.getPage(),
         type: 'get',
-        data: 'i=' + id + '&p=' + (playlistPage + 1),
         headers: {
           Accept: "text/page"
         },
@@ -39,16 +39,13 @@ var pagination = (function(fn, mp) {
             return false;
           }
         },
-        success: function nextPageSuccess(data) {
-          fn.log(data);
+        success: function(data) {
           $(window).trigger('gotPageLoad', data);
-          current = playlistPage + 1;
           var playlist = $('#playlist-' + id + '-' + current);
           link.html('Page ' + current).addClass('loaded');
           isLoading = false;
           bindImageErrors(data);
           link.after(data);
-          updatePageURL(current);
           $(window).trigger('pageLoaded');
         },
         error: function() {
@@ -67,7 +64,7 @@ var pagination = (function(fn, mp) {
 
   // Reads URL parameters for ?page=X and returns X
   function getPage() {
-    var page = window.location.search.match(/p-([0-9]+)/);
+    var page = window.location.pathname.match(/p-([0-9]+)/);
     return page ? parseInt(page[1],10) : 1;
   }
 
@@ -80,6 +77,8 @@ var pagination = (function(fn, mp) {
     // Replace old page
     if (url.match(page_regex)) {
       url = url.replace(page_regex, page);
+    } else {
+      url = url + '/' + page;
     }
 
     url += hash;
@@ -107,6 +106,10 @@ var pagination = (function(fn, mp) {
 
     isLoading: function() {
       return isLoading;
+    },
+
+    currentPage: function() {
+      return current;
     }
   }
 }(fn, mp));

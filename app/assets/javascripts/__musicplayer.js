@@ -573,10 +573,10 @@ var mp = (function() {
       if (curPage == page) return true;
 
       if (page) {
-        var playPageNum = page.match(/\?p=([0-9]+)/),
-            curPageNum = curPage.match(/\?p=([0-9]+)/),
-            playPageBase = page.replace(/\?.*/,''),
-            curPageBase = curPage.replace(/\?.*/,'');
+        var playPageNum = page.match(/\/p-([0-9]+)/),
+            curPageNum = curPage.match(/\/p-([0-9]+)/),
+            playPageBase = page.replace(/\/p-[^\/]+$/,''),
+            curPageBase = curPage.replace(/\/p-[^\/]+$/,'');
 
         fn.log(playPageNum, curPageNum, playPageBase, curPageBase);
 

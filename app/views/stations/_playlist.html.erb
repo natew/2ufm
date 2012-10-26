@@ -9,6 +9,7 @@
   page               = (params[:p] || 1).to_i
   paginate           = (paginate == false || style == 'mini') ? false : true
   songs            ||= station.songs.playlist_order_broadcasted
+  total_pages        = page + 1 # trick for non-paginate capable
 
   if !page_request and !already_limited
     total_songs      = songs.count
@@ -21,7 +22,7 @@
     songs            = songs.limit_page(page) unless already_limited or page_request
   end
 
-  has_more           = songs.length == (page_request ? per : (page * per))
+  has_more           = page < total_pages
   classname        ||= ''
   cover            ||= 'icon'
   single           ||= false
