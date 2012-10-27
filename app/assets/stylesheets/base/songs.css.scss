@@ -133,7 +133,7 @@ $song-player-height: 50px;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      background: rgba(0,0,0,0.03);
+      background: rgba(0,0,0,0.08);
     }
 
     &.listened-to {
