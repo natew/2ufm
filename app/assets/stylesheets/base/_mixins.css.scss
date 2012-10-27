@@ -9,6 +9,7 @@ $header-shadow: rgba(255,255,255,0.15);
 
 /* body */
 $body-bg: #333;
+$body-secondary: #275685;
 $body-dark: darken($body-bg,2.5%);
 $body-light: lighten($body-bg,2.5%);
 $body-darker: darken($body-bg,5%);
@@ -16,7 +17,8 @@ $body-lighter: lighten($body-bg,5%);
 
 /*  navbar  */
 $navbar-width: 130px;
-$navbar-bg: #292929;
+$navbar-bg: #222;
+$navbar-active: $body-secondary;
 
 /* containers */
 $third-width: 220px;

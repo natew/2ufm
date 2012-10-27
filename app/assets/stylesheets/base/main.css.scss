@@ -608,18 +608,6 @@ header {
   overflow: hidden;
   @include box-sizing(border-box);
 
-  &:before {
-    content: "";
-    display: block;
-    position: fixed;
-    z-index: 0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: $navbar-width;
-    @include linear-gradient($navbar-bg, darken($navbar-bg, 10%));
-  }
-
   #navbar-menus {
     margin-right: -20px;
     padding-right: 20px;
@@ -645,7 +633,7 @@ header {
     text-decoration: none;
     font-weight: 300;
     font-size: 14px;
-    padding: 4px 12px;
+    padding: 4px 10px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -654,6 +642,7 @@ header {
 
     &:hover { background: rgba(0,0,0,0.5); }
     &:before {
+      padding-top: 2px;
       padding-left: 5px;
       font-size: 16px;
     }
@@ -700,8 +689,8 @@ header {
       top: 8px;
       left: 10px;
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
     }
   }
 
@@ -713,13 +702,7 @@ header {
   #navbar-friends {
     margin-top: 10px;
     width: $navbar-width + 20;
-    background: rgba(0,0,0,0.1);
-
-    h1 {
-      background: rgba(0,0,0,0.1);
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
+    background: rgba(0,0,0,0.2);
 
     #navbar-friends-inner {
       overflow-x: hidden;
@@ -821,13 +804,13 @@ $placeholder-color: #999;
 
   #query {
     border: none;
-    padding: 6px 4px 7px 26px;
+    padding: 7px 4px 6px 32px;
     width: $navbar-width;
     margin: 0;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: darken($navbar-bg, 3%);
+    background: darken($navbar-bg, 2%);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
@@ -836,13 +819,8 @@ $placeholder-color: #999;
       width: $navbar-width * 2;
     }
 
-    &:hover {
-      color: #fff;
-    }
-
-    &:focus {
-      color: #fff;
-    }
+    &:hover { color: #fff; }
+    &:focus { color: #fff; }
   }
 
   #search {
@@ -851,7 +829,7 @@ $placeholder-color: #999;
     pointer-events: none;
     cursor: text;
     position: absolute;
-    left: 6px;
+    left: 10px;
     top: 6px;
     font-size: 18px;
     color: #555;
@@ -1536,6 +1514,7 @@ h2 small { font-size: 55%; }
 
 .sub {
   font-size: 18px;
+  font-weight: 300;
   color: #fff;
   padding: 8px 20px;
   margin: -20px -20px 10px;
@@ -1593,6 +1572,50 @@ h2 small { font-size: 55%; }
 
 
 /* NAVIGATION AND PAGINATION */
+
+.pagination {
+  position: relative;
+  clear: both;
+  margin: 0 0 5px 0;
+  font-size: 11px;
+
+  h5 {
+    display: none;
+    padding: 5px 0;
+    margin: 0;
+    font-size: 12px;
+    color: #888;
+  }
+
+  table {
+    width: 100%;
+    text-align: center;
+    table-layout: fixed;
+  }
+
+  td {
+    padding: 0 2px;
+  }
+
+  a, span, .page-sep {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    padding: 2px 0;
+    text-decoration: none;
+  }
+
+  a:hover {
+    background: rgba(0,0,0,0.1);
+  }
+
+  .page-current span {
+    font-weight: bold;
+    color: #fff;
+    @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
+  }
+}
+
 
 .playlist .next-page {
   margin-top: 30px;
@@ -1714,59 +1737,6 @@ $nav-arrow-size: 5px;
   }
 }
 
-.pagination {
-  position: relative;
-  clear: both;
-  margin: 0 0 5px 0;
-  font-size: 11px;
-
-  h5 {
-    padding: 5px 0;
-    margin: 0;
-    font-size: 12px;
-    color: #888;
-  }
-
-  .table-wrap {
-    position: absolute;
-    top: 0;
-    left: 45px;
-    right: 0;
-  }
-
-  table {
-    width: 100%;
-    text-align: center;
-    table-layout: fixed;
-  }
-
-  td {
-    padding: 0 2px;
-  }
-
-  a, span {
-    background: rgba(0,0,0,0.03);
-    border-radius: 5px;
-  }
-
-  a, span, .page-sep {
-    width: 100%;
-    display: inline-block;
-    text-align: center;
-    padding: 2px 0;
-    text-decoration: none;
-  }
-
-  a:hover {
-    background: rgba(0,0,0,0.1);
-  }
-
-  .page-current span {
-    font-weight: bold;
-    color: #fff;
-    background: none;
-  }
-}
 
 /* Ordered list for display results. */
 ol.mp_list {

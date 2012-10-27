@@ -24,7 +24,6 @@ $(function() {
   }
 
   if ($('#modal-new-user').length) {
-    fn.log('asd')
     modal('#modal-new-user');
 
     $('#genres-next').click(function() {
@@ -656,7 +655,8 @@ bindImageErrors();
 function bindImageErrors(context) {
   $('img', context || 'body').error(function imgError() {
     var el = $(this);
-    el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
+    if (!el.is('.waveform'))
+      el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
   });
 }
 

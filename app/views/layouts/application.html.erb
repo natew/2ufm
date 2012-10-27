@@ -28,7 +28,7 @@
   <![endif]-->
 
   <%= stylesheet_link_tag "application", :debug => Rails.env.development? %>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
 
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -134,12 +134,12 @@
               <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
               <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
               <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
-              <%= link_to "Account", user_account_path %>
             </section>
             <%- end -%>
 
             <section class="nav-extra account">
               <% if user_signed_in? %>
+                <%= link_to "Account", user_account_path %>
                 <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'secondary' %>
               <% else %>
                 <%= link_to 'Login', '#modal-login', :class => 'modal' %>
@@ -218,7 +218,17 @@
       <%= render 'modals/login' %>
     <% else %>
 
-      <% if current_user.full_name.nil? or current_user.full_name == '' %>
+      <% if current_user.facebook_id.nil? %>
+
+        <div id="modal-new-user">
+          <h3>Please re-sync with Facebook</h3>
+          <p>To allow friends to find you, please sync with Facebook again!  Sry bout that yo.</p>
+          <div class="inline">
+            <%= link_to "Link with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
+          </div>
+        </div>
+
+      <% elsif current_user.full_name.nil? or current_user.full_name == '' %>
 
         <div id="modal-new-user">
           <h3>Please enter your name</h3>
