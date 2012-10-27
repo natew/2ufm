@@ -716,7 +716,7 @@ function setupFixedTitles() {
   var fixedTitlesInterval,
       isFixed = false,
       title = $('.title'),
-      titleClone = $('.title').clone().addClass('fixed hidden').appendTo('#body');
+      titleClone = $('.title').clone().addClass('fixed invisible').appendTo('#body');
 
   $('h1, h2', titleClone).click(function() {
     fn.scrollToTop();
@@ -725,15 +725,15 @@ function setupFixedTitles() {
   clearInterval(fixedTitlesInterval);
   w.on('scrollstart', function() {
     fixedTitlesInterval = setInterval(function() {
-      if (doc.scrollTop() > 100) {
+      if (doc.scrollTop() > 60) {
         if (!isFixed) {
           title.addClass('invisible');
-          titleClone.removeClass('hidden');
+          titleClone.removeClass('invisible');
           isFixed = true;
         }
       } else {
         title.removeClass('invisible');
-        titleClone.addClass('hidden');
+        titleClone.addClass('invisible');
         isFixed = false;
       }
     }, 50);

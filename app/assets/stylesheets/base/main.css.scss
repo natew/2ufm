@@ -1301,8 +1301,10 @@ $announce-color: $heading-color;
   margin: 0 0 20px;
   color: #999;
   position: relative;
+  opacity: 1;
 
   &.invisible {
+    opacity: 0;
     visibility: hidden;
   }
 
@@ -1380,6 +1382,7 @@ $announce-color: $heading-color;
   padding-top: 10px;
   padding-bottom: 10px;
   @include box-shadow(0 2px 0 rgba(0,0,0,0.1));
+  @include transition(all linear .1s);
 
   .nav-meta,
   .genres-list { display: none; }
