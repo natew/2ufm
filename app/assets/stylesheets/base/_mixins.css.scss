@@ -1,24 +1,47 @@
 @import 'bourbon';
 
-/*  header  */
-$header-color: #418bd4;
-$header-light: lighten($header-color, 5%);
-$header-dark: darken($header-color, 5%);
+/* -----Themes----
+      1: Light
+      2: Dark
+*/
+@for $i from 1 through 2 {
+  $header-color:    nth(( #418bd4,
+                          #3a7ec3
+                          ), $i );
+
+  $body-bg:         nth(( #333,
+                          #1c2d32
+                          ), $i );
+
+  $body-secondary:  nth(( #214a73,
+                          #263e45
+                          ), $i );
+
+  $navbar-bg:       nth(( darken($body-bg, 9%),
+                          darken($body-bg, 5%)
+                          ), $i );
+
+  body.theme-#{$i} { background: $body-bg; }
+  .theme-#{$i} {
+    header { background: $header-color; }
+    #player-meta:before { @include linear-gradient(left, $header-color, rgba($header-color,0)); }
+    #player-meta:after { @include linear-gradient(right, $header-color, rgba($header-color,0)); }
+
+    #modal { background-color: $body-bg; }
+    #navbar a.active { background: $body-bg; }
+    .title.fixed { background: lighten($body-bg,5%); }
+
+    #navbar { background: $navbar-bg; }
+
+    .playlist section.active { background: $body-secondary !important; }
+  }
+}
+
 $header-height: 65px;
 $header-shadow: rgba(255,255,255,0.15);
 
-/* body */
-$body-bg: #333;
-$body-secondary: #275685;
-$body-dark: darken($body-bg,2.5%);
-$body-light: lighten($body-bg,2.5%);
-$body-darker: darken($body-bg,5%);
-$body-lighter: lighten($body-bg,5%);
-
 /*  navbar  */
 $navbar-width: 130px;
-$navbar-bg: #222;
-$navbar-active: $body-secondary;
 
 /* containers */
 $third-width: 220px;
@@ -38,10 +61,6 @@ $max-width: 1100px;
 $heading-color: #fff;
 $heading-color-light: lighten($heading-color,20%);
 $heading-color-dark: darken($heading-color, 20%);
-
-$button-bg: lighten($header-color,10%);
-$button-border-color: darken($button-bg,7%);
-$button-color: #fff;
 
 $primary: #3786dd;
 $primary-light: lighten($primary,10%);

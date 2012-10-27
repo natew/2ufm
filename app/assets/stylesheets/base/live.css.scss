@@ -6,7 +6,7 @@ body.live {
   #nav-music,
   #nav-music:before {
     pointer-events: none !important;
-    color: $header-light !important;
+    color: rgba(255,255,255,0.05) !important;
   }
 
   #player-progress-grabber,

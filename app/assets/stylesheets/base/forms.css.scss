@@ -82,12 +82,12 @@ form {
   }
 
   fieldset {
-    background: $body-dark;
+    background: rgba(0,0,0,0.1);
     padding: 20px;
     margin: 0 0 20px 0;
 
     legend {
-      background: $body-darker;
+      background: rgba(0,0,0,0.1);
       padding: 8px 10px;
       font-size: 16px;
     }

@@ -20,7 +20,6 @@ a:active, a:visited { outline: 0; }
 /* Layout */
 html,body {height: 100%;}
 body {
-  background: $body-bg;
   position: relative;
   font-weight: 300;
   max-width: $max-width;
@@ -91,7 +90,6 @@ header {
   height: $header-height;
   min-width: $min-width;
   line-height: 1em;
-  background: $header-color;
   @include box-shadow(0 3px 0 rgba(0,0,0,0.2));
   @include box-sizing(border-box);
 
@@ -165,7 +163,7 @@ header {
       }
 
       &.disabled {
-        color: $header-color;
+        color: rgba(0,0,0,0);
         cursor: default;
       }
     }
@@ -208,7 +206,7 @@ header {
       &:hover span { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
     }
 
-    #player-bottom #player-timer {color: lighten($header-color, 15%);}
+    #player-bottom #player-timer {color: rgba(255,255,255,0.8);}
     #player-bottom a.control {
       pointer-events: auto;
       color: #fff;
@@ -236,7 +234,7 @@ header {
     display: block;
     float: left;
     overflow: hidden;
-    color: $header-color;
+    color: rgba(0,0,0,0);
     text-shadow: none;
 
     span {
@@ -299,7 +297,6 @@ header {
     &:before {
       content: "";
       left: 0;
-      @include linear-gradient(left, $header-color, rgba($header-color,0));
       background-color: transparent;
     }
 
@@ -308,7 +305,6 @@ header {
       visibility: visible;
       height: auto;
       right: 0;
-      @include linear-gradient(right, $header-color, rgba($header-color,0));
       background-color: transparent;
     }
 
@@ -333,7 +329,7 @@ header {
     }
 
     #player-artist-name {
-      color: lighten($header-light, 20%);
+      color: rgba(255,255,255,0.75);
       font-size: 12px;
       white-space: nowrap;
       overflow: hidden;
@@ -342,7 +338,7 @@ header {
       position: relative;
       z-index: 9;
 
-      a {color: lighten($header-light, 29%) !important;
+      a {color: rgba(255,255,255,0.8) !important;
         &:hover { color: #fff !important; }
         &:after { font-size: 9px; } }
     }
@@ -391,7 +387,7 @@ header {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    background: darken($header-dark,3%);
+    background: rgba(0,0,0,0.15);
 
     #player-progress-inner-wrap {
       position: absolute;
@@ -424,7 +420,7 @@ header {
       z-index: 4;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
-      background: darken($header-dark,20%);
+      background: rgba(0,0,0,0.2);
     }
   }
 }
@@ -512,7 +508,7 @@ header {
 
     &.disabled, &.disabled:before {
       pointer-events: none;
-      color: lighten($header-light,10%);
+      color: rgba(255,255,255,0.2);
     }
   }
 
@@ -520,11 +516,11 @@ header {
     padding: 8px 0 10px;
     margin: -10px -6px 0 4px;
     width: 55px;
-    color: lighten($header-color, 25%);
+    color: rgba(255,255,255,0.25);
     background: rgba(0,0,0,0.1);
 
     &:hover { background: rgba(0,0,0,0.05); }
-    &:before { color: lighten($header-color, 25%); }
+    &:before { color: rgba(255,255,255,0.25); }
 
     &.live {
       background: rgba(255,255,255,0.2);
@@ -575,25 +571,20 @@ header {
 
 /* navbar fade in colors */
 #navbar {
-  h1 {color: #777;}
-  a  {color: #9e9e9e;
-    &.secondary  { color: #4c4c4c; }
-    &:before     { color: #6c6c6c; } }
+  a  {color: rgba(255,255,255,0.5);
+    &.secondary  { color: rgba(255,255,255,0.3); }
+    &:before     { color: rgba(255,255,255,0.4); } }
   #navbar-friends {
-    .friend-link { color: #7f7f7f; }
-    .online a    { color: #e0e0e0; }
-    .tune-in     { color: #5a5a5a; } }
+    a            { color: rgba(255,255,255,0.2); }
+    .online a    { color: rgba(255,255,255,0.7); } }
 }
 
 #navbar:hover {
-  h1 {color: #777;}
-  a  {color: #ccc;
-    &.secondary  { color: #777; }
-    &:before     { color: #999; } }
+  a  {color: rgba(255,255,255,0.75);
+    &.secondary  { color: rgba(255,255,255,0.4); } }
   #navbar-friends {
-    .friend-link { color: #aaa; }
-    .online a    { color: #fff; }
-    .tune-in     { color: #888; } }
+    a            { color: rgba(255,255,255,0.3); }
+    .online a    { color: rgba(255,255,255,0.8); } }
 }
 
 #navbar {
@@ -604,7 +595,6 @@ header {
   left: 0;
   width: $navbar-width;
   padding: 0;
-  background: $navbar-bg;
   overflow: hidden;
   @include box-sizing(border-box);
 
@@ -625,6 +615,7 @@ header {
     font-weight: 300;
     padding: 3px 10px;
     margin: 0;
+    color: rgba(255,255,255,0.3);
   }
 
   a {
@@ -649,7 +640,6 @@ header {
 
     &.active {
       color: #fff;
-      background: $body-bg;
       &:before { color:#fff; }
     }
 
@@ -687,10 +677,10 @@ header {
   .nav-user {
     img {
       top: 8px;
-      left: 10px;
+      left: 9px;
       position: absolute;
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -750,7 +740,7 @@ header {
   z-index: 2;
 
   #breadcrumbs {
-    background: darken($body-bg, 2%);
+    background: rgba(0,0,0,0.05);
     padding: 4px 20px;
     margin: 0 0 10px 0;
     font-size: 12px;
@@ -810,12 +800,12 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: darken($navbar-bg, 2%);
+    background: rgba(0,0,0,0.1);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
     &.focused {
-      background: darken($navbar-bg, 5%);
+      background: rgba(0,0,0,0.8);
       width: $navbar-width * 2;
     }
 
@@ -933,7 +923,7 @@ header #second-nav {
     padding: 9px;
 
     &:nth-child(4n) { clear: left; }
-    &:hover, &.hover { background: $body-bg; }
+    &:hover, &.hover { background: rgba(255,255,255,0.15); }
     &.pictos { font-size: 24px; padding: 16px; }
   }
 
@@ -1112,13 +1102,6 @@ header #second-nav {
     }
   }
 
-  small {
-    font-size: 15px;
-    margin: -6px 0 5px;
-    display: block;
-    color: lighten($header-color,50%);
-  }
-
   .button {
     position: absolute;
     top: 30px;
@@ -1254,7 +1237,7 @@ header #second-nav {
   }
 }
 
-$announce-bg: $body-bg;
+$announce-bg: #333;
 $announce-color: $heading-color;
 
 .announce {
@@ -1387,7 +1370,6 @@ $announce-color: $heading-color;
   z-index: 300;
   padding-top: 10px;
   padding-bottom: 10px;
-  background: $body-lighter;
   @include box-shadow(0 2px 0 rgba(0,0,0,0.1));
 
   .nav-meta,
@@ -1733,7 +1715,7 @@ $nav-arrow-size: 5px;
   li.mp_highlighted,
   a:hover,
   .playing {
-    @include linear-gradient($header-light,$header-color);
+    @include linear-gradient($primary-light,$primary);
   }
 }
 
@@ -1881,15 +1863,15 @@ ol.mp_list {
   padding: 0 6px;
   font-size: 11px;
   color: #fff;
-  background: $body-dark;
   border-radius: 4px;
-  border: 1px solid $body-darker;
+  background: rgba(20,20,20,0.8);
+  border: 1px solid rgba(0,0,0,0.8);
   font-weight: bold;
   @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.1));
   @include box-sizing(border-box);
 
   &:hover {
-    background-color: $body-lighter;
+    background-color: rgba(55,55,55,0.9);
   }
 }
 

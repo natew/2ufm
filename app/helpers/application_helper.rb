@@ -1,12 +1,16 @@
 # Application Helper
 module ApplicationHelper
-  def user_body_classes
+  def body_classes
     if user_signed_in?
       classes = ['signed_in']
       classes.push 'new_user' if current_user.first_time?
     else
       classes = ['signed_out']
     end
+
+    hour = Time.now.hour
+    classes.push (hour > 19 or hour < 7) ? 'theme-2' : 'theme-1'
+
     classes.join(' ')
   end
 

@@ -173,14 +173,19 @@ startGetNavbar();
 $('#share-friends').dontScrollParent();
 
 // window.scroll
-w.on('scrollstart', function() {
-  $('.tipsy').remove();
-  $('.pop-menu').removeClass('open');
-  mp.hasMoved(true);
-})
-.on('pageLoaded', function() {
-  updatePlaylist();
-});
+w
+  .on('scrollstart', function() {
+    $('.tipsy').remove();
+    $('.pop-menu').removeClass('open');
+    mp.hasMoved(true);
+    disableHovers = true;
+  })
+  .on('scrollstop', function() {
+    disableHovers = false;
+  })
+  .on('pageLoaded', function() {
+    updatePlaylist();
+  });
 
 w.resize(fn.debounce(windowResize, 20));
 windowResize();
@@ -207,6 +212,7 @@ $('#player-share').hover(function() {
 // Bind hovering on nav elements
 $('.nav-hover').live({
   mouseenter: function(e) {
+    if (disableHovers) return;
     var el = $(this),
         hoveredClass = el.attr('class'),
         hovered = navHovered[hoveredClass];

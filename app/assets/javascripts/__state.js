@@ -25,4 +25,5 @@ var w = $(window),
     playerBroadcastTemplate = $('#player-buttons .broadcast').html(),
     shareCount = 0,
     fakeUrl,
-    newPage = window.location.pathname;
+    newPage = window.location.pathname,
+    disableHovers = false;
