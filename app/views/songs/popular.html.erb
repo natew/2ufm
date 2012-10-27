@@ -1,5 +1,8 @@
-<div class="whole">
+<div class="title">
   <h2>Popular Songs</h2>
   <p class="sub">The most liked songs on 2u this month. Found on <%= link_to 'music blogs', '/blogs' %> from around the web.</p>
+</div>
+
+<div class="whole">
   <%= render :partial => 'stations/playlist', :locals => { :station => @popular, :songs => @popular_songs, :classname => 'open' } %>
 </div>

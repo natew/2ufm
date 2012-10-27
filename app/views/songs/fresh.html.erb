@@ -1,5 +1,8 @@
-  <div class="whole">
-    <h1>Fresh Songs</h1>
-    <p class="sub">The newest songs found on <%= link_to 'music blogs', '/blogs' %> from around the web.</p>
-    <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
-  </div>
+<div class="title">
+  <h1>Fresh Songs</h1>
+  <p class="sub">The newest songs found on <%= link_to 'music blogs', '/blogs' %> from around the web.</p>
+</div>
+
+<div class="whole">
+  <%= render :partial => 'stations/playlist', :locals => { :station => @just_in_station, :songs => @just_in_songs } %>
+</div>
