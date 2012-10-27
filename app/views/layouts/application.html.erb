@@ -195,10 +195,9 @@
   </div>
 
   <div id="buy" class="pop-menu">
-    <%= link_to 'iTunes', 'http://itunes.com', :class => 'control popup', 'data-dimensions' => '800,400', 'data-link' => '' %>
-    <%= link_to 'Amazon', 'http://amazon.com', :class => 'control popup', 'data-dimensions' => '800,400', 'data-link' => '' %>
-    <%= link_to 'Beatport', 'http://beatport.com', :class => 'control popup', 'data-dimensions' => '800,400', 'data-link' => '' %>
-    <%= link_to 'eMusic', 'http://emusic.com', :class => 'control popup', 'data-dimensions' => '800,400', 'data-link' => '' %>
+    <%= link_to 'iTunes', '', class: 'popup', 'data-dimensions' => '800,400', 'data-link' => 'http://click.linksynergy.com/fs-bin/stat?id=UAraRlBl3X8&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=http%253A%2F%2Fax.search.itunes.apple.com%2FWebObjects%2FMZSearch.woa%2Fwa%2FadvancedSearch%253FallArtistNames%253D{{artists_encoded}}%2526completeTitle%253D{{title_encoded}}%2526media%253Dmusic' %>
+    <%= link_to 'Amazon', '', :class => 'popup', 'data-link' => 'http://www.amazon.com/s/ref=nb_ss_dmusic/?tag=bassdo-20&url=search-alias%3Ddigital-music&field-keywords={{artists}}%20{{title}}' %>
+    <% link_to 'Beatport', '', :class => 'control popup', 'data-dimensions' => '800,400', 'data-link' => '' %>
   </div>
 
   <div id="add-to-playlist" class="pop-menu">

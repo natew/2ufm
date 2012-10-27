@@ -1385,9 +1385,10 @@ $announce-color: $heading-color;
   @include transition(all linear .1s);
 
   .nav-meta,
+  h1 span,
   .genres-list { display: none; }
 
-  h1, h2 {
+  h1 {
     display: inline-block;
     font-size: 32px;
     margin-bottom: 0;
