@@ -78,8 +78,8 @@ var pagination = (function(fn, mp) {
     if (url.match(page_regex)) {
       url = url.replace(page_regex, page);
     } else {
-      url += url == '' ? '/' : '';
-      url = url + page;
+      if (url == '/') url = '';
+      url = url + '/' + page;
     }
 
     fn.log(url);
