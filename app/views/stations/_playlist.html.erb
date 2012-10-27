@@ -36,6 +36,9 @@
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
       path = '' if path == '/'
       between = 4
+      min = [page - between, 2].max
+      max = [page + between, total_pages].min
+      max += [between - min, 0].max
       more_high = (page + between) < total_pages
   -%>
   <div class="pagination">
@@ -45,12 +48,12 @@
         <tr>
           <% if page != 1 %><td><%= link_to "1", "#{path}/" %></td><% end %>
           <% if page > between + 2 %><td class="page-sep">...</td><% end %>
-          <% [page - between, 2].max.upto(page - 1).each do |curpage| -%>
+          <% min.upto(page - 1).each do |curpage| -%>
             <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
           <% end -%>
           <td class="page-current"><span><%= page %></span></td>
           <% if total_pages
-              (page+1).upto( [page + between, total_pages].min ).each do |curpage| -%>
+              (page+1).upto(max).each do |curpage| -%>
                 <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
           <% end -%>
           <% if more_high -%>

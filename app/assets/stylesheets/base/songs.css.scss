@@ -199,7 +199,6 @@ $song-player-height: 50px;
     }
 
     .reviews {
-      pointer-events: none;
       position: relative;
       z-index: 13;
       font-weight: 300;
@@ -207,7 +206,6 @@ $song-player-height: 50px;
       display: none;
 
       a {
-        pointer-events: all;
         text-decoration: none;
         color: rgba(255,255,255,0.6);
       }
