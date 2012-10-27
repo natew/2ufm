@@ -130,7 +130,7 @@ $song-player-height: 50px;
     margin: 0;
     padding: $song-pad;
     position: relative;
-    border-top: 1px solid #3d3d3d;
+    border-top: 1px solid lighten($body-bg, 2%);
     overflow: hidden;
     @include transition(all .1s linear);
 

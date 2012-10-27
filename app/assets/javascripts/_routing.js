@@ -7,6 +7,9 @@ var page = {
     $('#main-mid .zeroClipboardDiv').remove();
     $('.tipsy').remove();
     spinner.attach();
+
+    // Nav highlight
+    setNavActive(newPage);
   },
 
   end: function pageEnd() {
@@ -38,9 +41,6 @@ var page = {
     // Scroll to top if we are going to new page
     if (doScrollToTop && $('body').scrollTop() > 0)
       fn.scrollToTop();
-
-    // Nav highlight
-    setNavActive(curPage);
 
     // Clipboard items
     var citems = $('#main-mid .clipboard');

@@ -26,7 +26,10 @@ module AttachmentHelper
         options[:bucket]         ||= Rails.env.production? ? 'media.2u.fm' : '2u-songs-development'
 
         if options[:dreamhost]
+          options.delete(:dreamhost)
           options[:s3_credentials] = File.join(Rails.root, 'config', 'dreamhost_s3.yml')
+          options[:s3_host_name]   = "objects.dreamhost.com"
+          #options[:s3_protocol]    = "https"
         end
       else
         # For local Dev/Test envs, use the default filesystem, but separate the environments

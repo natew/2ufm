@@ -24,4 +24,5 @@ var w = $(window),
     pageLoadTimeout,
     playerBroadcastTemplate = $('#player-buttons .broadcast').html(),
     shareCount = 0,
-    fakeUrl;
+    fakeUrl,
+    newPage = window.location.pathname;

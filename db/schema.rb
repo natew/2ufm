@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026005850) do
+ActiveRecord::Schema.define(:version => 20121027001819) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -241,8 +241,8 @@ ActiveRecord::Schema.define(:version => 20121026005850) do
   end
 
   create_table "songs", :force => true do |t|
-    t.string   "name",                  :default => ""
-    t.string   "artist_name",           :default => ""
+    t.string   "name",                       :default => ""
+    t.string   "artist_name",                :default => ""
     t.string   "album_name"
     t.string   "genre"
     t.string   "album_artist"
@@ -263,30 +263,33 @@ ActiveRecord::Schema.define(:version => 20121026005850) do
     t.string   "slug"
     t.string   "image_file_name"
     t.datetime "image_updated_at"
-    t.boolean  "processed",             :default => false
+    t.boolean  "processed",                  :default => false
     t.string   "file_file_name"
     t.string   "file_updated_at"
-    t.integer  "matching_count",        :default => 0
-    t.boolean  "working",               :default => false
+    t.integer  "matching_count",             :default => 0
+    t.boolean  "working",                    :default => false
     t.datetime "published_at"
     t.text     "absolute_url"
-    t.float    "rank",                  :default => 0.0
+    t.float    "rank",                       :default => 0.0
     t.boolean  "original_song"
     t.integer  "failures"
-    t.integer  "user_broadcasts_count", :default => 0
+    t.integer  "user_broadcasts_count",      :default => 0
     t.text     "linked_title"
     t.string   "waveform_file_name"
     t.datetime "waveform_updated_at"
-    t.string   "source",                :default => "direct"
+    t.string   "source",                     :default => "direct"
     t.integer  "soundcloud_id"
-    t.integer  "play_count",            :default => 0
-    t.integer  "blog_broadcasts_count", :default => 0
+    t.integer  "play_count",                 :default => 0
+    t.integer  "blog_broadcasts_count",      :default => 0
     t.string   "match_name"
-    t.integer  "comments_count",        :default => 0
+    t.integer  "comments_count",             :default => 0
     t.string   "image_content_type"
     t.string   "file_file_size"
     t.string   "original_tag"
     t.string   "file_key"
+    t.string   "compressed_file_file_name"
+    t.string   "compressed_file_file_size"
+    t.string   "compressed_file_updated_at"
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"

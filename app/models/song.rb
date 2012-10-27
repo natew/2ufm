@@ -64,7 +64,7 @@ class Song < ActiveRecord::Base
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
   has_attachment :file, :s3 => false, :filename => ":id_:style.mp3" # Yetting.s3_enabled
-  has_attachment :compressed_file, :dreamhost => Yetting.dreamhost_enabled, :filename => ":file_key.mp3"
+  has_attachment :compressed_file, :dreamhost => Yetting.dreamhost_enabled, :filename => ":file_key-compressed.mp3"
 
   # Validations
   validates :url, :presence => true
@@ -291,16 +291,20 @@ class Song < ActiveRecord::Base
 
   # Ranking algorithm
   def set_rank
-    find_id = matching_id || id
-    shared_song = Song.find(find_id) if find_id
     favs_count = 1
     time_created = created_at
-    if shared_song
-      favs_count = shared_song.user_broadcasts_count
-      time_created = shared_song.created_at
+
+    find_id = matching_id || id
+    if find_id
+      shared_song = Song.where(id:find_id).first
+      if shared_song
+        favs_count = shared_song.user_broadcasts_count
+        time_created = shared_song.created_at
+      end
     end
-    favs  = [Math.log(favs_count * 10), 0].max
-    time  = (time_created - Time.new(2012)) / 100000
+
+    favs = [Math.log(favs_count * 10), 0].max
+    time = (time_created - Time.new(2012)) / 100000
     self.rank = favs + time
   end
 
@@ -419,9 +423,11 @@ class Song < ActiveRecord::Base
 
   # Read ID3 Tag and generally collect information on the song
   def process
-    logger.info "Getting song information"
+    logger.info "Getting song information -- #{file.path}"
     TagLib::MPEG::File.open(file.path) do |taglib|
-      tag = taglib.id3v2_tag
+      tag = taglib.id3v2_tag || taglib.id3v1_tag
+      logger.info "Tag information -- #{tag.inspect}"
+      break unless tag
 
       # Soundcloud info
       if source == 'soundcloud' and soundcloud_id
@@ -433,9 +439,13 @@ class Song < ActiveRecord::Base
       end
 
       # Properties
-      props        = taglib.audio_properties
-      self.bitrate = props.bitrate.to_i
-      self.seconds = props.length.to_f
+      props = taglib.audio_properties
+      if props
+        self.bitrate = props.bitrate.to_i
+        self.seconds = props.length.to_f
+      else
+        logger.error "No properties, no seconds or bitrate!?"
+      end
 
       # Tag
       self.name         = title || tag.title || ''
@@ -528,11 +538,12 @@ class Song < ActiveRecord::Base
 
   def compress_mp3(mp3_path=nil)
     mp3_path = open(file_url).path if !mp3_path
-    compressed = Paperclip::Tempfile.new("song_#{id}_compressed.mp3", Rails.root.join('tmp'))
-    ffmpeg_command = "ffmpeg -i \"#{mp3_path}\" -acodec libmp3lame -ac 2 -ab #{Yetting.file_compression}k -ar 44100 \"#{compressed.path}\" > /dev/null 2>&1"
+    compressed = Paperclip::Tempfile.new(["song_#{id}_compressed", ".mp3"], Rails.root.join('tmp'))
+    ffmpeg_command = "ffmpeg -i \"#{mp3_path}\" -y -map_metadata 0 -acodec libmp3lame -ac 2 -ab #{Yetting.file_compression}k -ar 44100 \"#{compressed.path}\""
     logger.info ffmpeg_command
-    `#{ffmpeg_command}`
-
+    output = `#{ffmpeg_command}`
+    logger.info output
+    logger.info "Compressed size: #{compressed.size}"
     if compressed.size > 0
       compressed
     else

@@ -5,13 +5,13 @@ var spinner = (function() {
       offset = 25,
       options = {
         lines: 6, // The number of lines to draw
-        length: 2, // The length of each line
+        length: 3, // The length of each line
         width: 3, // The line thickness
         radius: 4, // The radius of the inner circle
         corners: 0, // The rounding of the lines
         rotate: 0, // The rotation offset
         color: '#fff', // #rgb or #rrggbb
-        speed: 1, // Rounds per second
+        speed: 2, // Rounds per second
         trail: 60, // Afterglow percentage
         shadow: true, // Whether to render a shadow
         hwaccel: false, // Whether to use hardware acceleration

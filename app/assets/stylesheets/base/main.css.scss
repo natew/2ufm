@@ -645,7 +645,7 @@ header {
     text-decoration: none;
     font-weight: 300;
     font-size: 14px;
-    padding: 4px 12px 4px 30px;
+    padding: 4px 12px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -655,13 +655,21 @@ header {
     &:hover { background: rgba(0,0,0,0.5); }
     &:before {
       padding-left: 5px;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     &.active {
       color: #fff;
       background: $body-bg;
       &:before { color:#fff; }
+    }
+
+    &[class*="pictos-"],
+    &#nav-user {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      font-size: 16px;
+      padding-left: 32px;
     }
 
     span {
@@ -704,7 +712,6 @@ header {
 
   #navbar-friends {
     margin-top: 10px;
-    border-top: 1px solid $body-dark;
     width: $navbar-width + 20;
     background: rgba(0,0,0,0.1);
 
@@ -819,12 +826,13 @@ $placeholder-color: #999;
     margin: 0;
     color: $placeholder-color;
     outline: none;
-    font-size: 12px;
-    background: darken($navbar-bg, 5%);
+    font-size: 14px;
+    background: darken($navbar-bg, 3%);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
     &.focused {
+      background: darken($navbar-bg, 5%);
       width: $navbar-width * 2;
     }
 
@@ -844,9 +852,9 @@ $placeholder-color: #999;
     cursor: text;
     position: absolute;
     left: 6px;
-    top: 5px;
-    font-size: 16px;
-    color: #999;
+    top: 6px;
+    font-size: 18px;
+    color: #555;
     text-shadow: none;
     padding: 0;
     box-shadow: none;
@@ -1527,11 +1535,10 @@ h2.nav-menu {
 h2 small { font-size: 55%; }
 
 .sub {
-  font-size: 14px;
-  background: #345b52;
+  font-size: 18px;
+  color: #fff;
   padding: 8px 20px;
-  margin: -4px -20px 15px;
-  color: #ddd;
+  margin: -20px -20px 10px;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
 

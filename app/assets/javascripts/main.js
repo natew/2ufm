@@ -368,9 +368,10 @@ body.allOn('click', {
     navDropdown(false);
     if (!this.className.match(/external/)) e.preventDefault();
     if (!this.className.match(/popup|control/)) {
+      newPage = el.attr('href');
       if (doPjax) {
         $.pjax({
-          url: el.attr('href'),
+          url: newPage,
           container: '#body',
           timeout: 12000
         });
