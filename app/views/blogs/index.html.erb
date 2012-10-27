@@ -1,20 +1,17 @@
-<div class="title">
-  <h2>Music Blogs</h2>
-  <p>Browse blogs and subscribe to their stations. <%= link_to 'Submit your blog', new_blog_path %></p>
-
-  <%= render :partial => 'shared/stations_nav' %>
-</div>
-
-<ul class="subnav">
-  <li><%= link_to 'Random', '/blogs' %></li>
-  <li><%= link_to "#", "/blogs?letter=0" %></li>
-  <%- ('A'..'Z').each do |letter| -%>
-  <li><%= link_to letter, "/blogs?letter=#{letter}" %></li>
-  <%- end -%>
-</ul>
+<%= render :partial => 'shared/stations_nav' %>
 
 <div class="whole">
-  <div class="shelf big">
+  <p>Browse blogs and subscribe to their stations. <%= link_to 'Submit your blog', new_blog_path %></p>
+
+  <ul class="subnav">
+    <li><%= link_to 'Random', '/blogs' %></li>
+    <li><%= link_to "#", "/blogs?letter=0" %></li>
+    <%- ('A'..'Z').each do |letter| -%>
+    <li><%= link_to letter, "/blogs?letter=#{letter}" %></li>
+    <%- end -%>
+  </ul>
+
+  <div class="shelf">
     <%= render :partial => 'stations/shelf', :collection => @blogs %>
   </div>
 </div>
