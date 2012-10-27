@@ -745,14 +745,14 @@ header {
 #body {
   margin-left: $navbar-width;
   overflow: hidden;
-  padding: 10px 0 10px 0;
+  padding: 0;
   position: relative;
   z-index: 2;
 
   #breadcrumbs {
-    background: lighten($body-dark, 1%);
-    padding: 6px 20px;
-    margin: -10px 0 10px 0;
+    background: darken($body-bg, 2%);
+    padding: 4px 20px;
+    margin: 0 0 10px 0;
     font-size: 12px;
 
     a {
@@ -1305,8 +1305,8 @@ $announce-color: $heading-color;
 }
 
 .title {
-  padding: 0 20px;
-  margin: 0 0 20px;
+  padding: 10px 20px 0;
+  margin: -10px 0 20px;
   color: #999;
   position: relative;
 
@@ -1315,7 +1315,7 @@ $announce-color: $heading-color;
   }
 
   h1 {
-    margin-top: 5px;
+    margin-top: 0;
     margin-bottom: 10px;
 
     &.icon {margin-right: 300px;}
@@ -1381,14 +1381,14 @@ $announce-color: $heading-color;
 
 .title.fixed {
   position: fixed;
-  top: $header-height;
+  top: $header-height + 10;
   left: $navbar-width;
   right: 0;
   z-index: 300;
   padding-top: 10px;
   padding-bottom: 10px;
-  background: $body-dark;
-  @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
+  background: $body-lighter;
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.1));
 
   .nav-meta,
   .genres-list { display: none; }
@@ -1423,8 +1423,8 @@ $announce-color: $heading-color;
   }
 
   .medium {
-    width: 76px;
-    height: 76px;
+    width: 74px;
+    height: 74px;
   }
 }
 
@@ -1439,7 +1439,7 @@ $announce-color: $heading-color;
     margin: 0 0 0 -1px;
     float: left;
     position: relative;
-    color: #888;
+    color: rgba(255,255,255,0.4);
 
     &:before {
       display: block;
@@ -1449,18 +1449,18 @@ $announce-color: $heading-color;
       bottom: 2px;
       left: 0;
       width: 1px;
-      background: $body-lighter;
+      background: rgba(255,255,255,0.1);
     }
   }
 }
 
 .nav-menu {
   display: block;
-  margin: -8px -20px 12px -20px;
+  margin: -8px -20px 0 -20px;
   overflow: hidden;
   padding: 8px 20px 8px 10px;
   padding-right: 178px;
-  background: darken($body-dark, 2%);
+  background: rgba(0,0,0,0.2);
 
   &.inline {
     margin-top: -2px;
@@ -1478,7 +1478,7 @@ $announce-color: $heading-color;
     padding: 10px;
     margin: -8px 0;
     font-size: 16px;
-    color: #ccc;
+    color: rgba(255,255,255,0.9);
 
     &:first-child {
       border: none;

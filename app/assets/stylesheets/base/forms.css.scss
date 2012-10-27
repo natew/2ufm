@@ -278,15 +278,15 @@ button {
   }
 
   &.disabled {
-    color: #444;
-    background: #333;
+    color: rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.1);
     border-color: transparent;
     text-shadow: none;
     cursor: default;
     pointer-events: none;
 
     span {
-      color: #444;
+      color: rgba(255,255,255,0.2);
     }
   }
 

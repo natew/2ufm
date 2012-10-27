@@ -175,8 +175,7 @@ $song-player-height: 50px;
     &:nth-child(2n+1):hover { background: rgba(255,255,255,0.04); }
 
     &.active {
-      border-top: 2px solid $body-dark;
-      border-bottom: 2px solid $body-dark;
+      border: 2px solid $body-dark;
       background: $body-secondary !important;
       z-index: 100;
     }
@@ -500,7 +499,7 @@ $song-player-height: 50px;
 
 .primary section, section.active {
   min-height: 175px;
-  margin: 0 -20px;
+  margin: 0 -10px;
   padding: 25px;
 
   h3, .song-meta {
