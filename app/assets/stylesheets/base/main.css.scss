@@ -735,7 +735,7 @@ header {
 #body {
   margin-left: $navbar-width;
   overflow: hidden;
-  padding: 0 0 0 4px;
+  padding: 0;
   position: relative;
   z-index: 2;
 
@@ -1366,7 +1366,7 @@ $announce-color: $heading-color;
 .title.fixed {
   position: fixed;
   top: $header-height;
-  left: $navbar-width + 4;
+  left: $navbar-width;
   right: 0;
   z-index: 300;
   padding-top: 10px;
@@ -1445,7 +1445,7 @@ $announce-color: $heading-color;
   display: block;
   margin: -8px -20px -10px -20px;
   overflow: hidden;
-  padding: 8px 20px 8px 10px;
+  padding: 10px 20px 10px 10px;
   padding-right: 178px;
   background: rgba(0,0,0,0.1);
 
@@ -1564,7 +1564,7 @@ h2 small { font-size: 55%; }
 .pagination {
   position: relative;
   clear: both;
-  margin: 0 0 5px 0;
+  margin: -5px 0 10px 0;
   font-size: 11px;
 
   h5 {
