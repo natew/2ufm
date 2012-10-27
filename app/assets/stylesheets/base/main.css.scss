@@ -282,7 +282,7 @@ header {
     overflow: hidden;
     visibility: hidden;
     margin: 2px 0 0;
-    line-height: 17px;
+    line-height: 19px;
 
     &:before, &:after {
       display: block;
@@ -318,7 +318,7 @@ header {
       z-index: 10;
 
       a {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 400;
         white-space: nowrap;
         overflow: hidden;
@@ -330,7 +330,7 @@ header {
 
     #player-artist-name {
       color: rgba(255,255,255,0.75);
-      font-size: 12px;
+      font-size: 14px;
       white-space: nowrap;
       overflow: hidden;
       font-weight: 400;
@@ -338,9 +338,15 @@ header {
       position: relative;
       z-index: 9;
 
-      a {color: rgba(255,255,255,0.8) !important;
+      a {
+        color: rgba(255,255,255,0.8) !important;
         &:hover { color: #fff !important; }
-        &:after { font-size: 9px; } }
+        &:after {
+          font-size: 9px;
+          line-height: 8px;
+          height: 12px;
+        }
+      }
     }
 
     a {
@@ -367,20 +373,18 @@ header {
   #player-timer {
     position: absolute;
     z-index: 15;
-    top: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
+    top: 3px;
+    left: 30px;
     color: rgba(255,255,255,0.3);
     font-weight: 400;
-    font-size: 11px;
+    font-size: 10px;
     pointer-events: none;
   }
 
   #player-progress-bar {
     position: absolute;
-    top: 0;
-    left: 30px;
+    top: 6px;
+    left: 60px;
     right: 30px;
     z-index: 1;
     bottom: 0;
@@ -705,7 +709,7 @@ header {
     .friend-link {
       margin-left: 0;
       margin-right: 0;
-      padding: 3px 20px 3px 10px;
+      padding: 3px 45px 3px 10px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -1288,7 +1292,7 @@ $announce-color: $heading-color;
 }
 
 .title {
-  background: rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.05);
   padding: 15px 20px 10px;
   margin: 0 0 20px;
   color: #999;

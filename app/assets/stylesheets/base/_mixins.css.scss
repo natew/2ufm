@@ -6,7 +6,7 @@
 */
 @for $i from 1 through 2 {
   $header-color:    nth(( #418bd4,
-                          #3a7ec3
+                          #3d7352
                           ), $i );
 
   $body-bg:         nth(( #333,
