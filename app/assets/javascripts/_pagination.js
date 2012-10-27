@@ -78,8 +78,11 @@ var pagination = (function(fn, mp) {
     if (url.match(page_regex)) {
       url = url.replace(page_regex, page);
     } else {
-      url = url + '/' + page;
+      url += url == '' ? '/' : '';
+      url = url + page;
     }
+
+    fn.log(url);
 
     url += hash;
     fn.replaceState(url);
@@ -113,3 +116,13 @@ var pagination = (function(fn, mp) {
     }
   }
 }(fn, mp));
+
+w.scroll(function() {
+  // Automatic page loading
+  if (!pagination.isLoading()) {
+    clearTimeout(pageLoadTimeout);
+    pageLoadTimeout = setTimeout(function() {
+      pagination.loadNext();
+    }, 10);
+  }
+});

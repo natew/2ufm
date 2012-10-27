@@ -182,16 +182,6 @@ w.on('scrollstart', function() {
   updatePlaylist();
 });
 
-w.scroll(function() {
-  // Automatic page loading
-  if (!pagination.isLoading()) {
-    clearTimeout(pageLoadTimeout);
-    pageLoadTimeout = setTimeout(function() {
-      pagination.loadNext();
-    }, 10);
-  }
-});
-
 w.resize(fn.debounce(windowResize, 20));
 windowResize();
 
