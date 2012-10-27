@@ -3,15 +3,10 @@
 <div class="whole">
   <p>Browse blogs and subscribe to their stations. <%= link_to 'Submit your blog', new_blog_path %></p>
 
-  <ul class="subnav">
-    <li><%= link_to 'Random', '/blogs' %></li>
-    <li><%= link_to "#", "/blogs?letter=0" %></li>
-    <%- ('A'..'Z').each do |letter| -%>
-    <li><%= link_to letter, "/blogs?letter=#{letter}" %></li>
-    <%- end -%>
-  </ul>
+  <%= render partial: 'shared/stations_subnav', locals: { object: 'blogs' } %>
 
-  <div class="shelf">
-    <%= render :partial => 'stations/shelf', :collection => @blogs %>
+  <div class="stations">
+    <%= render :partial => 'stations/station', :collection => @blogs %>
+    <%= paginate @blogs if @blogs.respond_to? 'current_page' %>
   </div>
 </div>

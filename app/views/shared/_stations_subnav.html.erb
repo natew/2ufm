@@ -1,0 +1,7 @@
+<ul class="subnav">
+  <li><%= nav_link_to 'Random', send("#{object}_path") %></li>
+  <li><%= nav_link_to "#", send("#{object}_path", '0') %></li>
+  <%- ('A'..'Z').each do |letter| -%>
+  <li><%= nav_link_to letter, send("#{object}_path", letter) %></li>
+  <%- end -%>
+</ul>

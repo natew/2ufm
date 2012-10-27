@@ -27,6 +27,7 @@ class Station < ActiveRecord::Base
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
   scope :with_user, joins(:user)
   scope :select_for_navbar, select('users.full_name as full_name, stations.id, stations.user_id, stations.title, stations.slug')
+  scope :has_songs, where('stations.broadcasts_count > 0')
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug, :online

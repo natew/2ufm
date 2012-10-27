@@ -5,9 +5,9 @@ class BlogsController < ApplicationController
     if params[:letter]
       letter = params[:letter]
       letter = "0-9" if letter == '0'
-      @blogs = Blog.where("name ~* '^[#{letter}]'").order('name desc')
+      @blogs = Station.blog_station.has_songs.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
     else
-      @blogs = Blog.order('random() desc').limit(12)
+      @blogs = Station.blog_station.has_songs.order('random() desc').limit(12)
     end
 
     respond_to do |format|

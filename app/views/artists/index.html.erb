@@ -1,17 +1,10 @@
 <%= render partial: 'shared/stations_nav' %>
 
 <div class="whole">
-  <ul class="subnav">
-    <li><%= link_to 'Random', '/artists' %></li>
-    <li><%= link_to "#", "/artists?letter=0" %></li>
-    <%- ('A'..'Z').each do |letter| -%>
-    <li><%= link_to letter, "/artists?letter=#{letter}" %></li>
-    <%- end -%>
-  </ul>
+  <%= render partial: 'shared/stations_subnav', locals: { object: 'artists' } %>
 
-  <%= render partial: 'genres/nav' %>
-
-  <div class="shelf">
-    <%= render :partial => 'stations/shelf', :collection => @artists %>
+  <div class="stations">
+    <%= render :partial => 'stations/station', :collection => @artists %>
+    <%= paginate @artists if @artists.respond_to? 'current_page' %>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <%- cache ['v1', @blog] do -%>
 <div class="title nav-container">
   <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
-  <h1 class="icon"><%= @blog.name %> <span><%= link_to '', @blog.url, :target => '_blank' %></span></h1>
+  <h1 class="icon"><%= @blog.name %> <span><%= link_to '', @blog.url, class: 'popup control tip', title: 'Visit this blog' %></span></h1>
 <%- end -%>
 
   <nav class="nav-menu">

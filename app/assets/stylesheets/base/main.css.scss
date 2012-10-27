@@ -112,7 +112,7 @@ header {
     top: -41px;
     left: 130px;
     right: 130px;
-    box-shadow: 0 0 120px rgba(255,255,255,0.5);
+    box-shadow: 0 0 100px rgba(255,255,255,0.4);
     height: 41px;
     z-index: 10;
     pointer-events: none;
@@ -274,7 +274,7 @@ header {
   position: absolute;
   top: 0;
   left: 110px;
-  right: $navbar-width + 85;
+  right: $navbar-width + 90;
   height: 100%;
 
   #player-meta {
@@ -352,7 +352,7 @@ header {
     a {
       color: #fff;
       text-decoration: none;
-      &:hover {text-decoration: underline; color: #fff !important;}
+      &:hover { color: #fff !important; }
     }
   }
 }
@@ -627,15 +627,15 @@ header {
     display: block;
     text-decoration: none;
     font-weight: 300;
-    font-size: 14px;
-    padding: 4px 10px;
+    font-size: 13px;
+    padding: 3px 10px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
-    &:hover { background: rgba(0,0,0,0.5); }
+    &:hover { background: rgba(255,255,255,0.05); }
     &:before {
       padding-top: 2px;
       padding-left: 5px;
@@ -649,8 +649,8 @@ header {
 
     &[class*="pictos-"],
     &#nav-user {
-      padding-top: 6px;
-      padding-bottom: 6px;
+      padding-top: 7px;
+      padding-bottom: 7px;
       font-size: 16px;
       padding-left: 32px;
     }
@@ -694,9 +694,13 @@ header {
   }
 
   #navbar-friends {
-    margin-top: 10px;
+    margin-top: 0;
     width: $navbar-width + 20;
     background: rgba(0,0,0,0.2);
+
+    h1 {
+      background: rgba(0,0,0,0.1);
+    }
 
     #navbar-friends-inner {
       overflow-x: hidden;
@@ -804,7 +808,7 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.2);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
@@ -1381,6 +1385,7 @@ $announce-color: $heading-color;
   .genres-list { display: none; }
 
   h1, h2 {
+    display: inline-block;
     font-size: 32px;
     margin-bottom: 0;
     margin-top: 0;
@@ -1397,7 +1402,7 @@ $announce-color: $heading-color;
   }
 
   .nav-menu {
-    margin: 0 -10px;
+    margin: -3px -10px;
     padding-left: 0;
     padding-right: 0;
     background: none;
@@ -1535,7 +1540,7 @@ h2 small { font-size: 55%; }
 /* Subnav */
 .subnav {
   display: inline-block;
-  margin: 0 20px 20px 0;
+  margin: -5px 10px 20px 0;
   background: rgba(0,0,0,0.1);
   padding: 0 5px 0 20px;
   width: 100%;
@@ -1544,14 +1549,19 @@ h2 small { font-size: 55%; }
   li {
     float: left;
     list-style: none;
+  }
 
-    a {
-      float: left;
-      padding: 7px;
-      line-height: 1.4em;
-      font-size: 12px;
-      font-weight: 300;
-      text-decoration: none;
+  a {
+    float: left;
+    padding: 7px;
+    line-height: 1.4em;
+    font-size: 14px;
+    font-weight: 300;
+    text-decoration: none;
+    color: rgba(255,255,255,0.8);
+
+    &.active {
+      font-weight: bold;
       color: #fff;
     }
   }
@@ -1605,6 +1615,19 @@ h2 small { font-size: 55%; }
     font-weight: bold;
     color: #fff;
     @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
+  }
+
+  /* kaminari */
+  .page, .first, .last, .prev, .next {
+    width: auto;
+    float: left;
+    padding: 6px;
+
+    a {
+      width: auto;
+      padding: 6px;
+      margin: -6px;
+    }
   }
 }
 

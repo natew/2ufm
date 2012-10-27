@@ -636,10 +636,15 @@ function registerUser(button) {
 }
 
 function popup(el) {
-  var url = el.attr('href'),
-      dimensions = el.data('dimensions').split(',');
+  var url = el.attr('href');
 
-  fn.popup(url, dimensions[0], dimensions[1]);
+  if (el.data('dimensions')) {
+    dimensions = el.data('dimensions').split(',');
+    fn.popup(url, dimensions[0], dimensions[1]);
+  }
+  else {
+    fn.popup(url);
+  }
 }
 
 $(window).on('gotPageLoad', function(e, data) {

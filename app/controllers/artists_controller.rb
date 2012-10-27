@@ -5,9 +5,9 @@ class ArtistsController < ApplicationController
     if params[:letter]
       letter = params[:letter]
       letter = "0-9" if letter == '0'
-      @artists = Artist.where("name ~* '^[#{letter}]'").order('name desc')
+      @artists = Station.has_songs.artist_station.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
     else
-      @artists = Artist.order('random() desc').limit(12)
+      @artists = Station.has_songs.artist_station.order('random() desc').limit(12)
     end
 
     respond_to do |format|

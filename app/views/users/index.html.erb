@@ -1,7 +1,10 @@
-<%= render :partial => 'shared/stations_nav' %>
+<%= render partial: 'shared/stations_nav' %>
 
-<ul>
-<% for user in @users %>
-  <li><%= link_to user.username, user %></li>
-<% end %>
-</ul>
+<div class="whole">
+  <%= render partial: 'shared/stations_subnav', locals: { object: 'users' } %>
+
+  <div class="stations">
+    <%= render :partial => 'stations/station', :collection => @users %>
+    <%= paginate @users if @users.respond_to? 'current_page' %>
+  </div>
+</div>

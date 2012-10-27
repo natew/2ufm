@@ -2,6 +2,20 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune, :feed]
   before_filter :load_user, :only => [:followers, :following]
 
+  def index
+    if params[:letter]
+      letter = params[:letter]
+      letter = "0-9" if letter == '0'
+      @users = Station.user_station.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
+    else
+      @users = Station.has_songs.user_station.order('random() desc').limit(12)
+    end
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
     @user = User.find(@station.user_id) || not_found
@@ -88,14 +102,6 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { render 'users/show' }
-    end
-  end
-
-  def index
-    @users = User.all
-
-    respond_to do |format|
-      format.html
     end
   end
 
