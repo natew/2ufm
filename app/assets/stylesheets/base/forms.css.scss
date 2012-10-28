@@ -241,7 +241,8 @@ button {
   }
 
   &.small {
-    padding: 0 4px;
+    padding: 3px 8px 6px;
+    font-size: 12px;
   }
 
   &.alt {
@@ -251,6 +252,11 @@ button {
     &:hover {
       background: #333;
     }
+  }
+
+  &.grey {
+    background-color: #9d9d9d;
+    &:hover { background-color: #aaa; }
   }
 
   /* Keep above .remove, .remove.first-hover needs precedence */
