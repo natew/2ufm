@@ -2,10 +2,15 @@ class BlogsController < ApplicationController
   before_filter :is_admin?, :only => [:destroy]
 
   def index
-    if params[:letter]
-      letter = params[:letter]
-      letter = "0-9" if letter == '0'
-      @blogs = Station.blog_station.has_songs.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
+    if params[:genre]
+      @blogs = Station.has_songs
+                .joins('inner join blogs on blogs.id = stations.blog_id')
+                .joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
+                .joins("inner join genres on genres.id = blogs_genres.genre_id")
+                .where(genres: { slug: params[:genre] })
+                .order('random() desc')
+                .page(params[:page])
+                .per(Yetting.per)
     else
       @blogs = Station.blog_station.has_songs.order('random() desc').limit(12)
     end

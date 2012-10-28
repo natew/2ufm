@@ -51,7 +51,7 @@ h3 { font-size: 18px; }
 h4 { font-size: 14px; }
 h5 { font-size: 14px; }
 
-h1, h2, h3.horizontal {
+h1, h2 {
   font-family: "Stratum", "Open Sans", Helvetiva, Arial, sans-serif;
 }
 
@@ -918,6 +918,10 @@ header #second-nav {
   }
 }
 
+#main-mid a.button[href^="http://"] {
+  &:after { display:none; }
+}
+
 #main-mid a.no-external:after {
   display: none;
 }
@@ -1302,6 +1306,7 @@ $announce-color: $heading-color;
   color: #999;
   position: relative;
   opacity: 1;
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
 
   &.invisible {
     opacity: 0;
@@ -1391,7 +1396,6 @@ $announce-color: $heading-color;
   z-index: 300;
   padding-top: 10px;
   padding-bottom: 10px;
-  @include box-shadow(0 2px 0 rgba(0,0,0,0.1));
   @include transition(all linear .1s);
 
   .nav-meta,
@@ -1490,7 +1494,7 @@ $announce-color: $heading-color;
   a {
     text-decoration: none;
     float: left;
-    padding: 10px;
+    padding: 10px 12px;
     margin: -8px 0;
     font-size: 16px;
     color: rgba(255,255,255,0.9);

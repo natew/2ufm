@@ -33,10 +33,11 @@ Fusefm::Application.routes.draw do
   resources :listens, only: [:create, :show]
   resources :actions, only: [:create]
   resources :genres, only: [:index, :show]
+  resources :blogs, only: [:new]
 
   match '/browse/artists(/:letter)', to: 'artists#index', as: 'artists'
   match '/browse/users(/:letter)', to: 'users#index', as: 'users'
-  match '/browse(/:letter)', to: 'blogs#index', as: 'blogs'
+  match '/browse(/:genre)', to: 'blogs#index', as: 'blogs'
 
   resources :shares, :only => [:create]
   match '/shares/inbox', :to => 'shares#inbox'
