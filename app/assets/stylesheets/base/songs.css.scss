@@ -136,6 +136,7 @@ $song-player-height: 50px;
     position: absolute;
     top: $song-pad;
     left: $song-pad;
+    z-index: 2;
     @include box-sizing(border-box);
   }
 
