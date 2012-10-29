@@ -80,6 +80,8 @@ Fusefm::Application.routes.draw do
     end
   end
 
+  match '/:id/feed/p-:p', to: 'users#feed'
+
   resources :users, only:[], path: '/' do
     member do
       get 'following'

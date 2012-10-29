@@ -1289,6 +1289,7 @@ $announce-color: $heading-color;
   color: #999;
   position: relative;
   opacity: 1;
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.15));
 
   &.invisible {
     opacity: 0;
@@ -1404,7 +1405,7 @@ $announce-color: $heading-color;
   }
 
   .nav-menu {
-    margin: -3px -8px;
+    margin: 0 -8px;
     padding-left: 0;
     padding-right: 0;
     background: none;

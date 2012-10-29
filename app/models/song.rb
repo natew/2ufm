@@ -100,6 +100,7 @@ class Song < ActiveRecord::Base
   scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
   scope :select_with_info, select('songs.*, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post
   scope :individual, select_with_info.with_blog_station_and_post.time_limited
+  scope :user_broadcasted, select('broadcasts.created_at as published_at')
 
   # Orders
   scope :order_broadcasted, order('broadcasts.created_at desc')

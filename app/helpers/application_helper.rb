@@ -91,9 +91,10 @@ module ApplicationHelper
     name.gsub(/([\(\[][^\(\)\[\]]+[\)\]])|((featuring | ?ft\.? |feat\.? |f\. |w\/).*)/i,'').html_safe
   end
 
-  def nav_link_to(title, path)
+  def nav_link_to(title, path, *options)
+    options = options.size > 0 ? options[0] : {}
     class_active = on_current_page?(path) ? 'active' : ''
-    link_to title, path, :class => class_active
+    link_to title, path, options.merge({ :class => class_active })
   end
 
   def on_current_page?(resource)

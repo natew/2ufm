@@ -1,6 +1,6 @@
 <%-
   broadcasted ||= false
-  prefix        = broadcasted ? 'following_' : ''
+  prefix      ||= broadcasted ? 'following_' : ''
   time          = broadcasted ? song.broadcasted_at : song.published_at
   id            = song.send(prefix + 'station_id')
   follows_count = song.send(prefix + 'station_follows_count')
@@ -10,7 +10,7 @@
 -%>
 
 <div class="song-posted">
-  <%= broadcasted ? 'via ' : 'Posted by' %>
+  <%= broadcasted ? 'via ' : '' %>
   <div class="follow-station-wrap">
     <span class="follow-<%= id %>"><%= follow_station(id, follows_count) %></span>
     <%= link_to title, '/' + slug %>

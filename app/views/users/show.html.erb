@@ -32,7 +32,7 @@
       <%- if @user.station.songs.empty? -%>
         <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
       <%- else -%>
-        <%= render :partial => 'stations/playlist', :locals => { :station => @user.station } %>
+        <%= render partial: 'stations/playlist', locals: { station: @user.station, songs: @user_songs } %>
       <%- end -%>
     </div>
 
