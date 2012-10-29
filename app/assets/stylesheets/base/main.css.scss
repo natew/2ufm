@@ -269,8 +269,8 @@ header {
     text-overflow: ellipsis;
     overflow: hidden;
     visibility: hidden;
-    margin: 2px 0 0;
-    line-height: 19px;
+    margin: 3px 0 0;
+    line-height: 18px;
 
     &:before, &:after {
       display: block;
@@ -306,7 +306,7 @@ header {
       z-index: 10;
 
       a {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 400;
         white-space: nowrap;
         overflow: hidden;
@@ -361,8 +361,8 @@ header {
   #player-timer {
     position: absolute;
     z-index: 15;
-    top: 3px;
-    left: 30px;
+    top: 2px;
+    left: 31px;
     color: rgba(255,255,255,0.3);
     font-weight: 400;
     font-size: 10px;
@@ -371,7 +371,7 @@ header {
 
   #player-progress-bar {
     position: absolute;
-    top: 6px;
+    top: 4px;
     left: 60px;
     right: 30px;
     z-index: 1;
@@ -419,7 +419,7 @@ header {
 
 #player-mini-controls {
   position: absolute;
-  top: -5px;
+  top: -4px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -1397,10 +1397,6 @@ $announce-color: $heading-color;
     &:hover { cursor: pointer; }
   }
 
-  .sub {
-    margin-top: -5px;
-  }
-
   #page-follow,
   .title-buttons {
     top: 5px;
@@ -1523,7 +1519,7 @@ h2 small { font-size: 55%; }
   font-weight: 300;
   color: #fff;
   padding: 8px 20px;
-  margin: -10px -20px 0;
+  margin: -5px -20px 0;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
 
