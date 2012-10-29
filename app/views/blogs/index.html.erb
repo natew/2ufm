@@ -12,7 +12,7 @@
   </ul>
 
   <div class="stations">
-    <%= render :partial => 'stations/station', :collection => @blogs %>
+    <%= render partial: 'stations/station', collection: @blogs, locals: { content: true } %>
     <%= paginate @blogs if @blogs.respond_to? 'current_page' %>
   </div>
 </div>

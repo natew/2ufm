@@ -8,9 +8,7 @@ module ApplicationHelper
       classes = ['signed_out']
     end
 
-    range = (1..5)
-    val = Random.rand(range)
-    classes.push "body-theme-#{val} header-theme-#{val}"
+    classes.push "body-theme-1 head-theme-1"
 
     classes.join(' ')
   end

@@ -57,7 +57,7 @@
 
   <div id="body-wrap">
     <header>
-      <h1><%= link_to '2u.fm', '/', :title => '2u.fm, find and share music' %> </h1>
+      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '1' %></h1>
 
       <div id="bar">
         <div id="player">
@@ -142,7 +142,7 @@
                 <%= link_to "Account", user_account_path %>
                 <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'secondary' %>
               <% else %>
-                <%= link_to 'Login', '#modal-login', :class => 'modal control' %>
+                <%= link_to 'Log in', '#modal-login', :class => 'modal control' %>
               <% end %>
               <%= link_to "About", "/about", :class => "secondary control" %>
             </section>
@@ -206,8 +206,20 @@
     <% link_to 'Beatport', '', :class => 'control popup', 'data-dimensions' => '800,400', 'data-link' => '' %>
   </div>
 
-  <div id="add-to-playlist" class="pop-menu">
+  <div id="logo-menu" class="pop-menu left-align">
+    <h4>Header color</h4>
+    <div id="head-colors" class="colors">
+    <% (1..5).each do |color| %>
+      <%= link_to '', "head-theme-#{color}", class: "head-color-#{color}" %>
+    <% end %>
+    </div>
 
+    <h4>Body color</h4>
+    <div id="body-colors" class="colors">
+    <% (1..5).each do |color| %>
+      <%= link_to '', "body-theme-#{color}", class: "body-color-#{color}" %>
+    <% end %>
+    </div>
   </div>
 
   <div id="friends" class="pop-menu right-align"></div>

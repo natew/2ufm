@@ -9,7 +9,7 @@
                               ), $i );
 */
 @for $i from 1 through 5 {
-  $header-color:    nth(( #418bd4,  /* blue */
+  $header-bg:       nth(( #418bd4,  /* blue */
                           #3d7352,  /* green */
                           #cd7414,  /* orange */
                           #bc3e66,  /* pink */
@@ -30,10 +30,15 @@
                           darken($body-bg, 5%)
                           ), $i );
 
-  .header-theme-#{$i} {
-    header { background: $header-color; }
-    #player-meta:before { @include linear-gradient(left, $header-color, rgba($header-color,0)); }
-    #player-meta:after { @include linear-gradient(right, $header-color, rgba($header-color,0)); }
+  .head-color-#{$i} { background: $header-bg;
+    &:hover { background: $header-bg !important; }}
+  .body-color-#{$i} { background: $body-bg;
+    &:hover { background: $body-bg !important; }}
+
+  .head-theme-#{$i} {
+    header { background: $header-bg; }
+    #player-meta:before { @include linear-gradient(left, $header-bg, rgba($header-bg,0)); }
+    #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
   }
 
   .body-theme-#{$i} {

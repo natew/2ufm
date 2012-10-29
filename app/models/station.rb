@@ -15,22 +15,27 @@ class Station < ActiveRecord::Base
   has_artist = 'stations.artist_id is not NULL'
   has_user = 'stations.user_id is not NULL'
 
-  scope :has_parent, where([has_blog, has_artist, has_user].join(' OR '))
   scope :distinct, select('DISTINCT ON (stations.blog_id) stations.*')
+  scope :select_for_navbar, select('users.full_name as full_name, stations.id, stations.user_id, stations.title, stations.slug')
+
+  scope :ordered_online, order('stations.online desc')
+
+  scope :has_parent, where([has_blog, has_artist, has_user].join(' OR '))
   scope :blog_station, where(has_blog)
   scope :artist_station, where(has_artist)
   scope :user_station, where(has_user)
   scope :promo_station, where(:promo => true)
-  scope :ordered_online, order('stations.online desc')
   scope :online, where('online >= ?', 6.minutes.ago).ordered_online
   scope :not_online, where('online < ?', 6.minutes.ago).ordered_online
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
-  scope :with_user, joins(:user)
-  scope :select_for_navbar, select('users.full_name as full_name, stations.id, stations.user_id, stations.title, stations.slug')
   scope :has_songs, where('stations.broadcasts_count > 0')
+
+  scope :with_user, joins(:user)
+  scope :with_genres, joins(:genres)
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug, :online
+  attr_accessor :content
 
   # Slug
   acts_as_url :title, sync_url: true, url_attribute: :slug, allow_duplicates: false

@@ -25,7 +25,6 @@ Fusefm::Application.routes.draw do
   match "/songs/popular(/p-:p)", :to => "songs#popular", :as => 'songs_popular'
 
   resources :songs, only: [:index, :show]
-  resources :genres, only: [:show]
   resources :follows, only: [:create, :destroy]
   resources :broadcasts, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]

@@ -26,4 +26,8 @@ var w = $(window),
     shareCount = 0,
     fakeUrl,
     newPage = window.location.pathname,
-    disableHovers = false;
+    disableHovers = false,
+    theme = {
+      body: body.attr('class').match(/body-theme-[\d]/),
+      head: body.attr('class').match(/head-theme-[\d]/)
+    };

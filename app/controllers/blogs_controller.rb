@@ -3,7 +3,8 @@ class BlogsController < ApplicationController
 
   def index
     if params[:genre]
-      @blogs = Station.has_songs
+      @blogs = Station
+                .has_songs
                 .joins('inner join blogs on blogs.id = stations.blog_id')
                 .joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
                 .joins("inner join genres on genres.id = blogs_genres.genre_id")
@@ -13,6 +14,24 @@ class BlogsController < ApplicationController
                 .per(Yetting.per)
     else
       @blogs = Station.blog_station.has_songs.order('random() desc').limit(12)
+    end
+
+    @blogs_genres = Hash[*
+                      Station
+                        .where(blog_id: @blogs.map(&:blog_id))
+                        .select("stations.blog_id as id, string_agg(genres.name, ', ') as blog_genres")
+                        .has_songs
+                        .joins('inner join blogs on blogs.id = stations.blog_id')
+                        .joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
+                        .joins("inner join genres on genres.id = blogs_genres.genre_id")
+                        .group('stations.blog_id')
+                        .map{ |s| [s.id, s.blog_genres] }.flatten
+                    ]
+
+                    logger.info "sdsadasdsadsad----------------"
+                    logger.info @blogs_genres
+    @blogs.each do |station|
+      station.content = @blogs_genres[station.blog_id]
     end
 
     respond_to do |format|

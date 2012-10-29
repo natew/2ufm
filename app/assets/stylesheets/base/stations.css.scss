@@ -16,7 +16,7 @@ $station-image-small: $play-button-small;
     margin: 0;
     padding: $station-pad;
     position: relative;
-    border-top: 1px solid #444;
+    border-top: 1px solid rgba(255,255,255,0.05);
     @include transition(all .1s linear);
 
     &:hover {
@@ -40,11 +40,11 @@ $station-image-small: $play-button-small;
     }
 
     .image {
-      margin: 0;
+      margin: 0 $station-pad 0 0;
       padding: 0;
+      float: left;
       border: none;
       display: block;
-      background: none;
 
       img {
         width: $station-image;
@@ -53,10 +53,7 @@ $station-image-small: $play-button-small;
     }
 
     .station-info {
-      position: absolute;
-      top: $station-pad - 2;
-      left: $station-pad*2 + $play-button-size + 2;
-      right: $station-pad;
+      float: left;
 
       * {
         white-space: nowrap;
@@ -66,7 +63,7 @@ $station-image-small: $play-button-small;
 
       h4 {
         font-size: 16px;
-        margin: 3px 0 2px;
+        margin: 0 0 2px;
         font-weight: 400;
         color: #fff;
       }
@@ -76,6 +73,10 @@ $station-image-small: $play-button-small;
         display: block;
         color: #888;
       }
+    }
+
+    p {
+      margin: 0;
     }
 
     .station-follow {
@@ -105,42 +106,6 @@ $station-image-small: $play-button-small;
         text-align: center;
         @include box-sizing(border-box);
       }
-    }
-  }
-}
-
-
-.third .stations section {
-  padding: $station-small-pad;
-
-  &:hover {
-    .station-info h4 {color: #fff;}
-  }
-
-  .image {
-    img {
-      width: $station-image-small;
-      height: $station-image-small;
-    }
-  }
-
-  .play-button {
-    top: $station-small-pad;
-    left: $station-small-pad;
-  }
-
-  .station-info {
-    left: $station-small-pad*2 + $station-image-small;
-
-    h4 {
-      font-size: 14px;
-      margin: 0 0 -1px 0;
-      color: #ddd;
-      font-weight: 300;
-    }
-
-    span {
-      font-size: 11px;
     }
   }
 }

@@ -4,14 +4,16 @@
   nocache     ||= false
   title       ||= station.title
   just_follow ||= false
+  content     ||= nil
 -%>
 
 <section>
+  <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
   <div class="station-info">
     <h4><%= title %></h4>
     <span><%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
+    <% if content and station.content %><p><%= station.content %></p><% end %>
   </div>
-  <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
   <%- unless nofollow -%>
   <div class="station-follow follow-<%= station.id %>">
     <%= follow_station(station.id, station.follows_count, :nocache => nocache) %>
