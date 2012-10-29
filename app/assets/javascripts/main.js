@@ -572,12 +572,12 @@ function updateShareFriends(friends) {
 }
 
 // Modal
-function modal(selector) {
+function modal(selector, force) {
   var modal = $('#modal'),
       show = $('#overlay,#modal');
 
   if (modalShown || selector === false) {
-    if (!modal.children('.permanent').length) {
+    if (!modal.children('.permanent').length || force) {
       show.attr('class', '');
       body.removeClass('modal-shown');
       modalShown = false;
@@ -763,7 +763,11 @@ function setupFixedTitles() {
 }
 
 function doPlaysActions() {
-  if (!isOnline && !isTuningIn && mp.plays() > 1) {
-    modal('#modal-login');
+  if (!isOnline && !isTuningIn && mp.plays() > 2) {
+    if ( !$('#page-identifier').is('.action-trending') ) {
+      modal('#modal-login');
+    } else {
+      modal(false, true);
+    }
   }
 }

@@ -21,6 +21,7 @@ var page = {
 
     fn.log(curPage);
 
+    doPlaysActions();
     pagination.restart();
     updatePlaylist();
     spinner.detach();
