@@ -281,8 +281,8 @@ body.allOn('click', {
     mp.playSection(el.parent('section'));
   },
 
-  '.modal': function() {
-    modal(e.target.getAttribute('href'));
+  '.modal': function(e, el) {
+    modal(el.attr('href'));
     return false;
   },
 

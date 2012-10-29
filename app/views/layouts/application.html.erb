@@ -142,7 +142,7 @@
                 <%= link_to "Account", user_account_path %>
                 <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'secondary' %>
               <% else %>
-                <%= link_to 'Login', '#modal-login', :class => 'modal' %>
+                <%= link_to 'Login', '#modal-login', :class => 'modal control' %>
               <% end %>
               <%= link_to "About", "/about", :class => "secondary control" %>
             </section>

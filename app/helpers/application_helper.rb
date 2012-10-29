@@ -8,8 +8,9 @@ module ApplicationHelper
       classes = ['signed_out']
     end
 
-    hour = Time.now.hour
-    classes.push (hour > 19 or hour < 7) ? 'theme-2' : 'theme-1'
+    range = (1..5)
+    val = Random.rand(range)
+    classes.push "body-theme-#{val} header-theme-#{val}"
 
     classes.join(' ')
   end

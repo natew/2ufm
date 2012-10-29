@@ -3,29 +3,41 @@
 /* -----Themes----
       1: Light
       2: Dark
+
+      $body-secondary:  nth(( #214a73,
+                              #263e45
+                              ), $i );
 */
-@for $i from 1 through 2 {
-  $header-color:    nth(( #418bd4,
-                          #3d7352
+@for $i from 1 through 5 {
+  $header-color:    nth(( #418bd4,  /* blue */
+                          #3d7352,  /* green */
+                          #cd7414,  /* orange */
+                          #bc3e66,  /* pink */
+                          #a2323f   /* red */
                           ), $i );
 
-  $body-bg:         nth(( #333,
-                          #1c2d32
-                          ), $i );
-
-  $body-secondary:  nth(( #214a73,
-                          #263e45
+  $body-bg:         nth(( #333,     /* grey */
+                          #1c2d32,  /* teal */
+                          #181d2a,  /* green */
+                          #361520,  /* pink */
+                          #431e21   /* red */
                           ), $i );
 
   $navbar-bg:       nth(( darken($body-bg, 9%),
+                          darken($body-bg, 5%),
+                          darken($body-bg, 5%),
+                          darken($body-bg, 5%),
                           darken($body-bg, 5%)
                           ), $i );
 
-  body.theme-#{$i} { background: $body-bg; }
-  .theme-#{$i} {
+  .header-theme-#{$i} {
     header { background: $header-color; }
     #player-meta:before { @include linear-gradient(left, $header-color, rgba($header-color,0)); }
     #player-meta:after { @include linear-gradient(right, $header-color, rgba($header-color,0)); }
+  }
+
+  .body-theme-#{$i} {
+    background: $body-bg;
 
     #modal,
     #promo-fixed-lower,
@@ -33,7 +45,7 @@
 
     .title.fixed { background: lighten($body-bg,5%); }
     #navbar { background: $navbar-bg; }
-    .playlist section.active { background: $body-secondary !important; }
+    .playlist section.active { background: lighten($body-bg, 5%) !important; }
   }
 }
 
