@@ -1307,17 +1307,6 @@ $announce-color: $heading-color;
   position: relative;
   opacity: 1;
 
-  &:before {
-    position: absolute;
-    display: block;
-    content: "";
-    top: -40px;
-    left: 5%;
-    right: 5%;
-    height: 40px;
-    @include box-shadow(0 0 160px rgba(255,255,255,0.15))
-  }
-
   &.invisible {
     opacity: 0;
     visibility: hidden;
@@ -1459,7 +1448,7 @@ $announce-color: $heading-color;
 
 .nav-meta {
   padding: 3px 0;
-  margin: 0 0 4px -14px;
+  margin: -5px 0 10px -10px;
   overflow: hidden;
   list-style: none;
 
