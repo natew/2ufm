@@ -18,10 +18,8 @@ $(function() {
   // Fade in effect
   $('#overlay').removeClass('shown');
 
-  // Logged in
-  if (!isOnline && !isTuningIn) {
-    modal('#modal-login');
-  }
+  // Modal if not logged in
+  doPlaysActions();
 
   if ($('#modal-new-user').length) {
     modal('#modal-new-user');
@@ -729,38 +727,43 @@ function resumePlaying() {
   }
 }
 
-function toYoutubeSearch(string) {
-  return string.replace(' ', '+').replace(/[^a-zA-Z0-9+]/, "");
-}
-
 function setupFixedTitles() {
   var fixedTitlesInterval,
       isFixed = false,
-      title = $('.title'),
-      titleClone = $('.title').clone().addClass('fixed invisible').appendTo('#body');
+      title = $('.title:has(.nav-menu)');
 
-  $('h1, h2', titleClone).click(function() {
-    fn.scrollToTop();
-  });
+  if (title.length) {
+      var titleClone = $('.title').clone().addClass('fixed invisible').appendTo('#body');
 
-  clearInterval(fixedTitlesInterval);
-  w.on('scrollstart', function() {
-    fixedTitlesInterval = setInterval(function() {
-      if (doc.scrollTop() > 60) {
-        if (!isFixed) {
-          title.addClass('invisible');
-          titleClone.removeClass('invisible');
-          isFixed = true;
-        }
-      } else {
-        title.removeClass('invisible');
-        titleClone.addClass('invisible');
-        isFixed = false;
-      }
-    }, 50);
-  });
+    $('h1, h2', titleClone).click(function() {
+      fn.scrollToTop();
+    });
 
-  w.on('scrollstop', function() {
     clearInterval(fixedTitlesInterval);
-  });
+    w.on('scrollstart', function() {
+      fixedTitlesInterval = setInterval(function() {
+        if (doc.scrollTop() > 60) {
+          if (!isFixed) {
+            title.addClass('invisible');
+            titleClone.removeClass('invisible');
+            isFixed = true;
+          }
+        } else {
+          title.removeClass('invisible');
+          titleClone.addClass('invisible');
+          isFixed = false;
+        }
+      }, 50);
+    });
+
+    w.on('scrollstop', function() {
+      clearInterval(fixedTitlesInterval);
+    });
+  }
+}
+
+function doPlaysActions() {
+  if (!isOnline && !isTuningIn && mp.plays() > 1) {
+    modal('#modal-login');
+  }
 }

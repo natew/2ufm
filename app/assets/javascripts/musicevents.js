@@ -39,9 +39,9 @@ w.on({
     var song = mp.curSongInfo(),
         playlistItem = $('#player-playlist .song-' + song.id),
         w = $(window),
-        song_url = $('#song-' + song.id + ' .name a').attr('href'),
-        curSection = mp.curSection(),
-        html_artists = null;
+        song_url = $('#song-' + song.id + ' .name a').attr('href');
+
+    $('#player').removeClass('loading');
 
     // Update playlist
     $('#player-playlist a').removeClass('playing');
@@ -49,11 +49,22 @@ w.on({
 
     // Update broadcast button
     updateBroadcastButton(mp.playlist().station.id, song.id);
+  },
+
+  'mp:play': function(event, mp) {
+    var song = mp.curSongInfo(),
+        section = mp.curSection(),
+        html_artists;
+
+    $('#player').addClass('loading');
+    $('#player-buttons .broadcast').removeClass('remove');
+
+    doPlaysActions();
 
     // Update player info
-    if (curSection) {
-      var em = curSection.find('.name em'),
-          artist = curSection.find('.artist').html() || '',
+    if (section) {
+      var em = section.find('.name em'),
+          artist = section.find('.artist').html() || '',
           other_artists = (em && em.length) ? em.html() : '',
           separator = (artist.length && other_artists.length) ? ', ' : '';
       html_artists = artist.length ? artist + separator + other_artists : other_artists
@@ -61,11 +72,6 @@ w.on({
 
     $('#player-artist-name').html(html_artists || song.artist_name);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
-  },
-
-  'mp:play': function(event, mp) {
-    var section = mp.curSection();
-    $('#player-buttons .broadcast').removeClass('remove');
 
     // Scroll to song
     setTimeout(function() {

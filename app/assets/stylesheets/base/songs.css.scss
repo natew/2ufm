@@ -124,6 +124,21 @@ $song-player-height: 50px;
     }
   }
 
+  .song-count {
+    font-size: 16px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    padding: 2px 0 0;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    display: inline-block;
+    position: absolute;
+    top: $song-pad;
+    left: $song-pad;
+    @include box-sizing(border-box);
+  }
+
   section {
     min-height: 50px;
     margin: 0;
@@ -133,7 +148,7 @@ $song-player-height: 50px;
     @include transition(all .1s linear);
 
     &:nth-child(2n+1) {
-      background: rgba(0,0,0,0.08);
+      background: rgba(0,0,0,0.065);
     }
 
     &.listened-to {
@@ -181,6 +196,7 @@ $song-player-height: 50px;
     }
 
     .reviews {
+      pointer-events: none;
       position: relative;
       z-index: 13;
       font-weight: 300;
@@ -188,6 +204,7 @@ $song-player-height: 50px;
       display: none;
 
       a {
+        pointer-events: all;
         text-decoration: none;
         color: rgba(255,255,255,0.6);
       }
@@ -404,10 +421,6 @@ $song-player-height: 50px;
   }
 
   .song-more {
-    position: absolute;
-    top: $song-pad;
-    left: $song-pad;
-    z-index: 11;
     font-size: 12px;
   }
 
@@ -471,6 +484,12 @@ $song-player-height: 50px;
   }
 }
 
+.playlist-song.show-count {
+  .song-count {
+    display: block;
+  }
+}
+
 .primary .playlist-song {
   margin: 0;
 }
@@ -510,9 +529,10 @@ $song-player-height: 50px;
 
 section.active,
 section.open,
-.primary section {
+.open section,
+.primary section, {
   .reviews { display: block; }
-  .waveform { display: block !important; }
+  .waveform { display: block; }
 }
 
 .open section .waveform,

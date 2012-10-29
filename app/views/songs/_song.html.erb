@@ -11,8 +11,10 @@
 
 <section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
 
+  <div class="song-count"><%= (song_counter + 1) + ((page - 1) * Yetting.per) %></div>
+
 <%-
-  cache_if id.to_i > 5, ['v10', song, id, station_id] do
+  cache_if id.to_i > 5, ['v11', song, id, station_id] do
 
     follow_id       = 'station-follow-' + id
     cover         ||= :icon
@@ -36,14 +38,13 @@
     </h3>
   </div>
 
-  <%= link_to '}', '#song-' + id, :class => 'control pictos song-more', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
-
   <span class="broadcast"><%= broadcast_song(song) %></span>
 
   <div class="song-meta">
     <div class="song-meta-pre">
       <%= render :partial => 'songs/posted', :locals => { :song => song, :with_follow => with_follow } if show_original  %>
       <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } if with_follow %>
+      <%= link_to '}', '#song-' + id, :class => 'control pictos song-more', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
     </div>
 
     <div class="song-controls">
@@ -65,6 +66,4 @@
 
 <%-
   end # end cache
-
-  page = (song_counter + 1) / Yetting.per
 -%>

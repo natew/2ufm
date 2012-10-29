@@ -14,8 +14,11 @@ module ApplicationHelper
     classes.join(' ')
   end
 
-  def get_friends
-
+  def ad_spot(size, controller)
+    ad = Ad.where(size: size).active.first
+    if ad
+      yield raw render text: ad.code
+    end
   end
 
   # Station follow

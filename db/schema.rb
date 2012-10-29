@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121027214459) do
+ActiveRecord::Schema.define(:version => 20121028175311) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20121027214459) do
 
   create_table "ads", :force => true do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "size"
     t.string   "location"
     t.string   "network"
     t.integer  "width"

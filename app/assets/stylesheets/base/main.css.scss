@@ -52,7 +52,7 @@ h4 { font-size: 14px; }
 h5 { font-size: 14px; }
 
 h1, h2 {
-  font-family: "Stratum", "Open Sans", Helvetiva, Arial, sans-serif;
+  font-family: "Stratum", "Open Sans", Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
@@ -68,6 +68,7 @@ h1, h2, h3, h4, h5 {
   }
 
   small {
+    font-family: 'Open Sans' Helvetica, Arial, sans-serif;
     font-size: .8em;
     color: #aaa;
     font-weight: normal;
@@ -1300,13 +1301,22 @@ $announce-color: $heading-color;
 }
 
 .title {
-  background: rgba(255,255,255,0.05);
   padding: 15px 20px 10px;
   margin: 0 0 20px;
   color: #999;
   position: relative;
   opacity: 1;
-  @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
+
+  &:before {
+    position: absolute;
+    display: block;
+    content: "";
+    top: -40px;
+    left: 5%;
+    right: 5%;
+    height: 40px;
+    @include box-shadow(0 0 160px rgba(255,255,255,0.15))
+  }
 
   &.invisible {
     opacity: 0;
@@ -1315,7 +1325,7 @@ $announce-color: $heading-color;
 
   h1 {
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 
     &.icon {margin-right: 300px;}
   }
@@ -1332,10 +1342,7 @@ $announce-color: $heading-color;
     height: 128px;
   }
 
-  a {
-    text-decoration: none;
-  }
-
+  a { text-decoration: none; }
   p {
     font-size: 14px;
     margin: 8px 0 20px;
@@ -1344,6 +1351,10 @@ $announce-color: $heading-color;
   small {
     font-size: 13px;
     font-weight: normal;
+  }
+
+  .genres-list {
+    margin: 20px 0 0 0;
   }
 
   .title-buttons {
@@ -1425,14 +1436,13 @@ $announce-color: $heading-color;
   }
 
   .nav-menu {
-    margin: -3px -10px;
+    margin: -3px -8px;
     padding-left: 0;
     padding-right: 0;
     background: none;
 
     a {
-      padding-top: 4px;
-      padding-bottom: 4px;
+      padding: 4px 8px;
       font-size: 14px;
     }
   }
@@ -1449,7 +1459,7 @@ $announce-color: $heading-color;
 
 .nav-meta {
   padding: 3px 0;
-  margin: -12px 0 12px -14px;
+  margin: 0 0 4px -14px;
   overflow: hidden;
   list-style: none;
 
@@ -1475,9 +1485,9 @@ $announce-color: $heading-color;
 
 .nav-menu {
   display: block;
-  margin: -8px -20px -10px -20px;
+  margin: 0 -20px -10px -20px;
   overflow: hidden;
-  padding: 10px 20px 10px 10px;
+  padding: 8px 20px 8px 10px;
   padding-right: 178px;
   background: rgba(255,255,255,0.05);
 
@@ -1537,7 +1547,7 @@ h2 small { font-size: 55%; }
   font-weight: 300;
   color: #fff;
   padding: 8px 20px;
-  margin: -15px -20px 0;
+  margin: -10px -20px 0;
   strong {font-size: 18px; display:block; margin:0 0 10px 0;}
 }
 

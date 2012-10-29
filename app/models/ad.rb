@@ -1,5 +1,5 @@
 class Ad < ActiveRecord::Base
-  TYPES_TO_SIZES = {
+  SIZES_TO_UNITS = {
     'leaderboard'       => [728,90],
     'skyscraper'        => [120,600],
     'banner'            => [468,60],
@@ -11,14 +11,16 @@ class Ad < ActiveRecord::Base
     'large_rectangle'   => [336,280]
   }
 
-  attr_accessible :code, :height, :name, :type, :width, :location, :network, :active
+  scope :active, where(active: true)
+
+  attr_accessible :code, :height, :name, :size, :width, :location, :network, :active
 
   before_save :set_width_and_height
 
   def set_width_and_height
-    if TYPES_TO_SIZES.has_key? type
-      self.width = TYPES_TO_SIZES[type][0]
-      self.height = TYPES_TO_SIZES[type][1]
+    if SIZES_TO_UNITS.has_key? size
+      self.width = SIZES_TO_UNITS[size][0]
+      self.height = SIZES_TO_UNITS[size][1]
     end
   end
 end

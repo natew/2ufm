@@ -37,7 +37,8 @@ var mp = (function() {
       startedAt,
       isLive,
       played = [],
-      justStarted;
+      justStarted,
+      playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10);
 
   // Playmode
   playMode = playMode || NORMAL;
@@ -138,41 +139,43 @@ var mp = (function() {
     play: function play() {
       var self = this;
       self.setCurSection('playing');
-      w.trigger('mp:play', player.state());
-      clearTimeout(playTimeout);
-      playTimeout = setTimeout(function() {
-        if (!smReady) {
-          delayStart = true;
-        }
-        else {
-          // Load
-          if (!playlist) self.load();
-          fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
 
-          if (playlist && playlistIndex < playlist.songs.length) {
-            // Load song
-            curSongInfo = playlist.songs[playlistIndex];
-            curSong = soundManager.createSound({
-              id:curSongInfo.id,
-              url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
-              onplay:events.play,
-              onstop:events.stop,
-              onpause:events.pause,
-              onresume:events.resume,
-              onfinish:events.finish,
-              whileloading:events.whileloading,
-              whileplaying:events.whileplaying,
-              onmetadata:events.metadata,
-              onload:events.onload,
-              volume:volume,
-              stream:(startedAt ? false : true)
-            });
+      if (!smReady) {
+        delayStart = true;
+      }
+      else {
+        // Load
+        if (!playlist) self.load();
+        fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
 
-            if (!curSection) {
-              var foundSection = $('#playlist-' + playlist.id + ' #song-' + curSongInfo.id);
-              if (foundSection.length) curSection = foundSection;
-            }
+        if (playlist && playlistIndex < playlist.songs.length) {
+          // Load song
+          curSongInfo = playlist.songs[playlistIndex];
+          curSong = soundManager.createSound({
+            id:curSongInfo.id,
+            url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
+            onplay:events.play,
+            onstop:events.stop,
+            onpause:events.pause,
+            onresume:events.resume,
+            onfinish:events.finish,
+            whileloading:events.whileloading,
+            whileplaying:events.whileplaying,
+            onmetadata:events.metadata,
+            onload:events.onload,
+            volume:volume,
+            stream:(startedAt ? false : true)
+          });
 
+          if (!curSection) {
+            var foundSection = $('#playlist-' + playlist.id + ' #song-' + curSongInfo.id);
+            if (foundSection.length) curSection = foundSection;
+          }
+
+          w.trigger('mp:play', player.state());
+
+          clearTimeout(playTimeout);
+          playTimeout = setTimeout(function() {
             fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
 
             played.push(playlistIndex);
@@ -189,15 +192,15 @@ var mp = (function() {
 
             // Play
             curSong.play();
-            return true;
-          }
-          else {
-            fn.log('playing fail');
-            self.refresh();
-            return false;
-          }
+          }, 300);
+          return true;
         }
-      }, 300);
+        else {
+          fn.log('playing fail');
+          self.refresh();
+          return false;
+        }
+      }
     },
 
     playSong: function playSong(index) {
@@ -482,8 +485,9 @@ var mp = (function() {
     },
 
     onload: function onload(success) {
-      fn.log(success);
       if (success) {
+        playCount++;
+        $.cookie('plays', playCount);
         pl.player.addClass('loaded');
         // Scrobbling
         $.ajax({
@@ -723,6 +727,10 @@ var mp = (function() {
 
     getPlayed: function() {
       return played;
+    },
+
+    plays: function() {
+      return playCount;
     }
   };
 

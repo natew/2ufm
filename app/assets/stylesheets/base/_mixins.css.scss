@@ -27,12 +27,12 @@
     #player-meta:before { @include linear-gradient(left, $header-color, rgba($header-color,0)); }
     #player-meta:after { @include linear-gradient(right, $header-color, rgba($header-color,0)); }
 
-    #modal { background-color: $body-bg; }
+    #modal,
+    #promo-fixed-lower,
     #navbar a.active { background: $body-bg; }
+
     .title.fixed { background: lighten($body-bg,5%); }
-
     #navbar { background: $navbar-bg; }
-
     .playlist section.active { background: $body-secondary !important; }
   }
 }

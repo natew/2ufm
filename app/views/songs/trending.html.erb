@@ -1,8 +1,8 @@
 <div class="title">
-  <h1>Popular Songs</h1>
+  <h1>Popular</h1>
   <p class="sub">The most liked songs today.  Found on top <%= link_to 'music blogs', blogs_path %> all over the web.</p>
 </div>
 
 <div class="whole">
-  <%= render :partial => 'stations/playlist', :locals => { :station => @trending, :songs => @trending_songs, :classname => 'open' } %>
+  <%= render partial: 'stations/playlist', locals: { station: @trending, songs: @trending_songs, classname: 'open show-count' } %>
 </div>
