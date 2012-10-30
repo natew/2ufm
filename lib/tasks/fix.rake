@@ -1,6 +1,10 @@
 $stdout.sync = true
 
 namespace :fix do
+  task :cache => :environment do
+    Rails.cache.clear
+  end
+
   task :duplicate_stations => :environment do
     stations = Station.select("slug, count(slug) as quantity").group(:slug).having("count(slug) > 1")
     stations.each do |station|
