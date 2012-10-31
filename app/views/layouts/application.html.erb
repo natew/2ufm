@@ -150,7 +150,6 @@
               <% else %>
                 <%= link_to 'Log in', '#modal-login', :class => 'modal control' %>
               <% end %>
-              <%= link_to "About", "/about", :class => "secondary control" %>
             </section>
           </div>
         </div>
@@ -207,6 +206,10 @@
   </div>
 
   <div id="logo-menu" class="pop-menu left-align">
+    <%= link_to "About", "/about", :class => "secondary control" %>
+    <%= link_to "Legal", "/legal", :class => "secondary control" %>
+
+    <h4>Theme</h4>
     <div id="head-colors" class="colors">
     <% (1..5).each do |color| %>
       <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
