@@ -8,8 +8,7 @@ module ApplicationHelper
       classes = ['signed_out']
     end
 
-    classes.push "body-theme-1 head-theme-1"
-
+    classes.push("theme-body-1 theme-head-1")
     classes.join(' ')
   end
 

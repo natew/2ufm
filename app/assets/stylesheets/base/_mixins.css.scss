@@ -29,13 +29,13 @@
   .body-color-#{$i} { background: $body-bg;
     &:hover { background: $body-bg !important; }}
 
-  .head-theme-#{$i} {
+  .theme-head-#{$i} {
     header { background: $header-bg; }
     #player-meta:before { @include linear-gradient(left, $header-bg, rgba($header-bg,0)); }
     #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
   }
 
-  .body-theme-#{$i} {
+  .theme-body-#{$i} {
     background: $body-bg;
 
     #modal,

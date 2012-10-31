@@ -28,6 +28,6 @@ var w = $(window),
     newPage = window.location.pathname,
     disableHovers = false,
     theme = {
-      body: body.attr('class').match(/body-theme-[\d]/),
-      head: body.attr('class').match(/head-theme-[\d]/)
+      body: $.cookie('theme-body') || 'theme-body-1',
+      head: $.cookie('theme-head') || 'theme-head-1'
     };

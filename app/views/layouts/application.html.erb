@@ -122,7 +122,7 @@
 
             <section>
               <%= link_to 'Fresh', songs_fresh_path, :id => 'nav-new', :class => 'pictos-time' %>
-              <%= link_to 'Popular', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
+              <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
               <%= link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'pictos-music control', 'data-toggle' => 'invisible' %>
 
               <div id="navbar-genres" class="invisible">
@@ -132,7 +132,6 @@
               </div>
 
               <%= link_to 'Browse', blogs_path, :id => 'nav-artists', :class => 'pictos-users' %>
-              <% link_to 'Popular', songs_popular_path, :id => 'nav-popular', :class => 'pictos-star' %>
             </section>
 
             <%- if user_signed_in? -%>
@@ -208,17 +207,15 @@
   </div>
 
   <div id="logo-menu" class="pop-menu left-align">
-    <h4>Header color</h4>
     <div id="head-colors" class="colors">
     <% (1..5).each do |color| %>
-      <%= link_to '', "head-theme-#{color}", class: "head-color-#{color}" %>
+      <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
     <% end %>
     </div>
 
-    <h4>Body color</h4>
     <div id="body-colors" class="colors">
     <% (1..5).each do |color| %>
-      <%= link_to '', "body-theme-#{color}", class: "body-color-#{color}" %>
+      <%= link_to '', "theme-body-#{color}", class: "body-color-#{color}" %>
     <% end %>
     </div>
   </div>
