@@ -680,11 +680,6 @@ header {
     margin-top: 10px;
     width: $navbar-width + 20;
 
-    #navbar-friends-inner {
-      overflow-x: hidden;
-      overflow-y: scroll;
-    }
-
     div { position: relative; }
     #nav-friends { color: #777; }
 
@@ -724,6 +719,8 @@ header {
     border-bottom: 2px solid rgba(0,0,0,0.8);
 
     .scroll-section-inner {
+      overflow-x: hidden;
+      overflow-y: scroll;
       padding: 10px 0;
       @include box-sizing(border-box);
     }
@@ -771,9 +768,6 @@ header {
 
 #navbar-genres-wrap {
   height: 200px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  position: relative;
   margin: 0 -20px 0 0;
 }
 
