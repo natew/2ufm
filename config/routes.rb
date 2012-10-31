@@ -43,6 +43,10 @@ Fusefm::Application.routes.draw do
   match '/shares/inbox', :to => 'shares#inbox'
   match '/shares/outbox', :to => 'shares#outbox'
 
+  match "/go/:to/:id", to: "songs#go", as: :affiliate
+  match "/go/amazon/:id", to: "songs#go", as: :amazon_affiliate
+  match "/go/itunes/:id", to: "songs#go", as: :itunes_affiliate
+
   match "/tune/:id", :to => "users#tune"
   match "/live/:id", :to => "users#live"
   match "/@:id", :to => "users#live"

@@ -492,7 +492,6 @@ function navDropdown(nav, pad, hover) {
       // fn.log(nav, pad, 'class=', nav.attr('class'));
       if (hover && !nav.is(':hover')) return false;
       if (nav.is('.song-share')) updateShare(nav);
-      else if (nav.is('.song-buy')) updateBuyLinks(nav);
 
       var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
           padding = pad ? pad : 10,
@@ -525,28 +524,6 @@ function navDropdown(nav, pad, hover) {
     if (navOpen) navOpen.removeClass('open').addClass('hidden');
     navOpen = false;
   }, delay);
-}
-
-function updateBuyLinks(nav) {
-  fn.log(nav.parents('.playlist'), nav.data('id'))
-  var songInfo = nav.parents('.playlist').data('playlist').songs[nav.data('index')],
-      artists = encodeURIComponent(songInfo.artist_name),
-      title = encodeURIComponent(songInfo.name.replace(/(\[|\().*?(\]|\))/g, '')),
-      titleEncoded = encodeURIComponent(title),
-      artistsEncoded = encodeURIComponent(artists);
-
-      fn.log(songInfo)
-
-  $('#buy a').each(function() {
-    var el = $(this),
-        url = el.data('link')
-                .replace('{{artists}}', artists)
-                .replace('{{title}}', title)
-                .replace('{{title_encoded}}', titleEncoded)
-                .replace('{{artists_encoded}}', artistsEncoded);
-
-    el.attr('href', url);
-  });
 }
 
 function updateShare(nav) {

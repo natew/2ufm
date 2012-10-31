@@ -1,4 +1,13 @@
 class SongsController < ApplicationController
+  def go
+    song = Song.find(params[:id])
+    go_urls = {
+      'amazon' => lambda { |song| "http://www.amazon.com/s/ref=nb_ss_dmusic/?tag=bassdo-20&url=search-alias%3Ddigital-music&field-keywords=#{affiliate_searchable(song.artist_name)}%20#{affiliate_searchable(song.name)}" },
+      'itunes' => lambda { |song| "http://click.linksynergy.com/fs-bin/stat?id=UAraRlBl3X8&offerid=146261&type=3&subid=0&tmpid=1826&RD_PARM1=http%253A%2F%2Fax.search.itunes.apple.com%2FWebObjects%2FMZSearch.woa%2Fwa%2FadvancedSearch%253FallArtistNames%253D#{URI.encode(affiliate_searchable(song.artist_name))}%2526completeTitle%253D#{URI.encode(affiliate_searchable(song.name))}%2526media%253Dmusic" }
+    }
+    redirect_to go_urls[params[:to]].call(song)
+  end
+
   def popular
     @popular = Station.popular
     @popular_songs = Song.playlist_order_popular

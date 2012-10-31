@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def affiliate_searchable(string)
+    URI.encode(string.gsub(/[\(\[\{].*[\)\]\}]/i, '').strip)
+  end
+
   private
 
   def set_layout

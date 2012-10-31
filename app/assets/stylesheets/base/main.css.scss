@@ -902,7 +902,8 @@ header #second-nav {
   }
 }
 
-#main-mid a.button[href^="http://"] {
+#main-mid a.button[href^="http://"],
+#main-mid .song-controls a {
   &:after { display:none; }
 }
 
@@ -1289,7 +1290,7 @@ $announce-color: $heading-color;
   color: #999;
   position: relative;
   opacity: 1;
-  @include box-shadow(0 2px 0 rgba(0,0,0,0.15));
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
 
   &.invisible {
     opacity: 0;
