@@ -125,7 +125,7 @@
               <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
               <%= link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'pictos-music control', 'data-toggle' => 'invisible' %>
 
-              <div id="navbar-genres" class="invisible">
+              <div id="navbar-genres" class="invisible scroll-section">
                 <div id="navbar-genres-wrap">
                   <%= render 'genres/links' %>
                 </div>
@@ -156,7 +156,7 @@
 
         <section id="navbar-friends">
           <h1>Friends</h1>
-          <div id="navbar-friends-inner">
+          <div id="navbar-friends-inner" class="scroll-section">
           </div>
         </section>
       </div>

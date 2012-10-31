@@ -24,6 +24,8 @@
                           darken($body-bg, 5%)
                           ), $i );
 
+  $navbar-dark: darken($navbar-bg, 2%);
+
   .head-color-#{$i} { background: $header-bg;
     &:hover { background: $header-bg !important; }}
   .body-color-#{$i} { background: $body-bg;
@@ -42,7 +44,9 @@
     #promo-fixed-lower,
     #navbar a.active { background: $body-bg; }
 
-    #navbar-genres:before { @include linear-gradient(bottom, $navbar-bg, rgba($navbar-bg,0)); }
+    .scroll-section {background: $navbar-dark;}
+    .scroll-section:before { @include linear-gradient($navbar-dark, rgba($navbar-dark,0)); }
+    .scroll-section:after { @include linear-gradient(bottom, $navbar-dark, rgba($navbar-dark,0)); }
 
     .title.fixed { background: lighten($body-bg,5%); }
     #navbar { background: $navbar-bg; }

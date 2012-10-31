@@ -679,12 +679,6 @@ header {
   #navbar-friends {
     margin-top: 10px;
     width: $navbar-width + 20;
-    background: rgba(0,0,0,0.2);
-
-    h1 {
-      background: rgba(255,255,255,0.035);
-      border-bottom: 2px solid rgba(0,0,0,0.8);
-    }
 
     #navbar-friends-inner {
       overflow-x: hidden;
@@ -722,24 +716,44 @@ header {
       font-style: normal;
     }
   }
+
+  .scroll-section {
+    position: relative;
+    border-top: 2px solid rgba(0,0,0,0.8);
+    border-bottom: 2px solid rgba(0,0,0,0.8);
+
+    div {
+      padding: 10px 0;
+      @include box-sizing(border-box);
+    }
+
+    &:after, &:before {
+      display: block;
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background-color: transparent !important;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    &:before {
+      bottom: auto;
+      top: 0;
+    }
+
+    &:after {
+      visibility: visible;
+    }
+  }
 }
 
 #navbar-genres {
   opacity: 1;
   height: 200px;
-
-  &:before {
-    display: block;
-    content: "";
-    position: absolute;
-    bottom: 35px;
-    left: 0;
-    right: 0;
-    height: 25px;
-    background-color: transparent !important;
-    z-index: 10;
-    pointer-events: none;
-  }
 
   @include transition(all linear 0.2s);
   &.invisible {

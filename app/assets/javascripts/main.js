@@ -178,6 +178,7 @@ startGetNavbar();
 
 // Custom scrollpanes
 $('#share-friends').dontScrollParent();
+$('.scroll-section div').dontScrollParent();
 
 // window.scroll
 w
@@ -199,8 +200,6 @@ $('#nav-genres').click(function() {
     windowResize();
   }, 200);
 });
-
-$('#navbar-genres-wrap').dontScrollParent();
 
 w.resize(fn.debounce(windowResize, 20));
 windowResize();
