@@ -757,6 +757,7 @@ header {
 
   @include transition(all linear 0.2s);
   &.invisible {
+    border: none;
     height: 0;
     opacity: 0;
   }
