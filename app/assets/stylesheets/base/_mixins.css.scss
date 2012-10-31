@@ -1,13 +1,7 @@
 @import 'bourbon';
 
-/* -----Themes----
-      1: Light
-      2: Dark
+/* -----Themes---- */
 
-      $body-secondary:  nth(( #214a73,
-                              #263e45
-                              ), $i );
-*/
 @for $i from 1 through 5 {
   $header-bg:       nth(( #418bd4,  /* blue */
                           #3d7352,  /* green */
