@@ -42,6 +42,8 @@
     #promo-fixed-lower,
     #navbar a.active { background: $body-bg; }
 
+    #navbar-genres:before { @include linear-gradient(bottom, $navbar-bg, rgba($navbar-bg,0)); }
+
     .title.fixed { background: lighten($body-bg,5%); }
     #navbar { background: $navbar-bg; }
     .playlist section.active { background: lighten($body-bg, 5%) !important; }

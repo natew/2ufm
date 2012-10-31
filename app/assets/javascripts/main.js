@@ -185,6 +185,14 @@ w
     updatePlaylist();
   });
 
+$('#nav-genres').click(function() {
+  setTimeout(function() {
+    windowResize();
+  }, 200);
+});
+
+$('#navbar-genres-wrap').dontScrollParent();
+
 w.resize(fn.debounce(windowResize, 20));
 windowResize();
 
