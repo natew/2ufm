@@ -11,4 +11,6 @@ $.fn.dontScrollParent = function()
 
         return true;
     });
+
+    return this;
 }

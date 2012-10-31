@@ -178,7 +178,7 @@ startGetNavbar();
 
 // Custom scrollpanes
 $('#share-friends').dontScrollParent();
-$('.scroll-section').dontScrollParent().find('div:first').addClass('scroll-section-inner');
+$('.scroll-section div:first').dontScrollParent().addClass('scroll-section-inner');
 
 // window.scroll
 w
