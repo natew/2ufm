@@ -578,6 +578,23 @@ section.open,
   display: none;
 }
 
+.playlist-shuffle {
+  width: 10000000px;
+
+  section {
+    float: left;
+    width: 520px;
+
+    &.played {
+      display: none;
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+}
+
 #body .reviews {
   margin-top: 10px;
 

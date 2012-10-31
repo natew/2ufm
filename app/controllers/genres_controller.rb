@@ -6,7 +6,12 @@ class GenresController < ApplicationController
   def show
     @genre = Genre.find_by_slug(params[:id])
     @genre_station = Station.new(title:@genre.name, id:'null')
-    @genre_songs = Song.by_genre(@genre).playlist_order_broadcasted
+
+    if params[:new]
+      @genre_songs = Song.by_genre(@genre).playlist_order_broadcasted
+    else
+      @genre_songs = Song.by_genre(@genre).playlist_order_random
+    end
 
     respond_to do |format|
       format.html

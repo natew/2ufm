@@ -108,6 +108,7 @@ class Song < ActiveRecord::Base
   scope :order_user_broadcasts, order('songs.user_broadcasts_count desc')
   scope :order_published, order('songs.published_at desc')
   scope :order_shared, order('shares.created_at desc')
+  scope :order_random, order('random() desc')
 
   # Selects
   scope :select_songs, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
@@ -126,6 +127,9 @@ class Song < ActiveRecord::Base
   scope :playlist_scope_order_published, select_songs.order_published.individual
   scope :playlist_scope_order_received, select_shared_songs.select_sender.with_sender.order_shared.individual
   scope :playlist_scope_order_sent, select_shared_songs.select_receiver.with_receiver.order_shared.individual
+
+  # Base scopes (most are defined below as methods)
+  scope :playlist_order_random, order_random.individual
 
   # Grouped Scopes
   scope :grouped, where('matching_id is not null').select(:matching_id).working
