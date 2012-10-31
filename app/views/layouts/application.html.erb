@@ -146,7 +146,7 @@
             <section class="nav-extra account">
               <% if user_signed_in? %>
                 <%= link_to "Account", user_account_path %>
-                <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', :class=> 'secondary' %>
+                <%= link_to 'Log out', destroy_user_session_path, :method => 'delete' %>
               <% else %>
                 <%= link_to 'Log in', '#modal-login', :class => 'modal control' %>
               <% end %>
