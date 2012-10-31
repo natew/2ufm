@@ -542,6 +542,7 @@ section.open  {
 
 section.active,
 .primary section {
+  .reviews { display: block; }
   .waveform { display: block; }
 }
 
