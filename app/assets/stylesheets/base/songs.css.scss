@@ -334,6 +334,7 @@ $song-player-height: 50px;
     pointer-events: none;
 
     .song-meta-pre {
+      line-height: 0;
       float: right;
     }
 
@@ -347,12 +348,17 @@ $song-player-height: 50px;
       white-space: nowrap;
       position: relative;
       display: inline-block;
-      padding: 1px 3px;
-      margin: 0 1px -8px;
+      padding: 0 3px;
+      margin: 3px 1px -10px;
 
       a {
+        line-height: 1.8em;
         font-weight: 400;
       }
+    }
+
+    .song-more {
+      margin: 0 0 0 4px;
     }
 
     .follow-station {
@@ -528,17 +534,15 @@ $song-player-height: 50px;
   }
 }
 
-section.active,
-section.open,
 .open section,
-.primary section, {
+section.open  {
+  .song-more, .waveform { display: none; }
   .reviews { display: block; }
-  .waveform { display: block; }
 }
 
-.open section .waveform,
-.open section .song-more {
-  display: none;
+section.active,
+.primary section {
+  .waveform { display: block; }
 }
 
 
