@@ -38,7 +38,8 @@ var mp = (function() {
       isLive,
       played = [],
       justStarted,
-      playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10);
+      playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10),
+      curSongLoaded = false;
 
   // Playmode
   playMode = playMode || NORMAL;
@@ -149,6 +150,8 @@ var mp = (function() {
         fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
 
         if (playlist && playlistIndex < playlist.songs.length) {
+          curSongLoaded = false;
+
           // Load song
           curSongInfo = playlist.songs[playlistIndex];
           curSong = soundManager.createSound({
@@ -459,18 +462,20 @@ var mp = (function() {
     },
 
     whileloading: function whileloading() {
-      pl.loaded.css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
+      if (!curSongLoaded) {
+        pl.loaded.css('width',(Math.round((this.bytesLoaded/this.bytesTotal)*100))+'%');
 
-      // Waiting to fast forward to right position
-      if (startedAt) {
-        var now = Math.ceil((new Date()).getTime() / 1000),
-            seconds_past = now - parseInt(startedAt, 10);
+        // Waiting to fast forward to right position
+        if (startedAt) {
+          var now = Math.ceil((new Date()).getTime() / 1000),
+              seconds_past = now - parseInt(startedAt, 10);
 
-            fn.log(startedAt, seconds_past, this.duration / 1000)
-        if (this.duration / 1000 >= seconds_past) {
-          this.setPosition(seconds_past * 1000);
-          this.play();
-          startedAt = null;
+              fn.log(startedAt, seconds_past, this.duration / 1000)
+          if (this.duration / 1000 >= seconds_past) {
+            this.setPosition(seconds_past * 1000);
+            this.play();
+            startedAt = null;
+          }
         }
       }
     },
@@ -485,6 +490,9 @@ var mp = (function() {
     },
 
     onload: function onload(success) {
+      curSongLoaded = true;
+      pl.loaded.css('width','100%');
+
       if (success) {
         playCount++;
         $.cookie('plays', playCount);
