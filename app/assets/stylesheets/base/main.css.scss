@@ -671,53 +671,51 @@ header {
       height: 16px;
     }
   }
-}
 
-#navbar-friends {
-  margin-top: 10px;
-  width: $navbar-width + 20;
+  #navbar-friends {
+    margin-top: 10px;
+    width: $navbar-width + 20;
 
-  #nav-friends { color: #777; }
+    #nav-friends { color: #777; }
 
-  .friend-link {
-    margin-left: 0;
-    margin-right: 0;
-    padding: 3px 25px 3px 10px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: 12px;
-    position: relative;
+    .friend-link {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 3px 25px 3px 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 12px;
+      position: relative;
 
-    &.active {
-      color: #fff;
+      &.active {
+        color: #fff;
+      }
     }
-  }
 
-  .online .tune-in { display: block; }
-  .tune-in {
-    display: none;
-    position: absolute;
-    z-index: 100;
-    top: 0;
-    right: 10px;
-    padding: 3px 5px;
-    font-size: 11px;
-    font-style: normal;
+    .online .tune-in { display: block; }
+    .tune-in {
+      display: none;
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      right: 10px;
+      padding: 3px 5px;
+      font-size: 11px;
+      font-style: normal;
+    }
   }
 }
 
 .scroll-section {
   position: relative;
-  background: rgba(0,0,0,0.2);
-  border-top: 2px solid rgba(0,0,0,0.8);
-  border-bottom: 2px solid rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.3);
 }
 
 .scroll-section-inner {
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: 0;
+  padding: 2px 0;
   @include box-sizing(border-box);
 
   &:after, &:before {
@@ -734,13 +732,13 @@ header {
   }
 
   &:before {
-    @include linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0));
+    @include linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0));
     bottom: auto;
     top: 0;
   }
 
   &:after {
-    @include linear-gradient(bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
+    @include linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0));
     visibility: visible;
   }
 
@@ -839,7 +837,6 @@ $placeholder-color: #999;
     outline: none;
     font-size: 14px;
     background: none;
-    border-bottom: 2px solid rgba(0,0,0,0.7);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
@@ -1098,7 +1095,6 @@ header #second-nav {
   right: 0;
   padding: 20px;
   z-index: 10000;
-  @include linear-gradient(#333, #222);
   @include box-shadow(0 0 10px rgba(0,0,0,0.7));
 
   &.active {
@@ -1115,6 +1111,11 @@ header #second-nav {
     right: 0;
     height: 2px;
     background: rgba(0,0,0,0.15);
+  }
+
+  h3 {
+    margin: -5px 0 5px;
+    color: rgba(255,255,255,0.6);
   }
 
   section {

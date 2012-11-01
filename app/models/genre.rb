@@ -23,6 +23,10 @@ class Genre < ActiveRecord::Base
     slug
   end
 
+  def get_title
+    name
+  end
+
   def map_name
     self.name = ALTERNATIVE_NAMES[name] if ALTERNATIVE_NAMES[name]
   end

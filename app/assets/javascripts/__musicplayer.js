@@ -627,6 +627,10 @@ var mp = (function() {
       return isPlaying;
     },
 
+    isLoaded: function() {
+      return typeof curSongInfo != 'undefined';
+    },
+
     toggleVolume: function() {
       player.toggleVolume();
     },

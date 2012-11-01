@@ -1,5 +1,12 @@
 # Application Helper
 module ApplicationHelper
+  def title
+    title = ["2u.fm"]
+    page_title = @title || (@primary and @primary.get_title) || (@listen_song and @listen_song.full_name) || controller.controller_name.capitalize
+    title.unshift page_title if page_title
+    title.join(' | ')
+  end
+
   def body_classes
     if user_signed_in?
       classes = ['signed_in']

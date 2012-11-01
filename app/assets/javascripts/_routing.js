@@ -33,6 +33,11 @@ var page = {
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);
 
+    // Update page title
+    if (!mp.isLoaded()) {
+      $('title').html($('#title').html());
+    }
+
     // Set page in music player && scroll to current section if found
     mp.setPage(curPage, function(foundSection) {
       fn.scrollTo(foundSection);

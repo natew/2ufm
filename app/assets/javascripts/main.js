@@ -15,11 +15,10 @@ $(function() {
   // Close modal
   $('#overlay').click(function() { modal(false); });
 
-  // Fade in effect
-  $('#overlay').removeClass('shown');
-
   // Modal if not logged in
-  doPlaysActions();
+  if (!doPlaysActions()) {
+    $('#overlay').removeClass('shown');
+  }
 
   if ($('#modal-new-user').length) {
     modal('#modal-new-user');
@@ -202,7 +201,7 @@ windowResize();
 
 function windowResize() {
   $('#navbar-friends-inner')
-    .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 38) })
+    .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 32) })
     .dontScrollParent();
 
   $('#navbar-menus')
@@ -786,8 +785,10 @@ function doPlaysActions() {
   if (!isOnline && !isTuningIn && mp.plays() > 2) {
     if ( !$('#page-identifier').is('.action-trending') ) {
       modal('#modal-login');
+      return true;
     } else {
       modal(false, true);
+      return false;
     }
   }
 }

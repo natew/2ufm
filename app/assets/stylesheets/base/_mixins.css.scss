@@ -38,6 +38,8 @@
   .theme-body-#{$i} {
     background: $body-bg;
 
+    #welcome { @include linear-gradient(lighten($body-bg, 5%), darken($body-bg, 2%)); }
+
     #modal,
     #promo-fixed-lower,
     #navbar a.active { background: $body-bg; }
@@ -88,8 +90,6 @@ $red: #983114;
 $light-red: lighten($red,6%);
 $dark-red: darken($red,6%);
 
-$orange: #eb983f;
-
 /* like */
 $like-color: $green;
 $like-light: lighten($like-color,8%);
@@ -108,9 +108,4 @@ $like-dark: darken($like-color,8%);
 @mixin background-gradient($start: #fff, $stop: #000) {
   @include linear-gradient($start, $stop);
   background-color: none;
-}
-
-@-webkit-keyframes rotation {
-    50% { -webkit-transform: rotate(180deg); }
-    100% { -webkit-transform: rotate(360deg); }
 }

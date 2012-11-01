@@ -9,6 +9,7 @@ class SongsController < ApplicationController
   end
 
   def popular
+    @title = 'Popular'
     @popular = Station.popular
     @popular_songs = Song.playlist_order_popular
 
@@ -20,6 +21,7 @@ class SongsController < ApplicationController
   end
 
   def trending
+    @title = 'Trending'
     @trending = Station.trending
     @trending_songs = Song.playlist_order_trending
 
@@ -31,6 +33,7 @@ class SongsController < ApplicationController
   end
 
   def fresh
+    @title = 'Freshest'
     @just_in_station = Station.newest
     @just_in_songs = Song.playlist_order_published
 

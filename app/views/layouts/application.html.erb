@@ -8,16 +8,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <%- if params[:listen]
-      @listen_song = Song.find(params[:listen_song_id])
-    -%>
-    <title><%= @listen_song.full_name %> | 2u.fm</title>
+        @listen_song = Song.find(params[:listen_song_id]) -%>
     <!-- OpenGraph -->
     <meta property="og:title" content="<%= @listen_song.full_name %>" />
     <meta property="og:description" content="Listen now on 2u.fm" />
     <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
-  <%- else -%>
-    <title>2u.fm</title>
   <%- end -%>
+
+  <title><%= title %></title>
 
   <!-- TODO: remove -->
   <meta name="robots" content="noindex">
@@ -176,7 +174,7 @@
 
   <% if !user_signed_in? %>
   <div id="welcome">
-    <small>What is 2u.fm?</small>
+    <h3>What is 2u.fm?</h3>
     <section>
       <h1>Up to the minute songs from music blogs around the web.</h1>
       <h1>The easiest way to share and listen to music with your friends.</h1>
@@ -207,21 +205,19 @@
   </div>
 
   <div id="logo-menu" class="pop-menu left-align">
-    <%= link_to "About", "/about", :class => "secondary control" %>
-    <%= link_to "Legal", "/legal", :class => "secondary control" %>
-
-    <h4>Theme</h4>
     <div id="head-colors" class="colors">
     <% (1..5).each do |color| %>
       <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
     <% end %>
     </div>
-
     <div id="body-colors" class="colors">
     <% (1..5).each do |color| %>
       <%= link_to '', "theme-body-#{color}", class: "body-color-#{color}" %>
     <% end %>
     </div>
+
+    <%= link_to "About", "/about", :class => "secondary control" %>
+    <%= link_to "Legal", "/legal", :class => "secondary control" %>
   </div>
 
   <div id="friends" class="pop-menu right-align"></div>
