@@ -30,7 +30,7 @@
   reviews          ||= nil
   cache_val        ||= nil
   id_page            = "#{id}-#{page}"
-  cache              = cache_key(['v5', station, page, per, already_limited, page_request, classname, cache_val, style])
+  cache              = cache_key(['v5', id, page, per, already_limited, page_request, classname, cache_val, style])
 -%>
 
 <%- if !page_request and !already_limited and total_pages > 1
