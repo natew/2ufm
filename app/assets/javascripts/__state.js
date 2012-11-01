@@ -27,6 +27,7 @@ var w = $(window),
     fakeUrl,
     newPage = window.location.pathname,
     disableHovers = false,
+    genresOpen = $.cookie('genres-open') || false;
     theme = {
       body: $.cookie('theme-body') || 'theme-body-1',
       head: $.cookie('theme-head') || 'theme-head-1'

@@ -195,18 +195,12 @@ w
     updatePlaylist();
   });
 
-$('#nav-genres').click(function() {
-  setTimeout(function() {
-    windowResize();
-  }, 200);
-});
-
 w.resize(fn.debounce(windowResize, 20));
 windowResize();
 
 function windowResize() {
   $('#navbar-friends-inner')
-    .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 37) })
+    .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 38) })
     .dontScrollParent();
 
   $('#navbar-menus')
@@ -423,6 +417,17 @@ $('#player-buttons .broadcast a').click(function() {
   $(this).parent().toggleClass('remove');
 });
 
+// Genres
+$('#nav-genres').click(function() {
+  setTimeout(function() {
+    $.cookie('genres-open', !$('#navbar-genres').is('.invisible'));
+    windowResize();
+  }, 210);
+});
+
+if ($.cookie('genres-open') === 'true') {
+  $('#nav-genres').click();
+}
 
 
 
