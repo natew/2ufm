@@ -2,7 +2,7 @@
   style            ||= 'song'
   station          ||= Station.new
   per                = Yetting.per
-  id                 = station.id || 0
+  id               ||= station.id || 0
   page_request     ||= false
   already_limited  ||= false
   dont_paginate    ||= false

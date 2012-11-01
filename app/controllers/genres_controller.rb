@@ -5,7 +5,7 @@ class GenresController < ApplicationController
 
   def show
     @genre = Genre.find_by_slug(params[:id])
-    @genre_station = Station.new(title:@genre.name, id:'null')
+    @genre_station = Station.new(title: @genre.name, id: integers_from_string(@genre.name))
 
     if true
       @genre_songs = Song.by_genre(@genre).playlist_order_broadcasted
