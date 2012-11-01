@@ -619,6 +619,14 @@ header {
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
+    &[class*="pictos-"],
+    &#nav-user {
+      padding-top: 7px;
+      padding-bottom: 7px;
+      font-size: 16px;
+      padding-left: 32px;
+    }
+
     &:hover { background: rgba(255,255,255,0.05); }
     &:before {
       padding-top: 3px;
@@ -629,14 +637,6 @@ header {
     &.active {
       color: #fff;
       &:before { color:#fff; }
-    }
-
-    &[class*="pictos-"],
-    &#nav-user {
-      padding-top: 7px;
-      padding-bottom: 7px;
-      font-size: 16px;
-      padding-left: 32px;
     }
 
     span {
@@ -673,20 +673,18 @@ header {
   }
 
   .account {
-    margin-top: 0;
   }
 
   #navbar-friends {
     margin-top: 10px;
     width: $navbar-width + 20;
 
-    div { position: relative; }
     #nav-friends { color: #777; }
 
     .friend-link {
       margin-left: 0;
       margin-right: 0;
-      padding: 3px 35px 3px 10px;
+      padding: 3px 25px 3px 10px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -705,7 +703,7 @@ header {
       position: absolute;
       z-index: 100;
       top: 0;
-      right: 20px;
+      right: 10px;
       padding: 3px 5px;
       font-size: 11px;
       font-style: normal;
@@ -733,20 +731,20 @@ header {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 10px;
+    height: 15px;
     background-color: transparent !important;
     z-index: 10;
     pointer-events: none;
   }
 
   &:before {
-    @include linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0));
+    @include linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0));
     bottom: auto;
     top: 0;
   }
 
   &:after {
-    @include linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0));
+    @include linear-gradient(bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
     visibility: visible;
   }
 
