@@ -57,7 +57,7 @@ $(function() {
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 
-navItems = getNavItems();
+setNavItems();
 setShares($('#nav-shares').attr('data-shares'));
 
 // Cookies
@@ -477,19 +477,16 @@ function mpClick(selector, callback) {
   });
 }
 
-function getNavItems() {
-  var items = {};
+function setNavItems() {
   $('#navbar a').each(function() {
     var t = $(this);
-    items[t.attr('href')] = t;
+    navItems[t.attr('href')] = t;
   });
-  return items;
 }
 
 function setNavActive(page) {
   page = page.replace(/\/p-[0-9]+.*/, '');
   // Update #navbar
-  fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');
   var newNavActive = navItems[page];
   if (!newNavActive) newNavActive = navItems['/' + page.split('/')[1]];
@@ -638,6 +635,8 @@ function getNavbar() {
             $(this).removeClass('hidden');
           });
         updateShareFriends(friendsHtml);
+        setNavItems();
+        setNavActive(mp.getPage());
 
         $('#friends').html(friendsHtml);
       }
