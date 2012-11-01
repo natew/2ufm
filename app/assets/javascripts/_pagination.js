@@ -25,8 +25,10 @@ var pagination = (function(fn, mp) {
       isLoading = true;
       current = playlistPage + 1;
 
+      var newPageURL = getNewPageURL(current);
+
       $.ajax({
-        url: mp.getPage(),
+        url: newPageURL,
         type: 'get',
         headers: {
           Accept: "text/page"
@@ -40,7 +42,7 @@ var pagination = (function(fn, mp) {
         },
         success: function(data) {
           $(window).trigger('gotPageLoad', data);
-          updatePageURL(current);
+          updatePageURL(newPageURL);
           var playlist = $('#playlist-' + id + '-' + current);
           link.html('Page ' + current).addClass('loaded');
           isLoading = false;
@@ -68,7 +70,7 @@ var pagination = (function(fn, mp) {
     return page ? parseInt(page[1],10) : 1;
   }
 
-  function updatePageURL(page) {
+  function getNewPageURL(page) {
     var url = mp.getPage(),
         page = 'p-' + page,
         page_regex = /p-[0-9]+/,
@@ -85,6 +87,10 @@ var pagination = (function(fn, mp) {
     fn.log(url);
 
     url += hash;
+    return url;
+  }
+
+  function updatePageURL(url) {
     fn.replaceState(url);
     mp.updatePage(url);
   }
