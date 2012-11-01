@@ -595,7 +595,7 @@ header {
   }
 
   #navbar-menus-inner {
-    padding-top: $header-height + 35px;
+    padding-top: $header-height + 31px;
   }
 
   h1 {
@@ -836,7 +836,8 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: rgba(0,0,0,0.2);
+    background: none;
+    border-bottom: 2px solid rgba(0,0,0,0.7);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
