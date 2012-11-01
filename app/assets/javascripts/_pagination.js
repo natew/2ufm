@@ -24,7 +24,6 @@ var pagination = (function(fn, mp) {
 
       isLoading = true;
       current = playlistPage + 1;
-      updatePageURL(current);
 
       $.ajax({
         url: mp.getPage(),
@@ -41,6 +40,7 @@ var pagination = (function(fn, mp) {
         },
         success: function(data) {
           $(window).trigger('gotPageLoad', data);
+          updatePageURL(current);
           var playlist = $('#playlist-' + id + '-' + current);
           link.html('Page ' + current).addClass('loaded');
           isLoading = false;

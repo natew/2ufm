@@ -3,11 +3,7 @@ class ListensController < ApplicationController
     @listen = Listen.find_by_shortcode(params[:id])
     route = Rails.application.routes.recognize_path(@listen.url)
 
-    # Setup ID for certain pages
-    params[:id] = @listen.url[1..-1].gsub(/\?.*/, '') if route[:controller] == 'stations'
-    params[:id] = @listen.url[1..-1].gsub(/\/.*/, '') if route[:action] == 'feed'
-
-    # Pass through listen
+    params[:id] = route[:id]
     params[:listen_song_id] = @listen.song_id
     params[:listen] = @listen.to_json
     params[:route] = url_for(route)

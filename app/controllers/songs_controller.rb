@@ -60,7 +60,7 @@ class SongsController < ApplicationController
     @blogs_songs = Song.joins('CROSS JOIN blogs as related_blogs').where('related_blogs.id IN (?)', @blog_ids).playlist_order_trending
 
     respond_to do |format|
-      format.html
+      format.html { render 'show' }
     end
   end
 
