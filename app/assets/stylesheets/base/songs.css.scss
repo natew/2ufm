@@ -110,6 +110,7 @@ $song-player-height: 50px;
   h4 {
     padding: 8px;
     margin: 15px 0 0;
+    background: rgba(0,0,0,0.1);
 
     &:first-child {
       margin: -10px 0 0;
@@ -535,12 +536,13 @@ $song-player-height: 50px;
 
 .open section,
 section.open  {
-  .song-more, .waveform { display: none; }
+  .waveform { display: none; }
   .reviews { display: block; }
 }
 
 section.active,
 .primary section {
+  .song-more { display: none; }
   .reviews { display: block; }
   .waveform { display: block; }
 }

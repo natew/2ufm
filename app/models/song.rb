@@ -160,6 +160,7 @@ class Song < ActiveRecord::Base
   end
 
   def self.song_page(songs, song_id)
+    return false if songs.length == 1
     sql = songs.to_sql
     order_by_index = sql.rindex(/(order by .*)/i)
     order_by = sql[order_by_index..-1]

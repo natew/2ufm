@@ -8,8 +8,15 @@ class ListensController < ApplicationController
     params[:listen] = @listen.to_json
     params[:route] = url_for(route)
 
+    if route[:controller] == 'shares'
+      controller_name = "songs_controller".camelize.constantize
+      route[:action] = 'show'
+      params[:id] = params[:listen_song_id]
+    else
+      controller_name = "#{route[:controller]}_controller".camelize.constantize
+    end
+
     # Render controller
-    controller_name = "#{route[:controller]}_controller".camelize.constantize
     controller = controller_name.new
     controller.request = @_request
     controller.response = @_response

@@ -1,4 +1,4 @@
-class MainController < ApplicationController
+class MainsController < ApplicationController
   def about
   end
 

@@ -27,10 +27,8 @@ class Blog < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates_with SlugValidator
 
-  attr_writer :current_step
-
   # Whitelist mass-assignment attributes
-  attr_accessible :name, :url, :description, :image, :feed_url, :genre_ids
+  attr_accessible :name, :url, :description, :image, :feed_url, :genre_ids, :active, :email
 
   # Scopes
   scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
@@ -51,6 +49,7 @@ class Blog < ActiveRecord::Base
   #     http://anemone.rubyforge.org/
   #     http://anemone.rubyforge.org/doc/index.html
   def crawl
+    return unless active
     logger.info "Crawling #{name}"
     pages = 0
     self.crawl_started_at = Time.now
@@ -155,10 +154,12 @@ class Blog < ActiveRecord::Base
 
   # Get only new posts
   def get_new_posts
+    return unless active
     save_posts(get_new_rss_entries)
   end
 
   def delayed_get_new_posts
+    return unless active
     if Rails.application.config.delay_jobs
       delay(:priority => 5).get_new_posts
     else
@@ -189,6 +190,7 @@ class Blog < ActiveRecord::Base
 
   # Returns only new entries
   def get_new_rss_entries
+    return unless active
     if feed_url
       logger.info "Updating feed for #{name}"
       posts = []
@@ -255,41 +257,6 @@ class Blog < ActiveRecord::Base
 
   def latest_post
     posts.order('created_at desc').first
-  end
-
-  def current_step
-    @current_step || steps.first
-  end
-
-  def steps
-    %w[about info verify]
-  end
-
-  def next_step
-    self.current_step = steps[steps.index(current_step)+1]
-  end
-
-  def previous_step
-    self.current_step = steps[steps.index(current_step)-1]
-  end
-
-  def first_step?
-    current_step == steps.first
-  end
-
-  def last_step?
-    current_step == steps.last
-  end
-
-  def step_index
-    steps.index(current_step)+1
-  end
-
-  def all_valid?
-    steps.all? do |step|
-      self.current_step = step
-      valid?
-    end
   end
 
   def make_station

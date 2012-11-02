@@ -933,6 +933,7 @@ header #second-nav {
 .pictos-forward:before {content: "]";}
 .pictos-period:before,
 .pictos-normal:before {content: ".";}
+.pictos-tags:before {content: "z";}
 
 #main-mid a[href^="http://"] {
   padding-right: .4em;
@@ -947,7 +948,8 @@ header #second-nav {
 }
 
 #main-mid a.button[href^="http://"],
-#main-mid .song-controls a {
+#main-mid .song-controls a,
+#main-mid #recaptcha_area a {
   &:after { display:none; }
 }
 

@@ -14,7 +14,7 @@ gem 'bourbon'
 gem 'cocaine', '= 0.3.2'
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
-# gem 'aws-s3'
+gem 'aws-s3'
 gem 'jquery-rails'
 
 # Caching
@@ -58,6 +58,7 @@ gem 'loofah-activerecord'
 gem 'sanitize'
 gem 'hashie'
 gem 'bson_ext'
+gem 'recaptcha'
 
 # Pagination
 gem 'kaminari'
@@ -75,7 +76,6 @@ gem 'waveform'
 gem 'ffmpeg'
 
 # Deploy
-gem 'capistrano'
 gem 'whenever', require: false
 
 group :assets do
@@ -88,6 +88,7 @@ group :production do
 end
 
 group :development do
+  gem 'capistrano', require: false
   gem 'foreman'
   gem 'taps'
   gem 'quiet_assets'

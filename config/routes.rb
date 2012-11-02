@@ -28,16 +28,15 @@ Fusefm::Application.routes.draw do
   resources :songs, only: [:index, :show]
   resources :follows, only: [:create, :destroy]
   resources :broadcasts, only: [:create, :destroy]
-  resources :comments, only: [:create, :destroy]
-  resources :comments, only: [:create]
+  # resources :comments, only: [:create, :destroy]
   resources :listens, only: [:create, :show]
   resources :actions, only: [:create]
   resources :genres, only: [:index, :show]
-  resources :blogs, only: [:new]
+  resources :blogs, only: [:index, :new, :create]
 
   match '/browse/artists(/:letter)', to: 'artists#index', as: 'artists'
   match '/browse/users(/:letter)', to: 'users#index', as: 'users'
-  match '/browse(/:genre)', to: 'blogs#index', as: 'blogs'
+  match '/browse(/:genre)', to: 'blogs#index', as: 'browse'
 
   resources :shares, :only => [:create]
   match '/shares/inbox', :to => 'shares#inbox'
@@ -55,9 +54,6 @@ Fusefm::Application.routes.draw do
   match "/songs/:id", :to => "songs#failed", :as => :post
   match "/broadcasts/:song_id", :to => "broadcasts#create", :as => :post
   match "/follows/:station_id", :to => "follows#create", :as => :post
-  match "/search", :to => 'main#search'
-  match "/loading", :to => 'main#loading'
-  match '/dl/mac', :to => 'main#mac'
   match '/my/account', :to => 'users#edit', :as => 'user_account'
   match '/my/privacy', :to => 'users#privacy', :as => 'user_privacy'
   match '/activate/:id/:key', :to => 'users#activate'
@@ -76,12 +72,15 @@ Fusefm::Application.routes.draw do
   match "/:id", :to => 'stations#show', :as => :blog
   match "/:id", :to => 'stations#show', :as => :user
 
-  resources :main, only:[], path: '/us' do
+  resource :main, only:[], path: '/us' do
     member do
       get 'about'
       get 'legal'
       get 'privacy'
       get 'contact'
+      get 'search'
+      get 'loading'
+      get 'mac'
     end
   end
 

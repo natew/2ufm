@@ -17,9 +17,6 @@
 
   <title><%= title %></title>
 
-  <!-- TODO: remove -->
-  <meta name="robots" content="noindex">
-
   <!-- HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -55,7 +52,7 @@
 
   <div id="body-wrap">
     <header>
-      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '-4' %></h1>
+      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '-2', 'data-delay' => '300' %></h1>
 
       <div id="bar">
         <div id="player">
@@ -109,7 +106,7 @@
     </div>
 
     <div id="main-mid">
-      <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
+      <%= form_tag '/us/search', :method => 'get', :id => "search-form" do %>
         <%= text_field_tag :query, '' %>
         <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
       <% end -%>
@@ -119,8 +116,8 @@
           <div id="navbar-menus-inner">
 
             <section>
-              <%= link_to 'Fresh', songs_fresh_path, :id => 'nav-new', :class => 'pictos-time' %>
               <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
+              <%= link_to 'Fresh', songs_fresh_path, :id => 'nav-new', :class => 'pictos-time' %>
               <%= link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'pictos-music control', 'data-toggle' => 'invisible' %>
 
               <div id="navbar-genres" class="invisible scroll-section">
@@ -129,7 +126,7 @@
                 </div>
               </div>
 
-              <%= link_to 'Browse', blogs_path, :id => 'nav-artists', :class => 'pictos-users' %>
+              <%= link_to 'Browse', browse_path, :id => 'nav-artists', :class => 'pictos-tags' %>
             </section>
 
             <%- if user_signed_in? -%>
@@ -216,8 +213,10 @@
     <% end %>
     </div>
 
-    <%= link_to "About", "/about", :class => "secondary control" %>
-    <%= link_to "Legal", "/legal", :class => "secondary control" %>
+    <%= link_to 'About Us', about_main_path %>
+    <%= link_to 'Legal', legal_main_path %>
+    <%= link_to 'Privacy Policy', privacy_main_path %>
+    <%= link_to 'Contact', contact_main_path %>
   </div>
 
   <div id="friends" class="pop-menu right-align"></div>

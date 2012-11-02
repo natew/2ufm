@@ -67,37 +67,22 @@ class BlogsController < ApplicationController
   def new
     session[:blog_params] ||= {}
     @blog = Blog.new(session[:blog_params])
-    @blog.current_step = session[:blog_step]
 
     respond_to do |format|
       format.html
     end
   end
 
-
   def create
     session[:blog_params].deep_merge!(params[:blog]) if params[:blog]
     @blog = Blog.new(session[:blog_params])
-    @blog.current_step = session[:blog_step]
-
-    if @blog.valid?
-      if params[:back_button]
-        @blog.previous_step
-      elsif @blog.last_step?
-        @blog.save if @blog.all_valid?
-      else
-        @blog.next_step
-      end
-      session[:blog_step] = @blog.current_step
-    end
+    @blog.active = false
 
     respond_to do |format|
-      if @blog.new_record?
-        format.html { render 'new' }
+      if verify_recaptcha(model: @blog, message: "Error with reCAPTCHA!") && @blog.save
+        format.html { redirect_to '/', notice: "Thanks! Your submission will be reviewed and we will reply to you shortly." }
       else
-        session[:blog_step] = session[:blog_params] = nil
-        flash[:notice] = "Blog saved!"
-        redirect_to @blog
+        format.html { render action: 'new', notice: "We found a few errors submitting your blog" }
       end
     end
   end

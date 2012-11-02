@@ -7,7 +7,7 @@
   <ul class="subnav">
     <li><%= nav_link_to 'Random', blogs_path %></li>
     <% Genre.all.each do |genre| %>
-      <li><%= nav_link_to genre.name, blogs_path(genre) %></li>
+      <li><%= nav_link_to genre.name, browse_path(genre) %></li>
     <% end %>
   </ul>
 

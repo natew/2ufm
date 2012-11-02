@@ -129,7 +129,7 @@ $('#query')
     if (e.keyCode == 27) $(this).blur();
   })
   .marcoPolo({
-    url: '/search',
+    url: '/us/search',
     selectable: ':not(.unselectable)',
     formatItem: function (data, $item) {
       if (data.selectable == 'false') $item.addClass('unselectable');
@@ -368,18 +368,22 @@ body.allOn('click', {
     e.preventDefault();
     var old = theme.head;
     theme.head = el.attr('href');
-    body.addClass(theme.head);
-    body.removeClass(old);
-    $.cookie('theme-head', theme.head);
+    if (old != theme.head) {
+      body.addClass(theme.head);
+      body.removeClass(old);
+      $.cookie('theme-head', theme.head);
+    }
   },
 
   '#body-colors a': function(e, el) {
     e.preventDefault();
     var old = theme.body;
     theme.body = el.attr('href');
-    body.addClass(theme.body);
-    body.removeClass(old);
-    $.cookie('theme-body', theme.body);
+    if (old != theme.body) {
+      body.addClass(theme.body);
+      body.removeClass(old);
+      $.cookie('theme-body', theme.body);
+    }
   }
 });
 
@@ -505,7 +509,9 @@ function pjax(url, container) {
 }
 
 function navDropdown(nav, pad, hover) {
-  var delay = hover ? 100 : 0;
+  var delay = hover ? 100 : 0,
+      attrDelay = nav ? parseInt(nav.attr('data-delay') || 0, 10) : false,
+      delay = attrDelay || delay;
   setTimeout(function() {
     if (nav && nav.length) {
       // fn.log(nav, pad, 'class=', nav.attr('class'));

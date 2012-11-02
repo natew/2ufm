@@ -297,7 +297,26 @@ var pjax = $.pjax = function( options ) {
   }
 
   pjax.options = options
-  if (!options.dontRequest) pjax.xhr = $.ajax(options)
+
+  // If you don't want pjax to fire the ajax but just update with a pjax state
+  if (options.dontDoAjax) {
+    var doState = {
+      url: options.url,
+      pjax: options.container,
+      fragment: options.fragment,
+      timeout: options.timeout
+    };
+
+    if (options.replace) {
+      window.history.replaceState(doState, document.title, options.url);
+    } else {
+      window.history.pushState(doState, document.title, options.url);
+    }
+  }
+  else {
+    pjax.xhr = $.ajax(options)
+  }
+
   $(document).trigger('pjax', [pjax.xhr, options])
 
   return pjax.xhr

@@ -45,7 +45,7 @@ class SongsController < ApplicationController
 
   def show
     # Song and song playlist
-    search_type = params[:id].is_numeric? ? :id : :slug
+    search_type = (params[:id].is_a?(Numeric) || params[:id].is_numeric?) ? :id : :slug
     @song = Song.where(search_type => params[:id]).first || not_found
     @song_playlist = Song.where(:id => @song.matching_id).playlist_order_oldest
     @primary = @song
