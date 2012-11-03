@@ -16,5 +16,5 @@
     <%= link_to title, '/' + slug %>
     <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song, :class => 'tip', :title => "#{song.blog_broadcasts_count} blogs wrote about this song" if !broadcasted and song.reposted? %>
   </div>
-  <% if !with_follow %><time datetime="<%= js_date(time) %>"><%= relative_time(time) %></time><% end %>
+  <% if !with_follow %><time datetime="<%= time.to_i %>"><%= relative_time(time) %></time><% end %>
 </div>

@@ -31,7 +31,7 @@ var pagination = (function(fn, mp) {
         url: newPageURL,
         type: 'get',
         headers: {
-          Accept: "text/page"
+          Accept: "text/html+page"
         },
         statusCode: {
           204: function() {

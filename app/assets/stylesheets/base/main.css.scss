@@ -6,15 +6,8 @@ body, button, input, select, textarea, #navbar h1 {
   color: #bbb;
 }
 
-::selection {
-  background: #000;
-  }
-::-moz-selection {
-  background: #000;
-}
-
-:focus {outline:none;}
-a:active, a:visited { outline: 0; }
+::selection { background: #000; }
+::-moz-selection { background: #000; }
 ::-moz-focus-inner { border: 0; }
 
 /* Layout */
@@ -30,8 +23,16 @@ p {
   font-weight: 400;
 }
 
-a { color: $link-color; @include transition(color .1s linear); }
+a {
+  outline: 0;
+  color: $link-color;
+  @include transition(color .1s linear);
+}
+
 a:hover { color: $link-hover; }
+a:focus { outline:none; }
+a:active,
+a:visited { outline: 0; }
 
 #main-mid {
   padding: $header-height 0 0;
@@ -1014,7 +1015,8 @@ header #second-nav {
 
   #share-friends {
     max-height: 200px;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
     clear: both;
 
     &:before {
