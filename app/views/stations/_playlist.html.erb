@@ -19,7 +19,7 @@
 
   if !single
     paginate         = (paginate == false || style == 'mini') ? false : true
-    songs          ||= station.songs.playlist_order_broadcasted
+    songs          ||= station.songs.playlist_broadcasted
     total_pages      = page + 1 # trick for non-paginate capable
 
     if !page_request and !already_limited

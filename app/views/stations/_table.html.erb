@@ -1,7 +1,7 @@
 <%- station    ||= Station.new
 		id           = station.id || 0
 		per        ||= 12
-    songs      ||= station.songs.playlist_order_published.page(params[:page]).per(per)
+    songs      ||= station.songs.playlist_published.page(params[:page]).per(per)
     pagination ||= true -%>
 <table id="playlist-<%= id %>" class="playlist" data-playlist="{&quot;station&quot;: <%= station.to_playlist_json %>, &quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
 	<thead>
