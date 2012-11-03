@@ -599,11 +599,36 @@ header {
   }
 
   h1 {
+    position: relative;
     font-size: 12px;
     font-weight: 300;
     padding: 3px 10px;
     margin: 0;
     color: rgba(255,255,255,0.3);
+
+    div {
+      position: absolute;
+      top: -4px;
+      right: 12px;
+
+      a {
+        font-size: 11px;
+        float: right;
+        width: 0;
+        overflow: hidden;
+        padding: 2px 0 2px 25px !important;
+        margin: 0 0 0 -5px;
+
+        &:hover {
+          background: none;
+          &:before { color: #fff; }
+        }
+
+        &.active {
+          background: none !important;
+        }
+      }
+    }
   }
 
   a {
@@ -637,6 +662,10 @@ header {
     &.active {
       color: #fff;
       &:before { color:#fff; }
+    }
+
+    &.secondary, &.secondary:before {
+      color: rgba(255,255,255,0.2);
     }
 
     span {
@@ -753,12 +782,10 @@ header {
 }
 
 #navbar-genres {
-  opacity: 1;
   overflow: hidden;
 
   &.invisible,
   &.invisible #navbar-genres {
-    opacity: 0;
     border-width: 0;
     height: 0;
   }
@@ -836,7 +863,7 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: none;
+    background: rgba(0,0,0,0.1);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
@@ -934,6 +961,7 @@ header #second-nav {
 .pictos-period:before,
 .pictos-normal:before {content: ".";}
 .pictos-tags:before {content: "z";}
+.pictos-delete:before {content: "D";}
 
 #main-mid a[href^="http://"] {
   padding-right: .4em;
@@ -1079,12 +1107,6 @@ header #second-nav {
     width: 100%;
     @include box-sizing(border-box);
   }
-}
-
-.friends-list {
-  margin: 0 0 20px 0;
-  overflow: scroll;
-  text-align: left;
 }
 
 

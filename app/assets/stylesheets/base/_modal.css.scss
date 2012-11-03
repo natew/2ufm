@@ -129,6 +129,7 @@
 
   .friends-list {
     max-height: 350px;
+    .station-link { display:none; }
   }
 
   .greater {
@@ -204,6 +205,10 @@
   .stations {
     max-height: 400px;
     overflow-y: scroll;
+
+    .play-station {
+      display: none;
+    }
   }
 }
 

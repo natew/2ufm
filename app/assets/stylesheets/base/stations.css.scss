@@ -75,39 +75,50 @@ $station-image-small: $play-button-small;
       }
     }
 
-    p {
-      margin: 0;
-    }
+    p { margin: 0; }
 
-    .station-follow {
+    .station-buttons {
       position: absolute;
-      top: $station-pad - 2;
+      top: $station-pad + 6;
       right: $station-pad;
       z-index: 11;
+      line-height: 1.5em;
+
+      div {
+        display: inline-block;
+      }
 
       a {
         font-size: 14px;
         padding: 5px 10px 9px;
+        margin: 0px 0 -30px 6px;
 
         span {
           font-size: 14px;
-          line-height: 1.5em;
-          margin-left: 0;
+          display: inline-block;
+          margin: 3px -1px 0 -2px;
         }
       }
 
       .count {
-        position: absolute;
-        font-size: 11px;
-        padding: 0;
-        bottom: -20px;
+        font-size: 14px;
+        padding: 5px 8px 0;
+        margin: 0 0 -4px 0;
         background: none;
-        width: 100%;
-        text-align: center;
+        width: 40px;
+        font-weight: normal;
+        text-align: left;
         @include box-sizing(border-box);
       }
     }
   }
+}
+
+.friends-list {
+  margin: 0 0 20px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
 }
 
 .shelf {
