@@ -497,7 +497,14 @@ function setNavActive(page) {
 
   // Update .nav-menu
   $('.nav-menu a').removeClass('active');
-  $('.nav-menu a[href="' + page + '"]').addClass('active');
+
+  var newNavEl = $('.nav-menu a[href="' + page + '"]')
+  if (!newNavEl.length) {
+    var split = page.split('/');
+    newNavEl = $('.nav-menu a[href="' + split.slice(0, split.length - 1).join("/") + '"]')
+  }
+
+  newNavEl.addClass('active');
 }
 
 function pjax(url, container) {

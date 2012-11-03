@@ -7,9 +7,6 @@ var page = {
     $('.zeroClipboardDiv').remove();
     $('.tipsy').remove();
     spinner.attach();
-
-    // Nav highlight
-    setNavActive(newPage);
   },
 
   end: function pageEnd() {
@@ -20,6 +17,9 @@ var page = {
         doScrollToTop = true;
 
     fn.log(curPage);
+
+    // Nav highlight
+    setNavActive(newPage);
 
     doPlaysActions();
     pagination.restart();

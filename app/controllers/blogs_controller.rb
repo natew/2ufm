@@ -28,7 +28,6 @@ class BlogsController < ApplicationController
                         .map{ |s| [s.id, s.blog_genres] }.flatten
                     ]
 
-                    logger.info @blogs_genres
     @blogs.each do |station|
       station.content = @blogs_genres[station.blog_id]
     end

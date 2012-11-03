@@ -2,12 +2,34 @@ class ArtistsController < ApplicationController
   before_filter :get_artist_info, :except => [:index, :show]
 
   def index
-    if params[:letter]
-      letter = params[:letter]
-      letter = "0-9" if letter == '0'
-      @artists = Station.has_songs.artist_station.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
+    if params[:genre]
+      @artists = Station
+                .has_songs
+                .joins('inner join artists on artists.id = stations.artist_id')
+                .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
+                .joins("inner join genres on genres.id = artists_genres.genre_id")
+                .where(genres: { slug: params[:genre] })
+                .order('random() desc')
+                .page(params[:page])
+                .per(Yetting.per)
     else
-      @artists = Station.has_songs.artist_station.order('random() desc').limit(12)
+      @artists = Station.artist_station.has_songs.order('random() desc').limit(12)
+    end
+
+    @artists_genres = Hash[*
+                      Station
+                        .where(artist_id: @artists.map(&:artist_id))
+                        .select("stations.artist_id as id, string_agg(genres.name, ', ') as artist_genres")
+                        .has_songs
+                        .joins('inner join artists on artists.id = stations.artist_id')
+                        .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
+                        .joins("inner join genres on genres.id = artists_genres.genre_id")
+                        .group('stations.artist_id')
+                        .map{ |s| [s.id, s.artist_genres] }.flatten
+                    ]
+
+    @artists.each do |station|
+      station.content = @artists_genres[station.artist_id]
     end
 
     respond_to do |format|
