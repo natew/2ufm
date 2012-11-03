@@ -39,7 +39,8 @@ var mp = (function() {
       played = [],
       justStarted,
       playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10),
-      curSongLoaded = false;
+      curSongLoaded = false,
+      soundcloudKey = $('body').attr('data-soundcloud-key');
 
   // Playmode
   playMode = playMode || NORMAL;
@@ -154,48 +155,24 @@ var mp = (function() {
 
           // Load song
           curSongInfo = playlist.songs[playlistIndex];
-          curSong = soundManager.createSound({
-            id:curSongInfo.id,
-            url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
-            onplay:events.play,
-            onstop:events.stop,
-            onpause:events.pause,
-            onresume:events.resume,
-            onfinish:events.finish,
-            whileloading:events.whileloading,
-            whileplaying:events.whileplaying,
-            onmetadata:events.metadata,
-            onload:events.onload,
-            volume:volume,
-            stream:(startedAt ? false : true)
-          });
+
+          // Determine soundcloud
+          if (curSongInfo.sc_id !== '')
+            $.get('http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey, function(data) {
+              fn.log(data);
+              if (data) {
+                self.playUrl(data.stream_url + "?client_id=" + soundcloudKey);
+              }
+            });
+          else {
+            self.playUrl('/play/' + curSongInfo.id + '?key=' + (new Date()).getTime());
+          }
 
           if (!curSection) {
             var foundSection = $('#playlist-' + playlist.id + ' #song-' + curSongInfo.id);
             if (foundSection.length) curSection = foundSection;
           }
 
-          w.trigger('mp:play', player.state());
-
-          clearTimeout(playTimeout);
-          playTimeout = setTimeout(function() {
-            fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
-
-            played.push(playlistIndex);
-            justStarted = true;
-            setTimeout(function() {
-              justStarted = false;
-            }, 1000);
-
-            // If we have a time set
-            if (time > 0) {
-              curSong.setPosition(time * 1000);
-              time = 0;
-            }
-
-            // Play
-            curSong.play();
-          }, 300);
           return true;
         }
         else {
@@ -204,6 +181,46 @@ var mp = (function() {
           return false;
         }
       }
+    },
+
+    playUrl: function(url) {
+      curSong = soundManager.createSound({
+        id:curSongInfo.id,
+        url: url,
+        onplay:events.play,
+        onstop:events.stop,
+        onpause:events.pause,
+        onresume:events.resume,
+        onfinish:events.finish,
+        whileloading:events.whileloading,
+        whileplaying:events.whileplaying,
+        onmetadata:events.metadata,
+        onload:events.onload,
+        volume:volume,
+        stream:(startedAt ? false : true)
+      });
+
+      clearTimeout(playTimeout);
+      playTimeout = setTimeout(function() {
+        fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
+
+        played.push(playlistIndex);
+        justStarted = true;
+        setTimeout(function() {
+          justStarted = false;
+        }, 1000);
+
+        // If we have a time set
+        if (time > 0) {
+          curSong.setPosition(time * 1000);
+          time = 0;
+        }
+
+        // Play
+        curSong.play();
+      }, 300);
+
+      w.trigger('mp:play', player.state());
     },
 
     playSong: function playSong(index) {

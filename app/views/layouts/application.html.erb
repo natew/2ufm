@@ -48,7 +48,7 @@
   </script>
 </head>
 
-<body class="<%= body_classes %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
+<body class="<%= body_classes %>" data-soundcloud-key="<%= Yetting.soundcloud_key %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
 
   <div id="body-wrap">
     <header>
