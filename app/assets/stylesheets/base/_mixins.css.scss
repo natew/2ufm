@@ -44,7 +44,7 @@
     #promo-fixed-lower,
     #navbar a.active { background: $body-bg; }
 
-    .title.fixed { background: lighten($body-bg,5%); }
+    .title.fixed { background: $body-bg; }
     #navbar { background: $navbar-bg; }
     .playlist section.active { background: lighten($body-bg, 5%) !important; }
   }

@@ -19,8 +19,8 @@ class Blog < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { medium: ['256x256#'], small: ['128x128#'], small: ['64x64#'] }
 
-  after_create  :delayed_get_blog_info, :delayed_get_new_posts
-  before_create :make_station, :set_station_slug, :set_screenshot
+  after_create  :delayed_get_blog_info, :delayed_get_new_posts, :delayed_set_screenshot
+  before_create :make_station, :set_station_slug
 
   # Validations
   validates :url, presence: true, uniqueness: true
@@ -134,9 +134,17 @@ class Blog < ActiveRecord::Base
     end
   end
 
-  def set_screenshot
+  def set_screenshot(delay=0)
+    # Hit bitpixels once to get them to take the shot, will return blank file
+    open("http://img.bitpixels.com/getthumbnail?code=61978&size=200&url=#{url}")
+    sleep(delay)
     file = open("http://img.bitpixels.com/getthumbnail?code=61978&size=200&url=#{url}")
     self.image = file
+  end
+
+  def delayed_set_screenshot
+    # Wait before getting real screenshot
+    delay.set_screenshot(60)
   end
 
   # Search Nokogiri::HTML for a title or meta description
