@@ -166,6 +166,7 @@ $song-player-height: 50px;
       padding: 44px 0 0;
       text-align: center;
       color: #fff;
+      z-index: 2;
       @include box-sizing(border-box);
     }
 
