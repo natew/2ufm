@@ -43,7 +43,7 @@
       between = 4
       min = [page - between, 2].max
       max = [page + between, total_pages].min
-      max += [between - min, 0].max
+      # max += [between - min, 0].max
       more_high = (page + between) < total_pages
   -%>
   <div class="pagination">

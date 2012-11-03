@@ -11,3 +11,4 @@ var song = $('#song-<%= @locals[:id] %>'),
 <%= add %> ? song.addClass('liked') : song.removeClass('liked');
 broadcast.html("<%= escape_javascript(render :partial => 'songs/broadcast', :locals => @locals) %>");
 broadcast.children('a').html(count);
+$('.tipsy').remove();

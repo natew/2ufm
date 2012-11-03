@@ -11,7 +11,7 @@ class SongsController < ApplicationController
   def popular
     @title = 'Popular'
     @popular = Station.popular
-    @popular_songs = Song.playlist_order_popular
+    @popular_songs = Song.playlist_popular
 
     respond_to do |format|
       format.html { render 'popular' }
@@ -23,7 +23,7 @@ class SongsController < ApplicationController
   def trending
     @title = 'Trending'
     @trending = Station.trending
-    @trending_songs = Song.playlist_order_trending
+    @trending_songs = Song.playlist_trending
 
     respond_to do |format|
       format.html { render 'trending' }
@@ -35,7 +35,7 @@ class SongsController < ApplicationController
   def fresh
     @title = 'Freshest'
     @just_in_station = Station.newest
-    @just_in_songs = Song.playlist_order_published
+    @just_in_songs = Song.playlist_newest
 
     respond_to do |format|
       format.html { render 'fresh' }
@@ -47,7 +47,7 @@ class SongsController < ApplicationController
     # Song and song playlist
     search_type = (params[:id].is_a?(Numeric) || params[:id].is_numeric?) ? :id : :slug
     @song = Song.where(search_type => params[:id]).first || not_found
-    @song_playlist = Song.where(:id => @song.matching_id).playlist_order_oldest
+    @song_playlist = Song.where(:id => @song.matching_id).playlist_oldest
     @primary = @song
 
     # Extra info
@@ -56,11 +56,11 @@ class SongsController < ApplicationController
     @stats = Broadcast.find_by_sql("SELECT date_part('day', created_at), count(*) from broadcasts where song_id=#{@song.matching_id} group by date_part('day', created_at) order by date_part('day', created_at);").map {|x| [((Time.now.day - x.date_part.to_i).days.ago.to_f*1000).round,x.count.to_i]}
 
     # Similar songs
-    @similar_songs = Song.where('match_name ILIKE (?)', @song.match_name).playlist_order_trending
+    @similar_songs = Song.where('match_name ILIKE (?)', @song.match_name).playlist_trending
 
     # Blogs songs
     @blog_ids = @blogs.map(&:blog_id)
-    @blogs_songs = Song.joins('CROSS JOIN blogs as related_blogs').where('related_blogs.id IN (?)', @blog_ids).playlist_order_trending
+    @blogs_songs = Song.joins('CROSS JOIN blogs as related_blogs').where('related_blogs.id IN (?)', @blog_ids).playlist_trending
 
     respond_to do |format|
       format.html { render 'show' }

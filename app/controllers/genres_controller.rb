@@ -9,9 +9,9 @@ class GenresController < ApplicationController
     @primary = @genre
 
     if true
-      @genre_songs = Song.by_genre(@genre).playlist_order_broadcasted
+      @genre_songs = Song.by_genre(@genre).playlist_broadcasted
     else
-      @genre_songs = Song.by_genre(@genre).playlist_order_random
+      @genre_songs = Song.by_genre(@genre).playlist_random
     end
 
     respond_to do |format|

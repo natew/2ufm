@@ -73,12 +73,12 @@ class User < ActiveRecord::Base
 
   def received_songs(page)
     page ||= 1
-    Song.joins(:shares).where('shares.receiver_id = ?', id).playlist_scope_order_received.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
+    Song.joins(:shares).where('shares.receiver_id = ?', id).playlist_received.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
   end
 
   def sent_songs(page)
     page ||= 1
-    Song.joins(:shares).where('shares.sender_id = ?', id).playlist_scope_order_sent.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
+    Song.joins(:shares).where('shares.sender_id = ?', id).playlist_sent.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
   end
 
   def following_songs(page=1, single=false)

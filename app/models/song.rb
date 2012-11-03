@@ -57,20 +57,25 @@ class Song < ActiveRecord::Base
   has_many   :listens
   has_many   :shares
 
-  # Comments
+  before_create :set_source, :get_real_url, :clean_url, :set_file_key
+  after_create :delayed_scan_and_save, :set_rank
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at, :artist_name, :name
+
   # acts_as_commentable
 
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
   has_attachment :file, :s3 => false, :filename => ":id_:style.mp3" # Yetting.s3_enabled
-  has_attachment :compressed_file, :dreamhost => Yetting.dreamhost_enabled, :filename => ":file_key-compressed.mp3"
+  # has_attachment :compressed_file, :dreamhost => Yetting.dreamhost_enabled, :filename => ":file_key-compressed.mp3"
 
   # Validations
   validates :url, :presence => true
   validate  :unique_to_blog, :on => :create
 
-  # Basic Scopes
+  # Conditions
   scope :unprocessed, where(processed: false)
   scope :processed, where(processed: true)
   scope :working, where(working: true)
@@ -83,13 +88,13 @@ class Song < ActiveRecord::Base
   scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
   scope :soundcloud, where(source: 'soundcloud')
   scope :time_limited, where('songs.seconds < ?', 600)
+  scope :matching_id, where('songs.matching_id = songs.id')
+  scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
 
-  # Basic types
+  # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
   scope :join_role, lambda { |role| joins(:authors).where(authors: {role: role}) }
   scope :with_authors, joins(:authors)
-
-  # Joins
   scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id" INNER JOIN blogs on blogs.id = posts.blog_id')
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
@@ -99,7 +104,6 @@ class Song < ActiveRecord::Base
   # Data to select
   scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
   scope :select_with_info, select('songs.*, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post
-  scope :individual, select_with_info.with_blog_station_and_post.time_limited
   scope :user_broadcasted, select('broadcasts.created_at as published_at')
 
   # Orders
@@ -111,41 +115,27 @@ class Song < ActiveRecord::Base
   scope :order_random, order('random() desc')
 
   # Selects
-  scope :select_songs, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
   scope :select_shared_songs, select('DISTINCT ON (shares.created_at, songs.matching_id) songs.*')
   scope :select_sender, select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at')
   scope :select_receiver, select('receiver.username as receiver_username, receiver.station_slug as receiver_station_slug, shares.created_at as sent_at')
-  scope :select_distinct_broadcasts, select('DISTINCT ON (broadcasts.created_at, songs.matching_id) songs.*').select('broadcasts.created_at as broadcasted_at')
-  scope :select_distinct_newest, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
-  scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
+  scope :select_broadcasted_at, select('broadcasts.created_at as broadcasted_at')
 
-  # Scopes for playlist
-  scope :playlist_order_rank, select_distinct_rank.working.order_rank.individual
-  scope :playlist_order_newest, select_distinct_newest.working.order_published.individual
-  scope :playlist_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
-  scope :playlist_scope_order_trending, select_distinct_rank.order_rank.individual
-  scope :playlist_scope_order_published, select_songs.order_published.individual
-  scope :playlist_scope_order_received, select_shared_songs.select_sender.with_sender.order_shared.individual
-  scope :playlist_scope_order_sent, select_shared_songs.select_receiver.with_receiver.order_shared.individual
+  # Combination
+  scope :individual, working.matching_id.select_with_info.with_blog_station_and_post.time_limited
 
-  # Base scopes (most are defined below as methods)
-  scope :playlist_order_random, order_random.individual
-
-  # Grouped Scopes
-  scope :grouped, where('matching_id is not null').select(:matching_id).working
-  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working
-  scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working
-  scope :grouped_order_trending, lambda { |min| grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > ?', min).working }
+  # Playlists
+  scope :playlist_rank, order_rank.individual
+  scope :playlist_newest, order_published.individual
+  scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.individual
+  scope :playlist_trending, min_broadcasts(2).order_rank.individual
+  scope :playlist_popular, min_broadcasts(4).order_rank.individual
+  scope :playlist_received, select_sender.with_sender.order_shared.individual
+  scope :playlist_sent, select_receiver.with_receiver.order_shared.individual
+  scope :playlist_random, order_random.individual
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
   scope :limit_full, lambda { |page| limit(page * Yetting.per) }
-
-  before_create :set_source, :get_real_url, :clean_url, :set_file_key
-  after_create :delayed_scan_and_save, :set_rank
-
-  # Whitelist mass-assignment attributes
-  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at, :artist_name, :name
 
   def to_param
     slug
@@ -170,22 +160,6 @@ class Song < ActiveRecord::Base
     page = row / Yetting.per
     logger.info page
     songs.offset(page * Yetting.per).limit(Yetting.per)
-  end
-
-  def self.playlist_order_oldest
-    Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published
-  end
-
-  def self.playlist_order_published
-    Song.where(id: Song.grouped_order_published).playlist_scope_order_published
-  end
-
-  def self.playlist_order_trending
-    Song.where(id: Song.grouped_order_trending(1)).playlist_scope_order_trending
-  end
-
-  def self.playlist_order_popular
-    Song.where(id: Song.grouped_order_trending(4)).playlist_scope_order_trending
   end
 
   def self.user_unread_received_songs(id)
@@ -297,20 +271,8 @@ class Song < ActiveRecord::Base
 
   # Ranking algorithm
   def set_rank
-    favs_count = 1
-    time_created = created_at
-
-    find_id = matching_id || id
-    if find_id
-      shared_song = Song.where(id:find_id).first
-      if shared_song
-        favs_count = shared_song.user_broadcasts_count
-        time_created = shared_song.created_at
-      end
-    end
-
-    favs = [Math.log(favs_count * 10), 0].max
-    time = (time_created - Time.new(2012)) / 100000
+    favs = [Math.log(user_broadcasts_count * 10), 0].max
+    time = (created_at - Time.new(2012)) / 100000
     self.rank = favs + time
   end
 
@@ -405,7 +367,16 @@ class Song < ActiveRecord::Base
         }) do |song|
           # Set file
           self.file = song
-          self.compressed_file = compress_mp3(song.path)
+
+          compressed_file_name = "#{file_key}-96.mp3"
+          compressed_file = dreamhost_store(compressed_file_name, compress_mp3(song.path))
+
+          if compressed_file
+            self.compressed_file_file_name = compressed_file_name
+            self.compressed_file_file_size = compressed_file.size
+            self.compressed_file_updated_at = Time.now
+          end
+
           self.save
           process
         end
@@ -416,6 +387,25 @@ class Song < ActiveRecord::Base
       end
     else
       logger.info "No URL!"
+    end
+  end
+
+  def dreamhost_store(file_name, file_path)
+    File.open(file_path, 'r') do |file|
+      require 'aws/s3'
+      AWS::S3::Base.establish_connection!(
+        :server            => 'objects.dreamhost.com',
+        :use_ssl           => true,
+        :access_key_id     => Yetting.dreamhost_key,
+        :secret_access_key => Yetting.dreamhost_secret
+      )
+
+      AWS::S3::S3Object.store(
+        file_name,
+        file,
+        'media.2u.fm',
+        :content_type => 'audio/mpeg'
+      )
     end
   end
 
@@ -987,6 +977,11 @@ class Song < ActiveRecord::Base
       self.file_key = SecureRandom.hex(16)
       break unless Song.find_by_file_key(file_key)
     end
+  end
+
+  def set_file_key_and_save
+    set_file_key
+    self.save
   end
 
   private

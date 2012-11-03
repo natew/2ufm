@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
     @user = User.find(@station.user_id) || not_found
-    @user_songs = @station.songs.playlist_order_broadcasted.user_broadcasted
+    @user_songs = @station.songs.playlist_broadcasted.user_broadcasted
     @songs = true
     @artists = @user.station.artists.has_image.order('random() desc').limit(12)
     @primary = @user
@@ -147,7 +147,7 @@ class UsersController < ApplicationController
 
     if @user
       @popular = Station.popular
-      @popular_songs = Song.playlist_order_popular
+      @popular_songs = Song.playlist_popular
       @user.privacy.unsubscribe(params[:type].pluralize)
       @success = true
     end

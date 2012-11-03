@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   def render_page(station, songs=nil, already_limited=false)
     # return head 204 unless defined? request.headers['HTTP_ACCEPT']
 
-    songs ||= station.songs.playlist_order_broadcasted
+    songs ||= station.songs.playlist_broadcasted
     songs   = songs.limit_page(params[:p]) unless already_limited
 
     if songs.length > 0

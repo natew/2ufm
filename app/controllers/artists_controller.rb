@@ -19,13 +19,13 @@ class ArtistsController < ApplicationController
     @station = Station.find_by_slug(params[:id]) || not_found
     @artist = Artist.find(@station.artist_id) || not_found
     get_artist_extra_info
-    @songs = @artist.station.songs.playlist_order_broadcasted
+    @songs = @artist.station.songs.playlist_broadcasted
     @primary = @artist
     render_show
   end
 
   def remixes_of
-    @songs = artist_remixes_of.playlist_order_broadcasted
+    @songs = artist_remixes_of.playlist_broadcasted
     @type = 'remixed'
     render_show
   end
@@ -35,7 +35,7 @@ class ArtistsController < ApplicationController
   end
 
   def originals
-    @songs = @artist.station.songs.join_author_and_role(@artist.id, 'original').where(original_song: true).playlist_order_broadcasted
+    @songs = @artist.station.songs.join_author_and_role(@artist.id, 'original').where(original_song: true).playlist_broadcasted
     @type = 'original'
     render_show
     # render_type 'original'
@@ -60,7 +60,7 @@ class ArtistsController < ApplicationController
   private
 
   def render_type(type)
-    @songs = @artist.station.songs.join_author_and_role(@artist.id, type).playlist_order_broadcasted
+    @songs = @artist.station.songs.join_author_and_role(@artist.id, type).playlist_broadcasted
     @type = type
     render_show
   end

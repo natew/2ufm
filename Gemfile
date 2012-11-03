@@ -14,7 +14,6 @@ gem 'bourbon'
 gem 'cocaine', '= 0.3.2'
 gem 'paperclip', '~> 3.0'
 gem 'aws-sdk'
-gem 'aws-s3'
 gem 'jquery-rails'
 
 # Caching

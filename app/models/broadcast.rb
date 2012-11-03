@@ -11,9 +11,8 @@ class Broadcast < ActiveRecord::Base
   scope :blog_broadcasts, where(:parent => 'blog')
 
   before_validation :set_parent, :on => :create
-  before_save :update_song_rank, :update_station_timestamp
-  after_create :delayed_update_counter_cache, :delayed_update_station_songs_count
-  after_destroy :delayed_update_counter_cache, :delayed_update_station_songs_count
+  after_create :delayed_update_actions
+  after_destroy :delayed_update_actions
 
   attr_accessible :song_id, :station_id, :created_at
 
@@ -28,26 +27,35 @@ class Broadcast < ActiveRecord::Base
     end
   end
 
-  def delayed_update_counter_cache
-    delay.update_counter_cache
-  end
-
   def update_station_songs_count
     return unless station
     station.songs_count = station.songs.count
     station.save
   end
 
-  def delayed_update_station_songs_count
-    delay.update_station_songs_count
+  def update_actions
+    update_counter_cache
+    update_station_songs_count
+    update_song_rank
+    update_station_timestamp
+  end
+
+  def delayed_update_actions
+    if Rails.application.config.delay_jobs
+      delay.update_actions
+    else
+      update_actions
+    end
   end
 
   private
 
   def update_song_rank
-    return unless song
-    song.set_rank
-    song.save
+    song = Song.find(song_id)
+    if song
+      song.set_rank
+      song.save
+    end
   end
 
   def set_parent

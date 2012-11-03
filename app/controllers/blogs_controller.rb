@@ -28,7 +28,6 @@ class BlogsController < ApplicationController
                         .map{ |s| [s.id, s.blog_genres] }.flatten
                     ]
 
-                    logger.info "sdsadasdsadsad----------------"
                     logger.info @blogs_genres
     @blogs.each do |station|
       station.content = @blogs_genres[station.blog_id]
@@ -41,7 +40,7 @@ class BlogsController < ApplicationController
 
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
-    @songs   = @station.songs.playlist_order_newest
+    @songs   = @station.songs.playlist_newest
     @blog    = Blog.find(@station.blog_id) || not_found
     @artists = @blog.station.artists.order('random() desc').limit(12)
     @primary = @blog
@@ -54,7 +53,7 @@ class BlogsController < ApplicationController
 
   def popular
     @station = Station.find_by_slug(params[:id]) || not_found
-    @songs   = @station.songs.playlist_order_rank
+    @songs   = @station.songs.playlist_rank
     @blog    = Blog.find(@station.blog_id) || not_found
     @primary = @blog
 
