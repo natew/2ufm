@@ -52,6 +52,14 @@ $(function() {
     fn.replaceState(route);
     clickSong(listen.song_id);
   }
+
+  $('body')
+    .touchSwipeLeft(function() {
+      $('body').removeClass('swiped-left');
+    })
+    .touchSwipeRight(function() {
+      $('body').addClass('swiped-left');
+    });
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');

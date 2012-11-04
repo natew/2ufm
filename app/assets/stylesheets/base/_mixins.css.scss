@@ -1,55 +1,5 @@
 @import 'bourbon';
 
-/* -----Themes---- */
-
-@for $i from 1 through 5 {
-  $header-bg:       nth(( #418bd4,  /* blue */
-                          #3d7352,  /* green */
-                          #cd7414,  /* orange */
-                          #bc3e66,  /* pink */
-                          #a2323f   /* red */
-                          ), $i );
-
-  $body-bg:         nth(( #333,     /* grey */
-                          #1c2d32,  /* teal */
-                          #181d2a,  /* green */
-                          #361520,  /* pink */
-                          #431e21   /* red */
-                          ), $i );
-
-  $navbar-bg:       nth(( darken($body-bg, 9%),
-                          darken($body-bg, 5%),
-                          darken($body-bg, 5%),
-                          darken($body-bg, 5%),
-                          darken($body-bg, 5%)
-                          ), $i );
-
-  .head-color-#{$i} { background: $header-bg;
-    &:hover { background: $header-bg !important; }}
-  .body-color-#{$i} { background: $body-bg;
-    &:hover { background: $body-bg !important; }}
-
-  .theme-head-#{$i} {
-    header { background: $header-bg; }
-    #player-meta:before { @include linear-gradient(left, $header-bg, rgba($header-bg,0)); }
-    #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
-  }
-
-  .theme-body-#{$i} {
-    background: $body-bg;
-
-    #welcome { @include linear-gradient(lighten($body-bg, 5%), darken($body-bg, 2%)); }
-
-    #modal,
-    #promo-fixed-lower,
-    #navbar a.active { background: $body-bg; }
-
-    .title.fixed { background: $body-bg; }
-    #navbar { background: $navbar-bg; }
-    .playlist section.active { background: lighten($body-bg, 5%) !important; }
-  }
-}
-
 $header-height: 65px;
 $header-shadow: rgba(255,255,255,0.15);
 
