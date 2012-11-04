@@ -23,6 +23,12 @@ $(function() {
   if ($('#modal-new-user').length) {
     modal('#modal-new-user');
 
+    $('#modal-new-user .genres a').click(function(e) {
+      e.preventDefault();
+    })
+
+    $('#modal-new-user .stations').dontScrollParent();
+
     $('#genres-next').click(function() {
       var genres = [];
       $('#new-user-genres .genres a.selected').each(function(){
@@ -578,6 +584,7 @@ function getNavbar() {
     $.getJSON('/navbar.json', function getNavbarCallback(data) {
       fn.log('got', data);
       if (data) {
+        $('#navbar-friends').removeClass('hidden');
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
         $('#navbar-friends-inner')
           .html(friendsHtml)
@@ -721,6 +728,7 @@ function setupFixedTitles() {
 function doPlaysActions() {
   if (!isOnline && !isTuningIn && mp.plays() > 2) {
     if ( !$('#page-identifier').is('.action-trending') ) {
+      $('#modal-login').addClass('permanent');
       modal('#modal-login');
       return true;
     } else {

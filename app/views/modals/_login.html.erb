@@ -1,4 +1,4 @@
-<div id="modal-login" class="permanent">
+<div id="modal-login">
   <h3>Welcome to 2u.fm!</h3>
   <div id="login-promo">
     <p class="large">
@@ -8,11 +8,11 @@
       Follow friends, artists &amp; top music blogs.
     </p>
 
-    <p>
-      We bring you music before it's released.  Remixes, mashups, and bootlegs.  Listen to it live with your friends.
+    <p class="large">
+      This is music before it's released.  Remixes, mashups, and more.
     </p>
 
-    <p style="clear:both;"><b>It's a different type of social music.</b>  And don't worry, we don't spam your Facebook.</p>
+    <p class="large" style="clear:both;">And don't worry, we don't spam your Facebook.</p>
   </div>
 
   <div id="loner-login" class="hidden">
@@ -28,7 +28,7 @@
   </div>
 
   <div class="modal-actions">
-    <span class="afterthought">Or try it <%= link_to 'without facebook.', '#loner-login, #login-promo', class: 'control', 'data-toggle' => 'hidden' %></span>
+    <span class="afterthought">Or log in <%= link_to 'without facebook.', '#loner-login, #login-promo', class: 'control', 'data-toggle' => 'hidden' %></span>
     <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'right facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
   </div>
 </div>

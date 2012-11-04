@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     added_genres = current_user.set_genres(params[:genres].split(','))
     if added_genres.size > 0
       current_user.update_attributes(first_time:false)
-      @artists_stations = Station.where(slug: Artist.joins(:genres).where(genres: { id: added_genres }).map(&:station_slug)).order('stations.songs_count desc').limit(50)
+      @artists_stations = Station.where(slug: Artist.has_image.joins(:genres).where(genres: { id: added_genres }).order('artists.song_count desc').limit(30).map(&:station_slug)).order('stations.songs_count desc')
       render partial: 'users/recommended_artists'
     else
       head 500
