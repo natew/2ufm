@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121104072900) do
+ActiveRecord::Schema.define(:version => 20121104073726) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(:version => 20121104072900) do
     t.string   "compressed_file_file_name"
     t.string   "compressed_file_file_size"
     t.string   "compressed_file_updated_at"
-    t.string   "hash"
+    t.string   "token"
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"

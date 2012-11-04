@@ -57,7 +57,7 @@ class Song < ActiveRecord::Base
   has_many   :listens
   has_many   :shares
 
-  before_create :set_source, :get_real_url, :clean_url, :set_hash
+  before_create :set_source, :get_real_url, :clean_url, :set_token
   after_create :delayed_scan_and_save, :set_rank
 
   # Whitelist mass-assignment attributes
@@ -69,7 +69,7 @@ class Song < ActiveRecord::Base
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
   has_attachment :file, :s3 => Yetting.s3_enabled, :filename => ":id_:style.mp3"
-  has_attachment :compressed_file, :filename => ":hash.mp3"
+  has_attachment :compressed_file, :filename => ":token.mp3"
 
   # Validations
   validates :url, :presence => true
@@ -90,6 +90,7 @@ class Song < ActiveRecord::Base
   scope :time_limited, where('songs.seconds < ?', 600)
   scope :matching_id, where('songs.matching_id = songs.id')
   scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
+  scope :within, lambda { |within| where('songs.created_at > ?', within) }
 
   # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
@@ -967,15 +968,15 @@ class Song < ActiveRecord::Base
     self.original_tag = full_name
   end
 
-  def set_hash
+  def set_token
     while true
-      self.hash = SecureRandom.hex(16)
-      break unless Song.find_by_hash(hash)
+      self.token = SecureRandom.hex(16)
+      break unless Song.find_by_token(token)
     end
   end
 
-  def set_hash_and_save
-    set_hash
+  def set_token_and_save
+    set_token
     self.save
   end
 
