@@ -90,7 +90,8 @@ class Song < ActiveRecord::Base
   scope :time_limited, where('songs.seconds < ?', 600)
   scope :matching_id, where('songs.matching_id = songs.id')
   scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
-  scope :within, lambda { |within| where('songs.created_at > ?', within.ago) }
+  scope :within, lambda { |within| where('songs.created_at >= ?', within.ago) }
+  scope :before, lambda { |before| where('songs.created_at < ?', before.ago) }
 
   # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
@@ -112,6 +113,7 @@ class Song < ActiveRecord::Base
   scope :order_rank, order('songs.rank desc')
   scope :order_user_broadcasts, order('songs.user_broadcasts_count desc')
   scope :order_published, order('songs.published_at desc')
+  scope :order_published_asc, order('songs.published_at asc')
   scope :order_shared, order('shares.created_at desc')
   scope :order_random, order('random() desc')
 
@@ -127,6 +129,7 @@ class Song < ActiveRecord::Base
   # Playlists
   scope :playlist_rank, order_rank.individual
   scope :playlist_newest, order_published.individual
+  scope :playlist_oldest, order_published_asc.individual
   scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.individual
   scope :playlist_trending, min_broadcasts(2).order_rank.individual
   scope :playlist_popular, min_broadcasts(4).order_rank.individual
