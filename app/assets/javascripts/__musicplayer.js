@@ -558,7 +558,6 @@ var mp = (function() {
 
     updatePage: function updatePage(url) {
       fn.log("Updating page url", url);
-      if (this.isOnPlayingPage()) playingPage = url;
       curPage = url;
     },
 

@@ -528,9 +528,11 @@ class Song < ActiveRecord::Base
   end
 
   def set_compressed_file
-    file = get_file
-    self.compressed_file = compress_mp3(file.path)
-    self.save
+    logger.info file.url
+    open(file.url) do |file|
+      self.compressed_file = compress_mp3(file.path)
+      self.save
+    end
   end
 
   def delayed_set_compressed_file

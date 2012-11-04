@@ -165,7 +165,7 @@ $('#player-song-name a').click(function songNameClick() {
 });
 
 function scrollToCurrentSong() {
-  fn.scrollTo($('section.playing'));
+  fn.scrollTo($('#song-' + mp.curSongInfo().id));
 }
 
 // Play from playlist

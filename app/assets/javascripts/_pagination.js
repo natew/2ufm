@@ -96,6 +96,7 @@ var pagination = (function(fn, mp) {
   }
 
   function updatePageURL(url) {
+    fn.log(url)
     fn.replaceState(url);
     mp.updatePage(url);
   }
