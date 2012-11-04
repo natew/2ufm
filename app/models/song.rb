@@ -90,7 +90,7 @@ class Song < ActiveRecord::Base
   scope :time_limited, where('songs.seconds < ?', 600)
   scope :matching_id, where('songs.matching_id = songs.id')
   scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
-  scope :within, lambda { |within| where('songs.created_at > ?', within) }
+  scope :within, lambda { |within| where('songs.created_at > ?', within.ago) }
 
   # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
@@ -354,7 +354,7 @@ class Song < ActiveRecord::Base
         prev  = 0
         logger.info "Scanning #{file_url} ..."
 
-        if soundcloud_id and updated_at < 10.minutes.ago
+        if soundcloud_id and updated_at < 2.minutes.ago
           get_real_url
         end
 
@@ -373,8 +373,8 @@ class Song < ActiveRecord::Base
           # Set file
           self.file = song
           self.compressed_file = compress_mp3(song.path)
-          self.save
           process
+          self.save
         end
       rescue Exception => e
         # self.processed = false
@@ -383,25 +383,6 @@ class Song < ActiveRecord::Base
       end
     else
       logger.info "No URL!"
-    end
-  end
-
-  def dreamhost_store(file_name, file_path)
-    File.open(file_path, 'r') do |file|
-      require 'aws/s3'
-      AWS::S3::Base.establish_connection!(
-        :server            => 'objects.dreamhost.com',
-        :use_ssl           => true,
-        :access_key_id     => Yetting.dreamhost_key,
-        :secret_access_key => Yetting.dreamhost_secret
-      )
-
-      AWS::S3::S3Object.store(
-        file_name,
-        file,
-        'media.2u.fm',
-        :content_type => 'audio/mpeg'
-      )
     end
   end
 

@@ -159,7 +159,7 @@ var mp = (function() {
           w.trigger('mp:play', player.state());
 
           // Determine soundcloud
-          if (curSongInfo.sc_id !== '')
+          if (false && curSongInfo.sc_id !== '')
             $.get('http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey, function(data) {
               fn.log(data);
               if (data) {
@@ -167,7 +167,7 @@ var mp = (function() {
               }
             });
           else {
-            self.playUrl('/play/' + curSongInfo.id + '?key=' + (new Date()).getTime());
+            self.playUrl('/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
           }
 
           if (!curSection) {

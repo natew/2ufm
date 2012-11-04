@@ -7,7 +7,8 @@ class Array
         name: s.name,
         image: s.resolve_image(:small),
         seconds: s.seconds,
-        sc_id: s.soundcloud_id || ''
+        sc_id: s.soundcloud_id || '',
+        token: s.token || ''
       }
     end.compact.to_json
   end
