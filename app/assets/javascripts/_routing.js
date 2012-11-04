@@ -14,9 +14,10 @@ var page = {
         path = curPage.split('/'),
         tipTimer,
         pageFollow,
-        doScrollToTop = true;
+        doScrollToTop = true,
+        pageIdentifier = $('#page-identifier');
 
-    fn.log(curPage);
+    fn.log(curPage, pageIdentifier.attr('class'));
 
     // Nav highlight
     setNavActive(newPage);
@@ -47,6 +48,11 @@ var page = {
     // Scroll to top if we are going to new page
     if (doScrollToTop && $('body').scrollTop() > 0)
       fn.scrollToTop();
+
+    // Live listen tune in
+    if (pageIdentifier.is('.action-live')) {
+      tuneIn();
+    }
 
     // Clipboard items
     var citems = $('#main-mid .clipboard');

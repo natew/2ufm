@@ -1,9 +1,6 @@
 // On page load tune in
 if (isTuningIn) {
-  tuneIn(tuneInto, function() {
-    if (beginListen)
-      listenCreatePublish(beginListen);
-  });
+  tuneIn();
 }
 
 $('#tune-in').click(function() {
@@ -22,12 +19,19 @@ $('#tune-in').click(function() {
 
 $('body').on('click', '#friends a', function(e) {
   e.preventDefault();
-  tuneIn($(this).attr('id').split('-')[1]);
+  startLiveListening($(this).attr('id').split('-')[1]);
   return false;
-})
+});
+
+function tuneIn() {
+  startLiveListening(tuneInto, function() {
+    if (beginListen)
+      startPlayingFromListen(beginListen);
+  });
+}
 
 // Begin listening to a station
-function tuneIn(id, callback) {
+function startLiveListening(id, callback) {
   fn.log(id);
   loadPage('/tune/' + id, function() {
     $('body').addClass('live');
@@ -50,7 +54,7 @@ function sendAction(action) {
 }
 
 // create.js.erb callback for faye
-function listenCreatePublish(listen) {
+function startPlayingFromListen(listen) {
   fn.log("Listen publish", listen, "on playing page = ", mp.isOnPlayingPage());
   mp.startedAt(listen.created_at_unix);
 

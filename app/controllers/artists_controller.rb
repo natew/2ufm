@@ -18,9 +18,9 @@ class ArtistsController < ApplicationController
 
     @artists_genres = Hash[*
                       Station
+                        .has_songs
                         .where(artist_id: @artists.map(&:artist_id))
                         .select("stations.artist_id as id, string_agg(genres.name, ', ') as artist_genres")
-                        .has_songs
                         .joins('inner join artists on artists.id = stations.artist_id')
                         .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
                         .joins("inner join genres on genres.id = artists_genres.genre_id")
