@@ -2,9 +2,10 @@ var pagination = (function(fn, mp) {
   var isLoading = false,
       hasMore = true,
       current = getPage(),
-      offsets = [];
+      offsets = [],
+      w = $(window);
 
-  function nextPage() {
+  function checkNextPage() {
     if (!nearBottom()) return;
     var playlist = $('.playlist:visible:last');
 
@@ -61,7 +62,7 @@ var pagination = (function(fn, mp) {
   }
 
   function nearBottom() {
-    return $(window).scrollTop() >= ($(document).height() - $(window).height() - 1200);
+    return w.scrollTop() >= ($(document).height() - w.height() - 1200);
   }
 
   // Reads URL parameters for ?page=X and returns X
@@ -72,16 +73,20 @@ var pagination = (function(fn, mp) {
 
   function getNewPageURL(page) {
     var url = mp.getPage(),
-        page = 'p-' + page,
+        page_path = 'p-' + page,
         page_regex = /p-[0-9]+/,
         hash = window.location.hash;
 
     // Replace old page
-    if (url.match(page_regex)) {
-      url = url.replace(page_regex, page);
-    } else {
+    if (page == 1) {
+      url = url.replace(page_regex, '');
+    }
+    else if (url.match(page_regex)) {
+      url = url.replace(page_regex, page_path);
+    }
+    else {
       if (url == '/') url = '';
-      url = url + '/' + page;
+      url = url + '/' + page_path;
     }
 
     fn.log(url);
@@ -100,6 +105,11 @@ var pagination = (function(fn, mp) {
     link.remove();
   }
 
+  function atTop() {
+    current = parseInt($('.page-current span').html(), 10);
+    updatePageURL(getNewPageURL(current));
+  }
+
   return {
     updateCurrentPage: function() {
       current = getPage();
@@ -109,8 +119,11 @@ var pagination = (function(fn, mp) {
       hasMore = true;
     },
 
-    loadNext: function() {
-      nextPage();
+    checkPage: function() {
+      if (w.scrollTop() == 0)
+        atTop();
+      else
+        checkNextPage();
     },
 
     isLoading: function() {
@@ -128,7 +141,7 @@ w.scroll(function() {
   if (!pagination.isLoading()) {
     clearTimeout(pageLoadTimeout);
     pageLoadTimeout = setTimeout(function() {
-      pagination.loadNext();
+      pagination.checkPage();
     }, 10);
   }
 });

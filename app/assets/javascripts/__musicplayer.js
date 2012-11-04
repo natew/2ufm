@@ -156,6 +156,7 @@ var mp = (function() {
 
           // Load song
           curSongInfo = playlist.songs[playlistIndex];
+          w.trigger('mp:play', player.state());
 
           // Determine soundcloud
           if (curSongInfo.sc_id !== '')
@@ -220,8 +221,6 @@ var mp = (function() {
         // Play
         curSong.play();
       }, 300);
-
-      w.trigger('mp:play', player.state());
     },
 
     playSong: function playSong(index) {

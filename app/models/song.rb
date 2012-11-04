@@ -57,7 +57,7 @@ class Song < ActiveRecord::Base
   has_many   :listens
   has_many   :shares
 
-  before_create :set_source, :get_real_url, :clean_url, :set_file_key
+  before_create :set_source, :get_real_url, :clean_url, :set_hash
   after_create :delayed_scan_and_save, :set_rank
 
   # Whitelist mass-assignment attributes
@@ -68,8 +68,8 @@ class Song < ActiveRecord::Base
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
-  has_attachment :file, :s3 => false, :filename => ":id_:style.mp3" # Yetting.s3_enabled
-  # has_attachment :compressed_file, :dreamhost => Yetting.dreamhost_enabled, :filename => ":file_key-compressed.mp3"
+  has_attachment :file, :s3 => Yetting.s3_enabled, :filename => ":id_:style.mp3"
+  has_attachment :compressed_file, :filename => ":hash.mp3"
 
   # Validations
   validates :url, :presence => true
@@ -353,6 +353,10 @@ class Song < ActiveRecord::Base
         prev  = 0
         logger.info "Scanning #{file_url} ..."
 
+        if soundcloud_id and updated_at < 10.minutes.ago
+          get_real_url
+        end
+
         open(file_url,
           :content_length_proc => lambda { |content_length|
             raise "Too Big" if (content_length > Yetting.file_size_limit) # 40 MB maximum song size
@@ -367,16 +371,7 @@ class Song < ActiveRecord::Base
         }) do |song|
           # Set file
           self.file = song
-
-          compressed_file_name = "#{file_key}-96.mp3"
-          compressed_file = dreamhost_store(compressed_file_name, compress_mp3(song.path))
-
-          if compressed_file
-            self.compressed_file_file_name = compressed_file_name
-            self.compressed_file_file_size = compressed_file.size
-            self.compressed_file_updated_at = Time.now
-          end
-
+          self.compressed_file = compress_mp3(song.path)
           self.save
           process
         end
@@ -972,15 +967,15 @@ class Song < ActiveRecord::Base
     self.original_tag = full_name
   end
 
-  def set_file_key
+  def set_hash
     while true
-      self.file_key = SecureRandom.hex(16)
-      break unless Song.find_by_file_key(file_key)
+      self.hash = SecureRandom.hex(16)
+      break unless Song.find_by_hash(hash)
     end
   end
 
-  def set_file_key_and_save
-    set_file_key
+  def set_hash_and_save
+    set_hash
     self.save
   end
 
