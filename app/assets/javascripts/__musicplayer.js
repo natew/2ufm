@@ -40,7 +40,8 @@ var mp = (function() {
       justStarted,
       playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10),
       curSongLoaded = false,
-      soundcloudKey = $('body').attr('data-soundcloud-key');
+      soundcloudKey = $('body').attr('data-soundcloud-key'),
+      listen;
 
   // Playmode
   playMode = playMode || NORMAL;
@@ -329,6 +330,7 @@ var mp = (function() {
         }
 
         curSection = null;
+        w.trigger('mp:playlist:end', player.state());
         return false;
       }
     },
@@ -528,7 +530,7 @@ var mp = (function() {
           },
           success: function playSuccess(data) {
             listenUrl = data;
-            w.trigger('mp:gotListen', player.state());
+            w.trigger('mp:got:listen', player.state());
           },
           dataType: 'html'
         });
@@ -760,6 +762,16 @@ var mp = (function() {
 
     plays: function() {
       return playCount;
+    },
+
+    playListen: function(playListen) {
+      listen = playListen;
+      this.startedAt(listen.created_at_unix);
+      w.trigger('mp:play:listen', player.state());
+    },
+
+    listen: function() {
+      return listen;
     }
   };
 
