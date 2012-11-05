@@ -27,6 +27,7 @@ function updateCounts() {
 
 function updateTimes() {
   $('.playlist.not-loaded time').each(function() {
+    fn.log($(this).attr('datetime'));
     var el = $(this),
         datetime = new Date(el.attr('datetime') * 1000).toRelativeTime();
     el.html(datetime);

@@ -7,6 +7,7 @@
   slug          = song.send(prefix + 'station_slug')
   title         = song.send(prefix + 'station_title')
   with_follow ||= false
+  time          = Time.zone.parse(time.to_s).to_i if time.is_a? String
 -%>
 
 <div class="song-posted">
