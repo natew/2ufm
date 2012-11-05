@@ -448,7 +448,7 @@ class Song < ActiveRecord::Base
         self.waveform = generate_waveform(file.path)
       end
 
-      fix_empty_soundcloud_tags
+      fix_empty_soundcloud_tags(file.path)
       set_match_name
       find_matching_songs
       delete_file_if_matching
@@ -895,7 +895,7 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def fix_empty_soundcloud_tags
+  def fix_empty_soundcloud_tags(file)
     if source == 'soundcloud' and soundcloud_id
       TagLib::MPEG::File.open(file.path) do |taglib|
         set_tags(taglib)
