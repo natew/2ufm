@@ -134,7 +134,7 @@ var pagination = (function(fn, mp) {
     },
 
     checkPage: function() {
-      if (w.scrollTop() == 0)
+      if (w.scrollTop() <= 0)
         atTop();
       else {
         notAtTop();
