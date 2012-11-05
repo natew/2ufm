@@ -436,10 +436,6 @@ class Song < ActiveRecord::Base
     # Working if we have name or artist name at least
     self.working = !name.blank? and !artist_name.blank?
 
-    # Parse artists and determine if original song
-    # Re-determines if its working or not
-    find_or_create_artists
-
     # Update info if we have processed this song
     if working? and !processed?
       # Waveform
@@ -452,6 +448,8 @@ class Song < ActiveRecord::Base
       set_match_name
       find_matching_songs
       delete_file_if_matching
+
+      find_or_create_artists
       add_to_stations
 
       # Slug & Processed
@@ -895,9 +893,9 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def fix_empty_soundcloud_tags(file)
+  def fix_empty_soundcloud_tags(path)
     if source == 'soundcloud' and soundcloud_id
-      TagLib::MPEG::File.open(file.path) do |taglib|
+      TagLib::MPEG::File.open(path) do |taglib|
         set_tags(taglib)
       end
     end
