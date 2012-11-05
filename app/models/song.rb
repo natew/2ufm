@@ -400,7 +400,7 @@ class Song < ActiveRecord::Base
   # Read ID3 Tag and generally collect information on the song
   def process
     logger.info "Getting song information -- #{file.path}"
-    TagLib::MPEG::File.open(file.path) do |taglib|
+    TagLib::MPEG::File.open(compressed_file.path) do |taglib|
       tag = taglib.id3v2_tag || taglib.id3v1_tag
       logger.info "Tag information -- #{tag.inspect}"
       break unless tag
