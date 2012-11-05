@@ -342,14 +342,6 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def scan_file_and_save
-    process
-  end
-
-  def delayed_scan_file_and_save
-    delay.process
-  end
-
   def scan_and_save
     if !url.nil?
       begin
@@ -376,8 +368,8 @@ class Song < ActiveRecord::Base
           # Set file
           self.file = song
           self.compressed_file = compress_mp3(song.path)
+          process(song)
           self.save
-          process
         end
       rescue Exception => e
         # self.processed = false
@@ -398,9 +390,9 @@ class Song < ActiveRecord::Base
   end
 
   # Read ID3 Tag and generally collect information on the song
-  def process
+  def process(file)
     logger.info "Getting song information -- #{file.path}"
-    TagLib::MPEG::File.open(compressed_file.path) do |taglib|
+    TagLib::MPEG::File.open(file.path) do |taglib|
       tag = taglib.id3v2_tag || taglib.id3v1_tag
       logger.info "Tag information -- #{tag.inspect}"
       break unless tag
@@ -453,7 +445,7 @@ class Song < ActiveRecord::Base
       # Waveform
       if waveform_file_name.nil?
         logger.info "Generating waveform..."
-        self.waveform = generate_waveform(compressed_file.path)
+        self.waveform = generate_waveform(file.path)
       end
 
       fix_empty_soundcloud_tags
