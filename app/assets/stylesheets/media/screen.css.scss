@@ -13,7 +13,7 @@
 /* iPhone [portrait + landscape] */
 @media screen and (max-width: 680px) {
   body {
-    min-width: 385px;
+    min-width: 365px;
   }
 
   body.swiped-left {
@@ -56,7 +56,7 @@
   #navbar,
   #search-form {
     @include transition(all linear .1s);
-    margin-left: -$navbar-width + 5;
+    margin-left: -$navbar-width;
   }
 
   #body {
