@@ -376,8 +376,8 @@ class Song < ActiveRecord::Base
           # Set file
           self.file = song
           self.compressed_file = compress_mp3(song.path)
-          process
           self.save
+          process
         end
       rescue Exception => e
         # self.processed = false
@@ -453,7 +453,7 @@ class Song < ActiveRecord::Base
       # Waveform
       if waveform_file_name.nil?
         logger.info "Generating waveform..."
-        self.waveform = generate_waveform(file.path)
+        self.waveform = generate_waveform(compressed_file.path)
       end
 
       fix_empty_soundcloud_tags
