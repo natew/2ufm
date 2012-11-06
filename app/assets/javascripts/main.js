@@ -291,8 +291,8 @@ body.allOn('click', {
   },
 
   '.popup': function(e, el) {
+    e.preventDefault();
     popup(el);
-    return false;
   },
 
   '.select-on-click': function(e, el) {
