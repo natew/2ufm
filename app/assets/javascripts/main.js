@@ -702,6 +702,7 @@ function resumePlaying() {
 }
 
 function setupFixedTitles() {
+  return false;
   var fixedTitlesInterval,
       isFixed = false,
       title = $('.title:has(.nav-menu)');
