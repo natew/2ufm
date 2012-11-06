@@ -26,7 +26,6 @@ var pagination = (function(fn, mp) {
 
       isLoading = true;
       current = playlistPage + 1;
-      scrolledTo = current;
 
       var newPageURL = getNewPageURL(current);
 
@@ -44,6 +43,7 @@ var pagination = (function(fn, mp) {
           }
         },
         success: function(data) {
+          scrolledTo = current;
           $(window).trigger('gotPageLoad', data);
           updatePageURL(newPageURL);
           var playlist = $('#playlist-' + id + '-' + current);
@@ -64,7 +64,7 @@ var pagination = (function(fn, mp) {
   }
 
   function nearBottom() {
-    return w.scrollTop() >= ($(document).height() - w.height() - 1200);
+    return w.scrollTop() >= ($(document).height() - w.height() - 600);
   }
 
   // Reads URL parameters for ?page=X and returns X
@@ -148,6 +148,10 @@ var pagination = (function(fn, mp) {
 
     currentPage: function() {
       return current;
+    },
+
+    scrolledTo: function() {
+      return scrolledTo;
     }
   }
 }(fn, mp));
