@@ -64,7 +64,7 @@ var pagination = (function(fn, mp) {
   }
 
   function nearBottom() {
-    return w.scrollTop() >= ($(document).height() - w.height() - 600);
+    return w.scrollTop() >= ($(document).height() - w.height() - 1000);
   }
 
   // Reads URL parameters for ?page=X and returns X
