@@ -6,6 +6,11 @@
         <fieldset>
           <legend>Profile</legend>
           <div class="clearfix">
+            <%= label :full_name, :full_name, 'Full Name', :class => 'inline' %>
+            <%= f.text_field :full_name %>
+          </div>
+
+          <div class="clearfix">
             <%= label :user, :username, 'Username', :class => 'inline' %>
             <%= f.text_field :username %>
           </div>

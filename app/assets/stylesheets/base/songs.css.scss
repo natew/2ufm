@@ -163,7 +163,7 @@ $song-player-height: 50px;
       left: $song-pad;
       width: $song-art;
       height: $song-art;
-      padding: 44px 0 0;
+      padding: 46px 0 0;
       text-align: center;
       color: #fff;
       z-index: 2;
@@ -182,7 +182,8 @@ $song-player-height: 50px;
     &.active:after {
       width: $song-art-big;
       height: $song-art-big;
-      padding: 68px 0 0;
+      padding: 74px 0 0 10px;
+      font-size: 46px;
     }
 
     &.listened-to {
@@ -508,6 +509,7 @@ $song-player-height: 50px;
   }
 
   .song-art {
+    background: #000;
     position: absolute;
     width: $song-art;
     height: $song-art;

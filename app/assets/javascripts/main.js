@@ -98,6 +98,9 @@ if (!hideWelcome && !isOnline) {
 }
 
 if (isOnline) {
+  // Analytics for users
+  _gaq.push([ '_setCustomVar', 1, 'User', 'Session', $('body').data('user'), 1 ]);
+
   $('.remove')
     .live('mouseenter', function() { $('span',this).html('D'); })
     .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
@@ -378,6 +381,14 @@ body.allOn('click', {
 body.allOn('click', {
   'a': function bodyClick(e, el) {
     fn.log(e, el);
+
+    try {
+      _gaq.push(['_trackEvent', '#' + el.attr('id') + ' ' + el.attr('class'), 'Click', el.text()]);
+    }
+    catch (err) {
+      fn.log(err);
+    }
+
     if (!el.parents('.nav-menu')) navDropdown(false);
     if (!e.isDefaultPrevented()) {
       if (!this.className.match(/external/)) e.preventDefault();

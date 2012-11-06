@@ -76,7 +76,7 @@ class Song < ActiveRecord::Base
   validate  :unique_to_blog, :on => :create
 
   # Conditions
-  scope :unprocessed, where(processed: false)
+  scope :not_processed, where(processed: false)
   scope :processed, where(processed: true)
   scope :working, where(working: true)
   scope :not_working, where(working: true)
@@ -249,6 +249,7 @@ class Song < ActiveRecord::Base
   end
 
   def resolve_image(*type)
+    return '/images/default.png' if Rails.env.development?
     type = type[0] || :original
     image(type).to_s =~ /default/ ? post.image(type) : image(type)
   end
