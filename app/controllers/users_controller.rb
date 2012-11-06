@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.joins(:station).where('stations.slug = ?', params[:id]).first || not_found
     @station = Station.find_by_slug(params[:id]) || not_found
     @user_songs = @station.songs.playlist_broadcasted.user_broadcasted
     @songs = true
