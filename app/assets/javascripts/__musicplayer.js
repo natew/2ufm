@@ -98,7 +98,7 @@ var mp = (function() {
       }
     },
 
-    setPlayingPage: function() {
+    setPlayingPage: function(playlist) {
       playingPage = curPage.replace(/\/?p-[0-9]+\/?.*/, '');
       var pageNum = parseInt(playlist.id.split('-')[1], 10);
 
@@ -121,7 +121,7 @@ var mp = (function() {
           fn.log('loading', playlistIndex, playlistID);
 
           // Remember this page
-          player.setPlayingPage();
+          player.setPlayingPage(playlist);
 
           // Get new playlist
           var el = $('#playlist-' + playlistID);
