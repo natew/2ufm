@@ -98,7 +98,7 @@ var mp = (function() {
       }
     },
 
-    setPlayingPage: function(playlist) {
+    setPlayingPage: function() {
       playingPage = curPage.replace(/\/?p-[0-9]+\/?.*/, '');
       var pageNum = parseInt(playlist.id.split('-')[1], 10);
 
@@ -120,15 +120,15 @@ var mp = (function() {
           if (playlist) fn.log(playlist.id, playlistID);
           fn.log('loading', playlistIndex, playlistID);
 
-          // Remember this page
-          player.setPlayingPage(playlist);
-
           // Get new playlist
           var el = $('#playlist-' + playlistID);
           playlist = el.data('playlist');
           playlist.id = playlistID;
           broadcasts = el.next('script');
           fn.log('broadcasts', broadcasts);
+
+          // Remember this page
+          player.setPlayingPage();
 
           // Add indices
           for (var i = 0; i < playlist.songs.length; i++) {
