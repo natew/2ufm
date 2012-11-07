@@ -1,4 +1,10 @@
 Danthes.debug = true;
+
+// Don't remember scroll position if they were on a page
+if (window.location.pathname.match(/p-[0-9]+/)) {
+  fn.scrollToTop(0);
+}
+
 //
 // Document.ready
 //

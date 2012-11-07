@@ -75,8 +75,8 @@ var fn = {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
 
-  scrollToTop: function() {
-    $('html,body').animate({scrollTop:0}, 200);
+  scrollToTop: function(time) {
+    $('html,body').animate({scrollTop:0}, 200 || time);
   },
 
   scrollTo: function(object) {

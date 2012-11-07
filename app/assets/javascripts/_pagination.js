@@ -68,6 +68,7 @@ var pagination = (function(fn, mp) {
   }
 
   function atTop() {
+    $.cookie('wasAtTop', true);
     if (current > 1) {
       current = parseInt($('.page-current span').html() || 1, 10);
       updatePageURL(getNewPageURL(current));
@@ -75,6 +76,7 @@ var pagination = (function(fn, mp) {
   }
 
   function notAtTop() {
+    $.cookie('wasAtTop', false);
     if (scrolledTo > 1 && current != scrolledTo) {
       current = scrolledTo;
       updatePageURL(getNewPageURL(current));
@@ -163,6 +165,7 @@ w.scroll(function() {
     clearTimeout(pageLoadTimeout);
     pageLoadTimeout = setTimeout(function() {
       pagination.checkPage();
+      $.cookie('scrollTop', w.scrollTop());
     }, 30);
   }
 });
