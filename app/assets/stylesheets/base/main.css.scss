@@ -861,6 +861,10 @@ $placeholder-color: #999;
   color: $placeholder-color;
 }
 
+::-webkit-input-placeholder { color: rgba(255,255,255,0.1); }
+:-moz-placeholder { color: rgba(255,255,255,0.2); }
+:-ms-input-placeholder { color: rgba(255,255,255,0.2); }
+
 #search-form {
   margin: 0 20px 0 $navbar-width + 20;
 
@@ -872,7 +876,7 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.2);
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
@@ -893,7 +897,7 @@ $placeholder-color: #999;
     left: 10px;
     top: 5px;
     font-size: 18px;
-    color: #555;
+    color: #aaa;
     text-shadow: none;
     padding: 0;
     box-shadow: none;
@@ -1052,85 +1056,6 @@ header #second-nav {
     @include box-sizing(border-box);
   }
 }
-
-
-/* Welcome */
-#welcome {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  z-index: 10000;
-  @include box-shadow(0 0 10px rgba(0,0,0,0.7));
-
-  &.active {
-    display: block;
-  }
-
-  &:after {
-    visibility: visible;
-    content: "";
-    position: absolute;
-    display: block;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(0,0,0,0.15);
-  }
-
-  h3 {
-    margin: -5px 0 5px;
-    color: rgba(255,255,255,0.6);
-  }
-
-  section {
-    height: 26px;
-    margin: 0 0 -6px 0;
-    padding: 10px 0 0;
-    overflow: hidden;
-    position: relative;
-
-    h1 {
-      color: #fff;
-      font-size: 24px;
-      margin: 0 0 6px 0;
-      position: absolute;
-      bottom: -28px;
-      left: 0;
-      opacity: 0;
-      @include transition(all .3s linear);
-
-      &.in {
-        bottom: 0;
-        opacity: 1;
-      }
-
-      &.out {
-        top: 48px;
-        opacity: 0;
-      }
-    }
-  }
-
-  .button {
-    position: absolute;
-    top: 30px;
-    right: 20px;
-  }
-
-  #close-welcome {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 10;
-    font-size: 18px;
-    color: #fff;
-  }
-}
-
 
 
 /* NOTICES */

@@ -3,8 +3,17 @@
   <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
 
   <h3>Featured blogs</h3>
-  <%= render partial: 'stations/featured_shelf', locals: { items: @blogs  } %>
+  <%= render partial: 'stations/featured_shelf', locals: { items: @blogs, classname: 'single'  } %>
+</div>
 
-  <h3>Today's most liked songs</h3>
-  <%= render partial: 'stations/playlist', locals: { station: @trending, songs: @trending_songs, classname: 'show-count', dont_paginate: true } %>
+<div class="twothirds-wrap">
+  <div class="twothirds">
+    <h3>Today's most liked songs</h3>
+    <%= render partial: 'stations/playlist', locals: { station: @trending, songs: @trending_songs, classname: 'show-count', dont_paginate: true } %>
+  </div>
+</div>
+
+<div class="third">
+  <h3>Genres</h3>
+  <%= render 'genres/list' %>
 </div>

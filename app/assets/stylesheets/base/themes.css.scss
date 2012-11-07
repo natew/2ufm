@@ -38,8 +38,6 @@
   .theme-body-#{$i} {
     background: $body-bg;
 
-    #welcome { @include linear-gradient(lighten($body-bg, 5%), darken($body-bg, 2%)); }
-
     #modal,
     #promo-fixed-lower,
     #navbar a.active { background: $body-bg; }

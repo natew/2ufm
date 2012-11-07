@@ -108,7 +108,7 @@
 
     <div id="main-mid">
       <%= form_tag '/us/search', :method => 'get', :id => "search-form" do %>
-        <%= text_field_tag :query, '' %>
+        <%= text_field_tag :query, '', placeholder: 'Search artists, songs, blogs and users' %>
         <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
       <% end -%>
 
@@ -176,19 +176,6 @@
       <% end %>
     </div>
   </div>
-
-  <% if !user_signed_in? %>
-  <div id="welcome">
-    <h3>What is 2u.fm?</h3>
-    <section>
-      <h1>Up to the minute songs from music blogs around the web.</h1>
-      <h1>The easiest way to share and listen to music with your friends.</h1>
-      <h1>Follow artists you love and and fill your feed with their newest music.</h1>
-    </section>
-    <% link_to 'Learn More', '/go/tour', :class => 'button add' %>
-    <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
-  </div>
-  <% end %>
 
   <!-- Hover menus -->
 

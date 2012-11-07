@@ -625,7 +625,8 @@ section.active,
   display: none;
 }
 
-.half .playlist-song {
+.half .playlist-song,
+.twothirds .playlist-song {
   .song-meta {
     .song-meta-pre,
     .song-controls {

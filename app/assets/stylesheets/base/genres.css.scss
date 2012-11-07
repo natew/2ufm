@@ -44,6 +44,18 @@ h3.horizontal {
   }
 }
 
+.third .genres {
+  li {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  a {
+    padding: 8px 0;
+    margin: 0;
+  }
+}
+
 #body .genres {
   a {
     font-size: 16px;
