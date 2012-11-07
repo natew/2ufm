@@ -67,6 +67,20 @@ var pagination = (function(fn, mp) {
     return w.scrollTop() >= ($(document).height() - w.height() - 1000);
   }
 
+  function atTop() {
+    if (current > 1) {
+      current = parseInt($('.page-current span').html() || 1, 10);
+      updatePageURL(getNewPageURL(current));
+    }
+  }
+
+  function notAtTop() {
+    if (scrolledTo > 1 && current != scrolledTo) {
+      current = scrolledTo;
+      updatePageURL(getNewPageURL(current));
+    }
+  }
+
   // Reads URL parameters for ?page=X and returns X
   function getPage() {
     var page = window.location.pathname.match(/p-([0-9]+)/);
@@ -110,20 +124,6 @@ var pagination = (function(fn, mp) {
     link.remove();
   }
 
-  function atTop() {
-    if (current > 1) {
-      current = parseInt($('.page-current span').html() || 1, 10);
-      updatePageURL(getNewPageURL(current));
-    }
-  }
-
-  function notAtTop() {
-    if (current != scrolledTo) {
-      current = scrolledTo;
-      updatePageURL(getNewPageURL(current));
-    }
-  }
-
   return {
     updateCurrentPage: function() {
       current = getPage();
@@ -131,6 +131,7 @@ var pagination = (function(fn, mp) {
 
     restart: function() {
       hasMore = true;
+      scrolledTo = 0;
     },
 
     checkPage: function() {
