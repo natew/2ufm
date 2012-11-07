@@ -1,1 +1,1 @@
-Mime::Type.register "text/page", :page
+Mime::Type.register "text/html+page", :page

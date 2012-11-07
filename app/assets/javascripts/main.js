@@ -15,14 +15,19 @@ $(function() {
   // Close modal
   $('#overlay').click(function() { modal(false); });
 
-  // Fade in effect
-  $('#overlay').removeClass('shown');
-
   // Modal if not logged in
-  doPlaysActions();
+  if (!doPlaysActions()) {
+    $('#overlay').removeClass('shown');
+  }
 
   if ($('#modal-new-user').length) {
     modal('#modal-new-user');
+
+    $('#modal-new-user .genres a').click(function(e) {
+      e.preventDefault();
+    })
+
+    $('#modal-new-user .stations').dontScrollParent();
 
     $('#genres-next').click(function() {
       var genres = [];
@@ -53,38 +58,25 @@ $(function() {
     fn.replaceState(route);
     clickSong(listen.song_id);
   }
+
+  $('body')
+    .touchSwipeLeft(function() {
+      $('body').removeClass('swiped-left');
+    })
+    .touchSwipeRight(function() {
+      $('body').addClass('swiped-left');
+    });
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 
-navItems = getNavItems();
+setNavItems();
 setShares($('#nav-shares').attr('data-shares'));
 
-// Cookies
-if (!hideWelcome && !isOnline) {
-  var h1s = $('#welcome h1'),
-      h1len = h1s.length,
-      h1cur = 0;
-
-  $('#welcome').addClass('active');
-  $('#welcome h1:first').addClass('in');
-
-  $('#close-welcome').click(function(e) {
-    e.preventDefault();
-    $.cookie('hideWelcome', 1);
-    $('#welcome').animate({'margin-bottom': '-100px'}, function() {
-      $(this).remove();
-    });
-  });
-
-  setInterval(function() {
-    $(h1s[h1cur]).addClass('out');
-    if (h1cur == h1len-1) h1cur = -1;
-    $(h1s[++h1cur]).addClass('in').removeClass('out')
-  }, 4500)
-}
-
 if (isOnline) {
+  // Analytics for users
+  _gaq.push([ '_setCustomVar', 1, 'User', 'Session', $('body').data('user'), 1 ]);
+
   $('.remove')
     .live('mouseenter', function() { $('span',this).html('D'); })
     .live('mouseleave', function() { $(this).removeClass('first-hover').find('span').html('2'); });
@@ -130,7 +122,7 @@ $('#query')
     if (e.keyCode == 27) $(this).blur();
   })
   .marcoPolo({
-    url: '/search',
+    url: '/us/search',
     selectable: ':not(.unselectable)',
     formatItem: function (data, $item) {
       if (data.selectable == 'false') $item.addClass('unselectable');
@@ -158,7 +150,7 @@ $('#player-song-name a').click(function songNameClick() {
 });
 
 function scrollToCurrentSong() {
-  fn.scrollTo($('section.playing'));
+  fn.scrollTo($('#song-' + mp.curSongInfo().id));
 }
 
 // Play from playlist
@@ -178,7 +170,9 @@ startGetNavbar();
 
 // Custom scrollpanes
 $('#share-friends').dontScrollParent();
-$('.scroll-section div:first').dontScrollParent().addClass('scroll-section-inner');
+$('.scroll-section').each(function() {
+  $('div:first', this).dontScrollParent().addClass('scroll-section-inner');
+});
 
 // window.scroll
 w
@@ -195,18 +189,12 @@ w
     updatePlaylist();
   });
 
-$('#nav-genres').click(function() {
-  setTimeout(function() {
-    windowResize();
-  }, 200);
-});
-
 w.resize(fn.debounce(windowResize, 20));
 windowResize();
 
 function windowResize() {
   $('#navbar-friends-inner')
-    .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 37) })
+    .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 32) })
     .dontScrollParent();
 
   $('#navbar-menus')
@@ -221,32 +209,6 @@ $('#player-share').hover(function() {
   updateShareFriends(true);
   shareSong = curSong.id;
   shareSongTitle = curSong.name || '';
-});
-
-// Bind hovering on nav elements
-$('.nav-hover').live({
-  mouseenter: function(e) {
-    if (disableHovers) return;
-    var el = $(this),
-        hoveredClass = el.attr('class'),
-        hovered = navHovered[hoveredClass];
-
-    if (el.is('.hover-off')) return false;
-
-    // fn.log('nav hover.. hovered?', hoveredClass, hovered, el);
-    clearInterval(navHoverInterval);
-    closeHoveredDropdown();
-    if (!hovered) {
-      navHoverActive = el;
-      navDropdown(el, false, true);
-      navHovered[hoveredClass] = true;
-    }
-  },
-  mouseleave: function() {
-    navHoverInterval = setInterval(function() {
-      closeHoveredDropdown(navHoverActive);
-    }, 250);
-  }
 });
 
 $(window).bind('popstate', function(event) {
@@ -305,8 +267,8 @@ body.allOn('click', {
   },
 
   '.popup': function(e, el) {
+    e.preventDefault();
     popup(el);
-    return false;
   },
 
   '.select-on-click': function(e, el) {
@@ -373,24 +335,36 @@ body.allOn('click', {
     e.preventDefault();
     var old = theme.head;
     theme.head = el.attr('href');
-    body.addClass(theme.head);
-    body.removeClass(old);
-    $.cookie('theme-head', theme.head);
+    if (old != theme.head) {
+      body.addClass(theme.head);
+      body.removeClass(old);
+      $.cookie('theme-head', theme.head);
+    }
   },
 
   '#body-colors a': function(e, el) {
     e.preventDefault();
     var old = theme.body;
     theme.body = el.attr('href');
-    body.addClass(theme.body);
-    body.removeClass(old);
-    $.cookie('theme-body', theme.body);
+    if (old != theme.body) {
+      body.addClass(theme.body);
+      body.removeClass(old);
+      $.cookie('theme-body', theme.body);
+    }
   }
 });
 
 body.allOn('click', {
   'a': function bodyClick(e, el) {
     fn.log(e, el);
+
+    try {
+      _gaq.push(['_trackEvent', '#' + el.attr('id') + ' ' + el.attr('class'), 'Click', el.text()]);
+    }
+    catch (err) {
+      fn.log(err);
+    }
+
     if (!el.parents('.nav-menu')) navDropdown(false);
     if (!e.isDefaultPrevented()) {
       if (!this.className.match(/external/)) e.preventDefault();
@@ -423,6 +397,17 @@ $('#player-buttons .broadcast a').click(function() {
   $(this).parent().toggleClass('remove');
 });
 
+// Genres
+$('#nav-genres').click(function() {
+  setTimeout(function() {
+    $.cookie('genres-open', !$('#navbar-genres').is('.invisible'));
+    windowResize();
+  }, 210);
+});
+
+if ($.cookie('genres-open') === 'true') {
+  $('#nav-genres').click();
+}
 
 
 
@@ -470,19 +455,16 @@ function mpClick(selector, callback) {
   });
 }
 
-function getNavItems() {
-  var items = {};
+function setNavItems() {
   $('#navbar a').each(function() {
     var t = $(this);
-    items[t.attr('href')] = t;
+    navItems[t.attr('href')] = t;
   });
-  return items;
 }
 
 function setNavActive(page) {
   page = page.replace(/\/p-[0-9]+.*/, '');
   // Update #navbar
-  fn.log(page, navItems);
   if (navActive) navActive.removeClass('active');
   var newNavActive = navItems[page];
   if (!newNavActive) newNavActive = navItems['/' + page.split('/')[1]];
@@ -490,7 +472,14 @@ function setNavActive(page) {
 
   // Update .nav-menu
   $('.nav-menu a').removeClass('active');
-  $('.nav-menu a[href="' + page + '"]').addClass('active');
+
+  var newNavEl = $('.nav-menu a[href="' + page + '"]')
+  if (!newNavEl.length) {
+    var split = page.split('/');
+    newNavEl = $('.nav-menu a[href="' + split.slice(0, split.length - 1).join("/") + '"]')
+  }
+
+  newNavEl.addClass('active');
 }
 
 function pjax(url, container) {
@@ -499,47 +488,6 @@ function pjax(url, container) {
     container: container || '#body',
     timeout: 12000
   });
-}
-
-function navDropdown(nav, pad, hover) {
-  var delay = hover ? 100 : 0;
-  setTimeout(function() {
-    if (nav && nav.length) {
-      // fn.log(nav, pad, 'class=', nav.attr('class'));
-      if (hover && !nav.is(':hover')) return false;
-      if (nav.is('.song-share')) updateShare(nav);
-
-      var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
-          padding = pad ? pad : 10,
-          target = nav.attr('href')[0] == '#' ? nav.attr('href') : nav.attr('data-target'),
-          dropdown = $(target).removeClass('hidden').addClass('open'),
-          top = nav.offset().top - doc.scrollTop() + nav.height() + padding,
-          left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
-
-      if (dropdown.is('.right-align')) {
-        left = left - dropdown.outerWidth()/2 + 45;
-      } else if (dropdown.is('.left-align')) {
-        left = left + dropdown.outerWidth()/2 - 45;
-      }
-
-      // If the nav is not already open
-      if (!(navOpen && navOpen[0] == dropdown[0])) {
-        navOpen = dropdown.css({
-          top: top,
-          left: left
-        });
-
-        if (nav.is('.update-clipboard')) {
-          fn.clipboard('share-link', 'relative');
-        }
-
-        return true;
-      }
-    }
-
-    if (navOpen) navOpen.removeClass('open').addClass('hidden');
-    navOpen = false;
-  }, delay);
 }
 
 function updateShare(nav) {
@@ -623,6 +571,7 @@ function getNavbar() {
     $.getJSON('/navbar.json', function getNavbarCallback(data) {
       fn.log('got', data);
       if (data) {
+        $('#navbar-friends').removeClass('hidden');
         var friendsHtml = Mustache.render(friendsTemplate, data['friends']);
         $('#navbar-friends-inner')
           .html(friendsHtml)
@@ -631,6 +580,8 @@ function getNavbar() {
             $(this).removeClass('hidden');
           });
         updateShareFriends(friendsHtml);
+        setNavItems();
+        setNavActive(mp.getPage());
 
         $('#friends').html(friendsHtml);
       }
@@ -685,11 +636,11 @@ $(window).on('gotPageLoad', function(e, data) {
 bindImageErrors();
 
 function bindImageErrors(context) {
-  $('img', context || 'body').error(function imgError() {
-    var el = $(this);
-    if (!el.is('.waveform'))
-      el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
-  });
+  // $('img', context || 'body').error(function imgError() {
+  //   var el = $(this);
+  //   if (!el.is('.waveform'))
+  //     el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
+  // });
 }
 
 function updateBroadcastButton(station_id, song_id) {
@@ -712,21 +663,6 @@ function updateBroadcastButton(station_id, song_id) {
   }
 }
 
-function closeHoveredDropdown() {
-  var el = navHoverActive;
-  if (el
-      && !el.is(':hover')
-      && !$((el.attr('data-target') || el.attr('href'))).is(':hover')) {
-    navUnhoveredOnce = true;
-    if (navUnhoveredOnce) {
-      navDropdown(false);
-      clearInterval(navHoverInterval);
-      navHovered[el.attr('class')] = false;
-      navUnhoveredOnce = false;
-    }
-  }
-}
-
 function resumePlaying() {
   fn.log(isOnline, beginListen);
   if (isOnline && beginListen && mp.isOnPlayingPage(beginListen.url)) {
@@ -742,6 +678,7 @@ function resumePlaying() {
 }
 
 function setupFixedTitles() {
+  return false;
   var fixedTitlesInterval,
       isFixed = false,
       title = $('.title:has(.nav-menu)');
@@ -779,9 +716,12 @@ function setupFixedTitles() {
 function doPlaysActions() {
   if (!isOnline && !isTuningIn && mp.plays() > 2) {
     if ( !$('#page-identifier').is('.action-trending') ) {
+      $('#modal-login').addClass('permanent');
       modal('#modal-login');
+      return true;
     } else {
       modal(false, true);
+      return false;
     }
   }
 }

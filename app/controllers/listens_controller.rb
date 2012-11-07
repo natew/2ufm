@@ -3,17 +3,20 @@ class ListensController < ApplicationController
     @listen = Listen.find_by_shortcode(params[:id])
     route = Rails.application.routes.recognize_path(@listen.url)
 
-    # Setup ID for certain pages
-    params[:id] = @listen.url[1..-1].gsub(/\?.*/, '') if route[:controller] == 'stations'
-    params[:id] = @listen.url[1..-1].gsub(/\/.*/, '') if route[:action] == 'feed'
-
-    # Pass through listen
+    params[:id] = route[:id]
     params[:listen_song_id] = @listen.song_id
     params[:listen] = @listen.to_json
     params[:route] = url_for(route)
 
+    if route[:controller] == 'shares'
+      controller_name = "songs_controller".camelize.constantize
+      route[:action] = 'show'
+      params[:id] = params[:listen_song_id]
+    else
+      controller_name = "#{route[:controller]}_controller".camelize.constantize
+    end
+
     # Render controller
-    controller_name = "#{route[:controller]}_controller".camelize.constantize
     controller = controller_name.new
     controller.request = @_request
     controller.response = @_response

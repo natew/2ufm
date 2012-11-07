@@ -7,9 +7,6 @@ var page = {
     $('.zeroClipboardDiv').remove();
     $('.tipsy').remove();
     spinner.attach();
-
-    // Nav highlight
-    setNavActive(newPage);
   },
 
   end: function pageEnd() {
@@ -17,9 +14,13 @@ var page = {
         path = curPage.split('/'),
         tipTimer,
         pageFollow,
-        doScrollToTop = true;
+        doScrollToTop = true,
+        pageIdentifier = $('#page-identifier');
 
-    fn.log(curPage);
+    fn.log(curPage, pageIdentifier.attr('class'));
+
+    // Nav highlight
+    setNavActive(newPage);
 
     doPlaysActions();
     pagination.restart();
@@ -33,6 +34,11 @@ var page = {
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);
 
+    // Update page title
+    if (!mp.isLoaded()) {
+      $('title').html($('#title').html());
+    }
+
     // Set page in music player && scroll to current section if found
     mp.setPage(curPage, function(foundSection) {
       fn.scrollTo(foundSection);
@@ -42,6 +48,11 @@ var page = {
     // Scroll to top if we are going to new page
     if (doScrollToTop && $('body').scrollTop() > 0)
       fn.scrollToTop();
+
+    // Live listen tune in
+    if (pageIdentifier.is('.action-live')) {
+      tuneIn();
+    }
 
     // Clipboard items
     var citems = $('#main-mid .clipboard');

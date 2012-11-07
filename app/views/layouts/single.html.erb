@@ -6,6 +6,10 @@
 
 <%= render :partial => 'shared/breadcrumbs' %>
 
-<div id="page-identifier" class="contain controller-<%= controller.controller_name %> action-<%= controller.action_name %> primary-<%= @primary.class.name.downcase || 'none' %>">
+<div id="title" class="hidden">
+  <%= title %>
+</div>
+
+<div id="page-identifier" class="contain controller-<%= controller.controller_name %> action-<%= controller.action_name %> primary-<%= @primary ? @primary.class.name.downcase : 'none' %>">
   <%= yield %>
 </div>

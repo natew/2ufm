@@ -39,7 +39,9 @@ var mp = (function() {
       played = [],
       justStarted,
       playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10),
-      curSongLoaded = false;
+      curSongLoaded = false,
+      soundcloudKey = $('body').attr('data-soundcloud-key'),
+      listen;
 
   // Playmode
   playMode = playMode || NORMAL;
@@ -154,48 +156,25 @@ var mp = (function() {
 
           // Load song
           curSongInfo = playlist.songs[playlistIndex];
-          curSong = soundManager.createSound({
-            id:curSongInfo.id,
-            url:'/play/' + curSongInfo.id + '?key=' + (new Date()).getTime(),
-            onplay:events.play,
-            onstop:events.stop,
-            onpause:events.pause,
-            onresume:events.resume,
-            onfinish:events.finish,
-            whileloading:events.whileloading,
-            whileplaying:events.whileplaying,
-            onmetadata:events.metadata,
-            onload:events.onload,
-            volume:volume,
-            stream:(startedAt ? false : true)
-          });
+          w.trigger('mp:play', player.state());
+
+          // Determine soundcloud
+          if (curSongInfo.sc_id !== '')
+            $.get('http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey, function(data) {
+              fn.log(data);
+              if (data) {
+                self.playUrl(data.stream_url + "?client_id=" + soundcloudKey);
+              }
+            });
+          else {
+            self.playUrl('/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
+          }
 
           if (!curSection) {
             var foundSection = $('#playlist-' + playlist.id + ' #song-' + curSongInfo.id);
             if (foundSection.length) curSection = foundSection;
           }
 
-          w.trigger('mp:play', player.state());
-
-          clearTimeout(playTimeout);
-          playTimeout = setTimeout(function() {
-            fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
-
-            played.push(playlistIndex);
-            justStarted = true;
-            setTimeout(function() {
-              justStarted = false;
-            }, 1000);
-
-            // If we have a time set
-            if (time > 0) {
-              curSong.setPosition(time * 1000);
-              time = 0;
-            }
-
-            // Play
-            curSong.play();
-          }, 300);
           return true;
         }
         else {
@@ -204,6 +183,44 @@ var mp = (function() {
           return false;
         }
       }
+    },
+
+    playUrl: function(url) {
+      curSong = soundManager.createSound({
+        id:curSongInfo.id,
+        url: url,
+        onplay:events.play,
+        onstop:events.stop,
+        onpause:events.pause,
+        onresume:events.resume,
+        onfinish:events.finish,
+        whileloading:events.whileloading,
+        whileplaying:events.whileplaying,
+        onmetadata:events.metadata,
+        onload:events.onload,
+        volume:volume,
+        stream:(startedAt ? false : true)
+      });
+
+      clearTimeout(playTimeout);
+      playTimeout = setTimeout(function() {
+        fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
+
+        played.push(playlistIndex);
+        justStarted = true;
+        setTimeout(function() {
+          justStarted = false;
+        }, 1000);
+
+        // If we have a time set
+        if (time > 0) {
+          curSong.setPosition(time * 1000);
+          time = 0;
+        }
+
+        // Play
+        curSong.play();
+      }, 300);
     },
 
     playSong: function playSong(index) {
@@ -312,6 +329,7 @@ var mp = (function() {
         }
 
         curSection = null;
+        w.trigger('mp:playlist:end', player.state());
         return false;
       }
     },
@@ -511,7 +529,7 @@ var mp = (function() {
           },
           success: function playSuccess(data) {
             listenUrl = data;
-            w.trigger('mp:gotListen', player.state());
+            w.trigger('mp:got:listen', player.state());
           },
           dataType: 'html'
         });
@@ -540,7 +558,6 @@ var mp = (function() {
 
     updatePage: function updatePage(url) {
       fn.log("Updating page url", url);
-      if (this.isOnPlayingPage()) playingPage = url;
       curPage = url;
     },
 
@@ -625,6 +642,10 @@ var mp = (function() {
 
     isPlaying: function() {
       return isPlaying;
+    },
+
+    isLoaded: function() {
+      return typeof curSongInfo != 'undefined';
     },
 
     toggleVolume: function() {
@@ -739,6 +760,16 @@ var mp = (function() {
 
     plays: function() {
       return playCount;
+    },
+
+    playListen: function(playListen) {
+      listen = playListen;
+      this.startedAt(listen.created_at_unix);
+      w.trigger('mp:play:listen', player.state());
+    },
+
+    listen: function() {
+      return listen;
     }
   };
 

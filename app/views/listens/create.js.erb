@@ -1,4 +1,4 @@
 <%= @listen.shortcode %>
 <% publish_to "/listens/#{@listen.user_id}" do %>
-  listenCreatePublish(<%= raw @listen.as_json.to_json %>);
+  mp.playListen(<%= raw @listen.as_json.to_json %>);
 <% end %>

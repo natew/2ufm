@@ -1,45 +1,49 @@
 <%-
   style            ||= 'song'
+  classname        ||= ''
+  cover            ||= 'icon'
   station          ||= Station.new
   per                = Yetting.per
-  id                 = station.id || 0
+  page               = (params[:p] || 1).to_i
+  id               ||= station.id || 0
   page_request     ||= false
   already_limited  ||= false
   dont_paginate    ||= false
-  listen_song        = params[:listen_song_id]
-  page               = (params[:p] || 1).to_i
-  paginate           = (paginate == false || style == 'mini') ? false : true
-  songs            ||= station.songs.playlist_order_broadcasted
-  total_pages        = page + 1 # trick for non-paginate capable
-
-  if !page_request and !already_limited
-    total_songs      = songs.count
-    total_pages      = total_songs / per + (total_songs % per ? 1 : 0)
-  end
-
-  if listen_song
-    songs            = Song.song_page(songs, listen_song.to_i) unless already_limited
-  else
-    songs            = songs.limit_page(page) unless already_limited or page_request
-  end
-
-  has_more           = page < total_pages
-  classname        ||= ''
-  cover            ||= 'icon'
+  dont_find_listen ||= false
   single           ||= false
+  listen_song        = params[:listen_song_id]
   reviews          ||= nil
   cache_val        ||= nil
   id_page            = "#{id}-#{page}"
-  cache              = cache_key(['v5', station, page, per, already_limited, page_request, classname, cache_val, style])
+  cache              = cache_key(['v5', id, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style])
+
+  if !single
+    paginate         = (paginate == false || style == 'mini') ? false : true
+    songs          ||= station.songs.playlist_broadcasted
+    total_pages      = page + 1 # trick for non-paginate capable
+
+    if !page_request and !already_limited
+      total_songs = songs.count
+      total_pages = total_songs / per + (total_songs % per ? 1 : 0)
+    end
+
+    if listen_song and !dont_find_listen
+      songs = Song.song_page(songs, listen_song.to_i) unless already_limited
+    else
+      songs = songs.limit_page(page) unless already_limited or page_request
+    end
+
+    has_more = page < total_pages
+  end
 -%>
 
-<%- if !page_request and !already_limited and total_pages > 1
+<%- if !single and !page_request and !already_limited and !dont_paginate and total_pages > 1
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
       path = '' if path == '/'
       between = 4
       min = [page - between, 2].max
       max = [page + between, total_pages].min
-      max += [between - min, 0].max
+      # max += [between - min, 0].max
       more_high = (page + between) < total_pages
   -%>
   <div class="pagination">

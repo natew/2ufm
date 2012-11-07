@@ -1,25 +1,57 @@
 <div class="title">
-  <h1>Submit your blog <small>Step <%= @blog.step_index %>/3</small></h1>
+  <h1>Suggest a blog</h1>
 </div>
 
-<div class="twothirds">
-  <h3><%= @blog.current_step.capitalize %></h3>
-  <div id="wizard">
+<div class="whole">
+  <h3>Please Read</h3>
+  <p>We hand review each blog submitted to the index.  Please keep in mind a few things when submitting a blog.  First, we only index blogs that post music that is legal to be distributed.  Second, we look for blogs that are updated on a regular basis and that post content that is unique.  If your blog doesn't posts music that is mostly already on the site, we can't justify adding it.</p>
+  <p>Please provide us with a detailed description of what music you post with examples of artists we may not already have, why your blog should be on our site, and some information on analytics about your site including a link to your facebook or twitter pages.</p>
+
   <%= form_for @blog, :html => { :multipart => true } do |f| %>
     <%= render 'shared/form_errors', :target => @blog %>
-    <%= render "new_#{@blog.current_step}_step", :f => f %>
+
+    <h3>Information</h3>
+
+    <div class="clearfix">
+      <%= f.label :name, 'Blog Name' %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :url, 'URL' %>
+      <%= f.text_field :url %>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :email, 'Your Email' %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+
+    <fieldset>
+      <legend>Optional information</legend>
+      <div class="clearfix">
+        <%= f.label  :image %>
+        <%= f.file_field :image %>
+        <span class="help">Images must be at least 300px by 300px</span>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :feed_url, 'RSS Feed URL' %>
+        <%= f.text_field :feed_url %>
+        <span class="help">We require a RSS feed to crawl your site.  If it's not inside your meta tag, enter it here.</span>
+      </div>
+    </fieldset>
+
+    <%= recaptcha_tags %>
+
     <div class="actions clearfix">
-      <%= f.submit "Continue", :class => 'form-control continue' %>
-      <%= f.submit "Back", :name => 'form-control back_button' unless @blog.first_step? %>
+      <%= f.submit "Submit", :class => 'form-control continue' %>
     </div>
   <% end %>
-  </div>
-</div>
 
-<div class="third">
-  <h3>Step <%= @blog.step_index %> of 3</h3>
-  <p>Fill in some basic information on the blog.  If you leave the description blank, we will attempt to find a description on the site itself.</p>
-
-  <h3>Terms &amp; Conditions</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>

@@ -1,0 +1,4 @@
+<% classname ||= '' %>
+<ul class="shelf horizontal featured featured-300 <%= classname %>">
+  <%= render partial: 'stations/shelf', collection: items, locals: { featured: true, content: true } %>
+</ul>

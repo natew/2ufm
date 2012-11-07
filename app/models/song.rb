@@ -57,21 +57,26 @@ class Song < ActiveRecord::Base
   has_many   :listens
   has_many   :shares
 
-  # Comments
+  before_create :set_source, :get_real_url, :clean_url, :set_token
+  after_create :delayed_scan_and_save, :set_rank
+
+  # Whitelist mass-assignment attributes
+  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at, :artist_name, :name
+
   # acts_as_commentable
 
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
   has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
-  has_attachment :file, :s3 => false, :filename => ":id_:style.mp3" # Yetting.s3_enabled
-  has_attachment :compressed_file, :dreamhost => Yetting.dreamhost_enabled, :filename => ":file_key-compressed.mp3"
+  has_attachment :file, :s3 => Yetting.s3_enabled, :filename => ":id_:style.mp3"
+  has_attachment :compressed_file, :filename => ":token.mp3"
 
   # Validations
   validates :url, :presence => true
   validate  :unique_to_blog, :on => :create
 
-  # Basic Scopes
-  scope :unprocessed, where(processed: false)
+  # Conditions
+  scope :not_processed, where(processed: false)
   scope :processed, where(processed: true)
   scope :working, where(working: true)
   scope :not_working, where(working: true)
@@ -83,13 +88,15 @@ class Song < ActiveRecord::Base
   scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
   scope :soundcloud, where(source: 'soundcloud')
   scope :time_limited, where('songs.seconds < ?', 600)
+  scope :matching_id, where('songs.matching_id = songs.id')
+  scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
+  scope :within, lambda { |within| where('songs.created_at >= ?', within.ago) }
+  scope :before, lambda { |before| where('songs.created_at < ?', before.ago) }
 
-  # Basic types
+  # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
   scope :join_role, lambda { |role| joins(:authors).where(authors: {role: role}) }
   scope :with_authors, joins(:authors)
-
-  # Joins
   scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id" INNER JOIN blogs on blogs.id = posts.blog_id')
   scope :with_post, joins(:post)
   scope :with_blog_station_and_post, with_blog_station.with_post
@@ -99,7 +106,6 @@ class Song < ActiveRecord::Base
   # Data to select
   scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
   scope :select_with_info, select('songs.*, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post
-  scope :individual, select_with_info.with_blog_station_and_post.time_limited
   scope :user_broadcasted, select('broadcasts.created_at as published_at')
 
   # Orders
@@ -107,45 +113,33 @@ class Song < ActiveRecord::Base
   scope :order_rank, order('songs.rank desc')
   scope :order_user_broadcasts, order('songs.user_broadcasts_count desc')
   scope :order_published, order('songs.published_at desc')
+  scope :order_published_asc, order('songs.published_at asc')
   scope :order_shared, order('shares.created_at desc')
   scope :order_random, order('random() desc')
 
   # Selects
-  scope :select_songs, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
   scope :select_shared_songs, select('DISTINCT ON (shares.created_at, songs.matching_id) songs.*')
   scope :select_sender, select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at')
   scope :select_receiver, select('receiver.username as receiver_username, receiver.station_slug as receiver_station_slug, shares.created_at as sent_at')
-  scope :select_distinct_broadcasts, select('DISTINCT ON (broadcasts.created_at, songs.matching_id) songs.*').select('broadcasts.created_at as broadcasted_at')
-  scope :select_distinct_newest, select('DISTINCT ON (songs.published_at, songs.matching_id) songs.*')
-  scope :select_distinct_rank, select('DISTINCT ON (songs.rank, songs.id) songs.*')
+  scope :select_broadcasted_at, select('broadcasts.created_at as broadcasted_at')
 
-  # Scopes for playlist
-  scope :playlist_order_rank, select_distinct_rank.working.order_rank.individual
-  scope :playlist_order_newest, select_distinct_newest.working.order_published.individual
-  scope :playlist_order_broadcasted, select_distinct_broadcasts.working.order_broadcasted.individual
-  scope :playlist_scope_order_trending, select_distinct_rank.order_rank.individual
-  scope :playlist_scope_order_published, select_songs.order_published.individual
-  scope :playlist_scope_order_received, select_shared_songs.select_sender.with_sender.order_shared.individual
-  scope :playlist_scope_order_sent, select_shared_songs.select_receiver.with_receiver.order_shared.individual
+  # Combination
+  scope :individual, working.matching_id.select_with_info.with_blog_station_and_post.time_limited
 
-  # Base scopes (most are defined below as methods)
-  scope :playlist_order_random, order_random.individual
-
-  # Grouped Scopes
-  scope :grouped, where('matching_id is not null').select(:matching_id).working
-  scope :grouped_order_published, grouped.group(:matching_id, :published_at).newest.working
-  scope :grouped_order_oldest, grouped.group(:matching_id, :published_at).oldest.working
-  scope :grouped_order_trending, lambda { |min| grouped.group(:matching_id, :rank).order('songs.rank desc').where('songs.user_broadcasts_count > ?', min).working }
+  # Playlists
+  scope :playlist_rank, order_rank.individual
+  scope :playlist_newest, order_published.individual
+  scope :playlist_oldest, order_published_asc.individual
+  scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.individual
+  scope :playlist_trending, min_broadcasts(2).order_rank.individual
+  scope :playlist_popular, min_broadcasts(4).order_rank.individual
+  scope :playlist_received, select_sender.with_sender.order_shared.individual
+  scope :playlist_sent, select_receiver.with_receiver.order_shared.individual
+  scope :playlist_random, order_random.individual
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
   scope :limit_full, lambda { |page| limit(page * Yetting.per) }
-
-  before_create :set_source, :get_real_url, :clean_url, :set_file_key
-  after_create :delayed_scan_and_save, :set_rank
-
-  # Whitelist mass-assignment attributes
-  attr_accessible :url, :link_text, :blog_id, :post_id, :published_at, :created_at, :artist_name, :name
 
   def to_param
     slug
@@ -160,6 +154,7 @@ class Song < ActiveRecord::Base
   end
 
   def self.song_page(songs, song_id)
+    return false if songs.length == 1
     sql = songs.to_sql
     order_by_index = sql.rindex(/(order by .*)/i)
     order_by = sql[order_by_index..-1]
@@ -169,22 +164,6 @@ class Song < ActiveRecord::Base
     page = row / Yetting.per
     logger.info page
     songs.offset(page * Yetting.per).limit(Yetting.per)
-  end
-
-  def self.playlist_order_oldest
-    Song.where(id: Song.grouped_order_oldest).playlist_scope_order_published
-  end
-
-  def self.playlist_order_published
-    Song.where(id: Song.grouped_order_published).playlist_scope_order_published
-  end
-
-  def self.playlist_order_trending
-    Song.where(id: Song.grouped_order_trending(1)).playlist_scope_order_trending
-  end
-
-  def self.playlist_order_popular
-    Song.where(id: Song.grouped_order_trending(4)).playlist_scope_order_trending
   end
 
   def self.user_unread_received_songs(id)
@@ -270,6 +249,7 @@ class Song < ActiveRecord::Base
   end
 
   def resolve_image(*type)
+    return '/images/default.png' if Rails.env.development?
     type = type[0] || :original
     image(type).to_s =~ /default/ ? post.image(type) : image(type)
   end
@@ -296,20 +276,8 @@ class Song < ActiveRecord::Base
 
   # Ranking algorithm
   def set_rank
-    favs_count = 1
-    time_created = created_at
-
-    find_id = matching_id || id
-    if find_id
-      shared_song = Song.where(id:find_id).first
-      if shared_song
-        favs_count = shared_song.user_broadcasts_count
-        time_created = shared_song.created_at
-      end
-    end
-
-    favs = [Math.log(favs_count * 10), 0].max
-    time = (time_created - Time.new(2012)) / 100000
+    favs = [Math.log(user_broadcasts_count * 10), 0].max
+    time = (created_at - Time.new(2012)) / 100000
     self.rank = favs + time
   end
 
@@ -375,20 +343,16 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def scan_file_and_save
-    process
-  end
-
-  def delayed_scan_file_and_save
-    delay.process
-  end
-
   def scan_and_save
     if !url.nil?
       begin
         total = nil
         prev  = 0
         logger.info "Scanning #{file_url} ..."
+
+        if soundcloud_id and updated_at < 2.minutes.ago
+          get_real_url
+        end
 
         open(file_url,
           :content_length_proc => lambda { |content_length|
@@ -405,8 +369,8 @@ class Song < ActiveRecord::Base
           # Set file
           self.file = song
           self.compressed_file = compress_mp3(song.path)
+          process(song)
           self.save
-          process
         end
       rescue Exception => e
         # self.processed = false
@@ -427,7 +391,7 @@ class Song < ActiveRecord::Base
   end
 
   # Read ID3 Tag and generally collect information on the song
-  def process
+  def process(file)
     logger.info "Getting song information -- #{file.path}"
     TagLib::MPEG::File.open(file.path) do |taglib|
       tag = taglib.id3v2_tag || taglib.id3v1_tag
@@ -473,10 +437,6 @@ class Song < ActiveRecord::Base
     # Working if we have name or artist name at least
     self.working = !name.blank? and !artist_name.blank?
 
-    # Parse artists and determine if original song
-    # Re-determines if its working or not
-    find_or_create_artists
-
     # Update info if we have processed this song
     if working? and !processed?
       # Waveform
@@ -485,10 +445,12 @@ class Song < ActiveRecord::Base
         self.waveform = generate_waveform(file.path)
       end
 
-      fix_empty_soundcloud_tags
+      fix_empty_soundcloud_tags(file.path)
       set_match_name
       find_matching_songs
       delete_file_if_matching
+
+      find_or_create_artists
       add_to_stations
 
       # Slug & Processed
@@ -557,9 +519,11 @@ class Song < ActiveRecord::Base
   end
 
   def set_compressed_file
-    file = get_file
-    self.compressed_file = compress_mp3(file.path)
-    self.save
+    logger.info file.url
+    open(file.url) do |file|
+      self.compressed_file = compress_mp3(file.path)
+      self.save
+    end
   end
 
   def delayed_set_compressed_file
@@ -930,9 +894,9 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def fix_empty_soundcloud_tags
+  def fix_empty_soundcloud_tags(path)
     if source == 'soundcloud' and soundcloud_id
-      TagLib::MPEG::File.open(file.path) do |taglib|
+      TagLib::MPEG::File.open(path) do |taglib|
         set_tags(taglib)
       end
     end
@@ -981,11 +945,16 @@ class Song < ActiveRecord::Base
     self.original_tag = full_name
   end
 
-  def set_file_key
+  def set_token
     while true
-      self.file_key = SecureRandom.hex(16)
-      break unless Song.find_by_file_key(file_key)
+      self.token = SecureRandom.hex(16)
+      break unless Song.find_by_token(token)
     end
+  end
+
+  def set_token_and_save
+    set_token
+    self.save
   end
 
   private

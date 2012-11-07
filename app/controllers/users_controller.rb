@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune, :feed]
-  before_filter :load_user, :only => [:followers, :following]
+  before_filter :load_user, :only => [:show, :feed, :followers, :following]
 
   def index
     if params[:letter]
       letter = params[:letter]
       letter = "0-9" if letter == '0'
-      @users = Station.user_station.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
+      @users = Station.has_songs(1).user_station.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
     else
-      @users = Station.has_songs.user_station.order('random() desc').limit(12)
+      @users = Station.has_songs(1).user_station.order('random() desc').limit(12)
     end
 
     respond_to do |format|
@@ -17,12 +17,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.joins(:station).where('stations.slug = ?', params[:id]).first || not_found
     @station = Station.find_by_slug(params[:id]) || not_found
-    @user = User.find(@station.user_id) || not_found
-    @user_songs = @station.songs.playlist_order_broadcasted.user_broadcasted
+    @user_songs = @station.songs.playlist_broadcasted.user_broadcasted
     @songs = true
     @artists = @user.station.artists.has_image.order('random() desc').limit(12)
-    @primary = @user
 
     respond_to do |format|
       format.html { render 'show' }
@@ -34,7 +33,7 @@ class UsersController < ApplicationController
     added_genres = current_user.set_genres(params[:genres].split(','))
     if added_genres.size > 0
       current_user.update_attributes(first_time:false)
-      @artists_stations = Station.where(slug: Artist.joins(:genres).where(genres: { id: added_genres }).map(&:station_slug)).order('stations.songs_count desc').limit(50)
+      @artists_stations = Station.where(slug: Artist.has_image.joins(:genres).where(genres: { id: added_genres }).order('artists.song_count desc').limit(30).map(&:station_slug)).order('stations.songs_count desc')
       render partial: 'users/recommended_artists'
     else
       head 500
@@ -46,8 +45,6 @@ class UsersController < ApplicationController
   end
 
   def feed
-    @user = User.find_by_slug(params[:id]) || current_user
-    @primary = @user
     @feed = true
 
     respond_to do |format|
@@ -147,7 +144,7 @@ class UsersController < ApplicationController
 
     if @user
       @popular = Station.popular
-      @popular_songs = Song.playlist_order_popular
+      @popular_songs = Song.playlist_popular
       @user.privacy.unsubscribe(params[:type].pluralize)
       @success = true
     end
@@ -176,7 +173,7 @@ class UsersController < ApplicationController
   private
 
   def load_user
-    @user = User.find_by_slug(params[:id]) || current_user
+    @user = User.joins(:station).where('stations.slug = ?', params[:id]).first || not_found
     @primary = @user
   end
 end

@@ -1,12 +1,14 @@
 <%-
-  image_size ||= :medium
-  songs_count = shelf.station_songs_count || 0
+  featured    ||= false
+  is_featured   = featured && shelf_counter == 0
+  image_size  ||= is_featured ? :original : :medium
+  classname     = "shelf-#{english_number(shelf_counter)}"
 -%>
-  <li>
-    <a href="/<%= shelf.station_slug %>">
-      <strong><%= shelf.name %></strong>
+  <li class="<%= classname %>">
+    <a href="<%= url_for(shelf) %>">
+      <strong><%= shelf.title %></strong>
       <span><%= image_tag shelf.image.url(image_size) %></span>
-      <p><%= pluralize(songs_count, 'song') %></p>
+      <p><%= pluralize(shelf.broadcasts_count, 'song') %></p>
     </a>
     <% debug(shelf) %>
   </li>

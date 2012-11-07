@@ -6,21 +6,17 @@
   <%= csrf_meta_tag %>
   <meta name="author" content="Nate Wienert">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <%- if params[:listen]
-      @listen_song = Song.find(params[:listen_song_id])
-    -%>
-    <title><%= @listen_song.full_name %> | 2u.fm</title>
+        @listen_song = Song.find(params[:listen_song_id]) -%>
     <!-- OpenGraph -->
     <meta property="og:title" content="<%= @listen_song.full_name %>" />
     <meta property="og:description" content="Listen now on 2u.fm" />
     <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
-  <%- else -%>
-    <title>2u.fm</title>
   <%- end -%>
 
-  <!-- TODO: remove -->
-  <meta name="robots" content="noindex">
+  <title><%= title %></title>
 
   <!-- HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
@@ -28,7 +24,7 @@
   <![endif]-->
 
   <%= stylesheet_link_tag "application", :debug => Rails.env.development? %>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
 
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -53,11 +49,11 @@
   </script>
 </head>
 
-<body class="<%= body_classes %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
+<body class="<%= body_classes %>" data-soundcloud-key="<%= Yetting.soundcloud_key %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
 
   <div id="body-wrap">
     <header>
-      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '-4' %></h1>
+      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '-2', 'data-delay' => '300' %></h1>
 
       <div id="bar">
         <div id="player">
@@ -73,7 +69,7 @@
             </span>
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard', 'data-pad' => '5'  %>
             <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control pictos-list disabled', :id => 'nav-music', 'data-pad' => '5' %>
-            <%= link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control pictos-globe tip-e', 'data-pad' => '18', title: 'Turn on live listening' %>
+            <%= link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control pictos-globe tip-e', 'data-pad' => '18' %>
           </div>
 
           <div id="player-main">
@@ -111,18 +107,18 @@
     </div>
 
     <div id="main-mid">
-      <%= form_tag '/main/search', :method => 'get', :id => "search-form" do %>
-        <%= text_field_tag :query, '' %>
+      <%= form_tag '/us/search', :method => 'get', :id => "search-form" do %>
+        <%= text_field_tag :query, '', placeholder: 'Search artists, songs, blogs and users' %>
         <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
       <% end -%>
 
       <div id="navbar">
         <div id="navbar-menus">
           <div id="navbar-menus-inner">
-
             <section>
-              <%= link_to 'Fresh', songs_fresh_path, :id => 'nav-new', :class => 'pictos-time' %>
-              <%= link_to 'Trending', '/', :id => 'nav-trending', :class => 'pictos-pulse'  %>
+              <%= link_to 'Home', home_path, :id => 'nav-home', :class => 'pictos-home'  %>
+              <%= link_to 'Trending', songs_trending_path, :id => 'nav-trending', :class => 'pictos-pulse'  %>
+              <%= link_to 'Latest', songs_fresh_path, :id => 'nav-new', :class => 'pictos-time' %>
               <%= link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'pictos-music control', 'data-toggle' => 'invisible' %>
 
               <div id="navbar-genres" class="invisible scroll-section">
@@ -130,33 +126,41 @@
                   <%= render 'genres/links' %>
                 </div>
               </div>
+            </section>
 
-              <%= link_to 'Browse', blogs_path, :id => 'nav-artists', :class => 'pictos-users' %>
+            <section>
+              <h1>Browse</h1>
+              <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'pictos-users' %>
+              <%= link_to 'Blogs', browse_path, :id => 'nav-artists', :class => 'pictos-newspaper' %>
             </section>
 
             <%- if user_signed_in? -%>
             <section class="nav-user">
-              <h1><%= current_user.username %></h1>
+              <h1>
+                <%= current_user.username %>
+                <div>
+                  <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', class: 'pictos-delete secondary tip', title: 'Log out' %>
+                  <%= link_to "Account", user_account_path, class: 'pictos-gear tip', title: 'Account &amp; Settings'.html_safe  %>
+                </div>
+              </h1>
               <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
               <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
               <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
             </section>
             <%- end -%>
 
+            <% unless user_signed_in? %>
             <section class="nav-extra account">
-              <% if user_signed_in? %>
-                <%= link_to "Account", user_account_path %>
-                <%= link_to 'Log out', destroy_user_session_path, :method => 'delete' %>
-              <% else %>
-                <%= link_to 'Log in', '#modal-login', :class => 'modal control' %>
-              <% end %>
+              <%= link_to 'Log in', '#modal-login', :class => 'modal control' %>
             </section>
+            <% end %>
           </div>
         </div>
 
-        <section id="navbar-friends">
+        <section id="navbar-friends" class="hidden">
           <h1>Friends</h1>
-          <div id="navbar-friends-inner" class="scroll-section">
+          <div class="scroll-section">
+            <div id="navbar-friends-inner"></div>
           </div>
         </section>
       </div>
@@ -172,19 +176,6 @@
       <% end %>
     </div>
   </div>
-
-  <% if !user_signed_in? %>
-  <div id="welcome">
-    <small>What is 2u.fm?</small>
-    <section>
-      <h1>Up to the minute songs from music blogs around the web.</h1>
-      <h1>The easiest way to share and listen to music with your friends.</h1>
-      <h1>Follow artists you love and and fill your feed with their newest music.</h1>
-    </section>
-    <% link_to 'Learn More', '/go/tour', :class => 'button add' %>
-    <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
-  </div>
-  <% end %>
 
   <!-- Hover menus -->
 
@@ -206,21 +197,21 @@
   </div>
 
   <div id="logo-menu" class="pop-menu left-align">
-    <%= link_to "About", "/about", :class => "secondary control" %>
-    <%= link_to "Legal", "/legal", :class => "secondary control" %>
-
-    <h4>Theme</h4>
     <div id="head-colors" class="colors">
     <% (1..5).each do |color| %>
       <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
     <% end %>
     </div>
-
     <div id="body-colors" class="colors">
     <% (1..5).each do |color| %>
       <%= link_to '', "theme-body-#{color}", class: "body-color-#{color}" %>
     <% end %>
     </div>
+
+    <%= link_to 'About Us', about_main_path %>
+    <%= link_to 'Legal', legal_main_path %>
+    <%= link_to 'Privacy Policy', privacy_main_path %>
+    <%= link_to 'Contact', contact_main_path %>
   </div>
 
   <div id="friends" class="pop-menu right-align"></div>
@@ -236,7 +227,7 @@
       <%= render 'modals/login' %>
     <% else %>
 
-      <% if current_user.facebook_id.nil? %>
+      <% if current_user.provider == 'facebook' and current_user.facebook_id.nil? %>
 
         <div id="modal-new-user">
           <h3>Please re-sync with Facebook</h3>

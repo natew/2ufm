@@ -21,7 +21,7 @@ w.on({
       $('#player-playlist').html(playerPlaylist).addClass('loaded');
   },
 
-  'mp:gotListen': function mpGotListenEvent(event, mp, song) {
+  'mp:got:listen': function mpGotListenEvent(event, mp, song) {
     var listen = mp.getListenUrl(),
         listenUrl = 'http://' + location.host + '/l/' + listen;
 
@@ -33,6 +33,18 @@ w.on({
     // Update share links
     $('#player-share').data('link', listenUrl);
     $('#player-share').data('title', mp.getTitle());
+  },
+
+  'mp:play:listen': function mpPlayListenEvent(event, mp) {
+    var listen = mp.listen();
+
+    if (mp.isOnPlayingPage()) {
+      clickSong(listen.song_id);
+    } else {
+      loadPage(listen.url, function() {
+        clickSong(listen.song_id);
+      });
+    }
   },
 
   'mp:played': function mpPlay(event, mp) {
@@ -90,7 +102,7 @@ w.on({
     }, 200);
   },
 
-  'mp:playlist_end': function playlistEnd(event, mp, song) {
+  'mp:playlist:end': function playlistEnd(event, mp, song) {
     mp.playSection($('.playlist-song:visible section:first'));
   }
 });

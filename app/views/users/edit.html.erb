@@ -1,10 +1,15 @@
     <div class="whole">
-      <h2>My Account</h2>
+      <h2>Account <small><%= current_user.full_name %></small></h2>
       <%= form_for current_user, :url => { :action => :edit }, :html => { :multipart => true } do |f| %>
         <%= render 'shared/form_errors', :target => current_user %>
 
         <fieldset>
           <legend>Profile</legend>
+          <div class="clearfix">
+            <%= label :full_name, :full_name, 'Full Name', :class => 'inline' %>
+            <%= f.text_field :full_name %>
+          </div>
+
           <div class="clearfix">
             <%= label :user, :username, 'Username', :class => 'inline' %>
             <%= f.text_field :username %>

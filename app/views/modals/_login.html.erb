@@ -1,18 +1,24 @@
-<div id="modal-login" class="permanent">
+<div id="modal-login">
   <h3>Welcome to 2u.fm!</h3>
   <div id="login-promo">
     <p class="large">
-      <img id="octo-dj" src="/images/octo_dj.png" />
-      <strong>Discover great new music</strong>.
-      This is music sharing done right.
-      Follow friends, artists &amp; top music blogs.
+      <strong>Discover great new music</strong> and share it <strong>live</strong> with your friends.
+    </p>
+
+    <img id="octo-dj" src="/images/octo_dj.png" />
+
+    <p>
+      We crawl music blogs for the newest singles, remixes, bootlegs, mashups, and more.
     </p>
 
     <p>
-      We aren't Spotify or Pandora.  We bring you music before it's released.  We have all the remixes, mashups, and bootlegs.  Listen to it live with your friends.
+      Follow your friends to listen to the music they like.
+      Follow artists to hear their latest releases.
     </p>
 
-    <p style="clear:both;"><b>It's a different type of social music.</b>  And don't worry, we don't spam your Facebook.</p>
+    <p>
+      And don't worry, we don't spam your Facebook.
+    </p>
   </div>
 
   <div id="loner-login" class="hidden">
@@ -28,7 +34,7 @@
   </div>
 
   <div class="modal-actions">
-    <span class="afterthought">Or try it <%= link_to 'without facebook.', '#loner-login, #login-promo', class: 'control', 'data-toggle' => 'hidden' %></span>
+    <span class="afterthought">Or log in <%= link_to 'without facebook.', '#loner-login, #login-promo', class: 'control', 'data-toggle' => 'hidden' %></span>
     <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => 'right facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
   </div>
 </div>

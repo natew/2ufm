@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
   def index
     if params[:genre]
       @blogs = Station
-                .has_songs
+                .has_songs(1)
                 .joins('inner join blogs on blogs.id = stations.blog_id')
                 .joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
                 .joins("inner join genres on genres.id = blogs_genres.genre_id")
@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
                 .page(params[:page])
                 .per(Yetting.per)
     else
-      @blogs = Station.blog_station.has_songs.order('random() desc').limit(12)
+      @blogs = Station.blog_station.has_songs(1).order('random() desc').limit(12)
     end
 
     @blogs_genres = Hash[*
@@ -28,8 +28,6 @@ class BlogsController < ApplicationController
                         .map{ |s| [s.id, s.blog_genres] }.flatten
                     ]
 
-                    logger.info "sdsadasdsadsad----------------"
-                    logger.info @blogs_genres
     @blogs.each do |station|
       station.content = @blogs_genres[station.blog_id]
     end
@@ -41,7 +39,7 @@ class BlogsController < ApplicationController
 
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
-    @songs   = @station.songs.playlist_order_newest
+    @songs   = @station.songs.playlist_newest
     @blog    = Blog.find(@station.blog_id) || not_found
     @artists = @blog.station.artists.order('random() desc').limit(12)
     @primary = @blog
@@ -54,7 +52,7 @@ class BlogsController < ApplicationController
 
   def popular
     @station = Station.find_by_slug(params[:id]) || not_found
-    @songs   = @station.songs.playlist_order_rank
+    @songs   = @station.songs.playlist_rank
     @blog    = Blog.find(@station.blog_id) || not_found
     @primary = @blog
 
@@ -67,37 +65,22 @@ class BlogsController < ApplicationController
   def new
     session[:blog_params] ||= {}
     @blog = Blog.new(session[:blog_params])
-    @blog.current_step = session[:blog_step]
 
     respond_to do |format|
       format.html
     end
   end
 
-
   def create
     session[:blog_params].deep_merge!(params[:blog]) if params[:blog]
     @blog = Blog.new(session[:blog_params])
-    @blog.current_step = session[:blog_step]
-
-    if @blog.valid?
-      if params[:back_button]
-        @blog.previous_step
-      elsif @blog.last_step?
-        @blog.save if @blog.all_valid?
-      else
-        @blog.next_step
-      end
-      session[:blog_step] = @blog.current_step
-    end
+    @blog.active = false
 
     respond_to do |format|
-      if @blog.new_record?
-        format.html { render 'new' }
+      if verify_recaptcha(model: @blog, message: "Error with reCAPTCHA!") && @blog.save
+        format.html { redirect_to '/', notice: "Thanks! Your submission will be reviewed and we will reply to you shortly." }
       else
-        session[:blog_step] = session[:blog_params] = nil
-        flash[:notice] = "Blog saved!"
-        redirect_to @blog
+        format.html { render action: 'new', notice: "We found a few errors submitting your blog" }
       end
     end
   end

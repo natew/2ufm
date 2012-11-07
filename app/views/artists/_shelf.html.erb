@@ -1,0 +1,7 @@
+  <li>
+    <a href="/<%= shelf.station_slug %>">
+      <strong><%= shelf.name %></strong>
+      <span><%= image_tag shelf.image.url(:medium) %></span>
+      <p><%= pluralize(shelf.song_count, 'song') %></p>
+    </a>
+  </li>

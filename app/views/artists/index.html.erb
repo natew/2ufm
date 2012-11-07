@@ -3,10 +3,10 @@
 </div>
 
 <div class="whole">
-  <%= render partial: 'shared/stations_subnav', locals: { object: 'artists' } %>
+  <%= render partial: 'shared/genre_subnav', locals: { object: 'artists' } %>
 
   <div class="stations">
-    <%= render :partial => 'stations/station', :collection => @artists %>
+    <%= render partial: 'stations/station', collection: @artists, locals: { content: true } %>
     <%= paginate @artists if @artists.respond_to? 'current_page' %>
   </div>
 </div>

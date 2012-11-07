@@ -43,7 +43,13 @@ var fn = {
   },
 
   replaceState: function(url, container) {
-    return window.history.replaceState(null,document.title,url);
+    return $.pjax({
+      url: url,
+      container: '#body',
+      dontDoAjax: true,
+      replace: true
+    });
+    // return window.history.replaceState(null,document.title,url);
   },
 
   flatten: function(obj, includePrototype, into, prefix) {

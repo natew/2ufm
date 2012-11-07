@@ -11,7 +11,7 @@
 
     <%- if @blogs_songs.size > 0 %>
       <h3>Top songs by blogs that posted this song</h3>
-      <%= render :partial => 'stations/playlist', :locals => { :songs => @blogs_songs, paginate: false } %>
+      <%= render :partial => 'stations/playlist', :locals => { :songs => @blogs_songs, paginate: false, :dont_find_listen => true } %>
     <%- end -%>
   </div>
 

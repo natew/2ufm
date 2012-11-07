@@ -30,5 +30,6 @@ class BroadcastsController < ApplicationController
   def clear_cache
     expire_fragment('song_' + (params[:song_id] || params[:id]))
     expire_fragment("user_artists_#{current_user.id}")
+    expire_fragment('playlist_new')
   end
 end

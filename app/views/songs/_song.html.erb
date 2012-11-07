@@ -14,7 +14,7 @@
   <div class="song-count"><%= (song_counter + 1) + ((page - 1) * Yetting.per) %></div>
 
 <%-
-  cache_if id.to_i > 5, ['v12', song, id, station_id] do
+  cache_if id.to_i > 5, ['v14', song, id, station_id] do
 
     follow_id       = 'station-follow-' + id
     cover         ||= :icon
@@ -25,7 +25,7 @@
 -%>
 
   <div class="song-info">
-    <%= image_tag song.resolve_image(cover), :class => "song-art cover-#{cover}" unless Rails.env.development? %>
+    <%= image_tag  song.resolve_image(cover), :class => "song-art cover-#{cover}" %>
 
     <h3>
       <%-

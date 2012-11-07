@@ -36,7 +36,12 @@ module AttachmentHelper
         # into different folders, so you can delete test files without breaking dev files.
         rails_env        = Rails.env.downcase
         options[:path] ||= ":rails_root/public/attachments/#{rails_env}/#{attachment_path}"
-        options[:url]  ||= "/attachments/#{rails_env}/#{attachment_path}"
+
+        if Rails.env.production?
+          options[:url]  ||= "/attachments/#{rails_env}/#{attachment_path}"
+        else
+          options[:url]  ||= "http://2u.fm/attachments/production/#{attachment_path}"
+        end
       end
 
       options[:default_url] ||= '/images/default.png'

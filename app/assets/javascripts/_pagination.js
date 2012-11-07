@@ -2,9 +2,11 @@ var pagination = (function(fn, mp) {
   var isLoading = false,
       hasMore = true,
       current = getPage(),
-      offsets = [];
+      scrolledTo = current,
+      offsets = [],
+      w = $(window);
 
-  function nextPage() {
+  function checkNextPage() {
     if (!nearBottom()) return;
     var playlist = $('.playlist:visible:last');
 
@@ -24,13 +26,14 @@ var pagination = (function(fn, mp) {
 
       isLoading = true;
       current = playlistPage + 1;
-      updatePageURL(current);
+
+      var newPageURL = getNewPageURL(current);
 
       $.ajax({
-        url: mp.getPage(),
+        url: newPageURL,
         type: 'get',
         headers: {
-          Accept: "text/page"
+          Accept: "text/html+page"
         },
         statusCode: {
           204: function() {
@@ -40,7 +43,9 @@ var pagination = (function(fn, mp) {
           }
         },
         success: function(data) {
+          scrolledTo = current;
           $(window).trigger('gotPageLoad', data);
+          updatePageURL(newPageURL);
           var playlist = $('#playlist-' + id + '-' + current);
           link.html('Page ' + current).addClass('loaded');
           isLoading = false;
@@ -59,7 +64,21 @@ var pagination = (function(fn, mp) {
   }
 
   function nearBottom() {
-    return $(window).scrollTop() >= ($(document).height() - $(window).height() - 1200);
+    return w.scrollTop() >= ($(document).height() - w.height() - 1000);
+  }
+
+  function atTop() {
+    if (current > 1) {
+      current = parseInt($('.page-current span').html() || 1, 10);
+      updatePageURL(getNewPageURL(current));
+    }
+  }
+
+  function notAtTop() {
+    if (scrolledTo > 1 && current != scrolledTo) {
+      current = scrolledTo;
+      updatePageURL(getNewPageURL(current));
+    }
   }
 
   // Reads URL parameters for ?page=X and returns X
@@ -68,23 +87,34 @@ var pagination = (function(fn, mp) {
     return page ? parseInt(page[1],10) : 1;
   }
 
-  function updatePageURL(page) {
+  function getNewPageURL(page) {
     var url = mp.getPage(),
-        page = 'p-' + page,
-        page_regex = /p-[0-9]+/,
+        page_path = 'p-' + page,
+        page_regex = /p-[0-9]+\/?/,
         hash = window.location.hash;
 
+        fn.log(url)
+
     // Replace old page
-    if (url.match(page_regex)) {
-      url = url.replace(page_regex, page);
-    } else {
-      if (url == '/') url = '';
-      url = url + '/' + page;
+    if (page == 1) {
+      url = url.replace(/\/?p-[0-9]+\/?/, '');
+    }
+    else if (url.match(page_regex)) {
+      url = url.replace(page_regex, page_path);
+    }
+    else {
+      if (url.charAt(url.length - 1) == '/') url = url.slice(0, -1);
+      url = url + '/' + page_path;
     }
 
     fn.log(url);
 
     url += hash;
+    return url;
+  }
+
+  function updatePageURL(url) {
+    fn.log(url)
     fn.replaceState(url);
     mp.updatePage(url);
   }
@@ -101,10 +131,16 @@ var pagination = (function(fn, mp) {
 
     restart: function() {
       hasMore = true;
+      scrolledTo = 0;
     },
 
-    loadNext: function() {
-      nextPage();
+    checkPage: function() {
+      if (w.scrollTop() <= 0)
+        atTop();
+      else {
+        notAtTop();
+        checkNextPage();
+      }
     },
 
     isLoading: function() {
@@ -113,6 +149,10 @@ var pagination = (function(fn, mp) {
 
     currentPage: function() {
       return current;
+    },
+
+    scrolledTo: function() {
+      return scrolledTo;
     }
   }
 }(fn, mp));
@@ -122,7 +162,7 @@ w.scroll(function() {
   if (!pagination.isLoading()) {
     clearTimeout(pageLoadTimeout);
     pageLoadTimeout = setTimeout(function() {
-      pagination.loadNext();
-    }, 10);
+      pagination.checkPage();
+    }, 30);
   }
 });

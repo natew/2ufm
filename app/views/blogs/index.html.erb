@@ -1,15 +1,12 @@
-<div class="title">
-  <%= link_to 'Submit your blog', new_blog_path, class: 'button right' %>
-  <%= render :partial => 'shared/stations_nav' %>
+<div class="nav-container">
+  <div class="title">
+    <%= link_to 'Submit your blog', new_blog_path, class: 'button right' %>
+    <%= render :partial => 'shared/stations_nav' %>
+  </div>
 </div>
 
 <div class="whole">
-  <ul class="subnav">
-    <li><%= nav_link_to 'Random', blogs_path %></li>
-    <% Genre.all.each do |genre| %>
-      <li><%= nav_link_to genre.name, blogs_path(genre) %></li>
-    <% end %>
-  </ul>
+  <%= render partial: 'shared/genre_subnav', locals: { object: 'artists' } %>
 
   <div class="stations">
     <%= render partial: 'stations/station', collection: @blogs, locals: { content: true } %>

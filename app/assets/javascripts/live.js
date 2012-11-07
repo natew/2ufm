@@ -1,67 +1,78 @@
-// On page load tune in
-if (isTuningIn) {
-  tuneIn(tuneInto, function() {
-    if (beginListen)
-      listenCreatePublish(beginListen);
-  });
-}
+var tune = (function(mp) {
+  var tunedIn = false,
+      userId,
+      tuneButton = $('#tune-in');
 
-$('#tune-in').click(function() {
-  var el = $(this);
-  el.toggleClass('live hover-off');
-  el.trigger('mouseleave').trigger('mousenter');
+  var tuner = {
+    start: function(id, beginListen) {
+      fn.log(id);
+      loadPage('/tune/' + id, function() {
+        $('body').addClass('live');
+        mp.setLive(true);
+        doPjax = false;
+        if (beginListen) mp.playListen(beginListen);
+      });
+    },
 
-  if (el.is('.live')) {
-    el.attr('title', 'Turn off live listening').html('On');
-  } else {
-    el.attr('title', 'Turn on live listening').html('Off');
+    stop: function() {
+      $('body').removeClass('live');
+      tunedIn = false;
+    },
+
+    turnOn: function() {
+      tuneButton.attr('title', 'Stop broadcasting').html('On');
+    },
+
+    turnOff: function() {
+      tuneButton.attr('title', 'Start broadcasting').html('Off');
+      tuner.stop();
+    },
+
+    toggleOn: function() {
+      tuneButton.toggleClass('live hover-off');
+      closeHoveredDropdown(true);
+      tuneButton.trigger('mouseenter');
+
+      tuneButton.is('.live') ? this.turnOn() : this.turnOff();
+
+      $('.tipsy').remove();
+    }
   }
 
-  $('.tipsy').remove();
-});
+  return {
+    into: function(id, beginListen) {
+      tuner.start(id, beginListen);
+    },
+
+    out: function() {
+      tuner.stop();
+    },
+
+    live: function() {
+      return tunedIn;
+    },
+
+    toggleOn: function() {
+      tuner.toggleOn();
+    }
+  }
+})(mp);
+
+// On page load tune in
+if (isTuningIn) {
+  tune.into(tuneInto, beginListen);
+}
 
 $('body').on('click', '#friends a', function(e) {
   e.preventDefault();
-  tuneIn($(this).attr('id').split('-')[1]);
-  return false;
-})
+  tune.into($(this).attr('id').split('-')[1]);
+});
 
-// Begin listening to a station
-function tuneIn(id, callback) {
-  fn.log(id);
-  loadPage('/tune/' + id, function() {
-    $('body').addClass('live');
-    mp.setLive(true);
-    doPjax = false;
-    if (callback) callback.call();
-  });
-}
+tune.toggleOn();
+$('#tune-in').click(function() {
+  tune.toggleOn();
+});
 
-function tuneOut() {
-  doPjax = true;
-}
-
-function sendAction(action) {
-  $.ajax({
-    type: 'post',
-    url: '/actions',
-    data: 'action=' + action
-  });
-}
-
-// create.js.erb callback for faye
-function listenCreatePublish(listen) {
-  fn.log("Listen publish", listen, "on playing page = ", mp.isOnPlayingPage());
-  mp.startedAt(listen.created_at_unix);
-
-  if (mp.isOnPlayingPage()) {
-    clickSong(listen.song_id);
-  } else {
-    loadPage(listen.url, function() {
-      clickSong(listen.song_id);
-    });
-  }
-}
 
 function loadPage(url, callback) {
   page.start();

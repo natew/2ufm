@@ -85,6 +85,12 @@ namespace :deploy do
   end
 end
 
+namespace :dj do
+  task :restart do
+    surun "cd #{current_path}; #{dj_script} restart"
+  end
+end
+
 namespace :danthes do
   desc "Start danthes server"
   task :start do
