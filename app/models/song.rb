@@ -15,7 +15,7 @@ class Song < ActiveRecord::Base
   # Regular expressions
   RE = {
     :featured => /(featuring | ?ft\.? |feat\.? |f\. |w\/){1}/i,
-    :remixer => / remix| rmx| edit| bootleg| mix| remake| re-work| rework| extended remix| refix| bootleg remix/i,
+    :remixer => / remix| rmx| edit| boot-?leg| mix| re(-| )?make| re(-| )?work| extended remix| refix| bootleg remix/i,
     :mashup_split => / \+ | x | vs\.? /i,
     :producer => /^(produced by|prod\.? by |prod\. )/i,
     :cover => / cover/i,

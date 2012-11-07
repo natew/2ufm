@@ -98,6 +98,15 @@ var mp = (function() {
       }
     },
 
+    setPlayingPage: function() {
+      playingPage = curPage.replace(/\/?p-[0-9]+\/?.*/, '');
+      var pageNum = parseInt(playlist.id.split('-')[1], 10);
+
+      if (pageNum > 1) {
+        playingPage = playingPage + '/p-' + pageNum;
+      }
+    },
+
     // Load playlist
     load: function load() {
       fn.log('loading', curSection);
@@ -112,7 +121,7 @@ var mp = (function() {
           fn.log('loading', playlistIndex, playlistID);
 
           // Remember this page
-          playingPage = curPage;
+          player.setPlayingPage();
 
           // Get new playlist
           var el = $('#playlist-' + playlistID);
@@ -523,7 +532,7 @@ var mp = (function() {
             listen: {
               song_id: curSongInfo.id,
               user_id: $('#current_user').data('id'),
-              url: curPage,
+              url: playingPage,
               seconds: curSongInfo.seconds
             }
           },
