@@ -173,21 +173,23 @@ class User < ActiveRecord::Base
     user = User.where(:provider => auth.provider, :uid => auth.uid).first || User.find_by_email(auth.extra.raw_info.email)
     unless user
       info = auth.extra.raw_info
-      user = User.create(
-        username: info.username || info.name,
-        full_name: info.name,
-        provider: auth.provider,
-        uid: auth.uid,
-        email: info.email,
-        avatar_remote_url: auth.info.image,
-        password: Devise.friendly_token[0,20],
-        oauth_token: auth.credentials.token,
-        gender: info.gender,
-        location: info.location ? info.location.name : '',
-        facebook_id: info.id
-      )
-      user.skip_confirmation!
-      user.save!
+      if info
+        user = User.create(
+          username: info.username || info.name,
+          full_name: info.name,
+          provider: auth.provider,
+          uid: auth.uid,
+          email: info.email,
+          avatar_remote_url: auth.info.image,
+          password: Devise.friendly_token[0,20],
+          oauth_token: auth.credentials.token,
+          gender: info.gender,
+          location: info.location ? info.location.name : '',
+          facebook_id: info.id
+        )
+        user.skip_confirmation!
+        user.save!
+      end
     else
       user.update_attributes(oauth_token: auth.credentials.token) if auth.credentials.token != user.oauth_token
     end
