@@ -3,9 +3,8 @@ class MainsController < ApplicationController
     @title = 'Trending'
     @trending = Station.trending
     @trending_songs = Song.playlist_trending
-    @artists = Station.artist_station.has_artist_image.has_songs.order('random() desc').limit(7)
-    @blogs = Station.blog_station.has_blog_image.has_songs.order('random() desc').limit(7)
-    @users = Station.user_station.has_user_image.has_songs.order('random() desc').limit(7)
+    @artists = Station.artist_station.has_artist_image.has_songs(10).order('random() desc').limit(13)
+    @blogs = Station.blog_station.has_blog_image.has_songs(10).order('random() desc').limit(13)
 
     respond_to do |format|
       format.html { render 'index' }

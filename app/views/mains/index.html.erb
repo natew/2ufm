@@ -1,25 +1,10 @@
 <div class="whole">
-  <h2>Recommended Artists</h2>
-  <ul class="shelf horizontal featured featured-300">
-    <%= render partial: 'stations/shelf', collection: @artists, locals: { featured: true, content: true } %>
-  </ul>
+  <h3>Recommended Artists</h3>
+  <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
 
-  <h2>Featured blogs</h2>
-  <ul class="shelf horizontal featured featured-300">
-    <%= render partial: 'stations/shelf', collection: @blogs, locals: { featured: true, content: true } %>
-  </ul>
-</div>
+  <h3>Featured blogs</h3>
+  <%= render partial: 'stations/featured_shelf', locals: { items: @blogs  } %>
 
-<div class="twothirds-wrap">
-<div class="twothirds">
   <h3>Today's most liked songs</h3>
   <%= render partial: 'stations/playlist', locals: { station: @trending, songs: @trending_songs, classname: 'show-count', dont_paginate: true } %>
-</div>
-</div>
-
-<div class="third">
-  <h3>Today's most active users</h3>
-  <ul class="shelf">
-    <%= render partial: 'stations/shelf', collection: @users, locals: { content: true } %>
-  </ul>
 </div>
