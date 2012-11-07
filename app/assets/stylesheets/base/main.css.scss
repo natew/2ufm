@@ -911,71 +911,6 @@ header #second-nav {
   display: none;
 }
 
-.pictos, .button span, .playlist .follow-station, .playlist time:after {
-  font-family: 'Pictos';
-  text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-}
-
-[class*="pictos-"] {
-  position: relative;
-}
-
-[class*="pictos-"]:before {
-  font-weight: normal;
-  display: inline-block;
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  font-size: 12px;
-  font-family: 'Pictos';
-  -webkit-font-smoothing: antialiased;
-}
-
-.pictos-play:before {content: "4";}
-.pictos-pause:before {content: "5";}
-.pictos-key:before {content: "K";}
-.pictos-info:before {content: "i";}
-.pictos-write:before {content: "W";}
-.pictos-gear:before {content: "y";}
-.pictos-help:before {content: "h";}
-.pictos-user:before {content: "U";}
-.pictos-users:before {content: "g";}
-.pictos-download:before {content: "~";}
-.pictos-up:before {content: "{";}
-.pictos-down:before {content: "}";}
-.pictos-refresh:before {content: "1";}
-.pictos-heart:before {content: "k";}
-.pictos-star:before {content: "S";}
-.pictos-music:before {content: "m";}
-.pictos-add:before,  {content: "+";}
-.pictos-remove:before {content: "-";}
-.pictos-share:before {content: "R";}
-.pictos-list:before {content: "l";}
-.pictos-cart:before {content: "$";}
-.pictos-newspaper:before {content: "N";}
-.pictos-eye:before {content: "E";}
-.pictos-comment:before {content: "w";}
-.pictos-comments:before {content: "q";}
-.pictos-shuffle:before {content: ";";}
-.pictos-repeat:before {content: "r";}
-.pictos-link:before {content: "j";}
-.pictos-clock:before {content: "t";}
-.pictos-cart:before {content: "$";}
-.pictos-check:before {content: "3";}
-.pictos-volume-on:before {content: ">";}
-.pictos-volume-off:before {content: "<";}
-.pictos-time:before {content: "t";}
-.pictos-inbox:before {content: "I";}
-.pictos-globe:before {content: "G";}
-.pictos-pulse:before {content: "Y";}
-.pictos-lense:before {content: "L";}
-.pictos-forward:before {content: "]";}
-.pictos-period:before,
-.pictos-normal:before {content: ".";}
-.pictos-tags:before {content: "z";}
-.pictos-delete:before {content: "D";}
-
 #main-mid a[href^="http://"] {
   padding-right: .4em;
 
@@ -1410,11 +1345,6 @@ $announce-color: $heading-color;
   p {
     font-size: 14px;
     margin: 8px 0 20px;
-  }
-
-  small {
-    font-size: 13px;
-    font-weight: normal;
   }
 
   .genres-list {

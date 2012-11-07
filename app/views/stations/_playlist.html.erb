@@ -37,7 +37,7 @@
   end
 -%>
 
-<%- if !single and !page_request and !already_limited and total_pages > 1
+<%- if !single and !page_request and !already_limited and !dont_paginate and total_pages > 1
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
       path = '' if path == '/'
       between = 4

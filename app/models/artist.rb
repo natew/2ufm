@@ -26,7 +26,7 @@ class Artist < ActiveRecord::Base
   validates :station, presence: true
   validates_with SlugValidator
 
-  scope :has_image, where('artists.image_updated_at is not null')
+  scope :has_image, where('artists.image_content_type is not null')
   scope :for_linking, joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role')
 
   def to_param

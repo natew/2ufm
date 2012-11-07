@@ -1,4 +1,17 @@
 class MainsController < ApplicationController
+  def index
+    @title = 'Trending'
+    @trending = Station.trending
+    @trending_songs = Song.playlist_trending
+    @artists = Station.artist_station.has_songs.order('random() desc').limit(6)
+    @blogs = Station.blog_station.has_songs.order('random() desc').limit(6)
+    @users = Station.user_station.has_songs.order('random() desc').limit(6)
+
+    respond_to do |format|
+      format.html { render 'index' }
+    end
+  end
+
   def about
   end
 

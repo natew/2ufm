@@ -1,0 +1,25 @@
+<div class="title">
+  <h1>Welcome <small>The best of 2u, today</small></h1>
+</div>
+
+<div class="half">
+  <h3>Today's most liked songs</h3>
+  <%= render partial: 'stations/playlist', locals: { station: @trending, songs: @trending_songs, classname: 'show-count', dont_paginate: true } %>
+</div>
+
+<div class="half">
+  <h3>Today's featured artists</h3>
+  <ul class="shelf">
+    <%= render partial: 'stations/shelf', collection: @artists, locals: { content: true } %>
+  </ul>
+
+  <h3>Today's top blogs</h3>
+  <ul class="shelf">
+    <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
+  </ul>
+
+  <h3>Today's most active users</h3>
+  <ul class="shelf">
+    <%= render partial: 'stations/shelf', collection: @users, locals: { content: true } %>
+  </ul>
+</div>
