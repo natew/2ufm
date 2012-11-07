@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
   def index
     if params[:genre]
       @blogs = Station
-                .has_songs
+                .has_songs(1)
                 .joins('inner join blogs on blogs.id = stations.blog_id')
                 .joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
                 .joins("inner join genres on genres.id = blogs_genres.genre_id")
@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
                 .page(params[:page])
                 .per(Yetting.per)
     else
-      @blogs = Station.blog_station.has_songs.order('random() desc').limit(12)
+      @blogs = Station.blog_station.has_songs(1).order('random() desc').limit(12)
     end
 
     @blogs_genres = Hash[*

@@ -6,9 +6,9 @@ class UsersController < ApplicationController
     if params[:letter]
       letter = params[:letter]
       letter = "0-9" if letter == '0'
-      @users = Station.user_station.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
+      @users = Station.has_songs(1).user_station.where("title ~* '^[#{letter}]'").order('title desc').page(params[:page]).per(Yetting.per)
     else
-      @users = Station.has_songs.user_station.order('random() desc').limit(12)
+      @users = Station.has_songs(1).user_station.order('random() desc').limit(12)
     end
 
     respond_to do |format|

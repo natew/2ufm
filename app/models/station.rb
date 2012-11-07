@@ -22,7 +22,6 @@ class Station < ActiveRecord::Base
 
   scope :has_parent, where([has_blog, has_artist, has_user].join(' OR '))
   scope :has_songs, lambda { |count| where('stations.broadcasts_count > ?', count - 1) }
-  scope :has_songs, has_songs(1)
   scope :has_image, lambda { |parent, image_name| joins(parent).where("#{parent.to_s.pluralize}.#{image_name}_updated_at is not null") }
   scope :has_blog_image, has_image(:blog, 'image')
   scope :has_user_image, has_image(:user, 'avatar')

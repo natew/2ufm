@@ -4,7 +4,7 @@ class ArtistsController < ApplicationController
   def index
     if params[:genre]
       @artists = Station
-                .has_songs
+                .has_songs(1)
                 .joins('inner join artists on artists.id = stations.artist_id')
                 .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
                 .joins("inner join genres on genres.id = artists_genres.genre_id")
@@ -13,12 +13,12 @@ class ArtistsController < ApplicationController
                 .page(params[:page])
                 .per(Yetting.per)
     else
-      @artists = Station.artist_station.has_songs.order('random() desc').limit(12)
+      @artists = Station.artist_station.has_songs(1).order('random() desc').limit(12)
     end
 
     @artists_genres = Hash[*
                       Station
-                        .has_songs
+                        .has_songs(1)
                         .where(artist_id: @artists.map(&:artist_id))
                         .select("stations.artist_id as id, string_agg(genres.name, ', ') as artist_genres")
                         .joins('inner join artists on artists.id = stations.artist_id')
