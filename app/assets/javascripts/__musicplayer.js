@@ -69,7 +69,7 @@ var mp = (function() {
     if (delayStart) player.play();
     if (soundManager.supported()) {
       pl.handle.bind('mousedown', player.startDrag);
-      pl.handle.bind('mouseup', player.endDrag);
+      $('body').bind('mouseup.dragger', player.endDrag);
     } else {
       alert('Your browser does not support audio playback');
     }
@@ -373,13 +373,13 @@ var mp = (function() {
       e.preventDefault();
       dragging_position = true;
       pl.handle.unbind('mousemove').bind('mousemove', player.followDrag);
-      pl.handle.unbind('mouseup').bind('mouseup', player.endDrag);
+      $('body').unbind('mouseup.dragger').bind('mouseup.dragger', player.endDrag);
     },
 
     endDrag: function endDrag(e) {
       dragging_position = false;
       pl.handle.unbind('mousemove');
-      pl.handle.unbind('mouseup');
+      $('body').unbind('mouseup.dragger');
       player.followDrag(e);
       player.updateProgress();
     },
