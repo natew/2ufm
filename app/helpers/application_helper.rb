@@ -48,6 +48,24 @@ module ApplicationHelper
     "#{h}#{m}m #{s}s"
   end
 
+  def english_number(number)
+    words = {
+      0 => 'zero',
+      1 => 'one',
+      2 => 'two',
+      3 => 'three',
+      4 => 'four',
+      5 => 'five',
+      6 => 'six',
+      7 => 'seven',
+      8 => 'eight',
+      9 => 'nine',
+      10 => 'ten'
+    }
+
+    words[number]
+  end
+
   def js_date(time)
     time = time.class == String ? Date.parse(time) : time
     time.strftime("%Y-%m-%d %H:%M:%S GMT%z")

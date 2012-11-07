@@ -1,5 +1,10 @@
-<%- image_size ||= :medium -%>
-  <li>
+<%-
+  featured    ||= false
+  is_featured   = featured && shelf_counter == 0
+  image_size  ||= is_featured ? :original : :medium
+  classname     = "shelf-#{english_number(shelf_counter)}"
+-%>
+  <li class="<%= classname %>">
     <a href="<%= url_for(shelf) %>">
       <strong><%= shelf.title %></strong>
       <span><%= image_tag shelf.image.url(image_size) %></span>

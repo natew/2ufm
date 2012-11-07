@@ -215,6 +215,26 @@ $station-image-small: $play-button-small;
   }
 }
 
+.shelf.featured {
+  height: 266px;
+
+  li {
+    margin: 0 10px 10px 0;
+  }
+
+  img {
+    width: 128px;
+    height: 128px;
+  }
+
+  .shelf-zero {
+    img {
+      width: 266px;
+      height: 266px;
+    }
+  }
+}
+
 .shelf.big {
   li strong {
     font-size: 16px;

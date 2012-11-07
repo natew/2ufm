@@ -660,11 +660,11 @@ $(window).on('gotPageLoad', function(e, data) {
 bindImageErrors();
 
 function bindImageErrors(context) {
-  $('img', context || 'body').error(function imgError() {
-    var el = $(this);
-    if (!el.is('.waveform'))
-      el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
-  });
+  // $('img', context || 'body').error(function imgError() {
+  //   var el = $(this);
+  //   if (!el.is('.waveform'))
+  //     el.attr('error-src', el.attr('src')).attr('src','/images/default.png');
+  // });
 }
 
 function updateBroadcastButton(station_id, song_id) {
