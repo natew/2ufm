@@ -1,6 +1,6 @@
 class MainsController < ApplicationController
   def index
-    @title = 'Trending'
+    @title = 'Discover and share great music'
     @trending = Station.trending
     @trending_songs = Song.playlist_trending
     @artists = Station.artist_station.has_artist_image.has_songs(10).order('random() desc').limit(13)
