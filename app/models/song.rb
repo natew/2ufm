@@ -67,9 +67,9 @@ class Song < ActiveRecord::Base
 
   # Attachments
   has_attachment :image, styles: { large: ['800x800#'], medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'], tiny: ['32x32#'] }
-  has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }
-  has_attachment :file, :s3 => Yetting.s3_enabled, :filename => ":id_:style.mp3"
-  has_attachment :compressed_file, :filename => ":token.mp3"
+  has_attachment :waveform, styles: { original: ['1000x200'], small: ['250x50>'] }, filename: ":id_:style.png"
+  has_attachment :file, :s3 => Yetting.s3_enabled, filename: ":id_:style.mp3"
+  has_attachment :compressed_file, filename: ":token.mp3"
 
   # Validations
   validates :url, :presence => true

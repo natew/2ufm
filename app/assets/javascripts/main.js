@@ -65,11 +65,11 @@ $(function() {
     clickSong(listen.song_id);
   }
 
-  $('body')
-    .touchSwipeLeft(function() {
+  $('#body')
+    .on('swipeleft', function() {
       $('body').removeClass('swiped-left');
     })
-    .touchSwipeRight(function() {
+    .on('swiperight', function() {
       $('body').addClass('swiped-left');
     });
 });
