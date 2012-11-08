@@ -2,6 +2,7 @@
   style            ||= 'song'
   classname        ||= ''
   cover            ||= 'icon'
+  station          ||= Station.fake_station
   per                = Yetting.per
   page               = (params[:p] || 1).to_i
   id               ||= station.id
