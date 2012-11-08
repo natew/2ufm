@@ -9,7 +9,7 @@ class BlogsController < ApplicationController
                 .joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
                 .joins("inner join genres on genres.id = blogs_genres.genre_id")
                 .where(genres: { slug: params[:genre] })
-                .order('random() desc')
+                .order('stations.songs_count desc')
                 .page(params[:page])
                 .per(Yetting.per)
     else
@@ -18,9 +18,9 @@ class BlogsController < ApplicationController
 
     @blogs_genres = Hash[*
                       Station
+                        .has_songs(1)
                         .where(blog_id: @blogs.map(&:blog_id))
                         .select("stations.blog_id as id, string_agg(genres.name, ', ') as blog_genres")
-                        .has_songs
                         .joins('inner join blogs on blogs.id = stations.blog_id')
                         .joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
                         .joins("inner join genres on genres.id = blogs_genres.genre_id")

@@ -34,9 +34,9 @@ Fusefm::Application.routes.draw do
   resources :genres, only: [:index, :show]
   resources :blogs, only: [:index, :new, :create]
 
-  match '/browse/artists(/:letter)', to: 'artists#index', as: 'artists'
+  match '/browse/artists(/:genre)', to: 'artists#index', as: 'artists'
   match '/browse/users(/:letter)', to: 'users#index', as: 'users'
-  match '/browse(/:genre)', to: 'blogs#index', as: 'browse'
+  match '/browse/blogs(/:genre)', to: 'blogs#index', as: 'blogs'
 
   resources :shares, :only => [:create]
   match '/shares/inbox', to: 'shares#inbox'

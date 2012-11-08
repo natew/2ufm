@@ -1263,7 +1263,7 @@ $announce-color: $heading-color;
   }
 
   h2 {
-    margin-top: 0;
+    margin-top: -10px;
   }
 
   .image {
@@ -1339,6 +1339,12 @@ $announce-color: $heading-color;
         font-weight: normal;
       }
     }
+  }
+
+  .button.right {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
   }
 }
 
