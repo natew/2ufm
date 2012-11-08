@@ -48,7 +48,7 @@
 ;(function($) {
 
     var touchStopEvent, touchMoveEvent, touchStartEvent,
-    horizontalDistanceThreshold = 30,
+    horizontalDistanceThreshold = 70,
     verticalDistanceThreshold = 75,
     scrollSupressionThreshold = 10,
     durationThreshold = 1000;

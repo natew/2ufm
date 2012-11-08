@@ -1,10 +1,10 @@
 class MainsController < ApplicationController
   def index
     @title = 'Discover and share great music'
-    @trending = Station.trending
-    @trending_songs = Song.playlist_trending
+    @songs_station = Station.fake(title: 'Todays Most Listened')
+    @songs = Song.playlist_most_listened(within: 1.day, limit: 10)
     @artists = Station.artist_station.has_artist_image.has_songs(10).order('random() desc').limit(13)
-    @blogs = Station.blog_station.has_blog_image.has_songs(10).order('random() desc').limit(13)
+    @blogs = Station.blog_station.has_blog_image.has_songs(10).order('random() desc').limit(6)
 
     respond_to do |format|
       format.html { render 'index' }
@@ -12,6 +12,19 @@ class MainsController < ApplicationController
   end
 
   def about
+    @title = 'About Us'
+  end
+
+  def privacy
+    @title = 'Privacy Policy'
+  end
+
+  def legal
+    @title = 'Legal'
+  end
+
+  def contact
+    @title = 'Contact Us'
   end
 
   def search

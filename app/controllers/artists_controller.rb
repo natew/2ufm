@@ -9,7 +9,7 @@ class ArtistsController < ApplicationController
                 .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
                 .joins("inner join genres on genres.id = artists_genres.genre_id")
                 .where(genres: { slug: params[:genre] })
-                .order('random() desc')
+                .order('stations.songs_count desc')
                 .page(params[:page])
                 .per(Yetting.per)
     else

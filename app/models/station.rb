@@ -89,16 +89,24 @@ class Station < ActiveRecord::Base
     Station.new(id: 3, title:'My Music Feed', slug:'my-station')
   end
 
-  def self.trending(opts={})
-    p = Station.new(:id => 2, :title => 'Trending Songs', :slug => 'songs')
+  def self.fake_station
+    fake({})
   end
 
-  def self.popular(opts={})
-    p = Station.new(:id => 1, :title => 'Popular Songs', :slug => 'songs')
+  def self.fake(options)
+    Station.new(id: (options[:id] || SecureRandom.random_number(100000000)), title: options[:title] || '', slug: options[:slug || ''])
   end
 
-  def self.newest(opts={})
-    p = Station.new(:id => 0, :title => 'Newest Songs', :slug => 'songs-new')
+  def self.trending
+    fake(id: 2, title: 'Trending Songs')
+  end
+
+  def self.popular
+    fake(id: 1, title: 'Popular Songs')
+  end
+
+  def self.newest
+    fake(id: 0, title: 'Newest Songs')
   end
 
   def image

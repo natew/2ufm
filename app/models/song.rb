@@ -153,6 +153,19 @@ class Song < ActiveRecord::Base
     blog_broadcasts_count > 1
   end
 
+  def self.playlist_most_listened(options)
+    Song.individual.where(id:
+      Song
+        .select('songs.id, count(listens.id) as listens_count')
+        .where('listens.created_at > ?', options[:within].ago)
+        .joins(:listens)
+        .group('songs.id')
+        .order('listens_count desc')
+        .limit(options[:limit])
+        .map(&:id)
+    )
+  end
+
   def self.song_page(songs, song_id)
     return false if songs.length == 1
     sql = songs.to_sql

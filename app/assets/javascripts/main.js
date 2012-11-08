@@ -357,6 +357,10 @@ body.allOn('click', {
       body.removeClass(old);
       $.cookie('theme-body', theme.body);
     }
+  },
+
+  '.modal-close': function() {
+    modal(false);
   }
 });
 

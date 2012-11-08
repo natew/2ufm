@@ -7,7 +7,8 @@
     <%= link_to 'Home', '/', :class => 'after' %>
     <%= link_to controller_name.capitalize, '/' + controller_name, :class => separate if second_level %>
     <%- if !second_level -%>
-      <%= link_to @primary.class.name.pluralize, '/' + @primary.class.name.downcase.pluralize, :class => separate + ' highlight' %>
+      <% name = @primary.class.name.pluralize %>
+      <%= link_to name, send("#{name.downcase}_path"), :class => separate + ' highlight' %>
       <%= link_to @primary.get_title, @primary %>
     <%- end -%>
 

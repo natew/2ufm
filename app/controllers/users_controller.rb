@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @user_songs = @station.songs.playlist_broadcasted.user_broadcasted
     @songs = true
     @artists = @user.station.artists.has_image.order('random() desc').limit(12)
+    @primary = @user
 
     respond_to do |format|
       format.html { render 'show' }

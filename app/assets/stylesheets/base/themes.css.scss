@@ -38,10 +38,10 @@
   .theme-body-#{$i} {
     background: $body-bg;
 
+    #body:before,
     #modal,
     #promo-fixed-lower,
-    #navbar a.active { background: $body-bg; }
-
+    #navbar a.active,
     .title.fixed { background: $body-bg; }
     #navbar { background: $navbar-bg; }
     .playlist section.active { background: lighten($body-bg, 5%) !important; }

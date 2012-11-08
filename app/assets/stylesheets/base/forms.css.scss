@@ -255,8 +255,8 @@ button {
   }
 
   &.grey {
-    background-color: #9d9d9d;
-    &:hover { background-color: #aaa; }
+    background-color: #555;
+    &:hover { background-color: #666; }
   }
 
   /* Keep above .remove, .remove.first-hover needs precedence */

@@ -108,7 +108,7 @@
 
     <div id="main-mid">
       <%= form_tag '/us/search', :method => 'get', :id => "search-form" do %>
-        <%= text_field_tag :query, '', placeholder: 'Search artists, songs, blogs and users' %>
+        <%= text_field_tag :query, '', placeholder: 'Search artists, songs, blogs and users', tabindex: '1' %>
         <%= submit_tag :s, :id => 'search', :class => 'pictos tip-n', :title => 'Search!' %>
       <% end -%>
 
@@ -131,7 +131,7 @@
             <section>
               <h1>Browse</h1>
               <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'pictos-users' %>
-              <%= link_to 'Blogs', browse_path, :id => 'nav-artists', :class => 'pictos-newspaper' %>
+              <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'pictos-newspaper' %>
             </section>
 
             <%- if user_signed_in? -%>
@@ -210,7 +210,7 @@
 
     <%= link_to 'About Us', about_main_path %>
     <%= link_to 'Legal', legal_main_path %>
-    <%= link_to 'Privacy Policy', privacy_main_path %>
+    <%= link_to 'Privacy', privacy_main_path %>
     <%= link_to 'Contact', contact_main_path %>
   </div>
 
@@ -232,7 +232,7 @@
         <div id="modal-new-user">
           <h3>Please re-sync with Facebook</h3>
           <p>To allow friends to find you, please sync with Facebook again!  Sry bout that yo.</p>
-          <div class="inline">
+          <div class="actions">
             <%= link_to "Link with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
           </div>
         </div>
@@ -258,6 +258,7 @@
       <% elsif current_user.first_time? %>
         <%= render 'modals/new_user' %>
       <% end %>
+
     <% end %>
 
     <div id="friends-template">

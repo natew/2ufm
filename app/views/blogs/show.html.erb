@@ -3,7 +3,9 @@
   <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
   <h1 class="icon"><%= @blog.name %> <span><%= link_to '', @blog.url, class: 'popup control tip', title: 'Visit this blog' %></span></h1>
 
-  <%= render partial: 'genres/horizontal_list', locals: { genres: @blog.genres } %>
+  <div class="title-bar">
+    <%= render partial: 'genres/horizontal_list', locals: { genres: @blog.genres } %>
+  </div>
 
   <nav class="nav-menu">
     <%= nav_link_to 'New', blog_path(@blog) %>

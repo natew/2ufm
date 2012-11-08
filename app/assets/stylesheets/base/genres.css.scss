@@ -45,6 +45,8 @@ h3.horizontal {
 }
 
 .third .genres {
+  margin-right: 0;
+
   li {
     width: 100%;
     margin-bottom: 5px;
@@ -63,8 +65,6 @@ h3.horizontal {
 }
 
 #body .genres.horizontal {
-  margin: -20px 0 0;
-
   li {
     width: auto;
   }

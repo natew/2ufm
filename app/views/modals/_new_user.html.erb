@@ -30,7 +30,7 @@
   <div id="new-user-friends" class="section hidden">
     <h3>Step 3: Follow friends</h3>
 
-    <% if false %>
+    <% if current_user.facebook_friends.count > 0 %>
       <p class="large">We've found a few of your friends already using 2u!</p>
       <div class="stations friends-list">
         <%= render partial: 'users/facebook_friend', collection: current_user.facebook_friends %>

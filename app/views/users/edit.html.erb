@@ -1,15 +1,10 @@
     <div class="whole">
-      <h2>Account <small><%= current_user.full_name %></small></h2>
+      <h2>Account</h2>
       <%= form_for current_user, :url => { :action => :edit }, :html => { :multipart => true } do |f| %>
         <%= render 'shared/form_errors', :target => current_user %>
 
         <fieldset>
           <legend>Profile</legend>
-          <div class="clearfix">
-            <%= label :full_name, :full_name, 'Full Name', :class => 'inline' %>
-            <%= f.text_field :full_name %>
-          </div>
-
           <div class="clearfix">
             <%= label :user, :username, 'Username', :class => 'inline' %>
             <%= f.text_field :username %>
@@ -51,6 +46,12 @@
             <%= f.password_field :password_confirmation, :autocomplete => 'off' %>
           </div>
         </fieldset>
+
+        <div class="clearfix">
+          <%= label :full_name, :full_name, 'Full Name', :class => 'inline' %>
+          <%= f.text_field :full_name %>
+          <span class="help">Our full name rule is to ensure your friends can find you on the site, please resist your desire to set it to k1TtYCutE88 because we'd hate to have to permanently change it to "Tweedle McDee".</span>
+        </div>
 
         <%= submit_tag 'Update', :class => 'submitbutton inline' %>
       <% end %>
