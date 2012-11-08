@@ -232,7 +232,7 @@
         <div id="modal-new-user">
           <h3>Please re-sync with Facebook</h3>
           <p>To allow friends to find you, please sync with Facebook again!  Sry bout that yo.</p>
-          <div class="inline">
+          <div class="actions">
             <%= link_to "Link with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
           </div>
         </div>
@@ -258,6 +258,7 @@
       <% elsif current_user.first_time? %>
         <%= render 'modals/new_user' %>
       <% end %>
+
     <% end %>
 
     <div id="friends-template">

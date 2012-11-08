@@ -230,6 +230,10 @@ $station-image-small: $play-button-small;
 
   li {
     margin: 0 10px 10px 0;
+
+    strong {
+      font-size: 14px;
+    }
   }
 
   img {
