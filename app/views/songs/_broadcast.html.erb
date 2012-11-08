@@ -6,4 +6,4 @@
     ['k','Like this song', :post, "/broadcasts/#{id}"] :
     ['2','Unlike this song', :delete, "/broadcasts/#{id}" ]
 -%>
-<%= link_to count, path, class: "restricted broadcast-song #{action} pictos-heart control tip-e #{extra_class}", remote: true, method: method %>
+<%= link_to count, path, class: "restricted nav-hover song-share broadcast-song #{action} pictos-heart control tip-e #{extra_class}", remote: true, method: method, 'data-target' => '#share', 'data-id' => id %>

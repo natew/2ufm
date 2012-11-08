@@ -2,10 +2,9 @@
   style            ||= 'song'
   classname        ||= ''
   cover            ||= 'icon'
-  station          ||= Station.new
   per                = Yetting.per
   page               = (params[:p] || 1).to_i
-  id               ||= station.id || 0
+  id               ||= station.id
   page_request     ||= false
   already_limited  ||= false
   dont_paginate    ||= false

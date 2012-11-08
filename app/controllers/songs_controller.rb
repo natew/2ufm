@@ -68,7 +68,6 @@ class SongsController < ApplicationController
   end
 
   def play
-    head 500 if user_signed_in? and current_user.username == 'Swipernoswiping'
     request_time = params[:key].to_i / 1000
     time = Time.now.to_f.to_i
     difference = time - request_time

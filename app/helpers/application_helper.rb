@@ -163,9 +163,7 @@ module ApplicationHelper
 
   def abbreviated_number(number)
     case number
-    when 0...1000
-      number
-    when 1000...1000000
+    when 1000..1000000
       (number / 1000.00).round(1).to_s + 'k'
     when 1000000...1000000000
       (number / 1000000.00).round(1).to_s + 'm'

@@ -8,8 +8,8 @@
 
 <div class="twothirds-wrap">
   <div class="twothirds">
-    <h3>Today's most liked songs</h3>
-    <%= render partial: 'stations/playlist', locals: { station: @trending, songs: @trending_songs, classname: 'show-count', dont_paginate: true } %>
+    <h3>Today's most played songs</h3>
+    <%= render partial: 'stations/playlist', locals: { station: @songs_station, songs: @songs, classname: 'show-count', dont_paginate: true, already_limited: true } %>
   </div>
 </div>
 
