@@ -3,7 +3,7 @@
 @media screen and (max-width: 1024px) {
 }
 
-@media screen and (max-width: 768) {
+@media screen and (max-width: 768px) {
 }
 
 /* iPad [portrait + landscape] */
@@ -12,9 +12,10 @@
 
 /* iPhone [portrait + landscape] */
 @media screen and (max-width: 680px) {
-  body {
-    min-width: 365px;
-  }
+  body { min-width: 365px; }
+
+  #breadcrumbs { display:none; }
+  #search-form { left: $navbar-width + 280 ; }
 
   body.swiped-left {
     header {
