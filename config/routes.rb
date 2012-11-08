@@ -39,8 +39,8 @@ Fusefm::Application.routes.draw do
   match '/browse/blogs(/:genre)', to: 'blogs#index', as: 'blogs'
 
   resources :shares, :only => [:create]
-  match '/shares/inbox', to: 'shares#inbox'
-  match '/shares/outbox', to: 'shares#outbox'
+  match '/shares/inbox(/p-:p)', to: 'shares#inbox'
+  match '/shares/outbox(/p-:p)', to: 'shares#outbox'
 
   match "/go/:to/:id", to: "songs#go", as: :affiliate
   match "/go/amazon/:id", to: "songs#go", as: :amazon_affiliate
