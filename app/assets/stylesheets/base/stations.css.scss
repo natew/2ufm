@@ -162,6 +162,7 @@ $station-image-small: $play-button-small;
       font-weight: 600;
       width: 100%;
       z-index: 10;
+      line-height: 1.2em;
       @include dim(70);
       @include box-sizing(border-box);
     }
@@ -265,6 +266,27 @@ $station-image-small: $play-button-small;
     font-size: 16px;
     padding: 8px;
     @include dim(80);
+  }
+}
+
+.third .shelf {
+  margin-left: -10px;
+  margin-right: 0;
+
+  li {
+    float: left;
+    margin-left: 10px;
+    margin-right: 0;
+
+    strong {
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    img {
+      width: 95px;
+      height: 95px;
+    }
   }
 }
 

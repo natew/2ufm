@@ -54,6 +54,17 @@
     }
   }
 
+  .twothirds {
+    margin-right: 0;
+  }
+
+  .third {
+    padding-left: 20px;
+    clear: both;
+    float: none;
+    width: auto;
+  }
+
   #navbar,
   #search-form {
     @include transition(all linear .1s);

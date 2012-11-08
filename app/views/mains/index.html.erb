@@ -1,9 +1,6 @@
 <div class="whole">
   <h3>Recommended Artists</h3>
   <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
-
-  <h3>Featured blogs</h3>
-  <%= render partial: 'stations/featured_shelf', locals: { items: @blogs, classname: 'single'  } %>
 </div>
 
 <div class="twothirds-wrap">
@@ -14,6 +11,11 @@
 </div>
 
 <div class="third">
+  <h3>Featured blogs</h3>
+  <ul class="shelf">
+    <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
+  </ul>
+
   <h3>Genres</h3>
   <%= render 'genres/list' %>
 </div>
