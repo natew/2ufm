@@ -65,7 +65,7 @@ $(function() {
     clickSong(listen.song_id);
   }
 
-  $('body')
+  $('#body')
     .touchSwipeLeft(function() {
       $('body').removeClass('swiped-left');
     })
@@ -357,10 +357,6 @@ body.allOn('click', {
       body.removeClass(old);
       $.cookie('theme-body', theme.body);
     }
-  },
-
-  '.modal-close': function() {
-    modal(false);
   }
 });
 
