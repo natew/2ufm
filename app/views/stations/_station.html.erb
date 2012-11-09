@@ -7,15 +7,15 @@
 -%>
 
 <section>
-  <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
   <div class="station-info">
+    <%= link_to image_tag(station.image.url(size)), station, :class => 'image' %>
     <h4><%= title %></h4>
     <span><%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
     <% if content and station.content %><p><%= station.content %></p><% end %>
   </div>
   <%- unless nofollow -%>
   <div class="station-buttons">
-    <%= link_to 'Play', station, class: 'button play-station' %>
+    <%= link_to '4', station, class: 'button pictos play-station' %>
     <div class="station-follow follow-<%= station.id %>">
       <%= follow_station(station.id, station.follows_count, :nocache => nocache) %>
     </div>

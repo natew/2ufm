@@ -102,12 +102,13 @@ $station-image-small: $play-button-small;
 
       .count {
         font-size: 14px;
-        padding: 5px 8px 0;
-        margin: 0 0 -4px 0;
-        background: none;
-        width: 40px;
+        padding: 6px 8px 0;
+        margin: 0 0 -16px 0;
+        background: rgba(0,0,0,0.1);
+        min-width: 35px;
+        height: 34px;
         font-weight: normal;
-        text-align: left;
+        text-align: center;
         @include box-sizing(border-box);
       }
     }

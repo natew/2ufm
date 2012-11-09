@@ -6,7 +6,7 @@
   <%= render partial: 'shared/genre_subnav', locals: { object: 'artists' } %>
 
   <div class="stations">
-    <%= render partial: 'stations/station', collection: @artists, locals: { content: true } %>
+    <%= render partial: 'stations/station', collection: @artists, locals: { content: true, nocache: true } %>
     <%= paginate @artists if @artists.respond_to? 'current_page' %>
   </div>
 </div>

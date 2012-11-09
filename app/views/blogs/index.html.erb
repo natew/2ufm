@@ -9,7 +9,7 @@
   <%= render partial: 'shared/genre_subnav', locals: { object: 'blogs' } %>
 
   <div class="stations">
-    <%= render partial: 'stations/station', collection: @blogs, locals: { content: true } %>
+    <%= render partial: 'stations/station', collection: @blogs, locals: { content: true, nocache: true } %>
     <%= paginate @blogs if @blogs.respond_to? 'current_page' %>
   </div>
 </div>
