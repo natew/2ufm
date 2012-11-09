@@ -17,6 +17,7 @@ var mp = (function() {
       dragging_percent,
       curPage,
       playingPage = '',
+      playingPageNum = 1,
       smReady = false,
       delayStart = false,
       volume = $.cookie('volume') || ($.cookie('volume', 100) && 100),
@@ -100,10 +101,10 @@ var mp = (function() {
 
     setPlayingPage: function() {
       playingPage = curPage.replace(/\/?p-[0-9]+\/?.*/, '');
-      var pageNum = parseInt(playlist.id.split('-')[1], 10);
+      playingPageNum = parseInt(playlist.id.split('-')[1], 10);
 
-      if (pageNum > 1) {
-        playingPage = playingPage + '/p-' + pageNum;
+      if (playingPageNum > 1) {
+        playingPage = playingPage + '/p-' + playingPageNum;
       }
     },
 
@@ -622,6 +623,10 @@ var mp = (function() {
       }
 
       return false;
+    },
+
+    playingPageNum: function() {
+      return playingPageNum;
     },
 
     playSong: function(index) {

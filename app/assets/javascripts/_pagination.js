@@ -71,16 +71,25 @@ var pagination = (function(fn, mp) {
     $.cookie('wasAtTop', true);
     if (current > 1) {
       current = parseInt($('.page-current span').html() || 1, 10);
-      updatePageURL(getNewPageURL(current));
+      updatePageIfNew();
     }
   }
 
   function notAtTop() {
     $.cookie('wasAtTop', false);
-    if (scrolledTo > 1 && current != scrolledTo) {
-      current = scrolledTo;
-      updatePageURL(getNewPageURL(current));
+    if (mp.isOnPlayingPage()) {
+      current = mp.playingPageNum();
+      updatePageIfNew();
     }
+    else if (scrolledTo > 1 && current != scrolledTo) {
+      current = scrolledTo;
+      updatePageIfNew();
+    }
+  }
+
+  function updatePageIfNew() {
+    if (mp.getPage() != window.location.pathname)
+      updatePageURL(getNewPageURL(current));
   }
 
   // Reads URL parameters for ?page=X and returns X
