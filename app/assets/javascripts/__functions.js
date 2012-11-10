@@ -71,6 +71,15 @@ var fn = {
     return into;
   },
 
+  flattenArray: function(array){
+    var flat = [];
+    for (var i = 0, l = array.length; i < l; i++){
+        var type = Object.prototype.toString.call(array[i]).split(' ').pop().split(']').shift().toLowerCase();
+        if (type) { flat = flat.concat(/^(array|collection|arguments|object)$/.test(type) ? this.flattenArray(array[i]) : array[i]); }
+    }
+    return flat;
+  },
+
   capitalize: function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },

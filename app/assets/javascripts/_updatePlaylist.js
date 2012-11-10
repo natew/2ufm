@@ -63,25 +63,19 @@ function updateFriendBroadcasts() {
 }
 
 function updateFollows() {
+  updateFollowsIds = fn.flattenArray(updateFollowsIds);
   if (!updateFollowsIds || updateFollowsIds.length == 0) return false;
-  var follows,
-      len = updateFollowsIds.length,
-      i = 0,
-      f = {
+  var follows, f = {
         icon: '2',
         html: 'Following',
         title: 'Unfollow station',
         method: 'delete'
       };
 
-  for (; i < len; i++) {
-    updateFollowsIds[i] += ' a';
-  }
-
-  if (len > 1) {
-    follows = '.follow-' + updateFollowsIds.join(', .follow-');
+  if (updateFollowsIds.length > 1) {
+    follows = '.follow-' + updateFollowsIds.join(' a, .follow-') + ' a';
   } else {
-    follows = '.follow-' + updateFollowsIds[0];
+    follows = '.follow-' + updateFollowsIds[0] + ' a';
   }
 
   $('.playlist.not-loaded ' + follows)
@@ -90,8 +84,6 @@ function updateFollows() {
     .removeClass('add')
     .addClass('remove')
     .html('<span>' + f.icon + '</span><strong>' + f.html + '</strong>');
-}
 
-function setFollowsIds(ids) {
-  updateFollowsIds = ids;
+  updateFollowsIds = [];
 }

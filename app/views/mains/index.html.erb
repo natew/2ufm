@@ -28,7 +28,7 @@
     follows = current_user.get_station_follows(stations) || []
     if follows
   -%>
-    updateFollowsIds = <%= raw follows %>;
+    updateFollowsIds.push(<%= raw follows %>);
   <%-
     end
   end -%>

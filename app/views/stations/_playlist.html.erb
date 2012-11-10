@@ -103,7 +103,7 @@
   <%- if user_signed_in? -%>
   broadcastedIds['<%= id_page %>'] = <%= raw broadcasts %>;
   updateBroadcastsIds = broadcastedIds['<%= id_page %>'];
-  updateFollowsIds = <%= raw follows %>;
+  updateFollowsIds.push(<%= raw follows %>);
   updateListensIds = <%= raw listens.to_json %>;
   updateFriendBroadcastIds = <%= raw friend_broadcasts.to_json %>;
   <%- end -%>

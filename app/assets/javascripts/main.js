@@ -1,4 +1,4 @@
-Danthes.debug = true;
+//Danthes.debug = true;
 
 // Don't remember scroll position if they were on a page
 if (window.location.pathname.match(/p-[0-9]+/)) {
@@ -742,6 +742,11 @@ function bindDataRemoteEvents() {
   $('#body a[data-remote]')
     .on('ajax:before', function() {
       spinner.attach();
+
+      // Timeout
+      setTimeout(function() {
+        spinner.detach();
+      }, 3000);
     });
 }
 

@@ -3,7 +3,7 @@ class FollowsController < ApplicationController
 
   def create
     @station = Station.find(params[:station_id])
-    @follow  = current_user.follows.create(:station_id => @station.id)
+    @follow  = current_user.follows.create(:station_id => @station.id) rescue ActiveRecord::RecordNotUnique
     @locals  = { :action => 'remove', :id => @station.id, :count => @station.follows_count+1, :changed => true }
 
     UserMailer.delay.follow(current_user, @station.user) if @station.user
