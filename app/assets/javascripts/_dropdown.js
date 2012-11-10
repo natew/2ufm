@@ -32,7 +32,7 @@ function closeHoveredDropdown(force) {
   var el = navHoverActive,
       force = force || false;
 
-  fn.log(el, force);
+  // fn.log(el, force);
 
   if (el && (force || ( !el.is(':hover') && !$((el.attr('data-target') || el.attr('href'))).is(':hover') ) ) ) {
     navUnhoveredOnce = true;
@@ -50,7 +50,7 @@ function navDropdown(nav, pad, hover) {
       attrDelay = nav ? parseInt(nav.attr('data-delay') || 0, 10) : false,
       delay = attrDelay || delay;
 
-  fn.log(nav, 'open?', navOpen, 'delay', delay);
+  // fn.log(nav, 'open?', navOpen, 'delay', delay);
 
   setTimeout(function() {
     if (nav && nav.length) {

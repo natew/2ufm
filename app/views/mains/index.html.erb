@@ -21,3 +21,15 @@
     <%= render 'genres/list' %>
   </div>
 <% end %>
+<script type="text/javascript">
+  <%-
+  if user_signed_in?
+    stations = (@artists + @blogs).map(&:id)
+    follows = current_user.get_station_follows(stations) || []
+    if follows
+  -%>
+    updateFollowsIds = <%= raw follows %>;
+  <%-
+    end
+  end -%>
+</script>

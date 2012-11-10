@@ -30,6 +30,7 @@ var page = {
     mp.hasMoved(false);
     setupFixedTitles();
     pagination.updateCurrentPage();
+    bindDataRemoteEvents();
 
     // Update google analytics
     _gaq.push(['_trackPageview', curPage]);

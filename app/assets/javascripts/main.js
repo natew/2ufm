@@ -372,7 +372,7 @@ body.allOn('click', {
     }
 
     if (!el.parents('.nav-menu')) navDropdown(false);
-    if (!e.isDefaultPrevented()) {
+    if (!e.isDefaultPrevented() && !commandPressed) {
       if (!this.className.match(/external/)) e.preventDefault();
       newPage = el.attr('href');
       if (doPjax) {
@@ -731,3 +731,20 @@ function doPlaysActions() {
     }
   }
 }
+
+function afterDataRemoteEvent() {
+  $('.tipsy').remove();
+  spinner.detach();
+  bindDataRemoteEvents();
+}
+
+function bindDataRemoteEvents() {
+  $('#body a[data-remote]')
+    .on('ajax:before', function() {
+      spinner.attach();
+    });
+}
+
+$('body').on('ajax:complete', function() {
+  console.log('assad')
+})

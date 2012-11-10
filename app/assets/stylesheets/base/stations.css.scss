@@ -316,7 +316,9 @@ $station-image-small: $play-button-small;
   margin-left: -10px;
   margin-right: 0;
 
-  .station-buttons { display: none; }
+  .station-buttons {
+    a, div {display: none;}
+  }
 
   li {
     float: left;

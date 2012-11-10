@@ -42,7 +42,8 @@ var mp = (function() {
       playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10),
       curSongLoaded = false,
       soundcloudKey = $('body').attr('data-soundcloud-key'),
-      listen;
+      listen,
+      isLoaded = false;
 
   // Playmode
   playMode = playMode || NORMAL;
@@ -426,6 +427,7 @@ var mp = (function() {
     },
 
     updateProgress: function updateProgress() {
+      if (!isLoaded) return false;
       var duration     = curSong.durationEstimate || curSong.duration || 0,
           milliseconds = Math.round(duration * (dragging_percent / 100));
       // fn.log(dragging_percent/100, duration, milliseconds);
@@ -518,6 +520,7 @@ var mp = (function() {
     },
 
     onload: function onload(success) {
+      isLoaded = true;
       curSongLoaded = true;
       pl.loaded.css('width','100%');
 
@@ -659,7 +662,7 @@ var mp = (function() {
     },
 
     isLoaded: function() {
-      return typeof curSongInfo != 'undefined';
+      return isLoaded;
     },
 
     toggleVolume: function() {
