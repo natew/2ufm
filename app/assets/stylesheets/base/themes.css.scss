@@ -4,17 +4,17 @@
 
 @for $i from 1 through 5 {
   $header-bg:       nth(( #418bd4,  /* blue */
-                          #3d7352,  /* green */
-                          #cd7414,  /* orange */
+                          #458651,  /* green */
+                          #cd9d23,  /* orange */
                           #bc3e66,  /* pink */
-                          #a2323f   /* red */
+                          #b8000d   /* red */
                           ), $i );
 
   $body-bg:         nth(( #333,     /* grey */
-                          #1c2d32,  /* teal */
-                          #181d2a,  /* green */
-                          #361520,  /* pink */
-                          #431e21   /* red */
+                          #22363d,  /* teal */
+                          #2b3350,  /* blue */
+                          #522748,  /* pink */
+                          #491218   /* red */
                           ), $i );
 
   $navbar-bg:       nth(( darken($body-bg, 9%),
