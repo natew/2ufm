@@ -8,6 +8,15 @@ $station-small-pad: 6px;
 $station-image: $play-button-size;
 $station-image-small: $play-button-small;
 
+.station-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
 .stations {
   position: relative;
   margin: 0 0 25px 0;
@@ -21,15 +30,6 @@ $station-image-small: $play-button-small;
 
     &:hover {
       background: rgba(0,0,0,0.1);
-    }
-
-    .station-link {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
     }
 
     .play-button {
@@ -145,28 +145,26 @@ $station-image-small: $play-button-small;
     position: relative;
     @include transition(all ease-in 1s);
 
-    a {
-      text-decoration: none;
-      text-shadow: 0 1px 0 #000;
-      position: relative;
-      display: block;
+    &:hover .station-buttons {
+      opacity: 1;
     }
+  }
 
-    strong {
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-      padding: 4px;
-      display: block;
-      position: absolute;
-      bottom: 0;
-      font-weight: 600;
-      width: 100%;
-      z-index: 10;
-      line-height: 1.2em;
-      @include dim(70);
-      @include box-sizing(border-box);
-    }
+  h4 {
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    padding: 4px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    font-weight: 300;
+    width: 100%;
+    z-index: 10;
+    line-height: 1.2em;
+    @include dim(70);
+    @include box-sizing(border-box);
   }
 
   p {
@@ -182,9 +180,56 @@ $station-image-small: $play-button-small;
     font-size: 11px;
     @include border-top-right-radius(4px);
   }
+
+  .station-buttons {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 35% 12% 0;
+    background: rgba(0,0,0,0.5);
+    @include transition(all .1s linear);
+
+    a {
+      position: relative;
+      z-index: 11;
+      background: none;
+      box-shadow: none;
+      float: left;
+      width: 50%;
+      padding: 6px 0;
+      @include box-sizing(border-box);
+
+      span { margin:0; padding:0; }
+
+      &:hover {
+        background: rgba(0,0,0,0.5);
+        box-shadow: none;
+      }
+    }
+
+    .play-station {
+      font-size: 22px;
+      line-height: 1.2em;
+      padding-bottom: 2px;
+    }
+
+    .station-follow {
+      float: left;
+      width: 50%;
+      a { width:100%; }
+    }
+
+    .count,
+    strong {
+      display: none;
+    }
+  }
 }
 
-.shelf a,
+.shelf li,
 .promo a {
   @include transition(all .1s linear);
 
@@ -230,13 +275,7 @@ $station-image-small: $play-button-small;
   max-width: 1179px;
   position: relative;
 
-  li {
-    margin: 0 10px 10px 0;
-
-    strong {
-      font-size: 14px;
-    }
-  }
+  li { margin: 0 10px 10px 0; }
 
   img {
     width: 128px;
@@ -244,6 +283,7 @@ $station-image-small: $play-button-small;
   }
 
   .shelf-zero {
+    .station-buttons { padding-top: 41%; }
     img {
       width: 266px;
       height: 266px;
@@ -263,7 +303,7 @@ $station-image-small: $play-button-small;
 }
 
 .shelf.big {
-  li strong {
+  li h4 {
     font-size: 16px;
     padding: 8px;
     @include dim(80);
@@ -274,12 +314,14 @@ $station-image-small: $play-button-small;
   margin-left: -10px;
   margin-right: 0;
 
+  .station-buttons { padding-top: 25%; }
+
   li {
     float: left;
     margin-left: 10px;
     margin-right: 0;
 
-    strong {
+    h4 {
       font-size: 12px;
       font-weight: normal;
     }

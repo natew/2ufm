@@ -5,10 +5,9 @@
   classname     = "shelf-#{english_number(shelf_counter)}"
 -%>
   <li class="<%= classname %>">
-    <a href="<%= url_for(shelf) %>">
-      <strong><%= shelf.title %></strong>
-      <span><%= image_tag shelf.image.url(image_size) %></span>
-      <p><%= pluralize(shelf.broadcasts_count, 'song') %></p>
-    </a>
-    <% debug(shelf) %>
+    <h4><%= shelf.title %></h4>
+    <span><%= image_tag shelf.image.url(image_size) %></span>
+    <p><%= pluralize(shelf.broadcasts_count, 'song') %></p>
+    <%= render partial: 'stations/buttons', locals: { station: shelf, nocache: false } %>
+    <%= link_to '', station_path(shelf), :class => 'station-link' %>
   </li>

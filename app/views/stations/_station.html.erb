@@ -13,13 +13,6 @@
     <span><%= pluralize number_with_delimiter(station.broadcasts_count), 'song' %></span>
     <% if content and station.content %><p><%= station.content %></p><% end %>
   </div>
-  <%- unless nofollow -%>
-  <div class="station-buttons">
-    <%= link_to '4', station, class: 'button pictos play-station' %>
-    <div class="station-follow follow-<%= station.id %>">
-      <%= follow_station(station.id, station.follows_count, :nocache => nocache) %>
-    </div>
-  </div>
-  <%- end -%>
+  <%= render partial: 'stations/buttons', locals: { station: station, nocache: nocache } unless nofollow %>
   <%= link_to '', station_path(station), :class => 'station-link' %>
 </section>
