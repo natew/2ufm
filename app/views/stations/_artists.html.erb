@@ -1,7 +1,7 @@
 <%- if @artists and @artists.length > 0 -%>
 <h4 class="vertical artists">Artists on this station</h4>
 <div class="horizontal shelf artists-shelf">
-  <%= render :partial => 'artists/shelf', :collection => @artists %>
+  <%= render :partial => 'stations/shelf', :collection => @artists %>
   <%= link_to ']', '', :class => 'pictos control', :id => 'more-artists' %>
 </div>
 <%- end -%>

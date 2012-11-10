@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @station = Station.find_by_slug(params[:id]) || not_found
     @user_songs = @station.songs.playlist_broadcasted.user_broadcasted
     @songs = true
-    @artists = @user.station.artists.has_image.order('random() desc').limit(12)
+    @artists = Station.shelf.where(slug: @user.station.artists.select('artists.station_slug').has_image.order('random() desc').limit(12).map(&:station_slug))
     @primary = @user
 
     respond_to do |format|

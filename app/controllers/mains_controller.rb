@@ -3,9 +3,9 @@ class MainsController < ApplicationController
     @title = 'Discover and share great music'
     @songs_station = Station.fake(title: 'Todays Most Listened')
     @songs = Song.playlist_most_listened(within: 1.day, limit: 10)
-    @artists = Station.artist_station.has_artist_image.has_songs(10).order('random() desc').limit(13)
+    @artists = Station.shelf.artist_station.has_artist_image.has_songs(10).order('random() desc').limit(13)
     @blogs_genre = Genre.order('random() desc').limit(1).first
-    @blogs = Station.blog_station.blog_genre(@blogs_genre.name).has_blog_image.has_songs(1).order('random() desc').limit(6)
+    @blogs = Station.shelf.blog_station.blog_genre(@blogs_genre.name).has_blog_image.has_songs(1).order('random() desc').limit(6)
 
     respond_to do |format|
       format.html { render 'index' }

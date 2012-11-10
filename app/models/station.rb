@@ -16,10 +16,19 @@ class Station < ActiveRecord::Base
   has_user = 'stations.user_id is not NULL'
 
   # Scopes
+
+  # Select
+  scope :shelf, select('stations.slug, stations.title, stations.songs_count, stations.id, stations.blog_id, stations.user_id, stations.artist_id, stations.broadcasts_count, stations.follows_count')
   scope :distinct, select('DISTINCT ON (stations.blog_id) stations.*')
   scope :select_for_navbar, select('users.full_name as full_name, stations.id, stations.user_id, stations.title, stations.slug')
   scope :ordered_online, order('stations.online desc')
 
+  # Where
+  scope :online, where('online >= ?', 6.minutes.ago).ordered_online
+  scope :not_online, where('online < ?', 6.minutes.ago).ordered_online
+  scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
+
+  # Has
   scope :has_parent, where([has_blog, has_artist, has_user].join(' OR '))
   scope :has_songs, lambda { |count| where('stations.broadcasts_count > ?', count - 1) }
   scope :has_image, lambda { |parent, image_name| joins(parent).where("#{parent.to_s.pluralize}.#{image_name}_updated_at is not null") }
@@ -27,22 +36,19 @@ class Station < ActiveRecord::Base
   scope :has_user_image, has_image(:user, 'avatar')
   scope :has_artist_image, has_image(:artist, 'image')
 
+  # Joins
   scope :with_user, joins(:user)
   scope :with_genres, joins(:genres)
   scope :with_blogs_genres,
     joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
     .joins('inner join genres on genres.id = blogs_genres.genre_id')
-
   scope :blog_genre, lambda { |genre_name| with_blogs_genres.where(genres: { name: genre_name }) }
 
+  # Types
   scope :blog_station, where(has_blog)
   scope :artist_station, where(has_artist)
   scope :user_station, where(has_user)
   scope :promo_station, where(:promo => true)
-
-  scope :online, where('online >= ?', 6.minutes.ago).ordered_online
-  scope :not_online, where('online < ?', 6.minutes.ago).ordered_online
-  scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug, :online

@@ -41,7 +41,7 @@ class BlogsController < ApplicationController
     @station = Station.find_by_slug(params[:id]) || not_found
     @songs   = @station.songs.playlist_newest
     @blog    = Blog.find(@station.blog_id) || not_found
-    @artists = @blog.station.artists.order('random() desc').limit(12)
+    @artists = Station.shelf.where(slug: @blog.station.artists.select('artists.station_slug').order('random() desc').limit(12).map(&:station_slug))
     @primary = @blog
 
     respond_to do |format|
