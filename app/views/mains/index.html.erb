@@ -1,21 +1,23 @@
-<div class="whole">
-  <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
-  <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
-</div>
-
-<div class="twothirds-wrap">
-  <div class="twothirds">
-    <h3>Today's most played songs</h3>
-    <%= render partial: 'stations/playlist', locals: { station: @songs_station, songs: @songs, classname: 'show-count', dont_paginate: true, already_limited: true } %>
+<% cache('main_index') do %>
+  <div class="whole">
+    <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
+    <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
   </div>
-</div>
 
-<div class="third">
-  <h3><%= link_to @blogs_genre.name, blogs_path(@blogs_genre) %> blogs</h3>
-  <ul class="shelf">
-    <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
-  </ul>
+  <div class="twothirds-wrap">
+    <div class="twothirds">
+      <h3>Today's most played songs</h3>
+      <%= render partial: 'stations/playlist', locals: { station: @songs_station, songs: @songs, classname: 'show-count', dont_paginate: true, already_limited: true } %>
+    </div>
+  </div>
 
-  <h3>Genres</h3>
-  <%= render 'genres/list' %>
-</div>
+  <div class="third">
+    <h3><%= link_to @blogs_genre.name, blogs_path(@blogs_genre) %> blogs</h3>
+    <ul class="shelf">
+      <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
+    </ul>
+
+    <h3>Genres</h3>
+    <%= render 'genres/list' %>
+  </div>
+<% end %>

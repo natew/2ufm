@@ -48,10 +48,6 @@ namespace :blogs do
         print i.to_s + " "
         blog.delayed_get_new_posts
       end
-
-      # Clear popular every 30 minutes
-      expire_fragment('playlist_popular')
-      expire_fragment('playlist_new')
     end
 
     task :one, [:id] => :environment do |t, args|
