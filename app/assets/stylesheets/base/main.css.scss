@@ -1538,6 +1538,7 @@ h2 small { font-size: 55%; }
     &.active {
       font-weight: bold;
       color: #fff;
+      background: rgba(0,0,0,0.2);
     }
   }
 }
