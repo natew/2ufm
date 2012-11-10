@@ -143,7 +143,7 @@ $station-image-small: $play-button-small;
     float: left;
     margin: 0 15px 15px 0;
     position: relative;
-    @include transition(all ease-in 1s);
+    @include transition(all ease-in .4s);
 
     &:hover .station-buttons {
       opacity: 1;
@@ -190,7 +190,7 @@ $station-image-small: $play-button-small;
     bottom: 0;
     padding: 35% 12% 0;
     background: rgba(0,0,0,0.5);
-    @include transition(all .1s linear);
+    @include transition(all .3s linear);
 
     a {
       position: relative;
