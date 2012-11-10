@@ -4,7 +4,7 @@
     <p class="large">2u.fm is built around finding and following cool new artists.<br /> Pick some genres and we'll recommend some artists for you to follow:</p>
 
     <ul class="genres multi-select">
-      <%= render partial: Genre.all, locals: { control: true } %>
+      <%= render partial: Genre.ordered, locals: { control: true } %>
     </ul>
 
     <div class="modal-actions">

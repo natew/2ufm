@@ -1,6 +1,4 @@
 class Genre < ActiveRecord::Base
-  default_scope order('name')
-
   has_and_belongs_to_many :blogs
   has_and_belongs_to_many :users
   has_and_belongs_to_many :artists
@@ -10,6 +8,8 @@ class Genre < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   before_create :map_name
+
+  scope :ordered, order('name')
 
   attr_accessible :name, :blog_ids
 

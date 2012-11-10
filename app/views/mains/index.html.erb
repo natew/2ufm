@@ -1,5 +1,5 @@
 <div class="whole">
-  <h3>Recommended Artists</h3>
+  <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
   <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
 </div>
 
@@ -11,7 +11,7 @@
 </div>
 
 <div class="third">
-  <h3>Featured blogs</h3>
+  <h3><%= link_to @blogs_genre.name, blogs_path(@blogs_genre) %> blogs</h3>
   <ul class="shelf">
     <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
   </ul>

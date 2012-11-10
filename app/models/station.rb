@@ -29,6 +29,11 @@ class Station < ActiveRecord::Base
 
   scope :with_user, joins(:user)
   scope :with_genres, joins(:genres)
+  scope :with_blogs_genres,
+    joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
+    .joins('inner join genres on genres.id = blogs_genres.genre_id')
+
+  scope :blog_genre, lambda { |genre_name| with_blogs_genres.where(genres: { name: genre_name }) }
 
   scope :blog_station, where(has_blog)
   scope :artist_station, where(has_artist)
