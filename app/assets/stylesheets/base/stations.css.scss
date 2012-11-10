@@ -145,8 +145,8 @@ $station-image-small: $play-button-small;
     position: relative;
     @include transition(all ease-in .4s);
 
-    &:hover .station-buttons {
-      opacity: 1;
+    &:hover {
+      p, .station-buttons { opacity: 1; }
     }
   }
 
@@ -170,15 +170,17 @@ $station-image-small: $play-button-small;
   p {
     position: absolute;
     display: inline-block;
-    display: none;
-    bottom: 0;
+    opacity: 0;
+    top: 0;
     left: 0;
+    right: 0;
+    text-align: center;
     margin: 0;
-    background: rgba(0,0,0,0.6);
+    z-index: 12;
     color: #fff;
     padding: 0 4px;
     font-size: 11px;
-    @include border-top-right-radius(4px);
+    pointer-events: none;
   }
 
   .station-buttons {
