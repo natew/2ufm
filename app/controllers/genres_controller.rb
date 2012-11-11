@@ -4,6 +4,7 @@ class GenresController < ApplicationController
   end
 
   def show
+    params[:id] = 'rap' if params[:id] == 'hip-hop'
     @genre = Genre.find_by_slug(params[:id])
     @genre_station = Station.new(title: @genre.name, id: integers_from_string(@genre.name))
     @primary = @genre
