@@ -38,7 +38,7 @@ class Song < ActiveRecord::Base
   }
 
   STRIP = {
-    :remixer => /\'s.*| (extended|original|vocal|instrumental|(summer|fall|spring|winter)( 2[0-9]{3})?)? /i,
+    :remixer => /\'s.*| (extended|official|original|vocal|instrumental|(summer|fall|spring|winter)( 2[0-9]{3})?)? /i,
     :producer => /^by /i
   }
 
@@ -189,6 +189,8 @@ class Song < ActiveRecord::Base
     # AND the blog genre to appear in a genre feed
     # for better results
     Song
+      .select('distinct on (songs.matching_id, broadcasts.created_at) songs.*')
+      .individual
       .joins('inner join broadcasts on broadcasts.song_id = songs.id')
       .joins('inner join stations as ss on ss.id = broadcasts.station_id')
       .joins('inner join artists on artists.station_slug = ss.slug')
@@ -728,6 +730,8 @@ class Song < ActiveRecord::Base
     count = existing_matching_songs.size + 1
     existing_matching_songs.update_all(matching_count: count)
     self.matching_count = count
+
+    existing_matching_songs.map(&:id)
   end
 
   def update_matching_songs

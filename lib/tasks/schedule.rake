@@ -1,10 +1,13 @@
 namespace :schedule do
   task :half_hour => :environment do
-    # Clear popular every 30 minutes
-    expire_fragment('playlist_popular')
-    expire_fragment('playlist_new')
-    expire_fragment('main_index')
+    ac = ActionController::Base.new
 
+    # Expire caches
+    ac.expire_fragment('playlist_popular')
+    ac.expire_fragment('playlist_new')
+    ac.expire_fragment('main_index')
+
+    # Update blogs
     Rake::Task["blogs:update:all"].execute
   end
 end
