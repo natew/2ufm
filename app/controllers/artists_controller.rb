@@ -2,6 +2,7 @@ class ArtistsController < ApplicationController
   before_filter :get_artist_info, :except => [:index, :show]
 
   def index
+    @random = false
     if params[:genre]
       @artists = Station
                 .has_songs(1)
@@ -13,7 +14,8 @@ class ArtistsController < ApplicationController
                 .page(params[:page])
                 .per(Yetting.per)
     else
-      @artists = Station.artist_station.has_songs(1).order('random() desc').limit(12)
+      @random = true
+      @artists = Station.artist_station.has_artist_image.has_songs(3).order('random() desc').limit(17)
     end
 
     @artists_genres = Hash[*

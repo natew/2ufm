@@ -5,8 +5,14 @@
 <div class="whole">
   <%= render partial: 'shared/genre_subnav', locals: { object: 'artists' } %>
 
-  <div class="stations">
-    <%= render partial: 'stations/station', collection: @artists, locals: { content: true, nocache: true } %>
-    <%= paginate @artists if @artists.respond_to? 'current_page' %>
-  </div>
+  <% if @random %>
+    <ul class="stations shelf featured">
+      <%= render partial: 'stations/shelf', collection: @artists, locals: { content: true, nocache: true } %>
+    </ul>
+  <% else %>
+    <div class="stations">
+      <%= render partial: 'stations/station', collection: @artists, locals: { content: true, nocache: true } %>
+      <%= paginate @artists %>
+    </div>
+  <% end %>
 </div>
