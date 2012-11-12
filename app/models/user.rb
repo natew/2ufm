@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
 
   validates :username, :length => 2..22, :uniqueness => true
+  validates_format_of :username, with: /[a-zA-Z0-9_\-]+/i, message: 'Invalid characters'
   validates_with SlugValidator
 
   def to_param

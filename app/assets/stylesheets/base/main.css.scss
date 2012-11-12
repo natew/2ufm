@@ -1402,9 +1402,10 @@ $announce-color: $heading-color;
 
 .nav-meta {
   padding: 3px 0;
-  margin: 0 0 10px -10px;
+  margin: 1px 0 10px -10px;
   overflow: hidden;
   list-style: none;
+  font-size: 14px;
 
   li {
     padding: 3px 15px;
@@ -1430,7 +1431,7 @@ $announce-color: $heading-color;
   display: block;
   margin: 0 -20px -12px -20px;
   overflow: hidden;
-  padding: 8px 20px 8px 12px;
+  padding: 10px 20px 10px 12px;
   padding-right: 178px;
   background: rgba(0,0,0,0.2);
   @include box-sizing(border-box);
@@ -1530,12 +1531,17 @@ h2 small { font-size: 55%; }
     float: left;
     padding: 4px 7px;
     line-height: 1.4em;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 300;
     text-decoration: none;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.7);
+
+    &:hover {
+      color: rgba(255,255,255,0.9);
+    }
 
     &.active {
+      margin: 0 3px;
       font-weight: bold;
       color: #fff;
       background: rgba(0,0,0,0.2);
@@ -1576,14 +1582,16 @@ h2 small { font-size: 55%; }
   }
 
   a, span, .page-sep {
+    color: rgba(255,255,255,0.3);
     width: 100%;
     display: inline-block;
     text-align: center;
-    padding: 2px 0;
+    padding: 1px 0;
     text-decoration: none;
   }
 
   a:hover {
+    color: rgba(255,255,255,0.6);
     background: rgba(0,0,0,0.1);
   }
 
@@ -1653,6 +1661,7 @@ $nav-arrow-size: 5px;
   background: rgba(0,0,0,0.9);
   font-weight: bold;
   border-radius: 5px;
+  max-width: 600px;
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));
   @include box-sizing(border-box);
 

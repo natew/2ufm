@@ -53,8 +53,6 @@ $station-image-small: $play-button-small;
     }
 
     .station-info {
-      float: left;
-
       * {
         white-space: nowrap;
         overflow: hidden;
@@ -75,7 +73,11 @@ $station-image-small: $play-button-small;
       }
     }
 
-    p { margin: 0; }
+    p {
+      margin: 0;
+      color: rgba(255,255,255,0.4);
+      font-weight: 300;
+    }
 
     .station-buttons {
       position: absolute;
