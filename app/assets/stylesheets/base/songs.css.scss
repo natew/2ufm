@@ -247,7 +247,7 @@ $song-player-height: 50px;
 
       p {
         font-weight: 300;
-        color: rgba(255,255,255,0.9);
+        color: rgba(255,255,255,0.7);
       }
     }
 
@@ -574,6 +574,10 @@ $song-player-height: 50px;
   .broadcast {
     top: 25px;
     right: 25px;
+  }
+
+  .reviews p {
+    color: rgba(255,255,255,0.9);
   }
 }
 
