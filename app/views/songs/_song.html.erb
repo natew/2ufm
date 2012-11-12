@@ -32,9 +32,9 @@
         links = author_links(song.authors)
         if links[:original].length > 0
       -%>
-      <span class="artist"><%= links[:original] %></span>
+      <span class="artist"><%= links[:original] %> <%= links[:other] %></span>
       <% end %>
-      <span class="name"><%= tagged_song_name(song.name) %> <em><%= links[:other] %></em></span>
+      <span class="name"><%= tagged_song_name(song.name) %></span>
     </h3>
   </div>
 
