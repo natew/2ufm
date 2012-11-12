@@ -246,6 +246,7 @@ $song-player-height: 50px;
       }
 
       p {
+        font-weight: 300;
         color: rgba(255,255,255,0.9);
       }
     }
@@ -363,7 +364,7 @@ $song-player-height: 50px;
 
   .song-meta {
     font-size: 12px;
-    margin: 5px 0 -5px $song-art + $song-pad;
+    margin: 5px 0 0 $song-art + $song-pad;
     color: rgba(255,255,255,0.5);
     z-index: 12;
     pointer-events: none;
@@ -527,7 +528,7 @@ $song-player-height: 50px;
     clear: both;
     position: relative;
     height: 80px;
-    margin: 10px 0 -20px 0;
+    margin: 0 0 -20px 0;
     width: 100%;
     z-index: 9;
   }
