@@ -54,18 +54,18 @@ end
 
 namespace :deploy do
   task :start, :roles => :app do
-    surun "cd #{current_path};RAILS_ENV=production bundle exec service thin start && #{danthes_start} && #{dj_script} start"
+    surun "cd #{current_path};RAILS_ENV=production bundle exec service thin start -C config/thin.yml && #{danthes_start} && #{dj_script} start"
     #danthes.start
   end
 
   task :stop, :roles => :app do
-    surun "cd #{current_path};RAILS_ENV=production bundle exec service thin stop && #{danthes_stop} && #{dj_script} stop >/dev/null 2>&1"
+    surun "cd #{current_path};RAILS_ENV=production bundle exec service thin stop -C config/thin.yml && #{danthes_stop} && #{dj_script} stop >/dev/null 2>&1"
     #danthes.stop
   end
 
   desc "Restart Application"
   task :restart, :roles => :app do
-    surun "cd #{current_path};RAILS_ENV=production bundle exec service thin restart && #{danthes_stop} && #{danthes_start} && #{dj_script} restart >/dev/null 2>&1"
+    surun "cd #{current_path};RAILS_ENV=production bundle exec service thin restart -C config/thin.yml && #{danthes_stop} && #{danthes_start} && #{dj_script} restart >/dev/null 2>&1"
     #danthes.restart
   end
 
