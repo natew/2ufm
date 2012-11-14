@@ -150,7 +150,7 @@ var mp = (function() {
     },
 
     playCompressedFile: function playCompressedFile() {
-      self.playUrl('/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
+      this.playUrl('/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
     },
 
     // Play song
