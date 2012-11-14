@@ -175,7 +175,7 @@ var mp = (function() {
 
           // Determine soundcloud
           if (curSongInfo.sc_id !== '') {
-            $.ajax(
+            $.ajax({
               type: 'get',
               url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
               success: function(data) {
@@ -186,7 +186,7 @@ var mp = (function() {
                 // TODO report this and change in database
                 self.playCompressedFile();
               }
-            );
+            });
           }
           else {
             self.playCompressedFile();
