@@ -87,7 +87,7 @@ w.on({
 
     // Scroll to song
     setTimeout(function() {
-      if ( mp.isOnPlayingPage() && (!mp.getHasMoved() || mp.usedKeyboard()) ) {
+      if ( mp.isOnPlayingPage() ) {
         fn.log('scroll to song', section);
         if (section && section.length) {
           var sectionTop = section.offset().top,
