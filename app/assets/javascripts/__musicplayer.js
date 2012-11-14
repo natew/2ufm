@@ -626,7 +626,7 @@ var mp = (function() {
       if (curPage == page) return true;
 
       if (page) {
-        var playPageNum = page.match(/\/p-([0-9]+)/),
+        var playPageNum = page.match(/\/p-([0-9]+)/) || [1, 1],
             curPageNum = curPage.match(/\/p-([0-9]+)/),
             playPageBase = page.replace(/\/p-[^\/]+$/,''),
             curPageBase = curPage.replace(/\/p-[^\/]+$/,'');
