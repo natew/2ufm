@@ -622,7 +622,7 @@ var mp = (function() {
 
         fn.log(playPageNum, curPageNum, playPageBase, curPageBase);
 
-        return playPageBase == curPageBase && playPageNum && curPageNum && playPageNum[1] <= curPageNum;
+        return playPageBase == curPageBase && playPageNum && curPageNum && parseInt(playPageNum[1],10) <= parseInt(curPageNum[1],10);
       }
 
       return false;
