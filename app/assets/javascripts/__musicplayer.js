@@ -174,7 +174,7 @@ var mp = (function() {
           w.trigger('mp:play', player.state());
 
           // Determine soundcloud
-          if (curSongInfo.sc_id !== '')
+          if (curSongInfo.sc_id !== '') {
             $.ajax(
               type: 'get',
               url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
@@ -187,6 +187,7 @@ var mp = (function() {
                 self.playCompressedFile();
               }
             );
+          }
           else {
             self.playCompressedFile();
           }
