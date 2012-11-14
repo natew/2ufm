@@ -24,8 +24,8 @@ class Station < ActiveRecord::Base
   scope :ordered_online, order('stations.online desc')
 
   # Where
-  scope :online, where('online >= ?', 6.minutes.ago).ordered_online
-  scope :not_online, where('online < ?', 6.minutes.ago).ordered_online
+  scope :online, where('stations.online >= ?', 6.minutes.ago).ordered_online
+  scope :not_online, where('stations.online < ?', 6.minutes.ago).ordered_online
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Has
