@@ -149,6 +149,10 @@ var mp = (function() {
       }
     },
 
+    playCompressedFile: function playCompressedFile() {
+      self.playUrl('/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
+    },
+
     // Play song
     play: function play() {
       var self = this;
@@ -171,14 +175,20 @@ var mp = (function() {
 
           // Determine soundcloud
           if (curSongInfo.sc_id !== '')
-            $.get('http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey, function(data) {
-              fn.log(data);
-              if (data) {
-                self.playUrl(data.stream_url + "?client_id=" + soundcloudKey);
+            $.ajax(
+              type: 'get',
+              url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
+              success: function(data) {
+                if (data) self.playUrl(data.stream_url + "?client_id=" + soundcloudKey);
+              },
+              error: function() {
+                // Fallback to our file if soundcloud deleted it
+                // TODO report this and change in database
+                self.playCompressedFile();
               }
-            });
+            );
           else {
-            self.playUrl('/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
+            self.playCompressedFile();
           }
 
           if (!curSection) {
