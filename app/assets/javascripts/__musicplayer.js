@@ -30,7 +30,6 @@ var mp = (function() {
       SHUFFLE = 2,
       playModes = {0: 'normal', 1: 'repeat', 2: 'shuffle'},
       playMode = $.cookie('playmode'),
-      curFailures = 0,
       failures = 0,
       playTimeout,
       usedKeyboard = false,
@@ -561,14 +560,10 @@ var mp = (function() {
       // Failure
       else {
         fn.log('failure', success);
-        curFailures++;
         failures++;
-        if (curFailures == 1) this.play(); // try again
-        else {
-          if (curSection) curSection.addClass('failed');
-          if (failures < 2) player.next();
-          $.post('songs/'+curSongInfo.id, { failing: 'true' });
-        }
+        if (curSection) curSection.addClass('failed');
+        if (failures < 5) player.next();
+        $.post('songs/'+curSongInfo.id, { failing: 'true' });
       }
     }
   };
@@ -588,7 +583,6 @@ var mp = (function() {
     setPage: function setPage(url, callback) {
       curPage = url;
       failures = 0;
-      curFailures = 0;
       fn.log('on playing page?', this.isOnPlayingPage());
       if (this.isOnPlayingPage()) {
         // If we return to the page we started playing from, re-activate current song

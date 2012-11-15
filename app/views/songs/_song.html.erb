@@ -44,7 +44,7 @@
     <div class="song-meta-pre">
       <%= render :partial => 'songs/posted', :locals => { :song => song, :with_follow => with_follow } if show_original  %>
       <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } if with_follow %>
-      <%= link_to '}', '#song-' + id, :class => 'control pictos song-more', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
+      <% # link_to '}', '#song-' + id, :class => 'control pictos song-more', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
     </div>
 
     <div class="song-controls">

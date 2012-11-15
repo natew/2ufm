@@ -63,6 +63,7 @@ Fusefm::Application.routes.draw do
   match '/my/genres', to: 'users#genres'
   match '/my/friends', to: 'users#find_friends', as: 'users_friends'
   match '/do/authorized', to: 'users#authorized'
+  match '/my/home', to: 'mains#index', as: 'users_home'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 
