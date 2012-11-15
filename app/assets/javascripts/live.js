@@ -58,9 +58,13 @@ var tune = (function(mp) {
   }
 })(mp);
 
+function tuneIn() {
+  tune.into(tuneInto, beginListen);
+}
+
 // On page load tune in
 if (isTuningIn) {
-  tune.into(tuneInto, beginListen);
+  tuneIn();
 }
 
 $('body').on('click', '#friends a', function(e) {

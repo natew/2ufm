@@ -83,10 +83,10 @@ class User < ActiveRecord::Base
   end
 
   def following_songs(page=1, single=false)
-    if single
+    if true #single
       Song.user_following_songs(id, page.to_i * Yetting.per, Yetting.per)
     else
-      Song.user_following_songs(id, 0, page.to_i * Yetting.per)
+      Song.user_following_songs(id, 0, page.to_i)
     end
   end
 

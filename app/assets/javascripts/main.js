@@ -599,7 +599,8 @@ function getNavbar() {
 }
 
 function clickSong(id) {
-  $('#song-' + id + ' .play-song').click();
+  fn.log(id);
+  mp.playSection($('#song-' + id + ''));
 }
 
 function registerUser(button) {
