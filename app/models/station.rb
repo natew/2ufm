@@ -1,4 +1,7 @@
 class Station < ActiveRecord::Base
+
+  TIME_UNTIL_OFFLINE = 6.minutes
+
   has_and_belongs_to_many :genres
   belongs_to :user
   belongs_to :artist
@@ -24,8 +27,8 @@ class Station < ActiveRecord::Base
   scope :ordered_online, order('stations.online desc')
 
   # Where
-  scope :online, where('stations.online >= ?', 6.minutes.ago).ordered_online
-  scope :not_online, where('stations.online < ?', 6.minutes.ago).ordered_online
+  scope :online, lambda { where('stations.online >= ?', Time.now - TIME_UNTIL_OFFLINE).ordered_online }
+  scope :not_online, lambda { where('stations.online < ?', Time.now - TIME_UNTIL_OFFLINE).ordered_online }
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Has
