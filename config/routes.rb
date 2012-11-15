@@ -10,6 +10,7 @@ Fusefm::Application.routes.draw do
   devise_for :users, :controllers => {
     :registrations => 'registrations',
     :sessions => 'sessions',
+    :confirmations => 'confirmations',
     :omniauth_callbacks => 'users/omniauth_callbacks'
   }
 
@@ -17,8 +18,6 @@ Fusefm::Application.routes.draw do
     resources :sessions, :only => [:new]
     match '/login', to: 'users#new'
   end
-
-  match '/confirm/:confirmation_token', to: 'confirmations#show', as: 'user_confirm'
 
   match "/songs/trending(/p-:p)", to: "songs#trending", as: 'songs_trending'
   match "/songs/fresh(/p-:p)", to: "songs#fresh", as: 'songs_fresh'
