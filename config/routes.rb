@@ -18,7 +18,7 @@ Fusefm::Application.routes.draw do
     match '/login', to: 'users#new'
   end
 
-  match 'confirm/:confirmation_token', to: 'confirmations#show', as: 'user_confirm'
+  match '/confirm/:confirmation_token', to: 'confirmations#show', as: 'user_confirm'
 
   match "/songs/trending(/p-:p)", to: "songs#trending", as: 'songs_trending'
   match "/songs/fresh(/p-:p)", to: "songs#fresh", as: 'songs_fresh'
