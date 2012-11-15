@@ -115,21 +115,6 @@
       <div id="navbar">
         <div id="navbar-menus">
           <div id="navbar-menus-inner">
-            <%- if user_signed_in? -%>
-            <section class="nav-user">
-              <h1>
-                <%= current_user.username %>
-                <div>
-                  <%= link_to "Account", user_account_path, class: 'pictos-gear tip', title: 'Account &amp; Settings'.html_safe  %>
-                </div>
-              </h1>
-              <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
-              <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
-              <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
-              <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', class: 'secondary', title: 'Log out' %>
-            </section>
-            <%- end -%>
-
             <section>
               <%= link_to 'Home', user_signed_in? ? users_home_path : home_path, :id => 'nav-home', :class => 'pictos-home'  %>
               <%= link_to 'Trending', songs_trending_path, :id => 'nav-trending', :class => 'pictos-pulse'  %>
@@ -148,6 +133,21 @@
               <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'pictos-users' %>
               <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'pictos-newspaper' %>
             </section>
+
+            <%- if user_signed_in? -%>
+            <section class="nav-user">
+              <h1>
+                <%= current_user.username %>
+                <div>
+                  <%= link_to "Account", user_account_path, class: 'pictos-gear tip', title: 'Account &amp; Settings'.html_safe  %>
+                </div>
+              </h1>
+              <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
+              <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
+              <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
+              <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', class: 'secondary', title: 'Log out' %>
+            </section>
+            <%- end -%>
 
             <% unless user_signed_in? %>
             <section class="nav-extra account">
