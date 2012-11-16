@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   has_one  :station, :dependent => :destroy
   has_one  :privacy, :dependent => :destroy
-  has_many :activities, :dependent => :destroy
+  # has_many :activities, :dependent => :destroy
   has_many :follows
   has_many :stations, :through => :follows
   has_many :songs, :through => :stations, :extend => SongExtensions

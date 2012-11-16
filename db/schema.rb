@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121104073726) do
+ActiveRecord::Schema.define(:version => 20121107013435) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -205,6 +205,16 @@ ActiveRecord::Schema.define(:version => 20121104073726) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.boolean  "broadcasting",      :default => true
+  end
+
+  create_table "pulses", :force => true do |t|
+    t.string   "action"
+    t.string   "amount"
+    t.string   "station_id"
+    t.string   "song_id"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "rails_admin_histories", :force => true do |t|
