@@ -45,5 +45,6 @@
     .title.fixed { background: $body-bg; }
     #navbar { background: $navbar-bg; }
     .playlist section.active { background: lighten($body-bg, 5%) !important; }
+    .image { border-color: $body-bg; }
   }
 }

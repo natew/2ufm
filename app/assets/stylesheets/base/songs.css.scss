@@ -109,10 +109,10 @@ $song-player-height: 50px;
   clear: both;
   margin-bottom: 200px;
 
-  h4 {
-    padding: 8px;
+  .song-title {
+    font-size: 16px;
+    padding: 8px 0;
     margin: 15px 0 0;
-    background: rgba(0,0,0,0.1);
 
     &:first-child {
       margin: -10px 0 0;
@@ -120,10 +120,18 @@ $song-player-height: 50px;
 
     a {
       text-decoration: none;
-      background: rgba(0,0,0,0.1);
       padding: 2px;
       margin: -2px 0;
       border-radius: 4px;
+    }
+
+    .follow-station-wrap {
+      margin: 0;
+
+      a {
+        margin: 1px 0 0;
+        line-height: 1.2em;
+      }
     }
   }
 
@@ -303,6 +311,53 @@ $song-player-height: 50px;
     }
   }
 
+  .song-follow {
+    display: inline;
+  }
+
+  .count {
+    display:none;
+  }
+
+  .follow-station-wrap {
+    white-space: nowrap;
+    position: relative;
+    display: inline-block;
+    padding: 0 3px;
+    margin: 3px 1px -10px;
+
+    &:after { display: none; } /* FF fix */
+
+    a {
+      line-height: 1.8em;
+      font-weight: 400;
+    }
+  }
+
+  .follow-station {
+    display: inline;
+    background: none !important;
+    border: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+    box-shadow: none !important;
+
+    span {
+      font-size: 14px;
+      margin: -1px 0 -1px -2px;
+      line-height: 1.6em;
+      padding-right: 4px;
+      color: #bbb;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    &:hover span { color: $green !important; }
+    &.remove span { color: $green !important;
+      &:hover { color: $red !important; } }
+    strong {display: none;}
+  }
+
   h3 {
     margin: -6px 0 -2px $song-art + $song-pad;
     line-height: 25px;
@@ -378,55 +433,9 @@ $song-player-height: 50px;
 
     a {pointer-events: all;}
 
-    .song-follow {
-      display: inline;
-    }
-
-    .follow-station-wrap {
-      white-space: nowrap;
-      position: relative;
-      display: inline-block;
-      padding: 0 3px;
-      margin: 3px 1px -10px;
-
-      &:after { display: none; } /* FF fix */
-
-      a {
-        line-height: 1.8em;
-        font-weight: 400;
-      }
-    }
-
     .song-more {
       margin: 0 0 0 4px;
     }
-
-    .follow-station {
-      display: inline;
-      background: none;
-      border: none;
-      margin: 0;
-      padding: 0;
-      float: left;
-      box-shadow: none !important;
-
-      span {
-        font-size: 14px;
-        margin: -1px 0 -1px -2px;
-        line-height: 1.6em;
-        padding-right: 4px;
-        color: #bbb;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      &.remove span {
-        color: $green;
-        &:hover { color: $red; }
-      }
-      strong {display: none;}
-    }
-
-    .count {display:none;}
 
     a {
       color: rgba(255,255,255,0.8);

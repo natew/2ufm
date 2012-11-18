@@ -1,16 +1,22 @@
-<%- if song.respond_to?('sender_username') -%>
-  <h4 class="song-sender">Sent from <%= link_to song.sender_username, '/' + song.sender_station_slug %> <small><%= relative_time(song.sent_at) %></small></h4>
-<%- elsif song.respond_to?('receiver_username') -%>
-  <h4 class="song-sender">Sent to <%= link_to song.receiver_username, '/' + song.receiver_station_slug %> <small><%= relative_time(song.sent_at) %></small></h4>
-<%- end -%>
-
 <%-
   id           = song.matching_id.to_s
   station_id ||= -1
+  has_title  ||= false
 -%>
 
-<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
+<%- if has_title -%>
+  <h4 class="song-title">
+    <%- if song.respond_to? :following_station_id -%>
+      <%= render partial: 'songs/posted', locals: { song: song, broadcasted: true } %>
+    <%- elsif song.respond_to? :sender_username -%>
+      Sent from <%= link_to song.sender_username, '/' + song.sender_station_slug %> <small><%= relative_time(song.sent_at) %></small>
+    <%- elsif song.respond_to? :receiver_username -%>
+      Sent to <%= link_to song.receiver_username, '/' + song.receiver_station_slug %> <small><%= relative_time(song.sent_at) %></small>
+    <%- end -%>
+  </h4>
+<%- end -%>
 
+<section id="song-<%= song.matching_id %>" data-index="<%= song_counter %>" data-station="<%= station_id %>-<%= page %>" data-slug="<%= song.slug %>">
   <div class="song-count"><%= (song_counter + 1) + ((page - 1) * Yetting.per) %></div>
 
 <%-
@@ -42,27 +48,26 @@
 
   <div class="song-meta">
     <div class="song-meta-pre">
-      <%= render :partial => 'songs/posted', :locals => { :song => song, :with_follow => with_follow } if show_original  %>
-      <%= render :partial => 'songs/posted', :locals => { :song => song, :broadcasted => true } if with_follow %>
-      <% # link_to '}', '#song-' + id, :class => 'control pictos song-more', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
+      <%= render partial: 'songs/posted', locals: { song: song } if show_original  %>
+      <% # link_to '}', '#song-' + id, class: 'control pictos song-more', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
     </div>
 
     <div class="song-controls">
-      <% link_to '0', '#song-' + id, :class => 'add-comment pictos-comment control restricted' %>
-      <% link_to '+', '#add-to-playlist', :class => 'nav-hover song-add restricted control', 'data-pad' => '16', 'data-id' => id %>
-      <%= link_to 'Share', '#share', :class => 'nav-hover song-share restricted control update-clipboard', 'data-pad' => '16', 'data-id' => id %>
+      <% link_to '0', '#song-' + id, class: 'add-comment pictos-comment control restricted' %>
+      <% link_to '+', '#add-to-playlist', class: 'nav-hover song-add restricted control', 'data-pad' => '16', 'data-id' => id %>
+      <%= link_to 'Share', '#share', class: 'nav-hover song-share restricted control update-clipboard', 'data-pad' => '16', 'data-id' => id %>
       <%= link_to 'iTunes', itunes_affiliate_url(id), class: 'popup control', 'data-dimensions' => '450x450' %>
       <%= link_to 'Amazon', amazon_affiliate_url(id), class: 'popup control' %>
     </div>
   </div>
 
-  <%= image_tag song.waveform, :class => 'waveform' if song.waveform? %>
+  <%= image_tag song.waveform, class: 'waveform' if song.waveform? %>
 
   <div class="reviews">
-    <%= render :partial => 'blogs/review', :collection => reviews %>
+    <%= render partial: 'blogs/review', collection: reviews %>
   </div>
 
-  <%= link_to '', "#song-#{song.matching_id}", :class => 'song-link play-song control' %>
+  <%= link_to '', "#song-#{song.matching_id}", class: 'song-link play-song control' %>
 </section>
 
 <%-

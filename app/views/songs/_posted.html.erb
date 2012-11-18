@@ -11,7 +11,6 @@
 -%>
 
 <div class="song-posted">
-  <%= broadcasted ? 'via ' : '' %>
   <div class="follow-station-wrap">
     <span class="follow-<%= id %>"><%= follow_station(id, follows_count) %></span>
     <%= link_to title, '/' + slug %>

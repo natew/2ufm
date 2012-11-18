@@ -6,11 +6,13 @@
     </div>
 
     <h1 class="icon"><%= @user.full_name %></h1>
+    <% if false %>
     <ul class="nav-meta">
       <!-- <li>Broadcasting <%= link_to '@' + @user.username, '/@' + @user.username %></li> -->
       <li><%= pluralize @user.station.songs_count, 'like' %></li>
       <li><%= pluralize @user.followers.count, 'follower' %></li>
     </ul>
+    <% end %>
 
     <nav class="nav-menu">
       <%= nav_link_to 'Favorites', @user %>
@@ -39,7 +41,7 @@
     <% elsif @feed %>
 
     <%- if @feed_songs.length > 0 -%>
-      <%= render :partial => 'stations/playlist', :locals => { :station => @user.feed_station, :songs => @feed_songs, :already_limited => true } %>
+      <%= render partial: 'stations/playlist', locals: { station: @user.feed_station, songs: @feed_songs, already_limited: true, has_title: true } %>
     <%- else -%>
       <h3><strong>Your feed is empty!</strong> Follow your friends, artists and blogs!</h3>
       <p>Your feed will automatically fill with the latest songs from all the people you follow</p>
