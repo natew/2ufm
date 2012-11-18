@@ -1,7 +1,8 @@
-<% cache('main_index') do %>
   <div class="whole">
+  <% cache('main_index_artists') do %>
     <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
     <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
+  <% end %>
   </div>
 
   <div class="twothirds-wrap">
@@ -12,6 +13,7 @@
   </div>
 
   <div class="third">
+  <% cache('main_index_sidebar') do %>
     <h3><%= link_to @blogs_genre.name, blogs_path(@blogs_genre) %> blogs</h3>
     <ul class="shelf">
       <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
@@ -19,8 +21,8 @@
 
     <h3>Genres</h3>
     <%= render 'genres/list' %>
+  <% end %>
   </div>
-<% end %>
 
 <script type="text/javascript">
   <%-

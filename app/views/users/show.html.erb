@@ -25,10 +25,10 @@
   </div>
 
   <div class="whole">
-    <% if @songs %>
-      <%- cache("user_artists_#{@user.id}") do -%>
+  <% if @songs %>
+    <%- cache("user_artists_#{@user.id}") do -%>
       <%= render 'stations/artists' if @artists.length > 0 %>
-      <%- end -%>
+    <%- end -%>
 
     <div id="favorites" class="section active">
       <%- if @user.station.songs.empty? -%>
@@ -47,7 +47,7 @@
       <p>Your feed will automatically fill with the latest songs from all the people you follow</p>
     <%- end -%>
 
-    <% elsif @following %>
+  <% elsif @following %>
 
     <div id="following" class="section active">
       <%- if @following.size > 0 -%>
@@ -59,7 +59,7 @@
       <%- end -%>
     </div>
 
-    <% elsif @followers %>
+  <% elsif @followers %>
 
     <div id="followers" class="section active">
       <%- if @followers.size > 0 -%>
@@ -71,6 +71,6 @@
       <%- end -%>
     </div>
 
-    <% end %>
+  <%- end -%>
   </div>
 </div>

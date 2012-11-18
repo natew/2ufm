@@ -5,7 +5,8 @@ namespace :schedule do
     # Expire caches
     ac.expire_fragment('playlist_popular')
     ac.expire_fragment('playlist_new')
-    ac.expire_fragment('main_index')
+    ac.expire_fragment('main_index_artists')
+    ac.expire_fragment('main_index_sidebar')
 
     # Update blogs
     Rake::Task["blogs:update:all"].execute

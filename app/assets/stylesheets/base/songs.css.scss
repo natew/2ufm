@@ -150,6 +150,11 @@ $song-player-height: 50px;
     @include box-sizing(border-box);
   }
 
+  section:nth-child(2n+1),
+  &.has-title section {
+    background: rgba(0,0,0,0.065);
+  }
+
   section {
     min-height: 50px;
     margin: 0;
@@ -157,10 +162,6 @@ $song-player-height: 50px;
     position: relative;
     overflow: hidden;
     @include transition(all .1s linear);
-
-    &:nth-child(2n+1) {
-      background: rgba(0,0,0,0.065);
-    }
 
     &:after {
       visibility: hidden;

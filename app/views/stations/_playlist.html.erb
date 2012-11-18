@@ -74,7 +74,7 @@
 <%- end -%>
 
 <%- cache_if(id > 5, cache) do -%>
-  <div id="playlist-<%= id_page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %>" data-key="<%= cache %>"
+  <div id="playlist-<%= id_page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %> <%= 'has-title' if has_title %>" data-key="<%= cache %>"
     data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id_page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
     <%= render partial: "songs/#{style}", collection: songs, locals: { station_id: id, page: page, cover: cover, partial: page_request, single: single, reviews: reviews, has_title: has_title } unless songs.nil? %>
   </div>
