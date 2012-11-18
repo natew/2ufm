@@ -20,13 +20,10 @@
   <div class="song-count"><%= (song_counter + 1) + ((page - 1) * Yetting.per) %></div>
 
 <%-
-  cache_if id.to_i > 5, ['v14', song, id, station_id] do
+  cache ['v15', song, id] do
 
     follow_id       = 'station-follow-' + id
     cover         ||= :icon
-    broadcasted     = song.respond_to? :broadcasted_at
-    with_follow     = song.respond_to? :following_station_id
-    show_original   = (!with_follow or song.following_station_id != song.station_id)
     reviews       ||= [song]
 -%>
 
@@ -48,7 +45,7 @@
 
   <div class="song-meta">
     <div class="song-meta-pre">
-      <%= render partial: 'songs/posted', locals: { song: song } if show_original  %>
+      <%= render partial: 'songs/posted', locals: { song: song }  %>
       <% # link_to '}', '#song-' + id, class: 'control pictos song-more', 'data-toggle' => 'open', 'data-toggle-html' => '{' %>
     </div>
 
