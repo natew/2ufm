@@ -148,7 +148,7 @@ var mp = (function() {
     },
 
     playCompressedFile: function playCompressedFile() {
-      this.playUrl('/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
+      this.playUrl(curSongInfo.id, '/play/' + curSongInfo.id + '?token=' + curSongInfo.token + '&key=' + (new Date()).getTime());
     },
 
     // Play song
@@ -171,24 +171,7 @@ var mp = (function() {
           curSongInfo = playlist.songs[playlistIndex];
           w.trigger('mp:play', player.state());
 
-          // Determine soundcloud
-          if (curSongInfo.sc_id !== '') {
-            $.ajax({
-              type: 'get',
-              url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
-              success: function(data) {
-                if (data) self.playUrl(curSongInfo.id, data.stream_url + "?client_id=" + soundcloudKey);
-              },
-              error: function() {
-                // Fallback to our file if soundcloud deleted it
-                // TODO report this and change in database
-                self.playCompressedFile();
-              }
-            });
-          }
-          else {
-            self.playCompressedFile();
-          }
+          self.playCurSong();
 
           if (!curSection) {
             var foundSection = $('#playlist-' + playlist.id + ' #song-' + curSongInfo.id);
@@ -205,26 +188,54 @@ var mp = (function() {
       }
     },
 
+    playCurSong: function() {
+      var self = this;
+
+      // Determine soundcloud
+      if (curSongInfo.sc_id !== '') {
+        $.ajax({
+          type: 'get',
+          url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
+          success: function(data) {
+            if (data)
+              self.playUrl(curSongInfo.id, data.stream_url + "?client_id=" + soundcloudKey);
+            else {
+              self.setSoundCloudFailed();
+              self.playCompressedFile();
+            }
+          },
+          error: function() {
+            // Fallback to our file if soundcloud deleted it
+            // TODO report this and change in database
+            self.setSoundCloudFailed();
+            self.playCompressedFile();
+          }
+        });
+      }
+      else {
+        self.playCompressedFile();
+      }
+    },
+
     playUrl: function(id, url) {
       curSong = soundManager.createSound({
         id: id,
         url: url,
-        onplay:events.play,
-        onstop:events.stop,
-        onpause:events.pause,
-        onresume:events.resume,
-        onfinish:events.finish,
-        whileloading:events.whileloading,
-        whileplaying:events.whileplaying,
-        onmetadata:events.metadata,
-        onload:events.onload,
-        volume:volume,
-        stream:(startedAt ? false : true)
+        onplay: events.play,
+        onstop: events.stop,
+        onpause: events.pause,
+        onresume: events.resume,
+        onfinish: events.finish,
+        whileloading: events.whileloading,
+        whileplaying: events.whileplaying,
+        onload: events.onload,
+        volume: volume,
+        stream: (startedAt ? false : true)
       });
 
       clearTimeout(playTimeout);
       playTimeout = setTimeout(function() {
-        fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
+        fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', url);
 
         if (playlistIndex) played.push(playlistIndex);
         justStarted = true;
@@ -267,7 +278,7 @@ var mp = (function() {
       }
     },
 
-    rewind: function rewind() {
+    replay: function() {
       this.stop();
       this.play();
     },
@@ -326,7 +337,7 @@ var mp = (function() {
 
         return this.toPlaylist('prev');
       } else {
-        this.rewind();
+        this.replay();
       }
     },
 
@@ -498,7 +509,7 @@ var mp = (function() {
 
     finish: function finish() {
       fn.log('finished', curSong);
-      if (playMode == REPEAT) player.rewind();
+      if (playMode == REPEAT) player.replay();
       else player.next();
     },
 
@@ -524,10 +535,6 @@ var mp = (function() {
     whileplaying: function whileplaying() {
       //updateTime.apply(this);
       pl.position.css('width',(Math.round(this.position/this.durationEstimate*1000)/10)+'%');
-    },
-
-    metadata: function metadata() {
-
     },
 
     onload: function onload(success) {
@@ -562,9 +569,16 @@ var mp = (function() {
       else {
         fn.log('failure', success);
         failures++;
-        if (curSection) curSection.addClass('failed');
+        $.post('/songs/' + curSongInfo.id, { failing: true, songInfo: curSongInfo });
+
+        // Retry normal file if soundcloud fail
+        if (curSongInfo.sc_id !== '') {
+          curSongInfo.sc_id = '';
+          this.playCurSong();
+        }
+        else if (curSection) curSection.addClass('failed');
+
         if (failures < 5) player.next();
-        $.post('songs/'+curSongInfo.id, { failing: 'true' });
       }
     }
   };

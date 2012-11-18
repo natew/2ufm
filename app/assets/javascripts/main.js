@@ -754,7 +754,3 @@ function bindDataRemoteEvents() {
       }, 3000);
     });
 }
-
-$('body').on('ajax:complete', function() {
-  console.log('assad')
-})

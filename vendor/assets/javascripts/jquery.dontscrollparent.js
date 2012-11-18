@@ -12,8 +12,6 @@ $.fn.dontScrollParent = function()
     {
         var delta = e.originalEvent.wheelDelta || -e.originalEvent.detail;
 
-        console.log(el.scrollTop(), this.scrollHeight, el.outerHeight())
-
         if (delta > 0 && el.scrollTop() <= 0) {
             el.addClass('atTop');
             atTop = true;
