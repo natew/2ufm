@@ -337,6 +337,10 @@ body.allOn('click', {
     el.children('span').remove();
   },
 
+  '.modal-force-close': function() {
+    modal(false, true);
+  },
+
   '#head-colors a': function(e, el) {
     e.preventDefault();
     var old = theme.head;
@@ -722,7 +726,7 @@ function setupFixedTitles() {
 
 function doPlaysActions() {
   if (!isOnline && !isTuningIn && mp.plays() > 2) {
-    if ( !$('#page-identifier').is('.action-trending') ) {
+    if ( !$('#page-identifier').is('.action-trending, .controller-passwords, .controller-mains') ) {
       $('#modal-login').addClass('permanent');
       modal('#modal-login');
       return true;

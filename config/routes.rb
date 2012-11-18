@@ -7,16 +7,16 @@ Fusefm::Application.routes.draw do
   # Redirects
   match "/stations/:id", to: redirect("/%{id}")
 
-  devise_for :users, :controllers => {
-    :registrations => 'registrations',
-    :sessions => 'sessions',
-    :confirmations => 'confirmations',
-    :omniauth_callbacks => 'users/omniauth_callbacks'
+  devise_for :users, controllers: {
+    registrations: 'registrations',
+    sessions: 'sessions',
+    confirmations: 'confirmations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   devise_scope :user do
     resources :sessions, :only => [:new]
-    match '/login', to: 'users#new'
+    match '/my/login/(:username)', to: 'sessions#new', as: 'new_session'
   end
 
   match "/songs/trending(/p-:p)", to: "songs#trending", as: 'songs_trending'

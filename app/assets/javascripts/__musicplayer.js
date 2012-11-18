@@ -416,11 +416,13 @@ var mp = (function() {
     },
 
     endDrag: function endDrag(e) {
-      dragging_position = false;
-      pl.handle.unbind('mousemove');
-      $('body').unbind('mouseup.dragger');
-      player.followDrag(e);
-      player.updateProgress();
+      if (dragging_position) {
+        dragging_position = false;
+        pl.handle.unbind('mousemove');
+        $('body').unbind('mouseup.dragger');
+        player.followDrag(e);
+        player.updateProgress();
+      }
     },
 
     followDrag: function followDrag(e) {

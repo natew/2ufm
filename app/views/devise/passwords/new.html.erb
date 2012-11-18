@@ -6,11 +6,11 @@
     <%= devise_error_messages! %>
 
     <div class="clearfix">
-      <%= f.label :email %>
-      <%= f.email_field :email %>
+      <%= f.label :login, 'Username or email' %>
+      <%= f.text_field :login %>
     </div>
 
-    <div class="actions"><%= f.submit "Send me reset password instructions" %></div>
+    <div class="actions"><%= f.submit "Send reset instructions" %></div>
   <% end %>
 
   <%= render "devise/shared/links" %>
