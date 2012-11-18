@@ -10,7 +10,7 @@ var tune = (function(mp) {
         $('body').addClass('live');
         mp.setLive(true);
         doPjax = false;
-        if (beginListen) mp.playListen(beginListen);
+        goToListen(beginListen);
       });
     },
 
@@ -123,4 +123,16 @@ function addSubscriber() {
   el
     .attr('data-count', countInt)
     .html(countInt + pluralized);
+}
+
+function goToListen(listen) {
+  if (!listen) return false;
+
+  if (mp.isOnPlayingPage())
+    clickSong(listen.song_id);
+  else {
+    loadPage(listen.url, function() {
+      clickSong(listen.song_id);
+    });
+  }
 }

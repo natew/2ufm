@@ -1,4 +1,4 @@
-DO_LOGGING = true;
+var DO_LOGGING = $('body').is('.development');
 
 String.prototype.leftPad = function (l, c) { return new Array(l - this.length + 1).join(c || ' ') + this; }
 

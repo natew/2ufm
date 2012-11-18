@@ -16,6 +16,7 @@ module ApplicationHelper
     end
 
     classes.push("theme-body-1 theme-head-1")
+    classes.push(Rails.env)
     classes.join(' ')
   end
 

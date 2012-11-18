@@ -35,18 +35,6 @@ w.on({
     $('#player-share').data('title', mp.getTitle());
   },
 
-  'mp:play:listen': function mpPlayListenEvent(event, mp) {
-    var listen = mp.listen();
-
-    if (mp.isOnPlayingPage()) {
-      clickSong(listen.song_id);
-    } else {
-      loadPage(listen.url, function() {
-        clickSong(listen.song_id);
-      });
-    }
-  },
-
   'mp:played': function mpPlay(event, mp) {
     var song = mp.curSongInfo(),
         playlistItem = $('#player-playlist .song-' + song.id),

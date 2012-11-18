@@ -6,7 +6,7 @@ class MainsController < ApplicationController
     @songs = Song.playlist_most_listened(within: 1.day, limit: 10)
     @artists = Station.shelf.artist_station.has_artist_image.has_songs(10).order('random() desc').limit(11)
     @blogs_genre = Genre.order('random() desc').limit(1).first
-    @blogs = Station.shelf.blog_station.blog_genre(@blogs_genre.name).has_blog_image.has_songs(1).order('random() desc').limit(6)
+    @blogs = Station.shelf.blog_station.blog_genre(@blogs_genre.name).has_blog_image.has_songs(1).order('random() desc').limit(4)
 
     respond_to do |format|
       format.html { render 'index' }

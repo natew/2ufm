@@ -41,7 +41,6 @@ var mp = (function() {
       playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10),
       curSongLoaded = false,
       soundcloudKey = $('body').attr('data-soundcloud-key'),
-      listen,
       isLoaded = false;
 
   // Playmode
@@ -178,7 +177,7 @@ var mp = (function() {
               type: 'get',
               url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
               success: function(data) {
-                if (data) self.playUrl(data.stream_url + "?client_id=" + soundcloudKey);
+                if (data) self.playUrl(curSongInfo.id, data.stream_url + "?client_id=" + soundcloudKey);
               },
               error: function() {
                 // Fallback to our file if soundcloud deleted it
@@ -206,9 +205,9 @@ var mp = (function() {
       }
     },
 
-    playUrl: function(url) {
+    playUrl: function(id, url) {
       curSong = soundManager.createSound({
-        id:curSongInfo.id,
+        id: id,
         url: url,
         onplay:events.play,
         onstop:events.stop,
@@ -227,7 +226,7 @@ var mp = (function() {
       playTimeout = setTimeout(function() {
         fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', curSong.url);
 
-        played.push(playlistIndex);
+        if (playlistIndex) played.push(playlistIndex);
         justStarted = true;
         setTimeout(function() {
           justStarted = false;
@@ -240,7 +239,7 @@ var mp = (function() {
         }
 
         // Play
-        curSong.play();
+        if (curSong) curSong.play();
       }, 300);
     },
 
@@ -623,7 +622,7 @@ var mp = (function() {
 
       if (page) {
         var playPageNum = page.match(/\/p-([0-9]+)/) || [1, 1],
-            curPageNum = curPage.match(/\/p-([0-9]+)/),
+            curPageNum = curPage.match(/\/p-([0-9]+)/) || [1, 1],
             playPageBase = page.replace(/\/p-[^\/]+$/,''),
             curPageBase = curPage.replace(/\/p-[^\/]+$/,'');
 
@@ -784,16 +783,6 @@ var mp = (function() {
 
     plays: function() {
       return playCount;
-    },
-
-    playListen: function(playListen) {
-      listen = playListen;
-      this.startedAt(listen.created_at_unix);
-      w.trigger('mp:play:listen', player.state());
-    },
-
-    listen: function() {
-      return listen;
     }
   };
 
