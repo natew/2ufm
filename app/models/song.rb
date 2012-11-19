@@ -14,7 +14,7 @@ class Song < ActiveRecord::Base
 
   # Regular expressions
   RE = {
-    featured: /( |\()(featuring |ft(\.| )|feat(\.| )|(f|w)(\.|\/) ){1}/i,
+    featured: / featuring | ft\.? | feat\.? | f\. | w\.| f\/ | w\/ /i,
     remixer: / remix| rmx| edit| boot-?leg| mix| re(-| )?make| re(-| )?work| extended remix| refix| bootleg remix/i,
     mashup_split: / \+ | x | vs\.? /i,
     producer: /^(produced by|prod\.? by |prod\. )/i,
@@ -43,7 +43,7 @@ class Song < ActiveRecord::Base
   }
 
   PREFIX = {
-    featured: /( |\(|\[|\{)/
+    # featured: /( |\(|\[|\{)/
   }
 
   # Relationships
@@ -830,6 +830,8 @@ class Song < ActiveRecord::Base
   def split_and_find_artists(name)
     matches = []
     name.clean_split(RE[:containers]) do |part|
+      break if part =~ RE[:remove]
+      part = " " + part
       if has_mashups(part)
         find_mashups(part) do |artist|
           artist.gsub!(RE[:remixer], '')
