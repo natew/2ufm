@@ -4,7 +4,7 @@ var w = $(window),
 
 // Callbacks
 w.on({
-  'mp:load': function mpLoad(event, mp, song) {
+  'mp:load': function mpLoad(event, mp) {
     var playlist = mp.playlist();
 
     // Update player loaded UI
@@ -21,7 +21,7 @@ w.on({
       $('#player-playlist').html(playerPlaylist).addClass('loaded');
   },
 
-  'mp:got:listen': function mpGotListenEvent(event, mp, song) {
+  'mp:got:listen': function mpGotListenEvent(event, mp) {
     var listen = mp.getListenUrl(),
         listenUrl = 'http://' + location.host + '/l/' + listen;
 
@@ -88,6 +88,17 @@ w.on({
         }
       }
     }, 200);
+  },
+
+  'mp:play:soundcloud': function mpPlaySoundcloud(event, mp, data) {
+    fn.log(mp, data);
+    if (mp.curSection().is('.soundcloud-loaded')) return;
+    fn.log(data.permalink_url, data['permalink_url'])
+    $('#sc-button-template a')
+      .clone()
+      .attr('href', data.permalink_url)
+      .appendTo(mp.curSection().find('.song-controls'));
+    mp.curSection().addClass('soundcloud-loaded');
   },
 
   'mp:playlist:end': function playlistEnd(event, mp, song) {
