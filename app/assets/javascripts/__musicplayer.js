@@ -474,6 +474,10 @@ var mp = (function() {
 
     state: function() {
       return mp;
+    },
+
+    setSoundCloudFailed: function() {
+      fn.log('soundcloud failed');
     }
   };
 
