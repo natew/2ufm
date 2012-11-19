@@ -34,8 +34,8 @@ Fusefm::Application.routes.draw do
 
   resources :genres, only: [:index, :show] do
     member do
-      match 'trending(/p-:p)', to: "genres#trending", as: 'trending_genre'
-      get 'latest(/p-:p)', to: "genres#latest", as: 'latest_genre'
+      match 'trending(/p-:p)', to: "genres#trending", as: 'trending'
+      get 'latest(/p-:p)', to: "genres#latest", as: 'latest'
     end
   end
 
