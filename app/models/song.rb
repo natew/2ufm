@@ -700,7 +700,7 @@ class Song < ActiveRecord::Base
   def add_to_blog_station
     if blog
       blog.station.broadcasts.create(song_id:matching_id, created_at:published_at) if blog.station
-      expire_fragment("blog_artists_#{blog.id}")
+      ActionController::Base.new.expire_fragment("blog_artists_#{blog.id}")
     else
       logger.error "No Blog or Blog station"
     end

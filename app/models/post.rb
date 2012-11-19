@@ -3,24 +3,21 @@ include AttachmentHelper
 include PaperclipExtensions
 
 class Post < ActiveRecord::Base
-  # Relationships
   belongs_to :blog
   has_many   :songs, :dependent => :destroy
 
-  # Attachments
   has_attachment :image, styles: { medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'] }
 
-  # Validations
   validates :url, presence: true, uniqueness: true
 
-  # Slug
   acts_as_url :title, :url_attribute => :slug, :allow_duplicates => false
 
   before_create :get_image, :get_content, :set_excerpt
   after_create :delayed_save_songs
 
-  # Whitelist mass-assignment attributes
   attr_accessible :title, :url, :blog_id, :author, :content, :published_at
+
+  scope :within, lambda { |within| where('posts.published_at >= ?', within.ago) }
 
   def to_param
     slug

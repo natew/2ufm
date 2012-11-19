@@ -32,6 +32,7 @@ class Blog < ActiveRecord::Base
 
   # Scopes
   scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
+  scope :random, order('random() desc')
 
   def to_param
     station_slug
@@ -172,6 +173,12 @@ class Blog < ActiveRecord::Base
       delay(:priority => 5).get_new_posts
     else
       get_new_posts
+    end
+  end
+
+  def rescan_posts_within(time)
+    posts.within(time).each do |post|
+      post.delayed_save_songs
     end
   end
 
