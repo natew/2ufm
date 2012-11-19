@@ -606,7 +606,7 @@ header {
     position: relative;
     font-size: 12px;
     font-weight: 300;
-    padding: 3px 55px 3px 10px;
+    padding: 3px 10px;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -698,7 +698,24 @@ header {
     margin: 5px 0 0 0;
   }
 
+  p {
+    padding: 0 15px 0 10px;
+    font-size: 12px;
+  }
+
+  .nav-info {
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 5px 0;
+    background: rgba(0,0,0,0.15);
+    bottom: 0;
+  }
+
   .nav-user {
+    h1 {
+      padding-right: 55px;
+    }
+
     img {
       top: 9px;
       left: 9px;

@@ -44,10 +44,11 @@ class User < ActiveRecord::Base
 
   before_create :make_station, :make_privacy, :set_station_slug, :set_station_id
   before_update :update_station_title
-  before_validation :get_remote_avatar, :if => :avatar_url_provided?
-  validates_presence_of :avatar_remote_url, :if => :avatar_url_provided?, :message => 'is invalid or inaccessible'
+  before_validation :get_remote_avatar, if: :avatar_url_provided?
+  validates_presence_of :avatar_remote_url, if: :avatar_url_provided?, message: 'is invalid or inaccessible'
 
-  validates :username, :length => 2..22, :uniqueness => true
+  validates :full_name, presence: true, length: 4..120
+  validates :username, length: 2..22, uniqueness: true
   validates_format_of :username, with: /[a-zA-Z0-9_\-]+/i, message: 'Invalid characters'
   validates_with SlugValidator
 

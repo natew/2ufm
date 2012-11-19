@@ -151,18 +151,30 @@
 
             <% unless user_signed_in? %>
             <section class="nav-extra account">
-              <%= link_to 'Log in', '#modal-login', :class => 'modal control' %>
+              <h1>Account</h1>
+              <%= link_to 'Sign up', '#modal-login', class: 'pictos-user modal control' %>
+              <%= link_to 'Log in', '#modal-login', class: 'pictos-key modal control' %>
+            </section>
+
+            <section class="nav-info">
+              <h1>What is this?</h1>
+              <p>2u.fm finds new music from across the web.</p>
+              <p>Like songs &amp; share them with friends.</p>
+              <p>The best ones filter to the top!</p>
+              <%= link_to 'Learn more here', '#modal-login', class: 'modal control' %>
             </section>
             <% end %>
           </div>
         </div>
 
-        <section id="navbar-friends" class="hidden">
+        <% if user_signed_in? %>
+        <section id="navbar-friends" class="nav-bottom hidden">
           <h1>Friends</h1>
           <div class="scroll-section">
             <div id="navbar-friends-inner"></div>
           </div>
         </section>
+        <% end %>
       </div>
 
       <div id="body">
