@@ -1,23 +1,48 @@
 class GenresController < ApplicationController
+  before_filter :adjust_genres, :find_genre, except: [:index]
+
   def index
     @genres = Genre.ordered
   end
 
   def show
-    params[:id] = 'rap' if params[:id] == 'hip-hop'
-    @genre = Genre.find_by_slug(params[:id])
-    @genre_station = Station.new(title: @genre.name, id: integers_from_string(@genre.name))
-    @primary = @genre
+    create_genre_station('shuffle')
+    @genre_songs = Song.by_genre(@genre).playlist_shuffle
+    render_genre_show
+  end
 
-    if true
-      @genre_songs = Song.by_genre(@genre).playlist_broadcasted
-    else
-      @genre_songs = Song.by_genre(@genre).playlist_random
-    end
+  def trending
+    create_genre_station('trending')
+    @genre_songs = Song.by_genre(@genre).playlist_trending
+    render_genre_show
+  end
+
+  def latest
+    create_genre_station('latest')
+    @genre_songs = Song.by_genre(@genre).playlist_newest
+    render_genre_show
+  end
+
+  private
+
+  def create_genre_station(type)
+    @genre_station = Station.new(title: "#{@genre.name} #{type.capitalize}", id: integers_from_string(@genre.name + type))
+  end
+
+  def find_genre
+    @genre = Genre.find_by_slug(params[:id])
+  end
+
+  def render_genre_show
+    @primary = @genre
 
     respond_to do |format|
       format.html { render 'show' }
       format.page { render_page(@genre_station, @genre_songs) }
     end
+  end
+
+  def adjust_genres
+    params[:id] = 'rap' if params[:id] == 'hip-hop'
   end
 end

@@ -15,7 +15,7 @@ Fusefm::Application.routes.draw do
   }
 
   devise_scope :user do
-    resources :sessions, :only => [:new]
+    resources :sessions, only: [:new]
     match '/my/login/(:username)', to: 'sessions#new', as: 'new_session'
   end
 
@@ -30,14 +30,20 @@ Fusefm::Application.routes.draw do
   # resources :comments, only: [:create, :destroy]
   resources :listens, only: [:create, :show]
   resources :actions, only: [:create]
-  resources :genres, only: [:index, :show]
   resources :blogs, only: [:index, :new, :create]
+
+  resources :genres, only: [:index, :show] do
+    member do
+      match 'trending(/p-:p)', to: "genres#trending"
+      get 'latest(/p-:p)', to: "genres#latest"
+    end
+  end
 
   match '/browse/artists(/:genre)', to: 'artists#index', as: 'artists'
   match '/browse/users(/:letter)', to: 'users#index', as: 'users'
   match '/browse/blogs(/:genre)', to: 'blogs#index', as: 'blogs'
 
-  resources :shares, :only => [:create]
+  resources :shares, only: [:create]
   match '/shares/inbox(/p-:p)', to: 'shares#inbox'
   match '/shares/outbox(/p-:p)', to: 'shares#outbox'
 

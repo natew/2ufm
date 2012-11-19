@@ -14,36 +14,36 @@ class Song < ActiveRecord::Base
 
   # Regular expressions
   RE = {
-    :featured => /(featuring | ?ft\.? |feat\.? |f\. |w\/){1}/i,
-    :remixer => / remix| rmx| edit| boot-?leg| mix| re(-| )?make| re(-| )?work| extended remix| refix| bootleg remix/i,
-    :mashup_split => / \+ | x | vs\.? /i,
-    :producer => /^(produced by|prod\.? by |prod\. )/i,
-    :cover => / cover/i,
-    :split => /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
-    :open => /[\(\[\{]/,
-    :close => /[\)\]\}]/,
-    :containers => /[\{\[\(\)\]\}]/i,
-    :percents => /(% ?){2,10}/,
-    :remove => /(extended|vip|original|club|vocal) mix|(extended|vip|radio) edit|(on|and|or) (soundcloud|facebook)|(exclusive )?((free )?(download|d\/?l)( free)?.*)/i,
-    :and => /, | & | and /i,
-    :dash_split => /^[^-]* [—-] [^-]*$/
+    featured: /( |\()(featuring |ft(\.| )|feat(\.| )|(f|w)(\.|\/) ){1}/i,
+    remixer: / remix| rmx| edit| boot-?leg| mix| re(-| )?make| re(-| )?work| extended remix| refix| bootleg remix/i,
+    mashup_split: / \+ | x | vs\.? /i,
+    producer: /^(produced by|prod\.? by |prod\. )/i,
+    cover: / cover/i,
+    split: /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
+    open: /[\(\[\{]/,
+    close: /[\)\]\}]/,
+    containers: /[\{\[\(\)\]\}]/i,
+    percents: /(% ?){2,10}/,
+    remove: /(extended|vip|original|club|vocal) mix|(extended|vip|radio) edit|(on|and|or) (soundcloud|facebook)|(exclusive )?((free )?(download|d\/?l)( free)?.*)/i,
+    and: /, | & | and /i,
+    dash_split: /^[^-]* [—-] [^-]*$/
   }
 
   SPLITS = {
-    :featured => /#{RE[:featured]}#{RE[:split]}/i,
-    :producer => /#{RE[:producer]}#{RE[:split]}/i,
-    :remixer => /#{RE[:split]}#{RE[:remixer]}/i,
-    :cover => /#{RE[:split]}#{RE[:cover]}/i,
-    :mashup => /#{RE[:mashup_split]}/i
+    featured: /#{RE[:featured]}#{RE[:split]}/i,
+    producer: /#{RE[:producer]}#{RE[:split]}/i,
+    remixer: /#{RE[:split]}#{RE[:remixer]}/i,
+    cover: /#{RE[:split]}#{RE[:cover]}/i,
+    mashup: /#{RE[:mashup_split]}/i
   }
 
   STRIP = {
-    :remixer => /\'s.*| (extended|official|original|vocal|instrumental|(summer|fall|spring|winter)( 2[0-9]{3})?)? /i,
-    :producer => /^by /i
+    remixer: /\'s.*| (extended|official|original|vocal|instrumental|(summer|fall|spring|winter)( 2[0-9]{3})?)? /i,
+    producer: /^by /i
   }
 
   PREFIX = {
-    :featured => /( |\(|\[|\{)/
+    featured: /( |\(|\[|\{)/
   }
 
   # Relationships
@@ -135,7 +135,7 @@ class Song < ActiveRecord::Base
   scope :playlist_popular, min_broadcasts(4).order_rank.individual
   scope :playlist_received, select_sender.with_sender.order_shared.individual
   scope :playlist_sent, select_receiver.with_receiver.order_shared.individual
-  scope :playlist_random, order_random.individual
+  scope :playlist_shuffle, order_random.individual
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
@@ -189,7 +189,6 @@ class Song < ActiveRecord::Base
     # AND the blog genre to appear in a genre feed
     # for better results
     Song
-      .select('distinct on (songs.matching_id, broadcasts.created_at) songs.*')
       .individual
       .joins('inner join broadcasts on broadcasts.song_id = songs.id')
       .joins('inner join stations as ss on ss.id = broadcasts.station_id')

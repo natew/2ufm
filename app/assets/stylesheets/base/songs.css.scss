@@ -105,7 +105,7 @@ $song-art: 84px;
 $song-art-big: 128px;
 $song-player-height: 50px;
 
-.playlist-song {
+.playlist {
   clear: both;
   margin-bottom: 200px;
 
@@ -428,7 +428,7 @@ $song-player-height: 50px;
     pointer-events: none;
 
     .song-meta-pre {
-      line-height: 0;
+      line-height: 1.5em;
       float: right;
     }
 
@@ -663,7 +663,7 @@ section.active,
 
   section {
     float: left;
-    width: 520px;
+    width: 400px;
 
     &.played {
       display: none;
@@ -671,6 +671,18 @@ section.active,
 
     &.active {
       display: block;
+    }
+  }
+
+  .song-meta {
+    .song-meta-pre,
+    .song-controls {
+      display: block;
+      float: none;
+    }
+
+    .song-meta-pre {
+      margin: 0 0 15px 0;
     }
   }
 }
@@ -697,5 +709,11 @@ section.active,
 
       }
     }
+  }
+}
+
+.controller-genres.action-show {
+  .pagination {
+    display: none;
   }
 }
