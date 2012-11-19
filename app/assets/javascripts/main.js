@@ -242,6 +242,13 @@ $('#share-friends').on('click', 'a', function() {
   return false;
 });
 
+body.on('click', 'a.restricted', function() {
+  if (!isOnline) {
+    modal('#modal-login');
+    return false;
+  }
+});
+
 body.allOn('click', {
   '.disabled': function() {
     return false;
@@ -249,13 +256,6 @@ body.allOn('click', {
 
   '.control': function(e) {
     e.preventDefault();
-  },
-
-  '.restricted': function() {
-    if (!isOnline) {
-      modal('#modal-login');
-      return false;
-    }
   },
 
   '.song-link': function(e, el) {
