@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     user_signed_in? and current_user.is_admin?
   end
 
-  def render_page(station, songs=nil, opts)
+  def render_page(station, songs=nil, opts={})
     opts    = { already_limited: false, has_title: false }.merge(opts)
     songs ||= station.songs.playlist_broadcasted
     songs   = songs.limit_page(params[:p]) unless opts[:already_limited]
