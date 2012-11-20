@@ -1,0 +1,11 @@
+<div class="third">
+<% cache('main_index_sidebar') do %>
+  <h3><%= link_to @blogs_genre.name, blogs_path(@blogs_genre) %> blogs</h3>
+  <ul class="shelf">
+    <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
+  </ul>
+<% end %>
+</div>
+
+@blogs_genre = Genre.order('random() desc').limit(1).first
+@blogs = Station.shelf.blog_station.blog_genre(@blogs_genre.name).has_blog_image.has_songs(1).order('random() desc').limit(4)

@@ -128,8 +128,15 @@ module ApplicationHelper
 
   def nav_link_to(title, path, *options)
     options = options.size > 0 ? options[0] : {}
-    class_active = on_current_page?(path) ? 'active' : ''
-    link_to title, path, options.merge({ :class => class_active })
+    if on_current_page?(path)
+      active_class = ' active'
+      if options[:class]
+        options[:class] += active_class
+      else
+        options[:class] = active_class
+      end
+    end
+    link_to title, path, options
   end
 
   def on_current_page?(resource)

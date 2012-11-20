@@ -3,31 +3,18 @@
     <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
     <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
   <% end %>
-  </div>
-
-  <div class="twothirds-wrap">
-    <div class="twothirds">
-      <h3>Today's most played songs</h3>
-      <%= render partial: 'stations/playlist', locals: { station: @songs_station, songs: @songs, classname: 'show-count', dont_paginate: true, already_limited: true } %>
-    </div>
-  </div>
-
-  <div class="third">
-  <% cache('main_index_sidebar') do %>
-    <h3><%= link_to @blogs_genre.name, blogs_path(@blogs_genre) %> blogs</h3>
-    <ul class="shelf">
-      <%= render partial: 'stations/shelf', collection: @blogs, locals: { content: true } %>
-    </ul>
 
     <h3>Genres</h3>
     <%= render 'genres/list' %>
-  <% end %>
+
+    <h3>Today's most played songs</h3>
+    <%= render partial: 'stations/playlist', locals: { station: @songs_station, songs: @songs, classname: 'show-count', dont_paginate: true, already_limited: true } %>
   </div>
 
 <script type="text/javascript">
   <%-
   if user_signed_in?
-    stations = (@artists + @blogs).map(&:id)
+    stations = @artists.map(&:id)
     follows = current_user.get_station_follows(stations) || []
     if follows
   -%>
