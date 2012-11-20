@@ -4,7 +4,8 @@ var pagination = (function(fn, mp) {
       current = getPage(),
       scrolledTo = current,
       offsets = [],
-      w = $(window);
+      w = $(window),
+      hasPages = false;
 
   function checkNextPage() {
     if (!nearBottom()) return;
@@ -14,12 +15,6 @@ var pagination = (function(fn, mp) {
     if (hasMore && playlist.length && playlist.is('.has-more')) {
       var link = playlist.next('.next-page').html('Loading...'),
           playlistInfo = playlist.attr('id').split('-');
-
-      // Support negative numbers
-      if (playlistInfo.length == 4) {
-        playlistInfo.shift();
-        playlistInfo[1] = '-' + playlistInfo[1];
-      }
 
       var id = playlistInfo[1],
           playlistPage = parseInt(playlistInfo[2], 10);
@@ -125,7 +120,7 @@ var pagination = (function(fn, mp) {
   }
 
   function updatePageURL(url) {
-    fn.log(url)
+    fn.log(url);
     fn.replaceState(url);
     mp.updatePage(url);
   }
@@ -141,7 +136,8 @@ var pagination = (function(fn, mp) {
     },
 
     restart: function() {
-      hasMore = true;
+      hasPages = $('.has-more').length > 0;
+      hasMore = hasPages;
       scrolledTo = 0;
     },
 
@@ -158,6 +154,10 @@ var pagination = (function(fn, mp) {
       return isLoading;
     },
 
+    hasPages: function() {
+      return hasPages;
+    },
+
     currentPage: function() {
       return current;
     },
@@ -170,7 +170,7 @@ var pagination = (function(fn, mp) {
 
 w.scroll(function() {
   // Automatic page loading
-  if (!pagination.isLoading()) {
+  if (!pagination.isLoading() && pagination.hasPages()) {
     clearTimeout(pageLoadTimeout);
     pageLoadTimeout = setTimeout(function() {
       pagination.checkPage();

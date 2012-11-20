@@ -53,7 +53,7 @@
 
   <div id="body-wrap">
     <header>
-      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '-2', 'data-delay' => '300' %></h1>
+      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '-1px', 'data-delay' => '300' %></h1>
 
       <div id="bar">
         <div id="player">
@@ -142,8 +142,8 @@
                   <%= link_to "Account", user_account_path, class: 'pictos-gear tip', title: 'Account &amp; Settings'.html_safe  %>
                 </div>
               </h1>
-              <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
               <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
+              <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
               <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
               <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', class: 'secondary', title: 'Log out' %>
             </section>

@@ -301,8 +301,9 @@ var mp = (function() {
       }
 
       // Next section, or next song, or next playlist
-      if (curSection && curSection.next().attr('id'))
-        return this.playSection(curSection.next());
+      var nextSection = curSection.nextAll('section:first');
+      if (nextSection.length)
+        return this.playSection(nextSection);
       else if ((curSongInfo.index + 1) < maxIndex)
         this.playSong(curSongInfo.index + 1);
       else
@@ -324,24 +325,21 @@ var mp = (function() {
     prev: function prev() {
       fn.log('isLive', isLive, 'justStarted', justStarted, 'playmode', playMode, 'index', curSongInfo.index);
       if (isLive) return;
-      if (justStarted) {
-        if (playMode == SHUFFLE) {
-          var prev = played.pop();
-          if (prev) return this.playSong(prev);
-        }
-        else {
-          if (curSection) {
-            var prev = curSection.prev();
-            if (prev.length) return this.playSection(prev);
-          }
-          else if (curSongInfo.index > 0)
-            return this.playSong(curSongInfo.index - 1);
-        }
+      if (!justStarted) return this.replay();
 
-        return this.toPlaylist('prev');
-      } else {
-        this.replay();
+      if (playMode == SHUFFLE) {
+        var prev = played.pop();
+        if (prev) return this.playSong(prev);
       }
+
+      var prevSection = curSection.prevAll('section:first');
+      fn.log('prevSection', prevSection);
+      if (prevSection.length)
+        return this.playSection(prevSection);
+      else if (curSongInfo.index > 0)
+        return this.playSong(curSongInfo.index - 1);
+      else
+        return this.toPlaylist('prev');
     },
 
     toPlaylist: function toPlaylist(direction) {
@@ -608,7 +606,7 @@ var mp = (function() {
       fn.log('on playing page?', this.isOnPlayingPage());
       if (this.isOnPlayingPage()) {
         // If we return to the page we started playing from, re-activate current song
-        curSection = $(document).find('#song-' + curSongInfo.id);
+        curSection = $('#song-' + curSongInfo.id);
         fn.log('on playing page again, section', curSection, 'isplaying', isPlaying);
         if (curSection && isPlaying) {
           player.setCurSection('playing');

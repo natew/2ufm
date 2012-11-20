@@ -1,4 +1,9 @@
 class SongsController < ApplicationController
+
+  def play
+    redirect_to "http://2u.fm/attachments/production/song_compressed_files/#{params[:token]}.mp3"
+  end
+
   def go
     song = Song.find(params[:id])
     go_urls = {
@@ -65,19 +70,6 @@ class SongsController < ApplicationController
     respond_to do |format|
       format.html { render 'show' }
     end
-  end
-
-  def play
-    request_time = params[:key].to_i / 1000
-    time = Time.now.to_f.to_i
-    difference = time - request_time
-    # if difference < 5
-      # redirect_to Yetting.s3_url + "/song_files/#{params[:id]}_original.mp3"
-    # else
-      # head 403
-    # end
-
-    redirect_to "/attachments/#{Rails.env}/song_compressed_files/#{params[:token]}.mp3"
   end
 
   def failed

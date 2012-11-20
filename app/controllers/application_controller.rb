@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include IntegersFromString
   protect_from_forgery
 
   layout :set_layout
@@ -34,12 +35,6 @@ class ApplicationController < ActionController::Base
 
   def affiliate_searchable(string)
     URI.encode(string.gsub(/[\(\[\{].*[\)\]\}]/i, '').strip)
-  end
-
-  def integers_from_string(string)
-    result = []
-    Digest::SHA1.hexdigest(string).each_char{|c| result.push(c) if c.is_numeric? }
-    result.join
   end
 
   private

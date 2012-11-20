@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include AttachmentHelper
   include SlugExtensions
+  include IntegersFromString
 
   ROLES = %w[admin blogowner dluser user]
 
@@ -128,7 +129,7 @@ class User < ActiveRecord::Base
   end
 
   def feed_station
-    Station.new(id: -station.id, title:"#{username}'s feed", slug:"#{slug}-feed")
+    Station.new(id: integers_from_string("#{station.id}#{username}"), title: "#{username}'s feed", slug: "#{slug}-feed")
   end
 
   def followers
