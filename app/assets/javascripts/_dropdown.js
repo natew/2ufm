@@ -65,10 +65,13 @@ function navDropdown(nav, pad, hover) {
           top = nav.offset().top - doc.scrollTop() + nav.height() + padding,
           left = Math.floor(nav.offset().left + (nav.outerWidth()/2) - (dropdown.width()/2));
 
-      if (dropdown.is('.right-align')) {
-        left = left - dropdown.outerWidth()/2 + 45;
-      } else if (dropdown.is('.left-align')) {
-        left = left + dropdown.outerWidth()/2 - 45;
+          fn.log(left, left + dropdown.width(), w.width())
+
+      if (left < 4) {
+        left = 4;
+      }
+      else if (left + dropdown.width() + 12 > w.width()) {
+        left = w.width() - dropdown.width() - 12;
       }
 
       // If the nav is not already open

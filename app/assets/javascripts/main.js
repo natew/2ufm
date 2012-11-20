@@ -408,15 +408,15 @@ $('#player-buttons .broadcast a').click(function() {
 });
 
 // Genres
-$('#nav-genres').click(function() {
+$('#navbar [href=#navbar-genres]').click(function() {
   setTimeout(function() {
     $.cookie('genres-open', !$('#navbar-genres').is('.invisible'));
     windowResize();
   }, 210);
 });
 
-if ($.cookie('genres-open') === 'true') {
-  $('#nav-genres').click();
+if ($.cookie('genres-open') === 'false') {
+  $('#navbar [href=#navbar-genres]').click();
 }
 
 

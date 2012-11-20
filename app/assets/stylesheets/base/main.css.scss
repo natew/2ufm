@@ -435,7 +435,7 @@ header {
   position: absolute;
   top: 6px;
   right: 0;
-  width: 196px;
+  width: 188px;
 
   .broadcast {
     height: 48px;
@@ -599,6 +599,7 @@ header {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: default;
     color: rgba(255,255,255,0.3);
 
     div {
@@ -639,8 +640,7 @@ header {
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
-    &[class*="pictos-"],
-    &#nav-user {
+    &[class*="pictos-"] {
       padding-top: 7px;
       padding-bottom: 7px;
       font-size: 16px;
@@ -697,20 +697,6 @@ header {
     padding: 5px 0;
     background: rgba(0,0,0,0.15);
     bottom: 0;
-  }
-
-  .nav-user {
-    h1 {
-      padding-right: 55px;
-    }
-
-    img {
-      top: 9px;
-      left: 9px;
-      position: absolute;
-      width: 16px;
-      height: 16px;
-    }
   }
 
   #navbar-friends {
@@ -1653,7 +1639,7 @@ h2 small { font-size: 55%; }
 
 /* Nav menus */
 
-$nav-pad: 15px;
+$nav-pad: 10px;
 $nav-item-pad: 4px;
 $nav-arrow-size: 5px;
 
@@ -1669,6 +1655,7 @@ $nav-arrow-size: 5px;
   font-weight: bold;
   border-radius: 5px;
   max-width: 600px;
+  min-width: 120px;
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));
   @include box-sizing(border-box);
 
@@ -1701,11 +1688,10 @@ $nav-arrow-size: 5px;
   }
 
   .header, h4 {
-    text-transform: uppercase;
     color: rgba(255,255,255,0.8);
-    font-size: 10px;
-    margin: $nav-item-pad*3 0;
-    padding: 0 $nav-pad;
+    font-size: 12px;
+    margin: $nav-item-pad*2 0;
+    padding: 0 6px;
   }
 
   li, a {
@@ -1717,15 +1703,30 @@ $nav-arrow-size: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
 
     &[class*="2s-"] {
       padding-left: 18+$nav-pad;
       line-height: .9em;
     }
 
-    &[class*="pictos-"]:before {
-      padding-left: -5+$nav-pad;
-      padding-top: 4px;
+    &[class*="pictos-"] {
+      padding-left: 24px;
+
+      &:before {
+        font-size: 14px;
+      }
+    }
+
+    &.secondary {
+      color: rgba(255,255,255,0.6);
+    }
+
+    img {
+      float: left;
+      margin: 3px 5px -2px -5px;
+      width: 14px;
+      height: 14px;
     }
   }
 
@@ -1851,7 +1852,7 @@ ol.mp_list {
 
 #spinner {
   position: absolute;
-  z-index: 1000;
+  z-index: 100000;
   left: 80px;
   top: 20px;
 }

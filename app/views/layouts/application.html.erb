@@ -53,7 +53,7 @@
 
   <div id="body-wrap">
     <header>
-      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '-1px', 'data-delay' => '300' %></h1>
+      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '1', 'data-delay' => '300' %></h1>
 
       <div id="bar">
         <div id="player">
@@ -69,7 +69,8 @@
             </span>
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard', 'data-pad' => '5'  %>
             <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control pictos-list disabled', :id => 'nav-music', 'data-pad' => '5' %>
-            <%= link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control pictos-globe tip-e', 'data-pad' => '18' %>
+            <%# link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control pictos-globe tip-e', 'data-pad' => '18' %>
+            <%= link_to "Me", '#nav-user', class: 'nav-hover control pictos-user', 'data-pad' => '5' %>
           </div>
 
           <div id="player-main">
@@ -119,9 +120,13 @@
               <%= link_to 'Home', user_signed_in? ? users_home_path : home_path, :id => 'nav-home', :class => 'pictos-home'  %>
               <%= link_to 'Trending', songs_trending_path, :id => 'nav-trending', :class => 'pictos-pulse'  %>
               <%= link_to 'Latest', songs_fresh_path, :id => 'nav-new', :class => 'pictos-time' %>
-              <%= link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'pictos-music control', 'data-toggle' => 'invisible' %>
+            </section>
 
-              <div id="navbar-genres" class="invisible scroll-section">
+            <section>
+              <h1 href="#navbar-genres" data-toggle="invisible">Genres</h1>
+              <%# link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'pictos-music control', 'data-toggle' => 'invisible' %>
+
+              <div id="navbar-genres" class="scroll-section">
                 <div id="navbar-genres-wrap">
                   <%= render 'genres/links' %>
                 </div>
@@ -133,21 +138,6 @@
               <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'pictos-users' %>
               <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'pictos-newspaper' %>
             </section>
-
-            <%- if user_signed_in? -%>
-            <section class="nav-user">
-              <h1>
-                <%= current_user.username %>
-                <div>
-                  <%= link_to "Account", user_account_path, class: 'pictos-gear tip', title: 'Account &amp; Settings'.html_safe  %>
-                </div>
-              </h1>
-              <%= link_to ("Profile " + image_tag(current_user.avatar.url(:small))).html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
-              <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
-              <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
-              <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', class: 'secondary', title: 'Log out' %>
-            </section>
-            <%- end -%>
 
             <% unless user_signed_in? %>
             <section class="nav-extra account">
@@ -190,6 +180,17 @@
   </div>
 
   <!-- Hover menus -->
+
+  <%- if user_signed_in? -%>
+  <div id="nav-user" class="pop-menu right-align">
+    <h4><%= current_user.username %></h4>
+    <%= link_to (image_tag(current_user.avatar.url(:small)) + " Profile").html_safe, '/' + current_user.station_slug, :id => 'nav-user' %>
+    <%= link_to 'Feed', feed_user_path(current_user), :id => 'nav-feed', :class => 'pictos-list' %>
+    <%= link_to 'Inbox', '/shares/inbox', :id => 'nav-shares', :class => 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
+    <%= link_to "Account", user_account_path, class: 'pictos-gear'  %>
+    <%= link_to 'Log out', destroy_user_session_path, :method => 'delete', class: 'secondary', title: 'Log out' %>
+  </div>
+  <%- end -%>
 
   <div id="player-playlist" class="pop-menu right-align"></div>
   <div id="player-playlist-template" class="hidden">
