@@ -53,7 +53,7 @@ class UsersController < ApplicationController
         @feed_songs = @user.following_songs(params[:p] || 1)
         render 'users/show'
       end
-      format.page { render_page @user.feed_station, @user.following_songs(params[:p], true), true }
+      format.page { render_page(@user.feed_station, @user.following_songs(params[:p], true), already_limited: true, has_title: true) }
     end
   end
 

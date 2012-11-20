@@ -1292,7 +1292,7 @@ $announce-color: $heading-color;
   .genres-list {
     clear: none;
     float: left;
-    margin: 0 140px 0 4px;
+    margin: 0;
 
     li {
       margin-bottom: 0;
@@ -1300,14 +1300,15 @@ $announce-color: $heading-color;
   }
 
   .title-bar {
-    margin: 10px 0;
+    margin: 10px 140px 0 0;
   }
 
   .title-buttons {
+    margin-right: 6px;
     float: left;
 
     span {
-      margin-right: 5px;
+      margin-right: 6px;
     }
 
     a {

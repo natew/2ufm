@@ -9,7 +9,7 @@ class SharesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.page { render_page @inbox_station, @inbox_songs }
+      format.page { render_page @inbox_station, @inbox_songs, has_title: true }
     end
   end
 
@@ -20,7 +20,7 @@ class SharesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.page { render_page @outbox_station, @outbox_songs }
+      format.page { render_page @outbox_station, @outbox_songs, has_title: true }
     end
   end
 
