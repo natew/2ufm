@@ -38,7 +38,7 @@ class SongsController < ApplicationController
   end
 
   def fresh
-    @title = 'Latest'
+    @title = 'Newest'
     @just_in_station = Station.newest
     @just_in_songs = Song.playlist_newest
 
