@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include IntegersFromString
 
   ROLES = %w[admin blogowner dluser user]
+  STATION_TYPES = %w[user blog artist]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
@@ -135,13 +136,14 @@ class User < ActiveRecord::Base
 
   def followers
     Station
-    .joins('inner join users on users.station_id = stations.id')
-    .joins('inner join follows on follows.user_id = users.id')
-    .where('follows.station_id = ?', station_id)
+      .joins('inner join users on users.station_id = stations.id')
+      .joins('inner join follows on follows.user_id = users.id')
+      .where('follows.station_id = ?', station_id)
   end
 
-  def following
-    self.stations.where('stations.user_id is not null')
+  def following(type)
+    return nil unless STATION_TYPES.include? type
+    self.stations.where("stations.#{type}_id is not null")
   end
 
   def image

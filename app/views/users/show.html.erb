@@ -23,54 +23,60 @@
 
     <%= render :partial => 'shared/actions', :locals => { :station => @user.station }  %>
   </div>
+</div>
 
-  <div class="whole">
-  <% if @songs %>
-    <%- cache("user_artists_#{@user.id}") do -%>
-      <%= render 'stations/artists' if @artists.length > 0 %>
-    <%- end -%>
-
-    <div id="favorites" class="section active">
-      <%- if @user.station.songs.empty? -%>
-        <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
-      <%- else -%>
-        <%= render partial: 'stations/playlist', locals: { station: @user.station, songs: @user_songs } %>
-      <%- end -%>
-    </div>
-
-    <% elsif @feed %>
-
-    <%- if @feed_songs.length > 0 -%>
-      <%= render partial: 'stations/playlist', locals: { station: @user.feed_station, songs: @feed_songs, already_limited: true, has_title: true } %>
-    <%- else -%>
-      <h3><strong>Your feed is empty!</strong> Follow your friends, artists and blogs!</h3>
-      <p>Your feed will automatically fill with the latest songs from all the people you follow</p>
-    <%- end -%>
-
-  <% elsif @following %>
-
-    <div id="following" class="section active">
-      <%- if @following.size > 0 -%>
-        <div class="stations">
-          <%= render_stations @following %>
-        </div>
-      <%- else -%>
-        <p>Not following anyone!</p>
-      <%- end -%>
-    </div>
-
-  <% elsif @followers %>
-
-    <div id="followers" class="section active">
-      <%- if @followers.size > 0 -%>
-        <div class="stations">
-          <%= render_stations @followers %>
-        </div>
-      <%- else -%>
-        <p>No followers!</p>
-      <%- end -%>
-    </div>
-
+<div class="whole">
+<% if @songs %>
+  <%- cache("user_artists_#{@user.id}") do -%>
+    <%= render 'stations/artists' if @artists.length > 0 %>
   <%- end -%>
+
+  <div id="favorites" class="section active">
+    <%- if @user.station.songs.empty? -%>
+      <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
+    <%- else -%>
+      <%= render partial: 'stations/playlist', locals: { station: @user.station, songs: @user_songs } %>
+    <%- end -%>
   </div>
+
+  <% elsif @feed %>
+
+  <%- if @feed_songs.length > 0 -%>
+    <%= render partial: 'stations/playlist', locals: { station: @user.feed_station, songs: @feed_songs, already_limited: true, has_title: true } %>
+  <%- else -%>
+    <h3><strong>Your feed is empty!</strong> Follow your friends, artists and blogs!</h3>
+    <p>Your feed will automatically fill with the latest songs from all the people you follow</p>
+  <%- end -%>
+
+<% elsif @following %>
+
+  <div class="subnav">
+    <%= nav_link_to 'People', following_user_path(current_user) %>
+    <%= nav_link_to 'Artists', following_user_path(current_user, 'artists') %>
+    <%= nav_link_to 'Blogs', following_user_path(current_user, 'blogs') %>
+  </div>
+
+  <%- if @following.size > 0 -%>
+    <div class="stations">
+      <%= render_stations @following %>
+    </div>
+
+    <%= paginate @following %>
+  <%- else -%>
+    <p>Not following anyone!</p>
+  <%- end -%>
+
+<% elsif @followers %>
+
+  <%- if @followers.size > 0 -%>
+    <div class="stations">
+      <%= render_stations @followers %>
+    </div>
+
+    <%= paginate @followers %>
+  <%- else -%>
+    <p>No followers!</p>
+  <%- end -%>
+
+<%- end -%>
 </div>

@@ -36,7 +36,7 @@
 .pictos-heart:before {content: "k";}
 .pictos-star:before {content: "S";}
 .pictos-music:before {content: "m";}
-.pictos-add:before,  {content: "+";}
+.pictos-add:before {content: "+";}
 .pictos-remove:before {content: "-";}
 .pictos-share:before {content: "R";}
 .pictos-list:before {content: "l";}

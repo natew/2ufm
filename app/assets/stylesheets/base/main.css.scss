@@ -683,7 +683,7 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 5px 0 0 0;
+    margin: 3px 0;
   }
 
   p {
@@ -1554,7 +1554,7 @@ h2 small { font-size: 55%; }
   position: relative;
   clear: both;
   margin: -5px 0 10px 0;
-  font-size: 11px;
+  font-size: 12px;
 
   h5 {
     display: none;
@@ -1575,7 +1575,7 @@ h2 small { font-size: 55%; }
   }
 
   a, span, .page-sep {
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.4);
     width: 100%;
     display: inline-block;
     text-align: center;

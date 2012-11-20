@@ -94,7 +94,7 @@ Fusefm::Application.routes.draw do
 
   resources :users, only:[], path: '/' do
     member do
-      get 'following'
+      get 'following(/:type)', to: 'users#following', as: 'following'
       get 'followers'
       get 'feed'
     end

@@ -89,15 +89,22 @@ class UsersController < ApplicationController
   end
 
   def following
-    @following = @user.following
+    params[:type] ||= 'users'
+    @following = @user.following(params[:type].singularize).page(params[:page]).per(Yetting.per)
 
     respond_to do |format|
-      format.html { render 'users/show' }
+      format.html do
+        if @following
+          render 'users/show'
+        else
+          render status: 404
+        end
+      end
     end
   end
 
   def followers
-    @followers = @user.followers
+    @followers = @user.followers.page(params[:page]).per(Yetting.per)
 
     respond_to do |format|
       format.html { render 'users/show' }
