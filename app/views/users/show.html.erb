@@ -44,8 +44,15 @@
   <%- if @feed_songs.length > 0 -%>
     <%= render partial: 'stations/playlist', locals: { station: @user.feed_station, songs: @feed_songs, already_limited: true, has_title: true } %>
   <%- else -%>
-    <h3><strong>Your feed is empty!</strong> Follow your friends, artists and blogs!</h3>
-    <p>Your feed will automatically fill with the latest songs from all the people you follow</p>
+    <h3><strong>Your feed is empty!</strong></h3>
+    <p>Your feed will automatically fill with the latest songs from everyone you follow.</p>
+    <% friends = current_user.facebook_friends %>
+    <% if friends %>
+      <h4>Follow some friends to fill your feed</h4>
+      <div class="stations friends-list">
+        <%= render partial: 'users/facebook_friend', collection: friends %>
+      </div>
+    <% end %>
   <%- end -%>
 
 <% elsif @following %>
