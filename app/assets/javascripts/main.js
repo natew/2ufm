@@ -65,6 +65,33 @@ $(function() {
     clickSong(listen.song_id);
   }
 
+  // Welcome
+  // Cookies
+  if (!hideWelcome && !isOnline) {
+    var h1s = $('#welcome h1'),
+        h1len = h1s.length,
+        h1cur = 0;
+
+    $('#welcome').addClass('active');
+    $('#welcome h1:first').addClass('in');
+
+    $('#close-welcome').click(function(e) {
+      e.preventDefault();
+      $.cookie('hideWelcome', 1);
+      $('#welcome').animate({'margin-bottom': '-100px'}, function() {
+        $(this).remove();
+      });
+    });
+
+    setInterval(function() {
+      $(h1s[h1cur]).addClass('out');
+      if (h1cur == h1len-1) h1cur = -1;
+      $(h1s[++h1cur]).addClass('in').removeClass('out')
+    }, 4500)
+  }
+
+
+  // Mobile
   $('#body')
     .touchSwipeLeft(function() {
       $('body').removeClass('swiped-left');

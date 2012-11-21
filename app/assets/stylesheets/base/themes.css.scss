@@ -4,10 +4,10 @@
 
 @for $i from 1 through 5 {
   $header-bg:       nth(( #418bd4,  /* blue */
-                          #458651,  /* green */
+                          #4a9257,  /* green */
                           #cd9d23,  /* orange */
                           #bc3e66,  /* pink */
-                          #b8000d   /* red */
+                          #a01c2a   /* red */
                           ), $i );
 
   $body-bg:         nth(( #333,     /* grey */
@@ -33,6 +33,7 @@
     header { background: $header-bg; }
     #player-meta:before { @include linear-gradient(left, $header-bg, rgba($header-bg,0)); }
     #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
+    #welcome { background: darken($header-bg, 25%); }
   }
 
   .theme-body-#{$i} {

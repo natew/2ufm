@@ -147,7 +147,6 @@
             </section>
 
             <section class="nav-info">
-              <h1>What is this?</h1>
               <p>2u.fm finds new music from across the web.</p>
               <p>Like songs &amp; share them with friends.</p>
               <p>The best ones filter to the top!</p>
@@ -298,6 +297,19 @@
   <div id="spinner" class="hidden"></div>
   <div id="null"></div>
   <div id="tunein"></div>
+
+  <% if !user_signed_in? %>
+    <div id="welcome">
+      <h3>Why 2u.fm?</h3>
+      <section>
+        <h1>Up to the minute releases from top music blogs.</h1>
+        <h1>Remixes, mashups, covers, bootlegs, demos, singles, promos...</h1>
+        <h1>Your favorite artist's new songs, one follow away.</h1>
+        <h1>Find new artists &amp; share them one click.</h1>
+      </section>
+      <%= link_to 'D', '', :class => 'control pictos', :id => 'close-welcome' %>
+    </div>
+  <% end %>
 
     <script type="text/javascript">
       <%- if params[:listen] -%>
