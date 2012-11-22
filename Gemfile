@@ -3,7 +3,6 @@ source 'http://gems.github.com'
 
 gem 'rails',   '3.2.6'
 gem 'pg'
-gem 'sqlite3'
 gem 'yettings'
 gem 'thin'
 

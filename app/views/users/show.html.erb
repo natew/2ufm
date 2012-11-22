@@ -35,14 +35,14 @@
     <%- if @user.station.songs.empty? -%>
       <h4>No songs yet!  Browse some blogs, artists, or just post your music!</h4>
     <%- else -%>
-      <%= render partial: 'stations/playlist', locals: { station: @user.station, songs: @user_songs } %>
+      <%= render partial: 'stations/playlist', locals: @playlist %>
     <%- end -%>
   </div>
 
   <% elsif @feed %>
 
-  <%- if @feed_songs.length > 0 -%>
-    <%= render partial: 'stations/playlist', locals: { station: @user.feed_station, songs: @feed_songs, already_limited: true, has_title: true } %>
+  <%- if @playlist[:songs].length > 0 -%>
+    <%= render partial: 'stations/playlist', locals: @playlist %>
   <%- else -%>
     <h3><strong>Your feed is empty!</strong></h3>
     <p>Your feed will automatically fill with the latest songs from everyone you follow.</p>
@@ -58,9 +58,9 @@
 <% elsif @following %>
 
   <div class="subnav">
-    <%= nav_link_to 'People', following_user_path(current_user) %>
-    <%= nav_link_to 'Artists', following_user_path(current_user, 'artists') %>
-    <%= nav_link_to 'Blogs', following_user_path(current_user, 'blogs') %>
+    <%= nav_link_to 'People', following_user_path(@user) %>
+    <%= nav_link_to 'Artists', following_user_path(@user, 'artists') %>
+    <%= nav_link_to 'Blogs', following_user_path(@user, 'blogs') %>
   </div>
 
   <%- if @following.size > 0 -%>

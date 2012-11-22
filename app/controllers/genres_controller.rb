@@ -34,11 +34,12 @@ class GenresController < ApplicationController
   end
 
   def render_genre_show
+    @playlist = { station: @genre_station, songs: @genre_songs }
     @primary = @genre
 
     respond_to do |format|
       format.html { render 'show' }
-      format.page { render_page(@genre_station, @genre_songs) }
+      format.page { render_page @playlist }
     end
   end
 

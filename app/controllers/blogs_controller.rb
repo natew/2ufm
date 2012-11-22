@@ -38,23 +38,21 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @station = Station.find_by_slug(params[:id]) || not_found
-    @songs   = @station.songs.playlist_newest
-    @blog    = Blog.find(@station.blog_id) || not_found
-    @artists = Station.shelf.where(slug: @blog.station.artists.select('artists.station_slug').order('random() desc').limit(12).map(&:station_slug))
-    @primary = @blog
+    @playlist = { station: Station.find_by_slug(params[:id]) || not_found, songs: @station.songs.playlist_newest }
+    @blog     = Blog.find(@station.blog_id) || not_found
+    @artists  = Station.shelf.where(slug: @blog.station.artists.select('artists.station_slug').order('random() desc').limit(12).map(&:station_slug))
+    @primary  = @blog
 
     respond_to do |format|
       format.html { render 'show' }
-      format.page { render_page @station, @songs }
+      format.page { render_page @playlist }
     end
   end
 
   def popular
-    @station = Station.find_by_slug(params[:id]) || not_found
-    @songs   = @station.songs.playlist_rank
-    @blog    = Blog.find(@station.blog_id) || not_found
-    @primary = @blog
+    @playlist = { station: Station.find_by_slug(params[:id]) || not_found, songs: @station.songs.playlist_rank }
+    @blog     = Blog.find(@station.blog_id) || not_found
+    @primary  = @blog
 
     respond_to do |format|
       format.html { render 'show' }

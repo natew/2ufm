@@ -105,9 +105,10 @@ class ArtistsController < ApplicationController
   end
 
   def render_show
+    @playlist = { station: @artist.station, songs: @songs }
     respond_to do |format|
       format.html { render 'show' }
-      format.page { render_page @artist.station, @songs }
+      format.page { render_page @playlist }
     end
   end
 end

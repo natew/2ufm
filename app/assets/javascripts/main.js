@@ -402,7 +402,6 @@ body.allOn('click', {
       fn.log(err);
     }
 
-    if (!el.parents('.nav-menu')) navDropdown(false);
     if (!e.isDefaultPrevented() && !commandPressed) {
       if (!this.className.match(/external/)) e.preventDefault();
       newPage = el.attr('href');
@@ -427,7 +426,7 @@ body.on('click', function(e) {
   spinner.updatePos(e.pageX, e.pageY);
 
   // Hide dropdowns on click
-  if (!el.is('a, input')) navDropdown(false);
+  if (!el.parents('.pop-menu, .nav-menu')) navDropdown(false);
 });
 
 $('#player-buttons .broadcast a').click(function() {

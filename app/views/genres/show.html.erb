@@ -6,7 +6,7 @@
 
 <div class="whole">
   <% if true %>
-    <%= render partial: 'stations/playlist', locals: { station: @genre_station, songs: @genre_songs } %>
+    <%= render partial: 'stations/playlist', locals: @playlist %>
   <% else %>
     <%= render partial: 'stations/playlist', locals: { station: @genre_station, songs: @genre_songs, classname: 'playlist-shuffle open', dont_paginate: true } %>
   <% end %>

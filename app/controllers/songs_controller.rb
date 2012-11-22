@@ -15,36 +15,33 @@ class SongsController < ApplicationController
 
   def popular
     @title = 'Popular'
-    @popular = Station.popular
-    @popular_songs = Song.playlist_popular
+    @playlist = { station: Station.popular, songs: Song.playlist_popular, classname: 'open show-count' }
 
     respond_to do |format|
       format.html { render 'popular' }
-      format.json { render :json => @popular.to_playlist_json }
-      format.page { render_page @popular, @popular_songs }
+      format.json { render json: @playlist.to_playlist_json }
+      format.page { render_page @playlist }
     end
   end
 
   def trending
     @title = 'Trending'
-    @trending = Station.trending
-    @trending_songs = Song.playlist_trending
+    @playlist = { station: Station.trending, songs: Song.playlist_trending, classname: 'open show-count' }
 
     respond_to do |format|
       format.html { render 'trending' }
-      format.json { render :json => @trending.to_playlist_json }
-      format.page { render_page @trending, @trending_songs }
+      format.json { render json: @playlist.to_playlist_json }
+      format.page { render_page @playlist }
     end
   end
 
   def fresh
     @title = 'Newest'
-    @just_in_station = Station.newest
-    @just_in_songs = Song.playlist_newest
+    @playlist = { station: Station.newest, songs: Song.playlist_newest }
 
     respond_to do |format|
       format.html { render 'fresh' }
-      format.page { render_page @just_in_station, @just_in_songs }
+      format.page { render_page @playlist }
     end
   end
 

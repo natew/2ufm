@@ -3,24 +3,22 @@ class SharesController < ApplicationController
   after_filter :mark_read, :only => [:inbox]
 
   def inbox
-    @inbox_station = Station.current_user_inbox_station
-    @inbox_songs = current_user.received_songs(params[:p])
-    @has_songs = true if @inbox_songs.size > 0
+    @playlist = { station: Station.current_user_inbox_station, songs: current_user.received_songs(params[:p]), has_title: true }
+    @has_songs = true if @playlist.songs.size > 0
 
     respond_to do |format|
       format.html
-      format.page { render_page @inbox_station, @inbox_songs, has_title: true }
+      format.page { render_page @playlist }
     end
   end
 
   def outbox
-    @outbox_station = Station.current_user_outbox_station
-    @outbox_songs = current_user.sent_songs(params[:p])
-    @has_songs = true if @outbox_songs.size > 0
+    @playlist = { station: Station.current_user_outbox_station, songs: current_user.sent_songs(params[:p]), has_title: true }
+    @has_songs = true if @playlist.songs.size > 0
 
     respond_to do |format|
       format.html
-      format.page { render_page @outbox_station, @outbox_songs, has_title: true }
+      format.page { render_page @playlist }
     end
   end
 

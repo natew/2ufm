@@ -187,14 +187,10 @@
   margin-top: 10px;
   clear: both;
 
-  a, button, input[type="submit"] {
-    float: right;
-  }
-
   .afterthought {
     font-size: 12px;
     color: #555;
-    float: left;
+    float: right;
     padding: 8px;
 
     a {

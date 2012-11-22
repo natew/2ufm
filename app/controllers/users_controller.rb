@@ -19,14 +19,14 @@ class UsersController < ApplicationController
   def show
     @user = User.joins(:station).where('stations.slug = ?', params[:id]).first || not_found
     @station = Station.find_by_slug(params[:id]) || not_found
-    @user_songs = @station.songs.playlist_broadcasted.user_broadcasted
+    @playlist = { station: @station, songs: @station.songs.playlist_broadcasted.user_broadcasted }
     @songs = true
     @artists = Station.shelf.where(slug: @user.station.artists.select('artists.station_slug').has_image.order('random() desc').limit(12).map(&:station_slug))
     @primary = @user
 
     respond_to do |format|
       format.html { render 'show' }
-      format.page { render_page @station }
+      format.page { render_page @playlist }
     end
   end
 
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     added_genres = current_user.set_genres(params[:genres].split(','))
     if added_genres.size > 0
       current_user.update_attributes(first_time:false)
-      @artists_stations = Station.where(slug: Artist.has_image.joins(:genres).where(genres: { id: added_genres }).order('artists.song_count desc').limit(30).map(&:station_slug)).order('stations.songs_count desc')
+      @artists_stations = Station.where(slug: Artist.has_image.joins(:genres).where(genres: { id: added_genres }).order('artists.song_count desc').limit(40).map(&:station_slug)).order('stations.songs_count desc')
       render partial: 'users/recommended_artists'
     else
       head 500
@@ -47,13 +47,17 @@ class UsersController < ApplicationController
 
   def feed
     @feed = true
+    @playlist = { station: @user.feed_station, already_limited: true, has_title: true }
 
     respond_to do |format|
       format.html do
-        @feed_songs = @user.following_songs(params[:p] || 1)
+        @playlist[:songs] = @user.following_songs(params[:p] || 1)
         render 'users/show'
       end
-      format.page { render_page(@user.feed_station, @user.following_songs(params[:p], true), already_limited: true, has_title: true) }
+      format.page do
+        @playlist[:songs] = @user.following_songs(params[:p], true)
+        render_page @playlist
+      end
     end
   end
 

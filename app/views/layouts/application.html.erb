@@ -70,7 +70,11 @@
             <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control pictos-link disabled update-clipboard', 'data-pad' => '5'  %>
             <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control pictos-list disabled', :id => 'nav-music', 'data-pad' => '5' %>
             <%# link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control pictos-globe tip-e', 'data-pad' => '18' %>
-            <%= link_to "Me", '#nav-user', class: 'nav-hover control pictos-user restricted', 'data-pad' => '5' %>
+            <% if user_signed_in? %>
+              <%= link_to "Me #{image_tag(current_user.avatar.url(:small))}".html_safe, station_path(current_user), class: 'nav-hover pictos-user restricted', 'data-pad' => '5', 'data-target' => '#nav-user' %>
+            <% else %>
+              <%= link_to "Me", '', class: 'nav-hover pictos-user control restricted', 'data-pad' => '5', 'data-target' => '#nav-user' %>
+            <% end %>
           </div>
 
           <div id="player-main">
@@ -180,18 +184,19 @@
 
   <!-- Hover menus -->
 
-  <%- if user_signed_in? -%>
   <div id="nav-user" class="pop-menu right-align">
+    <%- if user_signed_in? -%>
     <h4><%= current_user.username %></h4>
-    <%= link_to (image_tag(current_user.avatar.url(:small)) + " Profile").html_safe, '/' + current_user.station_slug %>
     <%= link_to 'Feed', feed_user_path(current_user), class: 'pictos-list' %>
     <%= link_to 'Following', following_user_path(current_user), class: 'pictos-add' %>
     <%= link_to 'Inbox', '/shares/inbox', class: 'pictos-inbox', 'data-shares' => current_user.received_songs_notifications %>
     <br />
     <%= link_to "Account", user_account_path, class: 'pictos-gear'  %>
     <%= link_to 'Log out', destroy_user_session_path, method: 'delete', class: 'secondary', title: 'Log out' %>
+    <%- else -%>
+      <%= link_to 'Log in', '#modal-login', class: 'pictos-key modal control' %>
+    <%- end -%>
   </div>
-  <%- end -%>
 
   <div id="player-playlist" class="pop-menu right-align"></div>
   <div id="player-playlist-template" class="hidden">

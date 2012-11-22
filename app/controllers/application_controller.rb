@@ -20,14 +20,14 @@ class ApplicationController < ActionController::Base
     user_signed_in? and current_user.is_admin?
   end
 
-  def render_page(station, songs=nil, opts={})
-    opts    = { already_limited: false, has_title: false }.merge(opts)
-    songs ||= station.songs.playlist_broadcasted
-    songs   = songs.limit_page(params[:p]) unless opts[:already_limited]
+  def render_page(opts)
+    opts    = { page_request: true, already_limited: false, has_title: false }.merge(opts)
+    opts[:songs] ||= opts[:station].songs.playlist_broadcasted
+    opts[:songs]   = opts[:songs].limit_page(params[:p]) unless opts[:already_limited]
 
-    if songs.length > 0
+    if opts[:songs].length > 0
       self.formats = [:html]
-      render partial: 'stations/playlist', locals: { station: station, songs: songs, page_request: true, already_limited: opts[:already_limited], has_title: opts[:has_title] }
+      render partial: 'stations/playlist', locals: opts
     else
       head 204
     end
