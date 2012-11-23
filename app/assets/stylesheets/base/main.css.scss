@@ -603,7 +603,7 @@ header {
     font-size: 12px;
     font-weight: 300;
     padding: 3px 10px;
-    margin: 0;
+    margin: 8px 0 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -691,7 +691,7 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 3px 0;
+    margin: 0 0 6px 0;
   }
 
   p {
@@ -748,6 +748,7 @@ header {
 
 .scroll-section {
   position: relative;
+  background: rgba(0,0,0,0.15);
 }
 
 .scroll-section-inner {
@@ -1276,6 +1277,11 @@ $announce-color: $heading-color;
     height: 128px;
   }
 
+  .small {
+    width: 64px;
+    height: 64px;
+  }
+
   a { text-decoration: none; }
   p {
     font-size: 14px;
@@ -1344,6 +1350,17 @@ $announce-color: $heading-color;
     position: absolute;
     bottom: 15px;
     right: 30px;
+  }
+}
+
+.controller-users .title {
+  .title-nav {
+    right: 115px;
+  }
+
+  .image img {
+    width: 82px;
+    height: 82px;
   }
 }
 
@@ -1432,7 +1449,7 @@ $announce-color: $heading-color;
   display: block;
   margin: 0 -20px -12px -20px;
   overflow: hidden;
-  padding: 10px 20px 10px 12px;
+  padding: 8px 20px 8px 12px;
   padding-right: 178px;
   @include box-sizing(border-box);
 
