@@ -20,5 +20,5 @@
   <%- cache("blog_artists_#{@blog.id}") do -%>
     <%= render 'stations/artists' %>
   <%- end -%>
-  <%= render partial: 'stations/playlist', locals: { station: @station, song: @songs } %>
+  <%= render partial: 'stations/playlist', locals: @playlist %>
 </div>

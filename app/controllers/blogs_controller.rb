@@ -38,7 +38,8 @@ class BlogsController < ApplicationController
   end
 
   def show
-    @playlist = { station: Station.find_by_slug(params[:id]) || not_found, songs: @station.songs.playlist_newest }
+    @station  = Station.find_by_slug(params[:id])
+    @playlist = { station: @station || not_found, songs: @station.songs.playlist_newest }
     @blog     = Blog.find(@station.blog_id) || not_found
     @artists  = Station.shelf.where(slug: @blog.station.artists.select('artists.station_slug').order('random() desc').limit(12).map(&:station_slug))
     @primary  = @blog
