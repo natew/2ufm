@@ -127,6 +127,12 @@
             </section>
 
             <section>
+              <h1>Browse</h1>
+              <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'pictos-users' %>
+              <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'pictos-newspaper' %>
+            </section>
+
+            <section>
               <h1 href="#navbar-genres" data-toggle="invisible">Genres</h1>
               <%# link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'pictos-music control', 'data-toggle' => 'invisible' %>
 
@@ -135,12 +141,6 @@
                   <%= render 'genres/links' %>
                 </div>
               </div>
-            </section>
-
-            <section>
-              <h1>Browse</h1>
-              <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'pictos-users' %>
-              <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'pictos-newspaper' %>
             </section>
 
             <% unless user_signed_in? %>

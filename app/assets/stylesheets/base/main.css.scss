@@ -691,7 +691,7 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    margin: 0 0 6px 0;
+    margin: 3px 0 6px 0;
   }
 
   p {
@@ -748,7 +748,6 @@ header {
 
 .scroll-section {
   position: relative;
-  background: rgba(0,0,0,0.15);
 }
 
 .scroll-section-inner {
@@ -771,13 +770,13 @@ header {
   }
 
   &:before {
-    @include linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0));
+    @include linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0));
     bottom: auto;
     top: 0;
   }
 
   &:after {
-    @include linear-gradient(bottom, rgba(0,0,0,0.6), rgba(0,0,0,0));
+    @include linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0));
     visibility: visible;
   }
 
@@ -1270,16 +1269,16 @@ $announce-color: $heading-color;
     z-index: 10;
     border-width: 5px;
     border-style: solid;
-  }
 
-  .medium {
-    width: 128px;
-    height: 128px;
-  }
+    .medium {
+      width: 128px;
+      height: 128px;
+    }
 
-  .small {
-    width: 64px;
-    height: 64px;
+    .small {
+      width: 64px;
+      height: 64px;
+    }
   }
 
   a { text-decoration: none; }

@@ -1,7 +1,7 @@
 <div id="modal-new-user" class="section-container permanent">
   <div id="new-user-genres" class="section">
     <h3>Your Genres</h3>
-    <p class="large">2u.fm is built around finding and following cool new artists.<br /> Pick some genres and we'll recommend some artists for you to follow:</p>
+    <p class="large">Step 1: Pick some genres and we'll recommend artists for you to follow:</p>
 
     <ul class="genres multi-select">
       <%= render partial: Genre.ordered, locals: { control: true } %>
@@ -15,14 +15,14 @@
   <div id="new-user-artists" class="section hidden">
     <h3>Step 2: Recommended Artists</h3>
     <p class="large">
-      Finding artists we think you'll like to follow...
+      Follow artists to get all their latest music right in your music feed.
     </p>
 
     <div class="stations loading">
     </div>
 
     <div class="modal-actions">
-      <%= link_to 'Next &raquo;'.html_safe, '#new-user-friends, #new-user-artists', class: 'button control', 'data-toggle' => 'hidden' %>
+      <%= link_to 'Next &raquo;'.html_safe, '#new-user-friends, #new-user-artists', id: 'recommended-artists-next', class: 'button control', 'data-toggle' => 'hidden' %>
       <%= link_to '&laquo; Select more genres'.html_safe, '#new-user-genres, #new-user-artists', class: 'button alt control', 'data-toggle' => 'hidden' %>
     </div>
   </div>
@@ -32,6 +32,7 @@
 
     <% if current_user.facebook_friends and current_user.facebook_friends.count > 0 %>
       <p class="large">We've found a few of your friends already using 2u!</p>
+      <p>Following friends works just like artists.  Whenever a friend likes a song, you see it in your feed, and vice versa.</p>
       <div class="stations friends-list">
         <%= render partial: 'users/facebook_friend', collection: current_user.facebook_friends %>
       </div>

@@ -33,8 +33,6 @@ $(function() {
       e.preventDefault();
     })
 
-    $('#modal-new-user .stations').dontScrollParent();
-
     $('#genres-next').click(function() {
       var genres = [];
       $('#new-user-genres .genres a.selected').each(function(){
@@ -42,7 +40,6 @@ $(function() {
       });
 
       if (genres.length) {
-        $('#modal-new-user').removeClass('permanent');
         $.ajax({
           type: 'post',
           url: '/my/genres',
@@ -55,6 +52,10 @@ $(function() {
         notice('No genres selected... You gotta like something, right?!');
         return false;
       }
+    });
+
+    $('#recommended-artists-next').click(function() {
+      $('#modal-new-user').removeClass('permanent');
     });
   }
 
@@ -232,6 +233,16 @@ function windowResize() {
 
   $('#navbar-menus')
     .css({ 'height': Math.min($('body').height(), $('#navbar-menus-inner').outerHeight()) })
+
+  var modal = $('#modal.shown');
+  if (modal.length) {
+    fn.log(modal.height() + $('header').height(), '>', w.height())
+    if (modal.height() + $('header').height() > w.height()) {
+      modal.css('bottom', '1px');
+    } else {
+      modal.css('bottom', 'auto');
+    }
+  }
 }
 
 // Share hover
@@ -355,7 +366,7 @@ body.allOn('click', {
 
   '#more-artists': function() {
     var next = $('.artists-shelf li:not(.hidden):lt(5)');
-    if (next.length) next.addClass('hidden');
+    if (next.length > 3) next.addClass('hidden');
     else $('.artists-shelf li').removeClass('hidden');
   },
 
@@ -585,6 +596,11 @@ function modal(selector, force) {
     body.addClass('modal-shown');
     modalShown = true;
     $('input:first', modal).focus();
+
+    // Adjust modal overflow after it animates
+    setTimeout(function() {
+      windowResize();
+    }, 500)
   }
 }
 
