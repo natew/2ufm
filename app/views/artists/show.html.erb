@@ -16,8 +16,8 @@
     <nav class="nav-menu">
       <%= nav_link_to 'New', station_path(@artist) %>
       <%= nav_link_to 'Originals', originals_artist_path(@artist) if @artist.has_originals? %>
-      <%= nav_link_to "Remixes", remixes_by_artist_path(@artist) if @artist.has_remixes? %>
-      <%= nav_link_to "Remixed", remixes_of_artist_path(@artist) if @artist_has_remixes_of %>
+      <%= nav_link_to "Remixes by", remixes_by_artist_path(@artist) if @artist.has_remixes? %>
+      <%= nav_link_to "Remixes of", remixes_of_artist_path(@artist) if @artist_has_remixes_of %>
       <%= nav_link_to "Mashups", mashups_artist_path(@artist) if @artist.has_mashups? %>
       <%= nav_link_to "Covers", covers_artist_path(@artist) if @artist.has_covers? %>
       <%= nav_link_to "Productions", productions_artist_path(@artist) if @artist.has_productions? %>

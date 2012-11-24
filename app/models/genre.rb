@@ -11,7 +11,7 @@ class Genre < ActiveRecord::Base
 
   scope :ordered, order('name')
 
-  attr_accessible :name, :blog_ids
+  attr_accessible :name, :blog_ids, :includes_remixes
 
   ALTERNATIVE_NAMES = {
     'drum and bass' => 'Drum & Bass',

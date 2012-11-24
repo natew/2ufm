@@ -185,10 +185,7 @@ class Song < ActiveRecord::Base
 
   def self.by_genre(genre)
     # this joins BOTH artists and blog broadcasts by genre
-    # so a song must be categorized under the artist genre
-    # AND the blog genre to appear in a genre feed
-    # for better results
-    Song
+    songs = Song
       .individual
       .joins('inner join broadcasts on broadcasts.song_id = songs.id')
       .joins('inner join stations as ss on ss.id = broadcasts.station_id')
@@ -201,6 +198,18 @@ class Song < ActiveRecord::Base
       .joins('inner join blogs_genres on blogs_genres.blog_id = b.id')
       .joins('inner join genres gg on gg.id = blogs_genres.genre_id')
       .where('genres.id = ? and gg.id = ?', genre.id, genre.id)
+
+    if !genre.includes_remixes
+      songs = songs
+        .where("NOT EXISTS(
+            SELECT NULL
+            FROM authors
+            WHERE authors.song_id = songs.id
+            AND authors.role IN ('remixer', 'mashup')
+          )")
+    end
+
+    songs
   end
 
   def self.user_following_songs(id, offset, limit)

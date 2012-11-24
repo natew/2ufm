@@ -83,7 +83,7 @@ var page = {
   },
 
   error: function(xhr) {
-    $('#body').addClass('error').html('<h2>'+xhr.status+'</h2>'+'<div id="error">'+xhr.responseText+'</h2>');
+    $('#body').addClass('error');
   }
 }
 

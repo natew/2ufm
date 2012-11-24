@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107013435) do
+ActiveRecord::Schema.define(:version => 20121124181337) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -151,8 +151,9 @@ ActiveRecord::Schema.define(:version => 20121107013435) do
   add_index "follows", ["user_id", "station_id"], :name => "index_follows_on_user_id_and_station_id", :unique => true
 
   create_table "genres", :force => true do |t|
-    t.string "name"
-    t.string "slug"
+    t.string  "name"
+    t.string  "slug"
+    t.boolean "includes_remixes", :default => false
   end
 
   create_table "genres_stations", :id => false, :force => true do |t|
@@ -341,6 +342,14 @@ ActiveRecord::Schema.define(:version => 20121107013435) do
   create_table "stations_songs", :id => false, :force => true do |t|
     t.integer "station_id"
     t.integer "song_id"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "song_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
