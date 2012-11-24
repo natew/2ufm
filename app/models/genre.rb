@@ -13,6 +13,11 @@ class Genre < ActiveRecord::Base
 
   attr_accessible :name, :blog_ids, :includes_remixes
 
+  rails_admin do
+    field :name
+    field :includes_remixes
+  end
+
   ALTERNATIVE_NAMES = {
     'drum and bass' => 'Drum & Bass',
     'electronic' => 'Electro',

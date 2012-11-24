@@ -80,7 +80,8 @@ namespace :deploy do
   end
 
   task :clear_caches do
-    run_rake "tmp:cache:clear >/dev/null 2>&1"
+    #run_rake "tmp:cache:clear >/dev/null 2>&1"
+    run_rake "cache:clear >/dev/null 2>&1"
     # run_rake "songs:clear_cache"
   end
 end

@@ -34,6 +34,11 @@ class Blog < ActiveRecord::Base
   scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
   scope :random, order('random() desc')
 
+  rails_admin do
+    field :name
+    field :feed_updated_at
+  end
+
   def to_param
     station_slug
   end
