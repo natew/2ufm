@@ -731,8 +731,13 @@ class Song < ActiveRecord::Base
     return false unless matching_song
 
     # Update any join table info
-    self.broadcasts.update_all(song_id: matching_id)
-    self.shares.update_all(song_id: matching_id)
+    broadcasts.each do |broadcast|
+      broadcast.update_attributes(song_id: matching_id) rescue ActiveRecord::RecordNotUnique
+    end
+
+    shares.each do |share|
+      share.update_attributes(song_id: matching_id) rescue ActiveRecord::RecordNotUnique
+    end
 
     # Update existing matching songs
     existing_matching_songs = Song.where(matching_id: matching_id)
