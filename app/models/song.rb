@@ -723,10 +723,18 @@ class Song < ActiveRecord::Base
     Song.where("name ILIKE(?) and id != ?", to_searchable(name), id) unless name.empty?
   end
 
+  def searchable_artist
+    to_searchable(artist_name)
+  end
+
+  def searchable_name
+    to_searchable(match_name)
+  end
+
   def find_matching_songs
     return unless working
 
-    matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", to_searchable(artist_name), to_searchable(match_name)).oldest.first
+    matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", searchable_artist, searchable_name).oldest.first
     self.matching_id = matching_song ? matching_song.id : id
     return false unless matching_song
 
