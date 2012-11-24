@@ -734,9 +734,16 @@ class Song < ActiveRecord::Base
   def find_matching_songs
     return unless working
 
-    matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", searchable_artist, searchable_name).oldest.first
-    self.matching_id = matching_song ? matching_song.id : id
-    return false unless matching_song
+    matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", searchable_artist, searchable_name).working.oldest.first
+
+    if matching_song
+      logger.info "Found matching song #{matching_song.id}"
+      return false if matching_song.id == matching_id
+      self.matching_id = matching_song.id
+    else
+      self.matching_id = id
+      return false
+    end
 
     # Update any join table info
     broadcasts.each do |broadcast|
