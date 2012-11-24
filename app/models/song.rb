@@ -765,6 +765,7 @@ class Song < ActiveRecord::Base
 
   def update_matching_songs
     find_matching_songs
+    delete_file_if_matching
     self.save
   end
 
@@ -964,8 +965,8 @@ class Song < ActiveRecord::Base
       self.authors.destroy_all
       find_or_create_artists
       set_match_name
-      delete_file_if_matching
       find_matching_songs
+      delete_file_if_matching
       add_to_stations
       self.save
     end
