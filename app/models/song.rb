@@ -112,7 +112,9 @@ class Song < ActiveRecord::Base
 
   # Data to select
   scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
-  scope :select_with_info, select('songs.*, stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post
+  scope :select_info, lambda { select('stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post }
+  scope :select_distinct, lambda { |distinct| select("DISTINCT ON (#{distinct}, songs.matching_id) songs.*").select_info }
+  scope :select_with_info, select('songs.*').select_info
   scope :user_broadcasted, select('broadcasts.created_at as published_at')
 
   # Orders
@@ -125,21 +127,22 @@ class Song < ActiveRecord::Base
   scope :order_random, order('random() desc')
 
   # Selects
-  scope :select_shared_songs, select('DISTINCT ON (shares.created_at, songs.matching_id) songs.*')
   scope :select_sender, select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at')
   scope :select_receiver, select('receiver.username as receiver_username, receiver.station_slug as receiver_station_slug, shares.created_at as sent_at')
   scope :select_broadcasted_at, select('broadcasts.created_at as broadcasted_at')
 
   # Combination
-  scope :individual, working.matching_id.select_with_info.with_blog_station_and_post.time_limited
+  scope :for_playlist, working.matching_id.with_blog_station_and_post.time_limited
+  scope :individual_distinct, lambda { |on| select_distinct(on).for_playlist }
+  scope :individual, select_with_info.for_playlist
 
   # Playlists
-  scope :playlist_rank, order_rank.individual
-  scope :playlist_newest, order_published.individual
-  scope :playlist_oldest, order_published_asc.individual
+  scope :playlist_rank, order_rank.individual_distinct('songs.rank')
+  scope :playlist_newest, order_published.individual_distinct('songs.published_at')
+  scope :playlist_oldest, order_published_asc.individual_distinct('songs.published_at')
   scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.individual
-  scope :playlist_trending, min_broadcasts(2).order_rank.individual
-  scope :playlist_popular, min_broadcasts(4).order_rank.individual
+  scope :playlist_trending, min_broadcasts(2).order_rank.individual_distinct('songs.rank')
+  scope :playlist_popular, min_broadcasts(4).order_rank.individual_distinct('songs.rank')
   scope :playlist_received, select_sender.with_sender.order_shared.individual
   scope :playlist_sent, select_receiver.with_receiver.order_shared.individual
   scope :playlist_shuffle, order_random.individual
@@ -193,7 +196,6 @@ class Song < ActiveRecord::Base
   def self.by_genre(genre)
     # this joins BOTH artists and blog broadcasts by genre
     songs = Song
-      .individual
       .joins('inner join broadcasts on broadcasts.song_id = songs.id')
       .joins('inner join stations as ss on ss.id = broadcasts.station_id')
       .joins('inner join artists on artists.station_slug = ss.slug')
