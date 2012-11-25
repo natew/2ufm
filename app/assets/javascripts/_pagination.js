@@ -5,7 +5,8 @@ var pagination = (function(fn, mp) {
       scrolledTo = current,
       offsets = [],
       w = $(window),
-      hasPages = false;
+      hasPages = false,
+      hasPagination = false;
 
   function checkNextPage() {
     if (!nearBottom()) return;
@@ -40,7 +41,7 @@ var pagination = (function(fn, mp) {
         success: function(data) {
           scrolledTo = current;
           $(window).trigger('gotPageLoad', data);
-          updatePageURL(newPageURL);
+          if (hasPagination) updatePageURL(newPageURL);
           var playlist = $('#playlist-' + id + '-' + current);
           link.html('Page ' + current).addClass('loaded');
           isLoading = false;
@@ -137,6 +138,7 @@ var pagination = (function(fn, mp) {
 
     restart: function() {
       hasPages = $('.has-more').length > 0;
+      hasPagination = $('.pagination:visible').length > 0;
       hasMore = hasPages;
       scrolledTo = 0;
     },
@@ -156,6 +158,10 @@ var pagination = (function(fn, mp) {
 
     hasPages: function() {
       return hasPages;
+    },
+
+    hasPagination: function() {
+      return hasPagination;
     },
 
     currentPage: function() {

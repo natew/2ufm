@@ -26,6 +26,9 @@
     if !page_request and !already_limited
       total_songs = songs.count
       total_pages = total_songs / per + ((total_songs % per > 0) ? 1 : 0)
+      has_more = page < total_pages
+    else
+      has_more = songs.size >= per
     end
 
     if listen_song and !dont_find_listen
@@ -33,11 +36,8 @@
     else
       songs = songs.limit_page(page) unless already_limited or page_request
     end
-
-    has_more = page < total_pages
   end
 -%>
-
 
 <%- if !single and !page_request and !already_limited and !dont_paginate and total_pages > 1
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
