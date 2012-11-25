@@ -955,7 +955,9 @@ header #second-nav {
 
     &:nth-child(4n) { clear: left; }
     &:hover, &.hover { background: rgba(255,255,255,0.15); }
-    &.pictos { font-size: 24px; padding: 16px; }
+    &.pictos { font-size: 24px; padding: 14px; }
+    &.player-invite { padding: 8px 10px;
+      img { margin:0; }}
   }
 
   img { width: 32px; height: 32px; }

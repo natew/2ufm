@@ -19,3 +19,10 @@ artist_empty:
 artist_empty_mashup_download:
   artist_name:
   name: "One feat. Two and Three - Name of Song [DOWNLOAD FREE ON FACEBOOK]"
+
+remix_strip:
+  artist_name: "Artist"
+  name: "Someone (Instrumental Remix) (Original Remix) (Radio Bootleg Edit) (Artist1 Summer 2012 Remix) (Artist2 Dubstep Remix) (Artist3 Official Extended Remix) (Official Extended Vocal Re-make)"
+
+download_strip:
+  name: "Die Young again [DOWNLOAD FREE ON FACEBOOK] *DL LINK IN DESCRIPTION* FREE DOWNLOAD FREE //DL FREE// 320"

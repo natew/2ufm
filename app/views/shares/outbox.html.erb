@@ -7,7 +7,7 @@
 
 <div class="whole">
   <%- if @has_songs -%>
-    <%= render partial: 'stations/playlist', locals: { station: @outbox_station, songs: @outbox_songs, already_limited: true, has_title: true } %>
+    <%= render partial: 'stations/playlist', locals: @playlist %>
   <%- else -%>
     <h3>You haven't sent any songs!</h3>
     <p>Use the share link on any song to send it to users you are friends with.</p>

@@ -14,19 +14,25 @@ class Song < ActiveRecord::Base
 
   # Regular expressions
   RE = {
-    featured: / featuring | ft\.? | feat\.? | f\. | w\.| f\/ | w\/ /i,
-    remixer: / remix| rmx| edit| boot-?leg| mix| re(-| )?make| re(-| )?work| extended remix| refix| bootleg remix/i,
+    featured: /(featuring |ft\.? |feat\.? |f\. |w\.|f\/ |w\/ )/i,
+    remixer: /((re)?[ -]?(make|work|edit|fix|mix)|rmx|boot-?leg)$/i,
     mashup_split: / \+ | x | vs\.? /i,
-    producer: /^(produced by|prod\.? by |prod\. )/i,
+    producer: / (produced by|prod\.? by |prod\.? w\.?\/? |prod\. )/i,
     cover: / cover/i,
     split: /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
     open: /[\(\[\{]/,
     close: /[\)\]\}]/,
     containers: /[\{\[\(\)\]\}]/i,
-    percents: /(% ?){2,10}/,
-    remove: /(extended|vip|original|club|vocal) mix|(extended|vip|radio) edit|(on|and|or) (soundcloud|facebook)|(exclusive )?((free )?(download|d\/?l)( free)?.*)/i,
     and: /, | & | and /i,
-    dash_split: /^[^-]* [—-] [^-]*$/
+    dash_split: /^[^-]* [—-] [^-]*$/,
+    genre: /trap|dubstep|dub|house|electro|d&b|big room/i,
+    time: /(now|[0-9]{2}(th|st|nd|rd) ?(jan(uary)?|feb(uary)?|mar(ch)?|apr(il)?|may|jun(e)?|jul(y)?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)?)/i
+  }
+
+  REMOVE = {
+    featured: /.* #{RE[:featured]}/i,
+    remixer: /((\'s.*|20[0-9]{2}|#{RE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official) )+/i,
+    all: /(([\*\[\(\/\{]| )*((exclusive )?(free |320)?(soundcloud ?|facebook ?)?(out #{RE[:time]}|download ?|d\/?l ?)(free |320)*((on |or |link in )*(description ?|soundcloud ?|facebook ?)|320)*([\*\]\)\/\}]| )*)+)$/i,
   }
 
   SPLITS = {
@@ -38,7 +44,7 @@ class Song < ActiveRecord::Base
   }
 
   STRIP = {
-    remixer: /\'s.*| (extended|official|original|vocal|instrumental|(summer|fall|spring|winter)( 2[0-9]{3})?)? /i,
+    remixer: /| (#{RE[:genre]}|extended|official|original|vocal|instrumental|)? /i,
     producer: /^by /i
   }
 
@@ -92,6 +98,7 @@ class Song < ActiveRecord::Base
   scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
   scope :within, lambda { |within| where('songs.created_at >= ?', within.ago) }
   scope :before, lambda { |before| where('songs.created_at < ?', before.ago) }
+  scope :random, order('random() desc')
 
   # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
@@ -449,9 +456,8 @@ class Song < ActiveRecord::Base
     end
 
     set_original_tag
-
+    clean_name
     fix_soundcloud_tagging if source == 'soundcloud' and soundcloud_id
-
     fix_empty_artist_tagging
 
     # Detect if they dumped the artist in the name
@@ -716,7 +722,7 @@ class Song < ActiveRecord::Base
   end
 
   def to_searchable(string)
-    '%' + string.gsub(RE[:containers],'%').gsub(/#{RE[:remixer]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%').gsub(RE[:percents],'%').strip + '%'
+    ('%' + string.gsub(/#{RE[:containers]}|#{REMOVE[:all]}|#{RE[:producer]}|#{REMOVE[:remixer]}#{RE[:remixer]}#{RE[:close]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%').strip).gsub(/(% ?){2,}/,'%').split('%').map(&:strip).join('%') + '%'
   end
 
   def similar_songs
@@ -770,7 +776,7 @@ class Song < ActiveRecord::Base
   end
 
   def delayed_update_matching_songs
-    delay.update_matching_songs
+    delay(priority: 4).update_matching_songs
   end
 
   def matching_songs
@@ -849,8 +855,12 @@ class Song < ActiveRecord::Base
         matches.push [artist, :mashup]
       end
     else
-      search_name.clean_split(RE[:and]) do |artist|
-        matches.push [artist.strip, :original]
+      if search_name =~ /,/
+        clean_split(search_name, RE[:and]) do |artist|
+          matches.push [artist.strip, :original]
+        end
+      else
+        matches.push [search_name.strip, :original]
       end
     end
     matches.push [search_name.strip, :original] if matches.empty?
@@ -859,59 +869,68 @@ class Song < ActiveRecord::Base
 
   def split_and_find_artists(name)
     matches = []
-    name.clean_split(RE[:containers]) do |part|
-      break if part =~ RE[:remove]
-      part = " " + part
+    split_containers(name) do |part, is_in_container|
       if has_mashups(part)
         find_mashups(part) do |artist|
           artist.gsub!(RE[:remixer], '')
           matches.push [artist, :mashup]
         end
       else
-        matches = matches + find_artists_types(part, true)
+        part = " " + part
+        matches = matches + find_artists_types(part, is_in_container)
       end
     end
     matches.reject(&:blank?)
   end
 
+  def split_containers(string)
+    before_container = string.gsub(/#{RE[:open]}.*/, '').strip
+    yield [before_container, false] unless before_container.empty?
+    string[before_container.length..string.length].split(RE[:containers]).each do |part|
+      yield [part, true]
+    end
+  end
+
+  def clean_split(string, regex)
+    string.split(regex).reject(&:blank?).collect(&:strip).each do |part|
+      yield part
+    end
+  end
+
   def has_mashups(name)
-    name.scan(RE[:mashup_split]).empty? ? false : true
+    name.scan(/( vs\.? |#{RE[:mashup_split]}.*#{RE[:mashup_split]})/i).empty? ? false : true
   end
 
   def find_mashups(name)
-    name.clean_split(RE[:mashup_split]) do |artist|
-      artist.clean_split(RE[:and]) do |split_artist|
+    clean_split(name, RE[:mashup_split]) do |artist|
+      clean_split(artist, RE[:and]) do |split_artist|
         yield split_artist
       end
     end
   end
 
   def find_artists_types(part, container = false)
+    return unless part
     matches = []
     types = [:producer, :featured]
     types = types + [:remixer, :cover] if container
-    scan_for(part, types) do |match|
-      matches.push match
+    types.each do |type|
+      scan_artists(part, type) do |match|
+        matches.push match
+      end
     end
     matches.reject(&:empty?)
   end
 
-  def scan_for(part, types)
-    types.each do |type|
-      scan_artists(part, type) do |match|
-        yield match
-      end
-    end
-  end
-
   def scan_artists(part, type)
-    return unless part
-    scan = /#{PREFIX[type]}#{SPLITS[type]}/i
-    part.clean_scan(scan, RE[type]) do |artist|
-      artist.gsub!(STRIP[type], '') if STRIP.has_key? type
-      artist.split(RE[:and]).each do |split|
-        yield [split, type]
-      end
+    regex = RE[type]
+    return unless part =~ regex
+    part.gsub!(REMOVE[type], '') if REMOVE.has_key? type
+    artist = part.gsub(regex, '').strip
+    return if artist =~ /^[&,]/
+    logger.info "PART #{artist}"
+    artist.split(RE[:and]).each do |split|
+      yield [split.strip, type]
     end
   end
 
@@ -960,16 +979,34 @@ class Song < ActiveRecord::Base
     logger.info "Fixed tags #{full_name}"
   end
 
-  def fix_artist_tags
-    if fix_soundcloud_tagging
-      self.authors.destroy_all
-      find_or_create_artists
-      set_match_name
-      find_matching_songs
-      delete_file_if_matching
-      add_to_stations
-      self.save
+  def fix_artists
+    # Destroy broadcasts
+    old_artist_broadcasts = []
+    artists.each do |artist|
+      old_artist_broadcasts.push artist.station.broadcasts.where(song_id:id)
     end
+
+    # Destroy authors
+    self.authors.destroy_all
+
+    # Reset name
+    clean_name
+    set_match_name
+
+    # Reset artists
+    find_or_create_artists
+
+    # Update matching songs
+    find_matching_songs
+    delete_file_if_matching
+
+    # Re-broadcast
+    add_to_stations
+    self.save
+  end
+
+  def clean_name
+    self.name = name.gsub(REMOVE[:all], '').strip
   end
 
   def clean_url
@@ -977,7 +1014,7 @@ class Song < ActiveRecord::Base
   end
 
   def get_match_name
-    to_searchable(name.gsub(/(#{RE[:open]})?(#{RE[:remove]}|#{RE[:producer]} .*)(#{RE[:close]})?/i, '')).strip
+    to_searchable(name)
   end
 
   def set_match_name
