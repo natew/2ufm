@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
       user.update_attributes(oauth_token: auth.credentials.token) if auth.credentials.token != user.oauth_token
     else
       info = auth.extra.raw_info
-      user = User.create(
+      user = User.new(
         username: info.username || info.name,
         full_name: info.name,
         provider: auth.provider,
