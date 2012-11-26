@@ -47,7 +47,7 @@ class UsersController < ApplicationController
 
   def feed
     @feed = true
-    @playlist = { station: @user.feed_station(params[:type]), already_limited: true, has_title: true }
+    @playlist = { station: @user.feed_station(params[:type]), already_limited: true, has_title: true, nocache: false }
 
     respond_to do |format|
       format.html do
