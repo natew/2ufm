@@ -86,9 +86,9 @@ class User < ActiveRecord::Base
     Song.joins(:shares).where('shares.sender_id = ?', id).playlist_sent.limit(Yetting.per).offset((page.to_i - 1) * Yetting.per)
   end
 
-  def following_songs(page=1, single=false)
+  def following_songs(type, page=1, single=false)
     if true #single
-      Song.user_following_songs(id, page.to_i * Yetting.per, Yetting.per)
+      Song.user_following_songs(type, id, page.to_i * Yetting.per, Yetting.per)
     else
       Song.user_following_songs(id, 0, page.to_i)
     end
@@ -130,8 +130,8 @@ class User < ActiveRecord::Base
     friends
   end
 
-  def feed_station
-    Station.new(id: integers_from_string("#{station.id}#{username}"), title: "#{username}'s feed", slug: "#{slug}-feed")
+  def feed_station(type)
+    Station.new(id: integers_from_string("#{station.id}#{username}#{type}"), title: "#{username}'s feed", slug: "#{slug}-feed")
   end
 
   def followers

@@ -140,9 +140,9 @@ class Song < ActiveRecord::Base
   scope :playlist_rank, order_rank.individual_distinct('songs.rank')
   scope :playlist_newest, order_published.individual_distinct('songs.published_at')
   scope :playlist_oldest, order_published_asc.individual_distinct('songs.published_at')
+  scope :playlist_popular, order_user_broadcasts.individual
   scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.individual
   scope :playlist_trending, min_broadcasts(2).order_rank.individual_distinct('songs.rank')
-  scope :playlist_popular, min_broadcasts(4).order_rank.individual_distinct('songs.rank')
   scope :playlist_received, select_sender.with_sender.order_shared.individual
   scope :playlist_sent, select_receiver.with_receiver.order_shared.individual
   scope :playlist_shuffle, order_random.individual
@@ -221,7 +221,18 @@ class Song < ActiveRecord::Base
     songs
   end
 
-  def self.user_following_songs(id, offset, limit)
+  def self.user_following_songs(type, id, offset, limit)
+    where = ''
+    case type
+    when 'people'
+      where = 'AND stations.user_id IS NOT NULL'
+    when 'blogs'
+      where = 'AND stations.blog_id IS NOT NULL'
+    when 'artists'
+      where = 'AND stations.artist_id IS NOT NULL'
+    end
+
+
     Song.find_by_sql(%Q{
       WITH a as (
           SELECT
@@ -230,7 +241,9 @@ class Song < ActiveRecord::Base
             MAX(broadcasts.created_at) AS maxcreated
           FROM broadcasts
           INNER JOIN follows ff ON ff.station_id = broadcasts.station_id
+          INNER JOIN stations ON stations.id = ff.station_id
           WHERE ff.user_id = #{id}
+          #{where}
           GROUP BY broadcasts.song_id, broadcasts.station_id
           ORDER BY maxcreated desc
           LIMIT #{limit}

@@ -21,14 +21,14 @@
   right: 4px;
   display: inline-block;
   content: "";
-  width: 13px;
+  width: 14px;
   height: 14px;
   line-height: 1em;
-  padding-top: 2px;
+  padding-top: 1px;
   pointer-events: none;
   color: #fff;
   float: right;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   text-align: center;
   border-radius: 2px;
@@ -73,7 +73,7 @@ $featured-color: #d56c82;
 .role-mashup {
   color: $mashup-color !important;
   &:after { content: "M"; color: $mashup-color; background: darken($mashup-color, 32%); }
-  &:hover:after { content: "Mashup"; width: 46px; right: -29px; }
+  &:hover:after { content: "Mashup"; width: 50px; right: -29px; }
 }
 
 .role-remixer {
@@ -85,7 +85,7 @@ $featured-color: #d56c82;
 .role-producer {
   color: $producer-color !important;
   &:after { content: "P"; color: $producer-color; background: darken($producer-color, 26%); }
-  &:hover:after { content: "Producer"; width: 54px; right: -37px; }
+  &:hover:after { content: "Producer"; width: 60px; right: -37px; }
 }
 
 .role-cover {

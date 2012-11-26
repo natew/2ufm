@@ -96,13 +96,13 @@ Fusefm::Application.routes.draw do
     member do
       get 'following(/:type)', to: 'users#following', as: 'following'
       get 'followers'
-      get 'feed'
+      get 'feed(/:type)(/p-:p)', to: 'users#feed', as: 'feed'
     end
   end
 
   resources :blogs, only:[:new], path: '/' do
     member do
-      get 'popular'
+      get 'popular(/p-:p)', to: 'blogs#popular', as: 'popular'
     end
   end
 

@@ -47,15 +47,15 @@ class UsersController < ApplicationController
 
   def feed
     @feed = true
-    @playlist = { station: @user.feed_station, already_limited: true, has_title: true }
+    @playlist = { station: @user.feed_station(params[:type]), already_limited: true, has_title: true }
 
     respond_to do |format|
       format.html do
-        @playlist[:songs] = @user.following_songs(params[:p] || 1)
+        @playlist[:songs] = @user.following_songs(params[:type], params[:p] || 1)
         render 'users/show'
       end
       format.page do
-        @playlist[:songs] = @user.following_songs(params[:p], true)
+        @playlist[:songs] = @user.following_songs(params[:type], params[:p], true)
         render_page @playlist
       end
     end

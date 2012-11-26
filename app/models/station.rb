@@ -20,6 +20,9 @@ class Station < ActiveRecord::Base
 
   # Scopes
 
+  # Order
+  scope :order_random, order('random() desc')
+
   # Select
   scope :shelf, select('stations.slug, stations.title, stations.songs_count, stations.id, stations.blog_id, stations.user_id, stations.artist_id, stations.broadcasts_count, stations.follows_count')
   scope :distinct, select('DISTINCT ON (stations.blog_id) stations.*')

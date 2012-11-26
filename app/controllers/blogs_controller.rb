@@ -40,25 +40,15 @@ class BlogsController < ApplicationController
   def show
     @station  = Station.find_by_slug(params[:id])
     @playlist = { station: @station || not_found, songs: @station.songs.playlist_newest }
-    @blog     = Blog.find(@station.blog_id) || not_found
-    @artists  = Station.shelf.where(slug: @blog.station.artists.select('artists.station_slug').order('random() desc').limit(12).map(&:station_slug))
-    @primary  = @blog
 
-    respond_to do |format|
-      format.html { render 'show' }
-      format.page { render_page @playlist }
-    end
+    render_blog_show
   end
 
   def popular
-    @playlist = { station: Station.find_by_slug(params[:id]) || not_found, songs: @station.songs.playlist_rank }
-    @blog     = Blog.find(@station.blog_id) || not_found
-    @primary  = @blog
+    @station  = Station.find_by_slug(params[:id]) || not_found
+    @playlist = { station: @station, songs: @station.songs.playlist_popular }
 
-    respond_to do |format|
-      format.html { render 'show' }
-      format.page { render_page @station, @songs }
-    end
+    render_blog_show
   end
 
   def new
@@ -104,15 +94,16 @@ class BlogsController < ApplicationController
     end
   end
 
-  # DELETE /blogs/1
-  # DELETE /blogs/1.json
-  def destroy
-    @blog = Blog.find_by_slug(params[:id])
-    @blog.destroy
+  private
+
+  def render_blog_show
+    @blog     = Blog.find(@station.blog_id) || not_found
+    @artists  = Station.shelf.where(slug: @blog.station.artists.select('artists.station_slug').order('random() desc').has_image.limit(12).map(&:station_slug))
+    @primary  = @blog
 
     respond_to do |format|
-      format.html { redirect_to blogs_url }
-      format.json { head :ok }
+      format.html { render 'show' }
+      format.page { render_page @playlist }
     end
   end
 end

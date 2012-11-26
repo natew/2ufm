@@ -1,15 +1,18 @@
 <%- cache ['v2', @blog, @blog.genres] do -%>
 <div class="title nav-container">
   <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
-  <h1 class="icon"><%= @blog.name %> <span><%= link_to '', @blog.url, class: 'popup control tip', title: 'Visit this blog' %></span></h1>
+  <h1 class="icon"><%= @blog.name %></h1>
 
   <div class="title-bar">
+    <div class="title-buttons">
+      <%= link_to 'Visit Blog', @blog.url, class: 'popup button small grey' %>
+    </div>
     <%= render partial: 'genres/horizontal_list', locals: { genres: @blog.genres } %>
   </div>
 
   <nav class="nav-menu">
-    <%= nav_link_to 'New', blog_path(@blog) %>
-    <%= nav_link_to 'Popular', popular_blog_path(@blog) %>
+    <%= nav_link_to 'Newest', blog_path(@blog) %>
+    <%= nav_link_to 'Most Popular', popular_blog_path(@blog) %>
   </nav>
 <%- end -%>
 
