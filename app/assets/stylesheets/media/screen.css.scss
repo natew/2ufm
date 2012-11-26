@@ -41,7 +41,8 @@
     @include transition(all linear .1s);
 
     #tune-in,
-    #nav-music {
+    #nav-music,
+    #player-share {
       display: none;
     }
 

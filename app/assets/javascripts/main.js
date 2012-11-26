@@ -481,7 +481,7 @@ function hideDialog(time) {
 
 function updatePlayMode(mode) {
   var modeHTML = {'normal': 'Normal', 'repeat': 'Repeat', 'shuffle': 'Shuffle'},
-      modeTitles = {'normal': 'Play in order', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
+      modeTitles = {'normal': 'Toggle shuffle/repeat', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
 
   $('#player-mode')
     .removeClass('pictos-normal pictos-shuffle pictos-repeat')
