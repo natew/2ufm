@@ -101,7 +101,7 @@ var mp = (function() {
 
     setPlayingPage: function() {
       playingPage = curPage.replace(/\/?p-[0-9]+\/?.*/, '');
-      playingPageNum = parseInt(playlist.id.split('-')[0], 10);
+      playingPageNum = parseInt(playlist.id.split('-')[1], 10);
 
       if (playingPageNum > 1) {
         playingPage = playingPage + '/p-' + playingPageNum;
