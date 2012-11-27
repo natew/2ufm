@@ -41,7 +41,7 @@ var pagination = (function(fn, mp) {
         success: function(data) {
           scrolledTo = current;
           $(window).trigger('gotPageLoad', data);
-          if (hasPagination) updatePageURL(newPageURL);
+          // if (hasPagination) updatePageURL(newPageURL);
           var playlist = $('#playlist-' + id + '-' + current);
           link.html('Page ' + current).addClass('loaded');
           isLoading = false;

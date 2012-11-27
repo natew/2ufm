@@ -49,6 +49,9 @@ w.on({
 
     // Update broadcast button
     updateBroadcastButton(mp.playlist().station.id, song.id);
+
+    // Update page url
+    // updatePageURL();
   },
 
   'mp:play': function(event, mp) {
@@ -61,13 +64,13 @@ w.on({
 
     doPlaysActions();
 
-    // Update player info
-    if (section) {
+    // Update player artists
+    if (section && section.length) {
       var em = section.find('.name em'),
           artist = section.find('.artist').html() || '',
           other_artists = (em && em.length) ? em.html() : '',
           separator = (artist.length && other_artists.length) ? ', ' : '';
-      html_artists = artist.length ? artist + separator + other_artists : other_artists
+      html_artists = artist.length ? artist + separator + other_artists : other_artists;
     }
 
     $('#player-artist-name').html(html_artists || song.artist_name);

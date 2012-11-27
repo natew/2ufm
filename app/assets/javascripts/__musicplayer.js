@@ -16,6 +16,7 @@ var mp = (function() {
       dragging_position = false,
       dragging_percent,
       curPage,
+      curPlayingPage,
       playingPage = '',
       playingPageNum = 1,
       smReady = false,
@@ -301,8 +302,8 @@ var mp = (function() {
       }
 
       // Next section, or next song, or next playlist
-      var nextSection = curSection.nextAll('section:first');
-      if (nextSection.length)
+      var nextSection = curSection && curSection.nextAll('section:first');
+      if (nextSection && nextSection.length)
         return this.playSection(nextSection);
       else if ((curSongInfo.index + 1) < maxIndex)
         this.playSong(curSongInfo.index + 1);
@@ -489,7 +490,6 @@ var mp = (function() {
       player.setCurSection('playing');
       player.refresh();
       player.startTimer();
-      w.trigger('mp:played', player.state());
       usedKeyboard = false;
     },
 
@@ -548,9 +548,14 @@ var mp = (function() {
       pl.loaded.css('width','100%');
 
       if (success) {
+        curPlayingPage = parseInt(curSection.parents('.playlist').data('page'), 10);
         playCount++;
+
+        w.trigger('mp:played', player.state());
+
         $.cookie('plays', playCount);
         pl.player.addClass('loaded');
+
         // Scrobbling
         $.ajax({
           type: 'POST',
@@ -629,6 +634,10 @@ var mp = (function() {
 
     getPage: function () {
       return curPage;
+    },
+
+    getCurPlayingPage: function() {
+      return curPlayingPage;
     },
 
     getListenUrl: function() {
