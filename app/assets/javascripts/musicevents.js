@@ -50,6 +50,9 @@ w.on({
     // Update broadcast button
     updateBroadcastButton(mp.playlist().station.id, song.id);
 
+    // Update artist name link
+    $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
+
     // Update page url
     // updatePageURL();
   },
@@ -74,7 +77,6 @@ w.on({
     }
 
     $('#player-artist-name').html(html_artists || song.artist_name);
-    $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
 
     // Scroll to song
     setTimeout(function() {
