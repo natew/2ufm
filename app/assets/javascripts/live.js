@@ -102,7 +102,7 @@ function addShare() {
 }
 
 function updateShares(count) {
-  shareCount = count || shareCount;
+  if (typeof count === 'number') shareCount = count;
 
   if (shareCount > 0) {
     notice('New song in your inbox');

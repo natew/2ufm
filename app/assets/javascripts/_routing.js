@@ -80,6 +80,11 @@ var page = {
 
     // Styling for inputs
     $(document).find('#body input').each(function() { $(this).addClass('input-'+$(this).attr('type')); });
+
+    // Update notifications
+    if (curPage == "/shares/inbox") {
+      updateShares(0);
+    }
   },
 
   error: function(xhr) {

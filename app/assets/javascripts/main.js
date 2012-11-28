@@ -369,11 +369,6 @@ body.allOn('click', {
     else $('.artists-shelf li').removeClass('hidden');
   },
 
-  '#nav-shares': function(e, el) {
-    updateShares(0);
-    el.children('span').remove();
-  },
-
   '.modal-force-close': function() {
     modal(false, true);
   },
