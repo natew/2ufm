@@ -137,7 +137,7 @@ var mp = (function() {
           }
 
           maxIndex = i;
-          curPlaylistUrl = curPage;
+          curPlaylistUrl = playingPage;
           played = [];
 
           // Callback
