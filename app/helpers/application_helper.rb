@@ -124,7 +124,7 @@ module ApplicationHelper
 
   def tagged_song_name(name)
     name
-      .gsub(/(featuring |ft\.? |feat\.? |f\. |w\.|f\/ |w\/ ).*/i, '')
+      .gsub(/ (featuring|ft\.?|feat\.?|f\.|w\.|f\/|w\/) [^\)\]\}]*/i, '')
       .gsub(/([\(\[]([^\(\)\[\]]+)[\)\]])/i,'<em>\1</em>').html_safe
   end
 
