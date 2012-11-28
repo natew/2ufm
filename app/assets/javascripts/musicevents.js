@@ -51,7 +51,7 @@ w.on({
     updateBroadcastButton(mp.playlist().station.id, song.id);
 
     // Update page url
-    // updatePageURL();
+    fn.replaceState(mp.playingPage());
   },
 
   'mp:play': function(event, mp) {
@@ -76,21 +76,7 @@ w.on({
     $('#player-artist-name').html(html_artists || song.artist_name);
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
 
-    // Scroll to song
-    setTimeout(function() {
-      if ( mp.isOnPlayingPage() ) {
-        fn.log('scroll to song', section);
-        if (section && section.length) {
-          var sectionTop = section.offset().top,
-              sectionBot = sectionTop + section.height(),
-              windowTop  = w.scrollTop(),
-              windowBot  = windowTop + w.height();
-
-          if (sectionTop < (windowTop + 220)) fn.scrollTo(section);
-          else if (sectionBot > (windowBot - 40)) fn.scrollTo(section);
-        }
-      }
-    }, 200);
+    scrollToPlayingSong(section);
   },
 
   'mp:play:soundcloud': function mpPlaySoundcloud(event, mp, data) {

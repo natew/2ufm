@@ -63,7 +63,36 @@ h3.horizontal {
 
 #body .genres {
   a {
-    font-size: 16px;
+    font-size: 14px;
+    position: relative;
+    @include transition(all ease-in .2s);
+
+    &:hover {
+      color: rgba(255,255,255,0.3);
+    }
+
+    &:before {
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      content: "4";
+      font-family: 'Pictos';
+      font-size: 28px;
+      color: #fff;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      padding: 15% 0 0;
+      text-align: center;
+      text-indent: 0;
+    }
+
+    &:hover:before {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 

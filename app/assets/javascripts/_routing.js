@@ -42,7 +42,7 @@ var page = {
 
     // Set page in music player && scroll to current section if found
     mp.setPage(curPage, function(foundSection) {
-      fn.scrollTo(foundSection);
+      scrollToPlayingSong(foundSection);
       doScrollToTop = false;
     });
 

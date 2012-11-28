@@ -513,8 +513,18 @@ function setNavActive(page) {
   page = page.replace(/\/p-[0-9]+.*/, '');
   // Update #navbar
   if (navActive) navActive.removeClass('active');
-  var newNavActive = navItems[page];
-  if (!newNavActive) newNavActive = navItems['/' + page.split('/')[1]];
+  var newNavActive = navItems[page],
+      split = page;
+
+  // Descending path highlight
+  while (!newNavActive) {
+    split = split.split('/');
+    split = split.slice(0, split.length - 1).join('/');
+    if (split == '') break;
+    fn.log('testing highlight of ', split, navItems);
+    newNavActive = navItems[split];
+  }
+
   if (newNavActive) navActive = newNavActive.addClass('active');
 
   // Update .nav-menu
@@ -795,4 +805,22 @@ function bindDataRemoteEvents() {
         spinner.detach();
       }, 3000);
     });
+}
+
+function scrollToPlayingSong(section) {
+  // Scroll to song
+  setTimeout(function() {
+    if ( mp.isOnPlayingPage() ) {
+      fn.log('scroll to song', section);
+      if (section && section.length) {
+        var sectionTop = section.offset().top,
+            sectionBot = sectionTop + section.height(),
+            windowTop  = w.scrollTop(),
+            windowBot  = windowTop + w.height();
+
+        if (sectionTop < (windowTop + 220)) fn.scrollTo(section);
+        else if (sectionBot > (windowBot - 40)) fn.scrollTo(section);
+      }
+    }
+  }, 200);
 }
