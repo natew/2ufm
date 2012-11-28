@@ -129,17 +129,14 @@ $song-player-height: 50px;
     time {
       float: right;
       color: rgba(255,255,255,0.4);
-      font-size: .7em;
-      line-height: 2.3em;
+      font-size: .8em;
+      line-height: 2.1em;
+      margin-left: 6px;
     }
 
     .follow-station-wrap {
-      margin: 0;
-
-      a {
-        margin: 1px 0 0;
-        line-height: 1.2em;
-      }
+      margin: -1px 0 0;
+      a { line-height: 1.2em; }
     }
   }
 
