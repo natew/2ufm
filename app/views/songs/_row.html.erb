@@ -13,7 +13,7 @@
     <span>by <%= link_to "#{truncate(row.blog_name)} #{image_tag('link-external.png')}".html_safe, blog_path(row.blog_slug) %></span>
   </td>
   <td class="song-more">
-    <%= link_to '$', nil, :class => 'button small pictos' %>
-    <%= link_to 'a'.html_safe, row.post_url, :class => 'button small pictos', :target => '_blank' %>
+    <%= link_to '$', nil, :class => 'button small icon' %>
+    <%= link_to 'a'.html_safe, row.post_url, :class => 'button small icon', :target => '_blank' %>
   </td>
 </tr>

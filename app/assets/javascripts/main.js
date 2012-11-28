@@ -478,8 +478,8 @@ function updatePlayMode(mode) {
       modeTitles = {'normal': 'Toggle shuffle/repeat', 'repeat': 'Repeat', 'shuffle': 'Shuffle'};
 
   $('#player-mode')
-    .removeClass('pictos-normal pictos-shuffle pictos-repeat')
-    .addClass('pictos-' + mode)
+    .removeClass('icon-normal icon-shuffle icon-repeat')
+    .addClass('icon-' + mode)
     .html(fn.capitalize(modeHTML[mode]))
     .attr('title', modeTitles[mode]);
 

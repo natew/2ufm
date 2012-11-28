@@ -3,7 +3,8 @@
 	[
 		{
 			"path": "/Users/macbook/Sites/fusefm",
-      "folder_exclude_patterns": ["tmp", "log", "vendor/macgap"]
+      "folder_exclude_patterns": ["tmp", "log", "vendor/macgap"],
+      "file_exclude_patterns": ["*.sublime-*"]
 		}
 	]
 }

@@ -400,14 +400,14 @@ var mp = (function() {
 
     toggleVolume: function toggleVolume() {
       if (volume == 100) {
-        pl.volume.removeClass('pictos-volume-on');
-        pl.volume.addClass('pictos-volume-off');
+        pl.volume.removeClass('icon-volume-on');
+        pl.volume.addClass('icon-volume-off');
         volume = 0;
         $.cookie('volume', volume);
         this.setVolume();
       } else {
-        pl.volume.addClass('pictos-volume-on');
-        pl.volume.removeClass('pictos-volume-off');
+        pl.volume.addClass('icon-volume-on');
+        pl.volume.removeClass('icon-volume-off');
         volume = 100;
         $.cookie('volume', volume);
         this.setVolume();

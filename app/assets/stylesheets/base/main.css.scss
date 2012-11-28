@@ -675,7 +675,7 @@ header {
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
-    &[class*="pictos-"] {
+    &[class*="icon-"] {
       padding-top: 7px;
       padding-bottom: 7px;
       font-size: 16px;
@@ -956,7 +956,7 @@ header #second-nav {
   &:after {
     content: "A";
     display: inline-block;
-    font-family: 'Pictos';
+    font-family: 'Icon';
     padding: 0 0 0 .3em;
     -webkit-font-smoothing: antialiased;
   }
@@ -982,7 +982,7 @@ header #second-nav {
 
     &:nth-child(4n) { clear: left; }
     &:hover, &.hover { background: rgba(255,255,255,0.15); }
-    &.pictos { font-size: 24px; padding: 14px; }
+    &.icon { font-size: 24px; padding: 14px; }
     &.player-invite { padding: 8px 10px;
       img { margin:0; }}
   }
@@ -1761,7 +1761,7 @@ $nav-arrow-size: 5px;
       line-height: .9em;
     }
 
-    &[class*="pictos-"] {
+    &[class*="icon-"] {
       padding-left: 24px;
 
       &:before {
@@ -1971,7 +1971,7 @@ ol.mp_list {
 #song-dragger {
   display: none;
   position: fixed;
-  font-family: 'Pictos';
+  font-family: 'Icon';
   width: 28px;
   height: 28px;
   padding-top: 5px;
@@ -2112,25 +2112,6 @@ ul.tagit input[type="text"] {
     @include box-sizing(border-box);
 }
 
-/* Pictos Font
-* Copyright © 2010 Drew Wilson
-* http://www.drewwilson.com  -  http://pictos.drewwilson.com
-*
-* The fonts included in this stylesheet are subject to the End User License you purchased
-* from Drew Wilson. The fonts are protected under domestic and international trademark and
-* copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
-* distributing this font software.
-*
-* This font is NOT free. It is illegal to use this font without paying for a license.
-*/
-@font-face {
-    font-family: 'Pictos';
-    src: url('/fonts/pictos-web.eot');
-    src: local('☺'), url('/fonts/pictos-web.woff') format('woff'), url('/fonts/pictos-web.ttf') format('truetype'), url('/fonts/pictos-web.svg#webfontIyfZbseF') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 #sm2-container,
 #sm2-container.swf_unblocked {
   position: absolute;
@@ -2209,4 +2190,28 @@ ul.tagit input[type="text"] {
     font-size: 26px;
     color: #fff;
   }
+}
+
+
+/* Icon fonts */
+
+.icon, .button span, .playlist .follow-station, .playlist time:after {
+  font-family: 'Icon';
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+[class*="icon-"] {
+  position: relative;
+}
+
+[class*="icon-"]:before {
+  font-weight: normal;
+  display: inline-block;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-size: 12px;
+  font-family: 'Icon';
+  -webkit-font-smoothing: antialiased;
 }

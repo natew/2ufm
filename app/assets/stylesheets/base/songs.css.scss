@@ -174,7 +174,7 @@ $song-player-height: 50px;
     &:after {
       visibility: hidden;
       content: "4";
-      font-family: 'Pictos';
+      font-family: 'Icon';
       display: block;
       font-size: 37px;
       position: absolute;
@@ -515,7 +515,7 @@ $song-player-height: 50px;
         width: 14px;
       }
 
-      &.pictos-comment:before {
+      &.icon-comment:before {
         top: -1px;
       }
 

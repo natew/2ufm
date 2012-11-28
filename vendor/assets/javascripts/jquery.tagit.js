@@ -308,7 +308,7 @@
             // Button for removing the tag.
             var removeTagIcon = $('<span>D</span>');
             var removeTag = $('<a><span class="text-icon">\xd7</span></a>') // \xd7 is an X
-                .addClass('tagit-close pictos')
+                .addClass('tagit-close icon')
                 .append(removeTagIcon)
                 .click(function(e) {
                     // Removes a tag when the little 'x' is clicked.
