@@ -652,7 +652,7 @@ var mp = (function() {
         var playPageBase = page.replace(/\/p-[^\/]+$/,''),
             curPageBase = curPage.replace(/\/p-[^\/]+$/,'');
 
-        return playPageBase == curPageBase && $('#song-' + curSongInfo.id).length;
+        return playPageBase == curPageBase && curSongInfo && $('#song-' + curSongInfo.id).length;
       }
 
       return false;
