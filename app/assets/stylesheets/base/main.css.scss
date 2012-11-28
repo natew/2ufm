@@ -1272,12 +1272,12 @@ $announce-color: $heading-color;
     border-width: 5px;
     border-style: solid;
 
-    .medium {
+    &.medium, .medium {
       width: 128px;
       height: 128px;
     }
 
-    .small {
+    &.small, .small {
       width: 64px;
       height: 64px;
     }
