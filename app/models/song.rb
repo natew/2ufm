@@ -245,6 +245,7 @@ class Song < ActiveRecord::Base
           WHERE ff.user_id = #{id}
           #{where}
           GROUP BY broadcasts.song_id, broadcasts.station_id
+          ORDER BY maxcreated desc
           LIMIT #{limit}
           OFFSET #{offset}
         )
@@ -283,8 +284,6 @@ class Song < ActiveRecord::Base
           stations on stations.id = a.station_id
       WHERE s.processed = 't'
         AND s.working = 't'
-      ORDER BY
-        a.maxcreated DESC
     })
   end
 
