@@ -649,14 +649,10 @@ var mp = (function() {
       if (curPage == page) return true;
 
       if (page) {
-        var playPageNum = page.match(/\/p-([0-9]+)/) || [1, 1],
-            curPageNum = curPage.match(/\/p-([0-9]+)/) || [1, 1],
-            playPageBase = page.replace(/\/p-[^\/]+$/,''),
+        var playPageBase = page.replace(/\/p-[^\/]+$/,''),
             curPageBase = curPage.replace(/\/p-[^\/]+$/,'');
 
-        fn.log(playPageNum, curPageNum, playPageBase, curPageBase);
-
-        return playPageBase == curPageBase && playPageNum && curPageNum && parseInt(playPageNum[1],10) <= parseInt(curPageNum[1],10);
+        return playPageBase == curPageBase && $('#song-' + curSongInfo.id).length;
       }
 
       return false;

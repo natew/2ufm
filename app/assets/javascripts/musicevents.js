@@ -50,7 +50,7 @@ w.on({
     // Update broadcast button
     updateBroadcastButton(mp.playlist().station.id, song.id);
 
-    // Update artist name link
+    // Update song name link
     $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
 
     // Update page url
@@ -68,15 +68,8 @@ w.on({
     doPlaysActions();
 
     // Update player artists
-    if (section && section.length) {
-      var em = section.find('.name em'),
-          artist = section.find('.artist').html() || '',
-          other_artists = (em && em.length) ? em.html() : '',
-          separator = (artist.length && other_artists.length) ? ', ' : '';
-      html_artists = artist.length ? artist + separator + other_artists : other_artists;
-    }
-
-    $('#player-artist-name').html(html_artists || song.artist_name);
+    var artists = section && section.length ? section.find('.artist').html() || '' : '';
+    $('#player-artist-name').html(artists || song.artist_name);
 
     scrollToPlayingSong(section);
   },
