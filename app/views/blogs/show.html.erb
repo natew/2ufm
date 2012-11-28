@@ -1,7 +1,7 @@
 <%- cache ['v2', @blog, @blog.genres] do -%>
 <div class="title nav-container">
   <%= image_tag @blog.image.url(:medium), :class => 'image medium' %>
-  <h1 class="icon"><%= @blog.name %></h1>
+  <h1 class="has-image"><%= @blog.name %></h1>
 
   <div class="title-bar">
     <div class="title-buttons">

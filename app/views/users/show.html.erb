@@ -5,7 +5,7 @@
       <%= link_to 'Upload Avatar', user_account_path, :class => 'upload-avatar' if user_signed_in? and @user.id == current_user.id %>
     </div>
 
-    <h1 class="icon"><%= @user.full_name %></h1>
+    <h1 class="has-image"><%= @user.full_name %></h1>
     <% if false %>
     <ul class="nav-meta">
       <!-- <li>Broadcasting <%# link_to '@' + @user.username, '/@' + @user.username %></li> -->
