@@ -293,7 +293,8 @@ $station-image-small: $play-button-small;
 }
 
 .shelf.horizontal.featured {
-  margin-right: -728px;
+  margin: -20px -728px -20px -20px;
+  padding: 20px 0;
   height: 266px;
   max-width: 1100px;
 }
