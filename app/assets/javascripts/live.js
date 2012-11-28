@@ -96,20 +96,20 @@ function loadPage(url, callback) {
 }
 
 function addShare() {
-  setShares(shareCount + 1);
+  shareCount++;
+  updateShares();
   fn.log(shareCount);
 }
 
-function setShares(count) {
-  shareCount = parseInt(count,10);
-  updateShares();
-}
+function updateShares(count) {
+  shareCount = count || shareCount;
 
-function updateShares() {
   if (shareCount > 0) {
-    $('#nav-shares span').remove();
-    $('#nav-shares').append('<span>' + shareCount + '</span>');
+    notice('New song in your inbox');
+    $('.notifications').html(shareCount);
   }
+
+  $('.notifications').toggleClass('greater-than-zero', shareCount > 0);
 }
 
 function addSubscriber() {

@@ -79,21 +79,6 @@ class BlogsController < ApplicationController
     @blog = Blog.find_by_slug(params[:id])
   end
 
-
-  def update
-    @blog = Blog.find_by_slug(params[:id])
-
-    respond_to do |format|
-      if @blog.update_attributes(params[:blog])
-        format.html { redirect_to @blog, notice: 'Blog was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @blog.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   private
 
   def render_blog_show

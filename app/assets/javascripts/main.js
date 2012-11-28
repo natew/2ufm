@@ -105,7 +105,6 @@ $(function() {
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
 
 setNavItems();
-setShares($('#nav-shares').attr('data-shares'));
 
 if (isOnline) {
   // Analytics for users
@@ -354,7 +353,7 @@ body.allOn('click', {
     return false;
   },
 
-  '#sign-up-button': function(e, el) {
+  '#modal #sign-up-button': function(e, el) {
     e.preventDefault();
     registerUser(el);
   },
@@ -371,7 +370,7 @@ body.allOn('click', {
   },
 
   '#nav-shares': function(e, el) {
-    setShares(0);
+    updateShares(0);
     el.children('span').remove();
   },
 

@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   validates_presence_of :avatar_remote_url, if: :avatar_url_provided?, message: 'is invalid or inaccessible'
 
   validates :full_name, presence: true, length: 4..120
-  validates_format_of :full_name, with: /[a-zA-Z\-]+ [a-zA-Z\-]+/i, message: 'Invalid characters'
+  # validates_format_of :full_name, with: /[a-zA-Z\-]+ [a-zA-Z\-]+/i, message: 'Invalid characters'
   validates :username, length: 2..22, uniqueness: true
   validates_format_of :username, with: /[a-zA-Z0-9_\-]+/i, message: 'Invalid characters'
   validates_with SlugValidator
@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
 
   def avatar_url_provided?
     !self.avatar_remote_url.blank?
+  end
+
+  def notifications_count
+    received_songs_notifications
   end
 
   def received_songs(page)

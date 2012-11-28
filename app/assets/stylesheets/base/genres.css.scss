@@ -67,11 +67,11 @@ h3.horizontal {
     position: relative;
     @include transition(all ease-in .2s);
 
-    &:hover {
+    &.play-station:hover {
       color: rgba(255,255,255,0.3);
     }
 
-    &:before {
+    &.play-station:before {
       display: block;
       visibility: hidden;
       opacity: 0;
@@ -84,7 +84,7 @@ h3.horizontal {
       right: 0;
       left: 0;
       bottom: 0;
-      padding: 15% 0 0;
+      padding: 12% 0 0;
       text-align: center;
       text-indent: 0;
     }

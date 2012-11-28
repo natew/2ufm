@@ -110,12 +110,13 @@ $song-player-height: 50px;
   margin-bottom: 200px;
 
   .song-title {
+    clear: both;
     font-size: 16px;
     padding: 8px 0;
-    margin: 15px 0 0;
+    margin: 15px 0 -10px;
 
     &:first-child {
-      margin: -10px 0 0;
+      margin-top: 0;
     }
 
     a {
@@ -123,6 +124,13 @@ $song-player-height: 50px;
       padding: 2px;
       margin: -2px 0;
       border-radius: 4px;
+    }
+
+    time {
+      float: right;
+      color: rgba(255,255,255,0.4);
+      font-size: .7em;
+      line-height: 2.3em;
     }
 
     .follow-station-wrap {

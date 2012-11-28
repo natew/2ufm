@@ -6,15 +6,14 @@
   follows_count = song.send(prefix + 'station_follows_count')
   slug          = song.send(prefix + 'station_slug')
   title         = song.send(prefix + 'station_title')
-  with_follow ||= false
   time          = Time.zone.parse(time.to_s).to_i if time.is_a? String
 -%>
 
 <div class="song-posted">
+  <time datetime="<%= time.to_i %>"><%= relative_time(time) %></time>
   <div class="follow-station-wrap">
     <span class="follow-<%= id %>"><%= follow_station(id, follows_count) %></span>
     <%= link_to title, '/' + slug %>
     <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song, :class => 'tip', :title => "#{song.blog_broadcasts_count} blogs wrote about this song" if !broadcasted and song.reposted? %>
   </div>
-  <% if !with_follow %><time datetime="<%= time.to_i %>"><%= relative_time(time) %></time><% end %>
 </div>
