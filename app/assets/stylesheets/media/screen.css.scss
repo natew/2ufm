@@ -49,6 +49,14 @@
     }
   }
 
+  #search-form {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: 10px;
+    margin: 5px 20px !important;
+  }
+
   header {
     margin-left: -80px;
     min-width: 385px;
@@ -56,16 +64,17 @@
 
     #tune-in,
     #nav-music,
-    #player-share {
-      display: none;
+    #player-share,
+    .broadcast {
+      display: none !important;
     }
 
     #player-buttons {
-      width: 94px;
+      width: 54px;
     }
 
     #player-main {
-      right: 105px;
+      right: 65px;
       left: 90px;
     }
   }
@@ -79,6 +88,35 @@
     clear: both;
     float: none;
     width: auto;
+  }
+
+  .playlist {
+    section {
+      .song-count { display: none !important; }
+      .song-art { display: none; }
+      h3,
+      .song-meta { margin-left: 0; }
+    }
+
+    .song-meta {
+      .song-meta-pre {
+        display: block;
+        float: none;
+      }
+
+      .song-controls {
+        display: none;
+      }
+
+      .song-meta-pre {
+        margin-top: -5px;
+      }
+    }
+
+    .active .song-meta .song-controls {
+      display: block;
+      margin-top: 10px;
+    }
   }
 
   .fourth { padding-left: 0; }

@@ -94,7 +94,7 @@ $(function() {
 
 
   // Mobile
-  $('#body')
+  $('header')
     .touchSwipeLeft(function() {
       $('body').removeClass('swiped-left');
     })
