@@ -99,7 +99,7 @@ class Blog < ActiveRecord::Base
     logger.info "Processing #{page.url} (#{page.code})"
     if page.code == 200
       find_song_in(page.body) do
-        title = find_description(html)
+        title = find_description(page.body)
         logger.info "Creating post #{title} (#{page.url})"
         Post.create(
           url: page.url.to_s,
