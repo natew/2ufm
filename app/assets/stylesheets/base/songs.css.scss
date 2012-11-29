@@ -187,11 +187,6 @@ $song-player-height: 50px;
       @include box-sizing(border-box);
     }
 
-    &:hover {
-      background: rgba(0,0,0,0.15);
-      &:after { visibility: visible; }
-    }
-
     &.playing:after {
       content: "5";
     }
@@ -218,6 +213,7 @@ $song-player-height: 50px;
 
     &:hover {
       background: rgba(255,255,255,0.05);
+      &:after { visibility: visible; }
       .song-controls {
         a, a:before { color: #fff; }
       }
@@ -731,5 +727,11 @@ section.active,
 .controller-genres.action-show {
   .pagination {
     display: none;
+  }
+}
+
+.controller-shares .playlist-song {
+  section {
+
   }
 }
