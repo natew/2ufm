@@ -6,7 +6,7 @@
     <%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } if user_signed_in? %>
 
     <div class="message">
-      Welcome to 2u.fm.  We bring you the best new music from music blogs. <%= link_to 'Learn more', about_main_path %>.
+      Welcome!  We bring the best new music from music blogs to you. <%= link_to 'Learn more', about_main_path %>.
     </div>
 
     <div class="threefourths-wrap">

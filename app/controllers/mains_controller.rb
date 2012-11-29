@@ -38,7 +38,7 @@ class MainsController < ApplicationController
 
     artists = search_ready(
       title: 'Artists',
-      items: Artist.fuzzy_search_by_name(query).limit(5),
+      items: Artist.fuzzy_search_by_name(query).limit(4),
       json: { only: ['name', 'station_slug'] }
     )
 
@@ -69,7 +69,7 @@ class MainsController < ApplicationController
 
     if options[:items].length > 0
       result = options[:items].to_json(options[:json])
-        .gsub(/slug\":\"/,"url\":\"#{options[:title].downcase}/")
+        .gsub(/station_slug\":\"/,"url\":\"")
         .gsub(/full_name|title/,'name')
         .insert(1, header)
       result[1,result.length-2] + ','
