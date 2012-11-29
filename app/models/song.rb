@@ -241,7 +241,6 @@ class Song < ActiveRecord::Base
     Song.find_by_sql(%Q{
       WITH a as (
           SELECT
-            DISTINCT ON (maxcreated)
             broadcasts.song_id,
             broadcasts.station_id,
             MAX(broadcasts.created_at) AS maxcreated
@@ -261,7 +260,6 @@ class Song < ActiveRecord::Base
           OFFSET #{offset}
         )
       SELECT
-        DISTINCT ON (a.maxcreated, s.id)
         a.maxcreated as broadcasted_at,
         s.*,
         blogs.url as blog_url,
@@ -287,10 +285,6 @@ class Song < ActiveRecord::Base
           blogs on blogs.id = posts.blog_id
         INNER JOIN
           stations as blog_stations on blog_stations.slug = blogs.station_slug
-        INNER JOIN
-          broadcasts on broadcasts.song_id = s.id
-        INNER JOIN
-          follows on follows.station_id = broadcasts.station_id
         INNER JOIN
           stations on stations.id = a.station_id
         ORDER BY a.maxcreated desc
