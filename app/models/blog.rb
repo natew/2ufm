@@ -141,6 +141,7 @@ class Blog < ActiveRecord::Base
     sleep(delay)
     file = open("http://img.bitpixels.com/getthumbnail?code=61978&size=200&url=#{url}")
     self.image = file
+    self.save
   end
 
   def delayed_set_screenshot
