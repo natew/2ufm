@@ -46,14 +46,14 @@ header .role { padding-right:8px !important; }
 }
 
 .playlist section a,
-.sub a {
+.sub a,
+.message a {
   color: $heading-color-dark;
   text-decoration: none;
   padding: 1px 4px;
   margin-top: -1px;
   margin-bottom: -1px;
-  background: rgba(0,0,0,0.06);
-  border-radius: 4px;
+  background: rgba(0,0,0,0.08);
   &:hover {
     color: #fff !important;
     background: rgba(0,0,0,0.2);

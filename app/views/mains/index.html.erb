@@ -1,9 +1,13 @@
   <div class="whole">
-  <% cache('main_index_artists') do %>
-    <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
-    <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
-  <% end %>
-  <%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } if user_signed_in? %>
+    <% cache('main_index_artists') do %>
+      <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
+      <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
+    <% end %>
+    <%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } if user_signed_in? %>
+
+    <div class="message">
+      Welcome to 2u.fm.  We bring you the best new music from music blogs. <%= link_to 'Learn more', about_main_path %>.
+    </div>
 
     <div class="threefourths-wrap">
       <div class="threefourths">

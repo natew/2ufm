@@ -2145,7 +2145,17 @@ ul.tagit input[type="text"] {
 
 #null {display:none;}
 
-/* Welcome */
+/* Messages */
+.message {
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  border: 2px solid rgba(0,0,0,0.2);
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+}
+
 #welcome {
   display: none;
   position: fixed;
