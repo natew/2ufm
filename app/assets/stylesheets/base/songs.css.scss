@@ -665,12 +665,13 @@ section.active,
       }
 
       .song-meta-pre {
-        margin: 0 0 15px 0;
+        margin-top: -5px;
       }
     }
 
     .active .song-meta .song-controls {
       display: block;
+      margin-top: 10px;
     }
   }
 }
