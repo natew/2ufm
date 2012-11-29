@@ -81,6 +81,7 @@ w.on({
     $('#sc-button-template a')
       .clone()
       .attr('href', data.permalink_url)
+      .attr('title', (data.user ? data.user.username : '') + ' on SoundCloud')
       .appendTo(mp.curSection().find('.song-controls'));
     mp.curSection().addClass('soundcloud-loaded');
   },
