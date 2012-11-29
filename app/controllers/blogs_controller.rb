@@ -46,7 +46,7 @@ class BlogsController < ApplicationController
 
   def popular
     @station  = Station.find_by_slug(params[:id]) || not_found
-    @playlist = { station: @station, songs: @station.songs.playlist_popular }
+    @playlist = { station: Station.new(title: "#{@station.title} Most Popular", id: integers_from_string(@station.title + @station.id.to_s + " popular")), songs: @station.songs.playlist_popular }
 
     render_blog_show
   end
