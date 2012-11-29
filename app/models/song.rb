@@ -136,7 +136,7 @@ class Song < ActiveRecord::Base
   scope :select_broadcasted_at, select('broadcasts.created_at as broadcasted_at')
 
   # Combination
-  scope :for_playlist, not_youtube.working.with_blog_station_and_post.time_limited
+  scope :for_playlist, not_youtube.working.processed.with_blog_station_and_post.time_limited
   scope :with_info_for_playlist_matching_id_distinct, lambda { |on| select_distinct(on).for_playlist.matching_id }
   scope :with_info_for_playlist_matching_id, select_with_info.for_playlist.matching_id
   scope :with_info_for_playlist, select_with_info.for_playlist
