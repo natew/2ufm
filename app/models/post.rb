@@ -60,27 +60,29 @@ class Post < ActiveRecord::Base
     parse.css('a').each do |link|
       if link['href'] =~ /soundcloud\.com\/.*\/|\.mp3(\?(.*))?$/
         logger.info "Found song!"
-        #TODO Find or create by ID so we can rescan posts
         found_song = create_song(link['href'],link.content)
       end
     end
 
     parse.css('iframe').each do |iframe|
-      if iframe['src'] =~ /soundcloud\.com.*tracks/
-        logger.info "Found soundcloud iframe!"
+      if iframe['src'] =~ /soundcloud\.com.*tracks|youtube.com\/embed/
+        logger.info "Found music iframe!"
         found_song = create_song(iframe['src'], '')
       end
     end
   end
 
   def create_song(url, text)
-    Song.create(
-      :blog_id    => blog_id,
-      :post_id    => id,
-      :url        => url,
-      :link_text  => text,
-      :published_at => created_at
-    )
+    song = Song.find_by_url(url)
+    unless song
+      Song.create(
+        blog_id: blog_id,
+        post_id: id,
+        url: url,
+        link_text: text,
+        published_at: created_at
+      )
+    end
   end
 
   def process_songs

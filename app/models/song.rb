@@ -26,13 +26,15 @@ class Song < ActiveRecord::Base
     and: /, | & | and /i,
     dash_split: /^[^-]* [—-] [^-]*$/,
     genre: /trap|dubstep|dub|house|electro|d&b|big room/i,
-    time: /(now|[0-9]{2}(th|st|nd|rd) ?(jan(uary)?|feb(uary)?|mar(ch)?|apr(il)?|may|jun(e)?|jul(y)?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)?)/i
+    time: /(now|[0-9]{2}(th|st|nd|rd) ?(jan(uary)?|feb(uary)?|mar(ch)?|apr(il)?|may|jun(e)?|jul(y)?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)?)/i,
+    quote_chars: /[\'\"\*]/
   }
 
   REMOVE = {
     featured: /.* #{RE[:featured]}/i,
     remixer: /((\'s.*|20[0-9]{2}|#{RE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official) )+/i,
     all: /(([\*\[\(\/\{]| )*((exclusive )?(free |320)?(soundcloud ?|facebook ?)?(out #{RE[:time]}|download ?|d\/?l ?)(free |320)*((on |or |link in )*(description ?|soundcloud ?|facebook ?)|320)*([\*\]\)\/\}]| )*)+)$/i,
+    quotes: /^#{RE[:quote_chars]}+|#{RE[:quote_chars]}+$/i
   }
 
   SPLITS = {
@@ -93,6 +95,8 @@ class Song < ActiveRecord::Base
   scope :oldest, order('songs.published_at asc')
   scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
   scope :soundcloud, where(source: 'soundcloud')
+  scope :youtube, where(source: 'youtube')
+  scope :not_youtube, where('source != ?', 'youtube')
   scope :time_limited, where('songs.seconds < ?', 600)
   scope :matching_id, where('songs.matching_id = songs.id')
   scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
@@ -132,20 +136,21 @@ class Song < ActiveRecord::Base
   scope :select_broadcasted_at, select('broadcasts.created_at as broadcasted_at')
 
   # Combination
-  scope :for_playlist, working.matching_id.with_blog_station_and_post.time_limited
-  scope :individual_distinct, lambda { |on| select_distinct(on).for_playlist }
-  scope :individual, select_with_info.for_playlist
+  scope :for_playlist, not_youtube.working.with_blog_station_and_post.time_limited
+  scope :with_info_for_playlist_matching_id_distinct, lambda { |on| select_distinct(on).for_playlist.matching_id }
+  scope :with_info_for_playlist_matching_id, select_with_info.for_playlist.matching_id
+  scope :with_info_for_playlist, select_with_info.for_playlist
 
   # Playlists
-  scope :playlist_rank, order_rank.individual_distinct('songs.rank')
-  scope :playlist_newest, order_published.individual_distinct('songs.published_at')
-  scope :playlist_oldest, order_published_asc.individual_distinct('songs.published_at')
-  scope :playlist_popular, order_user_broadcasts.individual
-  scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.individual
-  scope :playlist_trending, min_broadcasts(2).order_rank.individual_distinct('songs.rank')
-  scope :playlist_received, select_sender.with_sender.order_shared.individual
-  scope :playlist_sent, select_receiver.with_receiver.order_shared.individual
-  scope :playlist_shuffle, order_random.individual
+  scope :playlist_rank, order_rank.with_info_for_playlist_matching_id_distinct('songs.rank')
+  scope :playlist_newest, order_published.with_info_for_playlist_matching_id_distinct('songs.published_at')
+  scope :playlist_oldest, order_published_asc.with_info_for_playlist_matching_id_distinct('songs.published_at')
+  scope :playlist_popular, order_user_broadcasts.with_info_for_playlist_matching_id
+  scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.with_info_for_playlist_matching_id
+  scope :playlist_trending, min_broadcasts(2).order_rank.with_info_for_playlist_matching_id_distinct('songs.rank')
+  scope :playlist_received, select_sender.with_sender.order_shared.with_info_for_playlist_matching_id
+  scope :playlist_sent, select_receiver.with_receiver.order_shared.with_info_for_playlist_matching_id
+  scope :playlist_shuffle, order_random.with_info_for_playlist_matching_id
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
@@ -164,7 +169,7 @@ class Song < ActiveRecord::Base
   end
 
   def self.playlist_most_listened(options)
-    Song.individual.where(id:
+    Song.with_info_for_playlist_matching_id.where(id:
       Song
         .select('songs.id, count(listens.id) as listens_count')
         .where('listens.created_at > ?', options[:within].ago)
@@ -242,7 +247,12 @@ class Song < ActiveRecord::Base
           FROM broadcasts
           INNER JOIN follows ff ON ff.station_id = broadcasts.station_id
           INNER JOIN stations ON stations.id = ff.station_id
+          INNER JOIN songs on songs.id = broadcasts.song_id
           WHERE ff.user_id = #{id}
+            AND songs.processed = 't'
+            AND songs.working = 't'
+            AND songs.source != 'youtube'
+            AND songs.seconds < 600
           #{where}
           GROUP BY broadcasts.song_id, broadcasts.station_id
           ORDER BY maxcreated desc
@@ -282,8 +292,6 @@ class Song < ActiveRecord::Base
           follows on follows.station_id = broadcasts.station_id
         INNER JOIN
           stations on stations.id = a.station_id
-      WHERE s.processed = 't'
-        AND s.working = 't'
     })
   end
 
@@ -387,7 +395,9 @@ class Song < ActiveRecord::Base
   end
 
   def scan_and_save
-    if !url.nil?
+    if source == 'youtube'
+      process(nil)
+    elsif !url.nil?
       begin
         total = nil
         prev  = 0
@@ -435,43 +445,46 @@ class Song < ActiveRecord::Base
 
   # Read ID3 Tag and generally collect information on the song
   def process(file)
-    logger.info "Getting song information -- #{file.path}"
-    TagLib::MPEG::File.open(file.path) do |taglib|
-      tag = taglib.id3v2_tag || taglib.id3v1_tag
-      logger.info "Tag information -- #{tag.inspect}"
-      break unless tag
+    if file
+      logger.info "Getting song information -- #{file.path}"
+      TagLib::MPEG::File.open(file.path) do |taglib|
+        tag = taglib.id3v2_tag || taglib.id3v1_tag
+        logger.info "Tag information -- #{tag.inspect}"
+        break unless tag
 
-      # Soundcloud info
-      if source == 'soundcloud' and soundcloud_id
-        client = Soundcloud.new(:client_id => Yetting.soundcloud_key)
-        track = client.get("/tracks/#{soundcloud_id}")
-        title = track.title
-        genre = track.genres
-        artist = track.user.username
+        # Soundcloud info
+        if source == 'soundcloud' and soundcloud_id
+          client = Soundcloud.new(:client_id => Yetting.soundcloud_key)
+          track = client.get("/tracks/#{soundcloud_id}")
+          title = track.title
+          genre = track.genres
+          artist = track.user.username
+        end
+
+        # Properties
+        props = taglib.audio_properties
+        if props
+          self.bitrate = props.bitrate.to_i
+          self.seconds = props.length.to_f
+        else
+          logger.error "No properties, no seconds or bitrate!?"
+        end
+
+        # Tag
+        self.name         = title || tag.title || ''
+        self.artist_name  = artist || tag.artist || ''
+        self.album_name   = tag.album
+        self.track_number = tag.track.to_i
+        self.genre        = genre || tag.genre
+        self.image        = get_album_art(tag)
       end
 
-      # Properties
-      props = taglib.audio_properties
-      if props
-        self.bitrate = props.bitrate.to_i
-        self.seconds = props.length.to_f
-      else
-        logger.error "No properties, no seconds or bitrate!?"
-      end
-
-      # Tag
-      self.name         = title || tag.title || ''
-      self.artist_name  = artist || tag.artist || ''
-      self.album_name   = tag.album
-      self.track_number = tag.track.to_i
-      self.genre        = genre || tag.genre
-      self.image        = get_album_art(tag)
+    elsif source == 'youtube'
+      return unless get_youtube_info
     end
 
     set_original_tag
     clean_name
-    fix_soundcloud_tagging if source == 'soundcloud' and soundcloud_id
-    fix_empty_artist_tagging
 
     # Detect if they dumped the artist in the name
     split_artists_from_name
@@ -481,17 +494,16 @@ class Song < ActiveRecord::Base
 
     # Update info if we have processed this song
     if working? and !processed?
-      # Waveform
-      if waveform_file_name.nil?
-        logger.info "Generating waveform..."
-        self.waveform = generate_waveform(file.path)
+
+      # Generate waveform
+      if file and waveform_file_name.nil?
+        generate_waveform(file.path)
       end
 
-      fix_empty_soundcloud_tags(file.path)
+      # fix_empty_soundcloud_tags(file.path)
       set_match_name
       find_matching_songs
       delete_file_if_matching
-
       find_or_create_artists
       add_to_stations
 
@@ -652,12 +664,37 @@ class Song < ActiveRecord::Base
     tmp << data
   end
 
+  def get_youtube_info
+    self.source = 'youtube' if url.match(/youtube\.com/)
+    get_real_url if youtube_id.nil?
+    return false unless youtube_id
+    youtube_data = HTTParty.get("https://gdata.youtube.com/feeds/api/videos/#{youtube_id}?v=2&alt=json")
+    return false unless youtube_data
+    json = youtube_data.parsed_response
+    return false unless json
+
+    begin
+      json = json['entry']
+      self.name = Sanitize.clean(json['title']['$t']).truncate(250)
+      return false unless split_name_tag
+      self.description = Sanitize.clean(json['media$group']['media$description']['$t']).truncate(250)
+      self.seconds = json['media$group']['media$content'][0]['duration']
+    rescue
+      logger.error "Error parsing YouTube API"
+      return false
+    end
+
+    self
+  end
+
   def set_source
     case url
     when /hulkshare\.com/
       self.source = 'hulkshare'
     when /soundcloud\.com/
       self.source = 'soundcloud'
+    when /youtube\.com/
+      self.source = 'youtube'
     end
   end
 
@@ -707,6 +744,12 @@ class Song < ActiveRecord::Base
         logger.error e.message
         logger.error e.backtrace.join("\n")
       end
+
+    when 'youtube'
+      video_id = url.match(/youtube.com.*(?:\/|v=)([^&$]+)/i)
+      return unless video_id and video_id.length > 1
+      video_id = video_id[1]
+      self.youtube_id = video_id
     end
 
     # Return url
@@ -947,14 +990,6 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def fix_empty_artist_tagging
-    split_name_tag if artist_name.empty?
-  end
-
-  def fix_soundcloud_tagging
-    split_name_tag
-  end
-
   def split_name_tag
     return false unless name.match(/ [-—] /)
     fix_artist, fix_name = name.split(/ [-—] /)
@@ -1019,7 +1054,8 @@ class Song < ActiveRecord::Base
   end
 
   def clean_name
-    self.name = name.gsub(REMOVE[:all], '').strip
+    split_name_tag
+    self.name = name.gsub(REMOVE[:all], '').strip.gsub(REMOVE[:quotes],'')
   end
 
   def clean_url

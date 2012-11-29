@@ -53,7 +53,7 @@ class SongsController < ApplicationController
     @primary = @song
 
     # Extra info
-    @matching_songs = Song.where(matching_id:@song.matching_id).individual.newest
+    @matching_songs = Song.where(matching_id:@song.matching_id).with_info_for_playlist.newest
     @blogs = Station.join_songs_on_blog.where(:songs => {:matching_id => @song.matching_id})
     @stats = Broadcast.find_by_sql("SELECT date_part('day', created_at), count(*) from broadcasts where song_id=#{@song.matching_id} group by date_part('day', created_at) order by date_part('day', created_at);").map {|x| [((Time.now.day - x.date_part.to_i).days.ago.to_f*1000).round,x.count.to_i]}
 

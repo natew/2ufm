@@ -98,17 +98,17 @@ class Blog < ActiveRecord::Base
   def save_page(page)
     logger.info "Processing #{page.url} (#{page.code})"
     if page.code == 200
-      find_song_in(page.body) do |html|
+      find_song_in(page.body) do
         title = find_description(html)
         logger.info "Creating post #{title} (#{page.url})"
-        post = Post.create(
-            :url => page.url.to_s,
-            :blog_id => id,
-            :title => title,
-            :author => '',
-            :content => page.body,
-            :published_at => Date.parse(page.headers['date'][0])
-          )
+        Post.create(
+          url: page.url.to_s,
+          blog_id: id,
+          title: title,
+          author: '',
+          content: page.body,
+          published_at: Date.parse(page.headers['date'][0])
+        )
       end
     else
       logger.error "Page header response is not 200"
@@ -185,20 +185,14 @@ class Blog < ActiveRecord::Base
   def save_posts(entries)
     if entries
       entries.each do |post|
-        logger.info "Searching for songs in #{post.title}"
-        # Search for song
-        find_song_in(post.content) do
-          logger.info "Found song, creating post #{post.title}"
-          # Save posts to db
-          Post.create(
-            :url => post.url.to_s,
-            :blog_id => id,
-            :title => post.title,
-            :author => post.author,
-            :content => post.content,
-            :published_at => post.published
-          )
-        end
+        Post.create(
+          url: post.url.to_s,
+          blog_id: id,
+          title: post.title,
+          author: post.author,
+          content: post.content,
+          published_at: post.published
+        )
       end
     end
   end
@@ -301,18 +295,16 @@ class Blog < ActiveRecord::Base
     html = Nokogiri::HTML(content)
     html.css('a').each do |link|
       logger.debug "Checking link #{link['href']}"
-      if link['href'] =~ /\.mp3(\?(.*))?$/
+      if link['href'] =~ /soundcloud\.com\/.*\/|\.mp3(\?(.*))?$/
         logger.info "Found song! #{link['href']}"
-        yield html
-        break
+        yield
       end
     end
 
     html.css('iframe').each do |iframe|
-      if iframe['src'] =~ /soundcloud\.com.*tracks/
-        logger.info "Found soundcloud iframe! #{iframe['src']}"
-        yield html
-        break
+      if iframe['src'] =~ /soundcloud\.com.*tracks|youtube.com\/embed/
+        logger.info "Found music iframe! #{iframe['src']}"
+        yield
       end
     end
   end

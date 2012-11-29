@@ -164,7 +164,7 @@ $('#query')
       return data.name;
     },
     onSelect: function (data, $item) {
-      pjax('/'+data.url);
+      pjax('/' + data.url);
     }
   });
 
@@ -411,16 +411,8 @@ body.allOn('click', {
     if (!e.isDefaultPrevented() && !commandPressed) {
       if (!this.className.match(/external/)) e.preventDefault();
       newPage = el.attr('href');
-      if (doPjax) {
-        $.pjax({
-          url: newPage,
-          container: '#body',
-          timeout: 12000
-        });
-      }
-      else {
-        loadPage(el.attr('href'));
-      }
+      if (doPjax) pjax(newPage);
+      else loadPage(el.attr('href'));
     }
   }
 });
@@ -506,6 +498,7 @@ function setNavItems() {
 
 function setNavActive(page) {
   page = page.replace(/\/p-[0-9]+.*/, '');
+
   // Update #navbar
   if (navActive) navActive.removeClass('active');
   var newNavActive = navItems[page],

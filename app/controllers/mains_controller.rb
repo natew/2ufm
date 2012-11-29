@@ -31,24 +31,24 @@ class MainsController < ApplicationController
     query = params[:q]
 
     songs = search_ready(
-      :title => 'Songs',
-      :items => Song.fuzzy_search_by_name(query).limit(5) | Song.fuzzy_search_by_artist_name(query).limit(5),
-      :json => { :only => ['full_name', 'slug'], :methods => 'full_name' }
+      title: 'Songs',
+      items: Song.fuzzy_search_by_name(query).matching_id.limit(5) | Song.fuzzy_search_by_artist_name(query).matching_id.limit(5),
+      json: { only: ['full_name', 'slug'], methods: 'full_name' }
     )
 
     artists = search_ready(
-      :title => 'Artists',
-      :items => Artist.fuzzy_search_by_name(query).limit(5),
-      :json => { :only => ['name', 'url'], :methods => 'url' }
+      title: 'Artists',
+      items: Artist.fuzzy_search_by_name(query).limit(5),
+      json: { only: ['name', 'station_slug'] }
     )
 
-    stations = search_ready(
-      :title => 'Stations',
-      :items => Station.fuzzy_search_by_title(query).limit(5),
-      :json => {:only => ['title', 'slug'] }
+    blogs = search_ready(
+      title: 'Blogs',
+      items: Blog.fuzzy_search_by_name(query).limit(3),
+      json: { :only => ['name', 'station_slug'] }
     )
 
-    result = "[#{artists}#{stations}#{songs[0..-2]}]"
+    result = "[#{artists}#{blogs}#{songs[0..-2]}]"
 
     render :text => result
   end
