@@ -649,17 +649,18 @@ section.active,
   display: none;
 }
 
-.half .playlist-song,
-.twothirds .playlist-song {
-  .song-meta {
-    .song-meta-pre,
-    .song-controls {
-      display: block;
-      float: none;
-    }
+.half, .twothirds, .threefourths {
+  .playlist-song {
+    .song-meta {
+      .song-meta-pre,
+      .song-controls {
+        display: block;
+        float: none;
+      }
 
-    .song-meta-pre {
-      margin: 0 0 15px 0;
+      .song-meta-pre {
+        margin: 0 0 15px 0;
+      }
     }
   }
 }
