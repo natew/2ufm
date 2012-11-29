@@ -292,6 +292,7 @@ class Song < ActiveRecord::Base
           follows on follows.station_id = broadcasts.station_id
         INNER JOIN
           stations on stations.id = a.station_id
+        ORDER BY a.maxcreated desc
     })
   end
 
