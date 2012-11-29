@@ -153,7 +153,7 @@ class Blog < ActiveRecord::Base
   def find_description(html)
     title = html.at('title')
     meta  = html.at('meta[type=description]')
-    title ? title.text : (meta ? meta['content'] : nil)
+    title ? (title.respond_to?(:text) ? title.text : title) : (meta ? meta['content'] : nil)
   end
 
   # Search Nokogiri::HTML for an RSS feed
