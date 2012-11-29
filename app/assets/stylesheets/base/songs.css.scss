@@ -316,8 +316,8 @@ $song-player-height: 50px;
     white-space: nowrap;
     position: relative;
     display: inline-block;
-    padding: 0 3px;
-    margin: 3px 1px -10px;
+    padding: 0;
+    margin: 3px 0 -10px;
 
     &:after { display: none; } /* FF fix */
 
@@ -447,7 +447,9 @@ $song-player-height: 50px;
   }
 
   time {
-    margin-right: 4px;
+    margin: -2em 0 0;
+    display: block;
+    text-align: right;
   }
 
   .song-posted {
@@ -652,6 +654,11 @@ section.active,
 
       .song-meta-pre {
         margin-top: -5px;
+      }
+
+      time {
+        display: inline;
+        margin: 0 4px 0 0;
       }
     }
 
