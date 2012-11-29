@@ -47,7 +47,8 @@ h3.horizontal {
   }
 }
 
-.third .genres {
+.third .genres,
+.fourth .genres {
   margin-right: 0;
 
   li {
@@ -84,7 +85,7 @@ h3.horizontal {
       right: 0;
       left: 0;
       bottom: 0;
-      padding: 12% 0 0;
+      padding: 9% 0 0;
       text-align: center;
       text-indent: 0;
     }

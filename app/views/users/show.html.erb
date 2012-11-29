@@ -30,6 +30,7 @@
   <%- cache("user_artists_#{@user.id}") do -%>
     <%= render 'stations/artists' if @artists.length > 0 %>
   <%- end -%>
+  <%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } if user_signed_in? and @artists.length > 0 %>
 
   <div id="favorites" class="section active">
     <%- if @user.station.songs.empty? -%>

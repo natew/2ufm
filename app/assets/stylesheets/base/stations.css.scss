@@ -153,7 +153,6 @@ $station-image-small: $play-button-small;
   }
 
   h4 {
-    text-align: center;
     color: #fff;
     font-size: 14px;
     padding: 4px;
@@ -165,6 +164,9 @@ $station-image-small: $play-button-small;
     width: 100%;
     z-index: 10;
     line-height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     @include dim(70);
     @include box-sizing(border-box);
   }
@@ -276,6 +278,7 @@ $station-image-small: $play-button-small;
 .shelf.featured {
   position: relative;
 
+  h4 { font-size: 16px; }
   li { margin: 0 10px 10px 0; }
 
   img {
@@ -284,6 +287,7 @@ $station-image-small: $play-button-small;
   }
 
   .shelf-zero {
+    h4 { font-size: 22px; padding: 8px; }
     .station-buttons { padding-top: 41%; }
     img {
       width: 266px;
@@ -293,7 +297,7 @@ $station-image-small: $play-button-small;
 }
 
 .shelf.horizontal.featured {
-  margin: -20px -728px -20px -20px;
+  margin: -20px -728px 0 -20px;
   padding: 20px;
   height: 266px;
   max-width: 1100px;

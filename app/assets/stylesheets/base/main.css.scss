@@ -778,6 +778,7 @@ header {
 }
 
 .scroll-section-inner {
+  background: rgba(0,0,0,0.1);
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 2px 0;
@@ -1885,6 +1886,22 @@ ol.mp_list {
   float: left;
   width: $third-width;
   padding-left: 0;
+}
+
+.threefourths-wrap {
+  width: 100%;
+  float: left;
+  margin-right: -$fourth-width - 1;
+}
+
+.threefourths {
+  margin-right: 1 + $fourth-width;
+}
+
+.fourth {
+  float: left;
+  width: $fourth-width;
+  padding-right: 0;
 }
 
 .third, .twothirds, .fourth, .half, .whole {

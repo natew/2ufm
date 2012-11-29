@@ -1,0 +1,12 @@
+<script type="text/javascript">
+  <%-
+  if user_signed_in?
+    stations = ids
+    follows = current_user.get_station_follows(stations) || []
+    if follows
+  -%>
+    updateFollowsIds.push(<%= raw follows %>);
+  <%-
+    end
+  end -%>
+</script>

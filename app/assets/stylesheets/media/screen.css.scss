@@ -56,16 +56,18 @@
     }
   }
 
-  .twothirds {
+  .twothirds, .threefourths {
     margin-right: 0;
   }
 
-  .third {
+  .third, .fourth {
     padding-left: 20px;
     clear: both;
     float: none;
     width: auto;
   }
+
+  .fourth { padding-left: 0; }
 
   #navbar,
   #search-form {
