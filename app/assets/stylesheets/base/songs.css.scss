@@ -211,16 +211,6 @@ $song-player-height: 50px;
       }
     }
 
-    &:hover {
-      background: rgba(255,255,255,0.05);
-      &:after { visibility: visible; }
-      .song-controls {
-        a, a:before { color: #fff; }
-      }
-    }
-
-    &:nth-child(2n+1):hover { background: rgba(255,255,255,0.04); }
-
     &.active {
       border: 2px solid rgba(0,0,0,0.4);
       z-index: 100;
@@ -551,13 +541,13 @@ $song-player-height: 50px;
   }
 }
 
-.playlist-song.show-count {
+.playlist.show-count {
   .song-count {
     display: block;
   }
 }
 
-.primary .playlist-song {
+.primary .playlist {
   margin: 0;
 }
 
@@ -649,7 +639,7 @@ section.active,
 }
 
 .half, .twothirds, .threefourths {
-  .playlist-song {
+  .playlist {
     .song-meta {
       .song-meta-pre {
         display: block;
@@ -730,8 +720,8 @@ section.active,
   }
 }
 
-.controller-shares .playlist-song {
+.controller-shares .playlist {
   section {
-
+    /* Highlight not listened to songs */
   }
 }

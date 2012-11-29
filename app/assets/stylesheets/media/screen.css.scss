@@ -6,6 +6,20 @@
 @media screen and (max-width: 768px) {
 }
 
+@media screen and (min-width: 680px) {
+  .playlist section {
+    &:hover {
+      background: rgba(255,255,255,0.05);
+      &:after { visibility: visible; }
+      .song-controls {
+        a, a:before { color: #fff; }
+      }
+    }
+
+    &:nth-child(2n+1):hover { background: rgba(255,255,255,0.04); }
+  }
+}
+
 /* iPad [portrait + landscape] */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 }

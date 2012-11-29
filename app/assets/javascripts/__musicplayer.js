@@ -172,7 +172,7 @@ var mp = (function() {
           curSongInfo = playlist.songs[playlistIndex];
           w.trigger('mp:play', player.state());
 
-          self.playCurSong();
+          player.playCurSong();
 
           if (!curSection) {
             var foundSection = $('#playlist-' + playlist.id + ' #song-' + curSongInfo.id);
@@ -584,7 +584,7 @@ var mp = (function() {
         // Retry normal file if soundcloud fail
         if (curSongInfo.sc_id !== '') {
           curSongInfo.sc_id = '';
-          this.playCurSong();
+          player.playCurSong();
         }
         else if (curSection) curSection.addClass('failed');
 
