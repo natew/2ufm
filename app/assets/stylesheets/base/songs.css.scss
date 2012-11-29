@@ -513,6 +513,12 @@ $song-player-height: 50px;
         color: rgba(255,255,255,0.3);
       }
 
+      &.song-share {
+        background: rgba(0,0,0,0.4);
+        color: #fff;
+        &:hover { background: rgba(0,0,0,0.6) }
+      }
+
       img {
         margin: -8px -3px -5px;
       }
