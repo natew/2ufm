@@ -328,5 +328,18 @@
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>
   <%= subscribe_to "/users/#{current_user.id}" if user_signed_in? %>
+
+  <!--[if lt IE 10]>
+  <div id="ie-notice">
+    <h3>Our only works in <a href="http://browsehappy.com/" target="_blank">modern browsers</a>.</h3>
+    <p>If you can't use another browser, we recommend upgrading or installing the
+    <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame</a> plugin for the best experience.</p>
+  </div>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>
+    modal('#ie-notice');
+  </script>
+  <![endif]-->
 </body>
 </html>

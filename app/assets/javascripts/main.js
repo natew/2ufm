@@ -10,6 +10,7 @@ if (window.location.pathname.match(/p-[0-9]+/)) {
 //
 $(function() {
   // Dialog
+  $('#dialog').appendTo('body');
   hideDialog();
 
   // Fire initial page load

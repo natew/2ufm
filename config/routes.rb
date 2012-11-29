@@ -10,7 +10,6 @@ Fusefm::Application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'registrations',
     sessions: 'sessions',
-    confirmations: 'confirmations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
@@ -69,6 +68,7 @@ Fusefm::Application.routes.draw do
   match '/my/friends', to: 'users#find_friends', as: 'users_friends'
   match '/do/authorized', to: 'users#authorized'
   match '/my/home', to: 'mains#index', as: 'users_home'
+  match '/confirm/:key', to: 'users#confirm'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

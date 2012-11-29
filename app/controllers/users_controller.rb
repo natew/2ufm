@@ -162,23 +162,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def activate
-    @user = User.find(params[:id].to_i)
-
-    if @user.confirmed?
-      @message = 'Account has already been activated!'
+  def confirm
+    @user = User.find_by_confirmation_token(params[:key])
+    if @user
+      @user.confirm!
+      flash[:notice] = "Account Confirmed!  Welcome to 2u.fm :)"
+      redirect_to @user
     else
-      verify = Digest::SHA1.hexdigest(@user.email + '328949126')
-
-      if verify == params[:key]
-        if @user.confirm!
-          @message = 'Congrats!  Your account has been activated'
-        else
-          @message = 'Error activating account.  Please contact support.'
-        end
-      else
-        @message = 'Sorry!  Your verification key does not match' + verify
-      end
+      flash[:notice] = "Could not find account!"
+      redirect_to '/'
     end
   end
 

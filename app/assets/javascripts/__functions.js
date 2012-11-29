@@ -1,4 +1,4 @@
-var DO_LOGGING = $('body').is('.development');
+var DO_LOGGING = true;
 
 String.prototype.leftPad = function (l, c) { return new Array(l - this.length + 1).join(c || ' ') + this; }
 
@@ -6,7 +6,7 @@ var fn = {
   log: function() {
     if (DO_LOGGING)  {
       var caller = arguments.callee.caller ? arguments.callee.caller.name.toString().leftPad(20) : ''.leftPad(20);
-      console.log(caller,arguments);
+      console.log(caller,Array.prototype.slice.call(arguments) );
     }
   },
 
