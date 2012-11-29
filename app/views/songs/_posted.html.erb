@@ -14,6 +14,6 @@
   <div class="follow-station-wrap">
     <span class="follow-<%= id %>"><%= follow_station(id, follows_count) %></span>
     <%= link_to title, '/' + slug %>
-    <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song, :class => 'tip', :title => "Posted on #{song.blog_broadcasts_count} blogs" if !broadcasted and song.reposted? %>
+    <%= link_to '+ ' + (song.blog_broadcasts_count - 1).to_s, song, :class => 'tip', :title => "+ #{song.blog_broadcasts_count - 1} other blogs" if !broadcasted and song.reposted? %>
   </div>
 </div>
