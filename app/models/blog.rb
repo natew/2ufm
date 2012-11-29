@@ -98,15 +98,15 @@ class Blog < ActiveRecord::Base
   def save_page(page)
     logger.info "Processing #{page.url} (#{page.code})"
     if page.code == 200
-      find_song_in(page.body) do
-        title = find_description(page.body)
+      find_song_in(page.body) do |html|
+        title = find_description(html)
         logger.info "Creating post #{title} (#{page.url})"
         Post.create(
           url: page.url.to_s,
           blog_id: id,
           title: title,
           author: '',
-          content: page.body,
+          content: html,
           published_at: Date.parse(page.headers['date'][0])
         )
       end
@@ -298,14 +298,14 @@ class Blog < ActiveRecord::Base
       logger.debug "Checking link #{link['href']}"
       if link['href'] =~ /soundcloud\.com\/.*\/|\.mp3(\?(.*))?$/
         logger.info "Found song! #{link['href']}"
-        yield
+        yield html
       end
     end
 
     html.css('iframe').each do |iframe|
       if iframe['src'] =~ /soundcloud\.com.*tracks|youtube.com\/embed/
         logger.info "Found music iframe! #{iframe['src']}"
-        yield
+        yield html
       end
     end
   end
