@@ -3,6 +3,7 @@
     <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
     <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
   <% end %>
+  <%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } if user_signed_in? %>
 
     <div class="threefourths-wrap">
       <div class="threefourths">
@@ -16,6 +17,3 @@
       <%= render 'genres/list' %>
     </div>
   </div>
-
-
-<%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } if user_signed_in? %>
