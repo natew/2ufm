@@ -230,12 +230,12 @@ header {
     height: 50px;
     color: #fff;
 
-    span { padding: 21px 0 0 12px; }
+    span { padding: 20px 0 0 12px; }
     &:hover span { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
   }
 
   .next {
-    margin: 6px 0 0;
+    margin: 5px 0 0;
     font-size: 24px;
 
     span {
@@ -437,7 +437,7 @@ header {
 
 #player-buttons {
   position: absolute;
-  top: 6px;
+  top: 5px;
   right: 0;
   width: 188px;
 

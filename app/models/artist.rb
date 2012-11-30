@@ -106,8 +106,9 @@ class Artist < ActiveRecord::Base
 
       if !artist.nil?
         logger.info "Info found"
-        self.image = UrlTempfile.new(artist.images.first.uri) unless artist.images.nil?
+        self.image = UrlTempfile.new(artist.images.first.uri) unless image.exists? or artist.images.nil?
         self.urls  = artist.urls unless artist.urls.nil?
+        self.about = artist.profile unless artist.profile.nil?
         self.save
       else
         logger.info "No information found"
@@ -115,6 +116,9 @@ class Artist < ActiveRecord::Base
     rescue Exception => e
       # Artist not found!
       logger.error "Error getting discogs information."
+      logger.error artist.to_yaml
+      logger.error e.inspect
+      logger.error e.backtrace.join("\n")
     end
   end
 

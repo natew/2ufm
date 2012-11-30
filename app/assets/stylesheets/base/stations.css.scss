@@ -148,8 +148,7 @@ $station-image-small: $play-button-small;
     @include transition(all ease-in .3s);
 
     &:hover {
-      h4 { opacity: 0; }
-      .station-buttons { opacity: 1; }
+      p, .station-buttons { opacity: 1; }
     }
   }
 

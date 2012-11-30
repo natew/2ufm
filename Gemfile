@@ -29,21 +29,21 @@ gem 'koala'
 gem 'rails_admin'
 
 # Comments
-gem 'acts_as_commentable_with_threading'
-gem 'acts_as_votable'
+# gem 'acts_as_commentable_with_threading'
+# gem 'acts_as_votable'
 
 # Crawling and parsing
 gem 'nokogiri'
 gem 'chronic'
 gem 'anemone'
 gem 'mongo_mapper'
-gem 'feedzirra', github: 'NateW/feedzirra'
+gem 'feedzirra', github: 'natew/feedzirra'
 
 # APIs
 gem 'soundcloud', github: 'andrejj/soundcloud-ruby'
 gem 'httparty'
 gem 'youtube_it'
-#gem 'ruby-echonest', :git => 'git://github.com/NateW/ruby-echonest.git'
+#gem 'ruby-echonest', :git => 'git://github.com/natew/ruby-echonest.git'
 
 # Jobs
 gem 'daemons'
@@ -62,10 +62,10 @@ gem 'recaptcha'
 gem 'kaminari'
 
 # Search
-gem 'texticle', github: 'NateW/texticle', require: 'texticle/rails'
+gem 'texticle', github: 'natew/texticle', require: 'texticle/rails'
 
 # Songs
-gem 'discogs-wrapper'
+gem 'discogs-wrapper', github: 'natew/discogs'
 gem 'taglib-ruby'
 
 # Waveforms

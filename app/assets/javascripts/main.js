@@ -180,7 +180,8 @@ $('#player-song-name a').click(function songNameClick() {
 });
 
 function scrollToCurrentSong() {
-  fn.scrollTo($('#song-' + mp.curSongInfo().id));
+  var song = $('#song-' + mp.curSongInfo().id);
+  if (song.length) fn.scrollTo(song);
 }
 
 // Play from playlist
