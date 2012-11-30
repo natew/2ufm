@@ -11,6 +11,8 @@ class BroadcastsController < ApplicationController
   end
 
   def destroy
+    current_user.station.updated_at = Time.now
+    current_user.station.save
     if current_user.station.broadcasts.where(song_id: params[:id]).first.destroy
       @locals = { :action => 'add', :id => params[:id], :counter => :subtract }
 
