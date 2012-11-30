@@ -8,8 +8,8 @@ GIT
       httparty (>= 0.7.3)
 
 GIT
-  remote: git://github.com/defconomicron/dalli-store-extensions.git
-  revision: 04145d3e8c79768333d5adfdadef6ba91fae5de3
+  remote: git://github.com/mqt/dalli-store-extensions.git
+  revision: dd0b5ee7779600e8ff7e63491e23a5b51c647f6d
   specs:
     dalli-store-extensions (0.0.1)
 
