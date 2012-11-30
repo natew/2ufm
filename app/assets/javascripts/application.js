@@ -11,7 +11,6 @@
 //= require jquery.pjax
 //= require jquery.cookie
 //= require jquery.spin
-//= require jquery.swipe
 //= require jquery.scroll
 //= require jquery.dontscrollparent
 //= require jquery.allOn

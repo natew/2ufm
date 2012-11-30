@@ -94,13 +94,9 @@ $(function() {
 
 
   // Mobile
-  $('header')
-    .touchSwipeLeft(function() {
-      $('body').removeClass('swiped-left');
-    })
-    .touchSwipeRight(function() {
-      $('body').addClass('swiped-left');
-    });
+  $('#mobile-nav').click(function() {
+    $('body').toggleClass('swiped-left');
+  })
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');

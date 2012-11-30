@@ -47,6 +47,10 @@
       margin-left: $navbar-width;
       margin-right: -$navbar-width;
     }
+
+    #mobile-nav {
+      left: 125px;
+    }
   }
 
   #search-form {
@@ -55,6 +59,21 @@
     right: auto;
     top: 10px;
     margin: 5px 20px !important;
+  }
+
+  #mobile-nav {
+    display: block;
+    width: 44px;
+    height: 44px;
+    background: rgba(0,0,0,0.8);
+    position: absolute;
+    top: $header-height;
+    left: 80px;
+    color: #fff;
+    font-size: 22px;
+    padding: 12px 0 0 10px;
+    line-height: 1em;
+    @include box-sizing(border-box);
   }
 
   header {
@@ -74,7 +93,7 @@
     }
 
     #player-main {
-      right: 65px;
+      right: 70px;
       left: 90px;
     }
   }
@@ -134,5 +153,22 @@
 
   .genres li {
     width: 50%;
+  }
+
+  #modal {
+    width: auto;
+    top: 0 !important;
+    left: 0;
+    right: 0;
+    bottom: 0 !important;
+    margin: 0;
+    z-index: 1000;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    display: none;
+  }
+
+  #modal.shown {
+    display: block;
   }
 }

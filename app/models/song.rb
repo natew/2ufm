@@ -32,7 +32,7 @@ class Song < ActiveRecord::Base
 
   REMOVE = {
     featured: /.* #{RE[:featured]}/i,
-    remixer: /((\'s.*|20[0-9]{2}|#{RE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official) )+/i,
+    remixer: /((\'s.*|20[0-9]{2}|#{RE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official|unofficial|remix|bootleg) )+/i,
     all: /(([\*\[\(\/\{]| )*((exclusive )?(free |320)?(soundcloud ?|facebook ?)?(out #{RE[:time]}|download ?|d\/?l ?)(free |320)*((on |or |link in )*(description ?|soundcloud ?|facebook ?)|320)*([\*\]\)\/\}]| )*)+)$/i,
     quotes: /^#{RE[:quote_chars]}+|#{RE[:quote_chars]}+$/i
   }

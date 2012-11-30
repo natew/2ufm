@@ -141,6 +141,10 @@ header {
   }
 }
 
+#mobile-nav {
+  display: none;
+}
+
 /* BAR */
 #bar {
   position: absolute;
@@ -221,7 +225,7 @@ header {
 
   /* play button */
   .play {
-    font-size: 46px;
+    font-size: 40px;
     width: 52px;
     height: 50px;
     color: #fff;
@@ -232,7 +236,7 @@ header {
 
   .next {
     margin: 6px 0 0;
-    font-size: 26px;
+    font-size: 24px;
 
     span {
       padding: 20px;
