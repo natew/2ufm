@@ -3,6 +3,7 @@ namespace :schedule do
     ac = ActionController::Base.new
 
     # Expire caches
+    ac.expire_fragment('playlist_trending')
     ac.expire_fragment('playlist_popular')
     ac.expire_fragment('playlist_new')
     ac.expire_fragment('main_index_artists')

@@ -15,7 +15,7 @@ class SongsController < ApplicationController
 
   def popular
     @title = 'Popular'
-    @playlist = { station: Station.popular, songs: Song.playlist_popular, classname: 'open show-count' }
+    @playlist = { station: Station.popular, songs: Song.playlist_popular, classname: 'open show-count', cache: 'playlist_popular' }
 
     respond_to do |format|
       format.html { render 'popular' }
@@ -26,7 +26,7 @@ class SongsController < ApplicationController
 
   def trending
     @title = 'Trending'
-    @playlist = { station: Station.trending, songs: Song.playlist_trending, classname: 'open show-count' }
+    @playlist = { station: Station.trending, songs: Song.playlist_trending, classname: 'open show-count', cache: 'playlist_trending' }
 
     respond_to do |format|
       format.html { render 'trending' }
@@ -37,7 +37,7 @@ class SongsController < ApplicationController
 
   def fresh
     @title = 'Newest'
-    @playlist = { station: Station.newest, songs: Song.playlist_newest }
+    @playlist = { station: Station.newest, songs: Song.playlist_newest, cache: 'playlist_new' }
 
     respond_to do |format|
       format.html { render 'fresh' }

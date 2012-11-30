@@ -3,7 +3,7 @@ class SharesController < ApplicationController
   after_filter :mark_read, :only => [:inbox]
 
   def inbox
-    @playlist = { station: Station.current_user_inbox_station, songs: current_user.received_songs(params[:p]), has_title: true, already_limited: true }
+    @playlist = { station: Station.current_user_inbox_station, songs: current_user.received_songs(params[:p]), has_title: true, already_limited: true, nocache: true }
     @has_songs = true if @playlist[:songs].size > 0
 
     respond_to do |format|
@@ -13,7 +13,7 @@ class SharesController < ApplicationController
   end
 
   def outbox
-    @playlist = { station: Station.current_user_outbox_station, songs: current_user.sent_songs(params[:p]), has_title: true, already_limited: true }
+    @playlist = { station: Station.current_user_outbox_station, songs: current_user.sent_songs(params[:p]), has_title: true, already_limited: true, nocache: true }
     @has_songs = true if @playlist[:songs].size > 0
 
     respond_to do |format|

@@ -17,31 +17,33 @@
   reviews          ||= nil
   cache_val        ||= nil
   id_page            = "#{id}-#{page}"
-  do_cache           = id > 5 and !nocache
-  cache              = cache_key(['v5', id, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style])
-
-  if !single
-    paginate         = (paginate == false || style == 'mini') ? false : true
-    songs          ||= station.songs.playlist_broadcasted
-    total_pages      = page + 1 # trick for non-paginate capable
-
-    if !page_request and !already_limited
-      total_songs = songs.count
-      total_pages = total_songs / per + ((total_songs % per > 0) ? 1 : 0)
-      has_more = page < total_pages
-    else
-      has_more = songs.size >= per
-    end
-
-    if listen_song and !dont_find_listen
-      songs = Song.song_page(songs, listen_song.to_i) unless already_limited
-    else
-      songs = songs.limit_page(page) unless already_limited or page_request
-    end
-  end
+  do_cache           = !nocache
+  paginate           = (paginate == false || style == 'mini') ? false : true
+  songs            ||= station.songs.playlist_broadcasted if !single
+  cache            ||= cache_key(['v5', id, single, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style, dont_paginate]) if do_cache
 -%>
 
-<%- if !single and !page_request and !already_limited and !dont_paginate and total_pages > 1
+<%- cache_if(do_cache, cache) do -%>
+  <%-
+    if !single
+      total_pages = page + 1 # trick for non-paginate capable
+
+      if !page_request and !already_limited
+        total_songs = songs.count
+        total_pages = total_songs / per + ((total_songs % per > 0) ? 1 : 0)
+        has_more = page < total_pages
+      else
+        has_more = songs.size >= per
+      end
+
+      if listen_song and !dont_find_listen
+        songs = Song.song_page(songs, listen_song.to_i) unless already_limited
+      else
+        songs = songs.limit_page(page) unless already_limited or page_request
+      end
+    end
+
+    if !single and !page_request and !already_limited and !dont_paginate and total_pages > 1
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
       path = '' if path == '/'
       between = 4
@@ -50,40 +52,39 @@
       # max += [between - min, 0].max
       more_high = (page + between) < total_pages
   -%>
-  <div class="pagination">
-    <h5>Pages:</h5>
-    <div class="table-wrap">
-      <table>
-        <tr>
-          <% if page != 1 %><td><%= link_to "1", "#{path}/" %></td><% end %>
-          <% if page > between + 2 %><td class="page-sep">...</td><% end %>
-          <% min.upto(page - 1).each do |curpage| -%>
-            <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
+    <div class="pagination">
+      <h5>Pages:</h5>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <% if page != 1 %><td><%= link_to "1", "#{path}/" %></td><% end %>
+            <% if page > between + 2 %><td class="page-sep">...</td><% end %>
+            <% min.upto(page - 1).each do |curpage| -%>
+              <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
+            <% end -%>
+            <td class="page-current"><span><%= page %></span></td>
+            <% if total_pages
+                (page+1).upto(max).each do |curpage| -%>
+                  <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
+            <% end -%>
+            <% if more_high -%>
+              <td class="page-sep">...</td>
+              <td><%= link_to total_pages, "#{path}/p-#{total_pages}" %></td>
+            <% end -%>
           <% end -%>
-          <td class="page-current"><span><%= page %></span></td>
-          <% if total_pages
-              (page+1).upto(max).each do |curpage| -%>
-                <td><%= link_to "#{curpage}", "#{path}/p-#{curpage}" %></td>
-          <% end -%>
-          <% if more_high -%>
-            <td class="page-sep">...</td>
-            <td><%= link_to total_pages, "#{path}/p-#{total_pages}" %></td>
-          <% end -%>
-        <% end -%>
-        </tr>
-      </table>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
-<%- end -%>
+  <%- end -%>
 
-<%- cache_if(do_cache, cache) do -%>
   <div id="playlist-<%= id_page %>" class="playlist playlist-<%= style %> not-loaded <%= classname %> <%= 'has-more' if has_more %> <%= 'has-title' if has_title %>" data-key="<%= cache %>"
     data-page="<%= page %>" data-playlist="{&quot;station&quot;: {&quot;id&quot;:&quot;<%= id_page %>&quot;,&quot;title&quot;:&quot;<%= station.title %>&quot;,&quot;slug&quot;:&quot;<%= station.slug %>&quot;},&quot;songs&quot;: <%= songs.to_a.to_playlist %>}">
     <%= render partial: "songs/#{style}", collection: songs, locals: { station_id: id, page: page, cover: cover, partial: page_request, single: single, reviews: reviews, has_title: has_title } unless songs.nil? %>
   </div>
-<%- end -%>
 
-<%= link_to 'Next Page', '', :class => 'next-page control' if has_more and !dont_paginate %>
+  <%= link_to 'Next Page', '', :class => 'next-page control' if has_more and !dont_paginate %>
+<%- end -%>
 
 <%-
   # update non-cached values
