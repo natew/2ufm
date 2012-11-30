@@ -237,7 +237,6 @@ class Song < ActiveRecord::Base
       where = 'AND stations.artist_id IS NOT NULL'
     end
 
-
     Song.find_by_sql(%Q{
       WITH a as (
           SELECT
@@ -246,7 +245,6 @@ class Song < ActiveRecord::Base
             MAX(broadcasts.created_at) AS maxcreated
           FROM broadcasts
           INNER JOIN follows ff ON ff.station_id = broadcasts.station_id
-          INNER JOIN stations ON stations.id = ff.station_id
           INNER JOIN songs on songs.id = broadcasts.song_id
           WHERE ff.user_id = #{id}
             AND songs.processed = 't'
