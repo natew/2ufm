@@ -11,10 +11,7 @@ class BroadcastsController < ApplicationController
   end
 
   def destroy
-    @broadcast = Broadcast.where(song_id: params[:id], station_id: current_user.station.id).first
-
-    if @broadcast
-      @broadcast.destroy
+    if current_user.station.broadcasts.where(song_id: params[:id]).first.destroy
       @locals = { :action => 'add', :id => params[:id], :counter => :subtract }
 
       respond_to do |format|
