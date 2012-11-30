@@ -98,7 +98,7 @@ class Blog < ActiveRecord::Base
   def save_page(page)
     logger.info "Processing #{page.url} (#{page.code})"
     if page.code == 200
-      find_song_in(page.body) do
+      find_song_in(page.body) do |html|
         title = find_description(html)
         logger.info "Creating post #{title} (#{page.url})"
         Post.create(
@@ -106,7 +106,7 @@ class Blog < ActiveRecord::Base
           blog_id: id,
           title: title,
           author: '',
-          content: page.body,
+          content: html,
           published_at: Date.parse(page.headers['date'][0])
         )
       end
@@ -141,6 +141,7 @@ class Blog < ActiveRecord::Base
     sleep(delay)
     file = open("http://img.bitpixels.com/getthumbnail?code=61978&size=200&url=#{url}")
     self.image = file
+    self.save
   end
 
   def delayed_set_screenshot
@@ -152,7 +153,7 @@ class Blog < ActiveRecord::Base
   def find_description(html)
     title = html.at('title')
     meta  = html.at('meta[type=description]')
-    title ? title.text : (meta ? meta['content'] : nil)
+    title ? (title.respond_to?(:text) ? title.text : title) : (meta ? meta['content'] : nil)
   end
 
   # Search Nokogiri::HTML for an RSS feed
@@ -297,14 +298,14 @@ class Blog < ActiveRecord::Base
       logger.debug "Checking link #{link['href']}"
       if link['href'] =~ /soundcloud\.com\/.*\/|\.mp3(\?(.*))?$/
         logger.info "Found song! #{link['href']}"
-        yield
+        yield html
       end
     end
 
     html.css('iframe').each do |iframe|
       if iframe['src'] =~ /soundcloud\.com.*tracks|youtube.com\/embed/
         logger.info "Found music iframe! #{iframe['src']}"
-        yield
+        yield html
       end
     end
   end

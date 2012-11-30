@@ -418,6 +418,7 @@ $song-player-height: 50px;
     .song-meta-pre {
       line-height: 1.5em;
       float: right;
+      text-align: right;
     }
 
     .song-more {
@@ -447,7 +448,7 @@ $song-player-height: 50px;
   }
 
   time {
-    margin: -2em 0 0;
+    margin: -2em 0 4px 0;
     display: block;
     text-align: right;
   }
@@ -646,6 +647,7 @@ section.active,
       .song-meta-pre {
         display: block;
         float: none;
+        text-align: left;
       }
 
       .song-controls {
@@ -656,9 +658,13 @@ section.active,
         margin-top: -5px;
       }
 
+      .follow-station-wrap {
+        float: left;
+      }
+
       time {
-        display: inline;
-        margin: 0 4px 0 0;
+        float: right;
+        margin: 5px 0 -8px 10px;
       }
     }
 
