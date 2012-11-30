@@ -20,8 +20,11 @@
   do_cache           = !nocache
   paginate           = (paginate == false || style == 'mini') ? false : true
   songs            ||= station.songs.playlist_broadcasted if !single
-  cache            ||= cache_key(['v5', id, single, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style, dont_paginate]) if do_cache
+  cache_prefix     ||= ''
+  cache            ||= cache_key([cache_prefix, 'v6', id, single, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style, dont_paginate]) if do_cache
 -%>
+
+<%= cache %>
 
 <%- cache_if(do_cache, cache) do -%>
   <%-
