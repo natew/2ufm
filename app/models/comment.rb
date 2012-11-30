@@ -1,10 +1,10 @@
 class Comment < ActiveRecord::Base
-  acts_as_nested_set :scope => [:commentable_id, :commentable_type]
+  # acts_as_nested_set :scope => [:commentable_id, :commentable_type]
 
   validates_presence_of :body
   validates_presence_of :user
 
-  acts_as_votable
+  # acts_as_votable
 
   belongs_to :commentable, :polymorphic => true, :counter_cache => true
   belongs_to :user
