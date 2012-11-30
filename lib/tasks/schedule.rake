@@ -7,6 +7,6 @@ namespace :schedule do
   task :five_minutes => :environment do
     # Expire caches
     ac = ActionController::Base.new
-    ac.expire_fragment(/^playlist/)
+    ac.expire_fragment(/playlist_/)
   end
 end
