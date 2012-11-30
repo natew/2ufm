@@ -173,6 +173,16 @@
     overflow-x: scroll;
     overflow-y: scroll;
     display: none;
+
+    .greater, .lesser {
+      width: auto;
+      float: none;
+      margin-bottom: 20px;
+    }
+
+    .stations {
+      max-height: none;
+    }
   }
 
   #modal.shown {
