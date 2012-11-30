@@ -24,8 +24,6 @@
   cache            ||= cache_key([cache_prefix, 'v6', id, single, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style, dont_paginate]) if do_cache
 -%>
 
-<%= cache %>
-
 <%- cache_if(do_cache, cache) do -%>
   <%-
     if !single
