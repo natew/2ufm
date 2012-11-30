@@ -21,7 +21,7 @@ function updatePlaylist() {
 
 function updateCounts() {
   for (var key in updateBroadcastsCounts) {
-    $('#song-' + key).children('.song-meta').find('.song-controls .broadcast a').html(updateBroadcastsCounts[key]);
+    $('#song-' + key).children('.song-meta').find('.broadcast a').html(updateBroadcastsCounts[key]);
   }
 }
 
