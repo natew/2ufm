@@ -493,7 +493,7 @@ class Song < ActiveRecord::Base
 
       # Generate waveform
       if file and waveform_file_name.nil?
-        generate_waveform(file.path)
+        self.waveform = generate_waveform(file.path)
       end
 
       # fix_empty_soundcloud_tags(file.path)
