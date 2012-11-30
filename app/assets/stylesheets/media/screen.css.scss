@@ -155,7 +155,14 @@
     width: 50%;
   }
 
+  body.modal-shown {
+    #body {
+      display: none;
+    }
+  }
+
   #modal {
+    position: absolute;
     width: auto;
     top: 0 !important;
     left: 0;
