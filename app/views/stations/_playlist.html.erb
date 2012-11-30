@@ -21,9 +21,20 @@
   paginate           = (paginate == false || style == 'mini') ? false : true
   songs            ||= station.songs.playlist_broadcasted if !single
   cache_prefix     ||= ''
-  cache            ||= cache_key([cache_prefix, 'v6', id, single, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style, dont_paginate]) if do_cache
 
   if !single
+    total_pages = page + 1 # trick for non-paginate capable
+
+    if !page_request and !already_limited
+      total_songs = songs.count
+      total_pages = total_songs / per + ((total_songs % per > 0) ? 1 : 0)
+      has_more = page < total_pages
+    else
+      has_more = songs.size >= per
+    end
+
+    show_pagination = !single && !page_request && !already_limited && !dont_paginate && total_pages > 1
+
     if listen_song and !dont_find_listen
       songs = Song.song_page(songs, listen_song.to_i) unless already_limited
     else
@@ -32,21 +43,11 @@
   end
 -%>
 
-<%- cache_if(do_cache, cache) do -%>
+<%-
+  cache ||= cache_key([cache_prefix, 'v7', id, single, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style, dont_paginate, show_pagination]) if do_cache
+  cache_if(do_cache, cache) do -%>
   <%-
-    if !single
-      total_pages = page + 1 # trick for non-paginate capable
-
-      if !page_request and !already_limited
-        total_songs = songs.count
-        total_pages = total_songs / per + ((total_songs % per > 0) ? 1 : 0)
-        has_more = page < total_pages
-      else
-        has_more = songs.size >= per
-      end
-    end
-
-    if !single and !page_request and !already_limited and !dont_paginate and total_pages > 1
+    if show_pagination
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
       path = '' if path == '/'
       between = 4
