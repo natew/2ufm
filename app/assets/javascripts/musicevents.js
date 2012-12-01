@@ -76,6 +76,7 @@ w.on({
 
   'mp:play:soundcloud': function mpPlaySoundcloud(event, mp, data) {
     fn.log(mp, data);
+    if (!mp.curSection()) return;
     if (mp.curSection().is('.soundcloud-loaded')) return;
     fn.log(data.permalink_url, data['permalink_url'])
     $('#sc-button-template a')
