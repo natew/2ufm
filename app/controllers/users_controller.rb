@@ -84,11 +84,11 @@ class UsersController < ApplicationController
 
   def navbar
     only = { :only => [:id, :user_id, :full_name, :title, :slug] }
-    max = 20
-    online = current_user.stations.select_for_navbar.user_station.with_user.online.limit(max)
+    max = 40
+    online = current_user.stations.select_for_navbar.user_station.with_user.online.ordered_online.limit(max)
     max -= online.length
     @online = online.to_json(only)
-    @offline = current_user.stations.select_for_navbar.user_station.with_user.not_online.limit(max).to_json(only) if max > 0
+    @offline = current_user.stations.select_for_navbar.user_station.with_user.not_online.order('users.full_name desc').limit(max).to_json(only) if max > 0
     render :layout => false
   end
 

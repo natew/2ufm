@@ -8,6 +8,12 @@ GIT
       httparty (>= 0.7.3)
 
 GIT
+  remote: git://github.com/johnschult/dalli-store-extensions.git
+  revision: cfca8d9f243e3c20f4f1486305dd3064154015b0
+  specs:
+    dalli-store-extensions (0.0.1)
+
+GIT
   remote: git://github.com/natew/discogs.git
   revision: 594b0e7d0ff68e55b0de3c2a76607625cffba79e
   specs:
@@ -377,6 +383,7 @@ DEPENDENCIES
   curb
   daemons
   dalli
+  dalli-store-extensions!
   danthes!
   database_cleaner
   delayed_job_active_record
