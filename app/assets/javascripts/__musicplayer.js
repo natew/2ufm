@@ -39,6 +39,7 @@ var mp = (function() {
       isLive,
       played = [],
       justStarted,
+      justStartedTimeout,
       playCount = parseInt($.cookie('plays') || ($.cookie('plays', 0) && 0), 10),
       curSongLoaded = false,
       soundcloudKey = $('body').attr('data-soundcloud-key'),
@@ -241,11 +242,8 @@ var mp = (function() {
       playTimeout = setTimeout(function() {
         fn.log('Song at index', playlistIndex, 'info', curSongInfo, 'url', url);
 
-        if (playlistIndex) played.push(playlistIndex);
-        justStarted = true;
-        setTimeout(function() {
-          justStarted = false;
-        }, 1000);
+        if (playlistIndex) played.push(curSongInfo);
+        player.resetJustStarted();
 
         // If we have a time set
         if (time > 0) {
@@ -287,6 +285,11 @@ var mp = (function() {
       this.play();
     },
 
+    rewind: function() {
+      this.resetJustStarted();
+      curSong.setPosition(0);
+    },
+
     toggle: function toggle() {
       if (isPlaying) this.pause();
       else this.play();
@@ -325,11 +328,13 @@ var mp = (function() {
     prev: function prev() {
       fn.log('isLive', isLive, 'justStarted', justStarted, 'playmode', playMode, 'index', curSongInfo.index);
       if (isLive) return;
-      if (!justStarted) return this.replay();
+      if (!justStarted) return this.rewind();
 
-      if (playMode == SHUFFLE) {
-        var prev = played.pop();
-        if (prev) return this.playSong(prev);
+      if (playMode == SHUFFLE && played.length > 1) {
+        played.pop();
+        var prevSection = $('#song-' + played.pop().id);
+        fn.log('prev shuffle', prevSection);
+        if (prevSection.length) return this.playSection(prevSection);
       }
 
       var prevSection = curSection.prevAll('section:first');
@@ -364,6 +369,15 @@ var mp = (function() {
         w.trigger('mp:playlist:end', player.state());
         return false;
       }
+    },
+
+    resetJustStarted: function() {
+      fn.log('reset just started');
+      clearTimeout(justStartedTimeout);
+      justStarted = true;
+      // justStartedTimeout = setTimeout(function() {
+      //   justStarted = false;
+      // }, 1000);
     },
 
     refresh: function refresh() {
@@ -806,6 +820,10 @@ var mp = (function() {
 
     plays: function() {
       return playCount;
+    },
+
+    played: function() {
+      return played;
     }
   };
 
