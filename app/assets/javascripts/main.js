@@ -371,6 +371,10 @@ body.allOn('click', {
     modal(false, true);
   },
 
+  '#flag a': function() {
+    notice('Flagged song ' + $(this).html());
+  },
+
   '#head-colors a': function(e, el) {
     e.preventDefault();
     var old = theme.head;
@@ -571,6 +575,14 @@ function updateShareFriends(friends) {
   } else {
     $('#share-friends').hide();
   }
+}
+
+function updateBuy(nav) {
+  var id = nav.data('id');
+  $('#buy a').each(function() {
+    var link = $(this);
+    link.attr('href', link.attr('href').replace(/[0-9]+$/, id));
+  });
 }
 
 // Modal

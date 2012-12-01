@@ -30,8 +30,8 @@ class Station < ActiveRecord::Base
   scope :ordered_online, order('stations.online desc')
 
   # Where
-  scope :online, lambda { where('stations.online >= ?', Time.now - TIME_UNTIL_OFFLINE).ordered_online }
-  scope :not_online, lambda { where('stations.online < ?', Time.now - TIME_UNTIL_OFFLINE).ordered_online }
+  scope :online, lambda { where('stations.online >= ?', Time.now - TIME_UNTIL_OFFLINE) }
+  scope :not_online, lambda { where('stations.online < ?', Time.now - TIME_UNTIL_OFFLINE) }
   scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
 
   # Has

@@ -1,14 +1,14 @@
 # Delete old data
 puts "Deleting old data"
-Blog.destroy_all
-Station.destroy_all
-Broadcast.destroy_all
-User.destroy_all
-Genre.destroy_all
-Artist.destroy_all
-Author.destroy_all
-Song.destroy_all
-Delayed::Job.destroy_all
+# Blog.destroy_all
+# Station.destroy_all
+# Broadcast.destroy_all
+# User.destroy_all
+# Genre.destroy_all
+# Artist.destroy_all
+# Author.destroy_all
+# Song.destroy_all
+# Delayed::Job.destroy_all
 
 # Reset sequences
 puts "Resetting sequences"

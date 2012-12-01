@@ -12,5 +12,5 @@ every 30.minutes do
 end
 
 every 1.day do
-  rake "emails:send:daily_digest"
+  rake "schedule:daily"
 end

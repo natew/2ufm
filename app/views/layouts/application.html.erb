@@ -217,6 +217,19 @@
     <div id="share-friends"></div>
   </div>
 
+  <div id="buy" class="pop-menu">
+    <%= link_to 'iTunes', itunes_affiliate_url(0), class: 'popup control', 'data-dimensions' => '450x450' %>
+    <%= link_to 'Amazon', amazon_affiliate_url(0), class: 'popup control' %>
+  </div>
+
+  <div id="flag" class="pop-menu">
+    <a href="#" class="control flag-dislike">Dislike</a>
+    <a href="#" class="control flag-artist">Wrong Artist</a>
+    <a href="#" class="control flag-title">Nixed Title</a>
+    <a href="#" class="control flag-genre">Incorrect Genre</a>
+    <a href="#" class="control flag-quality">Bad Quality</a>
+  </div>
+
   <div id="logo-menu" class="pop-menu left-align">
     <div id="head-colors" class="colors">
     <% (1..5).each do |color| %>

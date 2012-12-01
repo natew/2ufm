@@ -57,6 +57,7 @@ function navDropdown(nav, pad, hover) {
       // fn.log(nav, pad, 'class=', nav.attr('class'));
       if (hover && !nav.is(':hover')) return false;
       if (nav.is('.song-share')) updateShare(nav);
+      else if (nav.is('.song-buy')) updateBuy(nav);
 
       var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
           padding = pad ? pad : 10,

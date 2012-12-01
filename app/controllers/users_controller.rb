@@ -88,7 +88,7 @@ class UsersController < ApplicationController
     online = current_user.stations.select_for_navbar.user_station.with_user.online.ordered_online.limit(max)
     max -= online.length
     @online = online.to_json(only)
-    @offline = current_user.stations.select_for_navbar.user_station.with_user.not_online.order('users.full_name desc').limit(max).to_json(only) if max > 0
+    @offline = current_user.stations.select_for_navbar.user_station.with_user.not_online.order('users.full_name asc').limit(max).to_json(only) if max > 0
     render :layout => false
   end
 

@@ -9,4 +9,9 @@ namespace :schedule do
     ac = ActionController::Base.new
     ac.expire_fragment(/playlist_/)
   end
+
+  task :daily => :environment do
+    # Rake::Task["emails:send:daily_digest"].execute
+    Rails.cache.clear
+  end
 end
