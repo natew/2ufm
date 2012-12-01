@@ -68,7 +68,8 @@ class MainsController < ApplicationController
 
     if options[:items].length > 0
       result = options[:items].to_json(options[:json])
-        .gsub(/station_slug\":\"/,"url\":\"")
+        .gsub(/station_slug\":\"/, 'url":"')
+        .gsub(/slug\":\"/, 'url":"songs/')
         .gsub(/full_name|title/,'name')
         .insert(1, header)
       result[1,result.length-2] + ','
