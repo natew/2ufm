@@ -1,12 +1,13 @@
 $.fn.allOn = function(onEvent, bindings) {
+  var parent = this;
+
   for (var target in bindings) {
     bindClick(target);
   }
 
-  function bindClick(t) {
-    fn.log('bingin', t)
-    $(this).on(onEvent, t, function(e) {
-      bindings[t].call(this, e, $(this));
+  function bindClick(target) {
+    $(parent).on(onEvent, target, function(e) {
+      bindings[target].call(this, e, $(this));
     });
   }
 }
