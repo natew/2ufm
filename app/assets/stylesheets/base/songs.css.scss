@@ -539,10 +539,11 @@ $song-player-height: 50px;
     display: none;
     clear: both;
     position: relative;
-    height: 80px;
-    margin: 0 0 -20px 0;
+    height: 50px;
+    margin: 0 0 -10px 0;
     width: 100%;
     z-index: 9;
+    opacity: 0.5;
   }
 }
 

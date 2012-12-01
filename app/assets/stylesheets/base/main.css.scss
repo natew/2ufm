@@ -915,18 +915,19 @@ $placeholder-color: #999;
 
   #query {
     border: none;
-    padding: 6px 4px 6px 32px;
+    padding: 6px 4px 6px 34px;
     width: 100%;
     margin: 0;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.35);
+    border-radius: 5px;
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
     &.focused {
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.9);
     }
 
     &:hover { color: #fff; }
@@ -940,9 +941,9 @@ $placeholder-color: #999;
     cursor: text;
     position: absolute;
     left: 10px;
-    top: 5px;
+    top: 4px;
     font-size: 18px;
-    color: #aaa;
+    color: #eee;
     text-shadow: none;
     padding: 0;
     box-shadow: none;

@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
 
+  # unless ActionController::Base.consider_all_requests_local
+    rescue_from Exception, :with => :render_error
+    rescue_from ActiveRecord::RecordNotFound, :with => :render_not_found
+    rescue_from ActionController::RoutingError, :with => :render_not_found
+    rescue_from ActionController::UnknownController, :with => :render_not_found
+    rescue_from ActionController::UnknownAction, :with => :render_not_found
+  # end
+
   def sign_in_and_redirect(resource_or_scope, *args)
     options  = args.extract_options!
     scope    = Devise::Mapping.find_scope!(resource_or_scope)
@@ -13,7 +21,18 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    raise ActionController::RoutingError.new('Not Found')
+    render_not_found(nil)
+    @not_found = true
+  end
+
+  def render_not_found(exception)
+    logger.error exception
+    render 'errors/404', status: 404 unless @not_found
+  end
+
+  def render_error(exception)
+    logger.error exception
+    render 'errors/500', status: 500 unless @not_found
   end
 
   def is_admin?

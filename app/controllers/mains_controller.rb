@@ -26,18 +26,32 @@ class MainsController < ApplicationController
     @title = 'Contact Us'
   end
 
+  def loading
+    render :text => '<div id="loading"><h2>Loading</h2></div>'
+  end
+
+  def mac
+    send_file File.join(Rails.root,'public','apps','2u.zip')
+  end
+
   def search
     query = params[:q]
 
     songs = search_ready(
       title: 'Songs',
-      items: Song.fuzzy_search_by_name(query).matching_id.limit(5) | Song.fuzzy_search_by_artist_name(query).matching_id.limit(5),
+      items: Song.fuzzy_search_by_name_or_artist_name(query).matching_id.limit(4),
       json: { only: ['full_name', 'slug'], methods: 'full_name' }
+    )
+
+    users = search_ready(
+      title: 'Users',
+      items: User.fuzzy_search_by_full_name_or_station_slug(query).limit(3),
+      json: { only: ['full_name', 'station_slug'] }
     )
 
     artists = search_ready(
       title: 'Artists',
-      items: Artist.fuzzy_search_by_name(query).limit(4),
+      items: Artist.fuzzy_search_by_name(query).limit(3),
       json: { only: ['name', 'station_slug'] }
     )
 
@@ -47,17 +61,9 @@ class MainsController < ApplicationController
       json: { :only => ['name', 'station_slug'] }
     )
 
-    result = "[#{artists}#{blogs}#{songs[0..-2]}]"
+    result = "[#{artists}#{blogs}#{users}#{songs[0..-2]}]"
 
     render :text => result
-  end
-
-  def loading
-    render :text => '<div id="loading"><h2>Loading</h2></div>'
-  end
-
-  def mac
-    send_file File.join(Rails.root,'public','apps','2u.zip')
   end
 
   private
@@ -72,9 +78,10 @@ class MainsController < ApplicationController
         .gsub(/slug\":\"/, 'url":"songs/')
         .gsub(/full_name|title/,'name')
         .insert(1, header)
-      result[1,result.length-2] + ','
+      result[1,result.length - 2] + ','
     else
-      result = "#{header}{\"name\":\"No Results\",\"selectable\":\"false\"},"
+      # result = "#{header}{\"name\":\"No Results\",\"selectable\":\"false\"},"
+      result = ""
     end
   end
 end
