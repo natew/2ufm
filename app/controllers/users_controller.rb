@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    load_user if @user.nil?
     @user = User.joins(:station).where('stations.slug = ?', params[:id]).first || not_found
     @station = Station.find_by_slug(params[:id]) || not_found
     @playlist = { station: @station, songs: @station.songs.playlist_broadcasted.user_broadcasted }
@@ -46,6 +47,7 @@ class UsersController < ApplicationController
   end
 
   def feed
+    load_user if @user.nil?
     @feed = true
     @playlist = { station: @user.feed_station(params[:type]), already_limited: true, has_title: true, nocache: true }
 
