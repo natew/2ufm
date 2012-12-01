@@ -26,7 +26,7 @@ class SongsController < ApplicationController
 
   def trending
     @title = 'Trending'
-    @playlist = { station: Station.trending, songs: Song.playlist_trending, classname: 'open show-count', cache_prefix: 'playlist_trending' }
+    @playlist = { station: Station.trending, songs: Song.playlist_trending, classname: 'show-count', cache_prefix: 'playlist_trending' }
 
     respond_to do |format|
       format.html { render 'trending' }
