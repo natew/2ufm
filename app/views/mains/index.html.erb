@@ -2,6 +2,7 @@
     <% cache('main_index') do %>
       <h3>Recommended <%= link_to 'Artists', artists_path %></h3>
       <%= render partial: 'stations/featured_shelf', locals: { items: @artists  } %>
+    <% end %>
 
     <%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } %>
 
