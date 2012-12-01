@@ -27,7 +27,7 @@
 /* iPhone [portrait + landscape] */
 @media screen and (max-width: 680px) {
   body { min-width: 365px; }
-  #welcome h1 { font-size: 18px; }
+  #welcome { display:none; }
 
   #breadcrumbs { display:none; }
   #search-form { left: $navbar-width + 280 ; }

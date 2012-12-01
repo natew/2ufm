@@ -8,6 +8,7 @@ namespace :schedule do
     # Expire caches
     ac = ActionController::Base.new
     ac.expire_fragment(/playlist_/)
+    ac.expire_fragment('main_index')
   end
 
   task :daily => :environment do
