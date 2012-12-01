@@ -403,7 +403,15 @@ body.allOn('click', {
     fn.log(e, el);
 
     try {
-      _gaq.push(['_trackEvent', '#' + el.attr('id') + ' ' + el.attr('class'), 'Click', el.text()]);
+      var id = el.attr('id'),
+          classname = el.attr('class'),
+          href = 'href=' + el.attr('href'),
+          tagid = id ? ('#' + id + ' ') : '',
+          tagclass = classname ? ('.' + classname.split(' ').join('. ')) : '',
+          identifiers = tagid + tagclass,
+          tag = href + ( identifiers ? ' || ' + identifiers : '' );
+      fn.log('tracking', tag);
+      _gaq.push(['_trackEvent', tag, 'Click', el.text()]);
     }
     catch (err) {
       fn.log(err);
