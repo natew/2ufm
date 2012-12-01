@@ -318,14 +318,13 @@
   <div id="null"></div>
   <div id="tunein"></div>
 
-  <% if false %>
+  <% unless user_signed_in? %>
     <div id="welcome">
       <h3>What is 2u.fm?</h3>
       <section>
-        <h1>Up to the minute new music from the top music blogs.</h1>
-        <h1>Your music profile with sharing, a feed, and social features.</h1>
-        <h1>Follow artists to get their new music &amp; share songs with one click.</h1>
-        <h1>Remixes, mashups, covers, bootlegs, demos, singles, promos...</h1>
+        <h1>Up to the minute new music from the top music sites.</h1>
+        <h1>Your music profile, your daily new music feed.</h1>
+        <h1>Keep up with new releases from your favorite artists.</h1>
       </section>
       <%= link_to 'D', '', :class => 'control icon', :id => 'close-welcome' %>
     </div>

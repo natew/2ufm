@@ -921,7 +921,7 @@ $placeholder-color: #999;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.3);
     border-radius: 5px;
     @include box-sizing(border-box);
     @include transition(all .1s linear);

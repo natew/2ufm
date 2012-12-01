@@ -7,7 +7,7 @@
     <%= render partial: 'stations/follows_js', locals: { ids: @artists.map(&:id) } if user_signed_in? %>
 
     <div class="message">
-      <strong>Welcome!</strong>&nbsp;  2u.fm is a new way to discover music from all over the web. <%= link_to 'Learn more', about_main_path %>
+      Discover, enjoy and share new music found across the web. <strong><%= link_to 'Learn more', about_main_path %></strong>
     </div>
 
     <div class="threefourths-wrap">
