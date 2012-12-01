@@ -189,7 +189,6 @@
 
   <div id="nav-user" class="pop-menu right-align">
     <%- if user_signed_in? -%>
-    <h4><%= current_user.username %></h4>
     <%= link_to 'Feed', feed_user_path(current_user), class: 'icon-list' %>
     <%= link_to 'Following', following_user_path(current_user), class: 'icon-add' %>
     <%= link_to "Inbox #{render(partial:'shared/notifications')}".html_safe, '/shares/inbox', class: 'icon-inbox', 'data-shares' => current_user.received_songs_notifications %>
