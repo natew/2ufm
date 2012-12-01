@@ -297,15 +297,14 @@ var mp = (function() {
 
       clearTimeout(playTimeout);
       if (playMode == SHUFFLE) {
-        this.shuffleNext();
-        return;
+        return this.shuffleNext();
       }
 
       // Next section, or next song, or next playlist
       var nextSection = curSection && curSection.nextAll('section:first');
       if (nextSection && nextSection.length)
         return this.playSection(nextSection);
-      else if ((curSongInfo.index + 1) < maxIndex)
+      else if (curSongInfo.index + 1 < maxIndex)
         this.playSong(curSongInfo.index + 1);
       else
         return this.toPlaylist('next');
@@ -548,7 +547,7 @@ var mp = (function() {
       pl.loaded.css('width','100%');
 
       if (success) {
-        curPlayingPage = parseInt(curSection.parents('.playlist').data('page'), 10);
+        curPlayingPage = curSection ? parseInt(curSection.parents('.playlist').data('page'), 10) : curPlayingPage;
         playCount++;
 
         w.trigger('mp:played', player.state());

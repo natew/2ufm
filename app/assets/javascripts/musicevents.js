@@ -28,7 +28,7 @@ w.on({
     // Update url
     // fn.replaceState(listen);
 
-    mp.curSection().attr('data-listen', listen);
+    if (mp.curSection()) mp.curSection().attr('data-listen', listen);
 
     // Update share links
     $('#player-share').data('link', listenUrl);
@@ -41,6 +41,7 @@ w.on({
         w = $(window),
         song_url = $('#song-' + song.id + ' .name a').attr('href');
 
+    fn.log('mp:played', song, playlistItem);
     $('#player').removeClass('loading');
 
     // Update playlist
@@ -51,7 +52,9 @@ w.on({
     updateBroadcastButton(mp.playlist().station.id, song.id);
 
     // Update song name link
-    $('#player-song-name a').attr('href', mp.curPlaylistUrl()).html(song.name);
+    $('#player-song-name a')
+      .html(song.name)
+      .attr('href', mp.curPlaylistUrl());
 
     // Update page url
     fn.replaceState(mp.playingPage());
