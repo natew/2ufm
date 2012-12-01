@@ -123,8 +123,10 @@ module ApplicationHelper
   end
 
   def tagged_song_name(name)
+    not_quote = /[^\)\]\}\(\{\[]*/
     name
-      .gsub(/ (featuring|ft\.?|feat\.?|f\.|w\.|f\/|w\/) [^\)\]\}\(\{\[]*/i, '')
+      .gsub(/ (featuring|ft\.?|feat\.?|f\.|w\.|f\/|w\/) #{not_quote}/i, '')
+      .gsub(/ (produced by|prod\.? by |prod\.? w\.?\/? |prod\. ) #{not_quote}/i, '')
       .gsub(/([\(\[]([^\(\)\[\]]+)[\)\]])/i,'<em>\1</em>').html_safe
   end
 

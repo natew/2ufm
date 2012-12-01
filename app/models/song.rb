@@ -242,6 +242,7 @@ class Song < ActiveRecord::Base
     Song.find_by_sql(%Q{
       WITH a as (
           SELECT
+            DISTINCT ON (maxcreated, broadcasts.song_id)
             broadcasts.song_id,
             broadcasts.station_id,
             MAX(broadcasts.created_at) AS maxcreated
