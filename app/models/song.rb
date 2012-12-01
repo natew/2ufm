@@ -17,7 +17,7 @@ class Song < ActiveRecord::Base
     featured: /(featuring |ft\.? |feat\.? |f\. |w\.|f\/ |w\/ )/i,
     remixer: /((re)?[ -]?(make|work|edit|fix|mix)|rmx|boot-?leg)$/i,
     mashup_split: / \+ | x | vs\.? /i,
-    producer: / (produced by|prod\.? by |prod\.? w\.?\/? |prod\. )/i,
+    producer: / (produced by|produced w\/|prod\.? by |prod\.? w\.?\/? |prod\. )/i,
     cover: / cover/i,
     split: /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
     open: /[\(\[\{]/,

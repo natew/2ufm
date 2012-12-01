@@ -26,7 +26,6 @@ $station-image-small: $play-button-small;
     padding: $station-pad;
     position: relative;
     border-top: 1px solid rgba(255,255,255,0.05);
-    @include transition(all .1s linear);
 
     &:hover {
       background: rgba(0,0,0,0.1);
@@ -145,7 +144,6 @@ $station-image-small: $play-button-small;
     float: left;
     margin: 0 15px 15px 0;
     position: relative;
-    @include transition(all ease-in .3s);
 
     &:hover {
       p, .station-buttons { opacity: 1; }
@@ -169,7 +167,6 @@ $station-image-small: $play-button-small;
     text-overflow: ellipsis;
     @include dim(70);
     @include box-sizing(border-box);
-    @include transition(all ease-in .1s);
   }
 
   p {
@@ -197,7 +194,6 @@ $station-image-small: $play-button-small;
     bottom: 0;
     padding: 35% 12% 0;
     background: rgba(0,0,0,0.5);
-    @include transition(all .3s linear);
 
     a {
       position: relative;
@@ -238,7 +234,6 @@ $station-image-small: $play-button-small;
 
 .shelf li,
 .promo a {
-  @include transition(all .1s linear);
 
   &:hover {
     @include box-shadow(0 0 16px rgba(0,0,0,0.8));
@@ -259,7 +254,6 @@ $station-image-small: $play-button-small;
 
   li {
     margin: 0 8px 20px 0;
-    @include transition(all .3s linear);
 
     strong {
       line-height: 1.2em;
