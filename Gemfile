@@ -16,7 +16,7 @@ gem 'aws-sdk'
 gem 'jquery-rails'
 
 # Caching
-gem 'dalli'
+gem 'dalli', '~> 2.5.0'
 gem 'dalli-store-extensions', github: 'johnschult/dalli-store-extensions'
 
 # Users
@@ -83,7 +83,7 @@ group :assets do
 end
 
 group :production do
-  # gem 'newrelic_rpm'
+  gem 'newrelic_rpm'
 end
 
 group :development do

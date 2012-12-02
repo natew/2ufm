@@ -131,7 +131,7 @@ GEM
     cookiejar (0.3.0)
     curb (0.7.18)
     daemons (1.1.9)
-    dalli (2.2.1)
+    dalli (2.5.0)
     database_cleaner (0.8.0)
     delayed_job (3.0.3)
       activesupport (~> 3.0)
@@ -228,6 +228,7 @@ GEM
       jruby-pageant (>= 1.1.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    newrelic_rpm (3.5.2.17)
     nokogiri (1.5.5)
     oauth (0.4.7)
     oauth2 (0.8.0)
@@ -381,7 +382,7 @@ DEPENDENCIES
   cocaine (= 0.3.2)
   curb
   daemons
-  dalli
+  dalli (~> 2.5.0)
   dalli-store-extensions!
   danthes!
   database_cleaner
@@ -399,6 +400,7 @@ DEPENDENCIES
   loofah-activerecord
   mails_viewer
   mongo_mapper
+  newrelic_rpm
   nokogiri
   oily_png
   omniauth-facebook
