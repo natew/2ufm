@@ -450,6 +450,10 @@ header {
     float: left;
 
     &.remove {
+      a:before {
+        content: "D";
+      }
+
       .add {display: none;}
     }
   }
