@@ -95,7 +95,7 @@ $(function() {
 
   // Mobile
   $('#mobile-nav').click(function() {
-    $('body').toggleClass('swiped-left');
+    $('body').toggleClass('show-nav');
   })
 });
 

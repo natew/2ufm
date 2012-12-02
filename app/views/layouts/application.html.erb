@@ -62,22 +62,6 @@
             <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next icon control', :id => 'player-next', :title => 'Next song' %>
           </div>
 
-          <div id="player-buttons">
-            <span class="broadcast">
-              <%= render partial: "songs/broadcast", locals: { action: 'add', id: '0', count: 'Like', extra_class: 'disabled'  } %>
-              <%= render partial: "songs/broadcast", locals: { action: 'destroy', id: '0', count: 'Unlike'  } %>
-            </span>
-            <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control icon-link disabled update-clipboard', 'data-pad' => '5'  %>
-            <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control icon-list disabled', :id => 'nav-music', 'data-pad' => '5' %>
-            <%# link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control icon-globe tip-e', 'data-pad' => '18' %>
-            <% if user_signed_in? %>
-              <%= link_to "Me #{image_tag(current_user.avatar.url(:small))}".html_safe, station_path(current_user), class: 'nav-hover icon-user restricted', 'data-pad' => '5', 'data-target' => '#nav-user' %>
-            <% else %>
-              <%= link_to "Me", '', class: 'nav-hover icon-user control restricted', 'data-pad' => '5', 'data-target' => '#nav-user' %>
-            <% end %>
-            <%= render partial: 'shared/notifications' %>
-          </div>
-
           <div id="player-main">
 
             <div id="player-meta">
@@ -106,6 +90,22 @@
         <!-- /player-main -->
       </div>
       <!-- /player -->
+
+      <div id="player-buttons">
+        <span class="broadcast">
+          <%= render partial: "songs/broadcast", locals: { action: 'add', id: '0', count: 'Like', extra_class: 'disabled'  } %>
+          <%= render partial: "songs/broadcast", locals: { action: 'destroy', id: '0', count: 'Unlike'  } %>
+        </span>
+        <%= link_to 'Share', '#share', :id => 'player-share', :class => 'nav-hover control icon-link disabled update-clipboard', 'data-pad' => '5'  %>
+        <%= link_to 'Playlist', '#player-playlist', :class => 'nav-hover control icon-music disabled', :id => 'nav-music', 'data-pad' => '5' %>
+        <%# link_to 'Off', '#friends', id: 'tune-in', class: 'nav-hover hover-off control icon-globe tip-e', 'data-pad' => '18' %>
+        <% if user_signed_in? %>
+          <%= link_to "Me #{image_tag(current_user.avatar.url(:small))}".html_safe, station_path(current_user), class: 'nav-hover icon-user restricted', 'data-pad' => '5', 'data-target' => '#nav-user' %>
+        <% else %>
+          <%= link_to "Me", '', class: 'nav-hover icon-user control restricted', 'data-pad' => '5', 'data-target' => '#nav-user' %>
+        <% end %>
+        <%= render partial: 'shared/notifications' %>
+      </div>
 
       <a id="mobile-nav" class="icon control" href="/">l</a>
     </header>

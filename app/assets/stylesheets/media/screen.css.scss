@@ -26,31 +26,64 @@
 
 /* iPhone [portrait + landscape] */
 @media screen and (max-width: 680px) {
-  body { min-width: 365px; }
+  body, header { min-width: 365px; }
   #welcome { display:none; }
-
   #breadcrumbs { display:none; }
   #search-form { left: $navbar-width + 280 ; }
+  #body { margin-left: 0; }
 
-  body.swiped-left {
-    header {
-      margin-left: 0;
-      margin-right: -80px;
-    }
-
-    #navbar,
-    #search-form {
-      margin-left: 0;
-    }
-
+  body.show-nav {
     #body {
-      margin-left: $navbar-width;
-      margin-right: -$navbar-width;
+      display: none;
     }
 
-    #mobile-nav {
-      left: 125px;
+    #navbar {
+      position: fixed;
+      display: block;
+      top: $header-height;
+      left: 0;
+      right: 0;
+      bottom: 100px;
+      width: auto;
+      overflow-y: scroll;
     }
+  }
+
+  #navbar {
+    display: none;
+
+    #navbar-menus {
+      height: auto !important;
+    }
+
+    #navbar-menus-inner {
+      padding: 0;
+    }
+
+    #nav-home {display:none;}
+
+    a {
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      font-size: 18px !important;
+    }
+
+    #navbar-friends {
+      width: auto;
+    }
+
+    .scroll-section,
+    .scroll-section-inner {
+      height: auto !important;
+    }
+  }
+
+  #player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left:10px;
   }
 
   #search-form {
@@ -63,39 +96,81 @@
 
   #mobile-nav {
     display: block;
-    width: 44px;
-    height: 44px;
-    background: rgba(0,0,0,0.8);
+    width: 64px;
+    height: 64px;
     position: absolute;
-    top: $header-height;
-    left: 80px;
+    top: 3px;
+    left: 88px;
     color: #fff;
-    font-size: 22px;
+    font-size: 32px;
     padding: 12px 0 0 10px;
     line-height: 1em;
     @include box-sizing(border-box);
   }
 
-  header {
-    margin-left: -80px;
-    min-width: 385px;
-    @include transition(all linear .1s);
+  #player-main {
+    right: 20px;
+    left: 110px;
+  }
 
-    #tune-in,
-    #nav-music,
-    #player-share,
-    .broadcast {
-      display: none !important;
+  #player-meta {
+    padding: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 40px;
+
+    span {
+      text-align: left;
     }
 
-    #player-buttons {
-      width: 54px;
+    &:before, &:after {
+      display: none;
+    }
+  }
+
+  #player-progress-bar {
+    position: fixed;
+    top: auto;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #333;
+
+    #player-progress-position,
+    #player-progres-loaded {
+      height: 40px;
     }
 
-    #player-main {
-      right: 70px;
-      left: 90px;
+    #player-progress-position {
+      background: #000;
     }
+  }
+
+  #player-mini-controls {
+    top: -24px;
+    left: auto;
+    right: 5px;
+    z-index: 1000;
+
+    a {
+      width: 38px;
+      padding-top: 46px;
+      &:before { font-size: 34px; margin-top:4px; }
+    }
+  }
+
+  #player-timer {
+    display: none;
+  }
+
+  #player-song-name {
+    margin: 3px 0 4px 0;
+    a {font-size: 16px;}
+  }
+
+  #player-artist-name {
+    margin: 0 0 0 -4px;
   }
 
   .twothirds, .threefourths {
@@ -139,17 +214,6 @@
   }
 
   .fourth { padding-left: 0; }
-
-  #navbar,
-  #search-form {
-    @include transition(all linear .1s);
-    margin-left: -$navbar-width;
-  }
-
-  #body {
-    @include transition(all linear .1s);
-    margin-left: 0;
-  }
 
   .genres li {
     width: 50%;

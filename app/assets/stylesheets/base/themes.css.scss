@@ -30,7 +30,7 @@
     &:hover { background: $body-bg !important; }}
 
   .theme-head-#{$i} {
-    header { background: $header-bg; }
+    header, #player { background: $header-bg; }
     #player-meta:before { @include linear-gradient(left, $header-bg, rgba($header-bg,0)); }
     #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
     #welcome { background: darken($header-bg, 25%); }
