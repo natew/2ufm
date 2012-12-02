@@ -14,6 +14,10 @@
     <meta property="og:title" content="<%= @listen_song.full_name %>" />
     <meta property="og:description" content="Listen now on 2u.fm" />
     <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
+  <%- else -%>
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:description" content="Listen to new music on 2u.fm" />
+    <meta property="og:image" content="/images/2ufm-standalone.png" />
   <%- end -%>
 
   <title><%= title %></title>
