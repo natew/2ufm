@@ -829,3 +829,14 @@ function scrollToPlayingSong(section) {
     }
   }, 200);
 }
+
+// Catch errors
+window.onerror = function(msg, url, line) {
+  var error = [url, line, msg ].join(newline);
+  fn.log('JS error', error);
+
+  if (isProduction) {
+    _gaq.push(['_trackEvent', 'Error', 'Javascript', error ]);
+    return true;
+  }
+}

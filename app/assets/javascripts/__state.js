@@ -1,6 +1,7 @@
 // Variables
 var w = $(window),
     body = $('body'),
+    isProduction = body.is('.production'),
     isOnline = body.is('.signed_in'),
     isNewUser = body.is('.new_user'),
     isAdmin = $('body[data-role="admin"]').length > 0,
@@ -32,4 +33,5 @@ var w = $(window),
     theme = {
       body: $.cookie('theme-body') || 'theme-body-1',
       head: $.cookie('theme-head') || 'theme-head-1'
-    };
+    },
+    newline = "\n";
