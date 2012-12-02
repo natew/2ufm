@@ -4,9 +4,9 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find_by_slug(params[:id])
+    @tag = Tag.find_by_slug(params[:id]) || not_found
     @tag_station = Station.new(title: "#{@tag.name} Station", id: integers_from_string(@tag.name + ' tag-station'))
-    @tag_songs = Song.by_tag(@tag).playlist_shuffle
+    @tag_songs = Song.by_tag(@tag).playlist_rank
     @playlist = { station: @tag_station, songs: @tag_songs }
     @primary = @tag
 
