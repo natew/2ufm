@@ -17,7 +17,7 @@ gem 'jquery-rails'
 
 # Caching
 gem 'dalli', '~> 2.5.0'
-gem 'dalli-store-extensions', github: 'johnschult/dalli-store-extensions'
+# gem 'dalli-store-extensions', github: 'johnschult/dalli-store-extensions'
 
 # Users
 gem 'devise'

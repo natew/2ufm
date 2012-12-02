@@ -26,7 +26,7 @@ class SongsController < ApplicationController
 
   def trending
     @title = 'Trending'
-    @playlist = { station: Station.trending, songs: Song.playlist_trending, classname: 'show-count', cache_prefix: 'playlist_trending' }
+    @playlist = { station: Station.trending, songs: Song.playlist_trending, classname: 'show-count', cache_prefix: 'playlist_trending', nocache: true }
 
     respond_to do |format|
       format.html { render 'trending' }
@@ -37,7 +37,7 @@ class SongsController < ApplicationController
 
   def fresh
     @title = 'Newest'
-    @playlist = { station: Station.newest, songs: Song.playlist_newest, cache_prefix: 'playlist_new' }
+    @playlist = { station: Station.newest, songs: Song.playlist_newest, cache_prefix: 'playlist_new', nocache: true }
 
     respond_to do |format|
       format.html { render 'fresh' }

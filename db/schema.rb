@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201061033) do
+ActiveRecord::Schema.define(:version => 20121202041852) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20121201061033) do
     t.integer  "user_id"
   end
 
+  add_index "listens", ["url"], :name => "index_listens_on_url"
   add_index "listens", ["user_id", "song_id"], :name => "index_listens_on_user_id_and_song_id"
 
   create_table "posts", :force => true do |t|

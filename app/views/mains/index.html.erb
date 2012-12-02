@@ -11,10 +11,12 @@
     </div>
 
     <div class="threefourths-wrap">
+      <% cache('main_index_songs') do %>
       <div class="threefourths">
         <h3>Today's most played songs</h3>
         <%= render partial: 'stations/playlist', locals: @playlist %>
       </div>
+      <% end %>
     </div>
 
     <div class="fourth">
