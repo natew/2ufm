@@ -20,10 +20,10 @@
     </div>
 
     <div class="fourth">
-      <h3>Popular <%= link_to 'Tags', tags_path %></h3>
-      <%= render partial: 'tags/list', locals: { limit: 15 } %>
-
       <h3>Play Genres</h3>
       <%= render 'genres/list' %>
+
+      <h3>Popular <%= link_to 'Tags', tags_path %></h3>
+      <%= render partial: 'tags/list', locals: { limit: 35 } %>
     </div>
   </div>
