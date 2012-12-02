@@ -1,7 +1,6 @@
 .tags {
   margin: -5px 0 20px 0;
   padding: 0;
-  font-size: .9em;
 
   li {
     list-style: none;
@@ -12,14 +11,14 @@
     text-decoration: none;
     padding: 2px 4px;
     margin: 0 2px 2px 0;
-    background: rgba(255,255,255,0.05);
+    white-space: nowrap;
   }
 }
 
-.rank-10 { font-size: 2em;  line-height:1.9em; }
-.rank-9 { font-size: 1.9em; line-height:1.8em; }
-.rank-8 { font-size: 1.8em; line-height:1.7em; }
-.rank-7 { font-size: 1.7em; line-height:1.6em; }
+.rank-10 { font-size: 2em;  line-height:1.6em; }
+.rank-9 { font-size: 1.9em; line-height:1.6em; }
+.rank-8 { font-size: 1.8em; line-height:1.6em; }
+.rank-7 { font-size: 1.7em; line-height:1.5em; }
 .rank-6 { font-size: 1.6em; line-height:1.5em; }
 .rank-5 { font-size: 1.5em; line-height:1.4em; }
 .rank-4 { font-size: 1.4em; line-height:1.3em; }
@@ -30,12 +29,16 @@
 
 
 .controller-tags .tags {
-  font-size: 2em;
+  font-size: 1.8em;
   line-height: 2em;
 }
 
 .controller-mains .tags{
+  font-size: .8em;
+
   a {
+    padding: 0 4px;
+    display: block;
     line-height: 2em;
   }
 }

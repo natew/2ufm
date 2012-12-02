@@ -1,9 +1,10 @@
 <%-
   limit ||= 30
-  tags    = Tag.common.limit(limit)
+  tags  ||= Tag.common.limit(limit)
   big     = Integer(tags.first.num)
   small   = Integer(tags.last.num)
-  tags    = tags.to_a.shuffle!
+  dont_shuffle ||= false
+  tags    = tags.to_a.shuffle! unless dont_shuffle
 -%>
 
 <% cache ["tags_list_#{limit}"] do %>
