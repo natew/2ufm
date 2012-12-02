@@ -16,6 +16,17 @@
   }
 }
 
+@media only screen and (max-width: 480px) {
+  .playlist {
+    section {
+      .song-count { display: none !important; }
+      .song-art { display: none; }
+      h3,
+      .song-meta { margin-left: 0; }
+    }
+  }
+}
+
 /* iPhone [portrait + landscape] */
 @media only screen and (max-width: 768px) {
   body, header { min-width: 365px; }
@@ -178,13 +189,6 @@
   }
 
   .playlist {
-    section {
-      .song-count { display: none !important; }
-      .song-art { display: none; }
-      h3,
-      .song-meta { margin-left: 0; }
-    }
-
     .song-meta {
       .song-meta-pre {
         display: block;
