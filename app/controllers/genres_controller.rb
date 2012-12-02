@@ -6,18 +6,21 @@ class GenresController < ApplicationController
   end
 
   def show
+    find_genre if @genre.nil?
     create_genre_station('shuffle')
     @genre_songs = Song.by_genre(@genre).playlist_shuffle
     render_genre_show
   end
 
   def trending
+    find_genre if @genre.nil?
     create_genre_station('trending')
     @genre_songs = Song.by_genre(@genre).playlist_trending
     render_genre_show
   end
 
   def latest
+    find_genre if @genre.nil?
     create_genre_station('latest')
     @genre_songs = Song.by_genre(@genre).playlist_newest
     render_genre_show
