@@ -55,43 +55,7 @@
     <header>
       <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '1', 'data-delay' => '300' %></h1>
 
-      <div id="bar">
-        <div id="player">
-          <div id="player-controls" class="player-buttons">
-            <%= link_to '<span>4</span>'.html_safe, '#', :class => 'play icon control', :id => 'player-play', :title => 'Play/pause' %>
-            <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next icon control', :id => 'player-next', :title => 'Next song' %>
-          </div>
-
-          <div id="player-main">
-
-            <div id="player-meta">
-              <span id="player-song-name"><a title="Return to song" class="tip-n" href="">&nbsp;</a></span>
-              <span id="player-artist-name">&nbsp;</span>
-            </div>
-
-            <div id="player-bottom">
-              <div id="player-mini-controls">
-                <%= link_to 'Sound', '#', :class => 'volume control icon-volume-on tip', :id => 'player-volume', title: 'Volume' %>
-                <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control icon-normal post tip', title: 'Toggle shuffle/repeat' %>
-              </div>
-              <div id="player-progress-bar">
-                <div id="player-progress-grabber"></div>
-                <div id="player-progress-inner-wrap">
-                  <div id="player-progress-position"></div>
-                  <div id="player-progress-loaded"></div>
-                </div>
-              </div>
-              <div id="player-timer">0:00</div>
-            </div>
-            <!-- /player bottom -->
-          </div>
-          <!-- /player-meta -->
-        </div>
-        <!-- /player-main -->
-      </div>
-      <!-- /player -->
-
-      <div id="player-buttons">
+      <div id="buttons">
         <span class="broadcast">
           <%= render partial: "songs/broadcast", locals: { action: 'add', id: '0', count: 'Like', extra_class: 'disabled'  } %>
           <%= render partial: "songs/broadcast", locals: { action: 'destroy', id: '0', count: 'Unlike'  } %>
@@ -109,6 +73,39 @@
 
       <a id="mobile-nav" class="icon control" href="/">l</a>
     </header>
+
+    <div id="player">
+      <div id="player-controls" class="player-buttons">
+        <%= link_to '<span>4</span>'.html_safe, '#', :class => 'play icon control', :id => 'player-play', :title => 'Play/pause' %>
+        <%= link_to '<span>7</span>'.html_safe, '#', :class => 'next icon control', :id => 'player-next', :title => 'Next song' %>
+      </div>
+
+      <div id="player-main">
+
+        <div id="player-meta">
+          <span id="player-song-name"><a title="Return to song" class="tip-n" href="">&nbsp;</a></span>
+          <span id="player-artist-name">&nbsp;</span>
+        </div>
+
+        <div id="player-bottom">
+          <div id="player-mini-controls">
+            <%= link_to 'Sound', '#', :class => 'volume control icon-volume-on tip-n', :id => 'player-volume', title: 'Volume' %>
+            <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control icon-normal post tip-n', title: 'Toggle shuffle/repeat' %>
+          </div>
+
+          <div id="player-progress-bar">
+            <div id="player-progress-grabber"></div>
+            <div id="player-progress-inner-wrap">
+              <div id="player-progress-position"></div>
+              <div id="player-progress-loaded"></div>
+            </div>
+          </div>
+
+          <div id="player-timer">0:00</div>
+        </div>
+
+      </div>
+    </div>
 
     <div id="player-live">
       <%= link_to '0 people listening to you', '', 'data-count' => '0' %>
@@ -131,12 +128,6 @@
             </section>
 
             <section>
-              <h1>Browse</h1>
-              <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'icon-users' %>
-              <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'icon-newspaper' %>
-            </section>
-
-            <section>
               <h1 href="#navbar-genres" data-toggle="invisible">Genres</h1>
               <%# link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'icon-music control', 'data-toggle' => 'invisible' %>
 
@@ -145,6 +136,12 @@
                   <%= render 'genres/links' %>
                 </div>
               </div>
+            </section>
+
+            <section>
+              <h1>Browse</h1>
+              <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'icon-users' %>
+              <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'icon-newspaper' %>
             </section>
 
             <% unless user_signed_in? %>

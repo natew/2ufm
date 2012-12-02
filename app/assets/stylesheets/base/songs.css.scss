@@ -38,8 +38,8 @@
 .primary .role:after { top: 12px; }
 .playlist-song .active .name .role:after { top: 12px; }
 
-header .role:after { display:none; }
-header .role { padding-right:8px !important; }
+#player .role:after { display:none; }
+#player .role { padding-right:8px !important; }
 
 .role:hover:after {
   color: #fff;
