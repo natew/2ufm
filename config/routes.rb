@@ -22,6 +22,7 @@ Fusefm::Application.routes.draw do
   match "/songs/fresh(/p-:p)", to: "songs#fresh", as: 'songs_fresh'
   match "/songs/popular(/p-:p)", to: "songs#popular", as: 'songs_popular'
   match "/genres/:id(/p-:p)", to: "genres#show"
+  match "/tags/:id(/p-:p)", to: 'tags#show'
 
   resources :songs, only: [:index, :show]
   resources :follows, only: [:create, :destroy]
