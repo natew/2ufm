@@ -371,6 +371,12 @@ body.allOn('click', {
     modal(false, true);
   },
 
+  '#navbar a': function() {
+    if ($('#mobile-nav').is(':visible')) {
+      $('body').toggleClass('show-nav');
+    }
+  },
+
   '#flag a': function() {
     notice('Flagged song ' + $(this).html());
   },

@@ -1,12 +1,8 @@
 @import "../base/mixins.css.scss";
 
-@media screen and (max-width: 1024px) {
-}
+/* Styles only for desktop (non small screen) */
 
-@media screen and (max-width: 768px) {
-}
-
-@media screen and (min-width: 680px) {
+@media screen and (min-width: 768px) {
   .playlist section {
     &:hover {
       background: rgba(255,255,255,0.05);
@@ -20,12 +16,8 @@
   }
 }
 
-/* iPad [portrait + landscape] */
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-}
-
 /* iPhone [portrait + landscape] */
-@media screen and (max-width: 680px) {
+@media only screen and (max-width: 768px) {
   body, header { min-width: 365px; }
   #welcome { display:none; }
   #breadcrumbs { display:none; }
@@ -114,10 +106,11 @@
   }
 
   #player-meta {
+    margin-right: 90px;
     padding: 3px;
     white-space: nowrap;
     overflow: hidden;
-    height: 40px;
+    height: 50px;
 
     span {
       text-align: left;
@@ -165,7 +158,7 @@
   }
 
   #player-song-name {
-    margin: 3px 0 4px 0;
+    margin: 4px 0 3px 0;
     a {font-size: 16px;}
   }
 
