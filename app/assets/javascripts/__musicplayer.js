@@ -200,9 +200,14 @@ var mp = (function() {
           url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
           success: function(data) {
             if (data) {
-              self.playUrl(curSongInfo.id, data.stream_url + "?client_id=" + soundcloudKey);
-              fn.log(data);
-              w.trigger('mp:play:soundcloud', [player.state(), data] );
+              if (data.errors) {
+                self.setSoundCloudFailed();
+                self.playCompressedFile()
+              } else {
+                self.playUrl(curSongInfo.id, data.stream_url + "?client_id=" + soundcloudKey);
+                fn.log(data);
+                w.trigger('mp:play:soundcloud', [player.state(), data] );
+              }
             }
             else {
               self.setSoundCloudFailed();

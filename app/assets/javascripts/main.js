@@ -546,7 +546,7 @@ function pjax(url, container) {
   $.pjax({
     url: url,
     container: container || '#body',
-    timeout: 12000
+    timeout: 30000
   });
 }
 
