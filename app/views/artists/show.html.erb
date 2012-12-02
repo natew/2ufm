@@ -1,4 +1,4 @@
-<%- cache ['v4', @artist, @artist.genres] do -%>
+<%- cache ['v5', @artist, @artist.genres.length] do -%>
 <div class="nav-container">
   <div class="title">
     <%= image_tag @artist.image.url(:medium), :class => 'image medium' %>

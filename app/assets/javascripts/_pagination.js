@@ -174,13 +174,17 @@ var pagination = (function(fn, mp) {
   }
 }(fn, mp));
 
-w.scroll(function() {
-  // Automatic page loading
-  if (!pagination.isLoading() && pagination.hasPages()) {
-    clearTimeout(pageLoadTimeout);
-    pageLoadTimeout = setTimeout(function() {
-      pagination.checkPage();
-      $.cookie('scrollTop', w.scrollTop());
+// Automatic page loading
+w
+  .on('scrollstart', function() {
+    if (!pagination.hasPages()) return;
+    clearInterval(pageLoadTimeout);
+    pageLoadTimeout = setInterval(function() {
+      fn.log('asdsadsa')
+      if (!pagination.isLoading()) pagination.checkPage();
     }, 30);
-  }
-});
+  })
+  .on('scrollstop', function() {
+    clearInterval(pageLoadTimeout);
+    $.cookie('scrollTop', w.scrollTop());
+  });
