@@ -27,6 +27,25 @@ module ApplicationHelper
     end
   end
 
+  def normalize(x, big, small)
+    (((x.to_f - small) / (big - small)) * 10).round
+  end
+
+  # Shuffle array
+ def shuffle!
+   n = length
+   for i in 0...n
+     r = Kernel.rand(n-i)+i
+     self[r], self[i] = self[i], self[r]
+   end
+   self
+ end
+
+ # Return a shuffled copy of the array
+ def shuffle
+   dup.shuffle!
+ end
+
   # Station follow
   def follow_station(id, follows_count, options={})
     action = "add"

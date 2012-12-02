@@ -33,7 +33,7 @@ class Song < ActiveRecord::Base
   REMOVE = {
     featured: /.* #{RE[:featured]}/i,
     remixer: /((\'s.*|20[0-9]{2}|#{RE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official|unofficial|remix|bootleg) )+/i,
-    all: /(([\*\[\(\/\{]| )*((exclusive )?(free |320)?(soundcloud ?|facebook ?)?(out #{RE[:time]}|download ?|d\/?l ?)(free |320)*((on |or |link in )*(description ?|soundcloud ?|facebook ?)|320)*([\*\]\)\/\}]| )*)+)$/i,
+    all: /(([\*\[\(\/\{]| )*((exclusive )?(free |320)?(soundcloud ?|facebook ?)?(out #{RE[:time]}|dwnld ?|download ?|d\/?l ?)(free |320)*((on |or |link in )*(description ?|soundcloud ?|facebook ?)|320)*([\*\]\)\/\}]| )*)+)$/i,
     quotes: /^#{RE[:quote_chars]}+|#{RE[:quote_chars]}+$/i
   }
 
@@ -64,6 +64,7 @@ class Song < ActiveRecord::Base
   has_many   :artists, :through => :authors
   has_many   :listens
   has_many   :shares
+  has_many   :tags
 
   before_create :set_source, :get_real_url, :clean_url, :set_token
   after_create :delayed_scan_and_save, :set_rank
@@ -96,7 +97,7 @@ class Song < ActiveRecord::Base
   scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
   scope :soundcloud, where(source: 'soundcloud')
   scope :youtube, where(source: 'youtube')
-  scope :not_youtube, where('source != ?', 'youtube')
+  scope :not_youtube, where('songs.source != ?', 'youtube')
   scope :time_limited, where('songs.seconds < ?', 600)
   scope :matching_id, where('songs.matching_id = songs.id')
   scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
@@ -196,6 +197,10 @@ class Song < ActiveRecord::Base
 
   def self.user_unread_received_songs(id)
     Share.where('shares.receiver_id = ? and shares.read = false', id).count
+  end
+
+  def self.by_tag(tag)
+    Song.joins('inner join tags on tags.song_id = songs.id').where('tags.slug = ?', tag.slug)
   end
 
   def self.by_genre(genre)
@@ -457,6 +462,7 @@ class Song < ActiveRecord::Base
           title = track.title
           genre = track.genres
           artist = track.user.username
+          set_soundcloud_tags(track)
         end
 
         # Properties
@@ -989,8 +995,8 @@ class Song < ActiveRecord::Base
   end
 
   def split_name_tag
-    return false unless name.match(/ [-—] /)
-    fix_artist, fix_name = name.split(/ [-—] /)
+    return false unless name.match(/[-—] | [-—]/)
+    fix_artist, fix_name = name.split(/[-—]/)
     self.artist_name = (fix_artist || artist_name || '').strip
     self.name = (fix_name || name || '').strip
     full_name
@@ -1001,7 +1007,7 @@ class Song < ActiveRecord::Base
     get_real_url
     open(file_url) do |song|
       TagLib::MPEG::File.open(song.path) do |taglib|
-        set_tags(taglib)
+        set_id3_tags(taglib)
         self.file = song
         self.save
       end
@@ -1011,12 +1017,52 @@ class Song < ActiveRecord::Base
   def fix_empty_soundcloud_tags(path)
     if source == 'soundcloud' and soundcloud_id
       TagLib::MPEG::File.open(path) do |taglib|
-        set_tags(taglib)
+        set_id3_tags(taglib)
       end
     end
   end
 
-  def set_tags(taglib)
+  def get_soundcloud_info
+    if source == 'soundcloud' and soundcloud_id
+      client = Soundcloud.new(:client_id => Yetting.soundcloud_key)
+      client.get("/tracks/#{soundcloud_id}")
+    end
+  end
+
+  def set_soundcloud_tags(track)
+    return unless track
+    tags = track.tag_list
+    return unless tags and tags.length > 0
+
+    logger.info "#{id} - #{tags}"
+    self.soundcloud_tags_updated_at = Time.now
+
+    quoted_tag_regex = /\"([a-zA-Z0-9\-\_ ]+)\"/
+    tags.scan(quoted_tag_regex).flatten.each do |quoted_tag|
+      self.tags.build(name: quoted_tag.strip.downcase, source: 'soundcloud')
+    end
+
+    tags.gsub!(quoted_tag_regex, '')
+
+    tags.split(' ').each do |tag|
+      self.tags.build(name: tag.strip.downcase, source: 'soundcloud')
+    end
+  end
+
+  def update_soundcloud_tags
+    begin
+      track = get_soundcloud_info
+      if track
+        set_soundcloud_tags(track)
+        self.save
+      end
+    rescue Exception => e
+      logger.error e.message
+      logger.error e.backtrace.join("\n")
+    end
+  end
+
+  def set_id3_tags(taglib)
     tag = taglib.id3v2_tag
     tag.title = name
     tag.artist = artist_name

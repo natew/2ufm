@@ -30,6 +30,7 @@ Fusefm::Application.routes.draw do
   resources :listens, only: [:create, :show]
   resources :actions, only: [:create]
   resources :blogs, only: [:index, :new, :create]
+  resources :tags, only: [:index, :show]
 
   resources :genres, only: [:index, :show] do
     member do

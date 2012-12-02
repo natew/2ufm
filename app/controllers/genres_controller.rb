@@ -2,7 +2,6 @@ class GenresController < ApplicationController
   before_filter :adjust_genres, :find_genre, except: [:index]
 
   def index
-    @genres = Genre.ordered
   end
 
   def show

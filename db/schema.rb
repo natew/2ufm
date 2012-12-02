@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202041852) do
+ActiveRecord::Schema.define(:version => 20121202201805) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(:version => 20121202041852) do
     t.string   "token"
     t.string   "youtube_id"
     t.string   "description"
+    t.datetime "soundcloud_tags_updated_at"
   end
 
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
@@ -356,6 +357,9 @@ ActiveRecord::Schema.define(:version => 20121202041852) do
     t.integer  "song_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+    t.string   "source"
+    t.string   "slug"
   end
 
   create_table "users", :force => true do |t|

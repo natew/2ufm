@@ -1,0 +1,9 @@
+<%-
+  return unless Integer(tag.num)
+  control  ||= false
+  autoplay ||= false
+  classes    = "rank-#{normalize(Integer(tag.num), big, small)}"
+  classes    = classes +  ' play-station' if autoplay
+-%>
+
+<li><%= nav_link_to tag.name, tag, class: classes %></li>

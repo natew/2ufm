@@ -99,6 +99,12 @@ namespace :songs do
   end
 
   namespace :scan do
+    task :soundcloud_tags => :environment do
+      Song.working.soundcloud.where('soundcloud_tags_updated_at IS NULL').each do |song|
+        song.update_soundcloud_tags
+      end
+    end
+
     task :artists => :environment do
       Song.all.each do |song|
         song.delayed_rescan_artists
