@@ -13,11 +13,21 @@ $(function() {
   $('#dialog').appendTo('body');
   hideDialog();
 
+  // Listen playing
+  if (listen) {
+    // mp.startedAt(listen.created_at_unix);
+    fn.replaceState(route);
+  }
+
   // Fire initial page load
   page.start();
   page.end();
 
-  resumePlaying();
+  if (listen) {
+    clickSong(listen.song_id);
+  } else {
+    resumePlaying();
+  }
 
   // Close modal
   $('#overlay').click(function() { modal(false); });
@@ -58,13 +68,6 @@ $(function() {
     $('#recommended-artists-next').click(function() {
       $('#modal-new-user').removeClass('permanent');
     });
-  }
-
-  // Listen playing
-  if (listen) {
-    // mp.startedAt(listen.created_at_unix);
-    fn.replaceState(route);
-    clickSong(listen.song_id);
   }
 
   // Welcome
