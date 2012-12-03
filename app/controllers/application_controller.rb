@@ -28,13 +28,14 @@ class ApplicationController < ActionController::Base
   def render_not_found(exception)
     set_layout
     logger.error exception
-    render 'errors/404', status: 404 unless @not_found
+    render template: 'errors/404', status: 404 unless @not_found
   end
 
   def render_error(exception)
     set_layout
+    logger.error "500 Internal Server Error"
     logger.error exception
-    render 'errors/500', status: 500 unless @not_found
+    render template: 'errors/500', status: 500 unless @not_found
   end
 
   def is_admin?
