@@ -442,7 +442,7 @@ body.on('click', function(e) {
   if (!el.parents('.pop-menu, .nav-menu')) navDropdown(false);
 });
 
-$('#player-buttons .broadcast a').click(function() {
+$('#buttons .broadcast a').click(function() {
   $(this).parent().toggleClass('remove');
 });
 

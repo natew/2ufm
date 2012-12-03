@@ -9,7 +9,7 @@ w.on({
 
     // Update player loaded UI
     $('#main-mid').addClass('loaded');
-    $('#player-buttons a').removeClass('disabled');
+    $('#buttons a').removeClass('disabled');
 
     // Update now playing button in sidebar nav
     $('#nav-now-playing')
@@ -66,7 +66,7 @@ w.on({
         html_artists;
 
     $('#player').addClass('loading');
-    $('#player-buttons .broadcast').removeClass('remove');
+    $('#buttons .broadcast').removeClass('remove');
 
     doPlaysActions();
 

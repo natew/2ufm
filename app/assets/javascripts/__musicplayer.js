@@ -572,7 +572,7 @@ var mp = (function() {
         w.trigger('mp:played', player.state());
 
         $.cookie('plays', playCount);
-        pl.player.addClass('loaded');
+        $('body').addClass('loaded');
 
         // Scrobbling
         $.ajax({

@@ -244,6 +244,33 @@ $buttons-width: 188px;
   display: none;
 }
 
+body.loaded {
+  #player-main #player-meta {
+    visibility: visible;
+  }
+
+  #player-controls a {
+    span { color: #fff; }
+    &:hover span { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+  }
+
+  #player-bottom #player-timer {color: rgba(255,255,255,0.8);}
+  #player-bottom a.control {
+    pointer-events: auto;
+    color: #fff;
+    opacity: 1;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  #player-bottom #player-mini-controls a {
+    opacity: 0.6;
+    &:hover {opacity: 0.8;}
+  }
+}
+
 #player {
   position: fixed;
   height: $header-height;
@@ -262,33 +289,6 @@ $buttons-width: 188px;
         top: 0;
         font-size: 41px;
       }
-    }
-  }
-
-  &.loaded {
-    #player-main #player-meta {
-      visibility: visible;
-    }
-
-    #player-controls a {
-      span { color: #fff; }
-      &:hover span { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
-    }
-
-    #player-bottom #player-timer {color: rgba(255,255,255,0.8);}
-    #player-bottom a.control {
-      pointer-events: auto;
-      color: #fff;
-      opacity: 1;
-
-      &:hover {
-        color: #fff;
-      }
-    }
-
-    #player-bottom #player-mini-controls a {
-      opacity: 0.6;
-      &:hover {opacity: 0.8;}
     }
   }
 }
