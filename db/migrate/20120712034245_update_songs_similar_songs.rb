@@ -5,11 +5,6 @@ class UpdateSongsSimilarSongs < ActiveRecord::Migration
 
     Song.skip_callback(:save, :before, :set_rank)
 
-    Song.working.each do |song|
-      song.set_match_name
-      song.save
-    end
-
     # First set matching ids
     Song.working.order('id asc').each do |song|
       song.save if song.update_matching_songs

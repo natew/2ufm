@@ -2,6 +2,7 @@
   id           = song.matching_id.to_s
   station_id ||= -1
   has_title  ||= false
+  single     ||= false
 -%>
 
 <%- if has_title -%>
@@ -20,7 +21,7 @@
   <div class="song-count"><%= (song_counter + 1) + ((page - 1) * Yetting.per) %></div>
 
 <%-
-  cache ['v15', song, id] do
+  cache ['v15', song, id, single] do
 
     follow_id       = 'station-follow-' + id
     cover         ||= :icon
@@ -35,9 +36,9 @@
         links = author_links(song.authors)
         if links[:original].length > 0
       -%>
-      <span class="artist"><%= links[:original] %> <%= links[:other] %></span>
+      <span class="artist"><%= links[:original] %></span>
       <% end %>
-      <span class="name"><%= tagged_song_name(song.name) %></span>
+      <span class="name"><%= tagged_song_name(song.name) %> <%= links[:remix] %></span>
     </h3>
   </div>
 

@@ -17,7 +17,7 @@
 
 .role:after {
   position: absolute;
-  top: 6px;
+  top: 5px;
   right: 4px;
   display: inline-block;
   content: "";
@@ -34,6 +34,9 @@
   border-radius: 2px;
   @include box-sizing(border-box);
 }
+
+.name .role { font-weight:300; pointer-events: all; }
+.name .role:after { top: 7px; }
 
 .primary .role:after { top: 12px; }
 .playlist-song .active .name .role:after { top: 12px; }
@@ -53,7 +56,7 @@
   padding: 1px 4px;
   margin-top: -1px;
   margin-bottom: -1px;
-  background: rgba(0,0,0,0.08);
+  background: rgba(0,0,0,0.05);
   border-radius: 5px;
 
   &:hover {
@@ -75,19 +78,19 @@ $featured-color: #d56c82;
 .role-mashup {
   color: $mashup-color !important;
   &:after { content: "M"; color: $mashup-color; background: darken($mashup-color, 32%); }
-  &:hover:after { content: "Mashup"; width: 50px; right: -29px; }
+  &:hover:after { content: "Mashup"; width: 56px; right: -42px; }
 }
 
 .role-remixer {
   color: $remix-color !important;
   &:after { content: "R"; color: $remix-color; background: darken($remix-color, 30%); }
-  &:hover:after { content: "Remix"; width: 40px; right: -23px; }
+  &:hover:after { content: "Remix"; width: 46px; right: -30px; }
 }
 
 .role-producer {
   color: $producer-color !important;
   &:after { content: "P"; color: $producer-color; background: darken($producer-color, 26%); }
-  &:hover:after { content: "Producer"; width: 60px; right: -37px; }
+  &:hover:after { content: "Producer"; width: 64px; right: -48px; }
 }
 
 .role-cover {
@@ -99,7 +102,7 @@ $featured-color: #d56c82;
 .role-featured {
   color: $featured-color !important;
   &:after { content: "F"; color: $featured-color; background: darken($featured-color, 34%); }
-  &:hover:after { content: "Featured"; width: 54px; right: -37px; }
+  &:hover:after { content: "Featured"; width: 60px; right: -46px; }
 }
 
 $song-pad: 20px;

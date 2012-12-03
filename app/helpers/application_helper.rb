@@ -146,7 +146,7 @@ module ApplicationHelper
     name
       .gsub(/ (featuring|ft\.?|feat\.?|f\.|w\.|f\/|w\/) #{not_quote}/i, '')
       .gsub(/ (produced by|prod\.? by |prod\.? w\.?\/? |prod\. ) #{not_quote}/i, '')
-      .gsub(/([\(\[]([^\(\)\[\]]+)[\)\]])/i,'<em>\1</em>').html_safe
+      .gsub(/([\(\[]([^\(\)\[\]]+)[\)\]])/i, '').html_safe #'<em>\1</em>')
   end
 
   def nav_link_to(title, path, *options)
@@ -168,23 +168,29 @@ module ApplicationHelper
 
   # Render artists for a song
   def author_links(authors)
-    list = []
+    remix = []
+    other = []
     original = []
     authors.with_artist.each do |author|
       link = link_to(author.artist_name, station_path(author.artist_station_slug), :class => "role role-#{author.role}") unless author.artist_station_slug.nil?
       if author.role == 'original'
         original.push(link)
+      elsif author.role == 'remixer'
+        remix.push(link)
       else
-        author.role == 'remix' ? list.unshift(link) : list.push(link)
+        other.push(link)
       end
     end
 
-    if original.empty?
-      original = list
-      list = []
+    if original.empty? and other.empty?
+      original = remix
+      remix = []
     end
 
-    { :original => raw(original.join(' ')), :other => raw(list.join(' ')) }
+    {
+      original: raw(original.push(other).join(' ')),
+      remix: raw(remix.join(' '))
+    }
   end
 
   # Self explanitory

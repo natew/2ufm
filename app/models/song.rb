@@ -13,9 +13,13 @@ class Song < ActiveRecord::Base
   SOURCES = %w[direct soundcloud hulkshare]
 
   # Regular expressions
+  BASE = {
+    genre: /trap|dubstep|dub|house|electro|d&b|big room/i,
+  }
+
   RE = {
-    featured: /(featuring |ft\.? |feat\.? |f\. |w\.|f\/ |w\/ )/i,
-    remixer: /((re)?[ -]?(make|work|edit|fix|mix)|rmx|boot-?leg)$/i,
+    featured: /(featuring |ft(\.| )|feat(\.| )|f\.|w\.|f\/|w\/)/i,
+    remixer: /((re([ -])?)?(make|work|edit|fix|mix)|rmx|boot-?leg)/i,
     mashup_split: / \+ | x | vs\.? /i,
     producer: / (produced by|produced w\/|prod\.? by |prod\.? w\.?\/? |prod\. )/i,
     cover: / cover/i,
@@ -23,16 +27,15 @@ class Song < ActiveRecord::Base
     open: /[\(\[\{]/,
     close: /[\)\]\}]/,
     containers: /[\{\[\(\)\]\}]/i,
-    and: /, | & | and /i,
-    dash_split: /^[^-]* [—-] [^-]*$/,
-    genre: /trap|dubstep|dub|house|electro|d&b|big room/i,
+    and: /,| & | and /i,
     time: /(now|[0-9]{2}(th|st|nd|rd) ?(jan(uary)?|feb(uary)?|mar(ch)?|apr(il)?|may|jun(e)?|jul(y)?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)?)/i,
-    quote_chars: /[\'\"\*]/
+    quote_chars: /[\'\"\*]/,
+    remix_types: /(\'s.*|20[0-9]{2}|#{BASE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official|unofficial|remix|bootleg)/i
   }
 
   REMOVE = {
     featured: /.* #{RE[:featured]}/i,
-    remixer: /((\'s.*|20[0-9]{2}|#{RE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official|unofficial|remix|bootleg) )+/i,
+    remixer: /(#{RE[:remix_types]} )+/i,
     all: /(([\*\[\(\/\{]| )*((exclusive )?(free |320)?(soundcloud ?|facebook ?)?(out #{RE[:time]}|dwnld ?|download ?|d\/?l ?)(free |320)*((on |or |link in )*(description ?|soundcloud ?|facebook ?)|320)*([\*\]\)\/\}]| )*)+)$/i,
     quotes: /^#{RE[:quote_chars]}+|#{RE[:quote_chars]}+$/i
   }
@@ -46,7 +49,7 @@ class Song < ActiveRecord::Base
   }
 
   STRIP = {
-    remixer: /| (#{RE[:genre]}|extended|official|original|vocal|instrumental|)? /i,
+    remixer: /| (#{BASE[:genre]}|extended|official|original|vocal|instrumental|)? /i,
     producer: /^by /i
   }
 
@@ -490,9 +493,6 @@ class Song < ActiveRecord::Base
     set_original_tag
     clean_name
 
-    # Detect if they dumped the artist in the name
-    split_artists_from_name
-
     # Working if we have name or artist name at least
     self.working = !name.blank? and !artist_name.blank?
 
@@ -505,7 +505,6 @@ class Song < ActiveRecord::Base
       end
 
       # fix_empty_soundcloud_tags(file.path)
-      set_match_name
       find_matching_songs
       delete_file_if_matching
       find_or_create_artists
@@ -529,12 +528,12 @@ class Song < ActiveRecord::Base
   end
 
   def split_artists_from_name
-    if artist_name == '' and name =~ /-/
-      logger.info "Splitting... #{name}"
-      split = name.split('-')
-      self.artist_name = split.shift.strip
-      self.name = split.join('-').strip
-    end
+    return false unless name =~ / [-—]|[-—] /
+    logger.info "Splitting... #{name}"
+    split = name.split(/[-—]/)
+    self.artist_name = split.shift.strip
+    self.name = split.join('-').strip
+    full_name
   end
 
   def get_file
@@ -680,7 +679,7 @@ class Song < ActiveRecord::Base
     begin
       json = json['entry']
       self.name = Sanitize.clean(json['title']['$t']).truncate(250)
-      return false unless split_name_tag
+      return false unless split_artists_from_name
       self.description = Sanitize.clean(json['media$group']['media$description']['$t']).truncate(250)
       self.seconds = json['media$group']['media$content'][0]['duration']
     rescue
@@ -782,25 +781,27 @@ class Song < ActiveRecord::Base
   end
 
   def to_searchable(string)
-    ('%' + string.gsub(/#{RE[:containers]}|#{REMOVE[:all]}|#{RE[:producer]}|#{REMOVE[:remixer]}#{RE[:remixer]}#{RE[:close]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%').strip).gsub(/(% ?){2,}/,'%').split('%').map(&:strip).join('%') + '%'
-  end
-
-  def similar_songs
-    Song.where("name ILIKE(?) and id != ?", to_searchable(name), id) unless name.empty?
-  end
-
-  def searchable_artist
-    to_searchable(artist_name)
+    logger.info string
+    string.gsub!(/#{RE[:remix_types]} ?#{RE[:remixer]}?/i, '')
+    # string.gsub!(/[\'\"][^']+[\'\"]/, '') # remove anything in quotes (too greedy?)
+    string.gsub!(/[,\-\_\&]|#{RE[:containers]}|#{REMOVE[:all]}|#{RE[:producer]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%')
+    ('%' + string.strip).gsub(/(% ?){2,}/,'%').split('%').map(&:strip).join('%') + '%'
   end
 
   def searchable_name
-    to_searchable(match_name)
+    to_searchable("#{artist_name}%#{name}")
   end
 
   def find_matching_songs
-    return unless working
+    return unless working and match_name != '%'
 
-    matching_song = Song.where("artist_name ILIKE(?) and name ILIKE(?)", searchable_artist, searchable_name).working.oldest.first
+    matching_songs = Song.working.oldest#.select("(artist_name || ' ' || name) as full_name")
+
+    searchable_name.split('%').each do |name_part|
+      matching_songs = matching_songs.where("(artist_name || ' ' || name) ILIKE(?)", "%#{name_part}%") unless name_part.empty?
+    end
+
+    matching_song = matching_songs.first
 
     if matching_song
       logger.info "Found matching song #{matching_song.id}"
@@ -815,6 +816,11 @@ class Song < ActiveRecord::Base
     broadcasts.each do |broadcast|
       broadcast.update_attributes(song_id: matching_id) rescue ActiveRecord::RecordNotUnique
     end
+
+    # Update counter caches
+    last_broadcast = Broadcast.find_by_song_id(matching_id)
+    last_broadcast.update_actions if last_broadcast
+
 
     shares.each do |share|
       share.update_attributes(song_id: matching_id) rescue ActiveRecord::RecordNotUnique
@@ -841,6 +847,10 @@ class Song < ActiveRecord::Base
 
   def matching_songs
     Song.where(matching_id:id)
+  end
+
+  def similar_songs
+    Song.where("name ILIKE(?) and id != ?", to_searchable(name), id) unless name.empty?
   end
 
   def fix_broadcasts
@@ -915,7 +925,7 @@ class Song < ActiveRecord::Base
         matches.push [artist, :mashup]
       end
     else
-      if search_name =~ /,/
+      if search_name =~ RE[:and]
         clean_split(search_name, RE[:and]) do |artist|
           matches.push [artist.strip, :original]
         end
@@ -958,7 +968,7 @@ class Song < ActiveRecord::Base
   end
 
   def has_mashups(name)
-    name.scan(/( vs\.? |#{RE[:mashup_split]}.*#{RE[:mashup_split]})/i).empty? ? false : true
+    name.scan(/( vs\.? |#{RE[:mashup_split]})/i).empty? ? false : true
   end
 
   def find_mashups(name)
@@ -992,14 +1002,6 @@ class Song < ActiveRecord::Base
     artist.split(RE[:and]).each do |split|
       yield [split.strip, type]
     end
-  end
-
-  def split_name_tag
-    return false unless name.match(/[-—] | [-—]/)
-    fix_artist, fix_name = name.split(/[-—]/)
-    self.artist_name = (fix_artist || artist_name || '').strip
-    self.name = (fix_name || name || '').strip
-    full_name
   end
 
   def fix_empty_soundcloud_tags_from_url
@@ -1071,47 +1073,33 @@ class Song < ActiveRecord::Base
     logger.info "Fixed tags #{full_name}"
   end
 
-  def fix_artists
-    # Destroy broadcasts
-    old_artist_broadcasts = []
-    artists.each do |artist|
-      old_artist_broadcasts.push artist.station.broadcasts.where(song_id:id)
-    end
-
-    # Destroy authors
-    self.authors.destroy_all
+  def fix_tags
+    logger.info "Fixing #{id}: #{full_name}"
 
     # Reset name
     clean_name
-    set_match_name
-
-    # Reset artists
-    find_or_create_artists
 
     # Update matching songs
     find_matching_songs
     delete_file_if_matching
 
-    # Re-broadcast
-    add_to_stations
+    # Reset artists
+    self.broadcasts.where(parent: 'artist').destroy_all
+    self.authors.destroy_all
+    find_or_create_artists
+    add_to_artists_stations
+
     self.save
+
   end
 
   def clean_name
-    split_name_tag
+    split_artists_from_name
     self.name = name.gsub(REMOVE[:all], '').strip.gsub(REMOVE[:quotes],'')
   end
 
   def clean_url
     self.url = URI.escape(url)
-  end
-
-  def get_match_name
-    to_searchable(name)
-  end
-
-  def set_match_name
-    self.match_name = get_match_name
   end
 
   def report_failure
