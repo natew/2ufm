@@ -46,9 +46,11 @@
       top: $header-height;
       left: 0;
       right: 0;
-      bottom: 100px;
+      bottom: 89px;
       width: auto;
-      overflow-y: auto;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      z-index: 100000;
       -webkit-overflow-scrolling: touch;
     }
   }
