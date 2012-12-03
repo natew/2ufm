@@ -179,10 +179,12 @@
         <%= render template: 'layouts/single' %>
       </div>
 
-      <% ad_spot('leaderboard', controller) do |ad| %>
+      <% if false %>
+      <%# ad_spot('leaderboard', controller) do |ad| %>
         <div id="promo-fixed-lower">
           <%= ad %>
         </div>
+      <%# end %>
       <% end %>
     </div>
   </div>

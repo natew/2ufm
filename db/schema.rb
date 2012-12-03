@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202201805) do
+ActiveRecord::Schema.define(:version => 20121203051749) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -361,6 +361,8 @@ ActiveRecord::Schema.define(:version => 20121202201805) do
     t.string   "source"
     t.string   "slug"
   end
+
+  add_index "tags", ["slug"], :name => "index_tags_on_slug"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",     :null => false
