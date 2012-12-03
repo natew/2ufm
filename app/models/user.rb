@@ -210,6 +210,7 @@ class User < ActiveRecord::Base
 
   def update_for_facebook_oauth(auth)
     info = auth.extra.raw_info
+    self.skip_confirmation!
     self.update_attributes(
       full_name: info.name,
       provider: auth.provider,
@@ -220,7 +221,6 @@ class User < ActiveRecord::Base
       location: info.location ? info.location.name : '',
       facebook_id: info.id
     )
-    self.skip_confirmation!
     self
   end
 
