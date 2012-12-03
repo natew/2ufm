@@ -30,7 +30,7 @@
 /* iPhone [portrait + landscape] */
 @media only screen and (max-width: 768px) {
   body, header { min-width: 365px; }
-  #welcome { display:none; }
+  #welcome { display:none !important; }
   #breadcrumbs { display:none; }
   #search-form { left: $navbar-width + 280 ; }
   #body { margin-left: 0; }
