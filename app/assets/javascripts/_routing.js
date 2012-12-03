@@ -87,12 +87,18 @@ var page = {
     }
   },
 
-  error: function(xhr) {
-    $('#body').addClass('error');
+  error: function(e, text) {
+    $('#body').html(text.responseText);
+    return false;
+  },
+
+  timeout: function() {
+    return false;
   }
 }
 
 $('#body')
   .on('pjax:start', page.start)
   .on('pjax:end', page.end)
-  .on('pjax:error', page.error);
+  .on('pjax:error', page.error)
+  .on('pjax:timeout', page.timeout);

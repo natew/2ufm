@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   before_create :get_image, :get_content, :set_excerpt
   after_create :delayed_save_songs
 
-  attr_accessible :title, :url, :blog_id, :author, :content, :published_at
+  attr_accessible :title, :url, :blog_id, :author, :content, :published_at, :excerpt
 
   scope :within, lambda { |within| where('posts.published_at >= ?', within.ago) }
 

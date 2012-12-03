@@ -840,6 +840,7 @@ function scrollToPlayingSong(section) {
 window.onerror = function(msg, url, line) {
   var error = [url, line, msg ].join(newline);
   fn.log('JS error', error);
+  page.end();
 
   if (isProduction) {
     _gaq.push(['_trackEvent', 'Error', 'Javascript', error ]);
