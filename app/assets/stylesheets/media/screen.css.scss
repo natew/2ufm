@@ -135,11 +135,11 @@
   }
 
   #player-progress-bar {
-    position: fixed;
+    position: absolute;
     top: auto;
-    bottom: 60px;
-    left: 0;
-    right: 0;
+    bottom: 56px;
+    left: -100px;
+    right: -10px;
     height: 28px;
     background: rgba(0,0,0,0.75);
 
