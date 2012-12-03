@@ -132,6 +132,13 @@
             </section>
 
             <section>
+              <h1>Browse</h1>
+              <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'icon-users' %>
+              <%= link_to 'Tags', tags_path, :id => 'nav-tags', :class => 'icon-tags' %>
+              <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'icon-newspaper' %>
+            </section>
+
+            <section>
               <h1 href="#navbar-genres" data-toggle="invisible">Genres</h1>
               <%# link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'icon-music control', 'data-toggle' => 'invisible' %>
 
@@ -140,13 +147,6 @@
                   <%= render 'genres/links' %>
                 </div>
               </div>
-            </section>
-
-            <section>
-              <h1>Browse</h1>
-              <%= link_to 'Artists', artists_path, :id => 'nav-artists', :class => 'icon-users' %>
-              <%= link_to 'Tags', tags_path, :id => 'nav-tags', :class => 'icon-tags' %>
-              <%= link_to 'Blogs', blogs_path, :id => 'nav-artists', :class => 'icon-newspaper' %>
             </section>
 
             <% unless user_signed_in? %>

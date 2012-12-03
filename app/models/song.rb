@@ -1093,6 +1093,10 @@ class Song < ActiveRecord::Base
 
   end
 
+  def delayed_fix_tags
+    delay(priority: 6).fix_tags
+  end
+
   def clean_name
     split_artists_from_name
     self.name = name.gsub(REMOVE[:all], '').strip.gsub(REMOVE[:quotes],'')

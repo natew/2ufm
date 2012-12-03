@@ -4,7 +4,8 @@ $.fn.dontScrollParent = function()
         atTop = true,
         atBottom = false;
 
-    el.addClass('atTop');
+    if (el.is('scroll-bound')) return false;
+    el.addClass('atTop scroll-bound');
 
     this.unbind('mousewheel DOMMouseScroll');
 

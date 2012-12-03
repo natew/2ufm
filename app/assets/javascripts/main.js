@@ -202,12 +202,6 @@ $('#player-playlist').on('click', 'a', function(e) {
 // Online friends
 startGetNavbar();
 
-// Custom scrollpanes
-$('#share-friends').dontScrollParent();
-$('.scroll-section').each(function() {
-  $('div:first', this).dontScrollParent().addClass('scroll-section-inner');
-});
-
 // window.scroll
 w
   .on('scrollstart', function() {
@@ -229,7 +223,7 @@ windowResize();
 function windowResize() {
   $('#navbar-friends-inner')
     .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 32) })
-    .dontScrollParent();
+    // .dontScrollParent();
 
   $('#navbar-menus')
     .css({ 'height': Math.min($('body').height(), $('#navbar-menus-inner').outerHeight()) })
@@ -242,6 +236,16 @@ function windowResize() {
     } else {
       modal.css('bottom', 'auto');
     }
+  }
+
+  if (w.width() <= 768) {
+    $('.scroll-bound').unbind('mousewheel DOMMouseScroll');
+  } else {
+    // Custom scrollpanes
+    $('#share-friends').dontScrollParent();
+    $('.scroll-section').each(function() {
+      $('div:first', this).dontScrollParent().addClass('scroll-section-inner');
+    });
   }
 }
 

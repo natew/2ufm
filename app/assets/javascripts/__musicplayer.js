@@ -74,6 +74,7 @@ var mp = (function() {
     if (soundManager.supported()) {
       pl.handle.bind('mousedown', player.startDrag);
       $('body').bind('mouseup.dragger', player.endDrag);
+      pl.handle('touchend', player.followDrag);
     } else {
       alert('Your browser does not support audio playback');
     }
