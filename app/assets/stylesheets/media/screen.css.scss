@@ -48,7 +48,8 @@
       right: 0;
       bottom: 100px;
       width: auto;
-      overflow-y: scroll;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
   }
 
