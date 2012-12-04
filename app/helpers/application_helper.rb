@@ -146,7 +146,7 @@ module ApplicationHelper
     name
       .gsub(/ (featuring|ft\.?|feat\.?|f\.|w\.|f\/|w\/) #{not_quote}/i, '')
       .gsub(/ (produced by|prod\.? by |prod\.? w\.?\/? |prod\. ) #{not_quote}/i, '')
-      .gsub(/([\(\[]([^\(\)\[\]]+)[\)\]])/i, '').html_safe #'<em>\1</em>')
+      .gsub(/([\(\[\{]([^\(\)\[\]\{\}]+)[\)\]\}])/i, '').html_safe #'<em>\1</em>')
   end
 
   def nav_link_to(title, path, *options)

@@ -17,5 +17,8 @@ namespace :schedule do
   task :daily => :environment do
     # Rake::Task["emails:send:daily_digest"].execute
     Rails.cache.clear
+
+    ac = ActionController::Base.new
+    ac.expire_fragment('main_index')
   end
 end
