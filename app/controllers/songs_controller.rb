@@ -76,15 +76,15 @@ class SongsController < ApplicationController
   end
 
   def create
-    params[:song][:file] = UrlTempfile.new(params[:url])
-    @song = Song.new(params[:song])
+    # params[:song][:file] = UrlTempfile.new(params[:url])
+    # @song = Song.new(params[:song])
 
-    respond_to do |format|
-      if @song.save!
-        format.html { render 'index', notice: 'Posted song!' }
-      else
-        format.html { render 'index', notice: 'Could not post song!' }
-      end
-    end
+    # respond_to do |format|
+    #   if @song.save!
+    #     format.html { render 'index', notice: 'Posted song!' }
+    #   else
+    #     format.html { render 'index', notice: 'Could not post song!' }
+    #   end
+    # end
   end
 end
