@@ -175,6 +175,7 @@ class Song < ActiveRecord::Base
   def self.playlist_most_listened(options)
     Song.with_info_for_playlist_matching_id.where(id:
       Song
+        .not_youtube.working.processed.time_limited
         .select('songs.id, count(listens.id) as listens_count')
         .where('listens.created_at > ?', options[:within].ago)
         .joins(:listens)

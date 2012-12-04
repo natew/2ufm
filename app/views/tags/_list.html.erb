@@ -1,6 +1,7 @@
 <%-
   limit ||= 30
   tags  ||= Tag.common.limit(limit)
+  return unless tags.size > 0
   big     = Integer(tags.first.num)
   small   = Integer(tags.last.num)
   dont_shuffle ||= false
