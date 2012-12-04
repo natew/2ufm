@@ -795,7 +795,7 @@ function setupFixedTitles() {
 }
 
 function doPlaysActions() {
-  if (!isOnline && !isTuningIn && mp.plays() > 2) {
+  if (!isOnline && !isTuningIn && mp.plays() > 8) {
     if ( !$('#page-identifier').is('.action-trending, .controller-passwords, .controller-mains') ) {
       $('#modal-login').addClass('permanent');
       modal('#modal-login');
