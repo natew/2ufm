@@ -4,7 +4,7 @@ namespace :schedule do
     Rake::Task["blogs:update:all"].execute
 
     ac = ActionController::Base.new
-    ac.expire_fragment('main_index')
+    # ac.expire_fragment('main_index')
     ac.expire_fragment('main_index_songs')
   end
 
