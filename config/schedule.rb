@@ -3,14 +3,14 @@ env :PATH, "#{ENV["PATH"]}:/usr/local/bin"
 
 job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :output"
 
-every 5.minutes do
+# every 5.minutes do
   # rake "schedule:five_minutes"
-end
+# end
 
-every 30.minutes do
+every 1.day do
   rake "schedule:half_hour"
 end
 
-every 1.day do
-  rake "schedule:daily"
-end
+# every 1.day do
+  # rake "schedule:daily"
+# end
