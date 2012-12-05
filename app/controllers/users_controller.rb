@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune, :feed]
+  before_filter :authenticate_user!, :except => [:index, :new, :create, :activate, :live, :tune, :feed, :confirm]
   before_filter :load_user, :only => [:show, :feed, :followers, :following]
 
   def index
