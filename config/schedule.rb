@@ -7,8 +7,12 @@ job_type :rake, "cd :path && RAILS_ENV=:environment bundle exec rake :task :outp
   # rake "schedule:five_minutes"
 # end
 
-every 1.day do
+every 30.minutes do
   rake "schedule:half_hour"
+end
+
+every 1.hour do
+  rake "schedule:hourly"
 end
 
 # every 1.day do
