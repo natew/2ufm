@@ -28,7 +28,8 @@ module ApplicationHelper
   end
 
   def normalize(x, big, small)
-    (((x.to_f - small) / (big - small)) * 10).round
+    normal = (((x.to_f - small) / (big - small)) * 10)
+    normal.round if normal.is_a? Integer
   end
 
   # Shuffle array

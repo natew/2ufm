@@ -250,14 +250,17 @@ function windowResize() {
 }
 
 // Share hover
-$('#player-share').hover(function() {
-  var el = $(this),
+$('#player-share').hover(updatePlayerShare);
+
+function updatePlayerShare() {
+  var el = $('#player-share'),
       curSong = mp.curSongInfo();
+
   updateShareLinks(el.data('link'), el.data('title'));
   updateShareFriends(true);
   shareSong = curSong.id;
   shareSongTitle = curSong.name || '';
-});
+}
 
 $(window).bind('popstate', function(event) {
   fn.log(event);
@@ -574,6 +577,10 @@ function updateShare(nav) {
   shareSongTitle = song.name || '';
   updateShareLinks(link, title);
   updateShareFriends(true);
+
+  if (nav.is('.update-clipboard')) {
+    fn.clipboard('share-link', 'relative');
+  }
 }
 
 function updateShareLinks(link, title) {

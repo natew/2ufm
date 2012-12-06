@@ -31,8 +31,15 @@ w.on({
     if (mp.curSection()) mp.curSection().attr('data-listen', listen);
 
     // Update share links
-    $('#player-share').data('link', listenUrl);
-    $('#player-share').data('title', mp.getTitle());
+    $('#player-share')
+      .data('link', listenUrl)
+      .data('title', mp.getTitle());
+
+    updatePlayerShare();
+    if (activeParent) {
+      fn.log('active parent', activeParent);
+      updateShare(activeParent);
+    }
   },
 
   'mp:played': function mpPlay(event, mp) {

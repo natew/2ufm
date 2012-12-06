@@ -77,20 +77,21 @@ function navDropdown(nav, pad, hover) {
 
       // If the nav is not already open
       if (!(navOpen && navOpen[0] == dropdown[0])) {
+        activeParent = nav;
         navOpen = dropdown.css({
           top: top,
           left: left
         });
 
-        if (nav.is('.update-clipboard')) {
-          fn.clipboard('share-link', 'relative');
-        }
-
         return true;
       }
     }
 
-    if (navOpen) navOpen.removeClass('open').addClass('hidden');
+    if (navOpen) {
+      navOpen.removeClass('open').addClass('hidden');
+      activeParent = null;
+    }
+
     navOpen = false;
   }, delay);
 }
