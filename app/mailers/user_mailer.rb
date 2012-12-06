@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
   default :from => "\"2u.fm\" <noreply@2u.fm>"
 
   def follow(user, followee)
-    return if !followee.privacy.mail_follows or followee.privacy.receives_digests
+    return if !followee.privacy.mail_follows# or followee.privacy.receives_digests
     @follower = user
     @followee = followee
     @unsubscribe_type = 'follow'
@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def share(sender, share)
-    return if !share.receiver.privacy.mail_shares or followee.privacy.receives_digests
+    return if !share.receiver.privacy.mail_shares# or followee.privacy.receives_digests
     @sender, @receiver, @song = sender, share.receiver, share.song
     set_unsubscribe_key(@receiver)
     @unsubscribe_type = 'share'
