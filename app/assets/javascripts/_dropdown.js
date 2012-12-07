@@ -96,6 +96,12 @@ function navDropdown(nav, pad, hover) {
           left: left
         });
 
+        if (navOpen.is('close-on-click')) {
+          $('a', navOpen).one('click', function() {
+            navDropdown(false);
+          });
+        }
+
         return true;
       }
     }

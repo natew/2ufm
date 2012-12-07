@@ -254,6 +254,7 @@ $buttons-width: 188px;
     display: none;
     top: -2px;
     right: 6px;
+    pointer-events: none;
 
     &.greater-than-zero {
       display: block;

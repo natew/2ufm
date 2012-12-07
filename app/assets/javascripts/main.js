@@ -432,7 +432,7 @@ body.allOn('click', {
     }
 
     if (!e.isDefaultPrevented() && !commandPressed) {
-      if (!this.className.match(/external/)) e.preventDefault();
+      e.preventDefault();
       newPage = el.attr('href');
       if (doPjax) pjax(newPage);
       else loadPage(el.attr('href'));
