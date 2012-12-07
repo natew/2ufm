@@ -141,7 +141,14 @@ $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5, live: true});
 $('.tip-w:not(.disabled)').tipsy({gravity: 'w', offset: 5, live: true});
 
-// Livesearch
+// Search
+$('#search-form').submit(function searchSubmit() {
+  var search = $('#query').val().replace(/[^A-Za-z0-9\-\_\+ ]/g, '').replace(/\s+/g, '+');
+  fn.log(search);
+  pjax('/do/search/' + search);
+  return false;
+});
+
 $('#query')
   .focus(function() {
     $(this).addClass('focused');
@@ -150,10 +157,12 @@ $('#query')
     $(this).removeClass('focused');
   })
   .keyup(function(e) {
-    if (e.keyCode == 27) $(this).blur();
+    if (e.keyCode == 27 || e.keyCode == 13) $(this).blur();
   })
   .marcoPolo({
-    url: '/us/search',
+    highlight: false,
+    submitOnEnter: true,
+    url: '/do/search',
     selectable: ':not(.unselectable)',
     formatItem: function (data, $item) {
       if (data.selectable == 'false') $item.addClass('unselectable');

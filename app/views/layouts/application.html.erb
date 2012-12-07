@@ -121,7 +121,7 @@
     </div>
 
     <div id="main-mid">
-      <%= form_tag '/us/search', :method => 'get', :id => "search-form" do %>
+      <%= form_tag '/do/search', :method => 'get', :id => "search-form" do %>
         <%= text_field_tag :query, '', placeholder: 'Search artists, songs, blogs and users', tabindex: '1' %>
         <%= submit_tag :s, :id => 'search', :class => 'icon tip-n', :title => 'Search!' %>
       <% end -%>

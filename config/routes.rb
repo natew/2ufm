@@ -3,7 +3,7 @@ Fusefm::Application.routes.draw do
   mount MailsViewer::Engine => '/delivered_mails' if Rails.env.development?
 
   root to: 'mains#index', as: 'home'
-  match "/p-:p", to: 'main#index'
+  match "/p-:p", to: 'mains#index'
 
   # Redirects
   match "/stations/:id", to: redirect("/%{id}")
@@ -87,12 +87,12 @@ Fusefm::Application.routes.draw do
       get 'legal'
       get 'privacy'
       get 'contact'
-      get 'search'
       get 'loading'
       get 'mac'
     end
   end
 
+  match '/do/search(/:get_query)', to: 'mains#search'
   match '/:id/feed/p-:p', to: 'users#feed'
 
   resources :users, only:[], path: '/' do
