@@ -547,7 +547,7 @@ class Song < ActiveRecord::Base
 
       if io
         logger.info "Got file"
-        io
+        self.file = io
       else
         nil
       end
@@ -557,8 +557,13 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def delayed_get_file
-    delay(:priority => 2).get_file
+  def save_file
+    get_file
+    self.save
+  end
+
+  def delayed_save_file
+    delay(:priority => 2).save_file
   end
 
   def compress_mp3(mp3_path=nil)

@@ -37,7 +37,7 @@ namespace :songs do
 
   task :upload_files => :environment do
     Song.working.not_uploaded.each do |song|
-      song.delayed_get_file
+      song.delayed_save_file
     end
   end
 
