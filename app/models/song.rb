@@ -117,6 +117,7 @@ class Song < ActiveRecord::Base
   scope :with_blog_station_and_post, with_blog_station.with_post
   scope :with_sender, joins('INNER JOIN users as sender ON sender.id = shares.sender_id')
   scope :with_receiver, joins('INNER JOIN users as receiver ON receiver.id = shares.receiver_id')
+  scope :joins_user_broadcasts, joins(:broadcasts).order('broadcasts.created_at desc').where('broadcasts.parent = ?', 'user')
 
   # Data to select
   scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
@@ -155,7 +156,7 @@ class Song < ActiveRecord::Base
   scope :playlist_received, select_sender.with_sender.order_shared.with_info_for_playlist_matching_id
   scope :playlist_sent, select_receiver.with_receiver.order_shared.with_info_for_playlist_matching_id
   scope :playlist_shuffle, order_random.with_info_for_playlist_matching_id
-    scope :playlist_recently_liked, with_info_for_playlist_matching_id.joins(:broadcasts).order('broadcasts.created_at desc').where('broadcasts.parent = ?', 'user')
+  scope :playlist_recently_liked, with_info_for_playlist_matching_id.joins_user_broadcasts
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
