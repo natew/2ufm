@@ -20,4 +20,5 @@
 //= require ZeroClipboard
 //= require relativetime
 //= require danthes
+//= require perfherder
 //= require_tree .

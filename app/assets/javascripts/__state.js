@@ -30,9 +30,10 @@ var w = $(window),
     newPage = window.location.pathname,
     disableHovers = false,
     navItems = {},
-    genresOpen = $.cookie('genres-open') || false;
+    _prf = new Perfherder(),
+    genresOpen = $.cookie('genres-open') || false,
+    newline = "\n",
     theme = {
       body: $.cookie('theme-body') || 'theme-body-1',
       head: $.cookie('theme-head') || 'theme-head-1'
-    },
-    newline = "\n";
+    };

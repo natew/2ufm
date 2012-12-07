@@ -855,7 +855,8 @@ window.onerror = function(msg, url, line) {
   page.end();
 
   if (isProduction) {
-    _gaq.push(['_trackEvent', 'Error', 'Javascript', error ]);
+    _prf.error(error);
+    _prf.window();
     return true;
   }
 }

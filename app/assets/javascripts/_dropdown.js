@@ -69,8 +69,6 @@ function navDropdown(nav, pad, hover) {
     if (nav && nav.length) {
       // fn.log(nav, pad, 'class=', nav.attr('class'));
       if (hover && !nav.is(':hover')) return false;
-      if (nav.is('.song-share')) updateShare(nav);
-      else if (nav.is('.song-buy')) updateBuy(nav);
 
       var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
           padding = pad ? pad : 10,
@@ -95,6 +93,9 @@ function navDropdown(nav, pad, hover) {
           top: top,
           left: left
         });
+
+        if (nav.is('.song-share')) updateShare(nav);
+        else if (nav.is('.song-buy')) updateBuy(nav);
 
         if (navOpen.is('close-on-click')) {
           $('a', navOpen).one('click', function() {
