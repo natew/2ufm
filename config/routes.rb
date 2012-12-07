@@ -3,6 +3,7 @@ Fusefm::Application.routes.draw do
   mount MailsViewer::Engine => '/delivered_mails' if Rails.env.development?
 
   root to: 'mains#index', as: 'home'
+  match "/p-:p", to: 'main#index'
 
   # Redirects
   match "/stations/:id", to: redirect("/%{id}")
@@ -69,7 +70,7 @@ Fusefm::Application.routes.draw do
   match '/my/genres', to: 'users#genres'
   match '/my/friends', to: 'users#find_friends', as: 'users_friends'
   match '/do/authorized', to: 'users#authorized'
-  match '/my/home', to: 'mains#index', as: 'users_home'
+  match '/my/home(/p-:p)', to: 'mains#index', as: 'users_home'
   match '/confirm/:key', to: 'users#confirm'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###

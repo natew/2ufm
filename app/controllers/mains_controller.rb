@@ -2,11 +2,12 @@ class MainsController < ApplicationController
   def index
     return redirect_to feed_user_path(current_user) if user_signed_in? and request.fullpath.length == 1 and params[:listen].nil?
     @title = 'Discover and share great music'
-    @playlist = { station: Station.fake(title: 'Weekly Most Listened'), songs: Song.playlist_most_listened(within: 7.days, limit: 15), classname: 'show-count', dont_paginate: true, already_limited: true, nocache: true }
+    @playlist = { station: Station.fake(title: 'Weekly Most Listened'), songs: Song.playlist_recently_liked }
     @artists = Station.shelf.artist_station.has_artist_image.has_songs(10).order('random() desc').limit(11)
 
     respond_to do |format|
       format.html { render 'index' }
+      format.page { render_page @playlist }
     end
   end
 

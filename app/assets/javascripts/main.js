@@ -125,10 +125,8 @@ if (theme.head !== 'theme-head-1') {
 }
 
 // Get volume init
-if (mp.volume() === "0") {
-  // dont ask me why
-  mp.toggleVolume();
-  mp.toggleVolume();
+if (mp.volume() !== "100") {
+  mp.setVolume(parseInt(mp.volume(), 10));
 }
 
 if (mp.playMode() != 'normal')
@@ -171,7 +169,6 @@ $('#query')
 mpClick('#player-play', 'toggle');
 mpClick('#player-next', 'next');
 mpClick('#player-prev', 'prev');
-mpClick('#player-volume', 'toggleVolume');
 
 // Song title click
 $('#player-song-name a').click(function songNameClick() {
@@ -206,7 +203,7 @@ startGetNavbar();
 w
   .on('scrollstart', function() {
     $('.tipsy').remove();
-    $('.pop-menu').removeClass('open');
+    navDropdown(false);
     mp.hasMoved(true);
     disableHovers = true;
   })
@@ -328,6 +325,7 @@ body.allOn('click', {
 
   '[data-toggle]': function(e, el) {
     $(el.attr('href')).toggleClass(el.attr('data-toggle'));
+    el.toggleClass('toggled');
   },
 
   '[data-toggle-html]': function(e, el) {

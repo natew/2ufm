@@ -155,6 +155,7 @@ class Song < ActiveRecord::Base
   scope :playlist_received, select_sender.with_sender.order_shared.with_info_for_playlist_matching_id
   scope :playlist_sent, select_receiver.with_receiver.order_shared.with_info_for_playlist_matching_id
   scope :playlist_shuffle, order_random.with_info_for_playlist_matching_id
+    scope :playlist_recently_liked, with_info_for_playlist_matching_id.joins(:broadcasts).order('broadcasts.created_at desc').where('broadcasts.parent = ?', 'user')
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }

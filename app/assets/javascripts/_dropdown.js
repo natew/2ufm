@@ -28,6 +28,19 @@ $('.nav-hover').live({
   }
 });
 
+$('.nav-click').live({
+  click: function(e) {
+    var el = $(this);
+    el.toggleClass('nav-open')
+    if (el.is('.nav-open')) {
+      navClickActive = $(this);
+      navDropdown(el, false, true);
+    } else {
+      navDropdown(false);
+    }
+  }
+});
+
 function closeHoveredDropdown(force) {
   var el = navHoverActive,
       force = force || false;
@@ -89,6 +102,7 @@ function navDropdown(nav, pad, hover) {
 
     if (navOpen) {
       navOpen.removeClass('open').addClass('hidden');
+      $('.nav-click').removeClass('nav-open');
       activeParent = null;
     }
 

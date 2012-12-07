@@ -57,7 +57,8 @@
 
   <div id="body-wrap">
     <header>
-      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '1', 'data-delay' => '300' %></h1>
+      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music' %></h1>
+      <%= link_to 'More', '#more-menu', id: 'more-nav', class: 'control nav-click', 'data-pad' => '1px' %>
 
       <div id="buttons">
         <span class="broadcast">
@@ -93,7 +94,9 @@
 
         <div id="player-bottom">
           <div id="player-mini-controls">
-            <%= link_to 'Sound', '#', :class => 'volume control icon-volume-on tip-n', :id => 'player-volume', title: 'Volume' %>
+            <div id="player-volume" class="tip-n" title="Volume">
+              <div id="player-volume-position"></div>
+            </div>
             <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control icon-normal post tip-n', title: 'Toggle shuffle/repeat' %>
           </div>
 
@@ -173,6 +176,8 @@
           </div>
         </section>
         <% end %>
+
+        <section id="feedback">
       </div>
 
       <div id="body">
@@ -234,7 +239,7 @@
     <a href="#" class="control flag-quality">Bad Quality</a>
   </div>
 
-  <div id="logo-menu" class="pop-menu left-align">
+  <div id="more-menu" class="pop-menu left-align">
     <div id="head-colors" class="colors">
     <% (1..5).each do |color| %>
       <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
