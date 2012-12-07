@@ -1,8 +1,22 @@
 var mp = (function() {
 
-  //
-  // Variables
-  //
+  // Elements
+  var pl = {
+    bar: $('#player-progress-bar'),
+    loaded: $('#player-progress-loaded'),
+    position: $('#player-progress-position'),
+    handle: $('#player-progress-grabber'),
+    player: $('#player'),
+    song: $('#player-song'),
+    meta: $('#player-meta'),
+    play: $('#player-play'),
+    volume: $('#player-volume'),
+    timer: $('#player-timer'),
+    volume: $('#player-volume'),
+    volumePosition: $('#player-volume-position')
+  };
+
+  // State
   var w = $(window),
       playlist,
       playlistID,
@@ -15,6 +29,7 @@ var mp = (function() {
       isPlaying = false,
       dragging_position = false,
       dragging_percent,
+      dragging_volume = false,
       curPage,
       curPlayingPage,
       playingPage = '',
@@ -48,20 +63,6 @@ var mp = (function() {
   // Playmode
   playMode = playMode || NORMAL;
 
-  // Elements
-  var pl = {
-    bar: $('#player-progress-bar'),
-    loaded: $('#player-progress-loaded'),
-    position: $('#player-progress-position'),
-    handle: $('#player-progress-grabber'),
-    player: $('#player'),
-    song: $('#player-song'),
-    meta: $('#player-meta'),
-    play: $('#player-play'),
-    volume: $('#player-volume'),
-    timer: $('#player-timer')
-  };
-
   // Soundmanager
   soundManager.url = '/swfs/soundmanager2_debug.swf';
   soundManager.useFlashBlock = true;
@@ -72,9 +73,15 @@ var mp = (function() {
     smReady = true;
     if (delayStart) player.play();
     if (soundManager.supported()) {
+      // Progress grabber
       pl.handle.bind('mousedown', player.startDrag);
       $('body').bind('mouseup.dragger', player.endDrag);
       pl.handle.bind('touchend', player.followDrag);
+
+      // Volume grabber
+      pl.volume.bind('mousedown', player.startVolumeDrag);
+      $('body').bind('mouseup.volume', player.endVolumeDrag);
+      pl.volume.bind('touchend', player.followVolumeDrag);
     } else {
       alert('Your browser does not support audio playback');
     }
@@ -399,6 +406,41 @@ var mp = (function() {
       }
     },
 
+    startVolumeDrag: function(e) {
+      e.preventDefault();
+      dragging_volume = true;
+      $('body').bind('mousemove.volume', player.followVolumeDrag);
+      $('body').unbind('mouseup.volume').bind('mouseup.volume', player.endVolumeDrag);
+    },
+
+    endVolumeDrag: function(e) {
+      if (dragging_volume) {
+        dragging_volume = false;
+        $('body').unbind('mousemove.volume').unbind('mouseup.volume');
+        player.followVolumeDrag(e);
+      }
+    },
+
+    followVolumeDrag: function(e) {
+      var e      = e ? e : window.event,
+          x      = parseInt(e.clientX),
+          volumeOffset = pl.volume.offset().left,
+          volumeWidth = pl.volume.width(),
+          newPos = Math.round(((x - volumeOffset) / volumeWidth) * 100);
+
+      if (newPos > 100) newPos = 100;
+      else if (newPos < 0) newPos = 0;
+      player.setVolume(newPos);
+    },
+
+    setVolume: function(volume) {
+      volume = Math.min(Math.max(volume, 0), 100);
+      fn.log('setting volume', volume)
+      $.cookie('volume', volume);
+      if (curSong) curSong.setVolume(volume);
+      pl.volumePosition.attr('style', 'width:' + volume + '%;');
+    },
+
     getTitle: function getTitle() {
       if (curSongInfo) return curSongInfo.artist_name + ' - ' + curSongInfo.name;
       return '';
@@ -417,42 +459,18 @@ var mp = (function() {
       }
     },
 
-    toggleVolume: function toggleVolume() {
-      if (volume == 100) {
-        pl.volume.removeClass('icon-volume-on');
-        pl.volume.addClass('icon-volume-off');
-        volume = 0;
-        $.cookie('volume', volume);
-        this.setVolume();
-      } else {
-        pl.volume.addClass('icon-volume-on');
-        pl.volume.removeClass('icon-volume-off');
-        volume = 100;
-        $.cookie('volume', volume);
-        this.setVolume();
-      }
-    },
-
-    setVolume: function setVolume() {
-      if (curSong) {
-        curSong.setVolume(volume);
-      }
-    },
-
     startDrag: function startDrag(e) {
       e.preventDefault();
       dragging_position = true;
-      pl.handle.unbind('mousemove').bind('mousemove', player.followDrag);
+      $('body').unbind('mousemove.dragger').bind('mousemove.dragger', player.followDrag);
       $('body').unbind('mouseup.dragger').bind('mouseup.dragger', player.endDrag);
     },
 
     endDrag: function endDrag(e) {
       if (dragging_position) {
         dragging_position = false;
-        pl.handle.unbind('mousemove');
-        $('body').unbind('mouseup.dragger');
+        $('body').unbind('mouseup.dragger').unbind('mousemove.dragger');
         player.followDrag(e);
-        player.updateProgress();
       }
     },
 
@@ -463,10 +481,10 @@ var mp = (function() {
           width  = pl.bar.width(),
           newPos = Math.round(((x - offset) / width) * 100);
 
-      // fn.log(e,x,offset,width,newPos);
       dragging_percent = newPos;
-      if (dragging_percent >= 100 || dragging_percent <= 0) player.endDrag();
-      else player.updateProgress();
+      if (dragging_percent > 100) dragging_percent = 100;
+      else if (dragging_percent < 0) dragging_percent = 0;
+      player.updateProgress();
     },
 
     updateProgress: function updateProgress() {
@@ -714,10 +732,6 @@ var mp = (function() {
       return isLoaded;
     },
 
-    toggleVolume: function() {
-      player.toggleVolume();
-    },
-
     volume: function() {
       return volume;
     },
@@ -830,6 +844,10 @@ var mp = (function() {
 
     played: function() {
       return played;
+    },
+
+    setVolume: function(volume) {
+      player.setVolume(parseInt(volume, 10));
     }
   };
 

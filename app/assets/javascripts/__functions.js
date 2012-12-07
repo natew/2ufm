@@ -33,7 +33,7 @@ var fn = {
     if (width) {
       var left = (screen.width/2)-(width/2),
           top = (screen.height/2)-(height/2),
-          newwindow = window.open(url, 'name', 'menubar=no,toolbar=no,status=no,width='+width+',height='+height+',left='+left+',top='+top);
+          newwindow = window.open(url, 'name', 'width='+width+',height='+height+',left='+left+',top='+top);
       if (window.focus) newwindow.focus();
       return newwindow;
     }

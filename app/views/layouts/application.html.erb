@@ -39,6 +39,8 @@
       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
+
+    _prf_start = new Date().getTime();
   </script>
 
   <script type="text/javascript">
@@ -57,7 +59,8 @@
 
   <div id="body-wrap">
     <header>
-      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music', class: 'nav-hover', 'data-target' => '#logo-menu', 'data-pad' => '1', 'data-delay' => '300' %></h1>
+      <h1><%= link_to '2u.fm', '/', title: '2u.fm, find and share music' %></h1>
+      <%= link_to 'More', '#more-menu', id: 'more-nav', class: 'control nav-click', 'data-pad' => '1px' %>
 
       <div id="buttons">
         <span class="broadcast">
@@ -93,7 +96,9 @@
 
         <div id="player-bottom">
           <div id="player-mini-controls">
-            <%= link_to 'Sound', '#', :class => 'volume control icon-volume-on tip-n', :id => 'player-volume', title: 'Volume' %>
+            <div id="player-volume" class="tip-n" title="Volume">
+              <div id="player-volume-position" style="width:100%;"></div>
+            </div>
             <%= link_to 'Normal', "", :id => 'player-mode', :class => 'control icon-normal post tip-n', title: 'Toggle shuffle/repeat' %>
           </div>
 
@@ -116,7 +121,7 @@
     </div>
 
     <div id="main-mid">
-      <%= form_tag '/us/search', :method => 'get', :id => "search-form" do %>
+      <%= form_tag '/do/search', :method => 'get', :id => "search-form" do %>
         <%= text_field_tag :query, '', placeholder: 'Search artists, songs, blogs and users', tabindex: '1' %>
         <%= submit_tag :s, :id => 'search', :class => 'icon tip-n', :title => 'Search!' %>
       <% end -%>
@@ -173,6 +178,8 @@
           </div>
         </section>
         <% end %>
+
+        <section id="feedback">
       </div>
 
       <div id="body">
@@ -234,7 +241,7 @@
     <a href="#" class="control flag-quality">Bad Quality</a>
   </div>
 
-  <div id="logo-menu" class="pop-menu left-align">
+  <div id="more-menu" class="pop-menu close-on-click">
     <div id="head-colors" class="colors">
     <% (1..5).each do |color| %>
       <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
@@ -348,7 +355,7 @@
 
   <!--[if lt IE 10]>
   <div id="ie-notice">
-    <h3>Our only works in <a href="http://browsehappy.com/" target="_blank">modern browsers</a>.</h3>
+    <h3>Our site only works in <a href="http://browsehappy.com/" target="_blank">modern browsers</a>.</h3>
     <p>If you can't use another browser, we recommend upgrading or installing the
     <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame</a> plugin for the best experience.</p>
   </div>

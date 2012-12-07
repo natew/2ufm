@@ -20,6 +20,23 @@ module ApplicationHelper
     classes.join(' ')
   end
 
+  def file_cache(name = {}, options = nil, &block)
+    cache = Caching::FileCache.instance
+    if read = cache.read(name)
+      read
+    else
+      pos = output_buffer.length
+      yield
+      output_safe = output_buffer.html_safe?
+      fragment = output_buffer.slice!(pos..-1)
+      if output_safe
+        self.output_buffer = output_buffer.class.new(output_buffer)
+      end
+      cache.write(name.flatten.to_s, fragment)
+      safe_concat(fragment)
+    end
+  end
+
   def ad_spot(size, controller)
     ad = Ad.where(size: size).active.first
     if ad
@@ -33,19 +50,19 @@ module ApplicationHelper
   end
 
   # Shuffle array
- def shuffle!
-   n = length
-   for i in 0...n
-     r = Kernel.rand(n-i)+i
-     self[r], self[i] = self[i], self[r]
-   end
-   self
- end
+  def shuffle!
+    n = length
+    for i in 0...n
+      r = Kernel.rand(n-i)+i
+      self[r], self[i] = self[i], self[r]
+    end
+    self
+  end
 
- # Return a shuffled copy of the array
- def shuffle
-   dup.shuffle!
- end
+  # Return a shuffled copy of the array
+  def shuffle
+    dup.shuffle!
+  end
 
   # Station follow
   def follow_station(id, follows_count, options={})

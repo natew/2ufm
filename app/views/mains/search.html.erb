@@ -1,0 +1,33 @@
+<div class="whole">
+  <%# file_cache ['search', 'v1', @query] do %>
+    <h2>Search <small><%= @query %></h2>
+
+    <% if @artists.length > 0 %>
+      <h3>Artists</h3>
+      <ul class="stations shelf horizontal">
+        <%= render partial: 'stations/shelf', collection: @artists %>
+      </ul>
+    <% end %>
+
+    <% if @blogs.length > 0 %>
+      <h3>Blogs</h3>
+      <ul class="stations shelf horizontal">
+        <%= render partial: 'stations/shelf', collection: @blogs %>
+      </ul>
+    <% end %>
+
+    <% if @users.length > 0 %>
+      <h3>Users</h3>
+      <ul class="stations shelf horizontal">
+        <%= render partial: 'stations/shelf', collection: @users %>
+      </ul>
+    <% end %>
+
+    <h3>Songs</h3>
+    <% if @songs.length > 0 %>
+      <%= render :partial => 'stations/playlist', locals: @playlist %>
+    <% else %>
+      <p class="explanation">No songs found</p>
+    <% end %>
+  <%# end %>
+</div>

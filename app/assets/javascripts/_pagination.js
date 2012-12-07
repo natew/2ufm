@@ -180,7 +180,6 @@ w
     if (!pagination.hasPages()) return;
     clearInterval(pageLoadTimeout);
     pageLoadTimeout = setInterval(function() {
-      fn.log('asdsadsa')
       if (!pagination.isLoading()) pagination.checkPage();
     }, 30);
   })

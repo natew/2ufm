@@ -125,10 +125,8 @@ if (theme.head !== 'theme-head-1') {
 }
 
 // Get volume init
-if (mp.volume() === "0") {
-  // dont ask me why
-  mp.toggleVolume();
-  mp.toggleVolume();
+if (mp.volume() !== "100") {
+  mp.setVolume(mp.volume());
 }
 
 if (mp.playMode() != 'normal')
@@ -143,7 +141,14 @@ $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5, live: true});
 $('.tip-w:not(.disabled)').tipsy({gravity: 'w', offset: 5, live: true});
 
-// Livesearch
+// Search
+$('#search-form').submit(function searchSubmit() {
+  var search = $('#query').val().replace(/[^A-Za-z0-9\-\_\+ ]/g, '').replace(/\s+/g, '+');
+  fn.log(search);
+  pjax('/do/search/' + search);
+  return false;
+});
+
 $('#query')
   .focus(function() {
     $(this).addClass('focused');
@@ -152,10 +157,12 @@ $('#query')
     $(this).removeClass('focused');
   })
   .keyup(function(e) {
-    if (e.keyCode == 27) $(this).blur();
+    if (e.keyCode == 27 || e.keyCode == 13) $(this).blur();
   })
   .marcoPolo({
-    url: '/us/search',
+    highlight: false,
+    submitOnEnter: true,
+    url: '/do/search',
     selectable: ':not(.unselectable)',
     formatItem: function (data, $item) {
       if (data.selectable == 'false') $item.addClass('unselectable');
@@ -171,7 +178,6 @@ $('#query')
 mpClick('#player-play', 'toggle');
 mpClick('#player-next', 'next');
 mpClick('#player-prev', 'prev');
-mpClick('#player-volume', 'toggleVolume');
 
 // Song title click
 $('#player-song-name a').click(function songNameClick() {
@@ -206,7 +212,7 @@ startGetNavbar();
 w
   .on('scrollstart', function() {
     $('.tipsy').remove();
-    $('.pop-menu').removeClass('open');
+    navDropdown(false);
     mp.hasMoved(true);
     disableHovers = true;
   })
@@ -328,6 +334,7 @@ body.allOn('click', {
 
   '[data-toggle]': function(e, el) {
     $(el.attr('href')).toggleClass(el.attr('data-toggle'));
+    el.toggleClass('toggled');
   },
 
   '[data-toggle-html]': function(e, el) {
@@ -434,7 +441,7 @@ body.allOn('click', {
     }
 
     if (!e.isDefaultPrevented() && !commandPressed) {
-      if (!this.className.match(/external/)) e.preventDefault();
+      e.preventDefault();
       newPage = el.attr('href');
       if (doPjax) pjax(newPage);
       else loadPage(el.attr('href'));
@@ -857,7 +864,8 @@ window.onerror = function(msg, url, line) {
   page.end();
 
   if (isProduction) {
-    _gaq.push(['_trackEvent', 'Error', 'Javascript', error ]);
+    _prf.error(error);
+    _prf.window();
     return true;
   }
 }

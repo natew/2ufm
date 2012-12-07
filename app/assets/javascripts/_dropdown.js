@@ -28,6 +28,19 @@ $('.nav-hover').live({
   }
 });
 
+$('.nav-click').live({
+  click: function(e) {
+    var el = $(this);
+    el.toggleClass('nav-open')
+    if (el.is('.nav-open')) {
+      navClickActive = $(this);
+      navDropdown(el, false, true);
+    } else {
+      navDropdown(false);
+    }
+  }
+});
+
 function closeHoveredDropdown(force) {
   var el = navHoverActive,
       force = force || false;
@@ -56,8 +69,6 @@ function navDropdown(nav, pad, hover) {
     if (nav && nav.length) {
       // fn.log(nav, pad, 'class=', nav.attr('class'));
       if (hover && !nav.is(':hover')) return false;
-      if (nav.is('.song-share')) updateShare(nav);
-      else if (nav.is('.song-buy')) updateBuy(nav);
 
       var pad = pad ? pad : parseInt(nav.attr('data-pad'), 10),
           padding = pad ? pad : 10,
@@ -83,12 +94,22 @@ function navDropdown(nav, pad, hover) {
           left: left
         });
 
+        if (nav.is('.song-share')) updateShare(nav);
+        else if (nav.is('.song-buy')) updateBuy(nav);
+
+        if (navOpen.is('close-on-click')) {
+          $('a', navOpen).one('click', function() {
+            navDropdown(false);
+          });
+        }
+
         return true;
       }
     }
 
     if (navOpen) {
       navOpen.removeClass('open').addClass('hidden');
+      $('.nav-click').removeClass('nav-open');
       activeParent = null;
     }
 
