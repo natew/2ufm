@@ -847,7 +847,7 @@ var mp = (function() {
     },
 
     setVolume: function(volume) {
-      player.setVolume(volume);
+      player.setVolume(parseInt(volume, 10));
     }
   };
 

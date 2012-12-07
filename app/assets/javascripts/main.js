@@ -126,7 +126,7 @@ if (theme.head !== 'theme-head-1') {
 
 // Get volume init
 if (mp.volume() !== "100") {
-  mp.setVolume(parseInt(mp.volume(), 10));
+  mp.setVolume(mp.volume());
 }
 
 if (mp.playMode() != 'normal')
