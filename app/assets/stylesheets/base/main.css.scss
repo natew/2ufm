@@ -1054,13 +1054,14 @@ $placeholder-color: #999;
 
   #query {
     border: none;
-    padding: 6px 4px 6px 34px;
+    padding: 5px 4px 5px 34px;
     width: 100%;
     margin: 0;
     color: $placeholder-color;
     outline: none;
     font-size: 14px;
     background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 5px;
     @include box-sizing(border-box);
     @include transition(all .1s linear);
@@ -1082,7 +1083,7 @@ $placeholder-color: #999;
     left: 10px;
     top: 4px;
     font-size: 18px;
-    color: #eee;
+    color: rgba(255,255,255,0.75);
     text-shadow: none;
     padding: 0;
     box-shadow: none;
