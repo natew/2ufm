@@ -260,7 +260,7 @@ class User < ActiveRecord::Base
   end
 
   def make_station
-    self.create_station(title:username)
+    self.create_station(title:username, online:Time.now)
   end
 
   def make_privacy
