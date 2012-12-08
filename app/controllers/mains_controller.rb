@@ -70,6 +70,7 @@ class MainsController < ApplicationController
 
       result = "[#{artists}#{blogs}#{users}#{songs[0..-2]}]"
 
+      logger.info result
       render :text => result
     else
       @songs = @songs.with_info_for_playlist_matching_id

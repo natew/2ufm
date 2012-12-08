@@ -4,7 +4,7 @@ var w = $(window),
 
 // Callbacks
 w.on({
-  'mp:load': function mpLoad(event, mp) {
+  'mp:load': function mpLoad(event) {
     var playlist = mp.playlist();
 
     // Update player loaded UI
@@ -21,14 +21,15 @@ w.on({
       $('#player-playlist').html(playerPlaylist).addClass('loaded');
   },
 
-  'mp:got:listen': function mpGotListenEvent(event, mp) {
+  'mp:got:listen': function mpGotListenEvent(event) {
     var listen = mp.getListenUrl(),
         listenUrl = 'http://' + location.host + '/l/' + listen;
 
     // Update url
     // fn.replaceState(listen);
 
-    if (mp.curSection()) mp.curSection().attr('data-listen', listen);
+    if (mp.curSection() && mp.curSection().length)
+      mp.curSection().attr('data-listen', listen);
 
     // Update share links
     $('#player-share')
@@ -36,13 +37,13 @@ w.on({
       .data('title', mp.getTitle());
 
     updatePlayerShare();
-    if (activeParent) {
+    if (activeParent && activeParent.is('.song-share')) {
       fn.log('active parent', activeParent);
       updateShare(activeParent);
     }
   },
 
-  'mp:played': function mpPlay(event, mp) {
+  'mp:played': function mpPlay(event) {
     var song = mp.curSongInfo(),
         playlistItem = $('#player-playlist .song-' + song.id),
         w = $(window),
@@ -67,7 +68,7 @@ w.on({
     fn.replaceState(mp.playingPage());
   },
 
-  'mp:play': function(event, mp) {
+  'mp:play': function(event) {
     var song = mp.curSongInfo(),
         section = mp.curSection(),
         html_artists;
@@ -84,7 +85,7 @@ w.on({
     scrollToPlayingSong(section);
   },
 
-  'mp:play:soundcloud': function mpPlaySoundcloud(event, mp, data) {
+  'mp:play:soundcloud': function mpPlaySoundcloud(event, data) {
     fn.log(mp, data);
     if (!mp.curSection()) return;
     if (mp.curSection().is('.soundcloud-loaded')) return;

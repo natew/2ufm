@@ -10,7 +10,6 @@ var mp = (function() {
     song: $('#player-song'),
     meta: $('#player-meta'),
     play: $('#player-play'),
-    volume: $('#player-volume'),
     timer: $('#player-timer'),
     volume: $('#player-volume'),
     volumePosition: $('#player-volume-position')
@@ -36,7 +35,7 @@ var mp = (function() {
       playingPageNum = 1,
       smReady = false,
       delayStart = false,
-      volume = $.cookie('volume') || ($.cookie('volume', 100) && 100),
+      volume = parseInt($.cookie('volume') || ($.cookie('volume', 100) && 100), 10),
       time = 0,
       autoPlay = false,
       hasMoved = false,
@@ -214,7 +213,7 @@ var mp = (function() {
               } else {
                 self.playUrl(curSongInfo.id, data.stream_url + "?client_id=" + soundcloudKey);
                 fn.log(data);
-                w.trigger('mp:play:soundcloud', [player.state(), data] );
+                w.trigger('mp:play:soundcloud', [data] );
               }
             }
             else {
@@ -433,9 +432,9 @@ var mp = (function() {
       player.setVolume(newPos);
     },
 
-    setVolume: function(volume) {
-      volume = Math.min(Math.max(volume, 0), 100);
-      fn.log('setting volume', volume)
+    setVolume: function(newVolume) {
+      volume = Math.min(Math.max(newVolume, 0), 100);
+      fn.log('setting volume', volume);
       $.cookie('volume', volume);
       if (curSong) curSong.setVolume(volume);
       pl.volumePosition.attr('style', 'width:' + volume + '%;');
@@ -607,7 +606,7 @@ var mp = (function() {
           },
           success: function playSuccess(data) {
             listenUrl = data;
-            w.trigger('mp:got:listen', player.state());
+            w.trigger('mp:got:listen');
           },
           dataType: 'html'
         });
