@@ -35,6 +35,11 @@ $('.nav-click').live({
     if (el.is('.nav-open')) {
       navClickActive = $(this);
       navDropdown(el, false, true);
+
+      $('body').one('click', function() {
+        navDropdown(false);
+      });
+
     } else {
       navDropdown(false);
     }
