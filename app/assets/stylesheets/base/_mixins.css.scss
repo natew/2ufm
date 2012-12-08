@@ -60,3 +60,9 @@ $like-dark: darken($like-color,8%);
   @include linear-gradient($start, $stop);
   background-color: none;
 }
+
+@mixin user-select($val) {
+  user-select: $val;
+  -webkit-user-select: $val;
+  -moz-user-select: $val;
+}

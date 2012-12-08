@@ -88,6 +88,7 @@ header {
   line-height: 1em;
   @include box-shadow(0 3px 0 rgba(0,0,0,0.2));
   @include box-sizing(border-box);
+  @include user-select(none);
 
   /* logo */
   h1 {
@@ -321,6 +322,7 @@ body.loaded {
   padding-top: 7px;
   white-space: nowrap;
   @include box-sizing(border-box);
+  @include user-select(none);
 
   &.playing {
     #player-controls {
@@ -716,6 +718,7 @@ body.loaded {
   padding: 0;
   overflow: hidden;
   @include box-sizing(border-box);
+  @include user-select(none);
 
   #navbar-menus {
     margin-right: -20px;
@@ -740,9 +743,6 @@ body.loaded {
     white-space: nowrap;
     cursor: default;
     color: rgba(255,255,255,0.3);
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
 
     div {
       position: absolute;
