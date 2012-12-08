@@ -662,8 +662,11 @@ class Song < ActiveRecord::Base
 
   # Parse and save album art
   def save_album_art
-    get_album_art
-    self.save
+    img = get_album_art
+    if img
+      self.image = img
+      self.save
+    end
   end
 
   # Write binary pictures

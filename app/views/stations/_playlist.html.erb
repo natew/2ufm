@@ -106,7 +106,7 @@
   end
 
   broadcasts_count = {}
-  songs.each { |s| broadcasts_count[s.matching_id] = s.user_broadcasts_count }
+  songs.each { |song| broadcasts_count[song.matching_id] = song.user_broadcasts_count }
 -%>
 
 <script type="text/javascript">
