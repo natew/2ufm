@@ -36,6 +36,7 @@ var mp = (function() {
       smReady = false,
       delayStart = false,
       volume = parseInt($.cookie('volume') || ($.cookie('volume', 100) && 100), 10),
+      prevVolume = volume == 0 ? 100 : 0,
       time = 0,
       autoPlay = false,
       hasMoved = false,
@@ -438,6 +439,13 @@ var mp = (function() {
       $.cookie('volume', volume);
       if (curSong) curSong.setVolume(volume);
       pl.volumePosition.attr('style', 'width:' + volume + '%;');
+      $('#player-volume-icon').toggleClass('icon-volume-off', volume == 0);
+    },
+
+    toggleVolume: function() {
+      var newVolume = prevVolume;
+      prevVolume = volume;
+      player.setVolume(newVolume);
     },
 
     getTitle: function getTitle() {
@@ -847,6 +855,10 @@ var mp = (function() {
 
     setVolume: function(volume) {
       player.setVolume(parseInt(volume, 10));
+    },
+
+    toggleVolume: function() {
+      player.toggleVolume();
     }
   };
 

@@ -30,11 +30,10 @@
     &:hover { background: $body-bg !important; }}
 
   .theme-head-#{$i} {
-    header, #player { background: $header-bg; }
+    header, #player, #player-volume-dropdown { background: $header-bg; }
     #player-meta:before { @include linear-gradient(left, $header-bg, rgba($header-bg,0)); }
     #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
     #welcome { background: darken($header-bg, 25%); }
-    #player-volume:before {border-top: 34px solid $header-bg;}
     #buttons .notifications {border-color: $header-bg;}
   }
 

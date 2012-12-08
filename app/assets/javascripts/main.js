@@ -178,6 +178,7 @@ $('#query')
 mpClick('#player-play', 'toggle');
 mpClick('#player-next', 'next');
 mpClick('#player-prev', 'prev');
+mpClick('#player-volume-icon', 'toggleVolume');
 
 // Song title click
 $('#player-song-name a').click(function songNameClick() {
