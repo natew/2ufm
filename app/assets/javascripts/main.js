@@ -178,7 +178,6 @@ $('#query')
 mpClick('#player-play', 'toggle');
 mpClick('#player-next', 'next');
 mpClick('#player-prev', 'prev');
-mpClick('#player-volume-icon', 'toggleVolume');
 
 // Song title click
 $('#player-song-name a').click(function songNameClick() {
@@ -377,6 +376,12 @@ body.allOn('click', {
   '#player-mode': function(e) {
     e.preventDefault();
     updatePlayMode(mp.nextPlayMode());
+  },
+
+  '#player-volume-icon': function(e, el) {
+    if ($(e.target).is('#player-volume-icon')) {
+      mp.toggleVolume();
+    }
   },
 
   '#more-artists': function() {

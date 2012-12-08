@@ -36,7 +36,7 @@ var mp = (function() {
       smReady = false,
       delayStart = false,
       volume = parseInt($.cookie('volume') || ($.cookie('volume', 100) && 100), 10),
-      prevVolume = volume == 0 ? 100 : 0,
+      prevVolume = volume,
       time = 0,
       autoPlay = false,
       hasMoved = false,
@@ -409,15 +409,15 @@ var mp = (function() {
     startVolumeDrag: function(e) {
       e.preventDefault();
       dragging_volume = true;
-      $('body').bind('mousemove.volume', player.followVolumeDrag);
+      $('body').addClass('dragging-volume').bind('mousemove.volume', player.followVolumeDrag);
       $('body').unbind('mouseup.volume').bind('mouseup.volume', player.endVolumeDrag);
     },
 
     endVolumeDrag: function(e) {
       if (dragging_volume) {
         dragging_volume = false;
-        $('body').unbind('mousemove.volume').unbind('mouseup.volume');
         player.followVolumeDrag(e);
+        $('body').removeClass('dragging-volume').unbind('mousemove.volume').unbind('mouseup.volume');
       }
     },
 
@@ -443,9 +443,14 @@ var mp = (function() {
     },
 
     toggleVolume: function() {
-      var newVolume = prevVolume;
-      prevVolume = volume;
-      player.setVolume(newVolume);
+      if (volume > 0) {
+        prevVolume = volume;
+        player.setVolume(0);
+      }
+      else {
+        if (prevVolume == 0) prevVolume = 100;
+        player.setVolume(prevVolume);
+      }
     },
 
     getTitle: function getTitle() {

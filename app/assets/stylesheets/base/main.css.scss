@@ -581,6 +581,10 @@ body.loaded {
   }
 }
 
+.dragging-volume #player-volume-dropdown {
+  display: block;
+}
+
 #player-volume-dropdown {
   display: none;
   position: absolute;
