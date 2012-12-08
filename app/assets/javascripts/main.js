@@ -250,7 +250,8 @@ function windowResize() {
     // Custom scrollpanes
     $('#share-friends').dontScrollParent();
     $('.scroll-section').each(function() {
-      $('div:first', this).dontScrollParent().addClass('scroll-section-inner');
+      var div = $('div:first', this);
+      if (div.length) div.addClass('scroll-section-inner').dontScrollParent();
     });
   }
 }

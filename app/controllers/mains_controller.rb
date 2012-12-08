@@ -68,7 +68,8 @@ class MainsController < ApplicationController
         json: { :only => ['name', 'station_slug'] }
       )
 
-      result = "[#{artists}#{blogs}#{users}#{songs[0..-2]}]"
+      results = artists + blogs + users + songs
+      result = "[#{results[0..-2]}]"
 
       logger.info result
       render :text => result

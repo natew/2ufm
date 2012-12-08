@@ -436,7 +436,6 @@ $.Widget.prototype = {
                        'id': self.inputName + '_list',
                        'role': 'listbox'
                      })
-                     .hide()
                      .insertAfter(self.$input);
 
       // Remember original input attribute values for when 'destroy' is called
@@ -824,7 +823,7 @@ $.Widget.prototype = {
             // Select the currently highlighted item. Input keeps focus.
             case self.keys.ENTER:
               // Prevent selection if the list isn't visible.
-              if (!$list.is(':visible')) {
+              if (!$list.is('.visible')) {
                 // Prevent the form from submitting.
                 if (!self.options.submitOnEnter) {
                   key.preventDefault();
@@ -850,7 +849,7 @@ $.Widget.prototype = {
             // Select the currently highlighted item. Input loses focus.
             case self.keys.TAB:
               // Prevent selection if the list isn't visible.
-              if (!$list.is(':visible')) {
+              if (!$list.is('.visible')) {
                 return;
               }
 
@@ -943,7 +942,7 @@ $.Widget.prototype = {
         // Ensure that everything is dismissed if anything other than the input
         // is clicked. (A click on a selectable list item is handled above,
         // before this code fires.)
-        if (!self.focusReal && self.$list.is(':visible')) {
+        if (!self.focusReal && self.$list.is('.visible')) {
           self._dismiss();
         }
       });
@@ -1063,7 +1062,7 @@ $.Widget.prototype = {
     _showList: function () {
       // But only if there are results to be shown.
       if (this.$list.children().length) {
-        this.$list.show();
+        this.$list.addClass('visible');
 
         this.$input.attr('aria-expanded', 'true');
       }
@@ -1073,7 +1072,7 @@ $.Widget.prototype = {
 
     // Hide the results list.
     _hideList: function () {
-      this.$list.hide();
+      this.$list.removeClass('visible');
 
       this.$input
         .removeAttr('aria-activedescendant')
@@ -1094,7 +1093,7 @@ $.Widget.prototype = {
     // Hide and empty the results list.
     _hideAndEmptyList: function () {
       this.$list
-        .hide()
+        .removeClass('visible')
         .empty();
 
       this.$input

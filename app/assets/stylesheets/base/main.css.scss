@@ -1062,7 +1062,7 @@ $placeholder-color: #999;
     font-size: 14px;
     background: rgba(0,0,0,0.3);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 5px;
+    border-radius: 20px;
     @include box-sizing(border-box);
     @include transition(all .1s linear);
 
@@ -1080,7 +1080,7 @@ $placeholder-color: #999;
     pointer-events: none;
     cursor: text;
     position: absolute;
-    left: 10px;
+    left: 12px;
     top: 4px;
     font-size: 18px;
     color: rgba(255,255,255,0.75);
@@ -1873,7 +1873,7 @@ $nav-arrow-size: 5px;
     }
   }
 
-  &.open {
+  &.open, &.visible {
     display: block;
   }
 
