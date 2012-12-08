@@ -4,34 +4,10 @@ class ArtistsController < ApplicationController
   def index
     @random = false
     if params[:genre]
-      @artists = Station
-                .has_songs(1)
-                .joins('inner join artists on artists.id = stations.artist_id')
-                .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
-                .joins("inner join genres on genres.id = artists_genres.genre_id")
-                .where(genres: { slug: params[:genre] })
-                .order('stations.songs_count desc')
-                .page(params[:page])
-                .per(Yetting.per)
+      @artists = Station.artists_from_genre(params[:genre], params[:page])
     else
       @random = true
       @artists = Station.artist_station.has_artist_image.has_songs(3).order('random() desc').limit(17)
-    end
-
-    @artists_genres = Hash[*
-                      Station
-                        .has_songs(1)
-                        .where(artist_id: @artists.map(&:artist_id))
-                        .select("stations.artist_id as id, string_agg(genres.name, ', ') as artist_genres")
-                        .joins('inner join artists on artists.id = stations.artist_id')
-                        .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
-                        .joins("inner join genres on genres.id = artists_genres.genre_id")
-                        .group('stations.artist_id')
-                        .map{ |s| [s.id, s.artist_genres] }.flatten
-                    ]
-
-    @artists.each do |station|
-      station.content = @artists_genres[station.artist_id]
     end
 
     respond_to do |format|

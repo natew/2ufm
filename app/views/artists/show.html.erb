@@ -10,7 +10,7 @@
         <%= link_to 'Amazon', "http://www.amazon.com/s/ref=nb_ss_dmusic/?tag=bassdo-20&url=search-alias%3Ddigital-music&field-keywords=#{URI.encode(@artist.name)}", class: 'popup button small grey' %>
       </div>
 
-      <%= render partial: 'genres/horizontal_list', locals: { genres: @artist.genres } %>
+      <%= render partial: 'genres/horizontal_list', locals: { genres: @artist.genres.order('active desc') } %>
     </div>
 
     <nav class="nav-menu">

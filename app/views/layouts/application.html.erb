@@ -151,11 +151,11 @@
 
             <section>
               <h1 href="#navbar-genres" data-toggle="invisible">Genres</h1>
-              <%# link_to 'Genres', '#navbar-genres', :id => 'nav-genres', :class => 'icon-music control', 'data-toggle' => 'invisible' %>
 
               <div id="navbar-genres" class="scroll-section">
                 <div id="navbar-genres-wrap">
-                  <%= render 'genres/links' %>
+                  <%= render 'genres/links' unless user_signed_in? %>
+                  <%= render 'genres/users' if user_signed_in? %>
                 </div>
               </div>
             </section>

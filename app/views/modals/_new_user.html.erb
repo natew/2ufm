@@ -4,7 +4,7 @@
     <p class="large">First, pick some genres you enjoy</p>
 
     <ul class="genres multi-select">
-      <%= render partial: Genre.ordered, locals: { control: true } %>
+      <%= render partial: Genre.active.ordered, locals: { control: true } %>
     </ul>
 
     <div class="modal-actions">

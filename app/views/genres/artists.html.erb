@@ -1,0 +1,11 @@
+<div class="title">
+  <h1><%= @genre.name %></h1>
+  <%= render partial: 'show_nav', locals: { genre: @genre } %>
+</div>
+
+<div class="whole">
+  <div class="stations">
+    <%= render partial: 'stations/station', collection: @artists, locals: { content: true, nocache: true } %>
+    <%= paginate @artists %>
+  </div>
+</div>

@@ -126,6 +126,26 @@ class Station < ActiveRecord::Base
     fake(id: 0, title: 'Newest Songs')
   end
 
+  def self.artists_from_genre(genre, page)
+    artists = Station
+      .has_songs(1)
+      .joins('inner join artists on artists.id = stations.artist_id')
+      .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
+      .joins("inner join genres on genres.id = artists_genres.genre_id")
+      .where(genres: { slug: genre })
+      .order('stations.songs_count desc')
+      .page(page)
+      .per(Yetting.per)
+
+    artists_genres = Genre.artists_genres_list(artists.map(&:artist_id))
+
+    artists.each do |station|
+      station.content = artists_genres[station.artist_id]
+    end
+
+    artists
+  end
+
   def image
     get_parent.image
   end

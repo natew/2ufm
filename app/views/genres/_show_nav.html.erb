@@ -1,5 +1,8 @@
+<% if @genre.active %>
 <nav class="nav-menu">
-  <%= nav_link_to 'Shuffle', genre_path(genre) %>
+  <%= nav_link_to 'Newest', genre_path(genre) %>
   <%= nav_link_to 'Trending', trending_genre_path(genre) %>
-  <%= nav_link_to 'Latest', latest_genre_path(genre) %>
+  <%= nav_link_to 'Shuffle', shuffle_genre_path(genre) %>
+  <%= nav_link_to 'Artists', artists_genre_path(genre) %>
 </nav>
+<% end %>

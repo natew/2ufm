@@ -60,7 +60,6 @@ class Artist < ActiveRecord::Base
     url_name = Rack::Utils.escape(name)
     url = "http://developer.echonest.com/api/v4/artist/search?api_key=#{Yetting.echonest_api_key}&name=#{url_name}"
     echo_artist = HTTParty.get(url)
-    logger.info echo_artist
     return unless echo_artist
     echo_artist_response = echo_artist['response']
     return unless echo_artist_response
@@ -72,7 +71,6 @@ class Artist < ActiveRecord::Base
     terms_url = "http://developer.echonest.com/api/v4/artist/terms?api_key=#{Yetting.echonest_api_key}&id=#{id}&format=json"
     echo_terms = HTTParty.get(terms_url)
     return unless echo_terms
-    logger.info echo_terms
     echo_terms_response = echo_terms['response']
     return unless echo_terms_response
     terms = echo_terms_response['terms']
@@ -88,7 +86,7 @@ class Artist < ActiveRecord::Base
     got_genres = get_genres
     return unless got_genres
     got_genres.each do |add_genre|
-      genre = Genre.find_by_name(add_genre)
+      genre = Genre.find_or_create_by_name(add_genre)
       begin
         self.genres << genre if genre
       rescue ActiveRecord::RecordNotUnique => e

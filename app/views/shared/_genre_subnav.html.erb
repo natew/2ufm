@@ -1,6 +1,6 @@
 <ul class="subnav">
   <li><%= nav_link_to 'Random', send("#{object}_path") %></li>
-  <% Genre.ordered.each do |genre| %>
+  <% Genre.active.ordered.each do |genre| %>
     <li><%= nav_link_to genre.name, send("#{object}_path", genre) %></li>
   <% end %>
 </ul>

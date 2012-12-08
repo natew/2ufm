@@ -42,7 +42,7 @@ $(function() {
 
     $('#modal-new-user .genres a').click(function(e) {
       e.preventDefault();
-    })
+    });
 
     $('#genres-next').click(function() {
       var genres = [];

@@ -9,9 +9,12 @@ class Genre < ActiveRecord::Base
 
   before_create :map_name
 
+  scope :active, where(active: true)
   scope :ordered, order('name')
+  scope :users, lambda { |user| joins(:users).where('users.id = ?', user.id) }
+  scope :not_users, lambda { |user| joins("left join genres_users on genres_users.genre_id = genres.id and genres_users.user_id = '#{user.id}'").where('genres_users.user_id is null') }
 
-  attr_accessible :name, :blog_ids, :includes_remixes
+  attr_accessible :name, :blog_ids, :includes_remixes, :active
 
   ALTERNATIVE_NAMES = {
     'drum and bass' => 'Drum & Bass',
@@ -33,5 +36,19 @@ class Genre < ActiveRecord::Base
 
   def self.map_name(name)
     ALTERNATIVE_NAMES[name] || name
+  end
+
+  def self.artists_genres_list(ids)
+    Hash[*
+      Station
+        .has_songs(1)
+        .where(artist_id: ids)
+        .select("stations.artist_id as id, string_agg(genres.name, ', ') as artist_genres")
+        .joins('inner join artists on artists.id = stations.artist_id')
+        .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
+        .joins("inner join genres on genres.id = artists_genres.genre_id")
+        .group('stations.artist_id')
+        .map{ |s| [s.id, s.artist_genres] }.flatten
+    ]
   end
 end

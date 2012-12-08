@@ -1,5 +1,5 @@
 <% cache ['genres-nav-v1'] do %>
   <ul class="subnav">
-    <%= render Genre.ordered %>
+    <%= render Genre.active.ordered %>
   </ul>
 <% end %>

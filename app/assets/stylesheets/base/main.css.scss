@@ -918,6 +918,12 @@ body.loaded {
 
 .scroll-section {
   position: relative;
+
+  hr {
+    margin: 2px 0;
+    border: none;
+    border-bottom: 2px solid rgba(255,255,255,0.05);
+  }
 }
 
 .scroll-section-inner {

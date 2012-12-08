@@ -4,7 +4,7 @@ class GenresController < ApplicationController
   def index
   end
 
-  def show
+  def shuffle
     find_genre if @genre.nil?
     create_genre_station('shuffle')
     @genre_songs = Song.by_genre(@genre).playlist_shuffle
@@ -18,11 +18,20 @@ class GenresController < ApplicationController
     render_genre_show
   end
 
-  def latest
+  def show
     find_genre if @genre.nil?
-    create_genre_station('latest')
-    @genre_songs = Song.by_genre(@genre).playlist_newest
-    render_genre_show
+    if @genre.active
+      create_genre_station('latest')
+      @genre_songs = Song.by_genre(@genre).playlist_newest
+      render_genre_show
+    else
+      self.artists
+      render action: 'artists'
+    end
+  end
+
+  def artists
+    @artists = Station.artists_from_genre(@genre.slug, params[:page])
   end
 
   private
@@ -33,11 +42,11 @@ class GenresController < ApplicationController
 
   def find_genre
     @genre = Genre.find_by_slug(params[:id])
+    @primary = @genre
   end
 
   def render_genre_show
     @playlist = { station: @genre_station, songs: @genre_songs }
-    @primary = @genre
 
     respond_to do |format|
       format.html { render 'show' }
