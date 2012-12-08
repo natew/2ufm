@@ -107,8 +107,8 @@
     width: 64px;
     height: 64px;
     position: absolute;
-    top: 3px;
-    left: 88px;
+    top: 4px;
+    left: 108px;
     color: #fff;
     font-size: 32px;
     padding: 12px 0 0 10px;
@@ -183,7 +183,7 @@
   }
 
   #player-timer {
-    display: none;
+    display: none !important;
   }
 
   #player-song-name {

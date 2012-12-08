@@ -369,7 +369,7 @@ body.loaded {
   }
 
   .next {
-    margin: 5px 0 0 -4px;
+    margin: 5px 0 0 0;
     font-size: 24px;
 
     span {
@@ -599,7 +599,7 @@ body.loaded {
 
 #player-volume-position {
   position: absolute;
-  background: #fff;
+  background: rgba(255,255,255,0.5);
   top: 0;
   left: 0;
   bottom: 0;
@@ -1828,7 +1828,7 @@ $nav-arrow-size: 5px;
   background: rgba(0,0,0,0.9);
   font-weight: bold;
   border-radius: 5px;
-  max-width: 600px;
+  max-width: 380px;
   min-width: 120px;
   @include box-shadow(0 0 10px rgba(0,0,0,0.8));
   @include box-sizing(border-box);
@@ -1839,7 +1839,7 @@ $nav-arrow-size: 5px;
     &:before {
       left: auto;
       margin: 0;
-      right: $nav-arrow-size + 40;
+      right: 18%;
     }
   }
 
