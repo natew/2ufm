@@ -203,7 +203,6 @@
     <%= link_to 'Feed', feed_user_path(current_user), class: 'icon-list' %>
     <%= link_to 'Following', following_user_path(current_user), class: 'icon-add' %>
     <%= link_to "Inbox #{render(partial:'shared/notifications')}".html_safe, '/shares/inbox', class: 'icon-inbox', 'data-shares' => current_user.received_songs_notifications %>
-    <br />
     <%= link_to "Account", user_account_path, class: 'icon-gear'  %>
     <%= link_to 'Log out', destroy_user_session_path, method: 'delete', class: 'secondary', title: 'Log out' %>
     <%- else -%>

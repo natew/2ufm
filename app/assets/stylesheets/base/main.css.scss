@@ -649,7 +649,7 @@ body.loaded {
 
 #nav-user .notifications {
   top: 5px;
-  right: 3px;
+  right: 5px;
   background: #fff;
   color: #000;
 }
@@ -1915,6 +1915,7 @@ $nav-arrow-size: 5px;
   li.mp_highlighted,
   a:hover,
   .playing {
+    color: #fff;
     @include linear-gradient($primary-light,$primary);
   }
 }
