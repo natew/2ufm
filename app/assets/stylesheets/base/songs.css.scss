@@ -50,7 +50,8 @@
 
 .playlist section a,
 .sub a,
-.message a {
+.message a,
+p a {
   color: $heading-color-dark;
   text-decoration: none;
   padding: 1px 4px;

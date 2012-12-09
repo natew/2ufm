@@ -44,26 +44,7 @@ $(function() {
       e.preventDefault();
     });
 
-    $('#genres-next').click(function() {
-      var genres = [];
-      $('#new-user-genres .genres a.selected').each(function(){
-        genres.push($(this).attr('data-id'));
-      });
-
-      if (genres.length) {
-        $.ajax({
-          type: 'post',
-          url: '/my/genres',
-          data: 'genres=' + genres.join(','),
-          success: function(data) {
-            $('#new-user-artists .stations').removeClass('loading').html(data);
-          }
-        });
-      } else {
-        notice('No genres selected... You gotta like something, right?!');
-        return false;
-      }
-    });
+    $('#genres-next').click(saveUserGenres);
 
     $('#recommended-artists-next').click(function() {
       $('#modal-new-user').removeClass('permanent');
@@ -173,11 +154,6 @@ $('#query')
       pjax('/' + data.url);
     }
   });
-
-// Player controls
-mpClick('#player-play', 'toggle');
-mpClick('#player-next', 'next');
-mpClick('#player-prev', 'prev');
 
 // Song title click
 $('#player-song-name a').click(function songNameClick() {
@@ -302,6 +278,22 @@ body.on('click', 'a.restricted', function() {
 });
 
 body.allOn('click', {
+  // Player controls
+  '#player-play': function() {
+    mp.toggle();
+    return false;
+  },
+
+  '#player-next': function() {
+    mp.next();
+    return false;
+  },
+
+  '#player-prev': function() {
+    mp.prev();
+    return false;
+  },
+
   '.disabled': function() {
     return false;
   },
@@ -334,6 +326,7 @@ body.allOn('click', {
   },
 
   '[data-toggle]': function(e, el) {
+    if (!$(e.target).is('[data-toggle]')) return;
     $(el.attr('href')).toggleClass(el.attr('data-toggle'));
     el.toggleClass('toggled');
   },
@@ -405,6 +398,10 @@ body.allOn('click', {
     notice('Flagged song ' + $(this).html());
   },
 
+  '#save-genres': function() {
+    saveUserGenres();
+  },
+
   '#head-colors a': function(e, el) {
     e.preventDefault();
     var old = theme.head;
@@ -425,6 +422,17 @@ body.allOn('click', {
       body.removeClass(old);
       $.cookie('theme-body', theme.body);
     }
+  },
+
+  '#buttons .broadcast a': function(e, el) {
+    el.parent().toggleClass('remove');
+  },
+
+  '#navbar [href=#navbar-genres]': function() {
+    setTimeout(function() {
+      $.cookie('genres-open', !$('#navbar-genres').is('.invisible'));
+      windowResize();
+    }, 210);
   }
 });
 
@@ -449,8 +457,8 @@ body.allOn('click', {
 
     if (!e.isDefaultPrevented() && !commandPressed) {
       e.preventDefault();
-      newPage = el.attr('href');
-      if (doPjax) pjax(newPage);
+      fn.log(el.is('.full-request'))
+      if (doPjax) pjax(el.attr('href'), el.is('.full-request'));
       else loadPage(el.attr('href'));
     }
   }
@@ -464,18 +472,6 @@ body.on('click', function(e) {
 
   // Hide dropdowns on click
   if (!el.parents('.pop-menu, .nav-menu')) navDropdown(false);
-});
-
-$('#buttons .broadcast a').click(function() {
-  $(this).parent().toggleClass('remove');
-});
-
-// Genres
-$('#navbar [href=#navbar-genres]').click(function() {
-  setTimeout(function() {
-    $.cookie('genres-open', !$('#navbar-genres').is('.invisible'));
-    windowResize();
-  }, 210);
 });
 
 if ($.cookie('genres-open') === 'false') {
@@ -519,15 +515,6 @@ function updatePlayMode(mode) {
   $('#player-mode').trigger('mouseenter');
 }
 
-// Bind selectors to callbacks
-function mpClick(selector, callback) {
-  $(selector).click(function(e) {
-    e.preventDefault();
-    fn.log(fn);
-    mp[callback].call();
-  });
-}
-
 function setNavItems() {
   $('#navbar a').each(function() {
     var t = $(this);
@@ -566,11 +553,12 @@ function setNavActive(page) {
   newNavEl.addClass('active');
 }
 
-function pjax(url, container) {
+function pjax(url, full) {
   $.pjax({
     url: url,
-    container: container || '#body',
-    timeout: 30000
+    container: full ? 'body' : '#body',
+    timeout: 30000,
+    fullRequest: full || false
   });
 }
 
@@ -862,6 +850,27 @@ function scrollToPlayingSong(section) {
       }
     }
   }, 200);
+}
+
+function saveUserGenres() {
+  var genres = [];
+  $('.genres.multi-select a.selected').each(function(){
+    genres.push($(this).attr('data-id'));
+  });
+
+  if (genres.length) {
+    $.ajax({
+      type: 'post',
+      url: '/my/genres',
+      data: 'genres=' + genres.join(','),
+      success: function(data) {
+        $('#new-user-artists .stations').removeClass('loading').html(data);
+      }
+    });
+  } else {
+    notice('No genres selected... You gotta like something, right?!');
+    return false;
+  }
 }
 
 // Catch errors

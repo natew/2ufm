@@ -1,5 +1,14 @@
-<div class="whole">
-  <h1>Genres</h1>
+<% cache 'genres_index' do %>
+<%= render 'title' %>
 
-  <%= render 'genres/list' %>
+<div class="whole">
+  <ul class="genres">
+    <%= render partial: Genre.active.ordered %>
+  </ul>
+
+  <h3>Artists Genres</h3>
+  <ul class="genres">
+    <%= render partial: Genre.not_active.ordered %>
+  </ul>
 </div>
+<% end %>

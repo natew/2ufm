@@ -1,0 +1,19 @@
+<% cache 'genres_index' do %>
+<%= render 'title' %>
+
+<div class="whole">
+  <% if user_signed_in? %>
+    <p class="explanation">
+      Select genres to add them to your favorites.
+    </p>
+
+    <ul class="genres multi-select">
+      <%= render partial: Genre.active.ordered.for_user(current_user), locals: { control: true } %>
+    </ul>
+
+    <%= link_to 'Save', '', class: 'button full-request', id: 'save-genres' %>
+  <% else %>
+    <p class="explanation"><%=link_to 'Sign in', new_session_path, class: 'restricted' %> to add favorite genres</p>
+  <% end %>
+</div>
+<% end %>

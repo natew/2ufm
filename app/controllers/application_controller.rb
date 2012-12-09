@@ -62,7 +62,11 @@ class ApplicationController < ActionController::Base
   private
 
   def set_layout
-    request.headers['X-PJAX'] ? 'single' : 'application'
+    if request.headers['X-PJAX']
+      request.headers['X-PJAX-FULL'] ? 'full' : 'single'
+    else
+      'application'
+    end
   end
 
   def authenticate_user!

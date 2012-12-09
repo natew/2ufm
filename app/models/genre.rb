@@ -10,9 +10,11 @@ class Genre < ActiveRecord::Base
   before_create :map_name
 
   scope :active, where(active: true)
+  scope :not_active, where(active: false)
   scope :ordered, order('name')
   scope :users, lambda { |user| joins(:users).where('users.id = ?', user.id) }
   scope :not_users, lambda { |user| joins("left join genres_users on genres_users.genre_id = genres.id and genres_users.user_id = '#{user.id}'").where('genres_users.user_id is null') }
+  scope :for_user, lambda { |user| select('genres.*, genres_users.user_id as has_genre').joins("left join genres_users on genres_users.genre_id = genres.id and genres_users.user_id = '#{user.id}'") }
 
   attr_accessible :name, :blog_ids, :includes_remixes, :active
 

@@ -3,6 +3,7 @@
   autoplay ||= false
   classes    = control ? 'control' : ''
   classes    = classes +  ' play-station' if autoplay
+  classes   += genre.has_genre ? ' selected' : '' if genre.respond_to? :has_genre
 %>
 
 <li><%= nav_link_to genre.name, genre, class: classes, 'data-id' => genre.id %></li>

@@ -291,7 +291,8 @@ body.loaded {
   }
 
   #player-controls a {
-    span { color: rgba(255,255,255,0.8); }
+    &.next span { color: rgba(255,255,255,0.8); }
+    &.play span { color: #fff; }
     &:hover span { text-shadow: 0 0 15px rgba(255,255,255,0.8); color: #fff; }
   }
 
@@ -744,28 +745,9 @@ body.loaded {
     cursor: default;
     color: rgba(255,255,255,0.3);
 
-    div {
-      position: absolute;
-      top: -4px;
-      right: 12px;
-
-      a {
-        font-size: 11px;
-        float: right;
-        width: 0;
-        overflow: hidden;
-        padding: 2px 0 2px 25px !important;
-        margin: 0 0 0 -5px;
-
-        &:hover {
-          background: none;
-          &:before { color: #fff; }
-        }
-
-        &.active {
-          background: none !important;
-        }
-      }
+    a {
+      margin: -3px 10px -3px -10px;
+      &.active { background: none !important; }
     }
   }
 
