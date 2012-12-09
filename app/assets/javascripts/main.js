@@ -677,7 +677,7 @@ function updateBroadcastButton(station_id, song_id) {
   if (isOnline) {
     var i,
         broadcasts = broadcastedIds[station_id],
-        broadcast = $('#player-buttons .broadcast').removeClass('remove');
+        broadcast = $('#buttons .broadcast').removeClass('remove');
 
     broadcast
       .children('a')
