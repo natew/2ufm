@@ -22,7 +22,7 @@
   songs            ||= station.songs.playlist_broadcasted if !single
   cache_prefix     ||= ''
 
-  if !single
+  if !single and !dont_paginate
     total_pages = page + 1 # trick for non-paginate capable
 
     if !page_request and !already_limited

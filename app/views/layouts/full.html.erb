@@ -91,7 +91,7 @@
           </section>
 
           <section>
-            <h1 href="#navbar-genres" data-toggle="invisible"><%= link_to 'Genres', genres_path %></h1>
+            <h1 href="#navbar-genres" data-toggle="invisible"><%= link_to 'Genres'.html_safe, genres_path %></h1>
 
             <div id="navbar-genres" class="scroll-section">
               <div id="navbar-genres-wrap">
@@ -99,7 +99,8 @@
                 <%- if user_signed_in? -%>
                   <%= render 'genres/users' %>
                   <hr />
-                  <%= link_to 'Edit my genres', genres_path %>
+                  <%= link_to 'Browse Genres', genres_path %>
+                  <%= link_to 'Edit', genres_favorites_path %>
                 <%- end -%>
               </div>
             </div>

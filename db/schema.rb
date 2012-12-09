@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121208201029) do
+ActiveRecord::Schema.define(:version => 20121209194752) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -271,6 +271,17 @@ ActiveRecord::Schema.define(:version => 20121208201029) do
     t.datetime "updated_at"
   end
 
+  create_table "song_genres", :force => true do |t|
+    t.integer  "genre_id"
+    t.integer  "song_id"
+    t.string   "source"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "song_genres", ["genre_id"], :name => "index_song_genres_on_genre_id"
+  add_index "song_genres", ["song_id", "genre_id", "source"], :name => "index_song_genres_on_song_id_and_genre_id_and_source", :unique => true
+
   create_table "songs", :force => true do |t|
     t.string   "name",                       :default => ""
     t.string   "artist_name",                :default => ""
@@ -324,8 +335,10 @@ ActiveRecord::Schema.define(:version => 20121208201029) do
     t.string   "youtube_id"
     t.string   "description"
     t.datetime "soundcloud_tags_updated_at"
+    t.string   "category"
   end
 
+  add_index "songs", ["category"], :name => "index_songs_on_category"
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
   add_index "songs", ["processed", "working", "rank", "matching_id", "published_at"], :name => "songs_index"
   add_index "songs", ["seconds"], :name => "index_songs_on_seconds"

@@ -3,6 +3,9 @@ class Genre < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :artists
 
+  has_many :song_genres
+  has_many :songs, :through => :song_genres
+
   acts_as_url :name, :url_attribute => :slug
 
   validates :name, presence: true, uniqueness: true
@@ -17,6 +20,7 @@ class Genre < ActiveRecord::Base
   scope :for_user, lambda { |user| select('genres.*, genres_users.user_id as has_genre').joins("left join genres_users on genres_users.genre_id = genres.id and genres_users.user_id = '#{user.id}'") }
 
   attr_accessible :name, :blog_ids, :includes_remixes, :active
+  attr_accessor :play_mode
 
   ALTERNATIVE_NAMES = {
     'drum and bass' => 'Drum & Bass',
@@ -29,7 +33,7 @@ class Genre < ActiveRecord::Base
   end
 
   def get_title
-    name
+    play_mode ? "#{play_mode.capitalize} #{name}" : name
   end
 
   def map_name

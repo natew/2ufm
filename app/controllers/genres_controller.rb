@@ -7,14 +7,12 @@ class GenresController < ApplicationController
   def shuffle
     find_genre if @genre.nil?
     create_genre_station('shuffle')
-    @genre_songs = Song.by_genre(@genre).playlist_shuffle
     render_genre_show
   end
 
   def trending
     find_genre if @genre.nil?
     create_genre_station('trending')
-    @genre_songs = Song.by_genre(@genre).playlist_trending
     render_genre_show
   end
 
@@ -22,7 +20,6 @@ class GenresController < ApplicationController
     find_genre if @genre.nil?
     if @genre.active
       create_genre_station('latest')
-      @genre_songs = Song.by_genre(@genre).playlist_newest
       render_genre_show
     else
       self.artists
@@ -37,7 +34,13 @@ class GenresController < ApplicationController
   private
 
   def create_genre_station(type)
-    @genre_station = Station.new(title: "#{@genre.name} #{type.capitalize}", id: integers_from_string(@genre.name + type))
+    @genre_station = Station.new({
+      title: "#{@genre.name} #{type.capitalize}",
+      id: integers_from_string(@genre.name + type)
+    })
+
+    @genre_songs = Song.by_genre(@genre, type, params[:p] || 1)
+    @genre.play_mode = type
   end
 
   def find_genre
@@ -46,7 +49,8 @@ class GenresController < ApplicationController
   end
 
   def render_genre_show
-    @playlist = { station: @genre_station, songs: @genre_songs }
+    @playlist = { station: @genre_station, songs: @genre_songs, already_limited: true }
+    @playlist.merge(nocache: true) if @genre.play_mode == 'shuffle'
 
     respond_to do |format|
       format.html { render 'show' }

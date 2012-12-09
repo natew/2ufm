@@ -5,7 +5,7 @@
   -%>
   <% if selected.length > 0 %>
     <%= render partial: 'genres/link', collection: selected %>
-    <hr />
+  <% else %>
+    <%= render partial: 'genres/link', collection: not_selected %>
   <% end %>
-  <%= render partial: 'genres/link', collection: not_selected %>
 <%# end %>

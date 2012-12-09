@@ -48,6 +48,8 @@ $(function() {
     });
   }
 
+  if (hideCorner == 1) $('#close-corner-banner').click();
+
   // Welcome
   // Cookies
   if (!hideWelcome && !isOnline) {
@@ -157,7 +159,7 @@ function windowResize() {
     $('#share-friends').dontScrollParent();
     $('.scroll-section').each(function() {
       var div = $('div:first', this);
-      if (div.length) div.addClass('scroll-section-inner').dontScrollParent();
+      if (div && div.length) div.addClass('scroll-section-inner').dontScrollParent();
     });
   }
 }
@@ -372,6 +374,11 @@ body.allOn('click', {
       $.cookie('genres-open', !$('#navbar-genres').is('.invisible'));
       windowResize();
     }, 210);
+  },
+
+  '#close-corner-banner': function(e, el) {
+    cornerBanner.toggleClass('closed');
+    $.cookie('hideCorner', cornerBanner.is('.closed') ? 1 : 0);
   }
 });
 

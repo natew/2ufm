@@ -125,7 +125,7 @@ ZeroClipboard.Client.prototype = {
 		var style = this.div.style;
 		if (this.position === 'relative') {
 			this.position = 'absolute';
-			box.left = '-' + box.width;
+			box.left = 0;
 			box.top = 0;
 		}
 		style.position = this.position;

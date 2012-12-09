@@ -94,6 +94,8 @@ group :development do
   gem 'awesome_print'
   gem 'capistrano_colors'
   gem 'mails_viewer'
+  # gem 'better_errors'
+  # gem 'binding_of_caller'
 
   # gem 'marginalia' # Adds nice info to SQL statements, supposedly (not working yet)
   # gem 'bullet'

@@ -68,6 +68,8 @@ class Song < ActiveRecord::Base
   has_many   :listens
   has_many   :shares
   has_many   :tags
+  has_many   :song_genres
+  has_many   :genres, :through => :song_genres
 
   before_create :set_source, :get_real_url, :clean_url, :set_token
   after_create :delayed_scan_and_save, :set_rank
@@ -107,6 +109,12 @@ class Song < ActiveRecord::Base
   scope :within, lambda { |within| where('songs.created_at >= ?', within.ago) }
   scope :before, lambda { |before| where('songs.created_at < ?', before.ago) }
   scope :random, order('random() desc')
+
+  # Categories
+  scope :original, where(category: 'original')
+  scope :remix, where(category: 'remix')
+  scope :cover, where(category: 'cover')
+  scope :mashup, where(category: 'mashup')
 
   # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
@@ -209,32 +217,96 @@ class Song < ActiveRecord::Base
     Song.joins('inner join tags on tags.song_id = songs.id').where('tags.slug = ?', tag.slug)
   end
 
-  def self.by_genre(genre)
-    # this joins BOTH artists and blog broadcasts by genre
-    songs = Song
-      .joins('inner join broadcasts on broadcasts.song_id = songs.id')
-      .joins('inner join stations as ss on ss.id = broadcasts.station_id')
-      .joins('inner join artists on artists.station_slug = ss.slug')
-      .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
-      .joins('inner join genres on genres.id = artists_genres.genre_id')
-      .joins('inner join broadcasts bb on bb.song_id = songs.id')
-      .joins('inner join stations sss on sss.id = bb.station_id')
-      .joins('inner join blogs b on b.station_slug = sss.slug')
-      .joins('inner join blogs_genres on blogs_genres.blog_id = b.id')
-      .joins('inner join genres gg on gg.id = blogs_genres.genre_id')
-      .where('genres.id = ? and gg.id = ?', genre.id, genre.id)
+  def self.where_conditions(name)
+    %Q{
+      #{name}.processed = 't'
+      AND #{name}.working = 't'
+      AND #{name}.source != 'youtube'
+      AND #{name}.seconds < 600
+    }
+  end
 
-    if !genre.includes_remixes
-      songs = songs
-        .where("NOT EXISTS(
-            SELECT NULL
-            FROM authors
-            WHERE authors.song_id = songs.id
-            AND authors.role IN ('remixer', 'mashup')
-          )")
+  def self.by_genre(genre, type, page)
+    id = genre.id
+    where_extra = genre.includes_remixes ? '' : "AND A.category NOT IN ('remix', 'mashup')"
+    offset = (page.to_i - 1) * Yetting.per
+
+    case type
+    when 'trending'
+      order = min_broadcasts(2).order_rank.to_sql.gsub(/WHERE /, 'AND')
+    when 'latest'
+      order = newest.to_sql
+    when 'shuffle'
+      order = random.to_sql
     end
 
-    songs
+    order.gsub!(/SELECT.*\"songs\"/, '')
+
+    Song.find_by_sql(%Q{
+      SELECT songs.*,
+        blogs.url as blog_url,
+
+        stations.title as station_title,
+        stations.slug as station_slug,
+        stations.id as station_id,
+        stations.follows_count as station_follows_count,
+
+        posts.url as post_url,
+        posts.excerpt as post_excerpt
+      FROM
+      (
+          SELECT distinct id,
+          (
+              SELECT
+              COUNT(*) FROM
+              song_genres b
+              WHERE A.id = b.song_id
+              AND b.source = 'artist'
+              AND b.genre_id = '#{id}'
+          ) as artist,
+          (
+              SELECT
+              COUNT(*) FROM
+              song_genres b
+              WHERE A.id = b.song_id
+              AND b.source = 'blog'
+              AND b.genre_id = '#{id}'
+          ) as blog,
+          (
+              SELECT
+              COUNT(*) FROM
+              song_genres b
+              WHERE A.id = b.song_id
+              AND b.source = 'post'
+              AND b.genre_id = '#{id}'
+          ) as post,
+          (
+              SELECT
+              COUNT(*) FROM
+              song_genres b
+              WHERE A.id = b.song_id
+              AND b.source = 'tag'
+              AND b.genre_id = '#{id}'
+          ) as tag
+          FROM songs A
+          WHERE #{where_conditions('A')}
+          #{where_extra}
+      ) AA
+      INNER JOIN
+        songs on AA.id = songs.id
+      INNER JOIN
+        posts on posts.id = songs.post_id
+      INNER JOIN
+        blogs on blogs.id = songs.blog_id
+      INNER JOIN
+        stations on stations.blog_id = blogs.id
+      WHERE (AA.artist > 0 AND AA.blog > 0)
+      OR (AA.artist > 0 AND AA.post > 0)
+      OR (AA.tag > 0)
+      #{order}
+      LIMIT #{Yetting.per}
+      OFFSET #{offset}
+    })
   end
 
   def self.user_following_songs(type, id, offset, limit)
@@ -262,10 +334,7 @@ class Song < ActiveRecord::Base
           #{join_where}
           INNER JOIN songs on songs.id = broadcasts.song_id
           WHERE ff.user_id = #{id}
-            AND songs.processed = 't'
-            AND songs.working = 't'
-            AND songs.source != 'youtube'
-            AND songs.seconds < 600
+            AND #{where_conditions('A')}
           #{where}
           GROUP BY broadcasts.song_id, broadcasts.station_id
           ORDER BY maxcreated desc
@@ -403,6 +472,10 @@ class Song < ActiveRecord::Base
     end
   end
 
+  def direct
+    source == 'direct'
+  end
+
   def scan_and_save
     if source == 'youtube'
       process(nil)
@@ -429,7 +502,7 @@ class Song < ActiveRecord::Base
             end
         }) do |song|
           # Set file
-          self.file = song
+          self.file = song if direct
           self.compressed_file = compress_mp3(song.path)
           process(song)
           self.save
@@ -511,7 +584,12 @@ class Song < ActiveRecord::Base
       find_matching_songs
       delete_file_if_matching
       find_or_create_artists
+      set_category
       add_to_stations
+
+      # reset genres
+      self.genres.destroy_all
+      delayed_add_to_genres
 
       # Slug & Processed
       self.slug = full_name.to_url
@@ -770,6 +848,31 @@ class Song < ActiveRecord::Base
     absolute_url
   end
 
+  def create_genres(genres, source)
+    genres.each do |genre|
+      SongGenre.find_or_create_by_song_id_and_genre_id_and_source(id, genre, source)
+    end
+  end
+
+  def add_to_genres
+    tag_genres = self.tags.select('genres.id').joins('inner join genres on genres.name ILIKE(tags.name)').map(&:id)
+    artist_genres = self.artists.select('genres.id').joins(:genres).map(&:id)
+    blog_genres = self.blog.genres.select('genres.id').map(&:id)
+    post_content = self.post.content
+    post_genres = Genre.active.to_a.keep_if { |g| post_content =~ /#{g.name}/i }.map(&:id)
+
+    ActiveRecord::Base.transaction do
+      create_genres(tag_genres, 'tag')
+      create_genres(artist_genres, 'artist')
+      create_genres(blog_genres, 'blog')
+      create_genres(post_genres, 'post')
+    end
+  end
+
+  def delayed_add_to_genres
+    delay(priority: 4).add_to_genres
+  end
+
   def add_to_stations
     logger.info "Adding to stations"
     add_to_blog_station
@@ -881,10 +984,7 @@ class Song < ActiveRecord::Base
     if working?
       artists = parse_artists
       if !artists.empty?
-        original = true
-        artists.each do |name,role|
-          original = false if [:remixer, :mashup, :cover].include? role
-
+        artists.each do |name, role|
           # Find or create artist
           match = Artist.where("name ILIKE (?)", name).first
           match = Artist.create(name: name) unless match
@@ -892,9 +992,6 @@ class Song < ActiveRecord::Base
           # Find or create author
           self.authors.find_or_create_by_artist_id_and_role(match.id, role)
         end
-
-        # Set if its an original song
-        self.original_song = original
       else
         # Not working if we don't have any artists
         self.working = false
@@ -902,15 +999,34 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def determine_if_original
-    self.original_song = artists.where('authors.role in (?)', [:remixer, :mashup, :cover]).count == 0
+  def set_category
+    artist_roles = parse_artists.flatten
+
+    if artist_roles.include? :mashup
+      self.category = 'mashup'
+    elsif artist_roles.include? :cover
+      self.category = 'cover'
+    elsif artist_roles.include? :remixer
+      self.category = 'remix'
+    else
+      self.category = 'original'
+    end
+  end
+
+  def update_category
+    set_category
     self.save
+  end
+
+  def delayed_update_category
+    delay(priority: 4).update_category
   end
 
   def rescan_artists
     split_artists_from_name
     self.authors.destroy_all
     find_or_create_artists
+    set_category
     self.save
   end
 
@@ -1098,7 +1214,9 @@ class Song < ActiveRecord::Base
     self.broadcasts.where(parent: 'artist').destroy_all
     self.authors.destroy_all
     find_or_create_artists
+    set_category
     add_to_artists_stations
+    delayed_add_to_genres
 
     self.save
 

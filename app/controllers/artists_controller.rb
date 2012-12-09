@@ -35,7 +35,7 @@ class ArtistsController < ApplicationController
   end
 
   def originals
-    @songs = @artist.station.songs.join_author_and_role(@artist.id, 'original').where(original_song: true).playlist_broadcasted
+    @songs = @artist.station.songs.join_author_and_role(@artist.id, 'original').original.playlist_broadcasted
     @type = 'original'
     render_show
     # render_type 'original'
