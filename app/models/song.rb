@@ -291,6 +291,7 @@ class Song < ActiveRecord::Base
           FROM songs A
           WHERE #{where_conditions('A')}
           #{where_extra}
+            AND A.matching_id = A.id
       ) AA
       INNER JOIN
         songs on AA.id = songs.id
