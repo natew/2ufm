@@ -1,5 +1,5 @@
 <% cache ['genres-list-v1'] do %>
   <ul class="genres">
-    <%= render partial: Genre.ordered, locals: { autoplay: true } %>
+    <%= render partial: Genre.active.ordered, locals: { autoplay: true } %>
   </ul>
 <% end %>
