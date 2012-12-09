@@ -2,7 +2,8 @@ var spinner = (function() {
   var el = $('#spinner'),
       x,
       y,
-      offset = 25,
+      offsetLeft = 20,
+      offsetTop = 32,
       options = {
         lines: 6, // The number of lines to draw
         length: 3, // The length of each line
@@ -31,15 +32,15 @@ var spinner = (function() {
       el
         .spin(options)
         .css({
-          left: x + offset,
-          top:  y + offset
+          left: x + offsetLeft,
+          top:  y + offsetTop
         })
         .removeClass('hidden');
 
       $('body').bind('mousemove.spinner', function(e){
         $('#spinner').css({
-            left: e.pageX + offset,
-            top:  e.pageY + offset
+            left: e.pageX + offsetLeft,
+            top:  e.pageY + offsetTop
           });
       });
     },

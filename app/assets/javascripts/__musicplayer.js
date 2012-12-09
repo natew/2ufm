@@ -1,19 +1,7 @@
 var mp = (function() {
 
   // Elements
-  var pl = {
-    bar: $('#player-progress-bar'),
-    loaded: $('#player-progress-loaded'),
-    position: $('#player-progress-position'),
-    handle: $('#player-progress-grabber'),
-    player: $('#player'),
-    song: $('#player-song'),
-    meta: $('#player-meta'),
-    play: $('#player-play'),
-    timer: $('#player-timer'),
-    volume: $('#player-volume'),
-    volumePosition: $('#player-volume-position')
-  };
+  var pl;
 
   // State
   var w = $(window),
@@ -72,17 +60,7 @@ var mp = (function() {
   soundManager.onready(function() {
     smReady = true;
     if (delayStart) player.play();
-    if (soundManager.supported()) {
-      // Progress grabber
-      pl.handle.bind('mousedown', player.startDrag);
-      $('body').bind('mouseup.dragger', player.endDrag);
-      pl.handle.bind('touchend', player.followDrag);
-
-      // Volume grabber
-      pl.volume.bind('mousedown', player.startVolumeDrag);
-      $('body').bind('mouseup.volume', player.endVolumeDrag);
-      pl.volume.bind('touchend', player.followVolumeDrag);
-    } else {
+    if (!soundManager.supported()) {
       alert('Your browser does not support audio playback');
     }
   });
@@ -121,7 +99,7 @@ var mp = (function() {
     load: function load() {
       fn.log('loading', curSection);
       if (!curSection) curSection = $('.playlist:visible section:first');
-      if (curSection.length) {
+      if (curSection && curSection.length) {
         playlistIndex = curSection.data('index');
         playlistID = curSection.data('station');
 
@@ -526,6 +504,34 @@ var mp = (function() {
 
     setSoundCloudFailed: function() {
       fn.log('soundcloud failed');
+    },
+
+    bindDraggers: function() {
+      // Progress grabber
+      pl.handle.bind('mousedown', player.startDrag);
+      $('body').bind('mouseup.dragger', player.endDrag);
+      pl.handle.bind('touchend', player.followDrag);
+
+      // Volume grabber
+      pl.volume.bind('mousedown', player.startVolumeDrag);
+      $('body').bind('mouseup.volume', player.endVolumeDrag);
+      pl.volume.bind('touchend', player.followVolumeDrag);
+    },
+
+    getElements: function() {
+      pl = {
+        bar: $('#player-progress-bar'),
+        loaded: $('#player-progress-loaded'),
+        position: $('#player-progress-position'),
+        handle: $('#player-progress-grabber'),
+        player: $('#player'),
+        song: $('#player-song'),
+        meta: $('#player-meta'),
+        play: $('#player-play'),
+        timer: $('#player-timer'),
+        volume: $('#player-volume'),
+        volumePosition: $('#player-volume-position')
+      };
     }
   };
 
@@ -864,6 +870,11 @@ var mp = (function() {
 
     toggleVolume: function() {
       player.toggleVolume();
+    },
+
+    bindEvents: function() {
+      player.getElements();
+      player.bindDraggers();
     }
   };
 

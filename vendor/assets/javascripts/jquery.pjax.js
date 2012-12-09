@@ -174,7 +174,7 @@ var pjax = $.pjax = function( options ) {
     }
 
     xhr.setRequestHeader('X-PJAX', 'true')
-    if (options.fullRequest) xhr.setRequestHeader('X-PJAX-FULL', 'true')
+    if (options.fullRequest) xhr.setRequestHeader('X-PJAX-FULL', 'true');
 
     var result
 

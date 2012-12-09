@@ -29,9 +29,6 @@ $(function() {
     resumePlaying();
   }
 
-  // Close modal
-  $('#overlay').click(function() { modal(false); });
-
   // Modal if not logged in
   if (!doPlaysActions()) {
     $('#overlay').removeClass('shown');
@@ -75,15 +72,11 @@ $(function() {
       $(h1s[++h1cur]).addClass('in').removeClass('out')
     }, 4500)
   }
-
-
-  // Mobile
-  $('#mobile-nav').click(function() {
-    $('body').toggleClass('show-nav');
-  })
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
+
+pageEvents();
 
 setNavItems();
 
@@ -122,68 +115,6 @@ $('.tip-n:not(.disabled)').tipsy({gravity: 'n', offset: 5, live: true});
 $('.tip-e:not(.disabled)').tipsy({gravity: 'e', offset: 5, live: true});
 $('.tip-w:not(.disabled)').tipsy({gravity: 'w', offset: 5, live: true});
 
-// Search
-$('#search-form').submit(function searchSubmit() {
-  var search = $('#query').val().replace(/[^A-Za-z0-9\-\_\+ ]/g, '').replace(/\s+/g, '+');
-  fn.log(search);
-  pjax('/do/search/' + search);
-  return false;
-});
-
-$('#query')
-  .focus(function() {
-    $(this).addClass('focused');
-  })
-  .blur(function() {
-    $(this).removeClass('focused');
-  })
-  .keyup(function(e) {
-    if (e.keyCode == 27 || e.keyCode == 13) $(this).blur();
-  })
-  .marcoPolo({
-    highlight: false,
-    submitOnEnter: true,
-    url: '/do/search',
-    selectable: ':not(.unselectable)',
-    formatItem: function (data, $item) {
-      if (data.selectable == 'false') $item.addClass('unselectable');
-      if (data.header == 'true') $item.addClass('unselectable header');
-      return data.name;
-    },
-    onSelect: function (data, $item) {
-      pjax('/' + data.url);
-    }
-  });
-
-// Song title click
-$('#player-song-name a').click(function songNameClick() {
-  $('.tipsy').remove();
-  if (mp.isOnPlayingPage()) {
-    scrollToCurrentSong();
-    return false;
-  }
-});
-
-function scrollToCurrentSong() {
-  var song = $('#song-' + mp.curSongInfo().id);
-  if (song.length) fn.scrollTo(song);
-}
-
-// Play from playlist
-$('#player-playlist').on('click', 'a', function(e) {
-  e.preventDefault();
-  fn.log('playing from playlist');
-  var song    = $(this),
-      section = $(song.attr('href')),
-      index   = song.data('index');
-
-  if (section.length) mp.playSection(section);
-  else mp.playSong(index);
-});
-
-// Online friends
-startGetNavbar();
-
 // window.scroll
 w
   .on('scrollstart', function() {
@@ -200,7 +131,6 @@ w
   });
 
 w.resize(fn.debounce(windowResize, 20));
-windowResize();
 
 function windowResize() {
   $('#navbar-friends-inner')
@@ -232,9 +162,6 @@ function windowResize() {
   }
 }
 
-// Share hover
-$('#player-share').hover(updatePlayerShare);
-
 function updatePlayerShare() {
   var el = $('#player-share'),
       curSong = mp.curSongInfo();
@@ -245,12 +172,8 @@ function updatePlayerShare() {
   shareSongTitle = curSong.name || '';
 }
 
-$(window).bind('popstate', function(event) {
-  fn.log(event);
-});
-
 // Share click
-$('#share-friends').on('click', 'a', function() {
+body.on('click', '#share-friends a', function() {
   var el = $(this);
   $.ajax({
     type: 'post',
@@ -277,21 +200,34 @@ body.on('click', 'a.restricted', function() {
   }
 });
 
+body.on('click', '#player-song-name a', function songNameClick() {
+  $('.tipsy').remove();
+  if (mp.isOnPlayingPage()) {
+    scrollToCurrentSong();
+    return false;
+  }
+});
+
+body.on('click', '#modal #sign-up-button', function(e) {
+  e.preventDefault();
+  registerUser($(this));
+});
+
 body.allOn('click', {
   // Player controls
-  '#player-play': function() {
+  '#player-play': function(e) {
+    e.preventDefault();
     mp.toggle();
-    return false;
   },
 
-  '#player-next': function() {
+  '#player-next': function(e) {
+    e.preventDefault();
     mp.next();
-    return false;
   },
 
-  '#player-prev': function() {
+  '#player-prev': function(e) {
+    e.preventDefault();
     mp.prev();
-    return false;
   },
 
   '.disabled': function() {
@@ -362,11 +298,6 @@ body.allOn('click', {
     return false;
   },
 
-  '#modal #sign-up-button': function(e, el) {
-    e.preventDefault();
-    registerUser(el);
-  },
-
   '#player-mode': function(e) {
     e.preventDefault();
     updatePlayMode(mp.nextPlayMode());
@@ -400,6 +331,14 @@ body.allOn('click', {
 
   '#save-genres': function() {
     saveUserGenres();
+  },
+
+  '#overlay': function() {
+    modal(false);
+  },
+
+  '#mobile-nav': function() {
+    $('body').toggleClass('show-nav');
   },
 
   '#head-colors a': function(e, el) {
@@ -457,7 +396,6 @@ body.allOn('click', {
 
     if (!e.isDefaultPrevented() && !commandPressed) {
       e.preventDefault();
-      fn.log(el.is('.full-request'))
       if (doPjax) pjax(el.attr('href'), el.is('.full-request'));
       else loadPage(el.attr('href'));
     }
@@ -554,9 +492,10 @@ function setNavActive(page) {
 }
 
 function pjax(url, full) {
+  doPageEvents = true;
   $.pjax({
     url: url,
-    container: full ? 'body' : '#body',
+    container: full ? '#full' : '#body',
     timeout: 30000,
     fullRequest: full || false
   });
@@ -698,6 +637,7 @@ function registerUser(button) {
       if (data.find('#error_explanation').length) {
         fn.log(data.find('#register-form').html());
         form.html(data.find('#register-form').html());
+        windowResize();
       } else {
         window.location = button.attr('href');
       }
@@ -872,6 +812,71 @@ function saveUserGenres() {
     return false;
   }
 }
+
+function pageEvents() {
+  doPageEvents = false;
+
+  mp.bindEvents();
+
+  windowResize();
+
+  // Search
+  $('#search-form').submit(function searchSubmit() {
+    var search = $('#query').val().replace(/[^A-Za-z0-9\-\_\+ ]/g, '').replace(/\s+/g, '+');
+    fn.log(search);
+    pjax('/do/search/' + search);
+    return false;
+  });
+
+  $('#query')
+    .focus(function() {
+      $(this).addClass('focused');
+    })
+    .blur(function() {
+      $(this).removeClass('focused');
+    })
+    .keyup(function(e) {
+      if (e.keyCode == 27 || e.keyCode == 13) $(this).blur();
+    })
+    .marcoPolo({
+      highlight: false,
+      submitOnEnter: true,
+      url: '/do/search',
+      selectable: ':not(.unselectable)',
+      formatItem: function (data, $item) {
+        if (data.selectable == 'false') $item.addClass('unselectable');
+        if (data.header == 'true') $item.addClass('unselectable header');
+        return data.name;
+      },
+      onSelect: function (data, $item) {
+        pjax('/' + data.url);
+      }
+    });
+
+  function scrollToCurrentSong() {
+    var song = $('#song-' + mp.curSongInfo().id);
+    if (song.length) fn.scrollTo(song);
+  }
+
+  // Play from playlist
+  $('#player-playlist').on('click', 'a', function(e) {
+    e.preventDefault();
+    fn.log('playing from playlist');
+    var song    = $(this),
+        section = $(song.attr('href')),
+        index   = song.data('index');
+
+    if (section.length) mp.playSection(section);
+    else mp.playSong(index);
+  });
+
+  // Online friends
+  startGetNavbar();
+
+  // Share hover
+  $('#player-share').hover(updatePlayerShare);
+}
+
 
 // Catch errors
 window.onerror = function(msg, url, line) {

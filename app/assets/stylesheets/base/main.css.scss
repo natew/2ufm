@@ -185,7 +185,7 @@ $buttons-width: 188px;
 
 #buttons {
   position: absolute;
-  top: 3px;
+  top: 4px;
   right: 0;
   width: $buttons-width;
 
@@ -224,7 +224,7 @@ $buttons-width: 188px;
       left: auto;
       top: auto;
       float: none;
-      padding: 10px 0 23px 0;
+      padding: 10px 0 22px 0;
       margin: 0 0 -10px 0;
       font-size: 26px;
       display: block;
@@ -297,20 +297,7 @@ body.loaded {
   }
 
   #player-timer {color: rgba(255,255,255,0.5);}
-  #player-bottom a.control {
-    pointer-events: auto;
-    color: #fff;
-    opacity: 1;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-
-  #player-bottom #player-mini-controls a {
-    opacity: 0.6;
-    &:hover {opacity: 0.8;}
-  }
+  #player-bottom a.control { pointer-events: auto; }
 }
 
 #player {
@@ -405,6 +392,7 @@ body.loaded {
     width: 15px;
     bottom: 23px;
     pointer-events: none;
+    background-color: transparent !important;
   }
 
   &:before {
@@ -457,9 +445,12 @@ body.loaded {
   text-overflow: ellipsis;
   position: relative;
   z-index: 9;
+  cursor: default;
 
   a {
     color: rgba(255,255,255,0.8) !important;
+    margin: 0 -1px;
+
     &:hover { color: #fff !important; }
     &:after {
       font-size: 9px;
@@ -557,13 +548,14 @@ body.loaded {
     float: left;
     color: rgba(255,255,255,0.6);
     text-decoration: none;
+    @include transition(all ease-in .1s);
 
     &:hover {
-      color: rgba(255,255,255,0.8);
+      color: #fff;
     }
 
     &:before {
-      font-size: 20px;
+      font-size: 18px;
     }
 
     &.post {

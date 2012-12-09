@@ -56,6 +56,178 @@
 </head>
 
 <body class="<%= body_classes %>" data-soundcloud-key="<%= Yetting.soundcloud_key %>" data-media="<%= Yetting.s3_url %>"<% if user_signed_in? %> data-user="<%= current_user.id %>" <% if current_user.can_download? %> data-role="admin"<% end %><% end %>>
-  <%= render template: 'layouts/full' %>
+
+  <div id="body-wrap">
+    <div id="full">
+      <%= render template: 'layouts/full' %>
+    </div>
+
+    <!-- Hover menus -->
+
+    <div id="nav-user" class="pop-menu right-align">
+      <%- if user_signed_in? -%>
+      <%= link_to 'Feed', feed_user_path(current_user), class: 'icon-list' %>
+      <%= link_to 'Following', following_user_path(current_user), class: 'icon-add' %>
+      <%= link_to "Inbox #{render(partial:'shared/notifications')}".html_safe, '/shares/inbox', class: 'icon-inbox', 'data-shares' => current_user.received_songs_notifications %>
+      <%= link_to "Account", user_account_path, class: 'icon-gear'  %>
+      <%= link_to 'Log out', destroy_user_session_path, method: 'delete', class: 'secondary', title: 'Log out' %>
+      <%- else -%>
+        <%= link_to 'Log in', '#modal-login', class: 'icon-key modal control' %>
+      <%- end -%>
+    </div>
+
+    <div id="player-playlist" class="pop-menu right-align"></div>
+    <div id="player-playlist-template" class="hidden">
+      <h4>{{station.title}}</h4>
+      {{#songs}}
+        <a class="control song-{{id}}" href="#song-{{id}}" data-index="{{index}}">
+          <span class="artist">{{artist_name}}</span> - <span class="name">{{name}}</span>
+        </a>
+      {{/songs}}
+    </div>
+
+    <div id="share" class="pop-menu">
+      <%= link_to image_tag('/images/facebook.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
+      <%= link_to image_tag('/images/twitter.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
+      <span id="share-link-container"><%= link_to "j", '', :id => 'share-link', :class => 'control icon tip', :title => "Copy link to clipboard", 'data-click' => '3' %></span>
+      <div id="share-friends"></div>
+    </div>
+
+    <div id="buy" class="pop-menu">
+      <%= link_to 'iTunes', itunes_affiliate_url(0), class: 'popup control', 'data-dimensions' => '450x450' %>
+      <%= link_to 'Amazon', amazon_affiliate_url(0), class: 'popup control' %>
+    </div>
+
+    <div id="flag" class="pop-menu">
+      <a href="#" class="control flag-dislike">Dislike</a>
+      <a href="#" class="control flag-artist">Wrong Artist</a>
+      <a href="#" class="control flag-title">Nixed Title</a>
+      <a href="#" class="control flag-genre">Incorrect Genre</a>
+      <a href="#" class="control flag-quality">Bad Quality</a>
+    </div>
+
+    <div id="more-menu" class="pop-menu close-on-click">
+      <div id="head-colors" class="colors">
+      <% (1..5).each do |color| %>
+        <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
+      <% end %>
+      </div>
+      <div id="body-colors" class="colors">
+      <% (1..5).each do |color| %>
+        <%= link_to '', "theme-body-#{color}", class: "body-color-#{color}" %>
+      <% end %>
+      </div>
+
+      <%= link_to 'About Us', about_main_path %>
+      <%= link_to 'Legal', legal_main_path %>
+      <%= link_to 'Privacy', privacy_main_path %>
+      <%= link_to 'Contact', contact_main_path %>
+    </div>
+
+    <div id="friends" class="pop-menu right-align"></div>
+
+    <!-- Modals -->
+    <div id="overlay" class="shown slow-fade"></div>
+    <div id="modal"></div>
+
+    <div class="hidden">
+      <% if !user_signed_in? %>
+        <%= render 'modals/login' %>
+      <% else %>
+
+        <% if current_user.provider == 'facebook' and current_user.facebook_id.nil? %>
+
+          <div id="modal-new-user">
+            <h3>Please re-sync with Facebook</h3>
+            <p>To allow friends to find you, please sync with Facebook again!  Sry bout that yo.</p>
+            <div class="actions">
+              <%= link_to "Link with Facebook", user_omniauth_authorize_path(:facebook), :class => 'facebook-button login-button popup button control', 'data-dimensions' => '800,500' %>
+            </div>
+          </div>
+
+        <% elsif current_user.full_name.nil? or current_user.full_name == '' %>
+
+          <div id="modal-new-user">
+            <h3>Please enter your name</h3>
+            <div class="inline">
+              <%= form_tag user_account_path do %>
+                <div class="clearfix">
+                  <%= label :user, :full_name, 'Full Name', :class => 'inline' %>
+                  <%= text_field_tag 'user[full_name]' %>
+                </div>
+
+                <div class="actions">
+                  <%= submit_tag 'Update', :class => 'right' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+        <% elsif current_user.first_time? %>
+          <%= render 'modals/new_user' %>
+        <% end %>
+
+      <% end %>
+
+      <div id="sc-button-template">
+        <a class="popup control tip" title="Soundcloud" href=""><img src="/images/soundcloud.png" /></a>
+      </div>
+
+      <div id="friends-template">
+        <div class="online">
+        {{#online}}
+          <%= render partial: 'users/friend_link' %>
+        {{/online}}
+        </div>
+        {{#offline}}
+          <%= render partial: 'users/friend_link' %>
+        {{/offline}}
+        <%= link_to "Find friends", users_friends_path, id: 'nav-friends', class:'friend-link' %>
+      </div>
+    </div>
+
+    <!-- Others -->
+    <div id="song-dragger" class="icon">m</div>
+    <div id="spinner" class="hidden"></div>
+    <div id="null"></div>
+    <div id="tunein"></div>
+
+    <% unless user_signed_in? %>
+      <div id="welcome">
+        <h3>What is 2u.fm?</h3>
+        <section>
+          <h1>Up to the minute new music from the top music sites.</h1>
+          <h1>Your music profile, your daily new music feed.</h1>
+          <h1>Keep up with new releases from your favorite artists.</h1>
+        </section>
+        <%= link_to 'D', '', :class => 'control icon', :id => 'close-welcome' %>
+      </div>
+    <% end %>
+  </div>
+
+  <script type="text/javascript">
+    <%- if params[:listen] -%>
+      var listen = <%= raw params[:listen] %>,
+          route = "<%= params[:route] %>";
+    <%- else -%>
+      var listen, route;
+    <%- end -%>
+  </script>
+
+  <%= javascript_include_tag "application", :debug => Rails.env.development? %>
+  <%= subscribe_to "/users/#{current_user.id}" if user_signed_in? %>
+
+  <!--[if lt IE 10]>
+  <div id="ie-notice">
+    <h3>Our site only works in <a href="http://browsehappy.com/" target="_blank">modern browsers</a>.</h3>
+    <p>If you can't use another browser, we recommend upgrading or installing the
+    <a href="http://www.google.com/chromeframe" target="_blank">Google Chrome Frame</a> plugin for the best experience.</p>
+  </div>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>
+    modal('#ie-notice');
+  </script>
+  <![endif]-->
 </body>
 </html>

@@ -19,8 +19,10 @@ var page = {
 
     fn.log(curPage, pageIdentifier.attr('class'));
 
+    if (doPageEvents) pageEvents();
+
     // Nav highlight
-    setNavActive(newPage);
+    setNavActive(curPage);
 
     doPlaysActions();
     pagination.restart();
@@ -97,7 +99,7 @@ var page = {
   }
 }
 
-$('#body')
+body
   .on('pjax:start', page.start)
   .on('pjax:end', page.end)
   .on('pjax:error', page.error)
