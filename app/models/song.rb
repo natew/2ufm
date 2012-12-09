@@ -334,7 +334,7 @@ class Song < ActiveRecord::Base
           #{join_where}
           INNER JOIN songs on songs.id = broadcasts.song_id
           WHERE ff.user_id = #{id}
-            AND #{where_conditions('A')}
+            AND #{where_conditions('songs')}
           #{where}
           GROUP BY broadcasts.song_id, broadcasts.station_id
           ORDER BY maxcreated desc
