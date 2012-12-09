@@ -1,11 +1,9 @@
-<% cache ['v1', 'genres', current_user.updated_at] do %>
-  <%-
-    selected = Genre.active.ordered.users(current_user)
-    not_selected = Genre.active.ordered.not_users(current_user)
-  -%>
-  <% if selected.length > 0 %>
-    <%= render partial: 'genres/link', collection: selected %>
-    <hr />
-  <% end %>
-  <%= render partial: 'genres/link', collection: not_selected %>
+<%-
+  selected = Genre.active.ordered.users(current_user)
+  not_selected = Genre.active.ordered.not_users(current_user)
+-%>
+<% if selected.length > 0 %>
+  <%= render partial: 'genres/link', collection: selected %>
+  <hr />
 <% end %>
+<%= render partial: 'genres/link', collection: not_selected %>
