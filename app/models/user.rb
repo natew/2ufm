@@ -241,6 +241,8 @@ class User < ActiveRecord::Base
       added.push genre.id
     end
     added
+    self.updated_at = Time.now
+    self.save
   end
 
   def broadcasted_song?(song)
