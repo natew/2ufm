@@ -518,10 +518,6 @@ function updateShare(nav) {
   shareSongTitle = song.name || '';
   updateShareLinks(link, title);
   updateShareFriends(true);
-
-  if (nav.is('.update-clipboard')) {
-    fn.clipboard('share-link', 'relative');
-  }
 }
 
 function updateShareLinks(link, title) {

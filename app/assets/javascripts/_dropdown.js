@@ -102,6 +102,10 @@ function navDropdown(nav, pad, hover) {
         if (nav.is('.song-share')) updateShare(nav);
         else if (nav.is('.song-buy')) updateBuy(nav);
 
+        if (nav.is('.update-clipboard')) {
+          fn.clipboard('share-link', 'relative');
+        }
+
         if (navOpen.is('close-on-click')) {
           $('a', navOpen).one('click', function() {
             navDropdown(false);
