@@ -813,6 +813,11 @@ function saveUserGenres() {
   }
 }
 
+function scrollToCurrentSong() {
+  var song = $('#song-' + mp.curSongInfo().id);
+  if (song.length) fn.scrollTo(song);
+}
+
 function pageEvents() {
   doPageEvents = false;
 
@@ -852,11 +857,6 @@ function pageEvents() {
         pjax('/' + data.url);
       }
     });
-
-  function scrollToCurrentSong() {
-    var song = $('#song-' + mp.curSongInfo().id);
-    if (song.length) fn.scrollTo(song);
-  }
 
   // Play from playlist
   $('#player-playlist').on('click', 'a', function(e) {
