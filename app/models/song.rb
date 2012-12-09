@@ -291,7 +291,6 @@ class Song < ActiveRecord::Base
           FROM songs A
           WHERE #{where_conditions('A')}
           #{where_extra}
-            AND A.matching_id = A.id
       ) AA
       INNER JOIN
         songs on AA.id = songs.id
@@ -304,6 +303,7 @@ class Song < ActiveRecord::Base
       WHERE (AA.artist > 0 AND AA.blog > 0)
       OR (AA.artist > 0 AND AA.post > 0)
       OR (AA.tag > 0)
+      AND songs.id = songs.matching_id
       #{order}
       LIMIT #{Yetting.per}
       OFFSET #{offset}

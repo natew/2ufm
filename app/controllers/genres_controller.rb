@@ -50,7 +50,7 @@ class GenresController < ApplicationController
 
   def render_genre_show
     @playlist = { station: @genre_station, songs: @genre_songs, already_limited: true }
-    @playlist.merge(nocache: true) if @genre.play_mode == 'shuffle'
+    @playlist.merge!({ nocache: true }) if @genre.play_mode == 'shuffle'
 
     respond_to do |format|
       format.html { render 'show' }
