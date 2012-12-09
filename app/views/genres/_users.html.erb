@@ -1,4 +1,4 @@
-<% cache ['v1', 'genres', current_user] do %>
+<% cache ['v1', 'genres', current_user.updated_at] do %>
   <%-
     selected = Genre.active.ordered.users(current_user)
     not_selected = Genre.active.ordered.not_users(current_user)

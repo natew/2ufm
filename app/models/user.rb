@@ -240,9 +240,9 @@ class User < ActiveRecord::Base
       self.genres << genre if genre
       added.push genre.id
     end
-    added
     self.updated_at = Time.now
     self.save
+    added
   end
 
   def broadcasted_song?(song)
