@@ -35,6 +35,17 @@ class Blog < ActiveRecord::Base
   scope :random, order('random() desc')
 
   rails_admin do
+    configure :genres do
+      inverse_of :blogs
+
+      associated_collection_cache_all true
+      associated_collection_scope do
+        Proc.new { |scope|
+          scope = scope.where(active: true)
+        }
+      end
+    end
+
     edit do
       field :name
       field :active
