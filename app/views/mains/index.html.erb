@@ -12,13 +12,13 @@
 
     <div class="threefourths-wrap">
       <div class="threefourths">
-        <h3>Recently liked songs</h3>
+        <h3>Most liked this month</h3>
         <%= render partial: 'stations/playlist', locals: @playlist %>
       </div>
     </div>
 
     <div class="fourth">
-      <h3>Play Genres</h3>
+      <h3><%= link_to 'Genres', genres_path %></h3>
       <%= render 'genres/list' %>
 
       <h3>Popular <%= link_to 'Tags', tags_path %></h3>

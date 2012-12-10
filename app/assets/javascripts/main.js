@@ -468,6 +468,8 @@ function setNavItems() {
 }
 
 function setNavActive(page) {
+  fn.log(page);
+  if (!page) return;
   page = page.replace(/\/p-[0-9]+.*/, '');
 
   // Update #navbar
