@@ -902,7 +902,7 @@ class Song < ActiveRecord::Base
     logger.info string
     string.gsub!(/#{RE[:remix_types]} ?#{RE[:remixer]}?/i, '')
     # string.gsub!(/[\'\"][^']+[\'\"]/, '') # remove anything in quotes (too greedy?)
-    string.gsub!(/[,\-\_\&]|#{RE[:containers]}|#{REMOVE[:all]}|#{RE[:producer]}|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%')
+    string.gsub!(/[,\-\_\&]|#{RE[:containers]}|#{REMOVE[:all]}|#{RE[:producer]}.*|#{RE[:featured]}|#{RE[:mashup_split]}/i, '%')
     ('%' + string.strip).gsub(/(% ?){2,}/,'%').split('%').map(&:strip).join('%') + '%'
   end
 
