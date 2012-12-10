@@ -59,11 +59,6 @@ w.on({
     // Update broadcast button
     updateBroadcastButton(mp.playlist().station.id, song.id);
 
-    // Update song name link
-    $('#player-song-name a')
-      .html(song.name)
-      .attr('href', mp.curPlaylistUrl());
-
     // Update page url
     fn.replaceState(mp.playingPage());
   },
@@ -79,16 +74,23 @@ w.on({
     doPlaysActions();
 
     // Update player artists
-    var artists = section && section.length ? section.find('.artist').html() || '' : '';
+    var artists = section && section.length ? section.find('.role').clone() || '' : '';
     $('#player-artist-name').html(artists || song.artist_name);
+
+    // Update song name link
+    $('#player-song-name a')
+      .html(song.name)
+      .attr('href', mp.curPlaylistUrl());
 
     scrollToPlayingSong(section);
   },
 
   'mp:play:soundcloud': function mpPlaySoundcloud(event, data) {
     fn.log(mp, data);
+    console.log(data);
     if (!mp.curSection()) return;
     if (mp.curSection().is('.soundcloud-loaded')) return;
+    console.log(data, data["permalink_url"])
     fn.log(data.permalink_url, data['permalink_url'])
     $('#sc-button-template a')
       .clone()

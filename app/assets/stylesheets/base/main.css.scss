@@ -399,6 +399,7 @@ body.loaded {
   span {
     display: block;
     text-align: center;
+    line-height: 1.2em;
   }
 
   a {
@@ -411,7 +412,7 @@ body.loaded {
 #player-song-name {
   position: relative;
   z-index: 10;
-  margin-bottom: 1px;
+  margin-bottom: 2px;
 
   a {
     font-size: 14px;
@@ -1016,20 +1017,21 @@ $placeholder-color: #999;
 #search-form {
   position: absolute;
   z-index: 10;
-  top: $header-height + 10;
+  top: $header-height + 12;
   right: 20px;
   left: $navbar-width + 320;
 
   #query {
     border: none;
-    padding: 5px 4px 5px 34px;
+    padding: 5px 4px 6px 34px;
     width: 100%;
     margin: 0;
     color: $placeholder-color;
     outline: none;
+    line-height: 1em;
     font-size: 14px;
     background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 20px;
     @include box-sizing(border-box);
     @include transition(all .1s linear);

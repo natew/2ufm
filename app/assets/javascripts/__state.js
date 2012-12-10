@@ -32,7 +32,10 @@ var w = $(window),
     newPage = window.location.pathname,
     disableHovers = false,
     navItems = {},
-    _prf = new Perfherder(),
+    _prf = new Perfherder({
+        debug: !isProduction,
+        track_errors: true
+    }),
     genresOpen = $.cookie('genres-open') || false,
     newline = "\n",
     theme = {

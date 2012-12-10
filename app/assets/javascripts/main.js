@@ -158,8 +158,8 @@ function windowResize() {
     // Custom scrollpanes
     $('#share-friends').dontScrollParent();
     $('.scroll-section').each(function() {
-      var div = $('div:first', this);
-      if (div && div.length) div.addClass('scroll-section-inner').dontScrollParent();
+      var div = $('div', this)[0];
+      if (div) $(div).addClass('scroll-section-inner').dontScrollParent();
     });
   }
 }
@@ -530,7 +530,7 @@ function updateShare(nav) {
 function updateShareLinks(link, title) {
   $('#share .player-invite').each(function() {
     var el = $(this),
-        dataLink = el.data('link'),
+        dataLink = el.attr('data-link'),
         url = dataLink.replace('{{url}}', link).replace('{{text}}', encodeURIComponent('Listening to ♫ ' + title));
     el.attr('href', url);
   });
@@ -884,6 +884,7 @@ function pageEvents() {
 // Catch errors
 window.onerror = function(msg, url, line) {
   var error = [url, line, msg ].join(newline);
+  if (!isProduction) alert(error);
   fn.log('JS error', error);
   page.end();
 

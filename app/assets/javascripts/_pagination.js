@@ -10,7 +10,7 @@ var pagination = (function(fn, mp) {
 
   function checkNextPage() {
     if (!nearBottom()) return;
-    var playlist = $('.playlist:visible:last');
+    var playlist = $('.playlist:last');
 
     // Infinite scrolling
     if (hasMore && playlist.length && playlist.is('.has-more')) {
@@ -138,7 +138,7 @@ var pagination = (function(fn, mp) {
 
     restart: function() {
       hasPages = $('.has-more').length > 0;
-      hasPagination = $('.pagination:visible').length > 0;
+      hasPagination = $('.pagination').length > 0;
       hasMore = hasPages;
       scrolledTo = 0;
     },

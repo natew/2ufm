@@ -183,6 +183,7 @@ var mp = (function() {
       if (curSongInfo.sc_id !== '') {
         $.ajax({
           type: 'get',
+          dataType: 'json',
           url: 'http://api.soundcloud.com/tracks/' + curSongInfo.sc_id + '.json?client_id=' + soundcloudKey,
           success: function(data) {
             if (data) {
