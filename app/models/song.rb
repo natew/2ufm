@@ -21,7 +21,7 @@ class Song < ActiveRecord::Base
     featured: /(featuring |ft(\.| )|feat(\.| )|f\.|w\.|f\/|w\/)/i,
     remixer: /((re([ -])?)?(make|work|edit|fix|mix)|rmx|boot-?leg)/i,
     mashup_split: / \+ | x | vs\.? /i,
-    producer: / (produced by|produced w\/|prod\.? by |prod\.? w\.?\/? |prod\. )/i,
+    producer: / (produced by|produced w\/|prod\.? by[\: ]|prod\.? w\.?\/? |prod\. )/i,
     cover: / cover/i,
     split: /([^,&]+)(& ?([^,&]+)|, ?([^,&]+))*/i, # Splits "one, two & three"
     open: /[\(\[\{]/,
@@ -294,6 +294,7 @@ class Song < ActiveRecord::Base
           FROM songs A
           WHERE #{where_conditions('A')}
           #{where_extra}
+          AND A.id = A.matching_id
       ) AA
       INNER JOIN
         songs on AA.id = songs.id
@@ -304,9 +305,8 @@ class Song < ActiveRecord::Base
       INNER JOIN
         stations on stations.blog_id = blogs.id
       WHERE (AA.artist > 0 AND AA.blog > 0)
-      OR (AA.artist > 0 AND AA.post > 0)
-      OR (AA.tag > 0)
-      AND songs.id = songs.matching_id
+        OR (AA.artist > 0 AND AA.post > 0)
+        OR (AA.tag > 0)
       #{order}
       LIMIT #{Yetting.per}
       OFFSET #{offset}
