@@ -28,11 +28,28 @@ class Blog < ActiveRecord::Base
   validates_with SlugValidator
 
   # Whitelist mass-assignment attributes
-  attr_accessible :name, :url, :description, :image, :feed_url, :genre_ids, :active, :email
+  attr_accessible :name, :url, :description, :image, :feed_url, :genre_ids, :active, :email, :slug, :genre_ids
 
   # Scopes
   scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
   scope :random, order('random() desc')
+
+  rails_admin do
+    edit do
+      field :name
+      field :active
+      field :url
+      field :feed_url
+      field :image
+      field :genres
+    end
+
+    list do
+      field :id
+      field :name
+      field :feed_updated_at
+    end
+  end
 
   def to_param
     station_slug

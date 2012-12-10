@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
          :reconfirmable => true
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location, :oauth_token, :gender, :facebook_id, :first_time
+  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location, :oauth_token, :gender, :facebook_id, :first_time, :slug
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -54,6 +54,14 @@ class User < ActiveRecord::Base
   validates :username, length: 2..22, uniqueness: true
   validates_format_of :username, with: /[a-zA-Z0-9_\-]+/i, message: 'Invalid characters'
   validates_with SlugValidator
+
+  rails_admin do
+    list do
+      field :full_name
+      field :username
+      field :sign_in_count
+    end
+  end
 
   def to_param
     station_slug

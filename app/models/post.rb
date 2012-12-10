@@ -19,6 +19,15 @@ class Post < ActiveRecord::Base
 
   scope :within, lambda { |within| where('posts.published_at >= ?', within.ago) }
 
+  rails_admin do
+    list do
+      field :id
+      field :title
+      field :url
+      field :blog
+    end
+  end
+
   def to_param
     slug
   end

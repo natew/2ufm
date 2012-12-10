@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include IntegersFromString
   protect_from_forgery
 
+  before_filter :dev_rails_admin
+
   layout :set_layout
 
   if Rails.env.production?
@@ -60,6 +62,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def dev_rails_admin
+    return unless Rails.env.development? && request.path =~ /^\/admin\//
+    RailsAdmin::Config.reset
+    load 'config/initializers/rails_admin.rb'
+  end
 
   def set_layout
     if request.headers['X-PJAX']

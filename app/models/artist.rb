@@ -29,6 +29,14 @@ class Artist < ActiveRecord::Base
   scope :has_image, where('artists.image_updated_at is not null')
   scope :for_linking, joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role')
 
+  rails_admin do
+    list do
+      field :id
+      field :name
+      field :created_at
+    end
+  end
+
   def to_param
     station_slug
   end
