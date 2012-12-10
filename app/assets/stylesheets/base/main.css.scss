@@ -760,7 +760,7 @@ body.loaded {
     }
 
     &:before {
-      padding-top: 3px;
+      padding-top: 4px;
       padding-left: 5px;
       font-size: 16px;
       @include transition(all .1s linear);
@@ -769,7 +769,7 @@ body.loaded {
     &.icon-users:before,
     &.icon-home:before,
     &.icon-time:before {
-      padding-top: 2px;
+      padding-top: 3px;
     }
 
     &.active {
