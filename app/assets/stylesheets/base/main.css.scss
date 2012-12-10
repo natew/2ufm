@@ -727,6 +727,7 @@ body.loaded {
     color: rgba(255,255,255,0.3);
 
     a {
+      color: rgba(255,255,255,0.3);
       margin: -3px 10px -3px -10px;
       &.active { background: none !important; }
     }
@@ -737,8 +738,8 @@ body.loaded {
     display: block;
     text-decoration: none;
     font-weight: 300;
-    font-size: 13px;
-    padding: 3px 10px;
+    font-size: 14px;
+    padding: 4px 10px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 0;
@@ -746,8 +747,8 @@ body.loaded {
     @include transition(all .1s linear);
 
     &[class*="icon-"] {
-      padding-top: 7px;
-      padding-bottom: 7px;
+      padding-top: 8px;
+      padding-bottom: 8px;
       font-size: 16px;
       padding-left: 32px;
     }
