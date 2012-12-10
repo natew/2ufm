@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121209194752) do
+ActiveRecord::Schema.define(:version => 20121210073819) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -280,6 +280,7 @@ ActiveRecord::Schema.define(:version => 20121209194752) do
   end
 
   add_index "song_genres", ["genre_id"], :name => "index_song_genres_on_genre_id"
+  add_index "song_genres", ["id", "source"], :name => "index_song_genres_on_id_and_source"
   add_index "song_genres", ["song_id", "genre_id", "source"], :name => "index_song_genres_on_song_id_and_genre_id_and_source", :unique => true
 
   create_table "songs", :force => true do |t|
@@ -339,11 +340,16 @@ ActiveRecord::Schema.define(:version => 20121209194752) do
   end
 
   add_index "songs", ["category"], :name => "index_songs_on_category"
+  add_index "songs", ["matching_id", "id"], :name => "index_songs_on_matching_id_and_id"
+  add_index "songs", ["matching_id"], :name => "index_songs_on_matching_id"
   add_index "songs", ["matching_id"], :name => "index_songs_on_shared_id"
-  add_index "songs", ["processed", "working", "rank", "matching_id", "published_at"], :name => "songs_index"
+  add_index "songs", ["processed"], :name => "index_songs_on_processed"
+  add_index "songs", ["published_at"], :name => "index_songs_on_published_at"
+  add_index "songs", ["rank"], :name => "index_songs_on_rank"
   add_index "songs", ["seconds"], :name => "index_songs_on_seconds"
-  add_index "songs", ["source", "seconds", "processed", "working"], :name => "index_songs_on_source_and_seconds_and_processed_and_working"
   add_index "songs", ["source"], :name => "index_songs_on_source"
+  add_index "songs", ["user_broadcasts_count"], :name => "index_songs_on_user_broadcasts_count"
+  add_index "songs", ["working"], :name => "index_songs_on_working"
 
   create_table "stations", :force => true do |t|
     t.string   "title"

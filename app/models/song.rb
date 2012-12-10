@@ -30,7 +30,7 @@ class Song < ActiveRecord::Base
     and: /,| & | and /i,
     time: /(now|[0-9]{2}(th|st|nd|rd) ?(jan(uary)?|feb(uary)?|mar(ch)?|apr(il)?|may|jun(e)?|jul(y)?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)?)/i,
     quote_chars: /[\'\"\*]/,
-    remix_types: /(\'s.*|20[0-9]{2}|#{BASE[:genre]}|summer|fall|spring|winter|bootleg|extended|vip|original|club|vocal|radio|vocal|instrumental|official|unofficial|remix|bootleg)/i
+    remix_types: /(\'s.*|20[0-9]{2}|#{BASE[:genre]}|summer|fall|spring|winter|bootleg|teaser|extended|vip|original|club|vocal|radio|vocal|instrumental|official|unofficial|remix|bootleg)/i
   }
 
   REMOVE = {
@@ -236,7 +236,7 @@ class Song < ActiveRecord::Base
 
     case type
     when 'trending'
-      order = min_broadcasts(2).order_rank.to_sql.gsub(/WHERE /, 'AND')
+      order = "AND AA.user_broadcasts_count > 2 #{order_rank.to_sql}"
     when 'latest'
       order = newest.to_sql
     when 'shuffle'
@@ -259,6 +259,7 @@ class Song < ActiveRecord::Base
       FROM
       (
           SELECT distinct id,
+          A.user_broadcasts_count,
           (
               SELECT
               COUNT(*) FROM
@@ -304,9 +305,9 @@ class Song < ActiveRecord::Base
         blogs on blogs.id = songs.blog_id
       INNER JOIN
         stations on stations.blog_id = blogs.id
-      WHERE (AA.artist > 0 AND AA.blog > 0)
+      WHERE ((AA.artist > 0 AND AA.blog > 0)
         OR (AA.artist > 0 AND AA.post > 0)
-        OR (AA.tag > 0)
+        OR (AA.tag > 0))
       #{order}
       LIMIT #{Yetting.per}
       OFFSET #{offset}
