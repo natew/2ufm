@@ -166,8 +166,8 @@ class Song < ActiveRecord::Base
   scope :playlist_received, select_sender.with_sender.order_shared.with_info_for_playlist_matching_id
   scope :playlist_sent, select_receiver.with_receiver.order_shared.with_info_for_playlist_matching_id
   scope :playlist_shuffle, order_random.with_info_for_playlist_matching_id
+  scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.with_info_for_playlist_matching_id
   # scope :playlist_recently_liked, select_with_info.with_blog_station_and_post.where(id: latest_user_broadcasts)
-  # scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.with_info_for_playlist_matching_id
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
