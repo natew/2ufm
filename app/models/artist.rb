@@ -87,7 +87,7 @@ class Artist < ActiveRecord::Base
     return unless terms
     logger.info terms.to_yaml
     terms.each do |term|
-      genres.push Genre.map_name(term['name']).titleize unless term['frequency'] < 0.1 or term['weight'] < 0.25
+      genres.push Genre.map_name(term['name']).titleize unless term['frequency'] < 0.08 or term['weight'] < 0.24
     end
     genres
   end
