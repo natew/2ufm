@@ -32,6 +32,17 @@ class Artist < ActiveRecord::Base
   scope :for_linking, joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role')
 
   rails_admin do
+    configure :genres do
+      inverse_of :artists
+
+      associated_collection_cache_all true
+      associated_collection_scope do
+        Proc.new { |scope|
+          scope = scope.where(active: true)
+        }
+      end
+    end
+
     list do
       field :id
       field :name
