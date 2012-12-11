@@ -56,10 +56,6 @@
       <%= link_to 'Share', '#share', class: 'nav-hover song-share restricted control update-clipboard', 'data-pad' => '16', 'data-id' => id %>
       <%= link_to 'Buy', '#buy', class: 'nav-hover song-buy control', 'data-pad' => '16', 'data-id' => id %>
       <%= link_to 'Flag', '#flag', class: 'nav-hover restricted control', 'data-pad' => '16' %>
-
-      <% song.genres.from_artist.each do |genre| %>
-        <%= genre.name %>
-      <% end %>
     </div>
   </div>
 

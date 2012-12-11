@@ -95,7 +95,7 @@ class Artist < ActiveRecord::Base
     logger.info "Updating genres for #{id} - #{name}"
     got_genres = get_genres
     return unless got_genres
-    self.genres.destroy_all
+    self.genres.where('genres.name not in (?)', got_genres).destroy_all
     got_genres.each do |add_genre|
       genre = Genre.find_or_create_by_name(add_genre)
       begin
@@ -105,6 +105,10 @@ class Artist < ActiveRecord::Base
       end
     end
     self.genres
+  end
+
+  def delayed_update_genres
+    delay(priority: 5).update_genres
   end
 
   def get_discogs_info

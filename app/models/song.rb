@@ -877,7 +877,7 @@ class Song < ActiveRecord::Base
     add_artists = artists
 
     if is_remixed?
-      self.genres.from_artist.destroy_all
+      self.song_genres.from_artist.destroy_all
       add_artists = add_artists.where(authors: { role: ['remixer', 'mashup'] })
     end
 

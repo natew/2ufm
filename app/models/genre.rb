@@ -25,6 +25,7 @@ class Genre < ActiveRecord::Base
   scope :from_tag, where(song_genres: { source: 'tag' })
   scope :from_post, where(song_genres: { source: 'post' })
 
+
   attr_accessible :name, :blog_ids, :includes_remixes, :active
   attr_accessor :play_mode
 
