@@ -96,7 +96,7 @@ class Artist < ActiveRecord::Base
     logger.info "Updating genres for #{id} - #{name}"
     got_genres = get_genres
     return unless got_genres
-    self.artist_genres.joins(:genres).where('genres.name not in (?)', got_genres).destroy_all
+    self.artist_genres.joins(:genre).where('genres.name not in (?)', got_genres).destroy_all
     got_genres.each do |add_genre|
       genre = Genre.find_or_create_by_name(add_genre)
       begin
