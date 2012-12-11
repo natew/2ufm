@@ -2290,10 +2290,7 @@ ul.tagit input[type="text"] {
   @include transition(all linear .1s);
 
   &.closed {
-    ul {
-      max-width: 0;
-      height: 0;
-    }
+    right: -328px;
 
     #close-corner-banner {
       padding-right: 8px;
@@ -2308,10 +2305,9 @@ ul.tagit input[type="text"] {
 
   #close-corner-banner {
     position: relative;
-    width: 24px;
+    width: 20px;
     padding: 0;
-    margin-right: -2px;
-    padding: 6px;
+    padding: 6px 4px 6px 6px;
     display: inline-block;
     color: rgba(255,255,255,0);
     float: left;
@@ -2343,8 +2339,9 @@ ul.tagit input[type="text"] {
     overflow: hidden;
     margin: 0;
     padding: 0;
+    display: block;
     list-style: none;
-    @include transition(all linear .1s);
+    @include transition(width linear .1s);
   }
 
   li {
