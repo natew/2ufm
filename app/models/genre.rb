@@ -1,8 +1,9 @@
 class Genre < ActiveRecord::Base
   has_and_belongs_to_many :blogs
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :artists
 
+  has_many :artist_genres
+  has_many :artists, :through => :artist_genres
   has_many :song_genres
   has_many :songs, :through => :song_genres
 
@@ -18,6 +19,11 @@ class Genre < ActiveRecord::Base
   scope :users, lambda { |user| joins(:users).where('users.id = ?', user.id) }
   scope :not_users, lambda { |user| joins("left join genres_users on genres_users.genre_id = genres.id and genres_users.user_id = '#{user.id}'").where('genres_users.user_id is null') }
   scope :for_user, lambda { |user| select('genres.*, genres_users.user_id as has_genre').joins("left join genres_users on genres_users.genre_id = genres.id and genres_users.user_id = '#{user.id}'") }
+
+  scope :from_artist, where(song_genres: { source: 'artist' })
+  scope :from_blog, where(song_genres: { source: 'blog' })
+  scope :from_tag, where(song_genres: { source: 'tag' })
+  scope :from_post, where(song_genres: { source: 'post' })
 
   attr_accessible :name, :blog_ids, :includes_remixes, :active
   attr_accessor :play_mode

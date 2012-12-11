@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210073819) do
+ActiveRecord::Schema.define(:version => 20121211023905) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(:version => 20121210073819) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "artist_genres", :force => true do |t|
+    t.integer "genre_id"
+    t.integer "artist_id"
+  end
+
+  add_index "artist_genres", ["genre_id", "artist_id"], :name => "index_artists_genres_on_genre_id_and_artist_id", :unique => true
+
   create_table "artists", :force => true do |t|
     t.string   "name"
     t.text     "about"
@@ -57,13 +64,6 @@ ActiveRecord::Schema.define(:version => 20121210073819) do
     t.string   "station_slug"
     t.string   "image_content_type"
   end
-
-  create_table "artists_genres", :force => true do |t|
-    t.integer "genre_id"
-    t.integer "artist_id"
-  end
-
-  add_index "artists_genres", ["genre_id", "artist_id"], :name => "index_artists_genres_on_genre_id_and_artist_id", :unique => true
 
   create_table "authors", :force => true do |t|
     t.integer "artist_id"

@@ -135,12 +135,13 @@ w
 w.resize(fn.debounce(windowResize, 20));
 
 function windowResize() {
+  var navbarHeight = Math.min($('body').height(), $('#navbar-menus-inner').outerHeight());
+
   $('#navbar-friends-inner')
     .css({ 'height': ($('body').height() - $('#navbar-menus-inner').outerHeight() - 32) })
-    // .dontScrollParent();
 
   $('#navbar-menus')
-    .css({ 'height': Math.min($('body').height(), $('#navbar-menus-inner').outerHeight()) })
+    .css({ 'height': navbarHeight })
 
   var modal = $('#modal.shown');
   if (modal.length) {

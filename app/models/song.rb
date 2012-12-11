@@ -860,18 +860,36 @@ class Song < ActiveRecord::Base
   end
 
   def add_to_genres
-    tag_genres = self.tags.select('genres.id').joins('inner join genres on genres.name ILIKE(tags.name)').map(&:id)
-    artist_genres = self.artists.select('genres.id').joins(:genres).map(&:id)
-    blog_genres = self.blog.genres.select('genres.id').map(&:id)
-    post_content = self.post.content
+    add_artist_genres
+    tag_genres = tags.select('genres.id').joins('inner join genres on genres.name ILIKE(tags.name)').map(&:id)
+    blog_genres = blog.genres.select('genres.id').map(&:id)
+    post_content = post.content
     post_genres = Genre.active.to_a.keep_if { |g| post_content =~ /#{g.name}/i }.map(&:id)
 
     ActiveRecord::Base.transaction do
       create_genres(tag_genres, 'tag')
-      create_genres(artist_genres, 'artist')
       create_genres(blog_genres, 'blog')
       create_genres(post_genres, 'post')
     end
+  end
+
+  def add_artist_genres
+    add_artists = artists
+
+    if is_remixed?
+      self.genres.from_artist.destroy_all
+      add_artists = add_artists.where(authors: { role: ['remixer', 'mashup'] })
+    end
+
+    add_artists = add_artists.select('genres.id').joins(:genres).map(&:id)
+
+    ActiveRecord::Base.transaction do
+      create_genres(add_artists, 'artist')
+    end
+  end
+
+  def is_remixed?
+    authors.where(role: ['remixer', 'mashup']).exists?
   end
 
   def delayed_add_to_genres

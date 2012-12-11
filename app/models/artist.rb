@@ -11,7 +11,8 @@ class Artist < ActiveRecord::Base
   has_many   :stations, :through => :broadcasts
   has_many   :authors, :dependent => :destroy
   has_many   :songs, :through => :authors, :extend => SongExtensions
-  has_and_belongs_to_many :genres
+  has_many   :artist_genres
+  has_many   :genres, :through => :artist_genres
 
   acts_as_url :name, :url_attribute => :slug, :allow_duplicates => false
 
@@ -83,6 +84,7 @@ class Artist < ActiveRecord::Base
     return unless echo_terms_response
     terms = echo_terms_response['terms']
     return unless terms
+    logger.info terms.to_yaml
     terms.each do |term|
       genres.push Genre.map_name(term['name']).titleize unless term['frequency'] < 0.1 or term['weight'] < 0.25
     end
@@ -93,6 +95,7 @@ class Artist < ActiveRecord::Base
     logger.info "Updating genres for #{id} - #{name}"
     got_genres = get_genres
     return unless got_genres
+    self.genres.destroy_all
     got_genres.each do |add_genre|
       genre = Genre.find_or_create_by_name(add_genre)
       begin

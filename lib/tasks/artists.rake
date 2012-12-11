@@ -20,6 +20,7 @@ namespace :artists do
     (0..iterations).each do |i|
       Artist.order('name asc').offset(i * per + offset).limit(per).each do |artist|
         puts "#{artist.name} (#{artist.id})"
+        artist.genres.destroy_all
         artist.update_genres
       end
       sleep 60
