@@ -535,7 +535,7 @@ function updateShareLinks(link, title) {
   $('#share .player-invite').each(function() {
     var el = $(this),
         dataLink = el.attr('data-link'),
-        url = dataLink.replace('{{url}}', link).replace('{{text}}', encodeURIComponent('Listening to ♫ ' + title));
+        url = dataLink.replace('{{url}}', link).replace('{{text}}', encodeURIComponent('Listening to ♫ ' + title + ' @2u_fm'));
     el.attr('href', url);
   });
 
