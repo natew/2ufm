@@ -181,24 +181,26 @@
     <div id="null"></div>
     <div id="tunein"></div>
 
-    <ul id="corner-banner">
-      <li id="close-corner-banner" class="close"><a class="control" href="#">&gt;</a></li>
-      <li><%= link_to '@2u_fm', 'http://twitter.com/2u_fm', class: 'popup' %></li>
-      <li>
-        <div id="head-colors" class="colors">
-        <% (1..5).each do |color| %>
-          <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
-        <% end %>
-        </div>
-      </li>
-      <li>
-        <div id="body-colors" class="colors">
-        <% (1..5).each do |color| %>
-          <%= link_to '', "theme-body-#{color}", class: "body-color-#{color}" %>
-        <% end %>
-        </div>
-      </li>
-    </ul>
+    <div id="corner-banner">
+      <a id="close-corner-banner" class="close control" href="#">&gt;</a>
+      <ul>
+        <li>Tweet <%= link_to '@2u_fm', 'http://twitter.com/2u_fm', class: 'popup' %></li>
+        <li>
+          <div id="head-colors" class="colors">
+          <% (1..5).each do |color| %>
+            <%= link_to '', "theme-head-#{color}", class: "head-color-#{color}" %>
+          <% end %>
+          </div>
+        </li>
+        <li>
+          <div id="body-colors" class="colors">
+          <% (1..5).each do |color| %>
+            <%= link_to '', "theme-body-#{color}", class: "body-color-#{color}" %>
+          <% end %>
+          </div>
+        </li>
+      </ul>
+    </div>
 
     <% unless user_signed_in? %>
       <div id="welcome">

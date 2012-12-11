@@ -22,6 +22,13 @@ var spinner = (function() {
         left: 'auto' // Left position relative to parent in px
       };
 
+  function updateSpinnerPosition(e) {
+    $('#spinner').css({
+        left: e.pageX + offsetLeft,
+        top:  e.pageY + offsetTop
+      });
+  }
+
   return {
     updatePos: function(x, y) {
       x = x;
@@ -29,24 +36,15 @@ var spinner = (function() {
     },
 
     attach: function() {
-      el
-        .spin(options)
-        .css({
-          left: x + offsetLeft,
-          top:  y + offsetTop
-        })
-        .removeClass('hidden');
+      $(document)
+        .bind('click.spinner', updateSpinnerPosition)
+        .bind('mousemove.spinner', updateSpinnerPosition);
 
-      $('body').bind('mousemove.spinner', function(e){
-        $('#spinner').css({
-            left: e.pageX + offsetLeft,
-            top:  e.pageY + offsetTop
-          });
-      });
+      el.spin(options).removeClass('hidden');
     },
 
     detach: function() {
-      $(document).unbind('mousemove.spinner');
+      $(document).unbind('mousemove.spinner').unbind('click.spinner');
       el.spin(false).addClass('hidden');
     }
   };

@@ -369,7 +369,7 @@ body.loaded {
   text-overflow: ellipsis;
   overflow: hidden;
   visibility: hidden;
-  margin: 3px 0 0;
+  margin: 2px 0 0;
   line-height: 15px;
 
   &:before, &:after {
@@ -413,10 +413,11 @@ body.loaded {
 #player-song-name {
   position: relative;
   z-index: 10;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 
   a {
     font-size: 14px;
+    line-height: 1.4em;
     font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
@@ -2278,73 +2279,81 @@ ul.tagit input[type="text"] {
 }
 
 #corner-banner {
-  margin: 0;
-  padding: 0;
-  list-style: none;
   position: fixed;
   bottom: 0;
   right: 0;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
+  background: rgba(0,0,0,0.85);
+  color: rgba(255,255,255,0.7);
   font-size: 12px;
   z-index: 10001;
   @include border-top-left-radius(5px);
   @include transition(all linear .1s);
 
   &.closed {
-    right: -290px;
+    ul {
+      max-width: 0;
+      height: 0;
+    }
 
-    li.close a {
+    #close-corner-banner {
       padding-right: 8px;
 
       &:before {
         border-left-color: transparent;
         border-right-color: rgba(255,255,255,0.3);
-        left: 0;
+        left: 2px;
       }
     }
+  }
+
+  #close-corner-banner {
+    position: relative;
+    width: 24px;
+    padding: 0;
+    margin-right: -2px;
+    padding: 6px;
+    display: inline-block;
+    color: rgba(255,255,255,0);
+    float: left;
+    @include border-top-left-radius(4px);
+    @include box-sizing(border-box);
+
+    &:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      border: 5px solid transparent;
+      border-left-color: rgba(255,255,255,0.3);
+      width: 0;
+      height: 0;
+      position: absolute;
+      content: "";
+      pointer-events: none;
+      top: 11px;
+      left: 7px;
+    }
+  }
+
+  ul {
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include transition(all linear .1s);
   }
 
   li {
     padding: 5px 6px 4px;
     float: left;
-
-    &.close {
-      position: relative;
-      width: 16px;
-      padding: 0;
-      margin-right: -2px;
-
-      a {
-        padding: 6px 3px;
-        display: inline-block;
-        color: rgba(255,255,255,0);
-        @include border-top-left-radius(4px);
-
-        &:hover {
-          background: rgba(255,255,255,0.1);
-        }
-
-        &:before {
-          content: "";
-          display: block;
-          border: 5px solid transparent;
-          border-left-color: rgba(255,255,255,0.2);
-          width: 0;
-          height: 0;
-          position: absolute;
-          content: "";
-          pointer-events: none;
-          top: 11px;
-          left: 5px;
-        }
-      }
-    }
   }
 
   a {
     text-decoration: none;
-    color: #fff;
   }
 }
 
