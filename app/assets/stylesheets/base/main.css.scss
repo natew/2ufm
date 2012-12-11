@@ -2283,7 +2283,7 @@ ul.tagit input[type="text"] {
   bottom: 0;
   right: 0;
   background: rgba(0,0,0,0.85);
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.6);
   font-size: 12px;
   z-index: 10001;
   @include border-top-left-radius(5px);
@@ -2350,6 +2350,7 @@ ul.tagit input[type="text"] {
   }
 
   a {
+    color: #fff;
     text-decoration: none;
   }
 }
