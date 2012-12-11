@@ -115,14 +115,14 @@ Fusefm::Application.routes.draw do
   # Artists
   resources :artists, only:[], path: '/' do
     member do
-      get 'remixes_of'
-      get 'remixes_by'
-      get 'originals'
-      get 'popular'
-      get 'mashups'
-      get 'covers'
-      get 'features'
-      get 'productions'
+      get 'remixes_of(/p-:p)', to: 'artists#remixes_of'
+      get 'remixes_by(/p-:p)', to: 'artists#remixes_by'
+      get 'originals(/p-:p)', to: 'artists#originals'
+      get 'popular(/p-:p)', to: 'artists#popular'
+      get 'mashups(/p-:p)', to: 'artists#mashups'
+      get 'covers(/p-:p)', to: 'artists#covers'
+      get 'features(/p-:p)', to: 'artists#features'
+      get 'productions(/p-:p)', to: 'artists#productions'
     end
   end
 end
