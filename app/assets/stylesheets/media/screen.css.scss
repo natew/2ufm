@@ -35,11 +35,11 @@
 
 /* iPhone [portrait + landscape] */
 @media only screen and (max-width: 768px) {
-  body, header { min-width: 365px; }
+  body, header { min-width: 345px; }
   #welcome, #corner-banner { display:none !important; }
   #breadcrumbs { display:none; }
   #search-form { left: $navbar-width + 280 ; }
-  #body { margin-left: 0; }
+  #body { margin-left: 0; padding-bottom: 80px; }
 
   body.show-nav {
     #body {
@@ -100,6 +100,10 @@
     padding-left: 5px;
   }
 
+  #player-controls {
+    margin-top: -2px;
+  }
+
   #search-form {
     position: relative;
     left: auto;
@@ -150,21 +154,21 @@
     left: -100px;
     right: -10px;
     height: 28px;
-    background: rgba(0,0,0,0.75);
+    background: #000;
 
     #player-progress-position,
     #player-progres-loaded {
-      height: 21px;
-      top: 3px;
+      height: 20px;
+      top: 4px;
     }
 
     #player-progress-position {
-      background: rgba(255,255,255,0.3);
+      background: #999;
     }
   }
 
   #player-mini-controls {
-    top: -24px;
+    top: -21px;
     left: auto;
     right: 5px;
     z-index: 1004;
@@ -176,10 +180,16 @@
     }
   }
 
-  #player-volume {
-    margin: 0 16px 0 0;
-    width: 36px;
-    height: 20px;
+  #player-volume-wrap {
+    margin-left: 6px;
+  }
+
+  #player-volume-dropdown {
+    bottom: auto;
+    right: -18px;
+    top: -22px;
+    border-radius: 4px;
+    @include box-shadow(none);
   }
 
   #player-volume:before {
@@ -193,12 +203,19 @@
   }
 
   #player-song-name {
-    margin: 4px 0 3px 0;
-    a {font-size: 16px;}
+    margin: 1px 0 5px 0;
+    a {
+      font-size: 16px;
+      line-height: 1.4em;
+    }
   }
 
   #player-artist-name {
-    margin: 0 0 0 -4px;
+    margin: 0;
+    line-height: 1.4em;
+    font-size: 16px;
+
+    a { margin: 0 2px 0 0; }
   }
 
   .twothirds, .threefourths {
@@ -210,6 +227,40 @@
     clear: both;
     float: none;
     width: auto;
+  }
+
+  /* Title */
+
+  .title {
+    h1.has-image {
+      margin-right: 120px;
+    }
+
+    .nav-menu, .title-bar {
+      padding-right: 150px;
+      margin-right: 0;
+    }
+
+    .nav-menu {
+      a {
+        font-size: 14px;
+        padding: 10px 8px;
+      }
+    }
+
+    .title-nav {
+      top: 102px;
+      right: 20px;
+      width: 120px;
+
+      .count {
+        display: none;
+      }
+
+      a {
+        width: 96px;
+      }
+    }
   }
 
   .playlist {

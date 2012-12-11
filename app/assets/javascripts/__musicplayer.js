@@ -150,9 +150,9 @@ var mp = (function() {
       else {
         // Load
         if (!playlist) self.load();
-        fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
 
         if (playlist && playlistIndex < playlist.songs.length) {
+          fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
           curSongLoaded = false;
 
           // Load song

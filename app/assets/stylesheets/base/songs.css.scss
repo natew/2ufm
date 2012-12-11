@@ -386,7 +386,7 @@ $song-player-height: 50px;
 
       &.name {
         font-size: 20px;
-        margin: 6px 0 8px;
+        margin: 6px 80px 8px 0;
         font-weight: 400;
         position: relative;
         z-index: 11;
@@ -575,7 +575,7 @@ $song-player-height: 50px;
     margin-top: -5px;
     span { line-height: 1.4em;
       &.artist { font-size: 18px; }
-      &.name { font-size: 26px; margin: 0 0 10px 0; }
+      &.name { font-size: 26px; margin-bottom: 10px; }
     }
   }
 
