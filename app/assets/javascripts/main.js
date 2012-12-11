@@ -503,6 +503,7 @@ function setNavActive(page) {
 
 function pjax(url, full) {
   doPageEvents = true;
+  nextUrl = url;
   $.pjax({
     url: url,
     container: full ? '#full' : '#body',

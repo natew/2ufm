@@ -89,7 +89,8 @@ var page = {
     }
   },
 
-  error: function(e, text) {
+  error: function pageError(e, text) {
+    fn.replaceState(nextUrl);
     $('#body').html(text.responseText);
     return false;
   },

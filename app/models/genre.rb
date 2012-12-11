@@ -58,15 +58,15 @@ class Genre < ActiveRecord::Base
     ALTERNATIVE_NAMES[name] || name
   end
 
-  def self.artists_genres_list(ids)
+  def self.artist_genres_list(ids)
     Hash[*
       Station
         .has_songs(1)
         .where(artist_id: ids)
         .select("stations.artist_id as id, string_agg(genres.name, ', ') as artist_genres")
         .joins('inner join artists on artists.id = stations.artist_id')
-        .joins('inner join artists_genres on artists_genres.artist_id = artists.id')
-        .joins("inner join genres on genres.id = artists_genres.genre_id")
+        .joins('inner join artist_genres on artist_genres.artist_id = artists.id')
+        .joins("inner join genres on genres.id = artist_genres.genre_id")
         .group('stations.artist_id')
         .map{ |s| [s.id, s.artist_genres] }.flatten
     ]
