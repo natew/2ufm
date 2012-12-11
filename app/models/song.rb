@@ -509,6 +509,7 @@ class Song < ActiveRecord::Base
           # Set file
           self.file = song if direct
           self.compressed_file = compress_mp3(song.path)
+          self.failures = 0 if compressed_file
           process(song)
           self.save
         end
