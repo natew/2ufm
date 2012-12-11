@@ -27,6 +27,7 @@ class Artist < ActiveRecord::Base
   validates :station, presence: true
   validates_with SlugValidator
 
+  scope :random, order('random() desc')
   scope :has_image, where('artists.image_updated_at is not null')
   scope :for_linking, joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role')
 
@@ -95,7 +96,7 @@ class Artist < ActiveRecord::Base
     logger.info "Updating genres for #{id} - #{name}"
     got_genres = get_genres
     return unless got_genres
-    self.genres.where('genres.name not in (?)', got_genres).destroy_all
+    self.artist_genres.joins(:genres).where('genres.name not in (?)', got_genres).destroy_all
     got_genres.each do |add_genre|
       genre = Genre.find_or_create_by_name(add_genre)
       begin
