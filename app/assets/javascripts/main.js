@@ -379,7 +379,10 @@ body.allOn('click', {
 
   '#close-corner-banner': function(e, el) {
     cornerBanner.toggleClass('closed');
-    $.cookie('hideCorner', cornerBanner.is('.closed') ? 1 : 0);
+    var closed = cornerBanner.is('.closed');
+    $.cookie('hideCorner', closed ? 1 : 0);
+    if (closed) cornerBanner.css({ right: '-' + (cornerBanner.width() - $('#close-corner-banner').outerWidth()) + 'px' });
+    else cornerBanner.css({ right: 0 });
   }
 });
 

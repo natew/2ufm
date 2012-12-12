@@ -2290,8 +2290,6 @@ ul.tagit input[type="text"] {
   @include transition(all linear .1s);
 
   &.closed {
-    right: -328px;
-
     #close-corner-banner {
       padding-right: 8px;
 
@@ -2352,6 +2350,14 @@ ul.tagit input[type="text"] {
   a {
     color: #fff;
     text-decoration: none;
+  }
+
+  #facebook-like {
+    overflow: hidden;
+    width: 80px;
+    padding-bottom: 0;
+    padding-top: 6px;
+    margin-bottom: -2px;
   }
 }
 

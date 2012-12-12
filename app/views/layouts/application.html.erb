@@ -185,6 +185,7 @@
       <a id="close-corner-banner" class="close control" href="#">&gt;</a>
       <ul>
         <li>Tweet <%= link_to '@2u_fm', 'http://twitter.com/2u_fm', class: 'popup' %></li>
+        <li id="facebook-like"><div class="fb-like" data-href="http://2u.fm" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div></li>
         <li>
           <div id="head-colors" class="colors">
           <% (1..5).each do |color| %>
@@ -239,5 +240,14 @@
     modal('#ie-notice');
   </script>
   <![endif]-->
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=146211288850018";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
