@@ -301,6 +301,26 @@ class Blog < ActiveRecord::Base
     self.create_station(title:name)
   end
 
+  def get_relevant_genres
+    get_song_genres.limit(6)
+  end
+
+  def get_song_genres
+    songs.joins(:genres).where('song_genres.source != ?', 'blog').group('genres.name').select('count(genres.name) as genre_count, genres.name as genre_name').order('genre_count desc')
+  end
+
+  def song_genres
+    map_genres_with_counts(get_song_genres)
+  end
+
+  def relevant_genres
+    map_genres_with_counts(get_relevant_genres)
+  end
+
+  def map_genres_with_counts(genres)
+    genres.map { |s| [s.genre_name, s.genre_count.to_i] }
+  end
+
   private
 
   def get_html(url)
