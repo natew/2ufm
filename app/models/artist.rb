@@ -76,6 +76,29 @@ class Artist < ActiveRecord::Base
     station.songs_count
   end
 
+  def similar_artists
+    top_matching_artist_ids =
+      Station
+        .select('count(ab) as matched_count')
+        .select('stations.id')
+        .where('ab.id = ?', id)
+        .where('ab.id != a.id')
+        .where('aa.role IN (?)', ['original', 'remixer'])
+        .joins('inner join artists a on a.id = stations.artist_id')
+        .joins('inner join authors on authors.artist_id = a.id')
+        .joins('inner join authors aa on aa.song_id = authors.song_id')
+        .joins('inner join artists ab on aa.artist_id = ab.id')
+        .group('stations.id')
+        .order('matched_count desc')
+        .limit(8)
+
+    count = top_matching_artist_ids.length
+    normalizer = ((1 / (0.1 + (count-1)*(0.9/50))) * 0.2)
+    lim = (normalizer * count).floor
+    top = top_matching_artist_ids.slice(0, lim).map(&:id)
+    Station.where(id: top)
+  end
+
   def get_genres
     genres = []
     url_name = Rack::Utils.escape(name)

@@ -28,6 +28,26 @@
   </div>
 
   <div class="whole">
-    <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs, :cache_val => @type } %>
+    <div class="threefourths-wrap">
+      <div class="threefourths">
+        <%= render :partial => 'stations/playlist', :locals => { :station => @artist.station, :songs => @songs, :cache_val => @type } %>
+      </div>
+    </div>
+
+    <div class="fourth">
+    <%- cache ['v1', 'artist_sidebar', @artist]  do -%>
+      <% if @similar_artists.count > 0 %>
+        <h3>Similar to</h3>
+        <div class="shelf">
+          <%= render partial: 'stations/shelf', collection: @similar_artists %>
+        </div>
+      <% end %>
+
+      <h3>Found on</h3>
+      <div class="stations shelf">
+        <%= render partial: 'stations/shelf', collection: @blogs %>
+      </div>
+    <%- end -%>
+    </div>
   </div>
 </div>

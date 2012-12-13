@@ -15,6 +15,10 @@ class ArtistsController < ApplicationController
     end
   end
 
+  def station
+    similar_artists = @artist.similar_artists
+  end
+
   def show
     @station = Station.find_by_slug(params[:id]) || not_found
     @artist = Artist.find(@station.artist_id) || not_found
@@ -72,7 +76,8 @@ class ArtistsController < ApplicationController
   end
 
   def get_artist_extra_info
-    @blogs = @artist.stations.blog_station.distinct
+    @similar_artists = @artist.similar_artists
+    @blogs = @artist.stations.blog_station.distinct.limit(8)
     @artist_has_remixes_of = artist_remixes_of.count > 0
   end
 

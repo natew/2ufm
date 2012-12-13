@@ -323,6 +323,35 @@ $station-image-small: $play-button-small;
   }
 }
 
+.fourth .shelf {
+  margin-bottom: 30px;
+
+  li {
+    height: 50px;
+    overflow: hidden;
+    margin-bottom: 0;
+
+    &:hover {
+      @include box-shadow(none);
+
+      h4 {
+        background: rgba(0,0,0,0.4);
+        color: #fff;
+      }
+    }
+
+    h4 {
+      color: rgba(255,255,255,0.9);
+      font-size: 16px;
+      padding: 16px 6px;
+    }
+
+    .station-buttons, p {
+      display: none;
+    }
+  }
+}
+
 .third .shelf {
   margin-left: -10px;
   margin-right: 0;
