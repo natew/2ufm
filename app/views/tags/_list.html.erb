@@ -1,13 +1,12 @@
-<%-
-  limit ||= 30
-  tags  ||= Tag.common.limit(limit)
-  big     = Integer(tags.first.num)
-  small   = Integer(tags.last.num)
-  dont_shuffle ||= false
-  tags    = tags.to_a.shuffle! unless dont_shuffle
--%>
-
 <% cache ["tags_list_#{limit}"] do %>
+  <%-
+    limit ||= 30
+    tags  ||= Tag.common.limit(limit)
+    big     = Integer(tags.first.num)
+    small   = Integer(tags.last.num)
+    dont_shuffle ||= false
+    tags    = tags.to_a.shuffle! unless dont_shuffle
+  -%>
   <ul class="tags">
     <% for tag in tags %>
       <%= render partial: 'tags/tag', locals: { tag: tag, big: big, small: small } %>
