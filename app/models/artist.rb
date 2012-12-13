@@ -85,7 +85,7 @@ class Artist < ActiveRecord::Base
         .where('ab.id != a.id')
         .joins("left join authors artist_does_remixes on artist_does_remixes.artist_id = #{id} and artist_does_remixes.role = 'remixer'")#.where(' ?', 'remixer')
         .where('(artist_does_remixes IS NOT null and aa.role IN (?)) OR (artist_does_remixes IS null and aa.role IN (?))',
-          ['remixer', 'mashup', 'original', 'producer'], ['original', 'cover', 'featured', 'producer'])
+          ['remixer', 'mashup', 'featured', 'original'], ['original', 'cover', 'featured', 'producer'])
         .joins('inner join artists a on a.id = stations.artist_id')
         .joins('inner join authors on authors.artist_id = a.id')
         .joins('inner join authors aa on aa.song_id = authors.song_id')
