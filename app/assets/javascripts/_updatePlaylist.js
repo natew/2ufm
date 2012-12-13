@@ -16,7 +16,7 @@ function updatePlaylist() {
   }
   updateTimes();
   updateCounts();
-  $('.playlist.not-loaded').removeClass('not-loaded').addClass('loaded');
+  $('.not-loaded').removeClass('not-loaded').addClass('loaded');
 }
 
 function updateCounts() {
@@ -63,6 +63,7 @@ function updateFriendBroadcasts() {
 
 function updateFollows() {
   updateFollowsIds = fn.flattenArray(updateFollowsIds);
+  fn.log('updating follows', updateFollowsIds);
   if (!updateFollowsIds || updateFollowsIds.length == 0) return false;
   var follows, f = {
         icon: '2',
@@ -77,7 +78,7 @@ function updateFollows() {
     follows = '.follow-' + updateFollowsIds[0] + ' a';
   }
 
-  $('.playlist.not-loaded ' + follows)
+  $('.not-loaded ' + follows)
     .attr('title', f.title)
     .data('method', f.method)
     .removeClass('add')
