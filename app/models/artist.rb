@@ -158,7 +158,7 @@ class Artist < ActiveRecord::Base
 
       if !artist.nil?
         logger.info "Info found"
-        self.image = UrlTempfile.new(artist.images.first.uri) unless image.exists? or artist.images.nil?
+        self.image = UrlTempfile.new(artist.images.first.uri) unless artist.images.nil?
         self.urls  = artist.urls unless artist.urls.nil?
         self.about = artist.profile unless artist.profile.nil?
         self.save
