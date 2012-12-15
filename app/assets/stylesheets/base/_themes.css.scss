@@ -35,7 +35,9 @@
     #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
     #welcome { background: darken($header-bg, 25%); }
     #buttons .notifications {border-color: $header-bg;}
-    .genres .selected { background: $header-bg; }
+    .genres .selected{ background: $header-bg; }
+    .handle  { background: darken($header-bg, 16%);
+      &:hover { background: $header-bg; } }
   }
 
   .theme-body-#{$i} {

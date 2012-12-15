@@ -1,0 +1,192 @@
+@import "mixins.css.scss";
+
+.title {
+  padding: 15px 20px 10px 0;
+  margin: 0 0 20px 20px;
+  color: #999;
+  position: relative;
+  opacity: 1;
+  @include box-shadow(0 2px 0 rgba(0,0,0,0.2));
+
+  &.invisible {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  h1 {
+    margin-top: -10px;
+    margin-bottom: 0;
+
+    &.has-image {margin-right: 300px;}
+  }
+
+  h2 {
+    margin-top: -10px;
+  }
+
+  .image {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 10;
+    border-width: 5px;
+    border-style: solid;
+
+    &.medium, .medium {
+      width: 128px;
+      height: 128px;
+    }
+
+    &.small, .small {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  a { text-decoration: none; }
+  p {
+    font-size: 14px;
+    margin: 8px 0 20px;
+  }
+
+  .genres {
+    margin-bottom: 0;
+  }
+
+  .genres-list {
+    clear: none;
+    margin: 0 0 -6px 0;
+
+    li {
+      margin-bottom: 0;
+    }
+  }
+
+  .title-bar {
+    margin: 10px 140px 4px 0;
+  }
+
+  .title-buttons {
+    margin-right: 6px;
+    float: left;
+
+    span {
+      margin-right: 6px;
+    }
+
+    a {
+      margin: 0 2px 0 0;
+    }
+  }
+
+  .title-nav {
+    position: absolute;
+    margin: 5px 0 0;
+    top: 10px;
+    right: 165px;
+
+    ul { margin-top: 14px; }
+    li {
+      list-style: none;
+      padding: 0;
+
+      &.right {
+        margin-left: 6px;
+        margin-right: 0;
+        float: right;
+      }
+
+      a {
+        float: right;
+      }
+
+      .count {
+        float: left;
+        padding: 4px;
+        margin-right: 8px;
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+  }
+
+  .button.right {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+  }
+}
+
+.controller-users .title {
+  .title-nav {
+    right: 115px;
+  }
+
+  .image img {
+    width: 82px;
+    height: 82px;
+  }
+}
+
+
+.nav-menu {
+  display: block;
+  margin: 0 -20px -8px -20px;
+  overflow: hidden;
+  padding: 8px 20px 8px 14px;
+  padding-right: 178px;
+  @include box-sizing(border-box);
+
+  &.inline {
+    margin-top: -2px;
+  }
+
+  &.right {
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    float: left;
+    padding: 10px 8px;
+    margin: -8px 0;
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+
+    &:first-child {
+      border: none;
+    }
+
+    &.active {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    &:hover {
+      color: $link-hover;
+    }
+
+    span {
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+    }
+  }
+}
+
+h2.nav-menu {
+  margin-bottom: 4px;
+  margin-left: -10px;
+  margin-top: 0;
+}
+
+.section {
+  clear: both;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}

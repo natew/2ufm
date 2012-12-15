@@ -25,13 +25,12 @@ var page = {
     setNavActive(curPage);
 
     doPlaysActions();
-    pagination.restart();
+    w.trigger('pagination:restart');
     updatePlaylist();
     spinner.detach();
     bindImageErrors();
     mp.hasMoved(false);
     setupFixedTitles();
-    pagination.updateCurrentPage();
     bindDataRemoteEvents();
 
     // Update google analytics

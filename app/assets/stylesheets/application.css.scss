@@ -1,23 +1,6 @@
 /*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
  *= require ./fonts/pictos
  *= require_tree ./base
  *= require_tree ./media
 */
-
-form div:after { content: ""; display: none; }
-div:after, ul:after, form:after, form p:after, section:after,
-h2:after, h3:after {
-    content: ".";
-    display: block;
-    overflow: hidden;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-    line-height: 0em;
-}
-
-br { clear: both; }

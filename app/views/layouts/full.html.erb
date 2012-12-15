@@ -98,9 +98,11 @@
                 <%= render 'genres/links' unless user_signed_in? %>
                 <%- if user_signed_in? -%>
                   <%= render 'genres/users' %>
-                  <hr />
-                  <%= link_to 'Browse', genres_path %>
-                  <%= link_to 'Edit', genres_favorites_path %>
+
+                  <div class="extra">
+                    <%= link_to 'Browse', genres_path %>
+                    <%= link_to 'Edit', genres_favorites_path %>
+                  </div>
                 <%- end -%>
               </div>
             </div>

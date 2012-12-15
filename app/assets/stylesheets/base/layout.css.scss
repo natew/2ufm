@@ -1,0 +1,79 @@
+@import "mixins.css.scss";
+
+/* PAGE LAYOUT */
+.third, .twothirds,
+.fourth, .half,
+.whole, .section {
+  padding: 0 20px;
+  position: relative;
+  @include box-sizing(border-box);
+}
+
+.section {
+  padding: 0;
+}
+
+.contain {
+  position: relative;
+  clear: both;
+  margin-bottom: 20px;
+}
+
+.whole {
+  clear: both;
+}
+
+.half {
+  width: 50%;
+  float: left;
+}
+
+.greater {
+  width: 65%;
+  float: left;
+}
+
+.lesser {
+  width: 35%;
+  padding: 0 10px;
+  float: left;
+  @include box-sizing(border-box);
+}
+
+.twothirds-wrap {
+  width: 100%;
+  float: left;
+  margin-right: -$third-width - 1;
+}
+
+.twothirds {
+  margin-right: 1 + $third-width;
+}
+
+.third {
+  float: left;
+  width: $third-width;
+  padding-left: 0;
+}
+
+.threefourths-wrap {
+  width: 100%;
+  float: left;
+  margin-right: -$fourth-width - 1;
+}
+
+.threefourths {
+  margin-right: 1 + $fourth-width;
+}
+
+.fourth {
+  float: left;
+  width: $fourth-width;
+  padding-right: 0;
+}
+
+.third, .twothirds, .fourth, .half, .whole {
+  .third, .twothirds, .fourth, .half, .whole {
+    margin-left: 0;
+  }
+}

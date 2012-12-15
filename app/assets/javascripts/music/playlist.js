@@ -1,3 +1,8 @@
+var one_hour = 60 * 60 * 1000,
+    one_day = one_hour * 24,
+    one_week = one_day * 7,
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 function updatePlaylist() {
   fn.log('Updating, isOnline?', isOnline);
 
@@ -28,8 +33,15 @@ function updateCounts() {
 function updateTimes() {
   $('.playlist.not-loaded time').each(function() {
     var el = $(this),
-        datetime = new Date(el.attr('datetime') * 1000).toRelativeTime();
-    el.html(datetime);
+        date = new Date(el.attr('datetime')),
+        now = new Date;
+
+    if ((now - date) < one_week)
+      el.timeago();
+    else {
+      el.html(months[date.getUTCMonth()] + ' ' + date.getUTCDate() + date.getDaySuffix());
+      if (date.getUTCFullYear() > now.getUTCFullYear()) el.html(el.html() + ', ' + date.getUTCFullYear());
+    }
   });
 }
 

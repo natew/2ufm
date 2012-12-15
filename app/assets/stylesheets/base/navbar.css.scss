@@ -1,0 +1,280 @@
+@import "mixins.css.scss";
+
+/* navbar fade in colors */
+#navbar {
+  a  {color: rgba(255,255,255,0.4);
+    &.secondary  { color: rgba(255,255,255,0.3); }
+    &:before     { color: rgba(255,255,255,0.3); } }
+  #navbar-friends {
+    a            { color: rgba(255,255,255,0.25);
+      &:hover    { color: rgba(255,255,255,0.6); } }
+    .online a    { color: rgba(255,255,255,0.7); } }
+}
+
+#navbar section:hover {
+  a  {color: rgba(255,255,255,0.75);
+    &.secondary  { color: rgba(255,255,255,0.4); } }
+  #navbar-friends {
+    a            { color: rgba(255,255,255,0.3); }
+    .online a    { color: rgba(255,255,255,0.8); } }
+}
+
+#navbar {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: $navbar-width;
+  padding: 0;
+  overflow: hidden;
+  @include box-sizing(border-box);
+  @include user-select(none);
+
+  #navbar-menus {
+    margin-right: -20px;
+    padding-right: 0;
+    overflow: hidden;
+    overflow-y: scroll;
+    @include box-sizing(border-box);
+  }
+
+  #navbar-menus-inner {
+    padding-top: $header-height;
+  }
+
+  section {
+    display: block;
+    position: relative;
+    z-index: 1;
+
+    h1 {
+      position: relative;
+      font-size: 12px;
+      font-weight: 300;
+      padding: 3px 10px;
+      margin: 8px 10px 0 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: default;
+      color: rgba(255,255,255,0.3);
+
+      a {
+        font-size: 12px;
+        color: rgba(255,255,255,0.3);
+        margin: -3px 10px -3px -10px;
+        &.active { background: none !important; }
+      }
+    }
+
+    a {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: 14px;
+      padding: 3px 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin: 0;
+      @include box-sizing(border-box);
+      @include transition(all .2s linear);
+
+      &[class*="icon-"] {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 16px;
+        padding-left: 32px;
+      }
+
+      &:hover {
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        &:before { color: #fff; }
+      }
+
+      &:before {
+        padding-top: 4px;
+        padding-left: 5px;
+        font-size: 16px;
+        @include transition(all .1s linear);
+      }
+
+      &.icon-users:before,
+      &.icon-home:before,
+      &.icon-time:before {
+        padding-top: 3px;
+      }
+
+      &.active {
+        color: #fff;
+        &:before { color:#fff; }
+      }
+
+      &.secondary, &.secondary:before {
+        color: rgba(255,255,255,0.2);
+      }
+
+      span {
+        position: absolute;
+        padding: 0 6px;
+        top: 4px;
+        right: 10px;
+        font-size: 12px;
+        color: #fff;
+        background: #6a0007;
+        float: right;
+        text-align: center;
+        min-width: 22px;
+        border-radius: 20px;
+        @include box-sizing(border-box);
+      }
+    }
+  }
+
+  p {
+    padding: 0 15px 0 10px;
+    font-size: 12px;
+  }
+
+  .nav-info {
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 5px 0;
+    background: rgba(0,0,0,0.15);
+    bottom: 0;
+  }
+
+  #navbar-friends {
+    margin-top: 10px;
+    width: $navbar-width;
+
+    .scroll-section {
+      margin-right: -5px;
+    }
+
+    #nav-friends { color: #777; }
+
+    .friend-link {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 3px 25px 3px 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 12px;
+      position: relative;
+
+      &.active {
+        color: #fff;
+      }
+    }
+
+    .online {
+      div { position: relative; }
+      .tune-in { display: block; }
+    }
+
+    .tune-in {
+      display: none;
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      right: 5px;
+      padding: 3px 5px;
+      font-size: 11px;
+      font-style: normal;
+    }
+  }
+
+  .scroll-section {
+    .extra {
+      margin-top: 6px;
+      background: rgba(0,0,0,0.3);
+
+      a {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+#navbar h1[data-toggle="invisible"] {
+  position: relative;
+  overflow: visible !important;
+
+  &.toggled:after {
+    content: "+";
+  }
+
+  &:after {
+    content: "–";
+    display: block;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.1);
+    font-weight: bold;
+  }
+
+  &[data-toggle="invisible"]:hover:after {
+    color: rgba(255,255,255,0.5);
+  }
+}
+
+.scroll-section {
+  position: relative;
+}
+
+.scroll-section-inner {
+  background: rgba(0,0,0,0.2);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-right: -20px;
+  @include box-sizing(border-box);
+
+  &:after, &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background-color: transparent !important;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  &:before {
+    @include linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0));
+    bottom: auto;
+    top: 0;
+  }
+
+  &:after {
+    @include linear-gradient(bottom, rgba(0,0,0,0.5), rgba(0,0,0,0));
+    visibility: visible;
+  }
+
+  &.atTop:before,
+  &.atBottom:after { display: none; }
+}
+
+#navbar-genres,
+#navbar-genres-wrap {
+  max-height: 180px;
+  @include transition(all linear 0.2s);
+}
+
+#navbar-genres {
+  overflow: hidden;
+
+  &.invisible,
+  &.invisible #navbar-genres {
+    border-width: 0;
+    height: 0;
+  }
+}

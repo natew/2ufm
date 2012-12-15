@@ -14,8 +14,10 @@ class User < ActiveRecord::Base
          :allow_unconfirmed_access_for => 1.day,
          :reconfirmable => true
 
+  serialize :last_playlist
+
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location, :oauth_token, :gender, :facebook_id, :first_time, :slug
+  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location, :oauth_token, :gender, :facebook_id, :first_time, :slug, :last_playing_page, :last_playlist_id, :last_playlist
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -144,6 +146,16 @@ class User < ActiveRecord::Base
 
   def feed_station(type)
     Station.new(id: integers_from_string("#{station.id}#{username}#{type}"), title: "#{username}'s feed", slug: "#{slug}-feed")
+  end
+
+  def store_playlist(playlist)
+    if last_playlist_id != playlist[:id]
+      self.update_attributes({
+        last_playing_page: playlist[:page],
+        last_playlist_id: playlist[:id],
+        last_playlist: playlist[:data]
+      })
+    end
   end
 
   def followers

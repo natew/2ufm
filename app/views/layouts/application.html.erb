@@ -123,6 +123,7 @@
       <% if !user_signed_in? %>
         <%= render 'modals/login' %>
       <% else %>
+        <div id="user-last-playlist" data-playlist="<%= current_user.last_playlist.to_json %>" data-last-id="<%= current_user.last_playlist_id %>"></div>
 
         <% if current_user.provider == 'facebook' and current_user.facebook_id.nil? %>
 

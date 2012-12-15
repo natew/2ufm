@@ -7,7 +7,7 @@ var mp = (function() {
   var w = $(window),
       playlist,
       playlistID,
-      playlistIndex,
+      playlistIndex = 0,
       curPlaylistUrl,
       curSection,
       curSongInfo,
@@ -110,29 +110,34 @@ var mp = (function() {
 
           // Get new playlist
           var el = $('#playlist-' + playlistID);
-          playlist = el.data('playlist');
-          playlist.id = playlistID;
           broadcasts = el.next('script');
           fn.log('broadcasts', broadcasts);
 
-          // Remember this page
-          player.setPlayingPage();
-
-          // Add indices
-          for (var i = 0; i < playlist.songs.length; i++) {
-            playlist.songs[i].index = i;
-          }
-
-          maxIndex = i;
-          curPlaylistUrl = playingPage;
-          played = [];
-
-          // Callback
-          w.trigger('mp:load', player.state());
-          fn.log('loaded',playlist,playlistID);
+          player.loadPlaylist(el.data('playlist'), playlistID);
           return true;
         }
       }
+    },
+
+    loadPlaylist: function loadPlaylist(data, id) {
+      playlist = data;
+      playlist.id = id;
+
+      // Remember this page
+      player.setPlayingPage();
+
+      // Add indices
+      for (var i = 0; i < playlist.songs.length; i++) {
+        playlist.songs[i].index = i;
+      }
+
+      maxIndex = i;
+      curPlaylistUrl = playingPage;
+      played = [];
+
+      fn.log('loaded', playlist.id, playlist);
+      w.trigger('mp:load', player.state());
+      return true;
     },
 
     playCompressedFile: function playCompressedFile() {
@@ -150,8 +155,9 @@ var mp = (function() {
       else {
         // Load
         if (!playlist) self.load();
+        fn.log('-----', playlist, playlistIndex, playlist.songs);
 
-        if (playlist && playlistIndex < playlist.songs.length) {
+        if (playlist && (playlistIndex < playlist.songs.length) || typeof playlist.songs.length === 'undefined') {
           fn.log('Playlist...', playlist, 'Index...', playlistIndex, 'Songs length...', playlist.songs.length);
           curSongLoaded = false;
 
@@ -604,8 +610,22 @@ var mp = (function() {
       pl.loaded.css('width','100%');
 
       if (success) {
-        curPlayingPage = curSection ? parseInt(curSection.parents('.playlist').data('page'), 10) : curPlayingPage;
+        var curPlaylist = curSection ? curSection.parents('.playlist') : null;
+
+        if (curPlaylist && curPlaylist.length) {
+          curPlaylistData = curPlaylist.data('playlist');
+          listenPlaylist = {
+            id: curPlaylistData['station']['id'],
+            page: curPlayingPage,
+            data: curPlaylistData
+          };
+          curPlayingPage = curPlaylist.data('page');
+        } else {
+          listenPlaylist = null;
+        }
+
         playCount++;
+        fn.log('playlist', curPlaylist, 'playingPage', curPlayingPage, 'playCount', playCount);
 
         w.trigger('mp:played', player.state());
 
@@ -622,7 +642,8 @@ var mp = (function() {
               user_id: $('#current_user').data('id'),
               url: playingPage,
               seconds: curSongInfo.seconds
-            }
+            },
+            playlist: listenPlaylist
           },
           success: function playSuccess(data) {
             listenUrl = data;
@@ -876,7 +897,15 @@ var mp = (function() {
     bindEvents: function() {
       player.getElements();
       player.bindDraggers();
-    }
+    },
+
+    playPlaylist: function(data, id) {
+      if (data && id) {
+        fn.log(data, data.id)
+        player.loadPlaylist(data, id);
+        player.play();
+      }
+    },
   };
 
 }(window, mp));

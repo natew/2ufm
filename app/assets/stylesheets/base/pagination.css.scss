@@ -1,0 +1,90 @@
+@import "mixins.css.scss";
+
+/* NAVIGATION AND PAGINATION */
+
+.pagination {
+  position: relative;
+  clear: both;
+  margin: -5px 0 10px 0;
+  font-size: 12px;
+
+  h5 {
+    display: none;
+    padding: 5px 0;
+    margin: 0;
+    font-size: 12px;
+    color: #888;
+  }
+
+  table {
+    width: 100%;
+    text-align: center;
+    table-layout: fixed;
+  }
+
+  td {
+    padding: 0 2px;
+  }
+
+  a, span, .page-sep {
+    color: rgba(255,255,255,0.4);
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    padding: 1px 0;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: rgba(255,255,255,0.6);
+    background: rgba(0,0,0,0.1);
+  }
+
+  .page-current span {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  /* kaminari */
+  .page, .first, .last, .prev, .next {
+    width: auto;
+    float: left;
+    padding: 6px;
+
+    a {
+      width: auto;
+      padding: 6px;
+      margin: -6px;
+    }
+  }
+}
+
+
+.playlist .next-page {
+  margin-top: 30px;
+}
+
+.next-page {
+  display: block;
+  color: #ccc;
+  font-size: 14px;
+  text-align: center;
+  margin: -170px 0 800px;
+  padding: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  pointer-events: none;
+  border-radius: 8px;
+
+  &.loading {
+    color: #999;
+    pointer-events: none;
+    cursor: normal;
+  }
+
+  &.loaded {
+    margin-bottom: 30px;
+  }
+}
+

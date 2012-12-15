@@ -1,0 +1,21 @@
+#song-dragger {
+  display: none;
+  position: fixed;
+  font-family: 'Icon';
+  width: 28px;
+  height: 28px;
+  padding-top: 5px;
+  margin: -28px 0 0 -28px;
+  background: darken($primary, 20%);
+  color: #fff;
+  font-size: 16px;
+  z-index: 100000;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  @include box-sizing(border-box);
+
+  &.visible {
+    display: block;
+  }
+}

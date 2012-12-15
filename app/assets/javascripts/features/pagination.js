@@ -186,4 +186,8 @@ w
   .on('scrollstop', function() {
     clearInterval(pageLoadTimeout);
     $.cookie('scrollTop', w.scrollTop());
+  })
+  .on('pagination:restart', function() {
+    pagination.restart();
+    pagination.updateCurrentPage();
   });

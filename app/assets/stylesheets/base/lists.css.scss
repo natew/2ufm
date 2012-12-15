@@ -1,0 +1,226 @@
+@import "mixins.css.scss";
+
+/* Nav menus */
+
+$nav-pad: 10px;
+$nav-item-pad: 4px;
+$nav-arrow-size: 5px;
+
+.pop-menu, .mp_list {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-left: -3px;
+  z-index: 10000;
+  padding: $nav-item-pad 4px;
+  background: rgba(0,0,0,0.9);
+  font-weight: bold;
+  border-radius: 5px;
+  max-width: 380px;
+  min-width: 120px;
+  @include box-shadow(0 0 10px rgba(0,0,0,0.8));
+  @include box-sizing(border-box);
+
+  &.right-align {
+    margin-left: 0;
+
+    &:before {
+      left: auto;
+      margin: 0;
+      right: 18%;
+    }
+  }
+
+  &.open, &.visible {
+    display: block;
+  }
+
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -$nav-arrow-size + 1;
+    left: 50%;
+    margin-left: -$nav-arrow-size;
+    width: 0;
+    height: 0;
+    border-left: $nav-arrow-size solid transparent;
+    border-right: $nav-arrow-size solid transparent;
+    border-bottom: $nav-arrow-size solid black;
+  }
+
+  .header, h4 {
+    color: rgba(255,255,255,0.8);
+    font-size: 12px;
+    margin: $nav-item-pad*2 0;
+    padding: 0 6px;
+  }
+
+  li, a {
+    color: #fff;
+    display: block;
+    padding: $nav-item-pad $nav-pad;
+    font-size: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+
+    &[class*="2s-"] {
+      padding-left: 18+$nav-pad;
+      line-height: .9em;
+    }
+
+    &[class*="icon-"] {
+      padding-left: 24px;
+
+      &:before {
+        font-size: 14px;
+      }
+    }
+
+    &.secondary {
+      color: rgba(255,255,255,0.6);
+    }
+
+    img {
+      float: left;
+      margin: 3px 5px -2px -5px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  img {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+  }
+
+  li.mp_selectable { cursor: pointer; }
+
+  li.mp_highlighted,
+  a:hover,
+  .playing {
+    color: #fff;
+    @include linear-gradient($primary-light,$primary);
+  }
+}
+
+
+/* Ordered list for display results. */
+ol.mp_list {
+  line-height: 1.4em;
+  position: absolute;
+  width: 100%;
+  top: 25px;
+  z-index: 99999;
+  left: 0;
+  padding-top: 0;
+  margin: 15px 0 0 0;
+
+  li {
+    list-style: none;
+    margin: 0;
+  }
+}
+
+/* Lists */
+.list {
+  margin: -15px 0 25px 0;
+  padding: 0;
+
+  section, li {
+    padding: 4px 0;
+    margin: 0;
+    border: none;
+    height: auto;
+    float: none;
+    list-style: none;
+    white-space: nowrap;
+    line-height: 1.2em;
+
+    div {
+      display: inline-block;
+      margin: 0 0 -9px 0;
+    }
+
+    .image {float: left; padding: 0; border: none; background: none;}
+    img { width: 24px; margin: 4px 6px -6px 0; }
+
+    h4 {
+      margin: 0;
+      display: inline-block;
+      line-height: 16px;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      a { text-decoration: none; }
+    }
+
+    p {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 0;
+      height: 3.5em;
+      overflow: hidden;
+    }
+  }
+}
+
+#body .horizontal-list {
+  margin: -10px -20px 20px;
+  padding: 6px 20px;
+  background: rgba(0,0,0,0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ccc;
+  font-size: 11px;
+  font-weight: bold;
+
+  h3 {
+    margin: 0 10px 0 0;
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: bold;
+    float: left;
+    color: #aaa;
+    line-height: 1em;
+  }
+
+  span {
+    border-right: 1px solid rgba(255,255,255,0.1);
+    padding: 0 10px;
+
+    &:last-child {
+      border: none;
+    }
+  }
+
+  .list {
+    float: left;
+    margin: -2px 0 0;
+
+    section {
+      padding: 0;
+      margin: 0 20px 5px 0;
+      float: left;
+
+      img {
+        margin-top: 2px;
+        border-radius: 30px;
+      }
+    }
+  }
+}
+
+.half .list {
+  section {
+    float: left;
+    display: inline-block;
+    margin-right: 20px;
+  }
+}

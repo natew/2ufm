@@ -1,3 +1,4 @@
+
 var commandPressed = false;
 
 // Allow middle clicking for new tabs

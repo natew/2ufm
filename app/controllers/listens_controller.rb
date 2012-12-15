@@ -32,6 +32,10 @@ class ListensController < ApplicationController
       })
     )
 
+    if user_signed_in?
+      current_user.store_playlist(params[:playlist])
+    end
+
     respond_to do |format|
       if @listen.save
         format.js

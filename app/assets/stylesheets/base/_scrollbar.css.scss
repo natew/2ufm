@@ -1,0 +1,50 @@
+.scrollbar-in-action {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.scrollbar-dragging .scrollbar .handle {
+  left: -6px;
+}
+
+.scroll-section {
+  overflow: hidden;
+}
+
+.scrollbar {
+  top: 0;
+  right: 5px;
+  bottom: 0;
+  width: 6px;
+  z-index: 1000000;
+  background: rgba(0,0,0,0.2);
+  position: absolute;
+  cursor: pointer;
+}
+
+.handle {
+  left: 0;
+  right: 0;
+  height: 50px;
+  position: absolute;
+
+  &:hover {
+    cursor: pointer;
+    left: -6px;
+  }
+}
+
+.hide-scrollbar {
+  background: #eee;
+  overflow: hidden;
+  float: right;
+}
+
+.overflow-scroll {
+  padding: 0 20px 0 0;
+  overflow-x: hide;
+  overflow-y: scroll;
+  position: relative;
+}

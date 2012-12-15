@@ -1,20 +1,23 @@
 <%-
   broadcasted ||= false
+  flipped     ||= false
   prefix      ||= broadcasted ? 'following_' : ''
   time          = broadcasted ? song.broadcasted_at : song.published_at
   id            = song.send(prefix + 'station_id')
   follows_count = song.send(prefix + 'station_follows_count')
   slug          = song.send(prefix + 'station_slug')
   title         = song.send(prefix + 'station_title')
-  time          = Time.zone.parse(time.to_s).to_i if time.is_a? String
+  time          = Time.zone.parse(time.to_s) if time.is_a? String
   other_count   = song.blog_broadcasts_count - 1
+  time_html     = "<time datetime=\"#{time.getutc.iso8601}\"></time>".html_safe
 -%>
 
 <div class="song-posted">
-  <time datetime="<%= time.to_i %>"><%= relative_time(time) %></time>
+  <% if !flipped %><%= time_html %><% end %>
   <div class="follow-station-wrap">
     <span class="follow-<%= id %>"><%= follow_station(id, follows_count) %></span>
     <%= link_to title, '/' + slug %>
     <%= link_to "+ #{other_count}", song, :class => 'tip', :title => "+#{other_count} other #{"blog".pluralize(other_count)}" if !broadcasted and song.reposted? %>
   </div>
+  <% if flipped %><%= time_html %><% end %>
 </div>

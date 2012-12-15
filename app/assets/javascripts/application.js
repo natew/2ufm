@@ -1,9 +1,4 @@
-// This is a manifest file that'll be compiled into including all the files listed below.
-// Add new JavaScript/Coffee code in separate files in this directory and they'll automatically
-// be included in the compiled file accessible from http://example.com/assets/application.js
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
+// vendor
 //= require jquery
 //= require jquery_ujs
 //= require jquery.marcopolo
@@ -13,12 +8,20 @@
 //= require jquery.spin
 //= require jquery.scroll
 //= require jquery.dontscrollparent
+//= require jquery.timeago
 //= require jquery.allOn
 //= require mustache
 //= require soundmanager2-nodebug-jsmin
 //= require spin
 //= require ZeroClipboard
-//= require relativetime
 //= require danthes
 //= require perfherder
-//= require_tree .
+//= require getDaySuffix
+
+//= require state
+//= require_tree ./util
+//= require_tree ./ui
+//= require_tree ./music
+//= require_tree ./features
+//= require routing
+//= require main
