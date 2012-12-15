@@ -128,7 +128,7 @@
   left: 0;
   right: 0;
   padding: 20px;
-  z-index: 10000;
+  z-index: 100000;
   @include box-shadow(0 -2px 0 rgba(0,0,0,0.2));
 
   &.active {
