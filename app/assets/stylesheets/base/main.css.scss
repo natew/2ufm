@@ -414,13 +414,6 @@ header #second-nav {
     overflow-y: auto;
     clear: both;
 
-    &:before {
-      content: "Send to a friend";
-      display: block;
-      font-weight: 400;
-      text-align: center;
-    }
-
     a {
       float: none;
       padding: 2px 4px;

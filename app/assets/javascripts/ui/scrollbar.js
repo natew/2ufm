@@ -24,11 +24,11 @@
             fn.log('wrapping', container)
             container.wrapInner('<div class="scroll-inner">');
             inner = $('.scroll-inner', container);
-          }
 
-          inner.resize(function() {
-            container.trigger('scrollbar:content:changed');
-          });
+            inner.resize(function() {
+              container.trigger('scrollbar:content:changed');
+            });
+          }
 
           if (container.height() == container_height) return;
           container_height = container.height();

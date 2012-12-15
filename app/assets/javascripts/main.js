@@ -538,6 +538,7 @@ function updateShare(nav) {
   shareSongTitle = song.name || '';
   updateShareLinks(link, title);
   updateShareFriends(true);
+  $('#share-friends').trigger('scrollbar:content:changed');
 }
 
 function updateShareLinks(link, title) {
@@ -596,7 +597,7 @@ function getNavbar() {
         setNavItems();
         setNavActive(mp.getPage());
 
-        $('#friends').html(friendsHtml);
+        $('#friends').html(friendsHtml).trigger('scrollbar:content:changed');
 
         w.trigger('got:friends');
       }
@@ -610,6 +611,7 @@ function getNavbar() {
 
 var friendsScrollInited = false;
 $('#navbar-genres-wrap').scrollbar();
+$('#share-friends').scrollbar();
 
 w.on('got:friends', function() {
   if (!friendsScrollInited) {

@@ -90,7 +90,10 @@
       <%= link_to image_tag('/images/facebook.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '800,400', 'data-link' => 'http://facebook.com/sharer.php?u={{url}}&t={{text}}' %>
       <%= link_to image_tag('/images/twitter.png'), '', :class => 'player-invite control popup', 'data-dimensions' => '600,300', 'data-link' => 'https://twitter.com/share?url={{url}}&text={{text}}' %>
       <span id="share-link-container"><%= link_to "j", '', :id => 'share-link', :class => 'control icon tip', :title => "Copy link to clipboard", 'data-click' => '3' %></span>
-      <div id="share-friends"></div>
+
+      <div class="scroll-section">
+        <div id="share-friends"></div>
+      </div>
     </div>
 
     <div id="buy" class="pop-menu">
