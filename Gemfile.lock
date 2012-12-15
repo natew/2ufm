@@ -240,9 +240,9 @@ GEM
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
-    omniauth-facebook (1.4.1)
-      omniauth-oauth2 (~> 1.1.0)
-    omniauth-oauth2 (1.1.1)
+    omniauth-facebook (1.4.0)
+      omniauth-oauth2 (~> 1.0.2)
+    omniauth-oauth2 (1.0.3)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
@@ -401,7 +401,7 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   oily_png
-  omniauth-facebook
+  omniauth-facebook (~> 1.4.0)
   paperclip (~> 3.0)
   pg
   quiet_assets

@@ -15,7 +15,6 @@
 
       scrollbar.insertBefore(container);
       handle = $('.handle:first', container.parent());
-      handle_height = handle.height();
 
       // Calculate content size and ratio inside scrollbar
       container.on('scrollbar:content:changed', function () {
@@ -35,8 +34,14 @@
           container_height = container.height();
           fn.log('calculating scrollbars', container_height);
 
+          var inner_height = inner.height();
+
+          handle_height = Math.min(container_height, 180 / (inner_height / container_height));
+          handle_height = Math.max(30, handle_height);
+          handle.height(handle_height);
+
           var real_scrollbar_height = container_height - handle_height,
-              scrollable_height = inner.height() - container_height;
+              scrollable_height = inner_height - container_height;
 
           ratio = scrollable_height / real_scrollbar_height;
 
@@ -47,7 +52,7 @@
             scrollbar.removeClass('disabled');
             disabled = false;
           }
-        }, 0)
+        }, 0);
       })
 
       container.trigger('scrollbar:content:changed');

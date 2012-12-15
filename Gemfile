@@ -23,7 +23,7 @@ gem 'dalli', '~> 2.5.0'
 gem 'devise'
 gem 'cancan'
 gem 'aws-ses', '~> 0.4.4', require: 'aws/ses'
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '~> 1.4.0'
 gem 'koala'
 
 # Admin
