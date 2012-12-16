@@ -143,7 +143,7 @@
           <div id="modal-new-user">
             <h3>Please enter your name</h3>
             <div class="inline">
-              <%= form_tag user_account_path do %>
+              <%= form_tag account_path do %>
                 <div class="clearfix">
                   <%= label :user, :full_name, 'Full Name', :class => 'inline' %>
                   <%= text_field_tag 'user[full_name]' %>
