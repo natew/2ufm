@@ -30,14 +30,13 @@
     &:hover { background: $body-bg !important; }}
 
   .theme-head-#{$i} {
-    header, #player, #player-volume-dropdown { background: $header-bg; }
+    header, #player, #player-volume-dropdown, .scrollbar:hover .handle { background: $header-bg; }
     #player-meta:before { @include linear-gradient(left, $header-bg, rgba($header-bg,0)); }
     #player-meta:after { @include linear-gradient(right, $header-bg, rgba($header-bg,0)); }
     #welcome { background: darken($header-bg, 25%); }
     #buttons .notifications {border-color: $header-bg;}
-    .genres .selected{ background: $header-bg; }
-    .handle  { background: darken($header-bg, 16%);
-      &:hover { background: $header-bg; } }
+    .genres .selected { background: $header-bg; }
+    .handle  { background: darken($header-bg, 16%); }
   }
 
   .theme-body-#{$i} {

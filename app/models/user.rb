@@ -17,14 +17,16 @@ class User < ActiveRecord::Base
   serialize :last_playlist
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location, :oauth_token, :gender, :facebook_id, :first_time, :slug, :last_playing_page, :last_playlist_id, :last_playlist
+  attr_accessible :preference_attributes, :username, :avatar, :login, :email, :password, :password_confirmation, :remember_me, :role, :provider, :uid, :bio, :full_name, :avatar_remote_url, :location, :oauth_token, :gender, :facebook_id, :first_time, :slug, :last_playing_page, :last_playlist_id, :last_playlist
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
+  has_one  :preference, :dependent => :destroy
+  accepts_nested_attributes_for :preference
+
   has_one  :station, :dependent => :destroy
-  has_one  :privacy, :dependent => :destroy
   # has_many :activities, :dependent => :destroy
   has_many :follows
   has_many :stations, :through => :follows
@@ -33,8 +35,8 @@ class User < ActiveRecord::Base
   has_many :shares, :foreign_key => :receiver_id
   has_and_belongs_to_many :genres
 
-  scope :with_privacy, joins(:privacy)
-  scope :receives_digests, where('privacies.receives_digests = ?', true)
+  scope :with_preference, joins(:preference)
+  scope :receives_digests, where(preference: { mail_digests: true })
 
   has_attachment :avatar,
     styles: {

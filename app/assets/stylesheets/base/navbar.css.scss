@@ -47,6 +47,10 @@
     padding-top: $header-height;
   }
 
+  .invisible {
+    max-height: 0;
+  }
+
   section {
     display: block;
     position: relative;
@@ -207,6 +211,7 @@
 #navbar h1[data-toggle="invisible"] {
   position: relative;
   overflow: visible !important;
+  cursor: pointer;
 
   &.toggled:after {
     content: "+";
@@ -275,10 +280,4 @@
 
 #navbar-genres {
   overflow: hidden;
-
-  &.invisible,
-  &.invisible #navbar-genres {
-    border-width: 0;
-    height: 0;
-  }
 }

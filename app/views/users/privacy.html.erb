@@ -1,8 +1,0 @@
-<div class="whole">
-  <h2>Privacy &amp; Notification Settings</h2>
-  <%= form_for current_user, :url => { :action => :edit }, :html => { :multipart => true } do |f| %>
-    <%= render 'shared/form_errors', :target => current_user %>
-
-    <%= submit_tag 'Update', :class => 'submitbutton inline' %>
-  <% end %>
-</div>

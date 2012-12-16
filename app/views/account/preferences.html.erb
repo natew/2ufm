@@ -1,0 +1,42 @@
+<%= render 'title' %>
+
+<div class="whole">
+  <%= form_for current_user, url: account_preferences_path do |f| %>
+    <%= render 'shared/form_errors', target: current_user %>
+
+    <%= f.fields_for :preference do |p_f| %>
+
+    <fieldset>
+      <legend>Digest Emails</legend>
+        <p>Don't want so many emails, but still want to be updated?<br />
+          Turn on digest emails for less inbox noise:</p>
+        <div class="clearfix">
+          <%= p_f.label :digests, 'Send Digests' %>
+          <%= p_f.select :digests, options_for_select(Preference.digest_types, current_user.preference.digests) %>
+        </div>
+    </fieldset>
+
+    <fieldset id="user-email-preferences">
+      <legend>Individual Email Preferences</legend>
+        <p>Send me an email when a friend...</p>
+        <div class="clearfix">
+          <%= p_f.label :mail_shares, 'Sends me a song' %>
+          <%= p_f.check_box :mail_shares %>
+        </div>
+
+        <div class="clearfix">
+          <%= p_f.label :mail_follows, 'Follows me' %>
+          <%= p_f.check_box :mail_follows %>
+        </div>
+
+        <div class="clearfix">
+          <%= p_f.label :mail_friend_joins, 'Joins 2u.fm' %>
+          <%= p_f.check_box :mail_friend_joins %>
+        </div>
+    </fieldset>
+
+    <% end %>
+
+    <%= submit_tag 'Update', :class => 'submitbutton inline' %>
+  <% end %>
+</div>

@@ -56,25 +56,29 @@ Fusefm::Application.routes.draw do
   match "/go/amazon/:id", to: "songs#go", as: :amazon_affiliate
   match "/go/itunes/:id", to: "songs#go", as: :itunes_affiliate
 
+  # Users routes
   match "/tune/:id", to: "users#tune"
-  match "/live/:id", to: "users#live"
   match "/@:id", to: "users#live"
-  match "/play/:id", to: "songs#play"
-  match "/l/:id", to: "listens#show"
-  match "/songs/:id", to: "songs#failed", as: :post
-  match "/broadcasts/:song_id", to: "broadcasts#create", as: :post
-  match "/follows/:station_id", to: "follows#create", as: :post
-  match '/my/account', to: 'users#edit', as: 'user_account'
-  match '/my/privacy', to: 'users#privacy', as: 'user_privacy'
   match '/activate/:id/:key', to: 'users#activate'
   match "/navbar", to: 'users#navbar'
-  match '/share', to: 'shares#create'
   match '/unsubscribe/:type/:key', to: 'users#unsubscribe'
   match '/my/genres', to: 'users#genres'
   match '/my/friends', to: 'users#find_friends', as: 'users_friends'
   match '/do/authorized', to: 'users#authorized'
   match '/my/home(/p-:p)', to: 'mains#index', as: 'users_home'
   match '/confirm/:key', to: 'users#confirm'
+
+  # Account routes
+  match '/my/account', to: 'account#index', as: 'account'
+  match '/my/account/preferences', to: 'account#preferences', as: 'account_preferences'
+  match '/my/account/edit', to: 'account#edit', as: 'account_edit'
+
+  match "/play/:id", to: "songs#play"
+  match "/l/:id", to: "listens#show"
+  match "/songs/:id", to: "songs#failed", as: :post
+  match "/broadcasts/:song_id", to: "broadcasts#create", as: :post
+  match "/follows/:station_id", to: "follows#create", as: :post
+  match '/share', to: 'shares#create'
 
   ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
 

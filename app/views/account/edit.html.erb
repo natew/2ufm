@@ -1,0 +1,34 @@
+<%= render 'title' %>
+
+<div class="whole">
+  <%= form_for current_user, url: account_edit_path do |f| %>
+    <%= render 'shared/form_errors', :target => current_user %>
+
+    <fieldset>
+      <legend>Email</legend>
+      <%= label :user, :email, 'Email', :class => 'inline' %>
+      <%= f.text_field :email %><br />
+    </fieldset>
+
+    <fieldset>
+      <legend>Password</legend>
+
+      <div class="clearfix">
+        <%= label :user, :old_password, 'Old Password', :class => 'inline' %>
+        <%= f.password_field :old_password, :autocomplete => 'off' %>
+      </div>
+
+      <div class="clearfix">
+        <%= label :user, :password, 'New Password', :class => 'inline' %>
+        <%= f.password_field :password, :autocomplete => 'off' %>
+      </div>
+
+      <div class="clearfix">
+        <%= label :user, :password_confirmation, 'Confirm', :class => 'inline' %>
+        <%= f.password_field :password_confirmation, :autocomplete => 'off' %>
+      </div>
+    </fieldset>
+
+    <%= submit_tag 'Update', :class => 'submitbutton inline' %>
+  <% end %>
+</div>

@@ -1,7 +1,16 @@
-class Privacy < ActiveRecord::Base
+class Preference < ActiveRecord::Base
   MAILINGS = %w[all follows shares friend_joins]
+  DIGESTS = %w[none daily weekly monthly]
 
   belongs_to :user
+
+  attr_accessible :mail_all, :mail_follows, :mail_shares, :mail_friend_joins, :digests
+
+  validates :digests, inclusion: { in: DIGESTS }
+
+  def self.digest_types
+    DIGESTS
+  end
 
   def unsubscribe(type)
     set_mailing(type, false)

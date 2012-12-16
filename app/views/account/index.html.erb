@@ -1,0 +1,37 @@
+<%= render 'title' %>
+
+<div class="whole">
+  <%= form_for current_user, url: account_path, html: { multipart: true } do |f| %>
+    <%= render 'shared/form_errors', :target => current_user %>
+
+    <fieldset>
+      <legend>Profile</legend>
+      <div class="clearfix">
+        <%= label :user, :username, 'Username', :class => 'inline' %>
+        <%= f.text_field :username %>
+      </div>
+
+      <div class="clearfix">
+        <%= label :full_name, :full_name, 'Full Name', :class => 'inline' %>
+        <%= f.text_field :full_name %>
+      </div>
+    </fieldset>
+
+
+    <fieldset>
+      <legend>Avatar</legend>
+      <div class="clearfix">
+        <%= label :user, :avatar, 'Avatar' %>
+        <%= image_tag current_user.avatar.url(:medium) %>
+        <%= file_field :user, 'avatar', :class => 'file' %>
+      </div>
+
+      <%- if current_user.avatar.exists? -%>
+        <%= label :avatar, :delete, 'Delete avatar?' %>
+        <%= check_box :avatar, :delete %>
+      <%- end -%>
+    </fieldset>
+
+    <%= submit_tag 'Update', :class => 'submitbutton inline' %>
+  <% end %>
+</div>

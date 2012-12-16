@@ -45,7 +45,7 @@
 
           ratio = scrollable_height / real_scrollbar_height;
 
-          if (!isFinite(ratio) || ratio < 0) {
+          if (!isFinite(ratio) || ratio < 0 || ratio == 1) {
             scrollbar.addClass('disabled');
             disabled = true;
           } else {

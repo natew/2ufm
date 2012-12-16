@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213153927) do
+ActiveRecord::Schema.define(:version => 20121216223904) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -200,16 +200,20 @@ ActiveRecord::Schema.define(:version => 20121213153927) do
     t.string   "excerpt"
   end
 
-  create_table "privacies", :force => true do |t|
+  create_table "preferences", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "mail_all",          :default => true
     t.boolean  "mail_follows",      :default => true
     t.boolean  "mail_shares",       :default => true
     t.boolean  "mail_friend_joins", :default => true
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.boolean  "broadcasting",      :default => true
+    t.boolean  "mail_digests",      :default => false
+    t.string   "digests",           :default => "off"
   end
+
+  add_index "preferences", ["digests"], :name => "index_preferences_on_digests"
 
   create_table "pulses", :force => true do |t|
     t.string   "action"

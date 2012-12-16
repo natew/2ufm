@@ -518,7 +518,7 @@ function setNavActive(page) {
 }
 
 function pjax(url, full) {
-  doPageEvents = true;
+  if (full) doPageEvents = true;
   nextUrl = url;
   $.pjax({
     url: url,
@@ -614,11 +614,6 @@ function getNavbar() {
     });
   }
 }
-
-
-var friendsScrollInited = false;
-$('#navbar-genres-wrap').scrollbar();
-$('#share-friends').scrollbar();
 
 w.on('got:friends', function() {
   if (!friendsScrollInited) {
@@ -838,6 +833,10 @@ function pageEvents() {
   mp.bindEvents();
 
   windowResize();
+
+  friendsScrollInited = false;
+  $('#navbar-genres-wrap').scrollbar();
+  $('#share-friends').scrollbar();
 
   // Search
   $('#search-form').submit(function searchSubmit() {

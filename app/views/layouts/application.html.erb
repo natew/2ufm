@@ -67,9 +67,9 @@
     <div id="nav-user" class="pop-menu right-align">
       <%- if user_signed_in? -%>
       <%= link_to 'Feed', feed_user_path(current_user), class: 'icon-list' %>
-      <%= link_to 'Following', following_user_path(current_user), class: 'icon-add' %>
+      <%= link_to 'Following', following_user_path(current_user), class: 'icon-following' %>
       <%= link_to "Inbox #{render(partial:'shared/notifications')}".html_safe, '/shares/inbox', class: 'icon-inbox', 'data-shares' => current_user.received_songs_notifications %>
-      <%= link_to "Account", user_account_path, class: 'icon-gear'  %>
+      <%= link_to "Account", account_path, class: 'secondary'  %>
       <%= link_to 'Log out', destroy_user_session_path, method: 'delete', class: 'secondary', title: 'Log out' %>
       <%- else -%>
         <%= link_to 'Log in', '#modal-login', class: 'icon-key modal control' %>

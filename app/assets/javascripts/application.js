@@ -23,5 +23,6 @@
 //= require_tree ./ui
 //= require_tree ./music
 //= require_tree ./features
+//= require_tree ./pages
 //= require routing
 //= require main
