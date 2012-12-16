@@ -13,6 +13,13 @@ $(function() {
   $('#dialog').appendTo('body');
   hideDialog();
 
+  // Detect fucking idiotic mountain lion scrollbars
+  setTimeout(function() {
+    if ($('#navbar-genres-wrap').width() == 165) {
+      body.addClass('stupid-mountain-lion');
+    }
+  }, 0);
+
   // Listen playing
   if (listen) {
     // mp.startedAt(listen.created_at_unix);
