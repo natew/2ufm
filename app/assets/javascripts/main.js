@@ -74,6 +74,9 @@ $(function() {
       $(h1s[++h1cur]).addClass('in').removeClass('out')
     }, 4500)
   }
+
+  // Listen sharing auto play
+  playFromParams();
 });
 
 doc = ($.browser.chrome || $.browser.safari) ? body : $('html');
@@ -107,9 +110,6 @@ if (mp.volume() !== "100") {
 
 if (mp.playMode() != 'normal')
   updatePlayMode(mp.playMode());
-
-// Listen sharing auto play
-playFromParams();
 
 // Tooltips
 $('.tip:not(.disabled)').tipsy({gravity: 's', offset: 5, live: true});

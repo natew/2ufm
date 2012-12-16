@@ -21,8 +21,13 @@ class ListensController < ApplicationController
     controller.request = @_request
     controller.response = @_response
     controller.params = params
-    controller.send(route[:action])
-    render :text => controller.response.body
+
+    begin
+      controller.send(route[:action])
+      render :text => controller.response.body
+    rescue
+      redirect_to url_for(Song.find(@listen.song_id)) + "?play=true"
+    end
   end
 
   def create

@@ -24,7 +24,8 @@ function playFromParams() {
   if (urlParams['play']) {
     var song = urlParams['song'];
     var section = $('#song-' + song);
-    mp.playSection(section);
+    if (section.length) mp.playSection(section);
+    else mp.playSection($('.playlist:first section:first'));
   }
 }
 
