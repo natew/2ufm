@@ -79,7 +79,15 @@ class User < ActiveRecord::Base
   end
 
   def receives_digests
-    self.preference.digests != "none"
+    preference.digests != "none"
+  end
+
+  def mail_follows
+    preference.mail_follows and !receives_digests
+  end
+
+  def mail_shares
+    preference.mail_shares and !receives_digests
   end
 
   def get_remote_avatar

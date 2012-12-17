@@ -26,7 +26,10 @@ class SharesController < ApplicationController
     @share = Share.new(sender_id: current_user.id, receiver_id: params[:receiver_id], song_id: params[:song_id])
 
     if @share.save
-      UserMailer.delay.share(current_user, @share)
+      if @share.receiver.mail_shares
+        UserMailer.delay.share(current_user, @share)
+      end
+
       respond_to do |format|
         format.js
       end
