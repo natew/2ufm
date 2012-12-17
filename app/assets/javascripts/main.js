@@ -894,7 +894,7 @@ function pageEvents() {
 // Catch errors
 window.onerror = function(msg, url, line) {
   var error = [url, line, msg ].join(newline);
-  if (!isProduction) alert(error);
+  // if (!isProduction) alert(error);
   fn.log('JS error', error);
   page.end();
 

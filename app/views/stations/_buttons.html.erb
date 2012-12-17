@@ -1,5 +1,5 @@
 <div class="station-buttons">
-  <%# link_to '4', station, class: 'button icon play-station' %>
+  <%= link_to '4', station, class: 'button icon play-station' %>
   <div class="station-follow follow-<%= station.id %>">
     <%= follow_station(station.id, station.follows_count, :nocache => nocache) %>
   </div>
