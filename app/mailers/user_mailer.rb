@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
   default :from => "\"2u.fm\" <noreply@2u.fm>"
 
   def follow(user, followee)
-    return if !followee.privacy.mail_follows# or followee.privacy.receives_digests
+    return unless followee.preference.mail_follows and !followee.receives_digests
     @follower = user
     @followee = followee
     @unsubscribe_type = 'follow'
@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def share(sender, share)
-    return if !share.receiver.privacy.mail_shares# or followee.privacy.receives_digests
+    return unless share.receiver.preference.mail_shares and !followee.receives_digests
     @sender, @receiver, @song = sender, share.receiver, share.song
     set_unsubscribe_key(@receiver)
     @unsubscribe_type = 'share'
@@ -29,7 +29,7 @@ class UserMailer < ActionMailer::Base
 
     if @shares.count or @follows.count
       date = Time.now.strftime("%b #{return_date.day.ordinalize}")
-      mail(to: user.email, subject: "You're popular! Activity digest for #{date}") do |format|
+      mail(to: user.email, subject: "New Happenings on 2u.fm Today") do |format|
         format.html { render 'daily_digest' }
       end
     end

@@ -36,7 +36,6 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :genres
 
   scope :with_preference, joins(:preference)
-  scope :receives_digests, where(preference: { mail_digests: true })
 
   has_attachment :avatar,
     styles: {
@@ -77,6 +76,10 @@ class User < ActiveRecord::Base
 
   def title
     username
+  end
+
+  def receives_digests
+    self.preference.digests != "none"
   end
 
   def get_remote_avatar
