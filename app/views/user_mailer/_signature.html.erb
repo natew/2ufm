@@ -5,7 +5,10 @@
   <br />
 
   <p style="font-size:11px; color:#999;">
-    Adjust your <%= link_to 'privacy settings', 'http://2u.fm/my/account', style: 'color:#777;' %> or
-    You can switch to receive <%= link_to 'daily digests', 'http://2u.fm/' %> instead.  Or <%= link_to 'unsubscribe', "http://2u.fm/unsubscribe/#{@unsubscribe_type}/#{@unsubscribe_key}", style: 'color:#777;' %> from these types of emails.
+    Adjust your <%= link_to 'email settings', 'http://2u.fm/my/account/preferences', style: 'color:#777;' %> to stop receiving these.
+    <br />
+    You can also receive <%= link_to 'daily, weekly or monthly digests', 'http://2u.fm/my/account/preferences' %> instead!
+    <br />
+    Or just <%= link_to 'unsubscribe', "http://2u.fm/unsubscribe/#{@unsubscribe_type}/#{@unsubscribe_key}", style: 'color:#777;' %> from these emails and be done with it!
   </p>
 </div>
