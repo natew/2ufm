@@ -9,10 +9,10 @@ module ApplicationHelper
 
   def body_classes
     if user_signed_in?
-      classes = ['signed_in']
+      classes = ['signed-in']
       classes.push 'new_user' if current_user.first_time?
     else
-      classes = ['signed_out']
+      classes = ['signed-out']
     end
 
     classes.push("theme-body-1 theme-head-1")

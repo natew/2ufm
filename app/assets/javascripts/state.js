@@ -2,7 +2,7 @@
 var w = $(window),
     body = $('body'),
     isProduction = body.is('.production'),
-    isOnline = body.is('.signed_in'),
+    isOnline = body.is('.signed-in'),
     isNewUser = body.is('.new_user'),
     isAdmin = $('body[data-role="admin"]').length > 0,
     userId = body.data('user'),

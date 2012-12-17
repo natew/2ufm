@@ -21,7 +21,6 @@
         setTimeout(function() {
           var inner = $('.scroll-inner', container);
           if (!inner.length) {
-            fn.log('wrapping', container)
             container.wrapInner('<div class="scroll-inner">');
             inner = $('.scroll-inner', container);
 
@@ -32,7 +31,6 @@
 
           if (container.height() == container_height) return;
           container_height = container.height();
-          fn.log('calculating scrollbars', container_height);
 
           var inner_height = inner.height();
 
@@ -45,7 +43,7 @@
 
           ratio = scrollable_height / real_scrollbar_height;
 
-          if (!isFinite(ratio) || ratio < 0 || ratio == 1) {
+          if (!isFinite(ratio) || ratio <= 0 || ratio == 1) {
             scrollbar.addClass('disabled');
             disabled = true;
           } else {

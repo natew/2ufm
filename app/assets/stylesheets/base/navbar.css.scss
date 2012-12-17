@@ -278,6 +278,14 @@
   @include transition(all linear 0.2s);
 }
 
+
+.signed-out {
+  #navbar-genres,
+  #navbar-genres-wrap {
+    max-height: 300px;
+  }
+}
+
 #navbar-genres {
   overflow: hidden;
 }
