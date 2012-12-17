@@ -14,7 +14,6 @@ class UserMailer < ActionMailer::Base
   end
 
   def share(sender, share)
-    return unless share.receiver.preference.mail_shares and !share.receiver.receives_digests
     @sender, @receiver, @song = sender, share.receiver, share.song
     set_unsubscribe_key(@receiver)
     @unsubscribe_type = 'share'
