@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
     redirect_to after_sign_in_path_for(resource) || '/feed'
   end
 
-  def not_found
+  def not_found(exception)
+    logger.error exception
     render_not_found(nil)
     @not_found = true
   end
