@@ -1,7 +1,7 @@
 <%- second_level = action_name =~ /index/i || @primary.nil?
     separate = second_level ? '' : 'after'
 
-    if !second_level and !user_on_own_feed?
+    if !second_level
   -%>
   <div id="breadcrumbs">
     <%= link_to 'Home', '/', :class => 'after' %>
