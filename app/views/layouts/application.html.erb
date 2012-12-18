@@ -11,9 +11,11 @@
   <%- if params[:listen] -%>
     <%- @listen_song = Song.find(params[:listen_song_id]) rescue ActiveRecord::RecordNotFound -%>
     <!-- OpenGraph -->
-    <meta property="og:title" content="<%= @listen_song.full_name %>" />
-    <meta property="og:description" content="Listen now on 2u.fm" />
-    <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
+    <% if @listen_song %>
+      <meta property="og:title" content="<%= @listen_song.full_name %>" />
+      <meta property="og:description" content="Listen now on 2u.fm" />
+      <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
+    <% end %>
   <%- else -%>
     <meta property="og:title" content="<%= title %>" />
     <meta property="og:description" content="Listen to new music on 2u.fm" />
