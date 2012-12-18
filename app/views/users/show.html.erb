@@ -1,3 +1,6 @@
+<% if user_on_own_feed?  %>
+<br />
+<% else %>
 <div class="nav-container">
   <div class="title">
     <div class="image">
@@ -17,6 +20,7 @@
     <%= render :partial => 'shared/actions', :locals => { :station => @user.station }  %>
   </div>
 </div>
+<% end %>
 
 <div class="whole">
 <% if @songs %>

@@ -78,6 +78,10 @@ module ApplicationHelper
     render :partial => "songs/broadcast", :locals => { :action => action, :id => song.matching_id, :count => song.user_broadcasts_count }
   end
 
+  def user_on_own_feed?
+    user_signed_in? and current_page? feed_user_path(current_user)
+  end
+
   def seconds_to_time(seconds)
     s = seconds % 60
     m = seconds / 60
