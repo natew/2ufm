@@ -134,7 +134,7 @@ class UsersController < ApplicationController
 
     if @user
       @popular = Station.popular
-      @popular_songs = Song.playlist_popular
+      @popular_songs = Song.playlist_popular_month
       @user.preference.unsubscribe(params[:type].pluralize)
       @success = true
     end

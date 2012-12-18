@@ -15,7 +15,7 @@ class SongsController < ApplicationController
 
   def popular
     @title = 'Popular'
-    @playlist = { station: Station.popular, songs: Song.playlist_popular, classname: 'open show-count', cache_prefix: 'playlist_popular' }
+    @playlist = { station: Station.popular, songs: Song.playlist_popular_month, classname: 'open show-count', cache_prefix: 'playlist_popular' }
 
     respond_to do |format|
       format.html { render 'popular' }
