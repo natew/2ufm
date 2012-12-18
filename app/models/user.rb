@@ -299,7 +299,7 @@ class User < ActiveRecord::Base
   end
 
   def make_privacy
-    self.create_privacy
+    self.create_preference
   end
 
   def set_station_id

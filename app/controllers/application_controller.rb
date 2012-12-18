@@ -23,8 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found(exception)
-    logger.error exception
-    render_not_found(nil)
+    render_not_found(exception)
     @not_found = true
   end
 

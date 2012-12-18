@@ -135,7 +135,7 @@ class UsersController < ApplicationController
     if @user
       @popular = Station.popular
       @popular_songs = Song.playlist_popular
-      @user.privacy.unsubscribe(params[:type].pluralize)
+      @user.preference.unsubscribe(params[:type].pluralize)
       @success = true
     end
   end
