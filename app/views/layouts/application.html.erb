@@ -8,14 +8,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <%- if params[:listen] -%>
-    <%- @listen_song = Song.find(params[:listen_song_id]) rescue ActiveRecord::RecordNotFound -%>
+  <%- if params[:listen]
+        @listen_song = Song.find(params[:listen_song_id]) -%>
     <!-- OpenGraph -->
-    <% if @listen_song %>
-      <meta property="og:title" content="<%= @listen_song.full_name %>" />
-      <meta property="og:description" content="Listen now on 2u.fm" />
-      <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
-    <% end %>
+    <meta property="og:title" content="<%= @listen_song.full_name %>" />
+    <meta property="og:description" content="Listen now on 2u.fm" />
+    <meta property="og:image" content="<%= @listen_song.resolve_image %>" />
   <%- else -%>
     <meta property="og:title" content="<%= title %>" />
     <meta property="og:description" content="Listen to new music on 2u.fm" />
@@ -191,7 +189,9 @@
       <a id="close-corner-banner" class="close control" href="#">&gt;</a>
       <ul>
         <li>Tweet <%= link_to '@2u_fm', 'http://twitter.com/2u_fm', class: 'popup' %></li>
-        <li id="facebook-like"><div class="fb-like" data-href="http://2u.fm" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div></li>
+        <li id="facebook-like">
+          <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F2u.fm&amp;send=false&amp;layout=button_count&amp;width=10&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=146211288850018" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+        </li>
         <li>
           <div id="head-colors" class="colors">
           <% (1..5).each do |color| %>
@@ -246,14 +246,5 @@
     modal('#ie-notice');
   </script>
   <![endif]-->
-
-  <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=146211288850018";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
