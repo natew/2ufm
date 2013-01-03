@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails',   '3.2.6'
+gem 'rails', '~> 3'
 gem 'pg'
 gem 'yettings'
 gem 'thin'
