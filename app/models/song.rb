@@ -159,9 +159,9 @@ class Song < ActiveRecord::Base
   scope :playlist_rank, order_rank.with_info_for_playlist_matching_id_distinct('songs.rank')
   scope :playlist_newest, order_published.with_info_for_playlist_matching_id_distinct('songs.published_at')
   scope :playlist_oldest, order_published_asc.with_info_for_playlist_matching_id_distinct('songs.published_at')
-  scope :playlist_popular_week, within(7.days).order_user_broadcasts.with_info_for_playlist_matching_id
-  scope :playlist_popular_month, within(30.days).order_user_broadcasts.with_info_for_playlist_matching_id
-  scope :playlist_popular_year, within(365.days).order_user_broadcasts.with_info_for_playlist_matching_id
+  scope :playlist_popular_week, lambda { within(7.days).order_user_broadcasts.with_info_for_playlist_matching_id }
+  scope :playlist_popular_month, lambda { within(30.days).order_user_broadcasts.with_info_for_playlist_matching_id }
+  scope :playlist_popular_year, lambda { within(365.days).order_user_broadcasts.with_info_for_playlist_matching_id }
   scope :playlist_trending, min_broadcasts(2).order_rank.with_info_for_playlist_matching_id_distinct('songs.rank')
   scope :playlist_received, select_sender.with_sender.order_shared.with_info_for_playlist_matching_id
   scope :playlist_sent, select_receiver.with_receiver.order_shared.with_info_for_playlist_matching_id
