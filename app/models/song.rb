@@ -110,7 +110,8 @@ class Song < ActiveRecord::Base
   scope :before, lambda { |before| where('songs.created_at < ?', before.ago) }
   scope :random, order('random() desc')
   scope :no_broadcasts, where('user_broadcasts_count = 0')
-  scope :pruneable, oldest.no_broadcasts.working.processed
+  scope :not_soundcloud, where('songs.source != ?', 'soundcloud')
+  scope :pruneable, oldest.no_broadcasts.working.processed.not_soundcloud
 
   # Categories
   scope :original, where(category: 'original')
