@@ -67,14 +67,14 @@ class Post < ActiveRecord::Base
     logger.info "Saving songs from post #{title}"
     parse = Nokogiri::HTML(get_content)
     parse.css('a').each do |link|
-      if link['href'] =~ /soundcloud\.com\/.*\/|\.mp3(\?(.*))?$/
+      if link['href'] =~ /soundcloud\.com\/.*\// # /soundcloud\.com\/.*\/|\.mp3(\?(.*))?$/
         logger.info "Found song!"
         found_song = create_song(link['href'],link.content)
       end
     end
 
     parse.css('iframe').each do |iframe|
-      if iframe['src'] =~ /soundcloud\.com.*tracks|youtube.com\/embed/
+      if iframe['src'] =~ /soundcloud\.com.*tracks/ # |youtube.com\/embed/
         logger.info "Found music iframe!"
         found_song = create_song(iframe['src'], '')
       end
