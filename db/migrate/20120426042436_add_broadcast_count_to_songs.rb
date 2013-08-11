@@ -5,8 +5,8 @@ class AddBroadcastCountToSongs < ActiveRecord::Migration
 
   def add
     # Updates every save
-    Broadcast.all.each do |b|
-      b.save
-    end
+    # Broadcast.all.each do |b|
+    #   b.save
+    # end
   end
 end
