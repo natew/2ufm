@@ -5,6 +5,7 @@ gem 'rails', '4.0.0'
 gem 'protected_attributes'
 gem 'yettings'
 gem 'puma'
+gem 'capistrano-puma', require: false
 gem 'bson'
 
 platform :ruby do

@@ -1,6 +1,7 @@
-require 'torquebox-capistrano-support'
+# require 'torquebox-capistrano-support'
 require 'bundler/capistrano'
 require 'capistrano_colors'
+require 'capistrano-puma'
 load 'deploy/assets'
 
 # rbenv and ssh forwarding
@@ -32,15 +33,13 @@ set :danthes_start, "RAILS_ENV=#{rails_env} bundle exec rackup danthes.ru -s thi
 set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/danthes.pid) ]; then kill -9 `cat tmp/pids/danthes.pid`; fi"
 
 # Production server
-set :jruby_home,        "/home/nwienert/.rbenv/versions/jruby-1.7.4"
-set :torquebox_home,    "/home/nwienert/.rbenv/shims/torquebox"
-set :jboss_home,        "/home/nwienert/.rbenv/versions/jruby/lib/ruby/gems/shared/gems/torquebox-server-3.0.0.beta2-java/jboss"
-# set :jboss_init_script, "/etc/init.d/jboss-as-standalone"
-# set :app_context,       "/"
+# set :jruby_home,        "/home/nwienert/.rbenv/versions/jruby-1.7.4"
+# set :torquebox_home,    "/home/nwienert/.rbenv/shims/torquebox"
+# set :jboss_home,        "/home/nwienert/.rbenv/versions/jruby/lib/ruby/gems/shared/gems/torquebox-server-3.0.0.beta2-java/jboss"
 
 # Whenever
-# set :whenever_command, "bundle exec whenever"
-# require "whenever/capistrano"
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
 
 # Roles
 role :web, domain
