@@ -8,7 +8,9 @@ daemonize true
 pidfile "#{basedir}/tmp/puma/pid"
 state_path "#{basedir}/tmp/puma/state"
 stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
-threads 0, 32
+threads 4, 48
+
+activate_control_app
 
 # Disable request logging.
 # quiet
