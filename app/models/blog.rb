@@ -18,7 +18,7 @@ class Blog < ActiveRecord::Base
   acts_as_url :name, :url_attribute => :slug
 
   # Attachments
-  has_attachment :image, styles: { medium: ['256x256#'], small: ['128x128#'], small: ['64x64#'] }
+  has_attachment :image, :s3 => Yetting.s3_enabled, styles: { medium: ['256x256#'], small: ['128x128#'], small: ['64x64#'] }
 
   after_create  :delayed_get_blog_info, :delayed_get_new_posts, :delayed_set_screenshot
   before_create :make_station, :set_station_slug

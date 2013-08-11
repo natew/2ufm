@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   belongs_to :blog
   has_many   :songs, :dependent => :destroy
 
-  has_attachment :image, styles: { medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'] }
+  has_attachment :image, :s3 => Yetting.s3_enabled, styles: { medium: ['256x256#'], small: ['128x128#'], icon: ['64x64#'] }
 
   validates :url, presence: true, uniqueness: true
 

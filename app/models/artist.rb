@@ -16,7 +16,7 @@ class Artist < ActiveRecord::Base
 
   acts_as_url :name, :url_attribute => :slug, :allow_duplicates => false
 
-  has_attachment :image, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
+  has_attachment :image, :s3 => Yetting.s3_enabled, styles: { original: ['300x300#'], medium: ['128x128#'], small: ['64x64#'] }
 
   before_validation :make_station, :on => :create
   after_create :get_info
