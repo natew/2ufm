@@ -44,7 +44,7 @@ set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/
 # set :jboss_home,        "/home/nwienert/.rbenv/versions/jruby/lib/ruby/gems/shared/gems/torquebox-server-3.0.0.beta2-java/jboss"
 
 # Whenever
-set :whenever_command, "#{bundle_cmd} whenever"
+set :whenever_command, "#{set_ruby_cmd} && RAILS_ENV=#{rails_env} bundle exec whenever"
 require "whenever/capistrano"
 
 # Roles
