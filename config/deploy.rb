@@ -4,8 +4,11 @@ require 'capistrano_colors'
 require 'capistrano-puma'
 load 'deploy/assets'
 
+set :bundle_dir, ""
+set :bundle_flags,  "--verbose"
+
 # ssh forwarding and shell
-set :default_environment, { 'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH" }
+set :default_environment, { 'PATH' => "" }
 set :default_run_options, { :pty => true, :shell => '/bin/zsh' }
 set :ssh_options, { :forward_agent => true }
 
