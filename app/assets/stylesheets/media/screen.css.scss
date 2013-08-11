@@ -189,7 +189,7 @@
     right: -18px;
     top: -22px;
     border-radius: 4px;
-    @include box-shadow(none);
+    box-shadow: none;
   }
 
   #player-volume:before {

@@ -57,7 +57,7 @@
   overflow: auto;
   opacity: 0;
   font-weight: normal;
-  @include box-shadow(0 0 15px rgba(0,0,0,0.8));
+  box-shadow: 0 0 15px rgba(0,0,0,0.8);
   @include box-sizing(border-box);
   @include transition(top ease-in .5s);
 

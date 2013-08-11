@@ -21,7 +21,7 @@
     color: #999;
     cursor: text;
     border-radius: 50px;
-    @include box-shadow(none);
+    box-shadow: none;
     @include box-sizing(border-box);
 
     &.focus {
@@ -46,7 +46,7 @@
       color: #fff;
       border-color: darken($green, 10%);
       border-radius: 20px;
-      @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.3));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
       @include background-gradient(lighten($green, 10%), $green);
     }
   }

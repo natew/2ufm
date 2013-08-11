@@ -101,7 +101,7 @@ header {
   height: $header-height;
   min-width: $min-width;
   line-height: 1em;
-  @include box-shadow(0 3px 0 rgba(0,0,0,0.2));
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
   @include box-sizing(border-box);
   @include user-select(none);
 
@@ -735,7 +735,7 @@ h2 small { font-size: 55%; }
   background: rgba(20,20,20,0.8);
   border: 1px solid rgba(0,0,0,0.8);
   font-weight: bold;
-  @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.1));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
   @include box-sizing(border-box);
 
   &:hover {

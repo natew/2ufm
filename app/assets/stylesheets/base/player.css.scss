@@ -308,7 +308,7 @@ body.loaded {
   height: 20px;
   padding: 3px 6px 0;
   @include border-bottom-radius(4px);
-  @include box-shadow(0 3px 0 rgba(0,0,0,0.1));
+  box-shadow: 0 3px 0 rgba(0,0,0,0.1);
 }
 
 #player-volume {
