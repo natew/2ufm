@@ -28,7 +28,7 @@ set :rails_env, "production"
 set :ruby_version, "rbx"
 set :chrub_script, "/usr/local/share/chruby/chruby.sh"
 set :set_ruby_cmd, ". #{chrub_script} && chruby #{ruby_version}"
-set(:bundle_cmd) { "RAILS_ENV=#{rails_env} #{set_ruby_cmd} && exec bundle" }
+set(:bundle_cmd) { "#{set_ruby_cmd} && RAILS_ENV=#{rails_env} exec bundle" }
 
 # DJ
 set :dj_workers, 3

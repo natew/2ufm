@@ -1,71 +1,18 @@
 #!/usr/bin/env puma
 
-# The directory to operate out of.
-#
-# The default is the current directory.
-#
-# directory '/u/apps/lolcat'
+basedir = '/var/www/2u/web'
 
-basedir = '/var/www/2u.fm/web'
-
-# Use a object or block as the rack application. This allows the
-# config file to be the application itself.
-#
-# app do |env|
-#   puts env
-#
-#   body = 'Hello, World!'
-#
-#   [200, { 'Content-Type' => 'text/plain', 'Content-Length' => body.length.to_s }, [body]]
-# end
-
-# Load “path” as a rackup file.
-#
-# The default is “config.ru”.
-#
-# rackup '/u/apps/lolcat/config.ru'
-
-# Set the environment in which the rack's app will run. The value must be a string.
-#
-# The default is “development”.
-#
+directory '/var/www/2u/web/current'
 environment 'production'
-
-# Daemonize the server into the background. Highly suggest that
-# this be combined with “pidfile” and “stdout_redirect”.
-#
-# The default is “false”.
-#
-# daemonize
 daemonize true
-
-# Store the pid of the server in the file at “path”.
-#
 pidfile "#{basedir}/shared/pids/puma.pid"
-
-# Use “path” as the file to store the server info state. This is
-# used by “pumactl” to query and control the server.
-#
 state_path "#{basedir}/shared/pids/puma.state"
-
-# Redirect STDOUT and STDERR to files specified. The 3rd parameter
-# (“append”) specifies whether the output is appended, the default is
-# “false”.
-#
 stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
+threads 0, 32
 
 # Disable request logging.
-#
-# The default is “false”.
-#
 # quiet
 
-# Configure “min” to be the minimum number of threads to use to answer
-# requests and “max” the maximum.
-#
-# The default is “0, 16”.
-#
-threads 0, 32
 
 # Bind the server to “url”. “tcp://”, “unix://” and “ssl://” are the only
 # accepted protocols.
@@ -73,7 +20,7 @@ threads 0, 32
 # The default is “tcp://0.0.0.0:9292”.
 #
 # bind 'tcp://0.0.0.0:9292'
-bind 'unix:///var/run/puma.sock'
+# bind 'unix:///var/run/puma.sock'
 # bind 'unix:///var/run/puma.sock?umask=0777'
 # bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'
 
