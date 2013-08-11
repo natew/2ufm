@@ -21,7 +21,7 @@ platform :ruby do
 end
 
 platform :jruby do
-  gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.DEV', github: 'jruby/activerecord-jdbc-adapter'
+  # gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.DEV', github: 'jruby/activerecord-jdbc-adapter'
   gem 'ruby-mp3info'
   gem 'torquebox-server', '3.0.0.beta2'
 
