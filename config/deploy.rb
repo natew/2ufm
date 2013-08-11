@@ -12,7 +12,7 @@ set :ssh_options, { :forward_agent => true }
 # chruby
 set :ruby_version, "rbx"
 set :rubies, "RUBIES=(~/.rbenv/versions/*)"
-set :chruby_config, "/home/nwienert/.zshrc"
+set :chruby_config, "/usr/local/share/chruby/chruby.sh"
 set :set_ruby_cmd, "source #{chruby_config} && #{rubies} && chruby #{ruby_version}"
 set(:bundle_cmd) { "#{set_ruby_cmd} && exec bundle" }
 
