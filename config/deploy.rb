@@ -4,10 +4,17 @@ require 'capistrano_colors'
 require 'capistrano-puma'
 load 'deploy/assets'
 
-# rbenv and ssh forwarding
+# ssh forwarding and shell
 set :default_environment, { 'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH" }
 set :default_run_options, { :pty => true, :shell => '/bin/zsh' }
 set :ssh_options, { :forward_agent => true }
+
+# chruby
+set :ruby_version, "rbx"
+set :rubies, "RUBIES=(~/.rbenv/versions/*)"
+set :chruby_config, "/home/nwienert/.zshrc"
+set :set_ruby_cmd, "source #{chruby_config} && #{rubies} && chruby #{ruby_version}"
+set(:bundle_cmd) { "#{set_ruby_cmd} && exec bundle" }
 
 set :scm_verbose, true
 set :scm, :git
