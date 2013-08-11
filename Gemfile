@@ -22,8 +22,11 @@ end
 platform :jruby do
   gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.DEV', github: 'jruby/activerecord-jdbc-adapter'
   gem 'ruby-mp3info'
-  gem 'torquebox-capistrano-support'
   gem 'torquebox-server'
+
+  group :development do
+    gem 'torquebox-capistrano-support'
+  end
 end
 
 # Assets
