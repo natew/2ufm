@@ -1,11 +1,11 @@
 class InstallPgTrgrm < ActiveRecord::Migration
   def up
-    sql = File.read(File.join(Rails.root,'vendor','pg_extensions','pg_trgm.sql'))
-    execute sql
+    execute "CREATE EXTENSION pg_trgm;"
+    execute "CREATE EXTENSION fuzzystrmatch;"
   end
 
   def down
-    sql = File.read(File.join(Rails.root,'vendor','pg_extensions','uninstall_pg_trgm.sql'))
-    execute sql
+    execute "DROP EXTENSION pg_trgm;"
+    execute "DROP EXTENSION fuzzystrmatch;"
   end
 end
