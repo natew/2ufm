@@ -4,9 +4,9 @@ basedir = '/var/www/2u/web/current'
 
 directory "#{basedir}"
 environment 'production'
-# daemonize true
+daemonize true
 
-bind "unix://#{basedir}/tmp/puma/puma.sock"
+# bind "unix://#{basedir}/tmp/puma/puma.sock"
 pidfile "#{basedir}/tmp/puma/pid"
 state_path "#{basedir}/tmp/puma/state"
 

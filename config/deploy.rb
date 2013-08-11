@@ -1,7 +1,7 @@
 # require 'torquebox-capistrano-support'
 require 'bundler/capistrano'
 require 'capistrano_colors'
-require 'capistrano-puma'
+# require 'capistrano-puma'
 load 'deploy/assets'
 
 # ssh forwarding and shell
@@ -62,6 +62,23 @@ after 'deploy:update', 'deploy:cleanup'
 def run_rake(task, options={}, &block)
   command = "cd #{latest_release} && #{bundle_cmd} rake #{task}"
   run(command, options, &block)
+end
+
+namespace :puma do
+  task :start, :except => { :no_release => true } do
+    run "/etc/init.d/puma start #{application}"
+  end
+  after "deploy:start", "puma:start"
+
+  task :stop, :except => { :no_release => true } do
+    run "/etc/init.d/puma stop #{application}"
+  end
+  after "deploy:stop", "puma:stop"
+
+  task :restart, roles: :app do
+    run "/etc/init.d/puma restart #{application}"
+  end
+  after "deploy:restart", "puma:restart"
 end
 
 namespace :deploy do
