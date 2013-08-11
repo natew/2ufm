@@ -5,8 +5,11 @@ basedir = '/var/www/2u/web/current'
 directory "#{basedir}"
 environment 'production'
 daemonize true
+
+bind "unix://#{basedir}/tmp/puma/puma.sock"
 pidfile "#{basedir}/tmp/puma/pid"
 state_path "#{basedir}/tmp/puma/state"
+
 stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
 threads 4, 48
 
