@@ -116,6 +116,8 @@ GEM
       sass (>= 3.2.0)
       thor
     bson (1.9.1)
+    bson_ext (1.9.1)
+      bson (~> 1.9.1)
     builder (3.1.4)
     cancan (1.6.10)
     capistrano (2.15.5)
@@ -389,6 +391,7 @@ DEPENDENCIES
   aws-ses (~> 0.4.4)
   bourbon
   bson
+  bson_ext
   cancan
   capistrano
   capistrano-puma

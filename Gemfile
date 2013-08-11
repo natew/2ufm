@@ -6,13 +6,13 @@ gem 'protected_attributes'
 gem 'yettings'
 gem 'puma'
 gem 'capistrano-puma', require: false
-gem 'bson'
 
 platform :ruby do
   gem 'pg'
   gem 'danthes', github: 'simonoff/danthes'
   gem 'feedzirra'
   gem 'taglib-ruby'
+  gem 'bson_ext'
 
   # Waveforms
   gem 'oily_png'
@@ -21,6 +21,7 @@ platform :ruby do
 end
 
 platform :jruby do
+  gem 'bson'
   # gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.DEV', github: 'jruby/activerecord-jdbc-adapter'
   gem 'ruby-mp3info'
   gem 'torquebox-server', '3.0.0.beta2'

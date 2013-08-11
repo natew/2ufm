@@ -28,14 +28,14 @@ set :rails_env, "production"
 set :ruby_version, "rbx"
 set :chrub_script, "/usr/local/share/chruby/chruby.sh"
 set :set_ruby_cmd, ". #{chrub_script} && chruby #{ruby_version}"
-set(:bundle_cmd) { "#{set_ruby_cmd} && exec bundle" }
+set(:bundle_cmd) { "RAILS_ENV=#{rails_env} #{set_ruby_cmd} && exec bundle" }
 
 # DJ
 set :dj_workers, 3
 set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
 
 # Danthes
-set :danthes_start, "RAILS_ENV=#{rails_env} bundle exec rackup danthes.ru -s thin -E #{rails_env} -D -P tmp/pids/danthes.pid"
+set :danthes_start, "RAILS_ENV=#{rails_env} #{bundle_cmd} rackup danthes.ru -s thin -E #{rails_env} -D -P tmp/pids/danthes.pid"
 set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/danthes.pid) ]; then kill -9 `cat tmp/pids/danthes.pid`; fi"
 
 # Production server
@@ -44,7 +44,7 @@ set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/
 # set :jboss_home,        "/home/nwienert/.rbenv/versions/jruby/lib/ruby/gems/shared/gems/torquebox-server-3.0.0.beta2-java/jboss"
 
 # Whenever
-set :whenever_command, "bundle exec whenever"
+set :whenever_command, "#{bundle_cmd} whenever"
 require "whenever/capistrano"
 
 # Roles
@@ -60,7 +60,7 @@ after 'deploy:update', 'deploy:cleanup'
 
 # Run rake tasks
 def run_rake(task, options={}, &block)
-  command = "cd #{latest_release} && /usr/bin/env bundle exec rake #{task}"
+  command = "cd #{latest_release} && #{bundle_cmd} rake #{task}"
   run(command, options, &block)
 end
 
