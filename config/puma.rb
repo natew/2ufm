@@ -6,12 +6,13 @@ directory "#{basedir}"
 environment 'production'
 daemonize true
 
-# bind "unix://#{basedir}/tmp/puma/puma.sock"
+bind "unix://#{basedir}/tmp/puma/puma.sock"
 pidfile "#{basedir}/tmp/puma/pid"
 state_path "#{basedir}/tmp/puma/state"
 
-stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
 threads 4, 48
+
+# stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
 # workers 2
 
 # on_worker_boot do
