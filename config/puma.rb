@@ -5,8 +5,8 @@ basedir = '/var/www/2u/web'
 directory "#{basedir}/current"
 environment 'production'
 daemonize true
-pidfile "#{basedir}/shared/pids/puma.pid"
-state_path "#{basedir}/shared/pids/puma.state"
+pidfile "#{basedir}/tmp/puma/pid"
+state_path "#{basedir}/tmp/puma/state"
 stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
 threads 0, 32
 
