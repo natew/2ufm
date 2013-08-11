@@ -408,7 +408,7 @@ DEPENDENCIES
   koala
   mails_viewer
   mongo_mapper
-  nokogiri
+  nokogiri (~> 1.5)
   oily_png
   omniauth-facebook (~> 1.4.0)
   paperclip (~> 3.5)!
