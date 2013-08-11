@@ -1,8 +1,8 @@
 #!/usr/bin/env puma
 
-basedir = '/var/www/2u/web'
+basedir = '/var/www/2u/web/current'
 
-directory "#{basedir}/current"
+directory "#{basedir}"
 environment 'production'
 daemonize true
 pidfile "#{basedir}/tmp/puma/pid"
