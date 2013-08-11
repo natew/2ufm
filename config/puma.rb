@@ -2,7 +2,7 @@
 
 basedir = '/var/www/2u/web'
 
-directory '/var/www/2u/web/current'
+directory "#{basedir}/current"
 environment 'production'
 daemonize true
 pidfile "#{basedir}/shared/pids/puma.pid"
