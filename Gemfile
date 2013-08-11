@@ -56,7 +56,7 @@ gem 'rails_admin', github: 'sferik/rails_admin'
 # gem 'acts_as_votable'
 
 # Crawling and parsing
-gem 'nokogiri', '~> 1.5'
+gem 'nokogiri', '1.5.9'
 gem 'chronic'
 gem 'anemone'
 gem 'mongo_mapper'

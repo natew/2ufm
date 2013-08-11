@@ -100,9 +100,9 @@ GEM
     arel (4.0.0)
     atomic (1.1.12)
     awesome_print (1.1.0)
-    aws-sdk (1.11.1)
+    aws-sdk (1.14.1)
       json (~> 1.4)
-      nokogiri (>= 1.4.4)
+      nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
     aws-ses (0.4.4)
       builder
@@ -138,6 +138,8 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     cookiejar (0.3.0)
+    crack (0.4.1)
+      safe_yaml (~> 0.9.0)
     curb (0.8.4)
     daemons (1.1.9)
     dalli (2.5.0)
@@ -163,6 +165,7 @@ GEM
       eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    excon (0.25.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.8)
@@ -234,7 +237,6 @@ GEM
       jquery-rails (>= 2.0.1)
       rails (>= 3.1.0)
     mime-types (1.23)
-    mini_portile (0.5.1)
     minitest (4.7.5)
     mongo (1.9.1)
       bson (~> 1.9.1)
@@ -242,7 +244,7 @@ GEM
       activesupport (>= 2.3.4)
       jnunemaker-validatable (~> 1.8.4)
       plucky (~> 0.3.6)
-    multi_json (1.7.8)
+    multi_json (1.7.9)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     nested_form (0.3.2)
@@ -253,8 +255,7 @@ GEM
     net-ssh (2.6.8)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    nokogiri (1.6.0)
-      mini_portile (~> 0.5.0)
+    nokogiri (1.5.9)
     oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -357,6 +358,9 @@ GEM
     waveform (0.1.2)
       chunky_png
       ruby-audio
+    webmock (1.13.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
     websocket-driver (0.2.3)
     whenever (0.8.4)
       activesupport (>= 2.3.4)
@@ -364,16 +368,16 @@ GEM
     xml-simple (1.1.2)
     yajl-ruby (1.1.0)
     yettings (0.1.1)
-    youtube_it (2.1.1)
+    youtube_it (2.3.2)
       builder
-      builder
-      faraday
-      faraday (>= 0.7.3)
-      nokogiri
-      oauth
-      oauth (>= 0.4.4)
-      simple_oauth
+      excon
+      faraday (~> 0.8)
+      json (~> 1.8.0)
+      nokogiri (~> 1.5.2)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.6)
       simple_oauth (>= 0.1.5)
+      webmock
 
 PLATFORMS
   ruby
@@ -408,7 +412,7 @@ DEPENDENCIES
   koala
   mails_viewer
   mongo_mapper
-  nokogiri (~> 1.5)
+  nokogiri (= 1.5.9)
   oily_png
   omniauth-facebook (~> 1.4.0)
   paperclip (~> 3.5)!

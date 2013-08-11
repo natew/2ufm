@@ -4,20 +4,9 @@ require 'capistrano_colors'
 require 'capistrano-puma'
 load 'deploy/assets'
 
-set :bundle_dir, ""
-set :bundle_flags,  "--verbose"
-
 # ssh forwarding and shell
-set :default_environment, { 'PATH' => "" }
 set :default_run_options, { :pty => true, :shell => '/bin/zsh' }
 set :ssh_options, { :forward_agent => true }
-
-# chruby
-set :ruby_version, "rbx"
-set :rubies, "RUBIES=(~/.rbenv/versions/*)"
-set :chruby_config, "/usr/local/share/chruby/chruby.sh"
-set :set_ruby_cmd, "source #{chruby_config} && #{rubies} && chruby #{ruby_version}"
-set(:bundle_cmd) { "#{set_ruby_cmd} && exec bundle" }
 
 set :scm_verbose, true
 set :scm, :git
@@ -33,6 +22,13 @@ set :domain, "192.241.239.173"
 set :repository,  "ssh://#{user}@#{domain}/var/git/#{application}.git"
 set :deploy_to, "/var/www/#{application}/web"
 set :rails_env, "production"
+
+# chruby
+# set :bundle_flags,  "--verbose"
+set :ruby_version, "rbx"
+set :chrub_script, "/usr/local/share/chruby/chruby.sh"
+set :set_ruby_cmd, ". #{chrub_script} && chruby #{ruby_version}"
+set(:bundle_cmd) { "#{set_ruby_cmd} && exec bundle" }
 
 # DJ
 set :dj_workers, 3
