@@ -4,7 +4,7 @@ basedir = '/var/www/2u/web/current'
 
 directory "#{basedir}"
 environment 'production'
-daemonize true
+# daemonize true
 
 bind "unix://#{basedir}/tmp/puma/puma.sock"
 pidfile "#{basedir}/tmp/puma/pid"
@@ -12,7 +12,15 @@ state_path "#{basedir}/tmp/puma/state"
 
 stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
 threads 4, 48
+# workers 2
 
+# on_worker_boot do
+#   ActiveSupport.on_load(:active_record) do
+#     ActiveRecord::Base.establish_connection
+#   end
+# end
+
+preload_app!
 activate_control_app
 
 # Disable request logging.
@@ -48,23 +56,6 @@ activate_control_app
 # to puma, as those are the same as the original process.
 #
 # restart_command '/u/app/lolcat/bin/restart_puma'
-
-# === Cluster mode ===
-
-# How many worker processes to run.
-#
-# The default is “0”.
-#
-# workers 2
-
-# Code to run when a worker boots to setup the process before booting
-# the app.
-#
-# This can be called multiple times to add hooks.
-#
-# on_worker_boot do
-#   puts 'On worker boot...'
-# end
 
 # === Puma control rack application ===
 
