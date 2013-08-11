@@ -15,8 +15,8 @@ class Author < ActiveRecord::Base
   after_create :add_artist_roles, :update_artist_songs_count
   after_destroy :remove_artist_roles, :update_artist_songs_count
 
-  scope :with_artist, joins(:artist).select('authors.role, artists.name as artist_name, artists.station_slug as artist_station_slug')
-  scope :original, where(:role => 'original')
+  scope :with_artist, -> { joins(:artist).select('authors.role, artists.name as artist_name, artists.station_slug as artist_station_slug') }
+  scope :original, -> { where(:role => 'original') }
 
   def role?(type)
     role == type.to_s

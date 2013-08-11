@@ -2,10 +2,23 @@
 
 require 'open-uri'
 require 'net/http'
-require 'taglib'
 require 'tempfile'
 require 'soundcloud'
 require 'securerandom'
+
+begin
+  require 'taglib'
+  TAGLIB = true
+rescue LoadError
+  TAGLIB = false
+end
+
+begin
+  require 'mp3info'
+  MP3INFO = true
+rescue LoadError
+  MP3INFO = false
+end
 
 class Song < ActiveRecord::Base
   include AttachmentHelper
@@ -90,87 +103,87 @@ class Song < ActiveRecord::Base
   validate  :unique_to_blog, :on => :create
 
   # Conditions
-  scope :not_processed, where(processed: false)
-  scope :processed, where(processed: true)
-  scope :working, where(working: true)
-  scope :not_working, where(working: true)
-  scope :not_uploaded, where('songs.file_file_name is NULL')
-  scope :unranked, where('songs.rank is NULL')
-  scope :ranked, where('songs.rank is NOT NULL')
-  scope :newest, order('songs.published_at desc')
-  scope :oldest, order('songs.published_at asc')
-  scope :recently, where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago))
-  scope :soundcloud, where(source: 'soundcloud')
-  scope :youtube, where(source: 'youtube')
-  scope :not_youtube, where('songs.source != ?', 'youtube')
-  scope :time_limited, where('songs.seconds < ?', 600)
-  scope :matching_id, where('songs.matching_id = songs.id')
+  scope :not_processed, -> { where(processed: false) }
+  scope :processed, -> { where(processed: true) }
+  scope :working, -> { where(working: true) }
+  scope :not_working, -> { where(working: true) }
+  scope :not_uploaded, -> { where('songs.file_file_name is NULL') }
+  scope :unranked, -> { where('songs.rank is NULL') }
+  scope :ranked, -> { where('songs.rank is NOT NULL') }
+  scope :newest, -> { order('songs.published_at desc') }
+  scope :oldest, -> { order('songs.published_at asc') }
+  scope :recently, -> { where('songs.created_at > ?', (Rails.env.development? ? 10.months.ago : 2.months.ago)) }
+  scope :soundcloud, -> { where(source: 'soundcloud') }
+  scope :youtube, -> { where(source: 'youtube') }
+  scope :not_youtube, -> { where('songs.source != ?', 'youtube') }
+  scope :time_limited, -> { where('songs.seconds < ?', 600) }
+  scope :matching_id, -> { where('songs.matching_id = songs.id') }
   scope :min_broadcasts, lambda { |min| where('songs.user_broadcasts_count >= ?', min) }
   scope :within, lambda { |within| where('songs.created_at >= ?', within.ago) }
   scope :before, lambda { |before| where('songs.created_at < ?', before.ago) }
-  scope :random, order('random() desc')
-  scope :no_broadcasts, where('user_broadcasts_count = 0')
-  scope :not_soundcloud, where('songs.source != ?', 'soundcloud')
-  scope :pruneable, oldest.no_broadcasts.working.processed.not_soundcloud
+  scope :random, -> { order('random() desc') }
+  scope :no_broadcasts, -> { where('user_broadcasts_count = 0') }
+  scope :not_soundcloud, -> { where('songs.source != ?', 'soundcloud') }
+  scope :pruneable, -> { oldest.no_broadcasts.working.processed.not_soundcloud }
 
   # Categories
-  scope :original, where(category: 'original')
-  scope :remix, where(category: 'remix')
-  scope :cover, where(category: 'cover')
-  scope :mashup, where(category: 'mashup')
+  scope :original, -> { where(category: 'original') }
+  scope :remix, -> { where(category: 'remix') }
+  scope :cover, -> { where(category: 'cover') }
+  scope :mashup, -> { where(category: 'mashup') }
 
   # Joins
   scope :join_author_and_role, lambda { |id, role| joins(:authors).where(authors: {artist_id: id, role: role}) }
   scope :join_role, lambda { |role| joins(:authors).where(authors: {role: role}) }
-  scope :with_authors, joins(:authors)
-  scope :with_blog_station, joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id" INNER JOIN blogs on blogs.id = posts.blog_id')
-  scope :with_post, joins(:post)
-  scope :with_blog_station_and_post, with_blog_station.with_post
-  scope :with_sender, joins('INNER JOIN users as sender ON sender.id = shares.sender_id')
-  scope :with_receiver, joins('INNER JOIN users as receiver ON receiver.id = shares.receiver_id')
+  scope :with_authors, -> { joins(:authors) }
+  scope :with_blog_station, -> { joins('INNER JOIN "stations" on "stations"."blog_id" = "songs"."blog_id" INNER JOIN blogs on blogs.id = posts.blog_id') }
+  scope :with_post, -> { joins(:post) }
+  scope :with_blog_station_and_post, -> { with_blog_station.with_post }
+  scope :with_sender, -> { joins('INNER JOIN users as sender ON sender.id = shares.sender_id') }
+  scope :with_receiver, -> { joins('INNER JOIN users as receiver ON receiver.id = shares.receiver_id') }
 
   # Data to select
-  scope :select_post, select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt')
-  scope :select_info, lambda { select('stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post }
+  scope :select_post, -> { select('posts.id as post_id, posts.url as post_url, posts.excerpt as post_excerpt') }
+  scope :select_info, -> { select('stations.title as station_title, stations.slug as station_slug, stations.id as station_id, stations.follows_count as station_follows_count, blogs.url as blog_url').select_post }
   scope :select_distinct, lambda { |distinct| select("DISTINCT ON (#{distinct}, songs.matching_id) songs.*").select_info }
-  scope :select_with_info, select('songs.*').select_info
-  scope :user_broadcasted, select('broadcasts.created_at as published_at')
+  scope :select_with_info, -> { select('songs.*').select_info }
+  scope :user_broadcasted, -> { select('broadcasts.created_at as published_at') }
 
   # Orders
-  scope :order_broadcasted, order('broadcasts.created_at desc')
-  scope :order_rank, order('songs.rank desc')
-  scope :order_user_broadcasts, order('songs.user_broadcasts_count desc')
-  scope :order_published, order('songs.published_at desc')
-  scope :order_published_asc, order('songs.published_at asc')
-  scope :order_shared, order('shares.created_at desc')
-  scope :order_random, order('random() desc')
+  scope :order_broadcasted, -> { order('broadcasts.created_at desc') }
+  scope :order_rank, -> { order('songs.rank desc') }
+  scope :order_user_broadcasts, -> { order('songs.user_broadcasts_count desc') }
+  scope :order_published, -> { order('songs.published_at desc') }
+  scope :order_published_asc, -> { order('songs.published_at asc') }
+  scope :order_shared, -> { order('shares.created_at desc') }
+  scope :order_random, -> { order('random() desc') }
 
   # Selects
-  scope :select_sender, select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at')
-  scope :select_receiver, select('receiver.username as receiver_username, receiver.station_slug as receiver_station_slug, shares.created_at as sent_at')
-  scope :select_broadcasted_at, select('broadcasts.created_at as broadcasted_at')
+  scope :select_sender, -> { select('sender.username as sender_username, sender.station_slug as sender_station_slug, shares.created_at as sent_at') }
+  scope :select_receiver, -> { select('receiver.username as receiver_username, receiver.station_slug as receiver_station_slug, shares.created_at as sent_at') }
+  scope :select_broadcasted_at, -> { select('broadcasts.created_at as broadcasted_at') }
 
   # Combination
-  scope :with_conditions, not_youtube.working.processed.time_limited
-  scope :for_playlist, with_conditions.with_blog_station_and_post
+  scope :with_conditions, -> { not_youtube.working.processed.time_limited }
+  scope :for_playlist, -> { with_conditions.with_blog_station_and_post }
   scope :with_info_for_playlist_matching_id_distinct, lambda { |on| select_distinct(on).for_playlist.matching_id }
-  scope :with_info_for_playlist_matching_id, select_with_info.for_playlist.matching_id
-  scope :with_info_for_playlist, select_with_info.for_playlist
-  scope :joins_user_broadcasts, select('songs.id').with_conditions.matching_id.joins(:broadcasts).order('broadcasts.created_at desc').where('broadcasts.parent = ?', 'user')
+  scope :with_info_for_playlist_matching_id, -> { select_with_info.for_playlist.matching_id }
+  scope :with_info_for_playlist, -> { select_with_info.for_playlist }
+  scope :joins_user_broadcasts, -> { select('songs.id').with_conditions.matching_id.joins(:broadcasts).order('broadcasts.created_at desc').where('broadcasts.parent = ?', 'user') }
 
   # Playlists
-  scope :playlist_rank, order_rank.with_info_for_playlist_matching_id_distinct('songs.rank')
-  scope :playlist_newest, order_published.with_info_for_playlist_matching_id_distinct('songs.published_at')
-  scope :playlist_oldest, order_published_asc.with_info_for_playlist_matching_id_distinct('songs.published_at')
-  scope :playlist_popular_week, lambda { within(7.days).order_user_broadcasts.with_info_for_playlist_matching_id }
-  scope :playlist_popular_month, lambda { within(30.days).order_user_broadcasts.with_info_for_playlist_matching_id }
-  scope :playlist_popular_year, lambda { within(365.days).order_user_broadcasts.with_info_for_playlist_matching_id }
-  scope :playlist_trending, min_broadcasts(2).order_rank.with_info_for_playlist_matching_id_distinct('songs.rank')
-  scope :playlist_received, select_sender.with_sender.order_shared.with_info_for_playlist_matching_id
-  scope :playlist_sent, select_receiver.with_receiver.order_shared.with_info_for_playlist_matching_id
-  scope :playlist_shuffle, order_random.with_info_for_playlist_matching_id
-  scope :playlist_broadcasted, select_broadcasted_at.order_broadcasted.with_info_for_playlist_matching_id
-  # scope :playlist_recently_liked, select_with_info.with_blog_station_and_post.where(id: latest_user_broadcasts)
+  scope :playlist_rank, -> { order_rank.with_info_for_playlist_matching_id_distinct('songs.rank') }
+  scope :playlist_newest, -> { order_published.with_info_for_playlist_matching_id_distinct('songs.published_at') }
+  scope :playlist_oldest, -> { order_published_asc.with_info_for_playlist_matching_id_distinct('songs.published_at') }
+  scope :playlist_popular_week, -> { within(7.days).order_user_broadcasts.with_info_for_playlist_matching_id }
+  scope :playlist_popular_month, -> { within(30.days).order_user_broadcasts.with_info_for_playlist_matching_id }
+  scope :playlist_popular_year, -> { within(365.days).order_user_broadcasts.with_info_for_playlist_matching_id }
+  scope :playlist_trending, -> { min_broadcasts(2).order_rank.with_info_for_playlist_matching_id_distinct('songs.rank') }
+  scope :playlist_received, -> { select_sender.with_sender.order_shared.with_info_for_playlist_matching_id }
+  scope :playlist_sent, -> { select_receiver.with_receiver.order_shared.with_info_for_playlist_matching_id }
+  scope :playlist_shuffle, -> { order_random.with_info_for_playlist_matching_id }
+  scope :playlist_broadcasted, -> { select_broadcasted_at.order_broadcasted.with_info_for_playlist_matching_id }
+  # scope :playlist_recently_liked, -> { select_with_info.with_blog_station_and_post.where(id: latest_user_broadcasts) }
 
   # Scopes for pagination
   scope :limit_page, lambda { |page| offset((page.to_i - 1) * Yetting.per).limit(Yetting.per) }
@@ -511,7 +524,7 @@ class Song < ActiveRecord::Base
         }) do |song|
           # Set file
           self.file = song if direct
-          self.compressed_file = compress_mp3(song.path)
+          # self.compressed_file = compress_mp3(song.path)
           self.failures = 0 if compressed_file
           process(song)
           self.save
@@ -538,37 +551,17 @@ class Song < ActiveRecord::Base
   def process(file)
     if file
       logger.info "Getting song information -- #{file.path}"
-      TagLib::MPEG::File.open(file.path) do |taglib|
-        tag = taglib.id3v2_tag || taglib.id3v1_tag
-        logger.info "Tag information -- #{tag.inspect}"
-        break unless tag
 
-        # Soundcloud info
-        if source == 'soundcloud' and soundcloud_id
-          client = Soundcloud.new(:client_id => Yetting.soundcloud_key)
-          track = client.get("/tracks/#{soundcloud_id}")
-          title = track.title
-          genre = track.genres
-          artist = track.user.username
-          set_soundcloud_tags(track)
+      if TAGLIB
+        TagLib::MPEG::File.open(file.path) do |mp3|
+          parse_tags mp3.id3v2_tag || mp3.id3v1_tag
         end
-
-        # Properties
-        props = taglib.audio_properties
-        if props
-          self.bitrate = props.bitrate.to_i
-          self.seconds = props.length.to_f
-        else
-          logger.error "No properties, no seconds or bitrate!?"
+      end
+      
+      if MP3INFO
+        Mp3Info.open(file.path) do |mp3|
+          parse_tags mp3.tag
         end
-
-        # Tag
-        self.name         = title || tag.title || ''
-        self.artist_name  = artist || tag.artist || ''
-        self.album_name   = tag.album
-        self.track_number = tag.track.to_i
-        self.genre        = genre || tag.genre
-        self.image        = get_album_art(tag)
       end
 
     elsif source == 'youtube'
@@ -586,7 +579,7 @@ class Song < ActiveRecord::Base
 
       # Generate waveform
       if file and waveform_file_name.nil?
-        self.waveform = generate_waveform(file.path)
+        # self.waveform = generate_waveform(file.path)
       end
 
       # fix_empty_soundcloud_tags(file.path)
@@ -611,6 +604,40 @@ class Song < ActiveRecord::Base
 
     # Save
     self.save!
+  end
+
+  def parse_tags(tag)
+    return unless tag
+    logger.info "Tag information -- #{tag.inspect}"
+
+    # Soundcloud info
+    if source == 'soundcloud' and soundcloud_id
+      client = Soundcloud.new(:client_id => Yetting.soundcloud_key)
+      track = client.get("/tracks/#{soundcloud_id}")
+      title = track.title
+      genre = track.genres
+      artist = track.user.username
+      set_soundcloud_tags(track)
+    end
+
+    # Properties
+    if TAGLIB
+      props = tag.audio_properties
+      if props
+        self.bitrate = props.bitrate.to_i
+        self.seconds = props.length.to_f
+      else
+        logger.error "No properties, no seconds or bitrate!?"
+      end
+    end
+
+    # Tag
+    self.name         = title || tag.title || ''
+    self.artist_name  = artist || tag.artist || ''
+    self.album_name   = tag.album
+    self.track_number = tag.track.to_i
+    self.genre        = genre || tag.genre
+    self.image        = get_album_art(tag)
   end
 
   def delete_file_if_matching
@@ -726,24 +753,45 @@ class Song < ActiveRecord::Base
     tag = args.first
     if !tag
       open(file_url) do |song|
-        tag = TagLib::MPEG::File.new(song.path).id3v2_tag
-        logger.info tag
+
+        if TAGLIB
+          tag = TagLib::MPEG::File.new(song.path).id3v2_tag
+          logger.info tag
+        elsif MP3INFO
+          Mp3Info.open(song.path) do |mp3|
+            parse_album_art_mp3info(mp3)
+          end
+        end
       end
     end
 
     begin
-      # Save picture
-      cover = tag.frame_list('APIC').first
-      logger.info 'cover: ' + cover.to_s
-      if cover
-        # Save pictures
-        filetype = cover.mime_type[/gif|png|jpg|jpeg/i]
-        filename = "song_#{id}.#{filetype}"
-        write_tempfile(filename, cover.picture)
+
+      if TAGLIB
+        # Save picture
+        cover = tag.frame_list('APIC').first
+        logger.info 'cover: ' + cover.to_s
+        if cover
+          # Save pictures
+          filetype = cover.mime_type[/gif|png|jpg|jpeg/i]
+          filename = "song_#{id}.#{filetype}"
+          write_tempfile(filename, cover.picture)
+        end
       end
+
     rescue Exception => e
       logger.error "Could not process album art"
       logger.error e.message + "\n" + e.backtrace.join("\n")
+    end
+  end
+
+  def parse_album_art_mp3info(mp3)
+    begin
+      mp3.tag2.pictures.each do |description, data|
+        write_tempfile("song_#{description}", data)
+        break #only need 1
+      end
+    rescue Exception => e
     end
   end
 

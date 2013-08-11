@@ -1,33 +1,51 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '~> 3'
-gem 'pg'
+gem 'rails', '4.0.0'
+gem 'protected_attributes'
 gem 'yettings'
-gem 'thin'
+gem 'puma'
+gem 'bson'
 
-gem 'danthes', github: 'simonoff/danthes'
+platform :ruby do
+  gem 'pg'
+  gem 'danthes', github: 'simonoff/danthes'
+  gem 'feedzirra'
+  gem 'taglib-ruby'
+
+  # Waveforms
+  gem 'oily_png'
+  gem 'waveform'
+  gem 'ffmpeg'
+end
+
+platform :jruby do
+  gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.DEV', github: 'jruby/activerecord-jdbc-adapter'
+  gem 'ruby-mp3info'
+  gem 'torquebox-capistrano-support'
+  gem 'torquebox-server'
+end
 
 # Assets
 gem 'bourbon'
-gem 'cocaine', '= 0.3.2'
-gem 'paperclip', '~> 3.0'
+gem 'cocaine', ref: '4cae4ecc9eb03ebe65c2073bafdff38502195da4', github: 'thoughtbot/cocaine'
+gem 'paperclip', '~> 3.5', github: 'thoughtbot/paperclip'
 gem 'aws-sdk'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.0'
 
 # Caching
 gem 'dalli', '~> 2.5.0'
 # gem 'dalli-store-extensions', github: 'johnschult/dalli-store-extensions'
 
 # Users
-gem 'devise'
+gem 'devise', '3.0.2'
 gem 'cancan'
 gem 'aws-ses', '~> 0.4.4', require: 'aws/ses'
 gem 'omniauth-facebook', '~> 1.4.0'
 gem 'koala'
 
 # Admin
-gem 'rails_admin'
+gem 'rails_admin', github: 'sferik/rails_admin'
 
 # Comments
 # gem 'acts_as_commentable_with_threading'
@@ -38,7 +56,6 @@ gem 'nokogiri'
 gem 'chronic'
 gem 'anemone'
 gem 'mongo_mapper'
-gem 'feedzirra', github: 'natew/feedzirra'
 
 # APIs
 gem 'soundcloud', github: 'andrejj/soundcloud-ruby'
@@ -52,38 +69,29 @@ gem 'delayed_job_active_record'
 
 # General
 gem 'stringex', github: 'rsl/stringex'
-gem 'curb'
-gem 'loofah-activerecord'
+# gem 'curb'
 gem 'sanitize'
 gem 'hashie'
-gem 'bson_ext'
 gem 'recaptcha'
 
 # Pagination
 gem 'kaminari'
 
 # Search
-gem 'texticle', github: 'natew/texticle', require: 'texticle/rails'
+# gem 'texticle', github: 'natew/texticle'
 
 # Songs
 gem 'discogs-wrapper', github: 'natew/discogs'
-gem 'taglib-ruby'
-
-# Waveforms
-gem 'oily_png'
-gem 'waveform'
-gem 'ffmpeg'
 
 # Deploy
 gem 'whenever', require: false
 
 group :assets do
-  gem 'sass-rails'
+  gem 'sass-rails', '4.0.0'
   gem 'uglifier'
 end
 
 group :production do
-  gem 'newrelic_rpm'
 end
 
 group :development do

@@ -3,10 +3,10 @@ Fusefm::Application.routes.draw do
   mount MailsViewer::Engine => '/delivered_mails' if Rails.env.development?
 
   root to: 'mains#index', as: 'home'
-  match "/p-:p", to: 'mains#index'
+  get "/p-:p", to: 'mains#index'
 
   # Redirects
-  match "/stations/:id", to: redirect("/%{id}")
+  get "/stations/:id", to: redirect("/%{id}")
 
   devise_for :users, controllers: {
     registrations: 'registrations',
@@ -15,16 +15,16 @@ Fusefm::Application.routes.draw do
   }
 
   devise_scope :user do
-    resources :sessions, only: [:new]
-    match '/my/login/(:username)', to: 'sessions#new', as: 'new_session'
+    # resources :sessions, only: [:new]
+    get '/my/login/(:username)', to: 'sessions#new', as: 'new_session'
   end
 
-  match "/songs/trending(/p-:p)", to: "songs#trending", as: 'songs_trending'
-  match "/songs/fresh(/p-:p)", to: "songs#fresh", as: 'songs_fresh'
-  match "/songs/popular(/p-:p)", to: "songs#popular", as: 'songs_popular'
-  match "/genres/favorites", to: "genres#favorites", as: 'genres_favorites'
-  match "/genres/:id(/p-:p)", to: "genres#show"
-  match "/tags/:id(/p-:p)", to: 'tags#show'
+  get "/songs/trending(/p-:p)" => "songs#trending", as: 'songs_trending'
+  get "/songs/fresh(/p-:p)" => "songs#fresh", as: 'songs_fresh'
+  get "/songs/popular(/p-:p)" => "songs#popular", as: 'songs_popular'
+  get "/genres/favorites" => "genres#favorites", as: 'genres_favorites'
+  get "/genres/:id(/p-:p)" => "genres#show"
+  get "/tags/:id(/p-:p)" => 'tags#show'
 
   resources :songs, only: [:index, :show]
   resources :follows, only: [:create, :destroy]
@@ -32,61 +32,61 @@ Fusefm::Application.routes.draw do
   # resources :comments, only: [:create, :destroy]
   resources :listens, only: [:create, :show]
   resources :actions, only: [:create]
-  resources :blogs, only: [:index, :new, :create]
+  resources :blogs, only: [:new, :create]
   resources :tags, only: [:index, :show]
 
   resources :genres, only: [:index, :show] do
     member do
-      get 'trending(/p-:p)', to: "genres#trending", as: 'trending'
-      get 'latest(/p-:p)', to: "genres#latest", as: 'latest'
-      get 'shuffle(/p-:p)', to: "genres#shuffle", as: 'shuffle'
-      get 'artists', to: "genres#artists", as: 'artists'
+      get 'trending(/p-:p)' => "genres#trending", as: 'trending'
+      get 'latest(/p-:p)' => "genres#latest", as: 'latest'
+      get 'shuffle(/p-:p)' => "genres#shuffle", as: 'shuffle'
+      get 'artists' => "genres#artists", as: 'artists'
     end
   end
 
-  match '/browse/artists(/:genre)', to: 'artists#index', as: 'artists'
-  match '/browse/users(/:letter)', to: 'users#index', as: 'users'
-  match '/browse/blogs(/:genre)', to: 'blogs#index', as: 'blogs'
+  get '/browse/artists(/:genre)' => 'artists#index', as: 'artists'
+  get '/browse/users(/:letter)' => 'users#index', as: 'users'
+  get '/browse/blogs(/:genre)' => 'blogs#index', as: 'browse_blogs'
 
   resources :shares, only: [:create]
-  match '/shares/inbox(/p-:p)', to: 'shares#inbox'
-  match '/shares/outbox(/p-:p)', to: 'shares#outbox'
+  get '/shares/inbox(/p-:p)' => 'shares#inbox'
+  get '/shares/outbox(/p-:p)' => 'shares#outbox'
 
-  match "/go/:to/:id", to: "songs#go", as: :affiliate
-  match "/go/amazon/:id", to: "songs#go", as: :amazon_affiliate
-  match "/go/itunes/:id", to: "songs#go", as: :itunes_affiliate
+  get "/go/:to/:id" => "songs#go", as: :affiliate
+  get "/go/amazon/:id" => "songs#go", as: :amazon_affiliate
+  get "/go/itunes/:id" => "songs#go", as: :itunes_affiliate
 
   # Users routes
-  match "/tune/:id", to: "users#tune"
-  match "/@:id", to: "users#live"
-  match '/activate/:id/:key', to: 'users#activate'
-  match "/navbar", to: 'users#navbar'
-  match '/unsubscribe/:type/:key', to: 'users#unsubscribe'
-  match '/my/genres', to: 'users#genres'
-  match '/my/friends', to: 'users#find_friends', as: 'users_friends'
-  match '/do/authorized', to: 'users#authorized'
-  match '/my/home(/p-:p)', to: 'mains#index', as: 'users_home'
-  match '/confirm/:key', to: 'users#confirm'
+  get "/tune/:id" => "users#tune"
+  get "/@:id" => "users#live"
+  get '/activate/:id/:key' => 'users#activate'
+  get "/navbar" => 'users#navbar'
+  get '/unsubscribe/:type/:key' => 'users#unsubscribe'
+  get '/my/genres' => 'users#genres'
+  get '/my/friends' => 'users#find_friends', as: 'users_friends'
+  get '/do/authorized' => 'users#authorized'
+  get '/my/home(/p-:p)' => 'mains#index', as: 'users_home'
+  get '/confirm/:key' => 'users#confirm'
 
   # Account routes
-  match '/my/account', to: 'account#index', as: 'account'
-  match '/my/account/preferences', to: 'account#preferences', as: 'account_preferences'
-  match '/my/account/edit', to: 'account#edit', as: 'account_edit'
+  get '/my/account' => 'account#index', as: 'account'
+  get '/my/account/preferences' => 'account#preferences', as: 'account_preferences'
+  get '/my/account/edit' => 'account#edit', as: 'account_edit'
 
-  match "/play/:id", to: "songs#play"
-  match "/l/:id", to: "listens#show"
-  match "/songs/:id", to: "songs#failed", as: :post
-  match "/broadcasts/:song_id", to: "broadcasts#create", as: :post
-  match "/follows/:station_id", to: "follows#create", as: :post
-  match '/share', to: 'shares#create'
+  get "/play/:id" => "songs#play"
+  get "/l/:id" => "listens#show"
+  get "/songs/:id" => "songs#failed"
+  get "/broadcasts/:song_id" => "broadcasts#create"
+  get "/follows/:station_id" => "follows#create"
+  get '/share' => 'shares#create'
 
-  ### BELOW HERE MATCH /:STATION_SLUG ROUTES ###
+  ### BELOW HERE get /:STATION_SLUG ROUTES ###
 
   # Root level stations access
-  match "/:id(/p-:p)", to: 'stations#show', as: :station
-  match "/:id", to: 'stations#show', as: :artist
-  match "/:id", to: 'stations#show', as: :blog
-  match "/:id", to: 'stations#show', as: :user
+  get "/:id(/p-:p)" => 'stations#show', as: :station
+  get "/:id" => 'stations#show', as: :artist
+  get "/:id" => 'stations#show', as: :blog
+  get "/:id" => 'stations#show', as: :user
 
   resource :main, only:[], path: '/us' do
     member do
@@ -99,34 +99,34 @@ Fusefm::Application.routes.draw do
     end
   end
 
-  match '/do/search(/:get_query)', to: 'mains#search'
-  match '/:id/feed/p-:p', to: 'users#feed'
+  get '/do/search(/:get_query)' => 'mains#search'
+  get '/:id/feed/p-:p' => 'users#feed'
 
   resources :users, only:[], path: '/' do
     member do
-      get 'following(/:type)', to: 'users#following', as: 'following'
+      get 'following(/:type)' => 'users#following', as: 'following'
       get 'followers'
-      get 'feed(/:type)(/p-:p)', to: 'users#feed', as: 'feed'
+      get 'feed(/:type)(/p-:p)' => 'users#feed', as: 'feed'
     end
   end
 
   resources :blogs, only:[:new], path: '/' do
     member do
-      get 'popular(/p-:p)', to: 'blogs#popular', as: 'popular'
+      get 'popular(/p-:p)' => 'blogs#popular', as: 'popular'
     end
   end
 
   # Artists
   resources :artists, only:[], path: '/' do
     member do
-      get 'remixes_of(/p-:p)', to: 'artists#remixes_of', as: 'remixes_of'
-      get 'remixes_by(/p-:p)', to: 'artists#remixes_by', as: 'remixes_by'
-      get 'originals(/p-:p)', to: 'artists#originals', as: 'originals'
-      get 'popular(/p-:p)', to: 'artists#popular', as: 'popular'
-      get 'mashups(/p-:p)', to: 'artists#mashups', as: 'mashups'
-      get 'covers(/p-:p)', to: 'artists#covers', as: 'covers'
-      get 'features(/p-:p)', to: 'artists#features', as: 'features'
-      get 'productions(/p-:p)', to: 'artists#productions', as: 'productions'
+      get 'remixes_of(/p-:p)' => 'artists#remixes_of', as: 'remixes_of'
+      get 'remixes_by(/p-:p)' => 'artists#remixes_by', as: 'remixes_by'
+      get 'originals(/p-:p)' => 'artists#originals', as: 'originals'
+      get 'popular(/p-:p)' => 'artists#popular', as: 'popular'
+      get 'mashups(/p-:p)' => 'artists#mashups', as: 'mashups'
+      get 'covers(/p-:p)' => 'artists#covers', as: 'covers'
+      get 'features(/p-:p)' => 'artists#features', as: 'features'
+      get 'productions(/p-:p)' => 'artists#productions', as: 'productions'
     end
   end
 end

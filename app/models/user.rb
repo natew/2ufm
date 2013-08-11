@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   has_many :shares, :foreign_key => :receiver_id
   has_and_belongs_to_many :genres
 
-  scope :with_preference, joins(:preference)
+  scope :with_preference, -> { joins(:preference) }
 
   has_attachment :avatar,
     styles: {

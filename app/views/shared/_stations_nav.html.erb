@@ -1,7 +1,7 @@
   <h1>Browse</h1>
   <div class="nav-container">
     <nav class="nav-menu">
-      <%= nav_link_to 'Blogs', blogs_path %>
+      <%= nav_link_to 'Blogs', browse_blogs_path %>
       <%= nav_link_to 'Artists', artists_path %>
       <%= nav_link_to 'Friends', users_friends_path if user_signed_in? %>
     </nav>

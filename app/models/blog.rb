@@ -1,7 +1,8 @@
-require 'feedzirra'
+# require 'feedzirra'
 require 'open-uri'
 require 'nokogiri'
 require 'anemone'
+require 'rss'
 
 class Blog < ActiveRecord::Base
   include AttachmentHelper
@@ -31,8 +32,8 @@ class Blog < ActiveRecord::Base
   attr_accessible :name, :url, :description, :image, :feed_url, :genre_ids, :active, :email, :slug, :genre_ids
 
   # Scopes
-  scope :select_for_shelf, select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id')
-  scope :random, order('random() desc')
+  scope :select_for_shelf, -> { select('blogs.name, blogs.slug, blogs.image_file_name, blogs.image_updated_at, blogs.id') }
+  scope :random, -> { order('random() desc') }
 
   rails_admin do
     configure :genres do
@@ -215,12 +216,12 @@ class Blog < ActiveRecord::Base
     if entries
       entries.each do |post|
         Post.create(
-          url: post.url.to_s,
+          url: post.link.to_s,
           blog_id: id,
           title: post.title,
           author: post.author,
-          content: post.content,
-          published_at: post.published
+          content: post.content_encoded,
+          published_at: post.pubDate
         )
       end
     end
@@ -232,22 +233,30 @@ class Blog < ActiveRecord::Base
     if feed_url
       logger.info "Updating feed for #{name}"
       posts = []
-      feed = Feedzirra::Feed.fetch_and_parse(feed_url)
 
-      if feed and !feed.is_a?(Fixnum)
-        if feed_updated_at.nil? or feed.last_modified > feed_updated_at
-          logger.debug "Feed updated at: #{feed_updated_at}"
-          feed.entries.each do |entry|
-            logger.debug "Break? #{entry.published}: #{entry.published < feed_updated_at}" unless feed_updated_at.nil?
-            break if !feed_updated_at.nil? and entry.published < feed_updated_at
-            posts.push entry
-          end
-          self.feed_updated_at = feed.last_modified
-          self.save
-          logger.debug "Found #{posts.length} posts"
+      open(feed_url) do |rss|
+        begin
+          logger.info rss
+          feed = RSS::Parser.parse(rss, false).channel
+        rescue Exception => e
+          logger.error e
+          logger.error "Error parsing feed"
         end
-      else
-        logger.error "Error fetching feed / no entries found #{feed}"
+
+        date = feed.lastBuildDate || feed.pubDate
+        return unless feed
+        # return unless date > self.feed_updated_at
+        logger.debug "Feed updated! at #{date}"
+        
+        feed.items.each do |entry|
+          logger.info entry.inspect
+          # break if entry.pubDate < feed_updated_at
+          posts.push entry
+        end
+
+        self.feed_updated_at = date
+        self.save
+        logger.debug "Found #{posts.length} posts"
       end
 
       posts.empty? ? false : posts
