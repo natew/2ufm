@@ -30,14 +30,6 @@ set :chrub_script, "/usr/local/share/chruby/chruby.sh"
 set :set_ruby_cmd, ". #{chrub_script} && chruby #{ruby_version}"
 set(:bundle_cmd) { "#{set_ruby_cmd} && RAILS_ENV=#{rails_env} exec bundle" }
 
-# DJ
-set :dj_workers, 3
-set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
-
-# Danthes
-set :danthes_start, "RAILS_ENV=#{rails_env} #{bundle_cmd} rackup danthes.ru -s thin -E #{rails_env} -D -P tmp/pids/danthes.pid"
-set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/danthes.pid) ]; then kill -9 `cat tmp/pids/danthes.pid`; fi"
-
 # Production server
 # set :jruby_home,        "/home/nwienert/.rbenv/versions/jruby-1.7.4"
 # set :torquebox_home,    "/home/nwienert/.rbenv/shims/torquebox"
@@ -76,7 +68,8 @@ namespace :puma do
   after "deploy:stop", "puma:stop"
 
   task :restart, roles: :app do
-    run "/etc/init.d/puma restart #{application}"
+    run "/etc/init.d/puma stop #{application}"
+    run "/etc/init.d/puma start #{application}"
   end
   after "deploy:restart", "puma:restart"
 end
@@ -98,26 +91,39 @@ namespace :deploy do
   end
 end
 
+
+# DJ
+set :dj_workers, 3
+set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
+
 namespace :dj do
   task :restart do
     surun "cd #{current_path}; #{dj_script} restart"
   end
 end
 
+
+# Danthes
+set :danthes_start, "RAILS_ENV=#{rails_env} #{bundle_cmd} rackup danthes.ru -s thin -E #{rails_env} -D -P tmp/pids/danthes.pid"
+set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/danthes.pid) ]; then kill -9 `cat tmp/pids/danthes.pid`; fi"
+
 namespace :danthes do
   desc "Start danthes server"
   task :start do
     run "cd #{current_path}; #{danthes_start}"
   end
+  after "deploy:start", "danthes:start"
 
   desc "Stop danthes server"
   task :stop do
     run "cd #{current_path}; #{danthes_stop}"
   end
+  after "deploy:stop", "danthes:stop"
 
   desc "Restart danthes server"
   task :restart do
     stop
     start
   end
+  after "deploy:restart", "danthes:restart"
 end

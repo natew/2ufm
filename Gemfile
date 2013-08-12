@@ -9,6 +9,7 @@ gem 'capistrano-puma', require: false
 
 platform :ruby do
   gem 'pg'
+  gem 'thin' # for danthes
   gem 'danthes', github: 'simonoff/danthes'
   gem 'feedzirra'
   gem 'taglib-ruby'
