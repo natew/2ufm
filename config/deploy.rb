@@ -36,7 +36,8 @@ set(:bundle_cmd) { "#{set_ruby_cmd} && RAILS_ENV=#{rails_env} exec bundle" }
 # set :jboss_home,        "/home/nwienert/.rbenv/versions/jruby/lib/ruby/gems/shared/gems/torquebox-server-3.0.0.beta2-java/jboss"
 
 # Whenever
-set :whenever_command, "#{set_ruby_cmd} && RAILS_ENV=#{rails_env} bundle exec whenever"
+set :be, "#{set_ruby_cmd} && RAILS_ENV=#{rails_env} bundle exec"
+set :whenever_command, "#{be} whenever"
 require "whenever/capistrano"
 
 # Roles
@@ -104,7 +105,7 @@ end
 
 
 # Danthes
-set :danthes_start, "RAILS_ENV=#{rails_env} #{bundle_cmd} rackup danthes.ru -s thin -E #{rails_env} -D -P tmp/pids/danthes.pid"
+set :danthes_start, "#{be} rackup danthes.ru -s thin -E #{rails_env} -D -P tmp/pids/danthes.pid"
 set :danthes_stop, "if [ -f tmp/pids/danthes.pid ] && [ -e /proc/$(cat tmp/pids/danthes.pid) ]; then kill -9 `cat tmp/pids/danthes.pid`; fi"
 
 namespace :danthes do
