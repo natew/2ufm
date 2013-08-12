@@ -12,8 +12,6 @@
   <ul class="tags">
     <% for tag in tags %>
       <%= render partial: 'tags/tag', locals: { tag: tag, big: big, small: small } %>
-<%-
-  end
--%>
+    <%- end -%>
   </ul>
 <% end %>

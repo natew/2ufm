@@ -62,7 +62,6 @@ Fusefm::Application.routes.draw do
   get '/activate/:id/:key' => 'users#activate'
   get "/navbar" => 'users#navbar'
   get '/unsubscribe/:type/:key' => 'users#unsubscribe'
-  get '/my/genres' => 'users#genres'
   get '/my/friends' => 'users#find_friends', as: 'users_friends'
   get '/do/authorized' => 'users#authorized'
   get '/my/home(/p-:p)' => 'mains#index', as: 'users_home'
@@ -73,6 +72,7 @@ Fusefm::Application.routes.draw do
   get '/my/account/preferences' => 'account#preferences', as: 'account_preferences'
   get '/my/account/edit' => 'account#edit', as: 'account_edit'
 
+  post '/my/genres' => 'users#genres'
   post "/play/:id" => "songs#play"
   post "/l/:id" => "listens#show"
   post "/songs/:id" => "songs#failed"
