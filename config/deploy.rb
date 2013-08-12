@@ -24,7 +24,7 @@ set :deploy_to, "/var/www/#{application}/web"
 set :rails_env, "production"
 
 # chruby
-# set :bundle_flags,  "--verbose"
+set :bundle_flags,  "--verbose"
 set :ruby_version, "rbx"
 set :chrub_script, "/usr/local/share/chruby/chruby.sh"
 set :set_ruby_cmd, ". #{chrub_script} && chruby #{ruby_version}"
