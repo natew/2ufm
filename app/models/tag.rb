@@ -10,7 +10,7 @@ class Tag < ActiveRecord::Base
 
   acts_as_url :name, url_attribute: :slug, allow_duplicates: true, sync_url: true
 
-  scope :common, select('COUNT(*) as num, name, slug').group(:name, :slug).order('num desc')
+  scope :common, -> { select('COUNT(*) as num, name, slug').group(:name, :slug).order('num desc') }
 
   def to_param
     slug

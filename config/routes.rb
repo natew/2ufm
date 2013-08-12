@@ -73,12 +73,12 @@ Fusefm::Application.routes.draw do
   get '/my/account/preferences' => 'account#preferences', as: 'account_preferences'
   get '/my/account/edit' => 'account#edit', as: 'account_edit'
 
-  get "/play/:id" => "songs#play"
-  get "/l/:id" => "listens#show"
-  get "/songs/:id" => "songs#failed"
-  get "/broadcasts/:song_id" => "broadcasts#create"
-  get "/follows/:station_id" => "follows#create"
-  get '/share' => 'shares#create'
+  post "/play/:id" => "songs#play"
+  post "/l/:id" => "listens#show"
+  post "/songs/:id" => "songs#failed"
+  post "/broadcasts/:song_id" => "broadcasts#create"
+  post "/follows/:station_id" => "follows#create"
+  post '/share' => 'shares#create'
 
   ### BELOW HERE get /:STATION_SLUG ROUTES ###
 

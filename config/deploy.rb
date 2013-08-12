@@ -93,6 +93,7 @@ namespace :deploy do
   end
 
   task :clear_caches do
+    run "echo 'flush_all' | nc localhost 11211" # memcached
     run_rake "tmp:cache:clear >/dev/null 2>&1"
   end
 end
