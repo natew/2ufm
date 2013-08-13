@@ -40,7 +40,7 @@ gem 'aws-sdk'
 gem 'jquery-rails', '~> 3.0'
 
 # Caching
-gem 'dalli', '~> 2.5.0'
+gem 'dalli', '~> 2'
 # gem 'dalli-store-extensions', github: 'johnschult/dalli-store-extensions'
 
 # Users
