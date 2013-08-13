@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     redirect_to after_sign_in_path_for(resource) || '/feed'
   end
 
-  def not_found(exception)
+  def not_found(exception = nil)
     render_not_found(exception)
     @not_found = true
   end
@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
     set_layout
     logger.error "500 Internal Server Error"
     logger.error exception
+    self.formats = [:html]
     render template: 'errors/500', status: 500 unless @not_found
   end
 
