@@ -46,6 +46,10 @@ class UsersController < ApplicationController
     @facebook_friends = current_user.facebook_friends
   end
 
+  def first_time
+    render partial: 'modals/new_user'
+  end
+
   def feed
     load_user if @user.nil?
     @feed = true

@@ -155,9 +155,6 @@
               <% end %>
             </div>
           </div>
-
-        <% elsif current_user.first_time? %>
-          <%= render 'modals/new_user' %>
         <% end %>
 
       <% end %>
@@ -229,6 +226,8 @@
     <%- else -%>
       var listen, route;
     <%- end -%>
+
+    var firstTime = <%= user_signed_in? && current_user.first_time? %>;
   </script>
 
   <%= javascript_include_tag "application", :debug => Rails.env.development? %>

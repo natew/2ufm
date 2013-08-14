@@ -41,17 +41,27 @@ $(function() {
     $('#overlay').removeClass('shown');
   }
 
-  if ($('#modal-new-user').length) {
-    modal('#modal-new-user');
+  // Modal for first time users
+  if (firstTime) {
+    $.ajax({
+      url: '/my/first_time',
+      data: [],
+      type: 'POST',
+      success: function(data) {
+        console.log(data);
+        $('body').append(data);
+        modal('#modal-new-user');
 
-    $('#modal-new-user .genres a').click(function(e) {
-      e.preventDefault();
-    });
+        $('#modal-new-user .genres a').click(function(e) {
+          e.preventDefault();
+        });
 
-    $('#genres-next').click(saveUserGenres);
+        $('#genres-next').click(saveUserGenres);
 
-    $('#recommended-artists-next').click(function() {
-      $('#modal-new-user').removeClass('permanent');
+        $('#recommended-artists-next').click(function() {
+          $('#modal-new-user').removeClass('permanent');
+        });
+      }
     });
   }
 

@@ -9,20 +9,20 @@ daemonize true
 bind "unix://#{basedir}/tmp/puma/puma.sock"
 pidfile "#{basedir}/tmp/puma/pid"
 state_path "#{basedir}/tmp/puma/state"
+stdout_redirect "#{basedir}/shared/log/out.puma.log", "#{basedir}/shared/log/err.puma.log"
 
-threads 4, 48
-
-# stdout_redirect "#{basedir}/shared/log/stdout", "#{basedir}/shared/log/stderr"
-# workers 2
-
-# on_worker_boot do
-#   ActiveSupport.on_load(:active_record) do
-#     ActiveRecord::Base.establish_connection
-#   end
-# end
-
+threads 4, 24
+workers 1
 preload_app!
-activate_control_app
+
+on_worker_boot do
+  ActiveSupport.on_load(:active_record) do
+    ActiveRecord::Base.establish_connection
+  end
+end
+
+# handled by init.d script
+# activate_control_app "unix://#{basedir}/tmp/puma/control.sock"
 
 # Disable request logging.
 # quiet

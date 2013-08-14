@@ -72,6 +72,7 @@ Fusefm::Application.routes.draw do
   get '/my/account/preferences' => 'account#preferences', as: 'account_preferences'
   get '/my/account/edit' => 'account#edit', as: 'account_edit'
 
+  post '/my/first_time' => 'users#first_time'
   post '/my/genres' => 'users#genres'
   post "/play/:id" => "songs#play"
   post "/l/:id" => "listens#show"

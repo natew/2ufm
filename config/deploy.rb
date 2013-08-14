@@ -57,6 +57,7 @@ def run_rake(task, options={}, &block)
   run(command, options, &block)
 end
 
+# Puma server
 namespace :puma do
   task :start, :except => { :no_release => true } do
     run "/etc/init.d/puma start"
@@ -74,6 +75,7 @@ namespace :puma do
   after "deploy:restart", "puma:restart"
 end
 
+# Utilities
 namespace :deploy do
   task :symlink_attachments do
     run "ln -nfs #{shared_path}/attachments #{release_path}/public/attachments"
@@ -91,7 +93,6 @@ namespace :deploy do
   end
 end
 
-
 # DJ
 set :dj_workers, 3
 set :dj_script, "cd #{current_path}; RAILS_ENV=#{rails_env} nice -n 15 script/delayed_job -n #{dj_workers} --pid-dir=#{deploy_to}/shared/dj_pids"
@@ -101,7 +102,6 @@ namespace :dj do
     surun "cd #{current_path}; #{dj_script} restart"
   end
 end
-
 
 # Danthes
 set :danthes_start, "#{be} rackup danthes.ru -s thin -E #{rails_env} -D -P tmp/pids/danthes.pid"
