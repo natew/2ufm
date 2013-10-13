@@ -557,7 +557,7 @@ class Song < ActiveRecord::Base
           parse_tags mp3.id3v2_tag || mp3.id3v1_tag
         end
       end
-      
+
       if MP3INFO
         Mp3Info.open(file.path) do |mp3|
           parse_tags mp3.tag
@@ -622,11 +622,11 @@ class Song < ActiveRecord::Base
 
     # Properties
     if TAGLIB
-      props = tag.audio_properties
-      if props
+      begin
+        props = tag.audio_properties
         self.bitrate = props.bitrate.to_i
         self.seconds = props.length.to_f
-      else
+      rescue Exception => e
         logger.error "No properties, no seconds or bitrate!?"
       end
     end

@@ -37,6 +37,9 @@ class Author < ActiveRecord::Base
   end
 
   def update_artist_songs_count
-    artist.update_attributes(song_count: artist.songs.count) if artist
+    begin
+      artist.update_attributes(song_count: artist.songs.count) if artist
+    rescue
+    end
   end
 end

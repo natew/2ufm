@@ -2,9 +2,9 @@ source 'http://rubygems.org'
 source 'http://gems.github.com'
 
 gem 'rails', '4.0.0'
-gem 'protected_attributes'
-gem 'yettings'
-gem 'puma'
+gem 'protected_attributes', '~> 1'
+gem 'yettings', '~> 0.1'
+gem 'puma', '~> 2'
 gem 'capistrano-puma', require: false
 
 platform :ruby do
@@ -13,12 +13,17 @@ platform :ruby do
   gem 'danthes', github: 'simonoff/danthes'
   gem 'feedzirra'
   gem 'taglib-ruby'
-  gem 'bson_ext'
+  # gem 'bson_ext'
 
   # Waveforms
   gem 'oily_png'
   gem 'waveform'
   gem 'ffmpeg'
+end
+
+platform :rbx do
+  gem 'rubysl', '~> 2.0'
+  gem 'yajl-ruby'
 end
 
 platform :jruby do
@@ -33,10 +38,10 @@ platform :jruby do
 end
 
 # Assets
-gem 'bourbon'
+gem 'bourbon', '~> 3'
 gem 'cocaine', ref: '4cae4ecc9eb03ebe65c2073bafdff38502195da4', github: 'thoughtbot/cocaine'
 gem 'paperclip', '~> 3.5', github: 'thoughtbot/paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1'
 gem 'jquery-rails', '~> 3.0'
 
 # Caching
@@ -44,14 +49,14 @@ gem 'dalli', '~> 2'
 # gem 'dalli-store-extensions', github: 'johnschult/dalli-store-extensions'
 
 # Users
-gem 'devise', '3.0.2'
-gem 'cancan'
-gem 'aws-ses', '~> 0.4.4', require: 'aws/ses'
+gem 'devise', '~> 3'
+gem 'cancan', '~> 1'
+gem 'aws-ses', '~> 0.4', require: 'aws/ses'
 gem 'omniauth-facebook', '~> 1.4.0'
-gem 'koala'
+gem 'koala', '~> 1'
 
 # Admin
-gem 'rails_admin', github: 'sferik/rails_admin'
+gem 'rails_admin'
 
 # Comments
 # gem 'acts_as_commentable_with_threading'

@@ -9,23 +9,23 @@ daemonize true
 bind "unix://#{basedir}/tmp/puma/puma.sock"
 pidfile "#{basedir}/tmp/puma/pid"
 state_path "#{basedir}/tmp/puma/state"
-# stdout_redirect "#{basedir}/shared/log/out.puma.log", "#{basedir}/shared/log/err.puma.log"
+stdout_redirect "#{basedir}/shared/log/out.puma.log", "#{basedir}/shared/log/err.puma.log", false
 
 threads 4, 24
 workers 1
 preload_app!
 
-on_worker_boot do
-  ActiveSupport.on_load(:active_record) do
-    ActiveRecord::Base.establish_connection
-  end
-end
+# on_worker_boot do
+#   ActiveSupport.on_load(:active_record) do
+#     ActiveRecord::Base.establish_connection
+#   end
+# end
 
 # handled by init.d script
 # activate_control_app "unix://#{basedir}/tmp/puma/control.sock"
 
 # Disable request logging.
-# quiet
+quiet
 
 # Instead of “bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'” you
 # can also use the “ssl_bind” option.
