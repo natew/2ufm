@@ -1,4 +1,4 @@
-# require 'feedzirra'
+require 'feedzirra'
 require 'open-uri'
 require 'nokogiri'
 require 'anemone'
@@ -216,12 +216,12 @@ class Blog < ActiveRecord::Base
     if entries
       entries.each do |post|
         Post.create(
-          url: post.link.to_s,
+          url: post.url.to_s,
           blog_id: id,
           title: post.title,
           author: post.author,
-          content: post.content_encoded,
-          published_at: post.pubDate
+          content: post.content,
+          published_at: post.published
         )
       end
     end
@@ -233,30 +233,22 @@ class Blog < ActiveRecord::Base
     if feed_url
       logger.info "Updating feed for #{name}"
       posts = []
+      feed = Feedzirra::Feed.fetch_and_parse(feed_url)
 
-      open(feed_url) do |rss|
-        begin
-          logger.info rss
-          feed = RSS::Parser.parse(rss, false).channel
-        rescue Exception => e
-          logger.error e
-          logger.error "Error parsing feed"
+      if feed and !feed.is_a?(Fixnum)
+        if feed_updated_at.nil? or feed.last_modified > feed_updated_at
+          logger.debug "Feed updated at: #{feed_updated_at}"
+          feed.entries.each do |entry|
+            logger.debug "Break? #{entry.published}: #{entry.published < feed_updated_at}" unless feed_updated_at.nil?
+            break if !feed_updated_at.nil? and entry.published < feed_updated_at
+            posts.push entry
+          end
+          self.feed_updated_at = feed.last_modified
+          self.save
+          logger.debug "Found #{posts.length} posts"
         end
-
-        date = feed.lastBuildDate || feed.pubDate
-        return unless feed
-        # return unless date > self.feed_updated_at
-        logger.debug "Feed updated! at #{date}"
-        
-        feed.items.each do |entry|
-          logger.info entry.inspect
-          # break if entry.pubDate < feed_updated_at
-          posts.push entry
-        end
-
-        self.feed_updated_at = date
-        self.save
-        logger.debug "Found #{posts.length} posts"
+      else
+        logger.error "Error fetching feed / no entries found #{feed}"
       end
 
       posts.empty? ? false : posts

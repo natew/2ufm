@@ -9,7 +9,7 @@ daemonize true
 bind "unix://#{basedir}/tmp/puma/puma.sock"
 pidfile "#{basedir}/tmp/puma/pid"
 state_path "#{basedir}/tmp/puma/state"
-stdout_redirect "#{basedir}/shared/log/out.puma.log", "#{basedir}/shared/log/err.puma.log", false
+#stdout_redirect "#{basedir}/shared/log/out.puma.log", "#{basedir}/shared/log/err.puma.log", false
 
 threads 4, 24
 workers 1

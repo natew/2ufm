@@ -60,17 +60,19 @@ end
 # Puma server
 namespace :puma do
   task :start, :except => { :no_release => true } do
-    run "/etc/init.d/puma start"
+    run "sudo /etc/init.d/puma start"
   end
   after "deploy:start", "puma:start"
 
   task :stop, :except => { :no_release => true } do
-    run "/etc/init.d/puma stop"
+    run "sudo /etc/init.d/puma stop"
   end
   after "deploy:stop", "puma:stop"
 
   task :restart, roles: :app do
-    run "/etc/init.d/puma restart"
+    run "sudo /etc/init.d/puma stop"
+    run "sudo /etc/init.d/puma start"
+    # run "sudo /etc/init.d/puma restart"
   end
   after "deploy:restart", "puma:restart"
 end
