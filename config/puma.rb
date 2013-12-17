@@ -12,7 +12,7 @@ state_path "#{basedir}/tmp/puma/state"
 #stdout_redirect "#{basedir}/shared/log/out.puma.log", "#{basedir}/shared/log/err.puma.log", false
 
 threads 4, 24
-workers 1
+# workers 1
 preload_app!
 
 # on_worker_boot do
