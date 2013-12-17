@@ -7,6 +7,8 @@ gem 'yettings', '~> 0.1'
 gem 'puma', '~> 2'
 gem 'capistrano-puma', require: false
 
+# gem 'bson_ext'
+
 platform :ruby do
   gem 'pg'
   gem 'thin' # for danthes
@@ -57,7 +59,7 @@ gem 'omniauth-facebook', '~> 1.4.0'
 gem 'koala', '~> 1'
 
 # Admin
-# gem 'rails_admin'
+gem 'rails_admin'
 
 # Comments
 # gem 'acts_as_commentable_with_threading'
