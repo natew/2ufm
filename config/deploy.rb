@@ -25,7 +25,7 @@ set :rails_env, "production"
 
 # chruby
 set :bundle_flags, "--verbose"
-set :ruby_version, "rbx"
+set :ruby_version, "rubinius"
 set :chrub_script, "/usr/local/share/chruby/chruby.sh"
 set :set_ruby_cmd, ". #{chrub_script} && chruby #{ruby_version}"
 set(:bundle_cmd) { "#{set_ruby_cmd} && RAILS_ENV=#{rails_env} exec bundle" }
