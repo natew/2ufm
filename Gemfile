@@ -57,7 +57,7 @@ gem 'omniauth-facebook', '~> 1.4.0'
 gem 'koala', '~> 1'
 
 # Admin
-gem 'rails_admin'
+# gem 'rails_admin'
 
 # Comments
 # gem 'acts_as_commentable_with_threading'
@@ -72,7 +72,7 @@ gem 'mongo_mapper'
 # APIs
 gem 'soundcloud', github: 'andrejj/soundcloud-ruby'
 gem 'httparty'
-gem 'youtube_it'
+# gem 'youtube_it'
 #gem 'ruby-echonest', :git => 'git://github.com/natew/ruby-echonest.git'
 
 # Jobs
