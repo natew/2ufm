@@ -634,11 +634,12 @@ DEPENDENCIES
   protected_attributes (~> 1)
   puma (~> 2)
   quiet_assets
-  rails (= 4.0.0)
+  racc
+  rails (~> 4.0)
   rails_admin
   recaptcha
   ruby-mp3info
-  rubysl (~> 2.0)
+  rubysl
   sanitize
   sass-rails (= 4.0.0)
   soundcloud!

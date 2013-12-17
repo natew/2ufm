@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '4.0.0'
+gem 'rails', '~> 4.0'
 gem 'protected_attributes', '~> 1'
 gem 'yettings', '~> 0.1'
 gem 'puma', '~> 2'
@@ -22,7 +22,8 @@ platform :ruby do
 end
 
 platform :rbx do
-  gem 'rubysl', '~> 2.0'
+  gem 'rubysl'
+  gem 'racc'
   gem 'yajl-ruby'
 end
 
