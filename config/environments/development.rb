@@ -1,4 +1,5 @@
 STDOUT.sync = true
+# require "memcached/rails"
 
 Paperclip.options[:command_path] = "/usr/local/bin/"
 
@@ -8,6 +9,7 @@ Fusefm::Application.configure do
   # Caching
   config.action_controller.perform_caching = false
   config.cache_store = :dalli_store
+  # config.cache_store = :mem_cache_store
 
   config.eager_load = false
 

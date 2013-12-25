@@ -46,6 +46,7 @@ gem 'aws-sdk', '~> 1'
 gem 'jquery-rails', '~> 3.0'
 
 # Caching
+# gem 'memcached'
 gem 'dalli', '~> 2'
 # gem 'dalli-store-extensions', github: 'johnschult/dalli-store-extensions'
 

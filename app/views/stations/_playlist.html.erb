@@ -44,23 +44,8 @@
 -%>
 
 <%-
-  cache_array = [
-    cache_prefix,
-    'v7',
-    id,
-    single,
-    station.updated_at.to_i,
-    page,
-    per,
-    already_limited,
-    page_request,
-    classname,
-    cache_val,
-    style,
-    dont_paginate,
-    show_pagination
-  ]
-  cache(cache_array, :if => do_cache) do -%>
+  cache_array = [ cache_prefix, 'v7', id, single, station.updated_at.to_i, page, per, already_limited, page_request, classname, cache_val, style, dont_paginate, show_pagination ]
+  cache(cache_array.join(''), :if => do_cache) do -%>
   <%-
     if show_pagination
       path = request.fullpath.gsub(/(\?|\/p-[0-9]+).*/, '')
