@@ -3,7 +3,7 @@ module CommonScopes
 
   def self.included(klass)
     klass.instance_eval do
-      scope :has_image, where("#{self.to_s.tableize}.image_file_name is not null")
+      scope :has_image, -> { where("#{self.to_s.tableize}.image_file_name is not null") }
     end
   end
 end

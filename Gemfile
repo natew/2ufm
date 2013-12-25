@@ -7,8 +7,6 @@ gem 'yettings', '~> 0.1'
 gem 'puma', '~> 2'
 gem 'capistrano-puma', require: false
 
-# gem 'bson_ext'
-
 platform :ruby do
   gem 'pg'
   gem 'thin' # for danthes

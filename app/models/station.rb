@@ -11,7 +11,7 @@ class Station < ActiveRecord::Base
   has_many   :follows, :dependent => :destroy
   has_many   :followers, :through => :follows, :source => :station
   has_many   :artists, :through => :songs
-  has_many   :blogs, :through => :songs, :uniq => true
+  has_many   :blogs, -> { where :uniq => true }, :through => :songs
 
   # Parent scrops
   has_blog = 'stations.blog_id is not NULL'
@@ -21,40 +21,41 @@ class Station < ActiveRecord::Base
   # Scopes
 
   # Order
-  scope :order_random, order('random() desc')
+  scope :order_random, -> { order('random() desc') }
 
   # Select
-  scope :shelf, select('stations.slug, stations.title, stations.songs_count, stations.id, stations.blog_id, stations.user_id, stations.artist_id, stations.broadcasts_count, stations.follows_count')
-  scope :distinct, select('DISTINCT ON (stations.blog_id) stations.*')
-  scope :select_for_navbar, select('users.full_name as full_name, stations.id, stations.user_id, stations.title, stations.slug')
-  scope :ordered_online, order('stations.online desc')
+  scope :shelf, -> { select('stations.slug, stations.title, stations.songs_count, stations.id, stations.blog_id, stations.user_id, stations.artist_id, stations.broadcasts_count, stations.follows_count') }
+  scope :distinct, -> { select('DISTINCT ON (stations.blog_id) stations.*') }
+  scope :select_for_navbar, -> { select('users.full_name as full_name, stations.id, stations.user_id, stations.title, stations.slug') }
+  scope :ordered_online, -> { order('stations.online desc') }
 
   # Where
   scope :online, lambda { where('stations.online >= ?', Time.now - TIME_UNTIL_OFFLINE) }
   scope :not_online, lambda { where('stations.online < ?', Time.now - TIME_UNTIL_OFFLINE) }
-  scope :join_songs_on_blog, joins('inner join songs on songs.blog_id = stations.blog_id')
+  scope :join_songs_on_blog, -> { joins('inner join songs on songs.blog_id = stations.blog_id') }
 
   # Has
-  scope :has_parent, where([has_blog, has_artist, has_user].join(' OR '))
+  scope :has_parent, -> { where([has_blog, has_artist, has_user].join(' OR ')) }
   scope :has_songs, lambda { |count| where('stations.broadcasts_count > ?', count - 1) }
   scope :has_image, lambda { |parent, image_name| joins(parent).where("#{parent.to_s.pluralize}.#{image_name}_updated_at is not null") }
-  scope :has_blog_image, has_image(:blog, 'image')
-  scope :has_user_image, has_image(:user, 'avatar')
-  scope :has_artist_image, has_image(:artist, 'image')
+  scope :has_blog_image, -> { has_image(:blog, 'image') }
+  scope :has_user_image, -> { has_image(:user, 'avatar') }
+  scope :has_artist_image, -> { has_image(:artist, 'image') }
 
   # Joins
-  scope :with_user, joins(:user)
-  scope :with_genres, joins(:genres)
-  scope :with_blogs_genres,
+  scope :with_user, -> { joins(:user) }
+  scope :with_genres, -> { joins(:genres) }
+  scope :with_blogs_genres, -> {
     joins('inner join blogs_genres on blogs_genres.blog_id = blogs.id')
     .joins('inner join genres on genres.id = blogs_genres.genre_id')
+  }
   scope :blog_genre, lambda { |genre_name| with_blogs_genres.where(genres: { name: genre_name }) }
 
   # Types
-  scope :blog_station, where(has_blog)
-  scope :artist_station, where(has_artist)
-  scope :user_station, where(has_user)
-  scope :promo_station, where(:promo => true)
+  scope :blog_station, -> { where(has_blog) }
+  scope :artist_station, -> { where(has_artist) }
+  scope :user_station, -> { where(has_user) }
+  scope :promo_station, -> { where(:promo => true) }
 
   # Whitelist mass-assignment attributes
   attr_accessible :id, :description, :title, :slug, :online

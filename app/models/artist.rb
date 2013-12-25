@@ -27,9 +27,9 @@ class Artist < ActiveRecord::Base
   validates :station, presence: true
   validates_with SlugValidator
 
-  scope :random, order('random() desc')
-  scope :has_image, where('artists.image_updated_at is not null')
-  scope :for_linking, joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role')
+  scope :random, -> { order('random() desc') }
+  scope :has_image, -> { where('artists.image_updated_at is not null') }
+  scope :for_linking, -> { joins(:authors).select('artists.id, artists.slug, artists.name, authors.role as role') }
 
   rails_admin do
     configure :genres do
