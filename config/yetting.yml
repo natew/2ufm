@@ -1,0 +1,32 @@
+defaults: &defaults
+  per: 10
+  s3_enabled: true
+  dreamhost_enabled: true
+  s3_url: 'http://CHANGE_ME.com'
+  file_compression: 128
+  file_size_limit: <%= 1048576 * 100 %>
+  echonest_api_key: 'CHANGE_ME'
+  echonest_consumer_key: 'CHANGE_ME'
+  echonest_secret: 'CHANGE_ME'
+  youtube_3_key: 'CHANGE_ME'
+  youtube_key: 'CHANGE_ME'
+  soundcloud_key: 'CHANGE_ME'
+  recaptcha_public: 'CHANGE_ME'
+  recaptcha_private: 'CHANGE_ME'
+  dreamhost_key: 'CHANGE_ME'
+  dreamhost_secret: 'CHANGE_ME'
+
+development:
+  <<: *defaults
+  # s3_enabled: false
+  recaptcha_public: 'CHANGE_ME'
+  recaptcha_private: 'CHANGE_ME'
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+work:
+  <<: *defaults
