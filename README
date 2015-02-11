@@ -1,3 +1,5 @@
-This is the code that powered 2u.fm, currently sort-of-up on 2ufm.com.
+This is a music blog aggrator and music player interface built on rails.
+
+This is the code that powered 2u.fm, currently sort-of-up on 2ufm.com (down again).
 
 Open sourcing as an example of a non-tested, simply structured Rails app of a larger scale.
